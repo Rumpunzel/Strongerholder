@@ -23,7 +23,7 @@ var sprint_modifier:float = 2.0
 #	is equal to 1.0 if the character is walking normal
 var sprinting:float = 1.0
 
-var jump_speed:float = 20
+var jump_speed:float = 40.0
 
 # The current ring of the world the character is on
 #	rings start with 0

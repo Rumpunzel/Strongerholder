@@ -1,4 +1,5 @@
 extends Node
+class_name CharacterSignals
 
 
 onready var character = get_node("..")

@@ -3,9 +3,7 @@ extends Character
 class_name Player
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+signal stopped_jumping
 
 
 # Called when the node enters the scene tree for the first time.
@@ -24,6 +22,9 @@ func get_input():
 	
 	if Input.is_action_just_pressed("jump"):
 		jump()
+	
+	if Input.is_action_just_released("jump"):
+		emit_signal("stopped_jumping")
 
 
 func get_position_change(velocity:float) -> float:
