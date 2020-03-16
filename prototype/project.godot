@@ -99,6 +99,12 @@ jump={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="World"
+3d_physics/layer_2="Characters"
+3d_physics/layer_3="Structures"
+
 [node]
 
 name_casing=2
