@@ -1,10 +1,14 @@
+tool
 extends KinematicBody
 
+onready var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-export var gravityscale:float = 200.0
+var ring_radius:float = 0.0 setget set_ring_radius, get_ring_radius
 
-var ring_radius:float = 0
-var ring_position:float = 0
+var fall_speed:float = 0.0
+var jump_speed:float = 0.0
+
+var grounded:bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,12 +17,26 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var collisions = move_and_slide(Vector3(0, -gravityscale, 0) * delta)
+func _physics_process(delta):
+	if not Engine.editor_hint:
+		fall_speed += default_gravity * delta
+		var collisions = move_and_slide(Vector3(0, jump_speed - fall_speed, 0), Vector3.UP)
+		grounded = is_on_floor()
+		if grounded:
+			fall_speed = 0.0
+			jump_speed = 0.0
 
 
-func set_new_coordinates(new_coordinates:Dictionary):
-	for key in new_coordinates.keys():
-		set(key, new_coordinates[key])
-	
+func jump(speed):
+	if grounded:
+		jump_speed = speed
+
+
+func set_ring_radius(new_radius:float):
+	ring_radius = new_radius
 	translation.z = ring_radius
+
+
+func get_ring_radius() -> float:
+	ring_radius = translation.z
+	return ring_radius

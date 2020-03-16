@@ -1,6 +1,5 @@
-tool
-extends Character
-class_name NPC
+extends NPC
+class_name Woodsman
 
 
 # Declare member variables here. Examples:
@@ -17,3 +16,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
+
+func get_position_change(velocity:float) -> float:
+	velocity = walkspeed
+	return .get_position_change(velocity)

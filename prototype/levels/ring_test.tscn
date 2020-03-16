@@ -1,15 +1,13 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://prefabs/characters/player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://prefabs/characters/npcs/woodsman/woodsman.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/characters/npcs/woodsman/Woodsman.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=3]
 
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.001
-bottom_radius = 3.0
-height = 10.0
-
-[sub_resource type="PlaneMesh" id=2]
-size = Vector2( 64, 62 )
+bottom_radius = 9.0
+height = 30.0
 
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 32, 0, 31, -32, 0, 31, 32, 0, -31, -32, 0, 31, -32, 0, -31, 32, 0, -31 )
@@ -22,21 +20,24 @@ transform = Transform( 1, 0, 0, 0, -0.711609, 0.702575, 0, -0.702575, -0.711609,
 [node name="spire" type="Spatial" parent="."]
 
 [node name="mesh_instance" type="MeshInstance" parent="spire"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="mesh_instance" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
-material/0 = null
+[node name="floor" type="Sprite3D" parent="."]
+pixel_size = 1.0
+axis = 1
+texture = ExtResource( 3 )
 
-[node name="static_body" type="StaticBody" parent="mesh_instance"]
+[node name="static_body" type="StaticBody" parent="floor"]
 collision_mask = 7
 
-[node name="collision_shape" type="CollisionShape" parent="mesh_instance/static_body"]
+[node name="collision_shape" type="CollisionShape" parent="floor/static_body"]
 shape = SubResource( 3 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.992546, 0, 0.121869, 0, 1, 0, -0.121869, 0, 0.992546, 0, 0, 0 )
+ring_position = 7.0
+ring_radius = 1.0
 
 [node name="woodsman" parent="." instance=ExtResource( 2 )]
-ring_position = 200.0
