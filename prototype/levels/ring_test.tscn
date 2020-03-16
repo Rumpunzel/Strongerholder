@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://prefabs/characters/player/Player.tscn" type="PackedScene" id=1]
+
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.001
+bottom_radius = 3.0
+height = 10.0
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 64, 62 )
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( 32, 0, 31, -32, 0, 31, 32, 0, -31, -32, 0, 31, -32, 0, -31, 32, 0, -31 )
+
+[node name="ring_test" type="Spatial"]
+
+[node name="directional_light" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.527786, 0.849377, 0, -0.849377, 0.527786, 0, 13.1973, 6.55353 )
+
+[node name="spire" type="Spatial" parent="."]
+
+[node name="mesh_instance" type="MeshInstance" parent="spire"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="mesh_instance" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="static_body" type="StaticBody" parent="mesh_instance"]
+
+[node name="collision_shape" type="CollisionShape" parent="mesh_instance/static_body"]
+shape = SubResource( 3 )
+
+[node name="player" parent="." instance=ExtResource( 1 )]

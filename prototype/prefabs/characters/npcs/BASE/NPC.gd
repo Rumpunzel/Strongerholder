@@ -1,5 +1,4 @@
 extends Character
-class_name Player
 
 
 # Declare member variables here. Examples:

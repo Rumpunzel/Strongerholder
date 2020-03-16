@@ -9,31 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "KinematicBody2D",
+"base": "Spatial",
 "class": "Character",
 "language": "GDScript",
-"path": "res://prefabs/characters/character.gd"
-}, {
-"base": "Node2D",
-"class": "ObjectArea",
-"language": "GDScript",
-"path": "res://prefabs/object_area.gd"
+"path": "res://prefabs/characters/BASE/Character.gd"
 }, {
 "base": "Character",
 "class": "Player",
 "language": "GDScript",
-"path": "res://prefabs/characters/player/player.gd"
+"path": "res://prefabs/characters/player/Player.gd"
 } ]
 _global_script_class_icons={
 "Character": "",
-"ObjectArea": "",
 "Player": ""
 }
 
 [application]
 
 config/name="Strongerholder"
-run/main_scene="res://levels/test.tscn"
+run/main_scene="res://levels/ring_test.tscn"
 config/icon="res://assets/sprites/icon.png"
 
 [input]
