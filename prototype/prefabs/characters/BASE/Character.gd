@@ -6,7 +6,7 @@ class_name Character
 # Positions are abstracted using 2 dimensions
 #	ring_radius, meaning how far the character is from the centre Vector3(0, 0, 0) and
 #	ring_position, meaning the angle (in degrees) of the character when rotated around the centre Vector3(0, 0, 0)
-export(float, -360, 360, 0.5) var ring_position:float = 0.0
+export(float, -6.3, 6.3, 0.1) var ring_position:float = 0.0
 export(float, 0, 128, 0.5) var ring_radius:float = 0.0
 
 
