@@ -49,7 +49,7 @@ func get_radius_minimum(ring:int) -> float:
 	var radius = radius_minimums.get(ring)
 	
 	if radius == null:
-		radius = BASE_RADIUS * pow(GROWTH_FACTOR, ring)
+		radius = BASE_RADIUS + (ring * GROWTH_FACTOR * BASE_RADIUS)
 		radius_minimums[ring] = radius
 		print("new radius for %d: %d" % [ring, radius])
 	
