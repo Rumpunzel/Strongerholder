@@ -45,10 +45,9 @@ collision_mask = 7
 shape = SubResource( 3 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.903692, 0, -0.428182, 0, 1, 0, 0.428182, 0, -0.903692, 0, 0, 0 )
-ring_position = 35.0
-ring_radius = 34.5
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0 )
 
 [node name="woodsman" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.59846, 0, -0.801153, 0, 1, 0, 0.801153, 0, -0.59846, 0, 0, 0 )
-ring_position = 180.0
+transform = Transform( -0.999135, 0, 0.0415808, 0, 1, 0, -0.0415808, 0, -0.999135, 0, 0, 0 )
+ring_position = 3.1
+ring_radius = 5.0

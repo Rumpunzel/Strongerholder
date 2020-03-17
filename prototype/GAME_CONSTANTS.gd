@@ -6,12 +6,7 @@ const BASE_RADIUS:float = 12.0
 const GROWTH_FACTOR:float = 3.0
 const RING_GAP:float = 0.4
 
-const SEGMENT_WIDTH:float = 4.0
-const SHORT_SEGMENT_WIDTH:float = 4.95
-const SEGMENT_SIDE_FACTOR:float = 3.0
-
-const LONG_ANGLE:float = 58.716
-const SHORT_ANGLE:float = 31.284
+const SEGMENT_WIDTH:float = 12.0
 
 
 var radius_minimums:Dictionary = { }
@@ -45,11 +40,11 @@ func get_current_ring(ring_radius:float, without_base_radius:bool = true) -> int
 
 
 # The minum radius in world distance something can travel towards the centre Vector3(0, 0, 0)
-func get_radius_minimum(ring:int) -> float:
+func get_radius_minimum(ring:int) -> int:
 	var radius = radius_minimums.get(ring)
 	
 	if radius == null:
-		radius = BASE_RADIUS + (ring * GROWTH_FACTOR * BASE_RADIUS)
+		radius = int(BASE_RADIUS + (ring * GROWTH_FACTOR * BASE_RADIUS))
 		radius_minimums[ring] = radius
 		print("new radius for %d: %d" % [ring, radius])
 	
@@ -68,36 +63,12 @@ func get_ring_width(ring:int) -> float:
 	return width
 
 
-func get_side_length(ring:int) -> float:
-	return get_radius_minimum(ring)
+func get_number_of_segments(ring:int) -> int:
+	return int(get_radius_minimum(ring) * 4 / SEGMENT_WIDTH)
 
 
 func get_segment(ring_position:float, ring_radius:float, without_base_radius:bool = true) -> int:
 	var current_ring = get_current_ring(ring_radius, without_base_radius)
-	var side_length = get_side_length(current_ring)
-	var segments_per_long = int(side_length / SEGMENT_WIDTH)
-	var segments_per_short = int(segments_per_long / SEGMENT_SIDE_FACTOR)
-	var total_segments = 4 * (segments_per_long + segments_per_short)
+	var total_segments = get_number_of_segments(current_ring)
 	
-	ring_position = int(ring_position + (LONG_ANGLE / 2) + 360) % 360
-	
-	var angle:float = 0.0
-	var longs_left:int = segments_per_long
-	var shorts_left:int = segments_per_short
-	
-	for i in range(total_segments):
-		if longs_left > 0:
-			angle += LONG_ANGLE / segments_per_long
-			longs_left -= 1
-		elif shorts_left > 0:
-			angle += SHORT_ANGLE / segments_per_short
-			shorts_left -= 1
-		
-		if ring_position < angle:
-			return (i - 1 + total_segments) % total_segments
-			
-		if longs_left == 0 and shorts_left == 0:
-			longs_left = segments_per_long
-			shorts_left = segments_per_short
-	
-	return 0
+	return int(((ring_position + PI / total_segments) / TAU) * total_segments) % total_segments
