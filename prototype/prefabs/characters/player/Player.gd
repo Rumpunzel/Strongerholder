@@ -18,10 +18,10 @@ func _process(_delta):
 
 func get_input():
 	sprinting = sprint_modifier if Input.is_action_pressed("sprint") else 1.0
-	can_move_rings = Input.is_action_pressed("jump")
 	
 	if Input.is_action_just_pressed("jump"):
 		jump()
+		can_move_rings = true
 	
 	if Input.is_action_just_released("jump"):
 		emit_signal("stopped_jumping")

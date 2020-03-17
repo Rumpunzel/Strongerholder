@@ -7,12 +7,15 @@
 [node name="player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="body" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12 )
+
 [node name="sprite" parent="body" index="1"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 script = null
 
 [node name="camera" type="Camera" parent="body" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8 )
 fov = 90.0
 size = 15.0
 
