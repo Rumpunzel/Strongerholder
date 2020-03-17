@@ -22,7 +22,7 @@ func _ready():
 func _physics_process(delta):
 	if not Engine.editor_hint:
 		fall_speed += default_gravity * fall_modifer * delta
-		var collisions = move_and_slide(Vector3(0, jump_speed - fall_speed, 0), Vector3.UP)
+		move_and_slide(Vector3(0, jump_speed - fall_speed, 0), Vector3.UP)
 		grounded = is_on_floor()
 		if grounded:
 			fall_speed = 0.0
