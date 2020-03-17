@@ -54,6 +54,10 @@ config/name="Strongerholder"
 run/main_scene="res://levels/ring_test.tscn"
 config/icon="res://assets/sprites/icon.png"
 
+[autoload]
+
+GameConstants="*res://GAME_CONSTANTS.gd"
+
 [display]
 
 window/size/width=1920
