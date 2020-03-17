@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/characters/player/signals.gd"
 }, {
+"base": "Spatial",
+"class": "Rings",
+"language": "GDScript",
+"path": "res://prefabs/Rings.gd"
+}, {
 "base": "NPC",
 "class": "Woodsman",
 "language": "GDScript",
@@ -45,6 +50,7 @@ _global_script_class_icons={
 "NPC": "",
 "Player": "",
 "PlayerSignals": "",
+"Rings": "",
 "Woodsman": ""
 }
 
@@ -150,4 +156,6 @@ name_casing=2
 
 [rendering]
 
+quality/subsurface_scattering/quality=2
+quality/filters/msaa=4
 environment/default_environment="res://default_env.tres"
