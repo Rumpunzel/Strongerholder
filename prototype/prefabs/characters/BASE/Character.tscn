@@ -13,6 +13,7 @@ height = 0.01
 script = ExtResource( 2 )
 
 [node name="body" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )
@@ -23,8 +24,10 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite3D" parent="body"]
 offset = Vector2( 0, 32 )
-flip_h = true
 pixel_size = 0.032
+billboard = 2
+shaded = true
+alpha_cut = 2
 texture = ExtResource( 3 )
 script = ExtResource( 5 )
 
