@@ -32,5 +32,5 @@ func get_position_change(velocity:float) -> float:
 	return .get_position_change(velocity)
 
 func get_radius_change(vertical_velocity:float) -> float:
-	vertical_velocity = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up")) * walkspeed
+	vertical_velocity = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up")) * vertical_walkspeed
 	return .get_radius_change(vertical_velocity)

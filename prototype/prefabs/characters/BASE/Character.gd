@@ -12,7 +12,7 @@ export(float, 0, 128, 0.5) var ring_radius:float = 0.0
 
 var walkspeed:float = 250.0
 # Modifier to the speed when walking up or down to help the 2.5D illusion
-var up_down_modifier:float = 0.02
+var vertical_walkspeed:float = 3.0
 var sprint_modifier:float = 1.5
 
 # Multiplicative modifer to the movement speed
@@ -105,4 +105,4 @@ func get_radius_change(vertical_velocity:float) -> float:
 	if Engine.editor_hint:
 		vertical_velocity = 0
 		
-	return vertical_velocity * up_down_modifier * sprinting
+	return vertical_velocity * sprinting

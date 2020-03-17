@@ -358,4 +358,3 @@ collision_mask = 7
 shape = SubResource( 4 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
