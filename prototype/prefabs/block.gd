@@ -1,10 +1,10 @@
 tool
 extends Spatial
+class_name BuildingFundament
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var camera = get_viewport().get_camera()
+onready var distance_to_middle = $block.global_transform.origin.distance_to(Vector3())
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,9 +13,10 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(_delta):
+	visible = global_transform.origin.distance_to(camera.global_transform.origin) < distance_to_middle
 
 
 func offset(new_offset:Vector3):
 	$block.transform.origin = new_offset
+	distance_to_middle = $block.global_transform.origin.distance_to(Vector3())

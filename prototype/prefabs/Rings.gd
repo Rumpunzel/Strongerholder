@@ -8,6 +8,8 @@ const BUILDING_SLOP:float = 2.0
 
 
 export(PackedScene) var building_fundament
+export(PackedScene) var bridge
+
 
 var number_of_rings:int = 10
 
@@ -31,7 +33,13 @@ func build_ring(ring_number):
 	print("total buildings for ring %d: %d" % [ring_number, number_of_buildings])
 	
 	for i in range(number_of_buildings):
-		var new_building = building_fundament.instance()
+		var new_building
+		
+		if ring_number > 0 and i % int(number_of_buildings / 4.0) == 0:
+			new_building = bridge.instance()
+		else:
+			new_building = building_fundament.instance()
+		
 		add_child(new_building)
 		#-sqrt(ring_number * 40)
 		new_building.offset(Vector3(0, -pow(ring_number, 2), GameConstants.get_radius_minimum(ring_number) - BUILDING_OFFSET))
