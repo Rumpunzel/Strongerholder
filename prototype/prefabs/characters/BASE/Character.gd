@@ -10,7 +10,7 @@ export(float, -360, 360, 0.5) var ring_position:float = 0.0
 export(float, 0, 128, 0.5) var ring_radius:float = 0.0
 
 
-var walkspeed:float = 250.0
+var walkspeed:float = 5.0
 # Modifier to the speed when walking up or down to help the 2.5D illusion
 var vertical_walkspeed:float = 3.0
 var sprint_modifier:float = 1.5
@@ -54,7 +54,7 @@ func move(delta):
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
 	ring_position += get_position_change(0) * delta
-	rotation.y = deg2rad(ring_position)
+	rotation.y = ring_position
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
 	ring_radius += get_radius_change(0) * delta
