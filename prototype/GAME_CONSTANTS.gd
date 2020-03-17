@@ -64,7 +64,7 @@ func get_ring_width(ring:int) -> float:
 
 
 func get_number_of_segments(ring:int) -> int:
-	return int(get_radius_minimum(ring) * 4 / SEGMENT_WIDTH)
+	return int((get_radius_minimum(ring) * 4) / SEGMENT_WIDTH)
 
 
 func get_segment(ring_position:float, ring_radius:float, without_base_radius:bool = true) -> int:
