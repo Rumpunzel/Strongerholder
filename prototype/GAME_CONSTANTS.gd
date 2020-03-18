@@ -13,6 +13,8 @@ var radius_minimums:Dictionary = { }
 var ring_widths:Dictionary = { }
 var side_lengths:Dictionary = { }
 
+var blocks:Dictionary = { }
+
 
 
 # Called when the node enters the scene tree for the first time.
