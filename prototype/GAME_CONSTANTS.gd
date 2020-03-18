@@ -73,4 +73,4 @@ func get_segment(ring_position:float, ring_radius:float, without_base_radius:boo
 	var current_ring = get_current_ring(ring_radius, without_base_radius)
 	var total_segments = get_number_of_segments(current_ring)
 	
-	return int(((ring_position + PI / total_segments) / TAU) * total_segments) % total_segments
+	return int(((ring_position + PI / total_segments) / TAU) * total_segments + total_segments) % total_segments
