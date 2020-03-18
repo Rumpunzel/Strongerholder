@@ -3,17 +3,29 @@ extends Character
 class_name Player
 
 
+var highlight_distance:float = 7
+var highlighted_objects:Array = [ ]
+
+
 signal stopped_jumping
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	walkspeed = 5.0
+	vertical_walkspeed = 3.0
+	
+	connect("entered_segment", self, "add_highlighted_object")
+	connect("left_segment", self, "remove_highlighted_object")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	get_input()
+	
+	handle_highlight()
+
 
 
 func get_input():
@@ -25,6 +37,14 @@ func get_input():
 	if Input.is_action_just_released("jump"):
 		emit_signal("stopped_jumping")
 
+func handle_highlight():
+	if not Engine.editor_hint:
+		for object in highlighted_objects:
+			if world_position().distance_to(object.world_position()) < highlight_distance:
+				object.highlight(self)
+			else:
+				object.unhighlight(self)
+
 
 func get_position_change(velocity:float) -> float:
 	velocity = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * walkspeed
@@ -33,3 +53,20 @@ func get_position_change(velocity:float) -> float:
 func get_radius_change(vertical_velocity:float) -> float:
 	vertical_velocity = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up")) * vertical_walkspeed
 	return .get_radius_change(vertical_velocity)
+
+
+func add_highlighted_object(new_segment:Vector2):
+	var object = GameConstants.blocks.get(new_segment)
+	
+	if not object == null and not highlighted_objects.has(object):
+		highlighted_objects.append(object)
+
+func remove_highlighted_object(new_segment:Vector2):
+	var object = GameConstants.blocks.get(new_segment)
+	
+	if not highlighted_objects == null and highlighted_objects.has(object):
+		highlighted_objects.erase(object)
+
+
+func world_position():
+	return body.global_transform.origin
