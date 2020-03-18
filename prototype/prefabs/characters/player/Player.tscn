@@ -15,6 +15,7 @@ script = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8 )
 fov = 90.0
 size = 15.0
+far = 8192.0
 
 [node name="signals" parent="." index="1"]
 script = ExtResource( 3 )
