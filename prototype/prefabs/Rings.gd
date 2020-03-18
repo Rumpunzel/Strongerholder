@@ -37,6 +37,7 @@ func build_ring(ring_number):
 		
 		if ring_number > 0 and i % int(number_of_buildings / 4.0) == 0:
 			new_building = bridge.instance()
+			new_building.get_node("block").rotation.x = deg2rad(5) * ring_number
 		else:
 			new_building = building_fundament.instance()
 		

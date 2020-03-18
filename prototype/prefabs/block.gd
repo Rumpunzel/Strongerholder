@@ -12,11 +12,6 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	visible = global_transform.origin.distance_to(camera.global_transform.origin) < distance_to_middle
-
-
 func offset(new_offset:Vector3):
 	$block.transform.origin = new_offset
 	distance_to_middle = $block.global_transform.origin.distance_to(Vector3())

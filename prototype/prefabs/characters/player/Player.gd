@@ -21,7 +21,6 @@ func get_input():
 	
 	if Input.is_action_just_pressed("jump"):
 		jump()
-		can_move_rings = true
 	
 	if Input.is_action_just_released("jump"):
 		emit_signal("stopped_jumping")
