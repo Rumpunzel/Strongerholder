@@ -26,7 +26,7 @@ var search_dictionary:Dictionary = { }
 var adjacency_matrix:Dictionary = { }
 var bridge_distances:Dictionary = { }
 
-var astar_nodes:Dictionary = { }
+var astar_nodes:Array = [ ]
 
 
 
@@ -76,17 +76,33 @@ func get_number_of_segments(ring:int) -> int:
 	return int((get_radius_minimum(ring) * 4) / SEGMENT_WIDTH)
 
 
-func get_segment(ring_position:float, ring_radius:float, without_base_radius:bool = true) -> int:
+func get_current_segment(ring_position:float, ring_radius:float, without_base_radius:bool = true) -> int:
 	var current_ring = get_current_ring(ring_radius, without_base_radius)
 	var total_segments = get_number_of_segments(current_ring)
 	
-	return int(((ring_position + PI / total_segments) / TAU) * total_segments + total_segments) % total_segments
+	var segment = ((ring_position + PI / total_segments) / TAU) * total_segments
+	
+	return int(segment) % total_segments
 
 
 func register_segment(type:String, ring:int, segment:int, object):
 	segments_dictionary[type] = segments_dictionary.get(type, { })
 	segments_dictionary[type][ring] = segments_dictionary[type].get(ring, { })
 	segments_dictionary[type][ring][segment] = object
+
+func get_shortest_path(from:Vector2, to:Vector2) -> Array:
+	var start = astar_nodes.find(from)
+	var destination = astar_nodes.find(to)
+	var path_ids:Array = [ ]
+	var path_vectors:Array = [ ]
+	print(from)
+	if start >= 0 and destination >= 0:
+		path_ids = pathfinder.get_id_path(start, destination)
+		
+		for node in path_ids:
+			path_vectors.append(astar_nodes[node])
+	
+	return path_vectors
 
 
 func _construct_pathfinder():
@@ -97,7 +113,7 @@ func _construct_pathfinder():
 			var building = search_dictionary[ring][segment]
 			
 			pathfinder.add_point(graph_size, building.world_position())
-			astar_nodes[Vector2(ring, segment)] = graph_size
+			astar_nodes.append(Vector2(ring, segment))
 			
 			graph_size += 1
 	
@@ -109,30 +125,11 @@ func _construct_pathfinder():
 		for segment in search_dictionary[ring].keys():
 			for building in search_dictionary[ring].keys():
 				if abs(segment - building) == 1:
-					pathfinder.connect_points(astar_nodes[Vector2(ring, segment)], astar_nodes[Vector2(ring, building)])
+					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 				
 			for bridge in bridges.get(ring + 1, { }).keys():
-				pathfinder.connect_points(astar_nodes[Vector2(ring, segment)], astar_nodes[Vector2(ring + 1, bridge)])
-	
-	for ring in bridges.keys():
-		for segment in bridges[ring].keys():
-			pass
-	
-	
-#	for ring in bridges.keys():
-#		for segment in bridges[ring].keys():
-#			var start = bridges[ring][segment]
-#
-#			for ring_connection in bridges.keys():
-#				for segment_connection in bridges[ring_connection].keys():
-#					var end = bridges[ring_connection][segment_connection]
-#					var ring_distance = abs(ring_connection - ring)
-#
-#					var segment_distance = abs(segment_connection - segment)
-#					segment_distance = (segment_distance % int(get_number_of_segments(ring) / 2.0)) if segment_distance > get_number_of_segments(ring) / 2.0 else segment_distance
-#
-#					if ring_distance <= 1:
-#						adjacency_matrix[start][end] = segment_distance + ring_distance * (get_ring_width() / SEGMENT_WIDTH)
+				if abs(segment - (bridge / float(get_number_of_segments(ring + 1))) * get_number_of_segments(ring)) <= 0.5:
+					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
 
 func _construct_search_dictionary():
 	for type in segments_dictionary.values():
@@ -140,6 +137,7 @@ func _construct_search_dictionary():
 			for block in type[ring].keys():
 				search_dictionary[ring] = search_dictionary.get(ring, { })
 				search_dictionary[ring][block] = type[ring][block]
+
 
 func _construct_adjanceny_matrix():
 	var bridges:Dictionary = segments_dictionary[BRIDGES]
@@ -200,8 +198,8 @@ func get_object_at_position(position:Vector2, from:String = EVERYTHING):
 	var search_through:Dictionary
 	
 	if not from == EVERYTHING:
-		search_dictionary = segments_dictionary[from]
+		search_through = segments_dictionary[from]
 	else:
 		search_through = search_dictionary
 	
-	return search_dictionary.get(position.y, { }).get(position.x, null)
+	return search_through.get(position.y, { }).get(position.x, null)
