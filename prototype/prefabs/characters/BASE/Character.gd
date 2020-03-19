@@ -6,7 +6,7 @@ class_name Character
 # Positions are abstracted using 2 dimensions
 #	ring_radius, meaning how far the character is from the centre Vector3(0, 0, 0) and
 #	ring_position, meaning the angle (in degrees) of the character when rotated around the centre Vector3(0, 0, 0)
-export(float, -6.3, 6.3, 0.1) var ring_position:float = 0.0
+export(float, 0, 6.3, 0.1) var ring_position:float = 0.0
 export(float, 0, 128, 0.5) var ring_radius:float = 0.0
 
 
@@ -57,6 +57,10 @@ func move(delta):
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
 	ring_position += get_position_change(0) * delta
+	
+	while ring_position < 0:
+		ring_position += TAU
+	
 	rotation.y = ring_position
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
@@ -68,7 +72,7 @@ func move(delta):
 	
 	
 	var new_ring = GameConstants.get_current_ring(ring_radius)
-	var new_segment = GameConstants.get_segment(ring_position, ring_radius)
+	var new_segment = GameConstants.get_current_segment(ring_position, ring_radius)
 	
 	if not new_ring == current_ring or not new_segment == current_segment:
 		emit_signal("entered_segment", Vector2(new_ring, new_segment))
