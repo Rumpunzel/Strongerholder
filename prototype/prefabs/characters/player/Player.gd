@@ -18,6 +18,8 @@ func _ready():
 	
 	connect("entered_segment", self, "add_highlighted_object")
 	connect("left_segment", self, "remove_highlighted_object")
+	
+	connect("entered_segment", self, "print_path")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,9 +27,6 @@ func _process(_delta):
 	get_input()
 	
 	handle_highlight()
-	
-	if not Engine.editor_hint:
-		pass#print(GameConstants.pathfinder.get_id_path(GameConstants.pathfinder.get_closest_point(world_position()), 27))
 
 
 
@@ -73,3 +72,6 @@ func remove_highlighted_object(new_segment:Vector2):
 
 func world_position():
 	return body.global_transform.origin
+
+func print_path(new_pos:Vector2):
+	print(GameConstants.get_shortest_path(new_pos, Vector2(2, 17)))
