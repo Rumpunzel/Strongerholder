@@ -53,7 +53,7 @@ func _process(delta):
 
 func move(delta):
 	var radius_minimum = GameConstants.get_radius_minimum(current_ring) - GameConstants.BASE_RADIUS
-	var ring_width = GameConstants.get_ring_width(current_ring)
+	var ring_width = GameConstants.get_ring_width()
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
 	ring_position += get_position_change(0) * delta
@@ -84,7 +84,6 @@ func move(delta):
 	emit_signal("moved", Vector2(ring_position, ring_radius + GameConstants.BASE_RADIUS))
 	
 	radius_minimum = GameConstants.get_radius_minimum(current_ring) - GameConstants.BASE_RADIUS
-	ring_width = GameConstants.get_ring_width(current_ring)
 	
 	if ring_radius > radius_minimum and ring_radius < radius_minimum + ring_width * GameConstants.RING_GAP:
 		can_move_rings = false

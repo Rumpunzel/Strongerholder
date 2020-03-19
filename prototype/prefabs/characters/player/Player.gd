@@ -25,6 +25,9 @@ func _process(_delta):
 	get_input()
 	
 	handle_highlight()
+	
+	if not Engine.editor_hint:
+		pass#print(GameConstants.pathfinder.get_id_path(GameConstants.pathfinder.get_closest_point(world_position()), 27))
 
 
 
@@ -56,13 +59,13 @@ func get_radius_change(vertical_velocity:float) -> float:
 
 
 func add_highlighted_object(new_segment:Vector2):
-	var object = GameConstants.blocks.get(new_segment)
+	var object = GameConstants.get_object_at_position(new_segment)
 	
 	if not object == null and not highlighted_objects.has(object):
-		highlighted_objects.append(object)
+		highlighted_objects.push_front(object)
 
 func remove_highlighted_object(new_segment:Vector2):
-	var object = GameConstants.blocks.get(new_segment)
+	var object = GameConstants.get_object_at_position(new_segment)
 	
 	if not highlighted_objects == null and highlighted_objects.has(object):
 		highlighted_objects.erase(object)
