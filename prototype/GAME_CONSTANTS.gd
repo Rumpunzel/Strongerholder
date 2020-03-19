@@ -88,12 +88,13 @@ func register_segment(type:String, ring:int, segment:int, object):
 	segments_dictionary[type][ring] = segments_dictionary[type].get(ring, { })
 	segments_dictionary[type][ring][segment] = object
 
+
 func get_shortest_path(from:Vector2, to:Vector2) -> Array:
 	var start = astar_nodes.find(from)
 	var destination = astar_nodes.find(to)
 	var path_ids:Array = [ ]
 	var path_vectors:Array = [ ]
-	print(from)
+	
 	if start >= 0 and destination >= 0:
 		path_ids = pathfinder.get_id_path(start, destination)
 		

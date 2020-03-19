@@ -31,6 +31,10 @@ var current_ring:int = -1
 var can_move_rings:bool = false
 var current_segment:int = -1
 
+var current_path:Array = [ ]
+
+var is_reevaluating:bool = false
+
 
 signal moved
 signal jumped
@@ -42,21 +46,26 @@ signal left_segment
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	connect("entered_segment", self, "start_reevaluating")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	move(delta)
+	move(Vector2(), delta)
+	
+	var ang = abs(ring_position / (PI / 2.0))
+	if is_reevaluating and abs(ang - round(ang)) < 0.1:
+		update_current_path()
+		is_reevaluating = false
 
 
 
-func move(delta):
+func move(direction:Vector2, delta:float):
 	var radius_minimum = GameConstants.get_radius_minimum(current_ring) - GameConstants.BASE_RADIUS
 	var ring_width = GameConstants.get_ring_width()
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
-	ring_position += get_position_change(0) * delta
+	ring_position += get_position_change(direction).y * delta
 	
 	while ring_position < 0:
 		ring_position += TAU
@@ -64,7 +73,7 @@ func move(delta):
 	rotation.y = ring_position
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
-	ring_radius += get_radius_change(0) * delta
+	ring_radius += get_position_change(direction).x * delta
 	
 	# Limiting of the movement between rings
 	if not can_move_rings and not Engine.editor_hint:
@@ -104,15 +113,18 @@ func jump():
 
 
 # This function has to be implemented by child classes
-func get_position_change(velocity:float) -> float:
-	if Engine.editor_hint:
-		velocity = 0
+func get_position_change(direction:Vector2) -> Vector2:
+	if not Engine.editor_hint:
+		direction = direction.normalized()
+	else:
+		direction = Vector2()
 	
-	return (velocity * sprinting * walkspeed) / (ring_radius + GameConstants.BASE_RADIUS)
+	return Vector2(direction.x * vertical_walkspeed, direction.y * walkspeed / (ring_radius + GameConstants.BASE_RADIUS)) * sprinting
 
-# This function has to be implemented by child classes
-func get_radius_change(vertical_velocity:float) -> float:
-	if Engine.editor_hint:
-		vertical_velocity = 0
-		
-	return vertical_velocity * sprinting * vertical_walkspeed
+
+func start_reevaluating(_new_position:Vector2):
+	is_reevaluating = true
+
+func update_current_path():
+	pass
+

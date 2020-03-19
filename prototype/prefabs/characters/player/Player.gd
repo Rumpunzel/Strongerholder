@@ -18,8 +18,6 @@ func _ready():
 	
 	connect("entered_segment", self, "add_highlighted_object")
 	connect("left_segment", self, "remove_highlighted_object")
-	
-	connect("entered_segment", self, "print_path")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,13 +48,11 @@ func handle_highlight():
 				object.unhighlight(self)
 
 
-func get_position_change(velocity:float) -> float:
-	velocity = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
-	return .get_position_change(velocity)
-
-func get_radius_change(vertical_velocity:float) -> float:
-	vertical_velocity = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
-	return .get_radius_change(vertical_velocity)
+func get_position_change(direction:Vector2) -> Vector2:
+	direction.x = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	direction.y = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	
+	return .get_position_change(direction)
 
 
 func add_highlighted_object(new_segment:Vector2):
@@ -75,5 +71,5 @@ func remove_highlighted_object(new_segment:Vector2):
 func world_position():
 	return body.global_transform.origin
 
-func print_path(new_pos:Vector2):
-	print(GameConstants.get_shortest_path(new_pos, Vector2(2, 17)))
+func update_current_path():
+	print("player path: %s" % [GameConstants.get_shortest_path(Vector2(current_ring, current_segment), Vector2(2, 17))])
