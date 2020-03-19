@@ -5,9 +5,6 @@ class_name BuildingFundament
 
 onready var body = $block setget set_body, get_body
 
-onready var camera = get_viewport().get_camera()
-onready var distance_to_middle = calculate_distance_to_center()
-
 
 var ring:int setget set_ring, get_ring
 var segment:int setget set_segment, get_segment
@@ -27,7 +24,6 @@ func _ready():
 
 func set_ring_position(new_position:Vector3):
 	body.transform.origin = new_position
-	distance_to_middle = calculate_distance_to_center()
 
 func calculate_distance_to_center() -> float:
 	return body.global_transform.origin.distance_to(Vector3())

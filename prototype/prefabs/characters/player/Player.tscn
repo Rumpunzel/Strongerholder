@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://prefabs/characters/BASE/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/characters/player/Player.gd" type="Script" id=2]
-[ext_resource path="res://prefabs/characters/player/signals.gd" type="Script" id=3]
 
 [node name="player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -16,6 +15,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8 )
 fov = 90.0
 size = 15.0
 far = 8192.0
-
-[node name="signals" parent="." index="1"]
-script = ExtResource( 3 )

@@ -33,6 +33,9 @@ func handle_highlighted():
 func interact(_sender, _action):
 	pass
 
+func attack(_sender, damage):
+	hit_points -= damage
+
 
 func world_position() -> Vector3:
 	return global_transform.origin

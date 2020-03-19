@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://prefabs/characters/BASE/body.gd" type="Script" id=1]
 [ext_resource path="res://prefabs/characters/BASE/Character.gd" type="Script" id=2]
 [ext_resource path="res://assets/sprites/icon_lr.png" type="Texture" id=3]
-[ext_resource path="res://prefabs/characters/BASE/signals.gd" type="Script" id=4]
 [ext_resource path="res://prefabs/characters/BASE/sprite.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
@@ -30,6 +29,3 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource( 3 )
 script = ExtResource( 5 )
-
-[node name="signals" type="Node" parent="."]
-script = ExtResource( 4 )

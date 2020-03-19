@@ -18,13 +18,11 @@ onready var pathfinder = AStar.new()
 
 
 var radius_minimums:Dictionary = { }
-var side_lengths:Dictionary = { }
 
 var segments_dictionary:Dictionary = { }
 var search_dictionary:Dictionary = { }
 
 var adjacency_matrix:Dictionary = { }
-var bridge_distances:Dictionary = { }
 
 var astar_nodes:Array = [ ]
 
@@ -119,7 +117,6 @@ func _construct_pathfinder():
 	
 	
 	var bridges:Dictionary = segments_dictionary[BRIDGES]
-	var buildings:Dictionary = segments_dictionary[BUILDINGS]
 	
 	for ring in search_dictionary.keys():
 		for segment in search_dictionary[ring].keys():
@@ -162,7 +159,7 @@ func _construct_adjanceny_matrix():
 
 func _print_adjacency_matrix():
 	var matrix_string:String = ""
-	var header_string:String = "\t"
+	var header_string:String = "\n\t"
 	var row_counter = 0
 	
 	
@@ -194,12 +191,11 @@ func done_building():
 
 
 func get_object_at_position(position:Vector2, from:String = EVERYTHING):
-	var object = null
-	var search_through:Dictionary
+	var search_through:Dictionary = { }
 	
 	if not from == EVERYTHING:
-		search_through = segments_dictionary[from]
+		search_dictionary = segments_dictionary[from]
 	else:
 		search_through = search_dictionary
 	
-	return search_through.get(position.y, { }).get(position.x, null)
+	return search_through.get(int(position.x), { }).get(int(position.y), null)

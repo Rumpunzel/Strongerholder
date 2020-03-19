@@ -37,6 +37,8 @@ func get_input():
 		jump()
 	
 	if Input.is_action_just_released("jump"):
+		body.jump()
+		
 		emit_signal("stopped_jumping")
 
 func handle_highlight():
@@ -49,11 +51,11 @@ func handle_highlight():
 
 
 func get_position_change(velocity:float) -> float:
-	velocity = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * walkspeed
+	velocity = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	return .get_position_change(velocity)
 
 func get_radius_change(vertical_velocity:float) -> float:
-	vertical_velocity = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up")) * vertical_walkspeed
+	vertical_velocity = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	return .get_radius_change(vertical_velocity)
 
 

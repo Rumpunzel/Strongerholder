@@ -71,8 +71,8 @@ func move(delta):
 		ring_radius = clamp(ring_radius, radius_minimum, radius_minimum + ring_width * GameConstants.RING_GAP)
 	
 	
-	var new_ring = GameConstants.get_current_ring(ring_radius)
-	var new_segment = GameConstants.get_current_segment(ring_position, ring_radius)
+	var new_ring:int = GameConstants.get_current_ring(ring_radius)
+	var new_segment:int = GameConstants.get_current_segment(ring_position, ring_radius)
 	
 	if not new_ring == current_ring or not new_segment == current_segment:
 		emit_signal("entered_segment", Vector2(new_ring, new_segment))
@@ -81,6 +81,7 @@ func move(delta):
 		current_ring = new_ring
 		current_segment = new_segment
 	
+	body.ring_radius = ring_radius + GameConstants.BASE_RADIUS
 	
 	# The position in the world can be displayed with a Vector2
 	#	with the x-axis being the ring_position and
@@ -97,7 +98,9 @@ func move(delta):
 
 
 func jump():
-	emit_signal("jumped", jump_speed)
+	body.jump(jump_speed)
+	
+	emit_signal("jumped")
 
 
 # This function has to be implemented by child classes
@@ -105,11 +108,11 @@ func get_position_change(velocity:float) -> float:
 	if Engine.editor_hint:
 		velocity = 0
 	
-	return (velocity * sprinting) / (ring_radius + GameConstants.BASE_RADIUS)
+	return (velocity * sprinting * walkspeed) / (ring_radius + GameConstants.BASE_RADIUS)
 
 # This function has to be implemented by child classes
 func get_radius_change(vertical_velocity:float) -> float:
 	if Engine.editor_hint:
 		vertical_velocity = 0
 		
-	return vertical_velocity * sprinting
+	return vertical_velocity * sprinting * vertical_walkspeed
