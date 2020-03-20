@@ -35,6 +35,7 @@ func update_current_path():
 	print("current_path: %s" % [current_path])
 
 
+
 func set_target(new_target:Vector2):
 	target = new_target
 

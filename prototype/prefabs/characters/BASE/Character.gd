@@ -54,7 +54,7 @@ func _process(delta):
 	move(Vector2(), delta)
 	
 	var ang = abs(ring_position / (PI / 2.0))
-	if is_reevaluating and abs(ang - round(ang)) < 0.1:
+	if is_reevaluating and abs(ang - round(ang)) < 0.01:
 		update_current_path()
 		is_reevaluating = false
 
@@ -123,7 +123,8 @@ func get_position_change(direction:Vector2) -> Vector2:
 
 
 func start_reevaluating(_new_position:Vector2):
-	is_reevaluating = true
+	#is_reevaluating = true
+	update_current_path()
 
 func update_current_path():
 	pass

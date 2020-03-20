@@ -126,7 +126,7 @@ func _construct_pathfinder():
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 				
 			for bridge in bridges.get(ring + 1, { }).keys():
-				if abs(segment - (bridge / float(get_number_of_segments(ring + 1))) * get_number_of_segments(ring)) <= 0.5:
+				if abs(segment - (bridge / float(get_number_of_segments(ring + 1))) * get_number_of_segments(ring)) <= 0.6:
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
 
 func _construct_search_dictionary():
