@@ -15,7 +15,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if not Engine.editor_hint and not target == Vector2() and current_path.empty():
-		update_current_path()
+		update_current_path(Vector2(current_ring, current_segment))
 
 
 
@@ -30,8 +30,9 @@ func get_position_change(direction:Vector2) -> Vector2:
 	
 	return .get_position_change(direction)
 
-func update_current_path():
-	current_path = GameConstants.get_shortest_path(Vector2(current_ring, current_segment), target)
+func update_current_path(new_position:Vector2):
+	print(GameConstants.get_ring_position_of_object(target))
+	current_path = GameConstants.get_shortest_path(new_position, target)
 	print("current_path: %s" % [current_path])
 
 

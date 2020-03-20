@@ -71,5 +71,5 @@ func remove_highlighted_object(new_segment:Vector2):
 func world_position():
 	return body.global_transform.origin
 
-func update_current_path():
-	print("player path: %s" % [GameConstants.get_shortest_path(Vector2(current_ring, current_segment), Vector2(2, 17))])
+func update_current_path(new_position:Vector2):
+	print("player path: %s" % [GameConstants.get_shortest_path(new_position, Vector2(2, 17))])
