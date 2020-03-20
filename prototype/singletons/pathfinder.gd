@@ -18,13 +18,19 @@ func _ready():
 
 func done_building():
 	construct_pathfinder()
-	construct_adjanceny_matrix()
+	#construct_adjanceny_matrix()
 
 
 
 func construct_pathfinder():
-	var graph_size:int = 0
 	var rings = GameConstants.search_dictionary
+	
+	construct_graph(rings)
+	connect_nodes(rings)
+
+
+func construct_graph(rings:Dictionary):
+	var graph_size:int = 0
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
@@ -38,6 +44,7 @@ func construct_pathfinder():
 			graph_size += 1
 	
 	
+func connect_nodes(rings:Dictionary):
 	var bridges:Dictionary = GameConstants.segments_dictionary[GameConstants.BRIDGES]
 	
 	for ring in rings.keys():
@@ -51,6 +58,7 @@ func construct_pathfinder():
 			for bridge in bridges.get(ring + 1, { }).keys():
 				if abs(segment - (bridge / float(GameConstants.get_number_of_segments(ring + 1))) * GameConstants.get_number_of_segments(ring)) <= 0.6:
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
+
 
 
 func get_shortest_path(from:Vector2, to:Vector2) -> Array:
