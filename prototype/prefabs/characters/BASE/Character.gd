@@ -42,7 +42,7 @@ func _process(delta):
 
 func move(direction:Vector2, delta:float):
 	var radius_minimum = GameConstants.get_radius_minimum(current_ring) - GameConstants.BASE_RADIUS
-	var ring_width = GameConstants.get_ring_width()
+	var ring_width = GameConstants.get_ring_width() * GameConstants.RING_GAP
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
 	ring_position += get_position_change(direction).y * delta
@@ -57,7 +57,7 @@ func move(direction:Vector2, delta:float):
 	
 	# Limiting of the movement between rings
 	if not can_move_rings and not Engine.editor_hint:
-		ring_radius = clamp(ring_radius, radius_minimum, radius_minimum + ring_width * GameConstants.RING_GAP)
+		ring_radius = clamp(ring_radius, radius_minimum, radius_minimum + ring_width)
 	
 	update_ring_vector()
 	
@@ -70,7 +70,7 @@ func move(direction:Vector2, delta:float):
 	
 	radius_minimum = GameConstants.get_radius_minimum(current_ring) - GameConstants.BASE_RADIUS
 	
-	if ring_radius > radius_minimum and ring_radius < radius_minimum + ring_width * GameConstants.RING_GAP:
+	if ring_radius > radius_minimum and ring_radius < radius_minimum + ring_width:
 		can_move_rings = false
 	
 	#print("current_ring: %d" % [current_ring])

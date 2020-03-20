@@ -20,22 +20,9 @@ func _process(_delta):
 	if not Engine.editor_hint and not target == Vector2() and current_path.empty():
 		update_current_path(Vector2(current_ring, current_segment))
 	
-	walking_direction = Vector2()
-	var path_counter = 1
+	walking_direction = path_segments[1] - Vector2(ring_radius, ring_position)
 	
-	while path_counter < min(4, len(path_segments)):
-		var vector:Vector2 = Vector2()
-		
-		if path_counter == 1:
-			vector = path_segments[path_counter] - Vector2(ring_radius, ring_position)
-		else:
-			vector = path_segments[path_counter] - path_segments[path_counter - 1]
-		
-		walking_direction += vector / pow(path_counter, 2)
-		path_counter += 1
-		print("x: %s, y: %s" % [walking_direction.x, walking_direction.y])
-	
-	if walking_direction.length() <= 0.01:
+	if walking_direction.normalized().length() <= 0.01:
 		update_current_path(Vector2(current_ring, current_segment))
 	
 	#print("walking_direction: %s" % [walking_direction])
