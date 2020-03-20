@@ -5,6 +5,9 @@ class_name NPC
 
 var target:Vector2 = Vector2() setget set_target, get_target
 
+var next_segment:Vector2 = Vector2()
+var walking_direction:Vector2 = Vector2()
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,27 +16,29 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	if not Engine.editor_hint and not target == Vector2() and current_path.empty():
 		update_current_path(Vector2(current_ring, current_segment))
+	
+	if len(current_path) > 1:
+		walking_direction = (next_segment - Vector2(ring_radius, ring_position))
+	else:
+		walking_direction = Vector2()
+	
+	if walking_direction.length() <= 0.01:
+		update_current_path(Vector2(current_ring, current_segment))
+	
+	print("walking_direction: %s" % [walking_direction])
 
 
 
 func get_position_change(direction:Vector2) -> Vector2:
-	if len(current_path) > 1:
-		if abs(current_path[1].x - current_path[0].x) > 0:
-			direction.x = 1
-		else:
-			direction.y = 1
-	else:
-		direction = Vector2()
-	
-	return .get_position_change(direction)
+	return .get_position_change(walking_direction + direction)
 
 func update_current_path(new_position:Vector2):
-	print(GameConstants.get_ring_position_of_object(target))
 	current_path = GameConstants.get_shortest_path(new_position, target)
-	print("current_path: %s" % [current_path])
+	next_segment = GameConstants.get_ring_position_of_object(current_path[min(1, current_path.size() - 1)])
+	print("current_path: %s\nnext_segment: %s" % [current_path, next_segment])
 
 
 

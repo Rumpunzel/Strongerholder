@@ -49,6 +49,4 @@ transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0 )
 ring_radius = 5.0
 
 [node name="woodsman" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.88552, 0, -0.464602, 0, 1, 0, 0.464602, 0, 0.88552, 0, 0, 0 )
-ring_radius = 13.5
-ring_position = 5.8
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )

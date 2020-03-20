@@ -18,6 +18,8 @@ func _ready():
 	
 	connect("entered_segment", self, "add_highlighted_object")
 	connect("left_segment", self, "remove_highlighted_object")
+	
+	connect("entered_segment", self, "update_current_path")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

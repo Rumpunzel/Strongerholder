@@ -30,7 +30,7 @@ signal jumped
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("entered_segment", self, "update_current_path")
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

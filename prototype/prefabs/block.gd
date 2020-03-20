@@ -35,3 +35,6 @@ func world_position():
 
 func get_body():
 	return body
+
+func get_ring_radius() -> float:
+	return .get_ring_radius() + Rings.BUILDING_OFFSET

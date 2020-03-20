@@ -1,3 +1,4 @@
+tool
 extends Node
 
 
@@ -53,9 +54,7 @@ func get_object_at_position(position:Vector2, from:String = GameConstants.EVERYT
 func get_ring_position_of_object(segment:Vector2) -> Vector2:
 	var object = search_dictionary.get(int(segment.x), { }).get(int(segment.y), null)
 	
-	
-	
-	return object.world_position() if not object == null and object is GameObject else Vector2()
+	return Vector2(object.ring_radius - GameConstants.BASE_RADIUS, object.ring_position) if not object == null and object is GameObject else Vector2()
 
 
 # Recalculation of the current ring the character is on
