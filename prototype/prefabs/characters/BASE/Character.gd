@@ -3,13 +3,6 @@ extends GameObject
 class_name Character
 
 
-# Positions are abstracted using 2 dimensions
-#	ring_radius, meaning how far the character is from the centre Vector3(0, 0, 0) and
-#	ring_position, meaning the angle (in degrees) of the character when rotated around the centre Vector3(0, 0, 0)
-export(float, 0, 6.3, 0.1) var ring_position:float = 0.0
-export(float, 0, 128, 0.5) var ring_radius:float = 0.0
-
-
 onready var body = $body
 
 
@@ -24,39 +17,25 @@ var sprinting:float = 1.0
 
 var jump_speed:float = 30.0
 
-# The current ring of the world the character is on
-#	rings start with 0
-var current_ring:int = -1
 # If the character is able to move between rings, e.g. when using a bridge
 var can_move_rings:bool = false
-var current_segment:int = -1
 
 var current_path:Array = [ ]
-
-var is_reevaluating:bool = false
 
 
 signal moved
 signal jumped
 
-signal entered_segment
-signal left_segment
-
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("entered_segment", self, "start_reevaluating")
+	connect("entered_segment", self, "update_current_path")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	move(Vector2(), delta)
-	
-	var ang = abs(ring_position / (PI / 2.0))
-	if is_reevaluating and abs(ang - round(ang)) < 0.01:
-		update_current_path()
-		is_reevaluating = false
 
 
 
@@ -79,16 +58,7 @@ func move(direction:Vector2, delta:float):
 	if not can_move_rings and not Engine.editor_hint:
 		ring_radius = clamp(ring_radius, radius_minimum, radius_minimum + ring_width * GameConstants.RING_GAP)
 	
-	
-	var new_ring:int = GameConstants.get_current_ring(ring_radius)
-	var new_segment:int = GameConstants.get_current_segment(ring_position, ring_radius)
-	
-	if not new_ring == current_ring or not new_segment == current_segment:
-		emit_signal("entered_segment", Vector2(new_ring, new_segment))
-		emit_signal("left_segment", Vector2(current_ring, current_segment))
-		
-		current_ring = new_ring
-		current_segment = new_segment
+	update_ring_vector()
 	
 	body.ring_radius = ring_radius + GameConstants.BASE_RADIUS
 	
@@ -122,10 +92,6 @@ func get_position_change(direction:Vector2) -> Vector2:
 	return Vector2(direction.x * vertical_walkspeed, direction.y * walkspeed / (ring_radius + GameConstants.BASE_RADIUS)) * sprinting
 
 
-func start_reevaluating(_new_position:Vector2):
-	#is_reevaluating = true
-	update_current_path()
-
-func update_current_path():
+func update_current_path(_new_position:Vector2):
 	pass
 

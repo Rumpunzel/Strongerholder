@@ -50,10 +50,10 @@ func build_ring(ring_number):
 		
 		add_child(new_building)
 		#-sqrt(ring_number * 40)
-		new_building.set_ring_position(Vector3(0, -pow(ring_number, 2), GameConstants.get_radius_minimum(ring_number) - BUILDING_OFFSET))
+		new_building.set_world_position(Vector3(0, -pow(ring_number, 2), GameConstants.get_radius_minimum(ring_number) - BUILDING_OFFSET))
 		new_building.rotation.y = i * (TAU * (1.0 / number_of_buildings))
 		
-		new_building.ring = ring_number
-		new_building.segment = i
+		new_building.ring_radius = ring_number
+		new_building.ring_position = i
 		
 		GameConstants.register_segment(type, ring_number, i, new_building)
