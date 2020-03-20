@@ -68,7 +68,7 @@ config/icon="res://assets/sprites/icon.png"
 
 [autoload]
 
-GameConstants="*res://GAME_CONSTANTS.gd"
+GameConstants="*res://GameConstants.tscn"
 
 [debug]
 
