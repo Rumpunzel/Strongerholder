@@ -1,3 +1,4 @@
+tool
 extends Node
 
 
@@ -18,6 +19,7 @@ func _ready():
 func done_building():
 	construct_pathfinder()
 	construct_adjanceny_matrix()
+
 
 
 func construct_pathfinder():

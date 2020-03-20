@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://GameConstants.gd" type="Script" id=1]
-[ext_resource path="res://pathfinder.gd" type="Script" id=2]
-[ext_resource path="res://ringmap.gd" type="Script" id=3]
+[ext_resource path="res://singletons/GameConstants.gd" type="Script" id=1]
+[ext_resource path="res://singletons/pathfinder.gd" type="Script" id=2]
+[ext_resource path="res://singletons/ringmap.gd" type="Script" id=3]
 
 [node name="GameConstants" type="Node"]
 script = ExtResource( 1 )
