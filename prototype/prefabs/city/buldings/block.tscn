@@ -13,7 +13,7 @@ extents = Vector3( 6, 1, 2 )
 
 [node name="fundament" type="Spatial"]
 script = ExtResource( 1 )
-ring_radius = 24.0
+ring_radius = 36.0
 highlight_material = ExtResource( 3 )
 
 [node name="building" type="Spatial" parent="."]

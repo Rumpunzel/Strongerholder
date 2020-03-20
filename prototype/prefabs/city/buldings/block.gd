@@ -13,6 +13,8 @@ onready var area = $building/area
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	yield(get_tree(), "idle_frame")
+	
 	area.connect("body_entered", self, "entered")
 	area.connect("body_exited", self, "exited")
 
