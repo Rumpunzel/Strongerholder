@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://prefabs/city/block.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/city/buldings/block.gd" type="Script" id=1]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 10, 8, 6 )
