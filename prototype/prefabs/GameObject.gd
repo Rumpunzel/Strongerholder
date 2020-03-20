@@ -38,7 +38,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	handle_highlighted()
+	pass
 
 
 
@@ -53,12 +53,6 @@ func update_ring_vector(emit_update:bool = false):
 		current_ring = new_ring
 		current_segment = new_segment
 
-
-func highlight(_sender):
-	set_highlighted(true)
-
-func unhighlight(_sender):
-	set_highlighted(false)
 
 func handle_highlighted():
 	pass
@@ -88,6 +82,7 @@ func set_world_position(new_position:Vector3):
 
 func set_highlighted(is_highlighted:bool):
 	highlighted = is_highlighted
+	handle_highlighted()
 
 
 func get_ring_radius() -> float:

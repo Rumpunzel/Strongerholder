@@ -6,6 +6,10 @@ class_name BuildingFundament
 onready var fundament = $building setget , get_fundament
 onready var area = $building/area
 
+onready var normal_color:Color = fundament.get_node("block").mesh.material.albedo_color
+
+var highlight_color:Color = Color("FFD700")
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,11 +24,17 @@ func _ready():
 
 
 
-func entered(_body):
-	pass
+func entered(body):
+	var object = body.get_parent()
+	
+	if object is Player:
+		set_highlighted(true)
 
-func exited(_body):
-	pass
+func exited(body):
+	var object = body.get_parent()
+	
+	if object is Player:
+		set_highlighted(false)
 
 
 
@@ -33,7 +43,7 @@ func calculate_distance_to_center() -> float:
 
 
 func handle_highlighted():
-	fundament.rotation.z = (PI / 2.0) if highlighted else 0.0
+	fundament.get_node("block").mesh.material.albedo_color = highlight_color if highlighted else normal_color
 
 
 

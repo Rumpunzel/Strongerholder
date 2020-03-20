@@ -12,7 +12,7 @@ extents = Vector3( 4, 1, 2 )
 
 [node name="fundament" type="Spatial"]
 script = ExtResource( 1 )
-ring_radius = 4.0
+ring_radius = 18.0
 
 [node name="building" type="Spatial" parent="."]
 
