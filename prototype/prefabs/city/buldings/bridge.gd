@@ -33,3 +33,7 @@ func exited(body):
 		characters_on_bridge.erase(object)
 	
 	.exited(body)
+
+
+func handle_highlighted():
+	pass

@@ -15,7 +15,7 @@ extents = Vector3( 5, 1.5, 11 )
 
 [node name="bridge" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-ring_radius = 58.0
+ring_radius = 64.0
 
 [node name="block" parent="building" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -10 )

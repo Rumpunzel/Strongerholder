@@ -1,18 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://prefabs/city/buldings/block.gd" type="Script" id=1]
 [ext_resource path="res://prefabs/city/buldings/fading_structure.tres" type="Material" id=2]
+[ext_resource path="res://prefabs/highlight_material.tres" type="Material" id=3]
 
 [sub_resource type="CubeMesh" id=1]
 material = ExtResource( 2 )
 size = Vector3( 10, 8, 6 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 4, 1, 2 )
+extents = Vector3( 6, 1, 2 )
 
 [node name="fundament" type="Spatial"]
 script = ExtResource( 1 )
-ring_radius = 18.0
+ring_radius = 24.0
+highlight_material = ExtResource( 3 )
 
 [node name="building" type="Spatial" parent="."]
 

@@ -3,12 +3,11 @@ extends GameObject
 class_name BuildingFundament
 
 
+export(SpatialMaterial) var highlight_material
+
+
 onready var fundament = $building setget , get_fundament
 onready var area = $building/area
-
-onready var normal_color:Color = fundament.get_node("block").mesh.material.albedo_color
-
-var highlight_color:Color = Color("FFD700")
 
 
 
@@ -43,7 +42,7 @@ func calculate_distance_to_center() -> float:
 
 
 func handle_highlighted():
-	fundament.get_node("block").mesh.material.albedo_color = highlight_color if highlighted else normal_color
+	fundament.get_node("block").material_override = highlight_material if highlighted else null
 
 
 
