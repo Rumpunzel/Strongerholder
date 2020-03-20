@@ -17,15 +17,19 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if not Engine.editor_hint and not target == Vector2() and current_path.empty():
-		update_current_path(Vector2(current_ring, current_segment))
-	
-	walking_direction = path_segments[1] - Vector2(ring_radius, ring_position)
-	
-	if walking_direction.normalized().length() <= 0.01:
-		update_current_path(Vector2(current_ring, current_segment))
-	
-	#print("walking_direction: %s" % [walking_direction])
+	if not Engine.editor_hint and not target == Vector2():
+		if current_path.empty():
+			update_current_path(Vector2(current_ring, current_segment))
+		
+		if path_segments.size() > 1:
+			walking_direction = path_segments[1] - Vector2(ring_radius, ring_position)
+			
+			if walking_direction.length() <= 0.1:
+				update_current_path(Vector2(current_ring, current_segment))
+		else:
+			walking_direction = Vector2()
+		
+		#print("walking_direction: %s" % [walking_direction])
 
 
 
@@ -40,12 +44,13 @@ func update_current_path(new_position:Vector2):
 	for segment in current_path:
 		path_segments.append(GameConstants.get_ring_position_of_object(segment))
 	
-	#print("current_path: %s\nnext_segment: %s" % [current_path, path_segments])
+	print("current_path: %s\nnext_segment: %s" % [current_path, path_segments])
 
 
 
 func set_target(new_target:Vector2):
 	target = new_target
+	update_current_path(Vector2(current_ring, current_segment))
 
 
 func get_target() -> Vector2:
