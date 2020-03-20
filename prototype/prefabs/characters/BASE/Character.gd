@@ -9,6 +9,7 @@ onready var body = $body
 var walkspeed:float = 3.0
 # Modifier to the speed when walking up or down to help the 2.5D illusion
 var vertical_walkspeed:float = 2.0
+#warning-ignore:unused_class_variable
 var sprint_modifier:float = 1.5
 
 # Multiplicative modifer to the movement speed
@@ -19,7 +20,7 @@ var jump_speed:float = 30.0
 
 # If the character is able to move between rings, e.g. when using a bridge
 var can_move_rings:bool = false
-
+#warning-ignore:unused_class_variable
 var current_path:Array = [ ]
 
 
