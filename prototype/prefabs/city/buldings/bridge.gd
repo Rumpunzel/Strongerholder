@@ -3,8 +3,7 @@ extends BuildingFundament
 class_name Bridge
 
 
-var current_bodies:Array = []
-
+var characters_on_bridge:Array = [ ]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -14,19 +13,23 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	for body in current_bodies:
-		body.can_move_rings = true
+	for character in characters_on_bridge:
+		character.can_move_rings = true
 
 
 
 func entered(body):
-	if "can_move_rings" in body.get_parent():
-		current_bodies.append(body.get_parent())
+	var object = body.get_parent()
+	
+	if object is Character and not object in characters_on_bridge:
+		characters_on_bridge.append(object)
 	
 	.entered(body)
 
 func exited(body):
-	if "can_move_rings" in body.get_parent():
-		current_bodies.erase(body.get_parent())
+	var object = body.get_parent()
+	
+	if object in characters_on_bridge:
+		characters_on_bridge.erase(object)
 	
 	.exited(body)

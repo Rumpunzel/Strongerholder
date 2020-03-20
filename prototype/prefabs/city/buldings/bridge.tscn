@@ -8,22 +8,22 @@ albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="CubeMesh" id=2]
 material = SubResource( 1 )
-size = Vector3( 12, 2.5, 16 )
+size = Vector3( 10, 2.5, 20 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 6, 1.5, 8 )
+extents = Vector3( 5, 1.5, 11 )
 
 [node name="bridge" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-ring_radius = 32.0
+ring_radius = 58.0
 
 [node name="block" parent="building" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -10 )
 mesh = SubResource( 2 )
 
 [node name="area" parent="building" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -9 )
 
 [node name="collision_shape" parent="building/area" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 3 )
