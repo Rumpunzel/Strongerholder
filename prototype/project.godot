@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "BuildingFundament",
 "class": "Bridge",
 "language": "GDScript",
-"path": "res://prefabs/bridge.gd"
+"path": "res://prefabs/city/bridge.gd"
 }, {
 "base": "GameObject",
 "class": "BuildingFundament",
 "language": "GDScript",
-"path": "res://prefabs/block.gd"
+"path": "res://prefabs/city/block.gd"
 }, {
 "base": "GameObject",
 "class": "Character",
@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/GameObject.gd"
 }, {
+"base": "Spatial",
+"class": "Hill",
+"language": "GDScript",
+"path": "res://prefabs/city/Hill.gd"
+}, {
 "base": "Character",
 "class": "NPC",
 "language": "GDScript",
@@ -38,11 +43,6 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://prefabs/characters/player/Player.gd"
-}, {
-"base": "Spatial",
-"class": "Rings",
-"language": "GDScript",
-"path": "res://prefabs/Rings.gd"
 }, {
 "base": "NPC",
 "class": "Woodsman",
@@ -54,9 +54,9 @@ _global_script_class_icons={
 "BuildingFundament": "",
 "Character": "",
 "GameObject": "",
+"Hill": "",
 "NPC": "",
 "Player": "",
-"Rings": "",
 "Woodsman": ""
 }
 

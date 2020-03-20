@@ -18,6 +18,7 @@ onready var hit_points:float = hit_points_max
 var current_ring:int = 0
 var current_segment:int = 0
 
+#warning-ignore:unused_class_variable
 var world_position:Vector3 setget set_world_position, get_world_position
 
 var hit_points_max:float = 10.0

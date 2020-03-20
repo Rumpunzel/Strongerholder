@@ -3,7 +3,7 @@ extends GameObject
 class_name BuildingFundament
 
 
-onready var body = $building setget , get_body
+onready var fundament = $building setget , get_fundament
 onready var area = $building/area
 
 
@@ -23,29 +23,29 @@ func _ready():
 func entered(_body):
 	pass
 
-func exited(body):
+func exited(_body):
 	pass
 
 
 
 func calculate_distance_to_center() -> float:
-	return body.global_transform.origin.distance_to(Vector3())
+	return fundament.global_transform.origin.distance_to(Vector3())
 
 
 func handle_highlighted():
-	body.rotation.z = (PI / 2.0) if highlighted else 0.0
+	fundament.rotation.z = (PI / 2.0) if highlighted else 0.0
 
 
 
 func set_world_position(new_position:Vector3):
-	body.global_transform.origin = new_position
+	fundament.global_transform.origin = new_position
 
 
-func get_body():
-	return body
+func get_fundament():
+	return fundament
 
 func get_ring_radius() -> float:
-	return .get_ring_radius() + Rings.BUILDING_OFFSET
+	return .get_ring_radius() + Hill.BUILDING_OFFSET
 
 func get_world_position():
-	return body.global_transform.origin
+	return fundament.global_transform.origin

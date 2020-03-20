@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://prefabs/block.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/city/block.gd" type="Script" id=1]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 10, 8, 6 )
@@ -10,7 +10,7 @@ extents = Vector3( 4, 1, 2 )
 
 [node name="fundament" type="Spatial"]
 script = ExtResource( 1 )
-ring_radius = 18.0
+ring_radius = 24.0
 
 [node name="building" type="Spatial" parent="."]
 

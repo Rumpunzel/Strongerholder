@@ -1,0 +1,21 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://prefabs/city/Hill.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/city/block.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/city/bridge.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/city/structures.gd" type="Script" id=4]
+[ext_resource path="res://prefabs/city/plateaus.gd" type="Script" id=5]
+[ext_resource path="res://prefabs/city/spire.tscn" type="PackedScene" id=6]
+
+[node name="hill" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="spire" parent="." instance=ExtResource( 6 )]
+
+[node name="structures" type="Spatial" parent="."]
+script = ExtResource( 4 )
+building_fundament = ExtResource( 2 )
+bridge = ExtResource( 3 )
+
+[node name="plateaus" type="Spatial" parent="."]
+script = ExtResource( 5 )
