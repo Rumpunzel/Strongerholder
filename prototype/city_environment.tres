@@ -1,0 +1,18 @@
+[gd_resource type="Environment" load_steps=3 format=2]
+
+[ext_resource path="res://assets/AllSkyFree_Skyboxes/Epic_GloriousPink_EquiRect.png" type="Texture" id=1]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 1 )
+
+[resource]
+background_mode = 2
+background_sky = SubResource( 1 )
+tonemap_mode = 2
+auto_exposure_enabled = true
+dof_blur_far_enabled = true
+dof_blur_far_transition = 40.0
+dof_blur_far_amount = 0.15
+dof_blur_far_quality = 2
+dof_blur_near_enabled = true
+dof_blur_near_quality = 2
