@@ -5,6 +5,7 @@ extends Node
 const BASE_RADIUS:float = 12.0
 const GROWTH_FACTOR:float = 3.0
 const RING_GAP:float = 0.7
+const ROAD_WIDTH:float = 5.0
 
 const SEGMENT_WIDTH:float = 12.0
 
@@ -14,8 +15,6 @@ const BUILDINGS = "buildings"
 const EVERYTHING = "everything"
 
 
-#warning-ignore:unused_class_variable
-var radius_minimums:Dictionary = { } setget , get_radius_minimums
 #warning-ignore:unused_class_variable
 var segments_dictionary:Dictionary = { } setget , get_segments_dictionary
 #warning-ignore:unused_class_variable
@@ -63,10 +62,6 @@ func get_radius_minimum(ring:int) -> int:
 
 func get_number_of_segments(ring:int) -> int:
 	return $ringmap.get_number_of_segments(ring)
-
-
-func get_radius_minimums() -> Dictionary:
-	return $ringmap.radius_minimums
 
 
 func get_segments_dictionary() -> Dictionary:
