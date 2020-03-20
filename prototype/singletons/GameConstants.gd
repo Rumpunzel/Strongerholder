@@ -4,8 +4,8 @@ extends Node
 
 const BASE_RADIUS:float = 12.0
 const GROWTH_FACTOR:float = 3.0
-const RING_GAP:float = 0.7
-const ROAD_WIDTH:float = 10.0
+const RING_GAP:float = 10.0
+const ROAD_WIDTH:float = 5.0
 
 const SEGMENT_WIDTH:float = 12.0
 

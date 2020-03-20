@@ -38,7 +38,7 @@ func handle_highlighted():
 
 
 func set_world_position(new_position:Vector3):
-	fundament.global_transform.origin = new_position
+	fundament.transform.origin = new_position
 
 
 func get_fundament():
