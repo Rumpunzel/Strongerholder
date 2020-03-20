@@ -44,7 +44,7 @@ func get_input():
 func handle_highlight():
 	if not Engine.editor_hint:
 		for object in highlighted_objects:
-			if world_position().distance_to(object.world_position()) < highlight_distance:
+			if world_position.distance_to(object.world_position) < highlight_distance:
 				object.highlight(self)
 			else:
 				object.unhighlight(self)
@@ -70,7 +70,7 @@ func remove_highlighted_object(new_segment:Vector2):
 		highlighted_objects.erase(object)
 
 
-func world_position():
+func get_world_position():
 	return body.global_transform.origin
 
 func update_current_path(new_position:Vector2):

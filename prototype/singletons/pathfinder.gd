@@ -32,7 +32,7 @@ func construct_pathfinder():
 		for segment in segments.keys():
 			var building = segments[segment]
 			
-			pathfinder.add_point(graph_size, building.world_position())
+			pathfinder.add_point(graph_size, building.world_position)
 			astar_nodes.append(Vector2(ring, segment))
 			
 			graph_size += 1

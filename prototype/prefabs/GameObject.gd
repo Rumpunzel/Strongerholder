@@ -18,6 +18,8 @@ onready var hit_points:float = hit_points_max
 var current_ring:int = 0
 var current_segment:int = 0
 
+var world_position:Vector3 setget set_world_position, get_world_position
+
 var hit_points_max:float = 10.0
 
 var highlighted:bool = false setget set_highlighted, get_highlighted
@@ -69,8 +71,7 @@ func damage(_sender, damage_points:float):
 
 
 
-func world_position() -> Vector3:
-	return global_transform.origin
+
 
 
 func set_ring_radius(new_radius:float):
@@ -81,6 +82,9 @@ func set_ring_position(new_position:float):
 	ring_position = new_position
 	update_ring_vector()
 
+func set_world_position(new_position:Vector3):
+	global_transform.origin = new_position
+
 func set_highlighted(is_highlighted:bool):
 	highlighted = is_highlighted
 
@@ -90,6 +94,9 @@ func get_ring_radius() -> float:
 
 func get_ring_position() -> float:
 	return ring_position
+
+func get_world_position() -> Vector3:
+	return global_transform.origin
 
 func get_highlighted() -> bool:
 	return highlighted
