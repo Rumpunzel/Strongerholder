@@ -21,19 +21,16 @@ func _ready():
 func entered(body):
 	var object = body.get_parent()
 	
-	if object is Character:# and not object in characters_on_bridge:
-		#characters_on_bridge.append(object)
+	if object is Character:
 		object.movement_limit[0] = [ ]
-		object.movement_limit[1] = [ring_position - 0.2, ring_position + 0.2]
+		object.movement_limit[1] = [ring_position - 20, ring_position + 20]
+		print(object.movement_limit)
 	
 	.entered(body)
 
 func exited(body):
 	var object = body.get_parent()
-#
-#	if object in characters_on_bridge:
-#		characters_on_bridge.erase(object)
-#
+	
 	if object is Character:
 		object.movement_limit[1] = [ ]
 		object.update_ring_vector()
