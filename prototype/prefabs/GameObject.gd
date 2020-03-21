@@ -71,11 +71,11 @@ func damage(_sender, damage_points:float):
 
 func set_ring_radius(new_radius:float):
 	ring_radius = new_radius
-	update_ring_vector()
+	call_deferred("update_ring_vector")
 
 func set_ring_position(new_position:float):
 	ring_position = new_position
-	update_ring_vector()
+	call_deferred("update_ring_vector")
 
 func set_world_position(new_position:Vector3):
 	global_transform.origin = new_position
