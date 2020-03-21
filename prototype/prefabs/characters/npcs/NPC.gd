@@ -39,14 +39,14 @@ func get_position_change(direction:Vector2) -> Vector2:
 
 func update_current_path(new_position:Vector2):
 	var current_segments:Array = [ ]
-	print(new_position)
+	
 	current_path = CityNavigator.get_shortest_path(new_position, target)
 	
 	for segment in range(1, min(3, current_path.size())):
 		current_segments.append(RingMap.get_ring_position_of_object(current_path[segment]))
 	
 	next_path_segment = current_segments[0] if not current_segments.empty() else Vector2()
-	print(current_segments)
+	
 	if current_segments.size() > 1:
 		if not next_path_segment.x == current_segments[1].x:
 			next_path_segment.y = current_segments[1].y
