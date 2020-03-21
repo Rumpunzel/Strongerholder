@@ -12,6 +12,8 @@ var vertical_walkspeed:float = 2.0
 #warning-ignore:unused_class_variable
 var sprint_modifier:float = 1.5
 
+var walking_direction:Vector2 = Vector2()
+
 # Multiplicative modifer to the movement speed
 #	is equal to 1.0 if the character is walking normal
 var sprinting:float = 1.0
@@ -36,7 +38,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	move(Vector2(), delta)
+	move(walking_direction, delta)
 
 
 

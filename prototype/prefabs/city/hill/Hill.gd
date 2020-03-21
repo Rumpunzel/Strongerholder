@@ -5,7 +5,7 @@ class_name Hill
 
 const BUILDING_SLOPE:float = 2.0
 
-const NUMBER_OF_RINGS:int = 3
+const NUMBER_OF_RINGS:int = 10
 
 
 

@@ -6,7 +6,6 @@ class_name NPC
 var target:Vector2 = Vector2() setget set_target, get_target
 
 var next_path_segment:Vector2 = Vector2()
-var walking_direction:Vector2 = Vector2()
 
 
 
@@ -35,9 +34,6 @@ func _process(_delta):
 			#print("walking_direction: %s" % [walking_direction])
 
 
-
-func get_position_change(direction:Vector2) -> Vector2:
-	return .get_position_change(walking_direction + direction)
 
 func update_current_path(new_position:Vector2):
 	var current_segments:Array = [ ]
