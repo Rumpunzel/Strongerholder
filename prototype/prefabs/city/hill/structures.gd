@@ -15,11 +15,6 @@ func _ready():
 	RingMap.done_building()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
 
 func construct_ring(ring_number):
 	var number_of_buildings:int = RingMap.get_number_of_segments(ring_number)
@@ -67,5 +62,7 @@ func biggest_factor(number:int, upper_limit:int = -1, lower_limit:int = 2) -> in
 	for i in range(lower_limit, upper_limit + 1):
 		if number % i == 0:
 			big_fac = i
+			
 	print("the biggest factor for %d is: %d" % [number, big_fac])
+	
 	return big_fac
