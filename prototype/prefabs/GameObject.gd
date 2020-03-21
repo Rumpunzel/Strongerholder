@@ -7,7 +7,7 @@ class_name GameObject
 #	ring_radius, meaning how far the character is from the centre Vector3(0, 0, 0) and
 #	ring_position, meaning the angle (in degrees) of the character when rotated around the centre Vector3(0, 0, 0)
 export(float, 0, 128, 0.5) var ring_radius:float = 0.0 setget set_ring_radius, get_ring_radius
-export(float, 0, 6.3, 0.1) var ring_position:float = 0.0 setget set_ring_position, get_ring_position
+export(float, -6.3, 6.3, 0.1) var ring_position:float = 0.0 setget set_ring_position, get_ring_position
 
 
 onready var hit_points:float = hit_points_max
@@ -49,9 +49,18 @@ func update_ring_vector(emit_update:bool = false):
 	if emit_update or not new_ring == current_ring or not new_segment == current_segment:
 		emit_signal("entered_segment", Vector2(new_ring, new_segment))
 		emit_signal("left_segment", Vector2(current_ring, current_segment))
-		
-		current_ring = new_ring
-		current_segment = new_segment
+	
+	current_ring = new_ring
+	current_segment = (new_segment + RingMap.get_number_of_segments(current_ring)) % RingMap.get_number_of_segments(current_ring)
+
+func modulo_ring_vector(ring_vector:Vector2) -> Vector2:
+	while ring_vector.y > PI:
+		ring_vector.y -= TAU
+	
+	while ring_vector.y < -PI:
+		ring_vector.y += TAU
+	
+	return ring_vector
 
 
 func handle_highlighted():
@@ -63,9 +72,6 @@ func interact(_sender, _action):
 
 func damage(_sender, damage_points:float):
 	hit_points -= damage_points
-
-
-
 
 
 
