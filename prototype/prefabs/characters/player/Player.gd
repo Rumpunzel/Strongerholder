@@ -20,24 +20,23 @@ func _process(_delta):
 	get_input()
 
 
-
-func get_input():
-	sprinting = sprint_modifier if Input.is_action_pressed("sprint") else 1.0
-	
-	if Input.is_action_just_pressed("jump"):
+func _unhandled_input(event):
+	if event.is_action_pressed("jump"):
 		jump()
-	
-	if Input.is_action_just_released("jump"):
+		get_tree().set_input_as_handled()
+	elif event.is_action_released("jump"):
 		body.jump()
-		
+		get_tree().set_input_as_handled()
 		emit_signal("stopped_jumping")
 
 
-func get_position_change(direction:Vector2) -> Vector2:
-	direction.x = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	direction.y = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+
+func get_input():
+	walking_direction.x = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	walking_direction.y = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	
-	return .get_position_change(direction)
+	sprinting = sprint_modifier if Input.is_action_pressed("sprint") else 1.0
+
 
 
 func get_world_position():
