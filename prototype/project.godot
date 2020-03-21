@@ -179,4 +179,4 @@ name_casing=2
 
 quality/subsurface_scattering/quality=2
 quality/filters/msaa=4
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://assets/default_env.tres"
