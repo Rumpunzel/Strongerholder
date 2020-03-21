@@ -24,17 +24,19 @@ func _ready():
 func construct_ring(ring_number):
 	var number_of_buildings:int = RingMap.get_number_of_segments(ring_number)
 	var number_of_bridges:int = biggest_factor(number_of_buildings, int((number_of_buildings - 1) / 2.0))
-	print("bridges on ring %d: %d" % [ring_number, number_of_bridges])
+	
 	for i in range(number_of_buildings):
 		var new_building
 		var type
 		
 		if ring_number > 0 and i % number_of_bridges == 0:
 			new_building = bridge.instance()
+			new_building.name = "[bridge]"
 			
 			type = RingMap.BRIDGES
 		else:
 			new_building = building_fundament.instance()
+			new_building.name = "[building]"
 			
 			type = RingMap.BUILDINGS
 		
@@ -48,6 +50,8 @@ func construct_ring(ring_number):
 		
 		new_building.ring_radius = ring_radius
 		new_building.ring_position = ring_position
+		
+		new_building.name += "[%s, %s]" % [ring_number, i]
 		
 		RingMap.register_segment(type, ring_number, i, new_building)
 	

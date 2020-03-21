@@ -27,6 +27,13 @@ func _ready():
 #	pass
 
 
+func _unhandled_input(event):
+	if highlighted:
+		if event.is_action_pressed("interact"):
+			print(name)
+			get_tree().set_input_as_handled()
+
+
 
 func entered(body):
 	var object = body.get_parent()
