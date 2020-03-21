@@ -84,7 +84,7 @@ func get_radius_minimum(ring:int) -> int:
 	var radius = radius_minimums.get(ring)
 	
 	if radius == null:
-		radius = int(GameConstants.BASE_RADIUS + (ring * GameConstants.GROWTH_FACTOR * GameConstants.BASE_RADIUS))
+		radius = int(GameConstants.BASE_RADIUS + (ring * GameConstants.RING_WIDTH))
 		radius_minimums[ring] = radius
 		print("new radius for %d: %d" % [ring, radius])
 	

@@ -42,7 +42,7 @@ func _process(delta):
 
 func move(direction:Vector2, delta:float):
 	var radius_minimum = GameConstants.get_radius_minimum(current_ring) - GameConstants.BASE_RADIUS
-	var ring_width = GameConstants.get_ring_width() - GameConstants.RING_GAP
+	var ring_width = GameConstants.RING_WIDTH - GameConstants.RING_GAP
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
 	ring_position += get_position_change(direction).y * delta

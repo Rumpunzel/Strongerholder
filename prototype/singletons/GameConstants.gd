@@ -3,10 +3,9 @@ extends Node
 
 
 const BASE_RADIUS:float = 12.0
-const GROWTH_FACTOR:float = 2.0
-const RING_GAP:float = 12.0
+const RING_GAP:float = 8.0
 const ROAD_WIDTH:float = 3.0
-
+const RING_WIDTH:float = 15.0
 const SEGMENT_WIDTH:float = 12.0
 
 const EMPTY = "empty"
@@ -79,9 +78,3 @@ func get_search_dictionary() -> Dictionary:
 
 func get_shortest_path(from:Vector2, to:Vector2) -> Array:
 	return pathfinder.get_shortest_path(from, to)
-
-
-# The width of a ring in world distance
-#	the world is organized in concetric rings around the centre and traveling from ring to ring is only possible in special cases
-func get_ring_width() -> float:
-	return GameConstants.GROWTH_FACTOR * GameConstants.SEGMENT_WIDTH
