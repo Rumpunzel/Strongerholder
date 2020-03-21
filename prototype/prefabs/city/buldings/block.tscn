@@ -9,7 +9,7 @@ material = ExtResource( 2 )
 size = Vector3( 10, 8, 6 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 6, 1, 2 )
+extents = Vector3( 6, 4, 1.5 )
 
 [node name="fundament" type="Spatial"]
 script = ExtResource( 1 )
@@ -24,7 +24,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="area" type="Area" parent="building"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1.5 )
 
 [node name="collision_shape" type="CollisionShape" parent="building/area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 shape = SubResource( 2 )
