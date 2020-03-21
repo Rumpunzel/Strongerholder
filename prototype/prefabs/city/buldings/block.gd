@@ -62,11 +62,10 @@ func set_world_position(new_position:Vector3):
 	fundament.transform.origin = new_position + BUILDING_OFFSET * Vector3.FORWARD
 
 
+
 func get_fundament():
 	return fundament
 
-func get_ring_radius() -> float:
-	return .get_ring_radius()
 
 func get_world_position():
 	return fundament.global_transform.origin - BUILDING_OFFSET * Vector3.FORWARD
