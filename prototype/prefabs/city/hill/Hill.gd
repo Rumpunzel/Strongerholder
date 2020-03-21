@@ -22,4 +22,4 @@ func _ready():
 
 
 static func get_ring_height(ring_number:int) -> float:
-	return -sqrt(ring_number * 50.0)
+	return -ring_number * 3.0
