@@ -47,8 +47,7 @@ func move(direction:Vector2, delta:float):
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
 	ring_position += get_position_change(direction).y * delta
 	
-	while ring_position < 0:
-		ring_position += TAU
+	ring_position = modulo_ring_vector(Vector2(0, ring_position)).y
 	
 	rotation.y = ring_position
 	

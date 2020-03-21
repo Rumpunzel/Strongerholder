@@ -84,13 +84,13 @@ func get_current_ring(ring_radius:float, without_base_radius:bool = true) -> int
 	return ring
 
 
-func get_current_segment(ring_position:float, ring_radius:float, without_base_radius:bool = true) -> int:
+func get_current_segment(ring_radius:float, ring_position:float, without_base_radius:bool = true) -> int:
 	var current_ring = get_current_ring(ring_radius, without_base_radius)
 	var total_segments = get_number_of_segments(current_ring)
 	
 	var segment = ((ring_position + PI / total_segments) / TAU) * total_segments
 	
-	return int(segment) % total_segments
+	return int(segment + total_segments) % total_segments
 
 
 # The minum radius in world distance something can travel towards the centre Vector3(0, 0, 0)

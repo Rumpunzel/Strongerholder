@@ -44,14 +44,14 @@ func _process(_delta):
 
 func update_ring_vector(emit_update:bool = false):
 	var new_ring:int = RingMap.get_current_ring(ring_radius)
-	var new_segment:int = RingMap.get_current_segment(ring_position, ring_radius)
+	var new_segment:int = RingMap.get_current_segment(ring_radius, ring_position)
 	
 	if emit_update or not new_ring == current_ring or not new_segment == current_segment:
 		emit_signal("entered_segment", Vector2(new_ring, new_segment))
 		emit_signal("left_segment", Vector2(current_ring, current_segment))
 	
 	current_ring = new_ring
-	current_segment = (new_segment + RingMap.get_number_of_segments(current_ring)) % RingMap.get_number_of_segments(current_ring)
+	current_segment = new_segment
 
 func modulo_ring_vector(ring_vector:Vector2) -> Vector2:
 	while ring_vector.y > PI:
