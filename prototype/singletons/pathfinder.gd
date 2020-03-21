@@ -56,7 +56,8 @@ func connect_nodes(rings:Dictionary):
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 				
 			for bridge in bridges.get(ring + 1, { }).keys():
-				if abs(segment - (bridge / float(GameConstants.get_number_of_segments(ring + 1))) * GameConstants.get_number_of_segments(ring)) <= 0.6:
+				#print(abs(segment - (bridge / float(GameConstants.get_number_of_segments(ring + 1))) * GameConstants.get_number_of_segments(ring)))
+				if abs(segment - (bridge / float(GameConstants.get_number_of_segments(ring + 1))) * GameConstants.get_number_of_segments(ring)) <= 0.5:
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
 
 

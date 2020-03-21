@@ -5,7 +5,7 @@ class_name NPC
 
 var target:Vector2 = Vector2() setget set_target, get_target
 
-var path_segments:Array = [ ]
+var next_path_segment:Vector2 = Vector2()
 var walking_direction:Vector2 = Vector2()
 
 
@@ -21,15 +21,15 @@ func _process(_delta):
 		if current_path.empty():
 			update_current_path(Vector2(current_ring, current_segment))
 		
-		if path_segments.size() > 1:
-			walking_direction = path_segments[1] - Vector2(ring_radius, ring_position)
+		if not next_path_segment == Vector2():
+			walking_direction = next_path_segment - Vector2(ring_radius, ring_position)
 			
 			if walking_direction.length() <= 0.1:
 				update_current_path(Vector2(current_ring, current_segment))
 		else:
 			walking_direction = Vector2()
 		
-		#print("walking_direction: %s" % [walking_direction])
+		print("walking_direction: %s" % [walking_direction])
 
 
 
@@ -39,12 +39,10 @@ func get_position_change(direction:Vector2) -> Vector2:
 func update_current_path(new_position:Vector2):
 	current_path = GameConstants.get_shortest_path(new_position, target)
 	
-	path_segments = [ ]
-	
 	for segment in current_path:
-		path_segments.append(GameConstants.get_ring_position_of_object(segment))
+		next_path_segment = GameConstants.get_ring_position_of_object(segment)
 	
-	print("current_path: %s\nnext_segment: %s" % [current_path, path_segments])
+	print("current_path: %s\nnext_segment: %s" % [current_path, next_path_segment])
 
 
 
