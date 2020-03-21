@@ -3,10 +3,9 @@ extends Spatial
 class_name Hill
 
 
-const BUILDING_OFFSET:float = 2.0
 const BUILDING_SLOPE:float = 2.0
 
-const NUMBER_OF_RINGS:int = 10
+const NUMBER_OF_RINGS:int = 3
 
 
 

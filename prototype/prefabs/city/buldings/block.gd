@@ -3,6 +3,9 @@ extends GameObject
 class_name BuildingFundament
 
 
+const BUILDING_OFFSET:float = 2.0
+
+
 export(SpatialMaterial) var highlight_material
 
 
@@ -49,14 +52,14 @@ func handle_highlighted():
 
 
 func set_world_position(new_position:Vector3):
-	fundament.transform.origin = new_position
+	fundament.transform.origin = new_position + BUILDING_OFFSET * Vector3.FORWARD
 
 
 func get_fundament():
 	return fundament
 
 func get_ring_radius() -> float:
-	return .get_ring_radius() + Hill.BUILDING_OFFSET
+	return .get_ring_radius()
 
 func get_world_position():
-	return fundament.global_transform.origin
+	return fundament.global_transform.origin - BUILDING_OFFSET * Vector3.FORWARD
