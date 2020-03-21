@@ -2,6 +2,19 @@ tool
 extends Node
 
 
+const BASE_RADIUS:float = 12.0
+const RING_GAP:float = 8.0
+const ROAD_WIDTH:float = 3.0
+const RING_WIDTH:float = 15.0
+const SEGMENT_WIDTH:float = 12.0
+
+
+const EMPTY = "empty"
+const BRIDGES = "bridges"
+const BUILDINGS = "buildings"
+const EVERYTHING = "everything"
+
+
 var radius_minimums:Dictionary = { }
 
 var segments_dictionary:Dictionary = { }
@@ -22,6 +35,7 @@ func _ready():
 
 func done_building():
 	construct_search_dictionary()
+	CityNavigator.done_building()
 
 
 
@@ -40,10 +54,10 @@ func register_segment(type:String, ring:int, segment:int, object):
 	segments_dictionary[type][ring][segment] = object
 
 
-func get_object_at_position(position:Vector2, from:String = GameConstants.EVERYTHING):
+func get_object_at_position(position:Vector2, from:String = EVERYTHING):
 	var search_through:Dictionary = { }
 	
-	if not from == GameConstants.EVERYTHING:
+	if not from == EVERYTHING:
 		search_dictionary = segments_dictionary[from]
 	else:
 		search_through = search_dictionary
@@ -54,7 +68,7 @@ func get_object_at_position(position:Vector2, from:String = GameConstants.EVERYT
 func get_ring_position_of_object(segment:Vector2) -> Vector2:
 	var object = search_dictionary.get(int(segment.x), { }).get(int(segment.y), null)
 	
-	return Vector2(object.ring_radius - GameConstants.BASE_RADIUS, object.ring_position) if not object == null and object is GameObject else Vector2()
+	return Vector2(object.ring_radius - BASE_RADIUS, object.ring_position) if not object == null and object is GameObject else Vector2()
 
 
 # Recalculation of the current ring the character is on
@@ -62,7 +76,7 @@ func get_current_ring(ring_radius:float, without_base_radius:bool = true) -> int
 	var ring:int = 0
 	
 	if without_base_radius:
-		ring_radius += GameConstants.BASE_RADIUS
+		ring_radius += BASE_RADIUS
 	
 	while ring_radius >= get_radius_minimum(ring + 1):
 		ring += 1
@@ -84,7 +98,7 @@ func get_radius_minimum(ring:int) -> int:
 	var radius = radius_minimums.get(ring)
 	
 	if radius == null:
-		radius = int(GameConstants.BASE_RADIUS + (ring * GameConstants.RING_WIDTH))
+		radius = int(BASE_RADIUS + (ring * RING_WIDTH))
 		radius_minimums[ring] = radius
 		print("new radius for %d: %d" % [ring, radius])
 	
@@ -92,4 +106,4 @@ func get_radius_minimum(ring:int) -> int:
 
 
 func get_number_of_segments(ring:int) -> int:
-	return int((get_radius_minimum(ring) * 4) / GameConstants.SEGMENT_WIDTH)
+	return int((get_radius_minimum(ring) * 4) / SEGMENT_WIDTH)

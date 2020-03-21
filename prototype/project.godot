@@ -68,7 +68,9 @@ config/icon="res://assets/sprites/icon.png"
 
 [autoload]
 
-GameConstants="*res://singletons/GameConstants.tscn"
+GameConstants="*res://singletons/GameConstants.gd"
+RingMap="*res://singletons/RingMap.gd"
+CityNavigator="*res://singletons/CityNavigator.gd"
 
 [debug]
 

@@ -37,10 +37,10 @@ func get_position_change(direction:Vector2) -> Vector2:
 	return .get_position_change(walking_direction + direction)
 
 func update_current_path(new_position:Vector2):
-	current_path = GameConstants.get_shortest_path(new_position, target)
+	current_path = CityNavigator.get_shortest_path(new_position, target)
 	
 	for segment in current_path:
-		next_path_segment = GameConstants.get_ring_position_of_object(segment)
+		next_path_segment = RingMap.get_ring_position_of_object(segment)
 	
 	print("current_path: %s\nnext_segment: %s" % [current_path, next_path_segment])
 

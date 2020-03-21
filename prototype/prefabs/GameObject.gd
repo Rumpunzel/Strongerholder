@@ -43,8 +43,8 @@ func _process(_delta):
 
 
 func update_ring_vector(emit_update:bool = false):
-	var new_ring:int = GameConstants.get_current_ring(ring_radius)
-	var new_segment:int = GameConstants.get_current_segment(ring_position, ring_radius)
+	var new_ring:int = RingMap.get_current_ring(ring_radius)
+	var new_segment:int = RingMap.get_current_segment(ring_position, ring_radius)
 	
 	if emit_update or not new_ring == current_ring or not new_segment == current_segment:
 		emit_signal("entered_segment", Vector2(new_ring, new_segment))
@@ -71,11 +71,11 @@ func damage(_sender, damage_points:float):
 
 func set_ring_radius(new_radius:float):
 	ring_radius = new_radius
-	call_deferred("update_ring_vector")
+	update_ring_vector()
 
 func set_ring_position(new_position:float):
 	ring_position = new_position
-	call_deferred("update_ring_vector")
+	update_ring_vector()
 
 func set_world_position(new_position:Vector3):
 	global_transform.origin = new_position

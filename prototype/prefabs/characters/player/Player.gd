@@ -44,4 +44,4 @@ func get_world_position():
 	return body.global_transform.origin
 
 func update_current_path(new_position:Vector2):
-	print("player path: %s" % [GameConstants.get_shortest_path(new_position, Vector2(2, 11))])
+	print("player path: %s" % [CityNavigator.get_shortest_path(new_position, Vector2(2, 11))])

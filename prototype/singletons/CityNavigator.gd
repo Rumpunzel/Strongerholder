@@ -23,7 +23,7 @@ func done_building():
 
 
 func construct_pathfinder():
-	var rings = GameConstants.search_dictionary
+	var rings = RingMap.search_dictionary
 	
 	construct_graph(rings)
 	connect_nodes(rings)
@@ -45,7 +45,7 @@ func construct_graph(rings:Dictionary):
 	
 	
 func connect_nodes(rings:Dictionary):
-	var bridges:Dictionary = GameConstants.segments_dictionary[GameConstants.BRIDGES]
+	var bridges:Dictionary = RingMap.segments_dictionary[RingMap.BRIDGES]
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
@@ -56,8 +56,7 @@ func connect_nodes(rings:Dictionary):
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 				
 			for bridge in bridges.get(ring + 1, { }).keys():
-				#print(abs(segment - (bridge / float(GameConstants.get_number_of_segments(ring + 1))) * GameConstants.get_number_of_segments(ring)))
-				if abs(segment - (bridge / float(GameConstants.get_number_of_segments(ring + 1))) * GameConstants.get_number_of_segments(ring)) <= 0.5:
+				if abs(segment - (bridge / float(RingMap.get_number_of_segments(ring + 1))) * RingMap.get_number_of_segments(ring)) <= 0.5:
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
 
 
@@ -79,7 +78,7 @@ func get_shortest_path(from:Vector2, to:Vector2) -> Array:
 
 
 func construct_adjanceny_matrix():
-	var bridges:Dictionary = GameConstants.segments_dictionary[GameConstants.BRIDGES]
+	var bridges:Dictionary = RingMap.segments_dictionary[RingMap.BRIDGES]
 	
 	for ring in bridges.keys():
 		for segment in bridges[ring].keys():
@@ -92,10 +91,10 @@ func construct_adjanceny_matrix():
 					var ring_distance = abs(ring_connection - ring)
 					
 					var segment_distance = abs(segment_connection - segment)
-					segment_distance = (segment_distance % int(GameConstants.get_number_of_segments(ring) / 2.0)) if segment_distance > GameConstants.get_number_of_segments(ring) / 2.0 else segment_distance
+					segment_distance = (segment_distance % int(RingMap.get_number_of_segments(ring) / 2.0)) if segment_distance > RingMap.get_number_of_segments(ring) / 2.0 else segment_distance
 					
 					if ring_distance <= 1:
-						adjacency_matrix[start][end] = segment_distance + ring_distance * (GameConstants.get_ring_width() / GameConstants.SEGMENT_WIDTH)
+						adjacency_matrix[start][end] = segment_distance + ring_distance * (RingMap.get_ring_width() / RingMap.SEGMENT_WIDTH)
 	
 	print_adjacency_matrix()
 

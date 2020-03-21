@@ -41,8 +41,8 @@ func _process(delta):
 
 
 func move(direction:Vector2, delta:float):
-	var radius_minimum = GameConstants.get_radius_minimum(current_ring) - GameConstants.BASE_RADIUS
-	var ring_width = GameConstants.RING_WIDTH - GameConstants.RING_GAP
+	var radius_minimum = RingMap.get_radius_minimum(current_ring) - RingMap.BASE_RADIUS
+	var ring_width = RingMap.RING_WIDTH - RingMap.RING_GAP
 	
 	# Called with the paramter 0 as the according function needs to be implemented by child classes
 	ring_position += get_position_change(direction).y * delta
@@ -61,14 +61,14 @@ func move(direction:Vector2, delta:float):
 	
 	update_ring_vector()
 	
-	body.ring_radius = ring_radius + GameConstants.BASE_RADIUS
+	body.ring_radius = ring_radius + RingMap.BASE_RADIUS
 	
 	# The position in the world can be displayed with a Vector2
 	#	with the x-axis being the ring_position and
 	#	with the y-axis being the ring_radius
-	emit_signal("moved", Vector2(ring_position, ring_radius + GameConstants.BASE_RADIUS))
+	emit_signal("moved", Vector2(ring_position, ring_radius + RingMap.BASE_RADIUS))
 	
-	radius_minimum = GameConstants.get_radius_minimum(current_ring) - GameConstants.BASE_RADIUS
+	radius_minimum = RingMap.get_radius_minimum(current_ring) - RingMap.BASE_RADIUS
 	
 	if ring_radius > radius_minimum and ring_radius < radius_minimum + ring_width:
 		can_move_rings = false
@@ -90,7 +90,7 @@ func get_position_change(direction:Vector2) -> Vector2:
 	else:
 		direction = Vector2()
 	
-	return Vector2(direction.x * vertical_walkspeed, direction.y * walkspeed / (ring_radius + GameConstants.BASE_RADIUS)) * sprinting
+	return Vector2(direction.x * vertical_walkspeed, direction.y * walkspeed / (ring_radius + RingMap.BASE_RADIUS)) * sprinting
 
 
 func update_current_path(_new_position:Vector2):
