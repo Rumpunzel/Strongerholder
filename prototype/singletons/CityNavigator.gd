@@ -51,11 +51,15 @@ func connect_nodes(rings:Dictionary):
 		var segments = rings[ring]
 		
 		for segment in segments.keys():
-			for building in segments.keys():
+			var seg_size = segments.size()
+			
+			for building in range(segment, seg_size + 1):
 				if abs(segment - building) == 1:
+					building %= seg_size
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
-				
-			for bridge in bridges.get(ring + 1, { }).keys():
+		
+		for bridge in bridges.get(ring + 1, { }).keys():
+			for segment in segments.keys():
 				if abs(segment - (bridge / float(RingMap.get_number_of_segments(ring + 1))) * RingMap.get_number_of_segments(ring)) <= 0.5:
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
 
