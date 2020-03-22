@@ -13,9 +13,9 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0
 script = null
 
 [node name="camera" type="Camera" parent="body" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 7 )
 environment = ExtResource( 4 )
-fov = 120.0
+fov = 90.0
 size = 15.0
 far = 8192.0
 script = ExtResource( 3 )

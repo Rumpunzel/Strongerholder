@@ -3,9 +3,9 @@ extends Node
 
 
 const BASE_RADIUS:float = 12.0
-const RING_GAP:float = 16.0
-const ROAD_WIDTH:float = 3.0
-const RING_WIDTH:float = 30.0
+const RING_GAP:float = 4.0
+const ROAD_WIDTH:float = 8.0
+const RING_WIDTH:float = 32.0
 const SEGMENT_WIDTH:float = 12.0
 
 
@@ -17,6 +17,7 @@ const EVERYTHING = "everything"
 
 
 var radius_minimums:Dictionary = { }
+var radius_maximums:Dictionary = { }
 
 var segments_dictionary:Dictionary = { }
 var search_dictionary:Dictionary = { }
@@ -94,14 +95,26 @@ func get_current_segment(ring_radius:float, ring_position:float, without_base_ra
 	return int(segment + total_segments) % total_segments
 
 
-# The minum radius in world distance something can travel towards the centre Vector3(0, 0, 0)
+# The minimum radius in world distance something can travel towards the centre Vector3(0, 0, 0)
 func get_radius_minimum(ring:int) -> int:
 	var radius = radius_minimums.get(ring)
 	
 	if radius == null:
 		radius = int(BASE_RADIUS + (ring * RING_WIDTH))
 		radius_minimums[ring] = radius
-		print("new radius for %d: %d" % [ring, radius])
+		print("new min radius for %d: %d" % [ring, radius])
+	
+	return radius
+
+
+# The maximum radius in world distance something can travel towards the centre Vector3(0, 0, 0)
+func get_radius_maximum(ring:int) -> int:
+	var radius = radius_maximums.get(ring)
+	
+	if radius == null:
+		radius = int(BASE_RADIUS + (ring * RING_WIDTH) + ROAD_WIDTH)
+		radius_maximums[ring] = radius
+		print("new max radius for %d: %d" % [ring, radius])
 	
 	return radius
 

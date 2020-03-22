@@ -1,22 +1,30 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://prefabs/city/buldings/block.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/city/buldings/bridge.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/city/buldings/debug_meshes/bridge.tres" type="CubeMesh" id=3]
 
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -5, 1.25, 11, 5, 1.25, 11, -5, -1.25, 11, 5, 1.25, 11, 5, -1.25, 11, -5, -1.25, 11, 5, 1.25, -11, -5, 1.25, -11, 5, -1.25, -11, -5, 1.25, -11, -5, -1.25, -11, 5, -1.25, -11, 5, 1.25, 11, 5, 1.25, -11, 5, -1.25, 11, 5, 1.25, -11, 5, -1.25, -11, 5, -1.25, 11, -5, 1.25, -11, -5, 1.25, 11, -5, -1.25, -11, -5, 1.25, 11, -5, -1.25, 11, -5, -1.25, -11, 5, 1.25, 11, -5, 1.25, 11, 5, 1.25, -11, -5, 1.25, 11, -5, 1.25, -11, 5, 1.25, -11, -5, -1.25, 11, 5, -1.25, 11, -5, -1.25, -11, 5, -1.25, 11, 5, -1.25, -11, -5, -1.25, -11 )
+
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 5, 1.5, 11 )
+extents = Vector3( 4, 3, 13 )
 
 [node name="bridge" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 ring_radius = 64.0
 
 [node name="block" parent="building" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -10 )
+transform = Transform( 1, 0, 0, 0, 0.927184, 0.374607, 0, -0.374607, 0.927184, 0, -5, -9.7 )
 mesh = ExtResource( 3 )
 
+[node name="static_body" type="StaticBody" parent="building/block" index="0"]
+
+[node name="collision_shape" type="CollisionShape" parent="building/block/static_body" index="0"]
+shape = SubResource( 2 )
+
 [node name="area" parent="building" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -9 )
+transform = Transform( 1, 0, 0, 0, 0.920505, 0.390731, 0, -0.390731, 0.920505, 0, -5.5, -8.7 )
 
 [node name="collision_shape" parent="building/area" index="0"]
 shape = SubResource( 1 )

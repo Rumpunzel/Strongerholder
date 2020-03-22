@@ -26,20 +26,21 @@ func build_everything():
 
 
 func build_plateau(ring_number):
-	var new_plateau = MeshInstance.new()
-	var new_cylinder = CylinderMesh.new()
-	var bottom_radius = RingMap.get_radius_minimum(ring_number)
-	var height = Hill.get_ring_height(ring_number + 1) - Hill.get_ring_height(ring_number)
+	var new_plateau = CSGPolygon.new()
+	var inner_radius = RingMap.get_radius_minimum(ring_number) - RingMap.RING_GAP
+	var outer_radius = RingMap.get_radius_maximum(ring_number) + 1
+	var height = Hill.get_ring_height(ring_number)
 	
 	add_child(new_plateau)
 	
 	new_plateau.name = "plateau_%2d" % [ring_number]
-	new_plateau.global_transform.origin.y = Hill.get_ring_height(ring_number + 1) - height * 0.5
+	#new_plateau.global_transform.origin.y = Hill.get_ring_height(ring_number + 1) - height * 0.5
 	
-	new_cylinder.top_radius = bottom_radius + (RingMap.get_radius_minimum(ring_number) - RingMap.get_radius_minimum(ring_number - 1)) - RingMap.RING_GAP
-	new_cylinder.bottom_radius = bottom_radius + RingMap.ROAD_WIDTH
-	new_cylinder.height = height
-	new_cylinder.flip_faces = true
+	new_plateau.polygon[0] = Vector2(inner_radius, -32)
+	new_plateau.polygon[1] = Vector2(inner_radius, height)
+	new_plateau.polygon[2] = Vector2(outer_radius, height)
+	new_plateau.polygon[3] = Vector2(outer_radius, -32)
 	
-	new_plateau.mesh = new_cylinder
-	new_plateau.create_trimesh_collision()
+	new_plateau.mode = CSGPolygon.MODE_SPIN
+	new_plateau.spin_sides = 32
+	new_plateau.use_collision = true
