@@ -10,7 +10,7 @@ var walkspeed:float = 3.0
 # Modifier to the speed when walking up or down to help the 2.5D illusion
 var vertical_walkspeed:float = 2.0
 #warning-ignore:unused_class_variable
-var sprint_modifier:float = 1.5
+var sprint_modifier:float = 2.5
 
 var walking_direction:Vector2 = Vector2()
 
@@ -95,9 +95,9 @@ func get_position_change(direction:Vector2) -> Vector2:
 
 func update_movement_limit(new_position:Vector2):
 	var radius_minimum = RingMap.get_radius_minimum(int(new_position.x)) - RingMap.BASE_RADIUS
-	var ring_width = RingMap.RING_WIDTH - RingMap.RING_GAP
+	var radius_maximum = RingMap.get_radius_maximum(int(new_position.x)) - RingMap.BASE_RADIUS
 
-	movement_limit[0] = [radius_minimum, radius_minimum + ring_width]
+	movement_limit[0] = [radius_minimum, radius_maximum]
 	movement_limit[1] = [ ]
 
 
