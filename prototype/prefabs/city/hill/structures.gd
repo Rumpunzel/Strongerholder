@@ -1,18 +1,45 @@
+tool
 extends Spatial
 
 
+export(PackedScene) var base
 export(PackedScene) var building_fundament
 export(PackedScene) var bridge
 
 
+var built:bool = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for i in range(Hill.NUMBER_OF_RINGS):
+	if not Engine.editor_hint:
+		build_everything()
+
+
+func _process(_delta):
+	if Engine.editor_hint and not built:
+		build_everything()
+
+
+
+func build_everything():
+	var new_base = base.instance()
+	
+	add_child(new_base)
+	
+	new_base.ring_radius = 0
+	new_base.ring_position = 0
+	
+	new_base.name = "[base][%s, %s]" % [0, 0]
+	
+	RingMap.register_segment(RingMap.BASE, 0, 0, new_base)
+	
+	for i in range(Hill.FIRST_STRUCTURE_RING, Hill.NUMBER_OF_RINGS):
 		construct_ring(i)
 	
+	built = true
+	
 	RingMap.done_building()
-
 
 
 func construct_ring(ring_number):
@@ -23,7 +50,7 @@ func construct_ring(ring_number):
 		var new_building
 		var type
 		
-		if ring_number > 0 and i % number_of_bridges == 0:
+		if i % number_of_bridges == 0:
 			new_building = bridge.instance()
 			new_building.name = "[bridge]"
 			

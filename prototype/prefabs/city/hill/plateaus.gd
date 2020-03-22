@@ -2,22 +2,27 @@ tool
 extends Spatial
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var built:bool = false
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if not Engine.editor_hint:
+		build_everything()
+
+
+func _process(_delta):
+	if Engine.editor_hint and not built:
+		build_everything()
+
+
+
+func build_everything():
 	for i in range(Hill.NUMBER_OF_RINGS):
 		build_plateau(i)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+	
+	built = true
 
 
 func build_plateau(ring_number):
