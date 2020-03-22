@@ -90,7 +90,7 @@ func get_position_change(direction:Vector2) -> Vector2:
 	else:
 		direction = Vector2()
 	
-	return Vector2(direction.x * vertical_walkspeed, direction.y * walkspeed / (ring_radius + RingMap.BASE_RADIUS)) * sprinting
+	return Vector2(direction.x * vertical_walkspeed, direction.y * walkspeed / max(1, ring_radius + RingMap.BASE_RADIUS)) * sprinting
 
 
 func update_movement_limit(new_position:Vector2):

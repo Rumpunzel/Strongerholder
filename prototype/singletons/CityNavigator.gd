@@ -54,7 +54,7 @@ func connect_nodes(rings:Dictionary):
 			var seg_size = segments.size()
 			
 			for building in range(segment, seg_size + 1):
-				if abs(segment - building) == 1:
+				if abs(segment - building) == 1 and not segment == (building % seg_size):
 					building %= seg_size
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 		

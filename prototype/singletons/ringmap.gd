@@ -3,13 +3,14 @@ extends Node
 
 
 const BASE_RADIUS:float = 12.0
-const RING_GAP:float = 8.0
+const RING_GAP:float = 16.0
 const ROAD_WIDTH:float = 3.0
-const RING_WIDTH:float = 15.0
+const RING_WIDTH:float = 30.0
 const SEGMENT_WIDTH:float = 12.0
 
 
 const EMPTY = "empty"
+const BASE = "base"
 const BRIDGES = "bridges"
 const BUILDINGS = "buildings"
 const EVERYTHING = "everything"
@@ -106,4 +107,4 @@ func get_radius_minimum(ring:int) -> int:
 
 
 func get_number_of_segments(ring:int) -> int:
-	return int((get_radius_minimum(ring) * 4) / SEGMENT_WIDTH)
+	return int(max(1, (get_radius_minimum(ring) * 4) / SEGMENT_WIDTH))
