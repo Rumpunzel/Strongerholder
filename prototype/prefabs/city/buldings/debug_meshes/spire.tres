@@ -1,0 +1,4 @@
+[gd_resource type="PrismMesh" format=2]
+
+[resource]
+size = Vector3( 12, 64, 12 )
