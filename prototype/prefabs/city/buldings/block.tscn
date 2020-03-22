@@ -2,7 +2,7 @@
 
 [ext_resource path="res://prefabs/city/buldings/block.gd" type="Script" id=1]
 [ext_resource path="res://prefabs/city/buldings/debug_meshes/block.tres" type="CubeMesh" id=2]
-[ext_resource path="res://prefabs/highlight_material.tres" type="Material" id=3]
+[ext_resource path="res://prefabs/city/buldings/debug_materials/highlight_material.tres" type="Material" id=3]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 6.0
@@ -16,7 +16,7 @@ highlight_material = ExtResource( 3 )
 [node name="building" type="Spatial" parent="."]
 
 [node name="block" type="MeshInstance" parent="building"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 mesh = ExtResource( 2 )
 material/0 = null
 
