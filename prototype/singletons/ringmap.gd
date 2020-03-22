@@ -112,7 +112,7 @@ func get_radius_maximum(ring:int) -> int:
 	var radius = radius_maximums.get(ring)
 	
 	if radius == null:
-		radius = int(BASE_RADIUS + (ring * RING_WIDTH) + ROAD_WIDTH)
+		radius = int(radius_minimums.get(ring) + ROAD_WIDTH)
 		radius_maximums[ring] = radius
 		print("new max radius for %d: %d" % [ring, radius])
 	

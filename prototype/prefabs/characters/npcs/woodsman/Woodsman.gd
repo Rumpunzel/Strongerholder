@@ -11,7 +11,7 @@ class_name Woodsman
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if not Engine.editor_hint:
-		set_target(Vector2(2, 11))
+		set_target(Vector2(7, 42))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
