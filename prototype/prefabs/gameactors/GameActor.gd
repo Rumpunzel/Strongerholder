@@ -6,9 +6,9 @@ class_name GameActor
 onready var body = $body
 
 
-var walkspeed:float = 3.0
+var walkspeed:float = 0.05
 # Modifier to the speed when walking up or down to help the 2.5D illusion
-var vertical_walkspeed:float = 2.0
+var vertical_walkspeed:float = 0.025
 #warning-ignore:unused_class_variable
 var sprint_modifier:float = 2.5
 
@@ -16,7 +16,7 @@ var walking_direction:Vector2 = Vector2()
 
 # Multiplicative modifer to the movement speed
 #	is equal to 1.0 if the gameactor is walking normal
-var sprinting:float = 1.0
+var movement_modifier:float = 1.0
 
 var jump_speed:float = 30.0
 
@@ -37,15 +37,17 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	move(walking_direction, delta)
+#func _process(delta):
+#	pass
 
 
 
-func move(direction:Vector2, delta:float):
-	ring_radius += get_position_change(direction).x * delta
+func move_to(direction:Vector2, sprinting:bool):
+	movement_modifier = sprint_modifier if sprinting else 1.0
 	
-	ring_position += get_position_change(direction).y * delta
+	ring_radius += get_position_change(direction).x
+	
+	ring_position += get_position_change(direction).y
 	ring_position = modulo_ring_vector(Vector2(0, ring_position)).y
 	
 	# Limiting of the movement between rings
@@ -90,7 +92,7 @@ func get_position_change(direction:Vector2) -> Vector2:
 	else:
 		direction = Vector2()
 	
-	return Vector2(direction.x * vertical_walkspeed, direction.y * walkspeed / max(1, ring_radius + RingMap.BASE_RADIUS)) * sprinting
+	return Vector2(direction.x * vertical_walkspeed, direction.y * walkspeed / max(1, ring_radius + RingMap.BASE_RADIUS)) * movement_modifier
 
 
 func update_movement_limit(new_position:Vector2):
