@@ -1,5 +1,5 @@
 tool
-extends Character
+extends GameActor
 class_name NPC
 
 

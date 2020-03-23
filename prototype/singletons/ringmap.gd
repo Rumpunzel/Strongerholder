@@ -79,7 +79,7 @@ func get_ring_position_of_object(segment:Vector2) -> Vector2:
 	return Vector2(object.ring_radius - BASE_RADIUS, object.ring_position) if not object == null and object is GameObject else Vector2()
 
 
-# Recalculation of the current ring the character is on
+# Recalculation of the current ring the gameactor is on
 func get_current_ring(ring_radius:float, without_base_radius:bool = true) -> int:
 	var ring:int = 0
 	

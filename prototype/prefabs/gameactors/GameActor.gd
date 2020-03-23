@@ -1,6 +1,6 @@
 tool
 extends GameObject
-class_name Character
+class_name GameActor
 
 
 onready var body = $body
@@ -15,12 +15,12 @@ var sprint_modifier:float = 2.5
 var walking_direction:Vector2 = Vector2()
 
 # Multiplicative modifer to the movement speed
-#	is equal to 1.0 if the character is walking normal
+#	is equal to 1.0 if the gameactor is walking normal
 var sprinting:float = 1.0
 
 var jump_speed:float = 30.0
 
-# If the character is able to move between rings, e.g. when using a bridge
+# If the gameactor is able to move between rings, e.g. when using a bridge
 var movement_limit:Array = [ [ ], [ ] ] setget set_movement_limit, get_movement_limit
 #warning-ignore:unused_class_variable
 var current_path:Array = [ ]

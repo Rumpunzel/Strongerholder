@@ -19,15 +19,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/city/buldings/block.gd"
 }, {
-"base": "GameObject",
+"base": "Node",
 "class": "Character",
 "language": "GDScript",
-"path": "res://prefabs/characters/Character.gd"
+"path": "res://dialogue_engine/characters/Character.gd"
 }, {
 "base": "Node",
 "class": "Characters",
 "language": "GDScript",
 "path": "res://dialogue_engine/characters/Characters.gd"
+}, {
+"base": "GameObject",
+"class": "GameActor",
+"language": "GDScript",
+"path": "res://prefabs/gameactors/GameActor.gd"
 }, {
 "base": "Spatial",
 "class": "GameObject",
@@ -39,15 +44,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/city/hill/Hill.gd"
 }, {
-"base": "Character",
+"base": "GameActor",
 "class": "NPC",
 "language": "GDScript",
-"path": "res://prefabs/characters/npcs/NPC.gd"
+"path": "res://prefabs/gameactors/npcs/NPC.gd"
 }, {
-"base": "Character",
+"base": "GameActor",
 "class": "Player",
 "language": "GDScript",
-"path": "res://prefabs/characters/player/Player.gd"
+"path": "res://prefabs/gameactors/player/Player.gd"
 }, {
 "base": "RichTextLabel",
 "class": "TypingLabel",
@@ -57,7 +62,7 @@ _global_script_classes=[ {
 "base": "NPC",
 "class": "Woodsman",
 "language": "GDScript",
-"path": "res://prefabs/characters/npcs/woodsman/Woodsman.gd"
+"path": "res://prefabs/gameactors/npcs/woodsman/Woodsman.gd"
 }, {
 "base": "Label",
 "class": "dialogue_option",
@@ -89,6 +94,7 @@ _global_script_class_icons={
 "BuildingFundament": "",
 "Character": "",
 "Characters": "",
+"GameActor": "",
 "GameObject": "",
 "Hill": "",
 "NPC": "",
@@ -210,7 +216,7 @@ interact={
 [layer_names]
 
 3d_physics/layer_1="World"
-3d_physics/layer_2="Characters"
+3d_physics/layer_2="GameActors"
 3d_physics/layer_3="Structures"
 
 [node]

@@ -13,15 +13,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(_delta):
-#	for character in characters_on_bridge:
-#		character.can_move_rings = true
+#	for gameactor in characters_on_bridge:
+#		gameactor.can_move_rings = true
 
 
 
 func entered(body):
 	var object = body.get_parent()
 	
-	if object is Character:
+	if object is GameActor:
 		object.movement_limit[0] = [ ]
 		object.movement_limit[1] = [ring_position - 20, ring_position + 20]
 		print(object.movement_limit)
@@ -31,7 +31,7 @@ func entered(body):
 func exited(body):
 	var object = body.get_parent()
 	
-	if object is Character:
+	if object is GameActor:
 		object.movement_limit[1] = [ ]
 		object.update_ring_vector()
 	

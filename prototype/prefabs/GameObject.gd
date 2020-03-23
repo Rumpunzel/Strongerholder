@@ -4,8 +4,8 @@ class_name GameObject
 
 
 # Positions are abstracted using 2 dimensions
-#	ring_radius, meaning how far the character is from the centre Vector3(0, 0, 0) and
-#	ring_position, meaning the angle (in degrees) of the character when rotated around the centre Vector3(0, 0, 0)
+#	ring_radius, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and
+#	ring_position, meaning the angle (in degrees) of the gameactor when rotated around the centre Vector3(0, 0, 0)
 export(float, 0, 128, 0.5) var ring_radius:float = 0.0 setget set_ring_radius, get_ring_radius
 export(float, -6.3, 6.3, 0.1) var ring_position:float = 0.0 setget set_ring_position, get_ring_position
 
@@ -13,7 +13,7 @@ export(float, -6.3, 6.3, 0.1) var ring_position:float = 0.0 setget set_ring_posi
 onready var hit_points:float = hit_points_max
 
 
-# The current ring of the world the character is on
+# The current ring of the world the gameactor is on
 #	rings start with 0
 var current_ring:int = 0
 var current_segment:int = 0
