@@ -40,3 +40,10 @@ func exited(body):
 
 func handle_highlighted():
 	pass
+
+
+
+func set_ring_radius(new_radius:float):
+	.set_ring_radius(new_radius)
+	if not fundament == null:
+		fundament.rotation.x = -RingMap.get_slope_sinus(new_radius + RingMap.ROAD_WIDTH * 2)

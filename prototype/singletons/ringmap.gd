@@ -7,6 +7,7 @@ const RING_GAP:float = 4.0
 const ROAD_WIDTH:float = 8.0
 const RING_WIDTH:float = 32.0
 const SEGMENT_WIDTH:float = 12.0
+const SLOPE_RADIUS:float = 320.0
 
 
 const EMPTY = "empty"
@@ -18,6 +19,11 @@ const EVERYTHING = "everything"
 
 var radius_minimums:Dictionary = { }
 var radius_maximums:Dictionary = { }
+
+var height_minimums:Dictionary = { }
+var height_maximums:Dictionary = { }
+
+var slope_sinuses:Dictionary = { }
 
 var segments_dictionary:Dictionary = { }
 var search_dictionary:Dictionary = { }
@@ -95,12 +101,23 @@ func get_current_segment(ring_radius:float, ring_position:float, without_base_ra
 	return int(segment + total_segments) % total_segments
 
 
+func get_slope_sinus(radius:float) -> float:
+	var sinus = slope_sinuses.get(radius)
+	
+	if sinus == null:
+		sinus = sin(radius / SLOPE_RADIUS)
+		slope_sinuses[radius] = sinus
+		print("new min radius for %d: %d" % [radius, sinus])
+	
+	return sinus
+
+
 # The minimum radius in world distance something can travel towards the centre Vector3(0, 0, 0)
-func get_radius_minimum(ring:int) -> int:
+func get_radius_minimum(ring:int) -> float:
 	var radius = radius_minimums.get(ring)
 	
 	if radius == null:
-		radius = int(BASE_RADIUS + (ring * RING_WIDTH))
+		radius = SLOPE_RADIUS * get_slope_sinus(BASE_RADIUS + (ring * RING_WIDTH))
 		radius_minimums[ring] = radius
 		print("new min radius for %d: %d" % [ring, radius])
 	
@@ -108,15 +125,37 @@ func get_radius_minimum(ring:int) -> int:
 
 
 # The maximum radius in world distance something can travel towards the centre Vector3(0, 0, 0)
-func get_radius_maximum(ring:int) -> int:
+func get_radius_maximum(ring:int) -> float:
 	var radius = radius_maximums.get(ring)
 	
 	if radius == null:
-		radius = int(radius_minimums.get(ring) + ROAD_WIDTH)
+		radius = SLOPE_RADIUS * get_slope_sinus((BASE_RADIUS + (ring * RING_WIDTH) + ROAD_WIDTH))
 		radius_maximums[ring] = radius
 		print("new max radius for %d: %d" % [ring, radius])
 	
 	return radius
+
+
+func get_height_minimum(ring:int) -> float:
+	var height = height_minimums.get(ring)
+	
+	if height == null:
+		height = SLOPE_RADIUS - sqrt(pow(SLOPE_RADIUS, 2.0) - pow(get_radius_minimum(ring), 2.0))
+		height_minimums[ring] = height
+		print("new min height for %d: %d" % [ring, height])
+	
+	return height
+
+
+func get_height_maximum(ring:int) -> float:
+	var height = height_maximums.get(ring)
+	
+	if height == null:
+		height = SLOPE_RADIUS - sqrt(pow(SLOPE_RADIUS, 2.0) - pow(get_radius_maximum(ring), 2.0))
+		height_maximums[ring] = height
+		print("new max height for %d: %d" % [ring, height])
+	
+	return height
 
 
 func get_number_of_segments(ring:int) -> int:

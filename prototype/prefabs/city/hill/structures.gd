@@ -66,7 +66,7 @@ func construct_ring(ring_number):
 		var ring_radius = RingMap.get_radius_minimum(ring_number)
 		var ring_position = i * (TAU * (1.0 / number_of_buildings))
 		
-		new_building.set_world_position(Vector3(0, Hill.get_ring_height(ring_number), ring_radius))
+		new_building.set_world_position(Vector3(0, RingMap.get_height_minimum(ring_number), ring_radius))
 		new_building.rotation.y = ring_position
 		
 		new_building.ring_radius = ring_radius
