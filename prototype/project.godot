@@ -57,7 +57,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "PuppetMaster",
 "language": "GDScript",
-"path": "res://PuppetMaster.gd"
+"path": "res://singletons/PuppetMaster.gd"
 }, {
 "base": "RichTextLabel",
 "class": "TypingLabel",
