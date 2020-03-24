@@ -6,8 +6,8 @@ class_name GameObject
 # Positions are abstracted using 2 dimensions
 #	ring_radius, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and
 #	ring_position, meaning the angle (in degrees) of the gameactor when rotated around the centre Vector3(0, 0, 0)
-#export(float, 0, 128, 0.5) var ring_radius:float = 0.0 setget set_ring_radius, get_ring_radius
-#export(float, -6.3, 6.3, 0.1) var ring_position:float = 0.0 setget set_ring_position, get_ring_position
+
+export var hit_points_max:float = 10.0
 
 
 onready var hit_points:float = hit_points_max
@@ -21,8 +21,6 @@ var current_segment:int = 0
 
 #warning-ignore:unused_class_variable
 var world_position:Vector3 setget set_world_position, get_world_position
-
-var hit_points_max:float = 10.0
 
 var highlighted:bool = false setget set_highlighted, get_highlighted
 
@@ -54,6 +52,7 @@ func update_ring_vector(emit_update:bool = false):
 	current_ring = new_ring
 	current_segment = new_segment
 
+
 static func modulo_ring_vector(new_ring_vector:Vector2) -> Vector2:
 	while new_ring_vector.y > PI:
 		new_ring_vector.y -= TAU
@@ -76,23 +75,29 @@ func damage(_sender, damage_points:float):
 
 
 
+
 func set_ring_vector(new_vector:Vector2):
 	ring_vector = new_vector
 	update_ring_vector()
 
+
 func set_world_position(new_position:Vector3):
 	global_transform.origin = new_position
+
 
 func set_highlighted(is_highlighted:bool):
 	highlighted = is_highlighted
 	handle_highlighted()
 
 
+
 func get_ring_vector() -> Vector2:
 	return ring_vector
 
+
 func get_world_position() -> Vector3:
 	return global_transform.origin
+
 
 func get_highlighted() -> bool:
 	return highlighted
