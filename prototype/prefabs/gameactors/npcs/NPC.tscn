@@ -5,6 +5,3 @@
 
 [node name="npc" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-
-[node name="body" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12 )
