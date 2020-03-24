@@ -7,7 +7,7 @@ const RING_GAP:float = 4.0
 const ROAD_WIDTH:float = 8.0
 const RING_WIDTH:float = 32.0
 const SEGMENT_WIDTH:float = 12.0
-const SLOPE_RADIUS:float = 320.0
+const SLOPE_RADIUS:float = 420.0
 
 
 const EMPTY = "empty"
@@ -76,15 +76,12 @@ func get_object_at_position(position:Vector2, from:String = EVERYTHING):
 func get_ring_position_of_object(segment:Vector2) -> Vector2:
 	var object = search_dictionary.get(int(segment.x), { }).get(int(segment.y), null)
 	
-	return object.ring_vector - Vector2(BASE_RADIUS, 0) if not object == null and object is GameObject else Vector2()
+	return object.ring_vector if not object == null and object is GameObject else Vector2()
 
 
 # Recalculation of the current ring the gameactor is on
-func get_current_ring(ring_radius:float, without_base_radius:bool = true) -> int:
+func get_current_ring(ring_radius:float) -> int:
 	var ring:int = 0
-	
-	if without_base_radius:
-		ring_radius += BASE_RADIUS
 	
 	while ring_radius >= get_radius_minimum(ring + 1):
 		ring += 1
@@ -92,8 +89,8 @@ func get_current_ring(ring_radius:float, without_base_radius:bool = true) -> int
 	return ring
 
 
-func get_current_segment(ring_vector:Vector2, without_base_radius:bool = true) -> int:
-	var current_ring = get_current_ring(ring_vector.x, without_base_radius)
+func get_current_segment(ring_vector:Vector2) -> int:
+	var current_ring = get_current_ring(ring_vector.x)
 	var total_segments = get_number_of_segments(current_ring)
 	
 	var segment = ((ring_vector.y + PI / total_segments) / TAU) * total_segments
@@ -107,7 +104,6 @@ func get_slope_sinus(radius:float) -> float:
 	if sinus == null:
 		sinus = sin(radius / SLOPE_RADIUS)
 		slope_sinuses[radius] = sinus
-		print("new min radius for %d: %d" % [radius, sinus])
 	
 	return sinus
 
@@ -142,7 +138,7 @@ func get_height_minimum(ring:int) -> float:
 	if height == null:
 		height = SLOPE_RADIUS - sqrt(pow(SLOPE_RADIUS, 2.0) - pow(get_radius_minimum(ring), 2.0))
 		height_minimums[ring] = height
-		print("new min height for %d: %d" % [ring, height])
+		#print("new min height for %d: %d" % [ring, height])
 	
 	return height
 
@@ -153,7 +149,7 @@ func get_height_maximum(ring:int) -> float:
 	if height == null:
 		height = SLOPE_RADIUS - sqrt(pow(SLOPE_RADIUS, 2.0) - pow(get_radius_maximum(ring), 2.0))
 		height_maximums[ring] = height
-		print("new max height for %d: %d" % [ring, height])
+		#print("new max height for %d: %d" % [ring, height])
 	
 	return height
 
