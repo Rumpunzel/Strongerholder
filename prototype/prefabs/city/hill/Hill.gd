@@ -4,7 +4,6 @@ class_name Hill
 
 
 const NUMBER_OF_RINGS:int = 10
-const FIRST_STRUCTURE_RING:int = 1
 
 
 
