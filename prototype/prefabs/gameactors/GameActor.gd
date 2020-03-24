@@ -1,28 +1,22 @@
-tool
 extends GameObject
 class_name GameActor
 
 
 onready var body:KinematicBody = $body
 onready var cliff_dection = $body/cliff_detection
+onready var pathfinder = $pathfinder
 
 
-var walkspeed:float = 3.0
-#warning-ignore:unused_class_variable
-var sprint_modifier:float = 2.5
+export var walkspeed:float = 3.0
+export var sprint_modifier:float = 2.5
+export var jump_speed:float = 30.0
 
-var walking_direction:Vector2 = Vector2()
 
 # Multiplicative modifer to the movement speed
 #	is equal to 1.0 if the gameactor is walking normal
 var movement_modifier:float = 1.0
 
-var jump_speed:float = 30.0
-
-# If the gameactor is able to move between rings, e.g. when using a bridge
-var movement_limit:Array = [ [ ], [ ] ] setget set_movement_limit, get_movement_limit
-#warning-ignore:unused_class_variable
-var current_path:Array = [ ]
+var pathfinding_target:Vector2 = Vector2() setget set_pathfinding_target, get_pathfinding_target
 
 
 signal moved
@@ -48,37 +42,19 @@ func move_to(direction:Vector2, sprinting:bool):
 	body.move_direction = get_move_direction(direction)
 	ring_vector = body.ring_vector
 	
-	#var radius_minimum = RingMap.get_radius_minimum(current_ring) - RingMap.BASE_RADIUS
-	#var ring_width = RingMap.RING_WIDTH - RingMap.RING_GAP
-	
-#	if movement_limit[0].empty() and movement_limit[1].empty() and ring_vector.x > radius_minimum and ring_vector.y < radius_minimum + ring_width:
-#		update_movement_limit(Vector2(current_ring, current_segment))
-	
 	update_ring_vector()
 	
 	# The position in the world can be displayed with a Vector2
 	#	with the x-axis being the ring_position and
 	#	with the y-axis being the ring_radius
-	emit_signal("moved", ring_vector + Vector2(0, RingMap.BASE_RADIUS))
+	emit_signal("moved", ring_vector)
 	
 	#print("current_ring: %d" % [current_ring])
 	#print("current_segment: %d" % [current_segment])
 
 
-func jump():
-	body.jump(jump_speed)
-	
-	emit_signal("jumped")
-
-func stop_jump():
-	body.jump()
-	
-	emit_signal("stopped_jumping")
-
-
 # This function has to be implemented by child classes
 func get_move_direction(direction:Vector2) -> Vector2:
-	
 	if cliff_dection.is_on_edge(cliff_dection.FRONT):
 		direction.x = max(direction.x, 0)
 	
@@ -94,22 +70,30 @@ func get_move_direction(direction:Vector2) -> Vector2:
 	return direction * walkspeed * movement_modifier
 
 
-func update_movement_limit(new_position:Vector2):
-	var radius_minimum = RingMap.get_radius_minimum(int(new_position.x)) - RingMap.BASE_RADIUS
-	var radius_maximum = RingMap.get_radius_maximum(int(new_position.x)) - RingMap.BASE_RADIUS
 
-	movement_limit[0] = [radius_minimum, radius_maximum]
-	movement_limit[1] = [ ]
+func jump():
+	body.jump(jump_speed)
+	
+	emit_signal("jumped")
 
-
-func update_current_path(_new_position:Vector2):
-	pass
-
-
-
-func set_movement_limit(new_limit:Array):
-	movement_limit = new_limit
+func stop_jump():
+	body.jump()
+	
+	emit_signal("stopped_jumping")
 
 
-func get_movement_limit() -> Array:
-	return movement_limit
+
+func get_world_position():
+	return body.global_transform.origin
+
+
+
+
+func set_pathfinding_target(new_target:Vector2):
+	pathfinding_target = new_target
+	pathfinder.pathfinding_target = pathfinding_target
+
+
+
+func get_pathfinding_target() -> Vector2:
+	return pathfinding_target

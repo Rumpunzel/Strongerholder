@@ -8,19 +8,25 @@ func _ready():
 
 
 
-func get_input() -> Command:
+func get_input() -> Array:
+	var commands:Array = [ ]
+	
 	if Input.is_action_just_pressed("jump"):
-		return JumpCommand.new()
+		commands.append(JumpCommand.new())
 	
 	#if Input.is_action_just_released("jump"):
-	#	return StopJumpCommand.new()
+	#	commands.append(StopJumpCommand.new())
 	
-	var move_direction:Vector2 = Vector2(Input.get_action_strength("move_down") - Input.get_action_strength("move_up"), Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
-	if move_direction.length() > 0:
+	var movement_vector:Vector2 = Vector2(Input.get_action_strength("move_down") - Input.get_action_strength("move_up"), Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
+	if movement_vector.length() > 0:
 		var sprinting = Input.is_action_pressed("sprint")
-		return MoveCommand.new(move_direction, sprinting)
+		
+		if movement_vector.length() > 1:
+			movement_vector = movement_vector.normalized()
+		
+		commands.append(MoveCommand.new(movement_vector, sprinting))
 	
-	return null
+	return commands
 
 
 

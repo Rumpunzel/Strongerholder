@@ -1,4 +1,3 @@
-tool
 extends NPC
 class_name Woodsman
 
@@ -10,8 +9,7 @@ class_name Woodsman
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not Engine.editor_hint:
-		set_target(Vector2(7, 42))
+	set_pathfinding_target(Vector2(2, 9))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -2,7 +2,8 @@ extends Node
 class_name PuppetMaster
 
 
-var current_actor:GameActor = null
+var current_actors:Array = [ ]
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,43 +13,42 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float):
-	if current_actor:
-		var command:Command = get_input()
-		
-		if command:
-			command.execute(current_actor)
+	var commands:Array = get_input()
+	
+	for command in commands:
+		for actor in current_actors:
+			command.execute(actor)
 
 
 
-func get_input() -> Command:
+func get_input() -> Array:
 	assert(false)
-	return null
+	return [ ]
+
+
+func register_actor(new_actor:GameActor, exclusive_actor:bool = true):
+	if exclusive_actor:
+		current_actors = [ ]
+	
+	current_actors.append(new_actor)
 
 
 
 class Command:
 	func execute(_actor:GameActor):
 		assert(false)
-	
-	func undo(_actor:GameActor):
-		pass
 
 
 class MoveCommand extends Command:
-	var previous_ring_vector:Vector2 = Vector2()
-	var ring_vector:Vector2
+	var movement_vector:Vector2
 	var sprinting:bool
 	
-	func _init(new_ring_vector:Vector2, new_sprinting:bool):
-		ring_vector = new_ring_vector
+	func _init(new_movement_vector:Vector2, new_sprinting:bool):
+		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 		
 	func execute(actor:GameActor):
-		previous_ring_vector = actor.ring_vector
-		actor.move_to(ring_vector, sprinting)
-	
-	func undo(actor:GameActor):
-		actor.move_to(previous_ring_vector, sprinting)
+		actor.move_to(movement_vector, sprinting)
 
 
 class JumpCommand extends Command:
