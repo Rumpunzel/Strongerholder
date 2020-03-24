@@ -29,11 +29,11 @@ func build_everything():
 	
 	new_base.ring_vector = Vector2()
 	
-	new_base.name = "[base][%s, %s]" % [0, 0]
+	new_base.name = "[base]"
 	
-	RingMap.register_segment(RingMap.BASE, 0, 0, new_base)
+	RingMap.register_segment(RingMap.BASE, -1, 0, new_base)
 	
-	for i in range(Hill.FIRST_STRUCTURE_RING, Hill.NUMBER_OF_RINGS):
+	for i in range(Hill.NUMBER_OF_RINGS):
 		construct_ring(i)
 	
 	built = true
@@ -49,7 +49,7 @@ func construct_ring(ring_number):
 		var new_building
 		var type
 		
-		if i % number_of_bridges == 0:
+		if ring_number > 0 and i % number_of_bridges == 0:
 			new_building = bridge.instance()
 			new_building.name = "[bridge]"
 			
