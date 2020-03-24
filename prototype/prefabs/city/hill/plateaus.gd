@@ -39,7 +39,7 @@ func build_plateau(ring_number):
 	
 	new_plateau.polygon[0] = Vector2(inner_radius, -32)
 	new_plateau.polygon[1] = Vector2(inner_radius, inner_height)
-	new_plateau.polygon[2] = Vector2(outer_radius, inner_height)
+	new_plateau.polygon[2] = Vector2(outer_radius, outer_height)
 	new_plateau.polygon[3] = Vector2(outer_radius, -32)
 	
 	new_plateau.mode = CSGPolygon.MODE_SPIN
