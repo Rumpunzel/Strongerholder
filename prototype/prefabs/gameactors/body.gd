@@ -29,8 +29,6 @@ func _physics_process(delta):
 	if not Engine.editor_hint:
 		look_at(Vector3(0, transform.origin.y, 0), Vector3.UP)
 		
-		fall_speed += default_gravity * fall_modifer * delta
-		
 		var dir:Vector3 = transform.basis.x * move_direction.y + transform.basis.z * move_direction.x
 		move_and_slide(dir + Vector3(0, jump_speed - fall_speed, 0), Vector3.UP)
 		
@@ -39,6 +37,8 @@ func _physics_process(delta):
 		if grounded:
 			fall_speed = 0.0
 			jump_speed = 0.0
+		else:
+			fall_speed += default_gravity * fall_modifer * delta
 		
 		move_direction = Vector2()
 
@@ -64,7 +64,7 @@ func set_move_direction(new_dirction:Vector2):
 
 
 func get_ring_vector() -> Vector2:
-	ring_vector.x = global_transform.origin.distance_to(Vector3()) - RingMap.BASE_RADIUS
+	ring_vector.x = global_transform.origin.distance_to(Vector3())
 	ring_vector.y = Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2.DOWN)
 	ring_vector = GameObject.modulo_ring_vector(ring_vector)
 	return ring_vector
