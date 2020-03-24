@@ -27,8 +27,7 @@ func build_everything():
 	
 	add_child(new_base)
 	
-	new_base.ring_radius = 0
-	new_base.ring_position = 0
+	new_base.ring_vector = Vector2()
 	
 	new_base.name = "[base][%s, %s]" % [0, 0]
 	
@@ -63,14 +62,12 @@ func construct_ring(ring_number):
 		
 		add_child(new_building)
 		
-		var ring_radius = RingMap.get_radius_minimum(ring_number)
-		var ring_position = i * (TAU * (1.0 / number_of_buildings))
+		var ring_vector = Vector2(RingMap.get_radius_minimum(ring_number), i * (TAU * (1.0 / number_of_buildings)))
 		
-		new_building.set_world_position(Vector3(0, RingMap.get_height_minimum(ring_number), ring_radius))
-		new_building.rotation.y = ring_position
+		new_building.set_world_position(Vector3(0, RingMap.get_height_minimum(ring_number), ring_vector.x))
+		new_building.rotation.y = ring_vector.y
 		
-		new_building.ring_radius = ring_radius
-		new_building.ring_position = ring_position
+		new_building.ring_vector = ring_vector
 		
 		new_building.name += "[%s, %s]" % [ring_number, i]
 		

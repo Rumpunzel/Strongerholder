@@ -76,7 +76,7 @@ func get_object_at_position(position:Vector2, from:String = EVERYTHING):
 func get_ring_position_of_object(segment:Vector2) -> Vector2:
 	var object = search_dictionary.get(int(segment.x), { }).get(int(segment.y), null)
 	
-	return Vector2(object.ring_radius - BASE_RADIUS, object.ring_position) if not object == null and object is GameObject else Vector2()
+	return object.ring_vector - Vector2(BASE_RADIUS, 0) if not object == null and object is GameObject else Vector2()
 
 
 # Recalculation of the current ring the gameactor is on
@@ -92,11 +92,11 @@ func get_current_ring(ring_radius:float, without_base_radius:bool = true) -> int
 	return ring
 
 
-func get_current_segment(ring_radius:float, ring_position:float, without_base_radius:bool = true) -> int:
-	var current_ring = get_current_ring(ring_radius, without_base_radius)
+func get_current_segment(ring_vector:Vector2, without_base_radius:bool = true) -> int:
+	var current_ring = get_current_ring(ring_vector.x, without_base_radius)
 	var total_segments = get_number_of_segments(current_ring)
 	
-	var segment = ((ring_position + PI / total_segments) / TAU) * total_segments
+	var segment = ((ring_vector.y + PI / total_segments) / TAU) * total_segments
 	
 	return int(segment + total_segments) % total_segments
 

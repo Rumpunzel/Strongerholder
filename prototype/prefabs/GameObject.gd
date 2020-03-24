@@ -6,13 +6,14 @@ class_name GameObject
 # Positions are abstracted using 2 dimensions
 #	ring_radius, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and
 #	ring_position, meaning the angle (in degrees) of the gameactor when rotated around the centre Vector3(0, 0, 0)
-export(float, 0, 128, 0.5) var ring_radius:float = 0.0 setget set_ring_radius, get_ring_radius
-export(float, -6.3, 6.3, 0.1) var ring_position:float = 0.0 setget set_ring_position, get_ring_position
+#export(float, 0, 128, 0.5) var ring_radius:float = 0.0 setget set_ring_radius, get_ring_radius
+#export(float, -6.3, 6.3, 0.1) var ring_position:float = 0.0 setget set_ring_position, get_ring_position
 
 
 onready var hit_points:float = hit_points_max
 
 
+var ring_vector:Vector2 = Vector2() setget set_ring_vector, get_ring_vector
 # The current ring of the world the gameactor is on
 #	rings start with 0
 var current_ring:int = 0
@@ -43,8 +44,8 @@ func _process(_delta):
 
 
 func update_ring_vector(emit_update:bool = false):
-	var new_ring:int = RingMap.get_current_ring(ring_radius)
-	var new_segment:int = RingMap.get_current_segment(ring_radius, ring_position)
+	var new_ring:int = RingMap.get_current_ring(ring_vector.x)
+	var new_segment:int = RingMap.get_current_segment(ring_vector)
 	
 	if emit_update or not new_ring == current_ring or not new_segment == current_segment:
 		emit_signal("entered_segment", Vector2(new_ring, new_segment))
@@ -53,14 +54,14 @@ func update_ring_vector(emit_update:bool = false):
 	current_ring = new_ring
 	current_segment = new_segment
 
-func modulo_ring_vector(ring_vector:Vector2) -> Vector2:
-	while ring_vector.y > PI:
-		ring_vector.y -= TAU
+static func modulo_ring_vector(new_ring_vector:Vector2) -> Vector2:
+	while new_ring_vector.y > PI:
+		new_ring_vector.y -= TAU
 	
-	while ring_vector.y < -PI:
-		ring_vector.y += TAU
+	while new_ring_vector.y < -PI:
+		new_ring_vector.y += TAU
 	
-	return ring_vector
+	return new_ring_vector
 
 
 func handle_highlighted():
@@ -75,12 +76,8 @@ func damage(_sender, damage_points:float):
 
 
 
-func set_ring_radius(new_radius:float):
-	ring_radius = new_radius
-	update_ring_vector()
-
-func set_ring_position(new_position:float):
-	ring_position = new_position
+func set_ring_vector(new_vector:Vector2):
+	ring_vector = new_vector
 	update_ring_vector()
 
 func set_world_position(new_position:Vector3):
@@ -91,11 +88,8 @@ func set_highlighted(is_highlighted:bool):
 	handle_highlighted()
 
 
-func get_ring_radius() -> float:
-	return ring_radius
-
-func get_ring_position() -> float:
-	return ring_position
+func get_ring_vector() -> Vector2:
+	return ring_vector
 
 func get_world_position() -> Vector3:
 	return global_transform.origin

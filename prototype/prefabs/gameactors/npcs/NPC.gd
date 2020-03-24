@@ -20,13 +20,11 @@ func _process(_delta):
 		if current_path.empty():
 			update_current_path(Vector2(current_ring, current_segment))
 		else:
-			var current_position = Vector2(ring_radius, ring_position)
-			
 			if not next_path_segment == Vector2():
-				walking_direction = next_path_segment - current_position
+				walking_direction = next_path_segment - ring_vector
 				walking_direction.x /= sqrt(walking_direction.length())
 				
-				if current_position.distance_to(next_path_segment) <= 0.02:
+				if ring_vector.distance_to(next_path_segment) <= 0.02:
 					update_current_path(Vector2(current_ring, current_segment))
 			else:
 				walking_direction = Vector2()
