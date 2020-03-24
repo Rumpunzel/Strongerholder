@@ -59,9 +59,16 @@ func connect_nodes(rings:Dictionary):
 					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 		
 		for bridge in bridges.get(ring + 1, { }).keys():
-			for segment in segments.keys():
-				if abs(segment - (bridge / float(RingMap.get_number_of_segments(ring + 1))) * RingMap.get_number_of_segments(ring)) <= 0.5:
-					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
+			var max_distance = 0.5
+			var bridge_connected = false
+			
+			while not bridge_connected:
+				for segment in segments.keys():
+					if abs(segment - (bridge / float(RingMap.get_number_of_segments(ring + 1))) * RingMap.get_number_of_segments(ring)) <= max_distance:
+						pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
+						bridge_connected = true
+					
+					max_distance += 0.5
 
 
 
