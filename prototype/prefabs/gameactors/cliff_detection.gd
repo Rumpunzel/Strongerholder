@@ -7,7 +7,7 @@ const LEFT = "left"
 const RIGHT = "right"
 
 
-export var raycast_length:float = 5.0
+export var raycast_length:float = 7.0
 export var depth:float = 3.0
 export var width:float = 3.0
 
@@ -48,6 +48,8 @@ func create_raycast(side:String):
 			new_ray.transform.origin.x = -width / 2.0
 		RIGHT:
 			new_ray.transform.origin.x = width / 2.0
+	
+	new_ray.transform.origin.y = 1
 	
 	raycasts[side] = new_ray
 
