@@ -16,7 +16,5 @@ directional_shadow_blend_splits = true
 [node name="hill" parent="." instance=ExtResource( 3 )]
 
 [node name="player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0 )
-ring_radius = 3.0
 
 [node name="woodsman" parent="." instance=ExtResource( 2 )]
