@@ -1,16 +1,36 @@
 extends CanvasLayer
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export(PackedScene) var build_menu
+
+
+var current_menu:GUIMenu
+var focus_target = null
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+
+func show_build_menu(fundament:BuildingFundament):
+	if not fundament == focus_target:
+		hide()
+		
+		focus_target = fundament
+		
+		current_menu = build_menu.instance()
+		add_child(current_menu)
+
+
+func hide(focus = focus_target):
+	if current_menu and focus == focus_target:
+		current_menu.hide()
+		current_menu = null

@@ -18,8 +18,6 @@ onready var area = $building/area
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	yield(get_tree(), "idle_frame")
-	
 	area.connect("body_entered", self, "entered")
 	area.connect("body_exited", self, "exited")
 
@@ -48,6 +46,8 @@ func exited(body):
 		
 		if object is Player:
 			set_highlighted(false)
+	
+	GUI.hide(self)
 
 
 
@@ -60,6 +60,8 @@ func handle_highlighted():
 
 
 func interact(sender:GameObject, action:String):
+	GUI.show_build_menu(self)
+	
 	print("%s %s with %s." % [sender.name, "interacted" if action == "" else action, name])
 
 
