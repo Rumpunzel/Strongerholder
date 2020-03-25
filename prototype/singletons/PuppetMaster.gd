@@ -8,6 +8,7 @@ func register_actor(new_actor:GameActor, exclusive_actor:bool = true):
 
 
 
+
 class MoveCommand extends CommandPattern.Command:
 	var movement_vector:Vector2
 	var sprinting:bool
