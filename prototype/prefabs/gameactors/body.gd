@@ -30,15 +30,15 @@ func _physics_process(delta):
 		look_at(Vector3(0, transform.origin.y, 0), Vector3.UP)
 		
 		var dir:Vector3 = transform.basis.x * move_direction.y + transform.basis.z * move_direction.x
-		move_and_slide(dir + Vector3(0, jump_speed - fall_speed, 0), Vector3.UP)
+		fall_speed += default_gravity * fall_modifer * delta
+		
+		move_and_slide(dir + Vector3(0, jump_speed - fall_speed, 0), Vector3.UP, true)
 		
 		grounded = is_on_floor()
 		
 		if grounded:
 			fall_speed = 0.0
 			jump_speed = 0.0
-		else:
-			fall_speed += default_gravity * fall_modifer * delta
 		
 		move_direction = Vector2()
 

@@ -4,13 +4,13 @@
 [ext_resource path="res://prefabs/city/buldings/bridge.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/city/buldings/debug_meshes/bridge.tres" type="CubeMesh" id=3]
 
-[sub_resource type="ConcavePolygonShape" id=1]
+[sub_resource type="ConcavePolygonShape" id=2]
 data = PoolVector3Array( -5, 1, 13, 5, 1, 13, -5, -1, 13, 5, 1, 13, 5, -1, 13, -5, -1, 13, 5, 1, -13, -5, 1, -13, 5, -1, -13, -5, 1, -13, -5, -1, -13, 5, -1, -13, 5, 1, 13, 5, 1, -13, 5, -1, 13, 5, 1, -13, 5, -1, -13, 5, -1, 13, -5, 1, -13, -5, 1, 13, -5, -1, -13, -5, 1, 13, -5, -1, 13, -5, -1, -13, 5, 1, 13, -5, 1, 13, 5, 1, -13, -5, 1, 13, -5, 1, -13, 5, 1, -13, -5, -1, 13, 5, -1, 13, -5, -1, -13, 5, -1, 13, 5, -1, -13, -5, -1, -13 )
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 1, 5, 7 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 4, 6, 14 )
 
 [node name="bridge" instance=ExtResource( 1 )]
@@ -23,22 +23,22 @@ mesh = ExtResource( 3 )
 [node name="static_body2" type="StaticBody" parent="building/block" index="1"]
 
 [node name="collision_shape" type="CollisionShape" parent="building/block/static_body2" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="left_railing" type="StaticBody" parent="building/block" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 0 )
 
 [node name="collision_shape" type="CollisionShape" parent="building/block/left_railing" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="right_railing" type="StaticBody" parent="building/block" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, 0 )
 
 [node name="collision_shape" type="CollisionShape" parent="building/block/right_railing" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="area" parent="building" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -12.5 )
 
 [node name="collision_shape" parent="building/area" index="0"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
