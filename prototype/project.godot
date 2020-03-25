@@ -52,7 +52,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "PuppetMaster",
 "language": "GDScript",
-"path": "res://singletons/PuppetMaster.gd"
+"path": "res://singletons/Inputs/PuppetMaster.gd"
 }, {
 "base": "NPC",
 "class": "Woodsman",
@@ -81,9 +81,10 @@ config/icon="res://assets/sprites/icon.png"
 [autoload]
 
 GameConstants="*res://singletons/GameConstants.gd"
-RingMap="*res://singletons/RingMap.gd"
-CityNavigator="*res://singletons/CityNavigator.gd"
-InputHandler="*res://singletons/InputHandler.gd"
+RingMap="*res://singletons/CityManagement/RingMap.gd"
+CityNavigator="*res://singletons/CityManagement/CityNavigator.gd"
+InputHandler="*res://singletons/Inputs/InputHandler.gd"
+GUI="*res://singletons/GUI/GUI.tscn"
 
 [debug]
 
