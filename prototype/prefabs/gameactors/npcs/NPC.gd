@@ -1,6 +1,8 @@
 extends GameActor
 class_name NPC
 
+func is_class(type): return type == "NPC" or .is_class(type)
+func get_class(): return "NPC"
 
 
 # Called when the node enters the scene tree for the first time.

@@ -1,6 +1,9 @@
 extends NPC
 class_name Woodsman
 
+func is_class(type): return type == "Woodsman" or .is_class(type)
+func get_class(): return "Woodsman"
+
 
 # Declare member variables here. Examples:
 # var a = 2

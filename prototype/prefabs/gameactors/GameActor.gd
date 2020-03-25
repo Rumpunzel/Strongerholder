@@ -1,6 +1,9 @@
 extends GameObject
 class_name GameActor
 
+func is_class(type): return type == "GameActor" or .is_class(type)
+func get_class(): return "GameActor"
+
 
 onready var body:KinematicBody = $body
 onready var cliff_dection = $body/cliff_detection

@@ -2,6 +2,9 @@ tool
 extends Spatial
 class_name GameObject
 
+func is_class(type): return type == "GameObject" or .is_class(type)
+func get_class(): return "GameObject"
+
 
 # Positions are abstracted using 2 dimensions
 #	ring_radius, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and

@@ -2,6 +2,9 @@ tool
 extends Spatial
 class_name Hill
 
+func is_class(type): return type == "Hill" or .is_class(type)
+func get_class(): return "Hill"
+
 
 const NUMBER_OF_RINGS:int = 10
 

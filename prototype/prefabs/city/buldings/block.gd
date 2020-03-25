@@ -1,6 +1,9 @@
 extends GameObject
 class_name BuildingFundament
 
+func is_class(type): return type == "BuildingFundament" or .is_class(type)
+func get_class(): return "BuildingFundament"
+
 
 const BUILDING_OFFSET:float = 2.0
 

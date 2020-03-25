@@ -1,6 +1,9 @@
 extends Spatial
 class_name CityStructures
 
+func is_class(type): return type == "CityStructures" or .is_class(type)
+func get_class(): return "CityStructures"
+
 
 export(PackedScene) var base
 export(PackedScene) var building_fundament
@@ -11,8 +14,13 @@ export(PackedScene) var bridge
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	build_everything()
-	
-	BuildInputHandler.register_actor(self)
+	print(get_class())
+	InputHandler.register_actor(self)
+
+
+
+func initiate_build():
+	pass
 
 
 
