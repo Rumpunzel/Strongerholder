@@ -1,4 +1,5 @@
 extends Spatial
+class_name CityStructures
 
 
 export(PackedScene) var base
@@ -10,6 +11,8 @@ export(PackedScene) var bridge
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	build_everything()
+	
+	BuildInputHandler.register_actor(self)
 
 
 

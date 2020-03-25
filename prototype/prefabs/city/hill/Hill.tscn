@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://prefabs/city/hill/plateaus.gd" type="Script" id=1]
-[ext_resource path="res://prefabs/city/hill/structures.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/city/hill/CityStructures.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/city/buldings/base.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/city/buldings/block.tscn" type="PackedScene" id=4]
 [ext_resource path="res://prefabs/city/buldings/bridge.tscn" type="PackedScene" id=5]
@@ -10,7 +10,7 @@
 [node name="hill" type="Spatial"]
 script = ExtResource( 6 )
 
-[node name="structures" type="Spatial" parent="."]
+[node name="citystructures" type="Spatial" parent="."]
 script = ExtResource( 2 )
 base = ExtResource( 3 )
 building_fundament = ExtResource( 4 )

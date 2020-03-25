@@ -29,6 +29,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://dialogue_engine/characters/Characters.gd"
 }, {
+"base": "Spatial",
+"class": "CityStructures",
+"language": "GDScript",
+"path": "res://prefabs/city/hill/CityStructures.gd"
+}, {
+"base": "Node",
+"class": "CommandPattern",
+"language": "GDScript",
+"path": "res://singletons/CommandPattern.gd"
+}, {
 "base": "GameObject",
 "class": "GameActor",
 "language": "GDScript",
@@ -54,7 +64,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/gameactors/player/Player.gd"
 }, {
-"base": "Node",
+"base": "CommandPattern",
 "class": "PuppetMaster",
 "language": "GDScript",
 "path": "res://singletons/PuppetMaster.gd"
@@ -99,6 +109,8 @@ _global_script_class_icons={
 "BuildingFundament": "",
 "Character": "",
 "Characters": "",
+"CityStructures": "",
+"CommandPattern": "",
 "GameActor": "",
 "GameObject": "",
 "Hill": "",
