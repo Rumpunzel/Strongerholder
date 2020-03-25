@@ -15,9 +15,6 @@ onready var fundament = $building setget , get_fundament
 onready var area = $building/area
 
 
-var highlighted_by:GameActor = null
-
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,27 +29,25 @@ func _ready():
 #	pass
 
 
-func _unhandled_input(event):
-	if highlighted:
-		if event.is_action_pressed("interact"):
-			print(name)
-			get_tree().set_input_as_handled()
-
-
 
 func entered(body):
 	var object = body.get_parent()
 	
-	if object is Player:
-		highlighted_by = object
-		set_highlighted(true)
+	if object is GameActor:
+		object.focus_target = self
+		
+		if object is Player:
+			set_highlighted(true)
 
 func exited(body):
 	var object = body.get_parent()
 	
-	if object is Player:
-		highlighted_by = null
-		set_highlighted(false)
+	if object is GameActor:
+		if object.focus_target == self:
+			object.focus_target = null
+		
+		if object is Player:
+			set_highlighted(false)
 
 
 
@@ -62,6 +57,10 @@ func calculate_distance_to_center() -> float:
 
 func handle_highlighted():
 	fundament.get_node("block").material_override = highlight_material if highlighted else null
+
+
+func interact(sender:GameObject, action:String):
+	print("%s %s with %s." % [sender.name, "interacted" if action == "" else action, name])
 
 
 

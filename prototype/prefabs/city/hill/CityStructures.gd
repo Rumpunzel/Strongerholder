@@ -14,8 +14,7 @@ export(PackedScene) var bridge
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	build_everything()
-	print(get_class())
-	InputHandler.register_actor(self)
+
 
 
 

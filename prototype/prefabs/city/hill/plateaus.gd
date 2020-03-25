@@ -24,7 +24,6 @@ func build_plateau(ring_number):
 	add_child(new_plateau)
 	
 	new_plateau.name = "plateau_%2d" % [ring_number]
-	#new_plateau.global_transform.origin.y = Hill.get_ring_height(ring_number + 1) - height * 0.5
 	
 	new_plateau.polygon[0] = Vector2(inner_radius, -64)
 	new_plateau.polygon[1] = Vector2(inner_radius, inner_height)

@@ -21,6 +21,8 @@ var movement_modifier:float = 1.0
 
 var pathfinding_target:Vector2 = Vector2() setget set_pathfinding_target, get_pathfinding_target
 
+var focus_target:GameObject = null setget set_focus_target, get_focus_target
+
 
 signal moved
 signal jumped
@@ -37,6 +39,11 @@ func _ready():
 #func _process(delta):
 #	pass
 
+
+
+func interact_with_focus(new_action:String = ""):
+	if focus_target:
+		focus_target.interact(self, new_action)
 
 
 func move_to(direction:Vector2, sprinting:bool):
@@ -97,6 +104,13 @@ func set_pathfinding_target(new_target:Vector2):
 	pathfinder.pathfinding_target = pathfinding_target
 
 
+func set_focus_target(new_target:GameObject):
+	focus_target = new_target
+
 
 func get_pathfinding_target() -> Vector2:
 	return pathfinding_target
+
+
+func get_focus_target() -> GameObject:
+	return focus_target

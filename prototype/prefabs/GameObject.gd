@@ -70,7 +70,7 @@ func handle_highlighted():
 	pass
 
 
-func interact(_sender, _action):
+func interact(_sender:GameObject, _action:String):
 	pass
 
 func damage(_sender, damage_points:float):
