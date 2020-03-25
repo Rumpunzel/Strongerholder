@@ -13,7 +13,7 @@ walkspeed = 5.0
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 script = null
 
-[node name="camera" type="Camera" parent="body" index="2"]
+[node name="camera" type="Camera" parent="body" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 7 )
 environment = ExtResource( 4 )
 current = true

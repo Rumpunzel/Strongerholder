@@ -1,6 +1,6 @@
 [gd_resource type="Environment" load_steps=3 format=2]
 
-[ext_resource path="res://assets/AllSkyFree_Skyboxes/Epic_GloriousPink_EquiRect.png" type="Texture" id=1]
+[ext_resource path="res://assets/AllSkyFree_Skyboxes/Epic_BlueSunset_EquiRect_flat.png" type="Texture" id=1]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 1 )
@@ -11,7 +11,7 @@ background_sky = SubResource( 1 )
 fog_enabled = true
 fog_depth_enabled = false
 fog_height_enabled = true
-fog_height_min = 16.0
+fog_height_min = 8.0
 fog_height_max = -32.0
 tonemap_mode = 2
 auto_exposure_enabled = true
