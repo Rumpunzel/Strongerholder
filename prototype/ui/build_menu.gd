@@ -1,4 +1,4 @@
-extends PanelContainer
+extends GUIMenu
 
 
 # Declare member variables here. Examples:
