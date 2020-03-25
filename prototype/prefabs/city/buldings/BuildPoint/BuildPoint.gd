@@ -1,9 +1,9 @@
 tool
 extends GameObject
-class_name BuildingFundament
+class_name BuildPoint
 
-func is_class(type): return type == "BuildingFundament" or .is_class(type)
-func get_class(): return "BuildingFundament"
+func is_class(type): return type == "BuildPoint" or .is_class(type)
+func get_class(): return "BuildPoint"
 
 
 const BUILDING_OFFSET:float = 2.0
@@ -12,7 +12,7 @@ const BUILDING_OFFSET:float = 2.0
 export(SpatialMaterial) var highlight_material
 
 
-var building:Building = null setget set_building, get_building
+var building:Foundation = null setget set_building, get_building
 var area:Area = null setget set_area, get_area
 
 
@@ -65,13 +65,13 @@ func interact(sender:GameObject, action:String):
 		print("Which is a %s." % [building.name])
 
 
-func build_into(new_building:Building):
+func build_into(new_building:Foundation):
 	set_building(new_building)
 
 
 
 
-func set_building(new_building:Building):
+func set_building(new_building:Foundation):
 	var world_pos = (building.transform.origin - BUILDING_OFFSET * Vector3.FORWARD) if building else Vector3()
 	
 	if building:
@@ -109,7 +109,7 @@ func set_world_position(new_position:Vector3):
 
 
 
-func get_building() -> Building:
+func get_building() -> Foundation:
 	return building
 
 

@@ -1,4 +1,4 @@
-extends Building
+extends Foundation
 
 
 # Declare member variables here. Examples:

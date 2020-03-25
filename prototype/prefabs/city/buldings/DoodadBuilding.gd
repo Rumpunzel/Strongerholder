@@ -1,4 +1,4 @@
-extends Building
+extends Foundation
 class_name DoodadBuilding
 
 

@@ -1,9 +1,9 @@
 tool
 extends Spatial
-class_name Building
+class_name Foundation
 
-func is_class(type): return type == "Building" or .is_class(type)
-func get_class(): return "Building"
+func is_class(type): return type == "Foundation" or .is_class(type)
+func get_class(): return "Foundation"
 
 
 onready var structure = $block setget , get_structure
