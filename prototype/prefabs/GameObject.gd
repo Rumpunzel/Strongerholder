@@ -11,6 +11,7 @@ func get_class(): return "GameObject"
 #	ring_position, meaning the angle (in degrees) of the gameactor when rotated around the centre Vector3(0, 0, 0)
 
 export var hit_points_max:float = 10.0
+export var indestructible:bool = false
 
 
 onready var hit_points:float = hit_points_max
@@ -73,8 +74,16 @@ func handle_highlighted():
 func interact(_sender:GameObject, _action:String):
 	pass
 
+
 func damage(_sender, damage_points:float):
 	hit_points -= damage_points
+	
+	if not indestructible and hit_points <= 0:
+		die()
+
+
+func die():
+	pass
 
 
 
