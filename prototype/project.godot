@@ -123,9 +123,10 @@ config/icon="res://assets/sprites/icon.png"
 [autoload]
 
 GameConstants="*res://singletons/GameConstants.gd"
-InputHandler="*res://singletons/InputHandler.gd"
 RingMap="*res://singletons/RingMap.gd"
 CityNavigator="*res://singletons/CityNavigator.gd"
+InputHandler="*res://singletons/InputHandler.gd"
+BuildInputHandler="*res://singletons/BuildInputHandler.gd"
 
 [debug]
 

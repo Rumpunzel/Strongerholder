@@ -13,11 +13,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float):
-	var commands:Array = get_input()
-	
-	for command in commands:
-		for actor in current_actors:
-			command.execute(actor)
+	if not current_actors.empty():
+		var commands:Array = get_input()
+		
+		for command in commands:
+			for actor in current_actors:
+				command.execute(actor)
 
 
 
