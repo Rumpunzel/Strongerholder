@@ -1,4 +1,3 @@
-tool
 extends Spatial
 
 
@@ -7,18 +6,10 @@ export(PackedScene) var building_fundament
 export(PackedScene) var bridge
 
 
-var built:bool = false
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not Engine.editor_hint:
-		build_everything()
-
-
-func _process(_delta):
-	if Engine.editor_hint and not built:
-		build_everything()
+	build_everything()
 
 
 
@@ -35,8 +26,6 @@ func build_everything():
 	
 	for i in range(Hill.NUMBER_OF_RINGS):
 		construct_ring(i)
-	
-	built = true
 	
 	RingMap.done_building()
 

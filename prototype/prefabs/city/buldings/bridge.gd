@@ -1,4 +1,3 @@
-tool
 extends BuildingFundament
 class_name Bridge
 

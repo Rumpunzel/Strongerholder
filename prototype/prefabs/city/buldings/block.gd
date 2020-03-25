@@ -1,4 +1,3 @@
-tool
 extends GameObject
 class_name BuildingFundament
 
@@ -11,6 +10,9 @@ export(SpatialMaterial) var highlight_material
 
 onready var fundament = $building setget , get_fundament
 onready var area = $building/area
+
+
+var highlighted_by:GameActor = null
 
 
 
@@ -39,12 +41,14 @@ func entered(body):
 	var object = body.get_parent()
 	
 	if object is Player:
+		highlighted_by = object
 		set_highlighted(true)
 
 func exited(body):
 	var object = body.get_parent()
 	
 	if object is Player:
+		highlighted_by = null
 		set_highlighted(false)
 
 
