@@ -19,6 +19,11 @@ func _ready():
 #	pass
 
 
+func _unhandled_input(event):
+	if event.is_action_released("ui_cancel"):
+		hide(focus_target)
+		get_tree().set_input_as_handled()
+
 
 func show_build_menu(fundament:BuildingFundament):
 	if not fundament == focus_target:

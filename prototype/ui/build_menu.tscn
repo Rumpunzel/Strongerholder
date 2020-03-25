@@ -15,7 +15,7 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -182.0
+margin_top = -194.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -24,7 +24,7 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1913.0
-margin_bottom = 175.0
+margin_bottom = 187.0
 tab_align = 0
 
 [node name="dummy" type="GridContainer" parent="panel_container/tab_container"]
@@ -36,32 +36,32 @@ margin_right = -4.0
 margin_bottom = -4.0
 columns = 3
 
-[node name="texture_rect" type="TextureRect" parent="panel_container/tab_container/dummy"]
-margin_right = 64.0
-margin_bottom = 64.0
-texture = ExtResource( 1 )
+[node name="button" type="Button" parent="panel_container/tab_container/dummy"]
+margin_right = 76.0
+margin_bottom = 70.0
+icon = ExtResource( 1 )
 
-[node name="texture_rect2" type="TextureRect" parent="panel_container/tab_container/dummy"]
-margin_left = 68.0
-margin_right = 132.0
-margin_bottom = 64.0
-texture = ExtResource( 1 )
+[node name="button2" type="Button" parent="panel_container/tab_container/dummy"]
+margin_left = 80.0
+margin_right = 156.0
+margin_bottom = 70.0
+icon = ExtResource( 1 )
 
-[node name="texture_rect3" type="TextureRect" parent="panel_container/tab_container/dummy"]
-margin_left = 136.0
-margin_right = 200.0
-margin_bottom = 64.0
-texture = ExtResource( 1 )
+[node name="button3" type="Button" parent="panel_container/tab_container/dummy"]
+margin_left = 160.0
+margin_right = 236.0
+margin_bottom = 70.0
+icon = ExtResource( 1 )
 
-[node name="texture_rect4" type="TextureRect" parent="panel_container/tab_container/dummy"]
-margin_top = 68.0
-margin_right = 64.0
-margin_bottom = 132.0
-texture = ExtResource( 1 )
+[node name="button4" type="Button" parent="panel_container/tab_container/dummy"]
+margin_top = 74.0
+margin_right = 76.0
+margin_bottom = 144.0
+icon = ExtResource( 1 )
 
-[node name="texture_rect5" type="TextureRect" parent="panel_container/tab_container/dummy"]
-margin_left = 68.0
-margin_top = 68.0
-margin_right = 132.0
-margin_bottom = 132.0
-texture = ExtResource( 1 )
+[node name="button5" type="Button" parent="panel_container/tab_container/dummy"]
+margin_left = 80.0
+margin_top = 74.0
+margin_right = 156.0
+margin_bottom = 144.0
+icon = ExtResource( 1 )

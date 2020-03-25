@@ -26,8 +26,8 @@ func hide():
 
 
 func fade_in():
-	tween.interpolate_property(self, "rect_position:y", 256, 0, 1, Tween.TRANS_ELASTIC, Tween.EASE_IN_OUT)
-	tween.interpolate_property(self, "modulate:a", 0, 1, 1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.interpolate_property(self, "rect_position:y", 256, 0, 0.3, Tween.TRANS_BACK, Tween.EASE_OUT)
+	tween.interpolate_property(self, "modulate:a", 0, 1, 0.3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
 
 
