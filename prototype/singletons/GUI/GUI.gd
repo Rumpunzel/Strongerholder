@@ -32,6 +32,7 @@ func show_build_menu(fundament:BuildingFundament):
 		focus_target = fundament
 		
 		current_menu = build_menu.instance()
+		current_menu.focus_target = focus_target
 		add_child(current_menu)
 
 

@@ -5,6 +5,9 @@ class_name GUIMenu
 onready var tween:Tween = Tween.new()
 
 
+var focus_target = null setget set_focus_target, get_focus_target
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,3 +43,14 @@ func fade_out():
 	
 	get_parent().remove_child(self)
 	queue_free()
+
+
+
+
+func set_focus_target(new_target):
+	focus_target = new_target
+
+
+
+func get_focus_target():
+	return focus_target
