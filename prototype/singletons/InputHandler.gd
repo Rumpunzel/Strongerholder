@@ -30,6 +30,7 @@ func get_input() -> Array:
 
 
 
-class StopJumpCommand extends PuppetMaster.Command:
+
+class StopJumpCommand extends CommandPattern.Command:
 	func execute(actor:GameActor):
 		actor.stop_jump()

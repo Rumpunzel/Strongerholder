@@ -1,4 +1,4 @@
-extends PuppetMaster
+extends CommandPattern
 
 
 
@@ -18,6 +18,6 @@ func get_input() -> Array:
 
 
 
-class BuildCommand extends PuppetMaster.Command:
-	func execute(actor:GameActor):
+class BuildCommand extends CommandPattern.Command:
+	func execute(actor):
 		actor.stop_jump()
