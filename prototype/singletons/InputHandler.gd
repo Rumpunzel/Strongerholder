@@ -20,11 +20,26 @@ func get_input() -> Array:
 		
 		commands.append(MoveCommand.new(movement_vector, sprinting))
 	
+	
+	if Input.is_action_just_pressed("interact"):
+		commands.append(BuildCommand.new())
+	
 	return commands
 
 
 
 
-class StopJumpCommand extends CommandPattern.Command:
+class StopJumpCommand extends PuppetMaster.Command:
+	func _init():
+		actor_class = "GameActor"
+	
 	func execute(actor:GameActor):
 		actor.stop_jump()
+
+
+class BuildCommand extends PuppetMaster.Command:
+	func _init():
+		actor_class = "CityStructures"
+	
+	func execute(actor:CityStructures):
+		actor.initiate_build()
