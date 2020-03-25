@@ -1,8 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://prefabs/city/buldings/Building.tscn" type="PackedScene" id=1]
-[ext_resource path="res://prefabs/city/buldings/bridge.gd" type="Script" id=2]
-[ext_resource path="res://prefabs/city/buldings/debug_meshes/bridge.tres" type="CubeMesh" id=3]
+[ext_resource path="res://prefabs/city/buldings/Building/Building.tscn" type="PackedScene" id=1]
+[ext_resource path="res://prefabs/city/buldings/debug_meshes/bridge.tres" type="CubeMesh" id=2]
+[ext_resource path="res://prefabs/city/buldings/bridge/bridge.gd" type="Script" id=3]
+
 
 [sub_resource type="ConcavePolygonShape" id=1]
 data = PoolVector3Array( -5, 1, 13, 5, 1, 13, -5, -1, 13, 5, 1, 13, 5, -1, 13, -5, -1, 13, 5, 1, -13, -5, 1, -13, 5, -1, -13, -5, 1, -13, -5, -1, -13, 5, -1, -13, 5, 1, 13, 5, 1, -13, 5, -1, 13, 5, 1, -13, 5, -1, -13, 5, -1, 13, -5, 1, -13, -5, 1, 13, -5, -1, -13, -5, 1, 13, -5, -1, 13, -5, -1, -13, 5, 1, 13, -5, 1, 13, 5, 1, -13, -5, 1, 13, -5, 1, -13, 5, 1, -13, -5, -1, 13, 5, -1, 13, -5, -1, -13, 5, -1, 13, 5, -1, -13, -5, -1, -13 )
@@ -14,11 +15,11 @@ extents = Vector3( 1, 5, 7 )
 extents = Vector3( 5, 5, 14 )
 
 [node name="bridge" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="block" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
-mesh = ExtResource( 3 )
+mesh = ExtResource( 2 )
 
 [node name="static_body2" type="StaticBody" parent="block" index="1"]
 
