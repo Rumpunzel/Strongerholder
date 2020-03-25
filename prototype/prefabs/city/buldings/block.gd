@@ -46,8 +46,8 @@ func exited(body):
 		
 		if object is Player:
 			set_highlighted(false)
-	
-	GUI.hide(self)
+			
+			GUI.hide(self)
 
 
 

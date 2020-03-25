@@ -4,7 +4,7 @@ extends CanvasLayer
 export(PackedScene) var build_menu
 
 
-var current_menu:GUIMenu
+var current_menu:GUIMenu = null
 var focus_target = null
 
 
@@ -22,7 +22,7 @@ func _ready():
 
 func show_build_menu(fundament:BuildingFundament):
 	if not fundament == focus_target:
-		hide()
+		hide(focus_target)
 		
 		focus_target = fundament
 		
@@ -30,7 +30,8 @@ func show_build_menu(fundament:BuildingFundament):
 		add_child(current_menu)
 
 
-func hide(focus = focus_target):
-	if current_menu and focus == focus_target:
+func hide(trigger):
+	if current_menu and trigger == focus_target:
 		current_menu.hide()
 		current_menu = null
+		focus_target = null
