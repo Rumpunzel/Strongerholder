@@ -5,19 +5,27 @@ func is_class(type): return type == "BuildPoint" or .is_class(type)
 func get_class(): return "BuildPoint"
 
 
-export(SpatialMaterial) var highlight_material
+const buildings:Dictionary = { RingMap.BASE: preload("res://prefabs/city/buldings/base.tscn"), RingMap.FOUNDATIONS: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), RingMap.BRIDGES: preload("res://prefabs/city/buldings/bridge/bridge.tscn") }
+
+const highlight_material:Material = preload("res://prefabs/city/buldings/debug_materials/highlight_material.tres")
 
 
-var building_type:String
-
+var building_type:String setget set_building_type, get_building_type
 var building:Foundation = null setget set_building, get_building
-var area:Area = null setget set_area, get_area
 
+
+
+func _init(new_building_type:String, new_ring_vector:RingVector):
+	set_building_type(new_building_type)
+	set_ring_vector(new_ring_vector)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	#set_building(buildings[building_type].instance())
+	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
+	
+	RingMap.register_segment(building_type, ring_vector, self)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -73,32 +81,23 @@ func build_into(new_building:Foundation, new_type:String):
 
 
 
+func set_building_type(new_type:String):
+	building_type = new_type
+
+
 func set_building(new_building:Foundation):
-	var world_pos = building.transform.origin if building else Vector3()
-	
 	if building:
 		remove_child(building)
 		building.queue_free()
 		building = null
 	
 	building = new_building
-	add_child(new_building)
-	set_world_position(world_pos)
-	
-	set_area(building.area)
-
-
-func set_area(new_area:Area):
-	area = new_area
-	
-	area.connect("body_entered", self, "entered")
-	area.connect("body_exited", self, "exited")
+	add_child(building)
 
 
 func set_ring_vector(new_vector:RingVector):
 	.set_ring_vector(new_vector)
 	rotation.y = ring_vector.rotation
-	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	
 	if building:
 		building.ring_vector = new_vector
@@ -112,12 +111,12 @@ func set_world_position(new_position:Vector3):
 
 
 
+func get_building_type() -> String:
+	return building_type
+
+
 func get_building() -> Foundation:
 	return building
-
-
-func get_area() -> Area:
-	return area
 
 
 func get_world_position() -> Vector3:

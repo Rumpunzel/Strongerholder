@@ -5,6 +5,7 @@ func is_class(type): return type == "Foundation" or .is_class(type)
 func get_class(): return "Foundation"
 
 
+onready var build_point = get_parent()
 onready var structure = $block setget , get_structure
 onready var area = $area setget , get_area
 
@@ -15,7 +16,8 @@ var ring_vector:RingVector setget set_ring_vector, get_ring_vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	area.connect("body_entered", build_point, "entered")
+	area.connect("body_exited", build_point, "exited")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,7 +31,7 @@ func handle_highlighted(new_material):
 
 
 func interact(_sender:GameObject, _action:String):
-	GUI.show_build_menu(get_parent())
+	GUI.show_build_menu(build_point)
 
 
 

@@ -25,11 +25,11 @@ func _unhandled_input(event):
 		get_tree().set_input_as_handled()
 
 
-func show_build_menu(fundament:BuildPoint):
-	if not fundament == focus_target:
+func show_build_menu(build_point:BuildPoint):
+	if not build_point == focus_target:
 		hide(focus_target)
 		
-		focus_target = fundament
+		focus_target = build_point
 		
 		current_menu = build_menu.instance()
 		current_menu.focus_target = focus_target

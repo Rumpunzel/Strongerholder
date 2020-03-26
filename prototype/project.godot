@@ -17,17 +17,12 @@ _global_script_classes=[ {
 "base": "GameObject",
 "class": "BuildPoint",
 "language": "GDScript",
-"path": "res://prefabs/city/buldings/BuildPoint/BuildPoint.gd"
+"path": "res://prefabs/city/buldings/BuildPoint.gd"
 }, {
 "base": "Node",
 "class": "CityNavigator",
 "language": "GDScript",
 "path": "res://singletons/CityManagement/city_navigator.gd"
-}, {
-"base": "Spatial",
-"class": "CityStructures",
-"language": "GDScript",
-"path": "res://prefabs/city/hill/CityStructures.gd"
 }, {
 "base": "Foundation",
 "class": "DoodadBuilding",
@@ -83,7 +78,6 @@ _global_script_class_icons={
 "Bridge": "",
 "BuildPoint": "",
 "CityNavigator": "",
-"CityStructures": "",
 "DoodadBuilding": "",
 "Foundation": "",
 "GUIMenu": "",
@@ -104,7 +98,6 @@ config/icon="res://assets/sprites/icon.png"
 
 [autoload]
 
-GameConstants="*res://singletons/GameConstants.gd"
 RingMap="*res://singletons/CityManagement/RingMap.gd"
 InputHandler="*res://singletons/Inputs/InputHandler.gd"
 GUI="*res://singletons/GUI/GUI.tscn"
