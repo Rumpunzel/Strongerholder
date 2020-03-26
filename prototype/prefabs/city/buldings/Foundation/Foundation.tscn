@@ -10,7 +10,7 @@ data = PoolVector3Array( -5, 1, 3, 5, 1, 3, -5, -1, 3, 5, 1, 3, 5, -1, 3, -5, -1
 radius = 5.0
 height = 8.0
 
-[node name="building" type="Spatial"]
+[node name="foundation" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="block" type="MeshInstance" parent="."]

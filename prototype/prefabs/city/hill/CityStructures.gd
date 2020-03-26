@@ -1,4 +1,3 @@
-
 extends Spatial
 class_name CityStructures
 

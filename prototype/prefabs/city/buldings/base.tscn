@@ -1,16 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://prefabs/city/buldings/Foundation/Foundation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/city/buldings/debug_meshes/spire.tres" type="PrismMesh" id=2]
-
-
-
+[ext_resource path="res://prefabs/city/buldings/DoodadBuilding.gd" type="Script" id=3]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 10.0
 height = 8.0
 
 [node name="base" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
 
 [node name="block" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0 )
