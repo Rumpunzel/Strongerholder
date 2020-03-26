@@ -12,9 +12,14 @@ func get_class(): return "Woodsman"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	set_pathfinding_target(Vector2(2, 9))
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(_delta):
+	if not pathfinding_target:
+		var nearest_stockpile = CityNavigator.get_nearest(ring_vector, RingMap.STOCKPILES)
+		
+		if nearest_stockpile:
+			print(nearest_stockpile)
+			set_pathfinding_target(nearest_stockpile)
