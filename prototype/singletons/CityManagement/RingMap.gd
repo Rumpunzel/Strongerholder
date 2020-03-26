@@ -69,6 +69,7 @@ func update_segment(old_type:String, new_type:String, ring_vector:RingVector, ob
 	segments_dictionary[old_type][ring_vector.ring].erase(ring_vector.segment)
 	
 	register_segment(new_type, ring_vector, object)
+	done_building()
 
 
 func get_object_at_position(ring: int, segment:int, from:String = EVERYTHING):
@@ -80,12 +81,6 @@ func get_object_at_position(ring: int, segment:int, from:String = EVERYTHING):
 		search_through = search_dictionary
 	
 	return search_through.get(int(ring), { }).get(int(segment), null)
-
-
-func get_ring_position_of_object(ring:int , segment:int) -> Vector2:
-	var object = search_dictionary.get(int(ring), { }).get(int(segment), null)
-	
-	return object.ring_vector if not object == null and object is GameObject else Vector2()
 
 
 # Recalculation of the current ring the gameactor is on

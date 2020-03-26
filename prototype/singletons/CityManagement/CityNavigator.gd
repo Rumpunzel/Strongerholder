@@ -30,8 +30,11 @@ func construct_graph():
 	var city = RingMap.segments_dictionary
 	var graph_size:int = 0
 	
+	astar_nodes.clear()
+	pathfinder.clear()
+	
 	for type in city.keys():
-		var weight = 5 if type == RingMap.BRIDGES else 1
+		var weight = 1.5 if type == RingMap.BRIDGES else 1.0
 		var rings = city[type]
 		
 		for ring in rings.keys():
@@ -66,7 +69,7 @@ func connect_nodes():
 						pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 			
 			for bridge in bridges.get(ring + 1, { }).keys():
-				var max_distance = 0.1
+				var max_distance = 0.5
 				var bridge_connected = false
 				
 				while not bridge_connected:
@@ -79,9 +82,10 @@ func connect_nodes():
 
 
 
-func get_shortest_path(start_vector:RingVector, target_Vector:RingVector) -> Array:
+func get_shortest_path(start_vector:RingVector, target_vector:RingVector) -> Array:
 	var start = astar_nodes.find(Vector2(start_vector.ring, start_vector.segment))
-	var destination = astar_nodes.find(Vector2(target_Vector.ring, target_Vector.segment))
+	var destination = astar_nodes.find(Vector2(target_vector.ring, target_vector.segment))
+	
 	var path_ids:Array = [ ]
 	var path_vectors:Array = [ ]
 	
@@ -117,7 +121,9 @@ func get_nearest(ring_vector:RingVector, type:String) -> RingVector:
 				if (shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size():
 					shortest_path = path
 		
-		return shortest_path.back() if not shortest_path.empty() else null
+		var target = shortest_path.back() if not shortest_path.empty() else null
+		
+		return RingVector.new(target.x, target.y, true) if target else null
 
 
 
