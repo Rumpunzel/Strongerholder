@@ -45,7 +45,7 @@ func register_actor(new_actor:GameActor, exclusive_actor:bool = true):
 
 
 func update_current_path(new_vector:RingVector):
-	current_path = CityNavigator.get_shortest_path(new_vector, pathfinding_target)
+	current_path = RingMap.city_navigator.get_shortest_path(new_vector, pathfinding_target)
 	current_segments = [ ]
 	
 	for segment in range(1, current_path.size()):

@@ -18,6 +18,9 @@ const STOCKPILES = "stockpiles"
 const EVERYTHING = "everything"
 
 
+onready var city_navigator:CityNavigator = CityNavigator.new()
+
+
 var radius_minimums:Dictionary = { }
 var radius_maximums:Dictionary = { }
 
@@ -44,7 +47,7 @@ func _ready():
 
 func done_building():
 	construct_search_dictionary()
-	CityNavigator.done_building()
+	city_navigator.start_building()
 
 
 

@@ -1,8 +1,8 @@
 extends Node
+class_name CityNavigator
 
 
-onready var pathfinder = AStar.new()
-
+var pathfinder:AStar
 var astar_nodes:Array = [ ]
 
 var adjacency_matrix:Dictionary = { }
@@ -15,7 +15,7 @@ func _ready():
 
 
 
-func done_building():
+func start_building():
 	construct_pathfinder()
 	#construct_adjanceny_matrix()
 
@@ -30,8 +30,8 @@ func construct_graph():
 	var city = RingMap.segments_dictionary
 	var graph_size:int = 0
 	
+	pathfinder = AStar.new()
 	astar_nodes.clear()
-	pathfinder.clear()
 	
 	for type in city.keys():
 		var weight = 1.5 if type == RingMap.BRIDGES else 1.0
