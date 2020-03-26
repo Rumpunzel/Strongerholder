@@ -22,52 +22,63 @@ func done_building():
 
 
 func construct_pathfinder():
-	var rings = RingMap.search_dictionary
-	
-	construct_graph(rings)
-	connect_nodes(rings)
+	construct_graph()
+	connect_nodes()
+	var f = pathfinder.get_point_connections(astar_nodes.find(Vector2(2, 10)))
+	for v in f:
+		print(astar_nodes[v])
 
 
-func construct_graph(rings:Dictionary):
+func construct_graph():
+	var city = RingMap.segments_dictionary
 	var graph_size:int = 0
 	
-	for ring in rings.keys():
-		var segments = rings[ring]
+	for type in city.keys():
+		var weight = 5 if type == RingMap.BRIDGES else 1
+		var rings = city[type]
 		
-		for segment in segments.keys():
-			var building = segments[segment]
+		for ring in rings.keys():
+			var segments = rings[ring]
 			
-			pathfinder.add_point(graph_size, building.world_position)
-			astar_nodes.append(Vector2(ring, segment))
-			
-			graph_size += 1
+			for segment in segments.keys():
+				var building = segments[segment]
+				
+				pathfinder.add_point(graph_size, building.world_position, weight)
+				astar_nodes.append(Vector2(ring, segment))
+				
+				graph_size += 1
 	
 	
-func connect_nodes(rings:Dictionary):
-	var bridges:Dictionary = RingMap.segments_dictionary[RingMap.BRIDGES]
+func connect_nodes():
+	var city = RingMap.segments_dictionary
+	var bridges:Dictionary = city[RingMap.BRIDGES]
 	
-	for ring in rings.keys():
-		var segments = rings[ring]
+	for type in city.keys():
+		var rings = city[type]
 		
-		for segment in segments.keys():
-			var seg_size = segments.size()
+		for ring in rings.keys():
+			var segments = rings[ring]
 			
-			for building in range(segment, seg_size + 1):
-				if abs(segment - building) == 1 and not segment == (building % seg_size):
-					building %= seg_size
-					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
-		
-		for bridge in bridges.get(ring + 1, { }).keys():
-			var max_distance = 0.5
-			var bridge_connected = false
+			for segment in segments.keys():
+				var seg_size = segments.size()
+				
+				for building in range(seg_size + 1):
+					if abs(segment - building) == 1 and not segment == (building % seg_size):
+						building %= seg_size
+						
+						pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 			
-			while not bridge_connected:
-				for segment in segments.keys():
-					if abs(segment - (bridge / float(RingMap.get_number_of_segments(ring + 1))) * RingMap.get_number_of_segments(ring)) <= max_distance:
-						pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
-						bridge_connected = true
-					
-					max_distance += 0.5
+			for bridge in bridges.get(ring + 1, { }).keys():
+				var max_distance = 0.1
+				var bridge_connected = false
+				
+				while not bridge_connected:
+					for segment in segments.keys():
+						if abs(segment - (bridge / float(RingMap.get_number_of_segments(ring + 1))) * RingMap.get_number_of_segments(ring)) <= max_distance:
+							pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
+							bridge_connected = true
+						
+						max_distance += 0.1
 
 
 

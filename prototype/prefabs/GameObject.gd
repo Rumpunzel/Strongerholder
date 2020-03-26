@@ -5,9 +5,6 @@ func is_class(type): return type == "GameObject" or .is_class(type)
 func get_class(): return "GameObject"
 
 
-# Positions are abstracted using 2 dimensions
-#	ring_radius, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and
-#	ring_position, meaning the angle (in degrees) of the gameactor when rotated around the centre Vector3(0, 0, 0)
 
 export var hit_points_max:float = 10.0
 export var indestructible:bool = false
@@ -16,6 +13,9 @@ export var indestructible:bool = false
 onready var hit_points:float = hit_points_max
 
 
+# Positions are abstracted using 2 dimensions
+#	ring_vector.x, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and
+#	ring_vector.y, meaning the angle (in radians) of the gameactor when rotated around the centre Vector3(0, 0, 0)
 var ring_vector:Vector2 = Vector2() setget set_ring_vector, get_ring_vector
 # The current ring of the world the gameactor is on
 #	rings start with 0
@@ -49,8 +49,8 @@ func update_ring_vector(emit_update:bool = false):
 	var new_segment:int = RingMap.get_current_segment(ring_vector)
 	
 	if emit_update or not new_ring == current_ring or not new_segment == current_segment:
-		emit_signal("entered_segment", Vector2(new_ring, new_segment))
 		emit_signal("left_segment", Vector2(current_ring, current_segment))
+		emit_signal("entered_segment", Vector2(new_ring, new_segment))
 	
 	current_ring = new_ring
 	current_segment = new_segment

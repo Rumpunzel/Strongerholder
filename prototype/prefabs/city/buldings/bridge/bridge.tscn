@@ -4,9 +4,6 @@
 [ext_resource path="res://prefabs/city/buldings/debug_meshes/bridge.tres" type="CubeMesh" id=2]
 [ext_resource path="res://prefabs/city/buldings/bridge/bridge.gd" type="Script" id=3]
 
-
-
-
 [sub_resource type="ConcavePolygonShape" id=1]
 data = PoolVector3Array( -5, 1, 13, 5, 1, 13, -5, -1, 13, 5, 1, 13, 5, -1, 13, -5, -1, 13, 5, 1, -13, -5, 1, -13, 5, -1, -13, -5, 1, -13, -5, -1, -13, 5, -1, -13, 5, 1, 13, 5, 1, -13, 5, -1, 13, 5, 1, -13, 5, -1, -13, 5, -1, 13, -5, 1, -13, -5, 1, 13, -5, -1, -13, -5, 1, 13, -5, -1, 13, -5, -1, -13, 5, 1, 13, -5, 1, 13, 5, 1, -13, -5, 1, 13, -5, 1, -13, 5, 1, -13, -5, -1, 13, 5, -1, 13, -5, -1, -13, 5, -1, 13, 5, -1, -13, -5, -1, -13 )
 
@@ -20,7 +17,7 @@ extents = Vector3( 5, 5, 14 )
 script = ExtResource( 3 )
 
 [node name="block" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -13 )
 mesh = ExtResource( 2 )
 
 [node name="static_body2" type="StaticBody" parent="block" index="1"]

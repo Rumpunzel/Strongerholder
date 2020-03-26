@@ -22,8 +22,7 @@ func get_input() -> Array:
 	var next_path_segment:Vector2 = current_segments[0] if not current_segments.empty() else Vector2()
 	
 	if not next_path_segment == Vector2():
-		if current_segments.size() > 1:
-			next_path_segment.x += RingMap.ROAD_WIDTH / 2.0
+		next_path_segment.x += RingMap.ROAD_WIDTH / 2.0
 		
 		movement_vector = next_path_segment - get_parent().ring_vector
 		movement_vector.x /= 256
