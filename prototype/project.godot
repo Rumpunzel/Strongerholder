@@ -69,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://singletons/Inputs/PuppetMaster.gd"
 }, {
+"base": "Resource",
+"class": "RingVector",
+"language": "GDScript",
+"path": "res://RingVector.gd"
+}, {
 "base": "NPC",
 "class": "Woodsman",
 "language": "GDScript",
@@ -87,6 +92,7 @@ _global_script_class_icons={
 "NPC": "",
 "Player": "",
 "PuppetMaster": "",
+"RingVector": "",
 "Woodsman": ""
 }
 
