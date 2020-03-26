@@ -15,27 +15,50 @@ signal vector_changed
 
 func _init(new_x, new_y, use_as_int_values:bool = false):
 	if use_as_int_values:
-		set_ring(int(new_x))
-		set_segment(int(new_y))
+		ring = int(new_x)
+		segment = int(new_y)
 	else:
-		set_radius(float(new_x))
-		set_rotation(float(new_y))
+		radius = float(new_x)
+		rotation = float(new_y)
 	
-	recalcuate()
+	recalcuate(use_as_int_values)
 
 
 func _ready():
 	emit_signal("vector_changed")
 
 
-func recalcuate():
-	var new_ring = RingMap.get_current_ring(radius)
-	var new_segment = RingMap.get_current_segment(ring, rotation)
-	
-	if not new_ring == ring or not new_segment == segment:
-		ring = new_ring
-		segment = new_segment
+func recalcuate(has_int_values:bool = false):
+	if has_int_values:
+		var new_radius = RingMap.get_radius_minimum(ring)
+		var new_rotation = (float(segment) / RingMap.get_number_of_segments(ring)) * TAU
 		
+		if not new_radius == radius or not new_rotation == rotation:
+			radius = new_radius
+			rotation = new_rotation
+			
+			emit_signal("vector_changed")
+	else:
+		var new_ring = RingMap.get_current_ring(radius)
+		var new_segment = RingMap.get_current_segment(new_ring, rotation)
+		
+		if not new_ring == ring or not new_segment == segment:
+			ring = new_ring
+			segment = new_segment
+		
+			emit_signal("vector_changed")
+
+
+func set_equal_to(new_vector:RingVector):
+	var changed = not (ring == new_vector.ring and segment == new_vector.segment)
+	
+	ring = new_vector.ring
+	segment = new_vector.segment
+	
+	radius = new_vector.radius
+	rotation = new_vector.rotation
+	
+	if changed:
 		emit_signal("vector_changed")
 
 
@@ -51,17 +74,14 @@ func modulo_ring_vector():
 
 func set_ring(new_ring:int):
 	ring = new_ring
-	radius = RingMap.get_radius_minimum(ring)
-	recalcuate()
+	recalcuate(true)
 
 func set_segment(new_segment:int):
-	rotation = float(new_segment) / RingMap.get_number_of_segments(ring)
-	
-	recalcuate()
+	segment = new_segment
+	recalcuate(true)
 
 func set_radius (new_radius:float):
 	radius = new_radius
-	
 	recalcuate()
 
 func set_rotation(new_rotation:float):
