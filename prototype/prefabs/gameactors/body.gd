@@ -5,7 +5,7 @@ extends KinematicBody
 onready var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
-var ring_vector:Vector2 = Vector2() setget set_ring_vector, get_ring_vector
+var ring_vector:RingVector setget set_ring_vector, get_ring_vector
 
 var move_direction:Vector2 = Vector2() setget set_move_direction, get_move_direction
 
@@ -52,9 +52,9 @@ func jump(speed:float = 0.0):
 
 
 
-func set_ring_vector(new_vector:Vector2):
+func set_ring_vector(new_vector:RingVector):
+	translation.z = ring_vector.radius
 	ring_vector = new_vector
-	translation.z = ring_vector.x
 
 
 func set_move_direction(new_dirction:Vector2):
@@ -62,10 +62,11 @@ func set_move_direction(new_dirction:Vector2):
 
 
 
-func get_ring_vector() -> Vector2:
-	ring_vector.x = global_transform.origin.distance_to(Vector3())
-	ring_vector.y = Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2.DOWN)
-	ring_vector = GameObject.modulo_ring_vector(ring_vector)
+func get_ring_vector() -> RingVector:
+	var rad = global_transform.origin.distance_to(Vector3())
+	var rot = Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2.DOWN)
+	
+	ring_vector = RingVector.new(rad, rot)
 	
 	return ring_vector
 

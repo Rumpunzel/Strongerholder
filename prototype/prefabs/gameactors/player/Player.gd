@@ -17,5 +17,5 @@ func _ready():
 
 
 
-func update_current_path(new_position:Vector2):
-	print("player path: %s" % [CityNavigator.get_shortest_path(new_position, Vector2(2, 11))])
+func update_current_path(new_vector:RingVector):
+	print("player path: %s" % [CityNavigator.get_shortest_path(new_vector, RingVector.new(2, 11, true))])

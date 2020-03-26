@@ -21,15 +21,16 @@ func _ready():
 func build_everything():
 	var new_fundament = fundament.instance()
 	var new_base = base.instance()
+	var center_vector = RingVector.new(0, 0)
 	
 	add_child(new_fundament)
 	new_fundament.building = new_base
 	
-	new_fundament.ring_vector = Vector2()
+	new_fundament.ring_vector = center_vector
 	
 	new_fundament.name = "[base]"
 	
-	RingMap.register_segment(RingMap.BASE, -1, 0, new_fundament)
+	RingMap.register_segment(RingMap.BASE, center_vector, new_fundament)
 	
 	for i in range(Hill.NUMBER_OF_RINGS):
 		construct_ring(i)
@@ -51,25 +52,24 @@ func construct_ring(ring_number):
 			new_fundament.name = "[bridge]"
 			
 			type = RingMap.BRIDGES
+			new_fundament.building_type = type
 		else:
 			new_building = building.instance()
-			new_fundament.name = "[building]"
+			new_fundament.name = "[foundation]"
 			
-			type = RingMap.BUILDINGS
+			type = RingMap.FOUNDATIONS
+			new_fundament.building_type = type
 		
 		add_child(new_fundament)
+		
+		var ring_vector = RingVector.new(RingMap.get_radius_minimum(ring_number), i * (TAU * (1.0 / number_of_buildings)))
+		
 		new_fundament.building = new_building
-		
-		var ring_vector = Vector2(RingMap.get_radius_minimum(ring_number), i * (TAU * (1.0 / number_of_buildings)))
-		
-		new_fundament.set_world_position(Vector3(0, RingMap.get_height_minimum(ring_number), ring_vector.x))
-		new_fundament.rotation.y = ring_vector.y
-		
 		new_fundament.ring_vector = ring_vector
 		
 		new_fundament.name += "[%s, %s]" % [ring_number, i]
 		
-		RingMap.register_segment(type, ring_number, i, new_fundament)
+		RingMap.register_segment(type, ring_vector, new_fundament)
 	
 	print("total buildings for ring %d: %d" % [ring_number, number_of_buildings])
 

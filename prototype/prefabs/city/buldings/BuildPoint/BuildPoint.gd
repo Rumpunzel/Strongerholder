@@ -5,11 +5,10 @@ func is_class(type): return type == "BuildPoint" or .is_class(type)
 func get_class(): return "BuildPoint"
 
 
-const BUILDING_OFFSET:float = 2.0
-
-
 export(SpatialMaterial) var highlight_material
 
+
+var building_type:String
 
 var building:Foundation = null setget set_building, get_building
 var area:Area = null setget set_area, get_area
@@ -64,14 +63,18 @@ func interact(sender:GameObject, action:String):
 		print("Which is a %s." % [building.name])
 
 
-func build_into(new_building:Foundation):
+func build_into(new_building:Foundation, new_type:String):
 	set_building(new_building)
+	
+	RingMap.update_segment(building_type, new_type, ring_vector, self)
+	
+	building_type = new_type
 
 
 
 
 func set_building(new_building:Foundation):
-	var world_pos = (building.transform.origin - BUILDING_OFFSET * Vector3.FORWARD) if building else Vector3()
+	var world_pos = building.transform.origin if building else Vector3()
 	
 	if building:
 		remove_child(building)
@@ -81,7 +84,6 @@ func set_building(new_building:Foundation):
 	building = new_building
 	add_child(new_building)
 	set_world_position(world_pos)
-	building.ring_vector = ring_vector
 	
 	set_area(building.area)
 
@@ -93,8 +95,11 @@ func set_area(new_area:Area):
 	area.connect("body_exited", self, "exited")
 
 
-func set_ring_vector(new_vector:Vector2):
+func set_ring_vector(new_vector:RingVector):
 	.set_ring_vector(new_vector)
+	
+	rotation.y = ring_vector.rotation
+	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	
 	if building:
 		building.ring_vector = new_vector
@@ -102,7 +107,7 @@ func set_ring_vector(new_vector:Vector2):
 
 func set_world_position(new_position:Vector3):
 	if building:
-		building.transform.origin = new_position + BUILDING_OFFSET * Vector3.FORWARD
+		building.transform.origin = new_position
 	else:
 		.set_world_position(new_position)
 
@@ -118,6 +123,6 @@ func get_area() -> Area:
 
 func get_world_position() -> Vector3:
 	if building:
-		return building.global_transform.origin - BUILDING_OFFSET * Vector3.FORWARD
+		return building.global_transform.origin
 	else:
 		return .get_world_position()

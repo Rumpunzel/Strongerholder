@@ -13,7 +13,8 @@ const SLOPE_RADIUS:float = 420.0
 const EMPTY = "empty"
 const BASE = "base"
 const BRIDGES = "bridges"
-const BUILDINGS = "buildings"
+const FOUNDATIONS = "foundations"
+const STOCKPILES = "stockpiles"
 const EVERYTHING = "everything"
 
 
@@ -56,25 +57,33 @@ func construct_search_dictionary():
 
 
 
-func register_segment(type:String, ring:int, segment:int, object):
+func register_segment(type:String, ring_vector:RingVector, object):
 	segments_dictionary[type] = segments_dictionary.get(type, { })
-	segments_dictionary[type][ring] = segments_dictionary[type].get(ring, { })
-	segments_dictionary[type][ring][segment] = object
+	segments_dictionary[type][ring_vector.ring] = segments_dictionary[type].get(ring_vector.ring, { })
+	segments_dictionary[type][ring_vector.ring][ring_vector.segment] = object
 
 
-func get_object_at_position(position:Vector2, from:String = EVERYTHING):
+func update_segment(old_type:String, new_type:String, ring_vector:RingVector, object):
+	segments_dictionary[old_type] = segments_dictionary.get(old_type, { })
+	segments_dictionary[old_type][ring_vector.ring] = segments_dictionary[old_type].get(ring_vector.ring, { })
+	segments_dictionary[old_type][ring_vector.ring].erase(ring_vector.segment)
+	
+	register_segment(new_type, ring_vector, object)
+
+
+func get_object_at_position(ring: int, segment:int, from:String = EVERYTHING):
 	var search_through:Dictionary = { }
 	
 	if not from == EVERYTHING:
-		search_dictionary = segments_dictionary[from]
+		search_through = segments_dictionary[from]
 	else:
 		search_through = search_dictionary
 	
-	return search_through.get(int(position.x), { }).get(int(position.y), null)
+	return search_through.get(int(ring), { }).get(int(segment), null)
 
 
-func get_ring_position_of_object(segment:Vector2) -> Vector2:
-	var object = search_dictionary.get(int(segment.x), { }).get(int(segment.y), null)
+func get_ring_position_of_object(ring:int , segment:int) -> Vector2:
+	var object = search_dictionary.get(int(ring), { }).get(int(segment), null)
 	
 	return object.ring_vector if not object == null and object is GameObject else Vector2()
 
@@ -89,11 +98,10 @@ func get_current_ring(ring_radius:float) -> int:
 	return ring
 
 
-func get_current_segment(ring_vector:Vector2) -> int:
-	var current_ring = get_current_ring(ring_vector.x)
-	var total_segments = get_number_of_segments(current_ring)
+func get_current_segment(ring:int, rotation:float) -> int:
+	var total_segments = get_number_of_segments(ring)
 	
-	var segment = ((ring_vector.y + PI / total_segments) / TAU) * total_segments
+	var segment = ((rotation + PI / total_segments) / TAU) * total_segments
 	
 	return int(segment + total_segments) % total_segments
 

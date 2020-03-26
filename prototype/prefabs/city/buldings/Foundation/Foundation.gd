@@ -9,7 +9,7 @@ onready var structure = $block setget , get_structure
 onready var area = $area setget , get_area
 
 
-var ring_vector:Vector2 = Vector2() setget set_ring_vector, get_ring_vector
+var ring_vector:RingVector setget set_ring_vector, get_ring_vector
 
 
 
@@ -33,12 +33,12 @@ func interact(_sender:GameObject, _action:String):
 
 
 
-func set_ring_vector(new_vector:Vector2):
+func set_ring_vector(new_vector:RingVector):
 	ring_vector = new_vector
 
 
 
-func get_ring_vector() -> Vector2:
+func get_ring_vector() -> RingVector:
 	return ring_vector
 
 

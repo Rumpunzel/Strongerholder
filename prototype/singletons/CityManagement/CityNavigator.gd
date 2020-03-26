@@ -24,9 +24,6 @@ func done_building():
 func construct_pathfinder():
 	construct_graph()
 	connect_nodes()
-	var f = pathfinder.get_point_connections(astar_nodes.find(Vector2(2, 10)))
-	for v in f:
-		print(astar_nodes[v])
 
 
 func construct_graph():
@@ -82,9 +79,9 @@ func connect_nodes():
 
 
 
-func get_shortest_path(from:Vector2, to:Vector2) -> Array:
-	var start = astar_nodes.find(from)
-	var destination = astar_nodes.find(to)
+func get_shortest_path(start_vector:RingVector, target_Vector:RingVector) -> Array:
+	var start = astar_nodes.find(Vector2(start_vector.ring, start_vector.segment))
+	var destination = astar_nodes.find(Vector2(target_Vector.ring, target_Vector.segment))
 	var path_ids:Array = [ ]
 	var path_vectors:Array = [ ]
 	
@@ -95,6 +92,32 @@ func get_shortest_path(from:Vector2, to:Vector2) -> Array:
 			path_vectors.append(astar_nodes[node])
 	
 	return path_vectors
+
+
+func get_nearest(ring_vector:RingVector, type:String) -> RingVector:
+	var search_through:Dictionary = { }
+	
+	if not type == RingMap.EVERYTHING:
+		search_through = RingMap.segments_dictionary.get(type, { })
+	else:
+		search_through = { }
+		print("INVALID SEARCH INPUT")
+	
+	if search_through.empty():
+		return null
+	else:
+		var shortest_path:Array = [ ]
+		
+		for ring in search_through.keys():
+			var segments = search_through[ring]
+			
+			for segment in segments.keys():
+				var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
+				
+				if (shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size():
+					shortest_path = path
+		
+		return shortest_path.back() if not shortest_path.empty() else null
 
 
 

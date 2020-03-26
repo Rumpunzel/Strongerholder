@@ -19,7 +19,7 @@ export var jump_speed:float = 30.0
 #	is equal to 1.0 if the gameactor is walking normal
 var movement_modifier:float = 1.0
 
-var pathfinding_target:Vector2 = Vector2() setget set_pathfinding_target, get_pathfinding_target
+var pathfinding_target:RingVector setget set_pathfinding_target, get_pathfinding_target
 
 var focus_target:GameObject = null setget set_focus_target, get_focus_target
 
@@ -51,8 +51,6 @@ func move_to(direction:Vector2, sprinting:bool):
 	
 	body.move_direction = get_move_direction(direction)
 	ring_vector = body.ring_vector
-	
-	update_ring_vector()
 	
 	# The position in the world can be displayed with a Vector2
 	#	with the x-axis being the ring_position and
@@ -99,7 +97,7 @@ func get_world_position():
 
 
 
-func set_pathfinding_target(new_target:Vector2):
+func set_pathfinding_target(new_target:RingVector):
 	pathfinding_target = new_target
 	pathfinder.pathfinding_target = pathfinding_target
 
@@ -108,7 +106,7 @@ func set_focus_target(new_target:GameObject):
 	focus_target = new_target
 
 
-func get_pathfinding_target() -> Vector2:
+func get_pathfinding_target() -> RingVector:
 	return pathfinding_target
 
 
