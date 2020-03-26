@@ -1,4 +1,3 @@
-tool
 extends KinematicBody
 
 
@@ -67,6 +66,7 @@ func get_ring_vector() -> Vector2:
 	ring_vector.x = global_transform.origin.distance_to(Vector3())
 	ring_vector.y = Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2.DOWN)
 	ring_vector = GameObject.modulo_ring_vector(ring_vector)
+	
 	return ring_vector
 
 
