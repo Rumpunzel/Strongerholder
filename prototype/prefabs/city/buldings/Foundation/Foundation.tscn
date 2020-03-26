@@ -14,7 +14,7 @@ height = 8.0
 script = ExtResource( 2 )
 
 [node name="block" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
 mesh = ExtResource( 1 )
 material/0 = null
 
@@ -24,7 +24,7 @@ material/0 = null
 shape = SubResource( 1 )
 
 [node name="area" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -1 )
 
 [node name="collision_shape" type="CollisionShape" parent="area"]
 shape = SubResource( 2 )

@@ -24,11 +24,11 @@ func build_everything():
 	var center_vector = RingVector.new(0, 0)
 	
 	add_child(new_fundament)
-	new_fundament.building = new_base
 	
 	new_fundament.ring_vector = center_vector
-	
 	new_fundament.name = "[base]"
+	
+	new_fundament.building = new_base
 	
 	RingMap.register_segment(RingMap.BASE, center_vector, new_fundament)
 	
@@ -60,14 +60,13 @@ func construct_ring(ring_number):
 			type = RingMap.FOUNDATIONS
 			new_fundament.building_type = type
 		
-		add_child(new_fundament)
-		
-		var ring_vector = RingVector.new(RingMap.get_radius_minimum(ring_number), i * (TAU * (1.0 / number_of_buildings)))
-		
-		new_fundament.building = new_building
-		new_fundament.ring_vector = ring_vector
+		var ring_vector = RingVector.new(ring_number, i, true)
 		
 		new_fundament.name += "[%s, %s]" % [ring_number, i]
+		
+		add_child(new_fundament)
+		new_fundament.building = new_building
+		new_fundament.ring_vector = ring_vector
 		
 		RingMap.register_segment(type, ring_vector, new_fundament)
 	

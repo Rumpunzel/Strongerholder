@@ -50,7 +50,7 @@ func move_to(direction:Vector2, sprinting:bool):
 	movement_modifier = sprint_modifier if sprinting else 1.0
 	
 	body.move_direction = get_move_direction(direction)
-	ring_vector = body.ring_vector
+	set_ring_vector(body.ring_vector)
 	
 	# The position in the world can be displayed with a Vector2
 	#	with the x-axis being the ring_position and
@@ -91,11 +91,6 @@ func stop_jump():
 
 
 
-func get_world_position():
-	return body.global_transform.origin
-
-
-
 
 func set_pathfinding_target(new_target:RingVector):
 	pathfinding_target = new_target
@@ -106,9 +101,14 @@ func set_focus_target(new_target:GameObject):
 	focus_target = new_target
 
 
+
 func get_pathfinding_target() -> RingVector:
 	return pathfinding_target
 
 
 func get_focus_target() -> GameObject:
 	return focus_target
+
+
+func get_world_position():
+	return body.global_transform.origin

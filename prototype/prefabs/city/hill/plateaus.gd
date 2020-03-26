@@ -16,7 +16,7 @@ func build_everything():
 
 func build_plateau(ring_number):
 	var new_plateau = CSGPolygon.new()
-	var inner_radius = RingMap.get_radius_minimum(ring_number)
+	var inner_radius = RingMap.get_radius_minimum(ring_number) - RingMap.RING_GAP
 	var outer_radius = RingMap.get_radius_maximum(ring_number) + 1
 	var inner_height = RingMap.get_height_minimum(ring_number)
 	var outer_height = RingMap.get_height_maximum(ring_number)

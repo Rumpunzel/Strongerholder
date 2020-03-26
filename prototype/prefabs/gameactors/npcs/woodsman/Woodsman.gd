@@ -21,5 +21,4 @@ func _process(_delta):
 		var nearest_stockpile = CityNavigator.get_nearest(ring_vector, RingMap.STOCKPILES)
 		
 		if nearest_stockpile:
-			print(nearest_stockpile)
 			set_pathfinding_target(nearest_stockpile)

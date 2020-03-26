@@ -22,8 +22,6 @@ func get_input() -> Array:
 	var next_path_segment:RingVector = current_segments[0] if not current_segments.empty() else null
 	
 	if next_path_segment:
-		next_path_segment.radius += RingMap.ROAD_WIDTH / 2.0
-		
 		movement_vector = Vector2(next_path_segment.radius - start_ring_vector.radius, next_path_segment.rotation - start_ring_vector.rotation)
 		movement_vector.x /= 256
 		
@@ -31,7 +29,7 @@ func get_input() -> Array:
 		
 		if movement_vector.length() > 0:
 			movement_vector = movement_vector.normalized()
-			
+		
 			commands.append(MoveCommand.new(movement_vector, false))
 	
 	return commands
@@ -39,6 +37,8 @@ func get_input() -> Array:
 
 func register_actor(new_actor:GameActor, exclusive_actor:bool = true):
 	.register_actor(new_actor, exclusive_actor)
+	
+	set_start_ring_vector(new_actor.ring_vector)
 	
 	new_actor.connect("moved", self, "set_start_ring_vector")
 	new_actor.connect("entered_segment", self, "update_current_path")
@@ -49,7 +49,11 @@ func update_current_path(new_vector:RingVector):
 	current_segments = [ ]
 	
 	for segment in range(1, current_path.size()):
-		current_segments.append(RingMap.get_ring_position_of_object(current_path[segment].x, current_path[segment].x))
+		var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
+		
+		new_segment.radius += RingMap.ROAD_WIDTH / 2.0
+		
+		current_segments.append(new_segment)
 	
 	print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
 
@@ -58,7 +62,9 @@ func update_current_path(new_vector:RingVector):
 
 func set_pathfinding_target(new_target:RingVector):
 	pathfinding_target = new_target
-	update_current_path(pathfinding_target)
+	
+	if start_ring_vector and pathfinding_target:
+		update_current_path(start_ring_vector)
 
 
 func set_start_ring_vector(new_vector:RingVector):

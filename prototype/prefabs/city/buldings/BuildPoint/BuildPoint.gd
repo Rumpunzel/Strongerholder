@@ -97,7 +97,6 @@ func set_area(new_area:Area):
 
 func set_ring_vector(new_vector:RingVector):
 	.set_ring_vector(new_vector)
-	
 	rotation.y = ring_vector.rotation
 	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	

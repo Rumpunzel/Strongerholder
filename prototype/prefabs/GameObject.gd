@@ -16,7 +16,7 @@ onready var hit_points:float = hit_points_max
 # Positions are abstracted using 2 dimensions
 #	ring_vector.x, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and
 #	ring_vector.y, meaning the angle (in radians) of the gameactor when rotated around the centre Vector3(0, 0, 0)
-var ring_vector:RingVector setget set_ring_vector, get_ring_vector
+var ring_vector:RingVector = null setget set_ring_vector, get_ring_vector
 
 #warning-ignore:unused_class_variable
 var world_position:Vector3 setget set_world_position, get_world_position
@@ -30,7 +30,7 @@ signal entered_segment
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ring_vector = get_ring_vector()
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,7 +40,7 @@ func _ready():
 
 
 func updated_ring_vector():
-	emit_signal("entered_segment", ring_vector.ring, ring_vector.segment)
+	emit_signal("entered_segment", ring_vector)
 
 
 func handle_highlighted():
@@ -65,9 +65,11 @@ func die():
 
 
 func set_ring_vector(new_vector:RingVector):
-	ring_vector = new_vector
-	
-	ring_vector.connect("vector_changed", self, "updated_ring_vector")
+	if ring_vector:
+		ring_vector.set_equal_to(new_vector)
+	else:
+		ring_vector = new_vector
+		ring_vector.connect("vector_changed", self, "updated_ring_vector")
 
 
 func set_world_position(new_position:Vector3):
@@ -81,10 +83,12 @@ func set_highlighted(is_highlighted:bool):
 
 
 func get_ring_vector() -> RingVector:
-	var rad = global_transform.origin.distance_to(Vector3())
-	var rot = Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2.DOWN)
-	
-	ring_vector = RingVector.new(rad, rot)
+	if not ring_vector:
+		var rad = global_transform.origin.distance_to(Vector3())
+		var rot = Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2.DOWN)
+		var vec = RingVector.new(rad, rot)
+		
+		set_ring_vector(vec)
 	
 	return ring_vector
 

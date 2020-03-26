@@ -5,7 +5,7 @@ func is_class(type): return type == "Hill" or .is_class(type)
 func get_class(): return "Hill"
 
 
-const NUMBER_OF_RINGS:int = 3
+const NUMBER_OF_RINGS:int = 10
 
 
 

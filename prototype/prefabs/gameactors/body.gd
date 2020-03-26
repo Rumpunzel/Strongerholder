@@ -53,8 +53,12 @@ func jump(speed:float = 0.0):
 
 
 func set_ring_vector(new_vector:RingVector):
+	if ring_vector:
+		ring_vector.set_equal_to(new_vector)
+	else:
+		ring_vector = new_vector
+	
 	translation.z = ring_vector.radius
-	ring_vector = new_vector
 
 
 func set_move_direction(new_dirction:Vector2):
@@ -66,7 +70,11 @@ func get_ring_vector() -> RingVector:
 	var rad = global_transform.origin.distance_to(Vector3())
 	var rot = Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2.DOWN)
 	
-	ring_vector = RingVector.new(rad, rot)
+	if not ring_vector:
+		ring_vector = RingVector.new(rad, rot)
+	else:
+		ring_vector.radius = rad
+		ring_vector.rotation = rot
 	
 	return ring_vector
 
