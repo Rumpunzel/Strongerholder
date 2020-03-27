@@ -1,4 +1,5 @@
 extends PuppetMaster
+class_name PathFinder
 
 
 
@@ -45,17 +46,21 @@ func register_actor(new_actor:GameActor, exclusive_actor:bool = true):
 
 
 func update_current_path(new_vector:RingVector):
-	current_path = RingMap.city_navigator.get_shortest_path(new_vector, pathfinding_target)
+	current_path = [ ]
 	current_segments = [ ]
 	
-	for segment in range(1, current_path.size()):
-		var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
+	if start_ring_vector and pathfinding_target:
+		current_path = RingMap.city_navigator.get_shortest_path(new_vector, pathfinding_target)
 		
-		new_segment.radius += RingMap.ROAD_WIDTH / 2.0
 		
-		current_segments.append(new_segment)
-	
-	print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
+		for segment in range(1, current_path.size()):
+			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
+			
+			new_segment.radius += RingMap.ROAD_WIDTH / 2.0
+			
+			current_segments.append(new_segment)
+		
+		print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
 
 
 
@@ -63,8 +68,7 @@ func update_current_path(new_vector:RingVector):
 func set_pathfinding_target(new_target:RingVector):
 	pathfinding_target = new_target
 	
-	if start_ring_vector and pathfinding_target:
-		update_current_path(start_ring_vector)
+	update_current_path(start_ring_vector)
 
 
 func set_start_ring_vector(new_vector:RingVector):

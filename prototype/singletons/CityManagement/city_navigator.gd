@@ -34,7 +34,7 @@ func construct_graph():
 	astar_nodes.clear()
 	
 	for type in city.keys():
-		var weight = 1.5 if type == RingMap.BRIDGES else 1.0
+		var weight = 1.0 if type == RingMap.BRIDGES else 1.0
 		var rings = city[type]
 		
 		for ring in rings.keys():
