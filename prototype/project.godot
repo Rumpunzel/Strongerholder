@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "CityNavigator",
 "language": "GDScript",
-"path": "res://city_management/city_navigator.gd"
+"path": "res://city_management/CityNavigator.gd"
 }, {
 "base": "Foundation",
 "class": "DoodadBuilding",
@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "GUIMenu",
 "language": "GDScript",
-"path": "res://ui/gui_menu.gd"
+"path": "res://ui/GUIMenu.gd"
 }, {
 "base": "GameObject",
 "class": "GameActor",
