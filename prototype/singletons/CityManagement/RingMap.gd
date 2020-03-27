@@ -9,6 +9,8 @@ const RING_WIDTH:float = 32.0
 const SEGMENT_WIDTH:float = 12.0
 const SLOPE_RADIUS:float = 420.0
 
+const NUMBER_OF_RINGS:int = 10
+
 
 const EMPTY = "empty"
 const BASE = "base"

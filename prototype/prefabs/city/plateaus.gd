@@ -10,7 +10,7 @@ func _ready():
 
 
 func build_everything():
-	for i in range(Hill.NUMBER_OF_RINGS):
+	for i in range(RingMap.NUMBER_OF_RINGS):
 		build_plateau(i)
 
 

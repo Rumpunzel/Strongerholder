@@ -2,7 +2,7 @@
 
 [ext_resource path="res://prefabs/gameactors/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/gameactors/npcs/NPC.tscn" type="PackedScene" id=2]
-[ext_resource path="res://prefabs/city/hill/Hill.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/city/hill.tscn" type="PackedScene" id=3]
 
 [node name="ring_test" type="Spatial"]
 
