@@ -21,16 +21,11 @@ func _init(new_building_type:String, new_ring_vector:RingVector):
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	#set_building(buildings[building_type].instance())
+func _enter_tree():
+	set_building(buildings[building_type].instance())
 	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	
 	RingMap.register_segment(building_type, ring_vector, self)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 
@@ -92,6 +87,7 @@ func set_building(new_building:Foundation):
 		building = null
 	
 	building = new_building
+	building.ring_vector = ring_vector
 	add_child(building)
 
 

@@ -29,16 +29,19 @@ func construct_ring(ring_number):
 	
 	for i in range(number_of_buildings):
 		var new_build_point
+		var buildying_type
 		var ring_vector = RingVector.new(ring_number, i, true)
+		var building_name
 		
 		if ring_number > 0 and i % number_of_bridges == 0:
-			new_build_point = build_point.new(RingMap.BRIDGES, ring_vector)
-			new_build_point.name = "[bridge]"
+			buildying_type = RingMap.BRIDGES
+			building_name = "[bridge]"
 		else:
-			new_build_point = build_point.new(RingMap.FOUNDATIONS, ring_vector)
-			new_build_point.name = "[foundation]"
+			buildying_type = RingMap.FOUNDATIONS
+			building_name = "[foundation]"
 		
-		new_build_point.name += "[%s, %s]" % [ring_number, i]
+		new_build_point = build_point.new(buildying_type, ring_vector)
+		new_build_point.name = "%s[%s, %s]" % [building_name, ring_number, i]
 		
 		add_child(new_build_point)
 	
