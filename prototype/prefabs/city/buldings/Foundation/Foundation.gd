@@ -28,8 +28,9 @@ func handle_highlighted(new_material):
 	get_node("block").material_override = new_material
 
 
-func interact(_sender:GameObject, _action:String):
+func interact(_sender:GameObject, _action:String) -> bool:
 	gui.show_build_menu(build_point)
+	return true
 
 
 

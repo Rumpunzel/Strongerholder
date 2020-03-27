@@ -45,9 +45,11 @@ func setup(new_ring_map:RingMap):
 
 
 
-func interact_with_focus(new_action:String = ""):
+func interact_with_focus(new_action:String = "") -> bool:
 	if focus_target:
-		focus_target.interact(self, new_action)
+		return focus_target.interact(self, new_action)
+	
+	return false
 
 
 func move_to(direction:Vector2, sprinting:bool):

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/sprites/icon.png" type="Texture" id=1]
 [ext_resource path="res://ui/build_menu.gd" type="Script" id=2]
+[ext_resource path="res://ui/menu_button.gd" type="Script" id=3]
 
 [node name="build_menu" type="Control"]
 anchor_right = 1.0
@@ -40,24 +41,28 @@ columns = 3
 margin_right = 76.0
 margin_bottom = 70.0
 icon = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="button2" type="Button" parent="panel_container/tab_container/dummy"]
 margin_left = 80.0
 margin_right = 156.0
 margin_bottom = 70.0
 icon = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="button3" type="Button" parent="panel_container/tab_container/dummy"]
 margin_left = 160.0
 margin_right = 236.0
 margin_bottom = 70.0
 icon = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="button4" type="Button" parent="panel_container/tab_container/dummy"]
 margin_top = 74.0
 margin_right = 76.0
 margin_bottom = 144.0
 icon = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="button5" type="Button" parent="panel_container/tab_container/dummy"]
 margin_left = 80.0
@@ -65,3 +70,4 @@ margin_top = 74.0
 margin_right = 156.0
 margin_bottom = 144.0
 icon = ExtResource( 1 )
+script = ExtResource( 3 )

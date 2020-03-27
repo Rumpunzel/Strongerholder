@@ -8,7 +8,7 @@
 extents = Vector3( 1, 5, 7 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 5, 5, 14 )
+extents = Vector3( 0.1, 0.1, 0.1 )
 
 [node name="bridge" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -30,7 +30,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, 0 )
 shape = SubResource( 1 )
 
 [node name="area" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -13 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7 )
 
 [node name="collision_shape" parent="area" index="0"]
 shape = SubResource( 2 )

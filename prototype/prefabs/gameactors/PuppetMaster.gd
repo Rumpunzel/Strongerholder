@@ -14,8 +14,8 @@ func _process(_delta:float):
 	if not current_actors.empty():
 		var commands:Array = get_input()
 		
-		for command in commands:
-			for actor in current_actors:
+		for actor in current_actors:
+			for command in commands:
 				command.execute(actor)
 
 
@@ -49,8 +49,9 @@ func get_current_actors() -> Array:
 
 
 class Command:
-	func execute(_actor):
+	func execute(_actor) -> bool:
 		assert(false)
+		return true
 
 
 class MoveCommand extends Command:
@@ -61,10 +62,12 @@ class MoveCommand extends Command:
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 		
-	func execute(actor:GameActor):
+	func execute(actor:GameActor) -> bool:
 		actor.move_to(movement_vector, sprinting)
+		return false
 
 
 class JumpCommand extends Command:
-	func execute(actor:GameActor):
+	func execute(actor:GameActor) -> bool:
 		actor.jump()
+		return false

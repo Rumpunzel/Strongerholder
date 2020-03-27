@@ -53,8 +53,8 @@ func handle_highlighted():
 	pass
 
 
-func interact(_sender:GameObject, _action:String):
-	pass
+func interact(_sender:GameObject, _action:String) -> bool:
+	return false
 
 
 func damage(_sender:GameObject, damage_points:float):

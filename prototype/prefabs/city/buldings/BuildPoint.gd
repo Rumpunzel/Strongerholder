@@ -59,11 +59,13 @@ func handle_highlighted():
 		building.handle_highlighted(highlight_material if highlighted else null)
 
 
-func interact(sender:GameObject, action:String):
+func interact(sender:GameObject, action:String) -> bool:
 	print("%s %s with %s." % [sender.name, "interacted" if action == "" else action, name])
 	
 	if building:
-		building.interact(sender, action)
+		return building.interact(sender, action)
+	
+	return false
 
 
 func build_into(new_type:String):
