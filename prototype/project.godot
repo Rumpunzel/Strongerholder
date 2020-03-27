@@ -22,12 +22,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "CityLayout",
 "language": "GDScript",
-"path": "res://CityLayout.gd"
+"path": "res://city_management/CityLayout.gd"
 }, {
 "base": "Node",
 "class": "CityNavigator",
 "language": "GDScript",
-"path": "res://singletons/CityManagement/city_navigator.gd"
+"path": "res://city_management/city_navigator.gd"
 }, {
 "base": "Foundation",
 "class": "DoodadBuilding",
@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "GameObject",
 "class": "GameActor",
 "language": "GDScript",
-"path": "res://prefabs/gameactors/GameActor.gd"
+"path": "res://prefabs/gameactors/base/GameActor.gd"
 }, {
 "base": "Spatial",
 "class": "GameObject",
@@ -62,7 +62,7 @@ _global_script_classes=[ {
 "base": "PuppetMaster",
 "class": "PathFinder",
 "language": "GDScript",
-"path": "res://prefabs/gameactors/PathFinder.gd"
+"path": "res://prefabs/gameactors/base/PathFinder.gd"
 }, {
 "base": "GameActor",
 "class": "Player",
@@ -72,17 +72,17 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "PuppetMaster",
 "language": "GDScript",
-"path": "res://singletons/Inputs/PuppetMaster.gd"
+"path": "res://prefabs/gameactors/PuppetMaster.gd"
 }, {
 "base": "Resource",
 "class": "RingMap",
 "language": "GDScript",
-"path": "res://singletons/CityManagement/RingMap.gd"
+"path": "res://city_management/RingMap.gd"
 }, {
 "base": "Resource",
 "class": "RingVector",
 "language": "GDScript",
-"path": "res://RingVector.gd"
+"path": "res://city_management/RingVector.gd"
 } ]
 _global_script_class_icons={
 "Bridge": "",
@@ -110,7 +110,7 @@ config/icon="res://assets/sprites/icon.png"
 
 [autoload]
 
-InputHandler="*res://singletons/Inputs/InputHandler.gd"
+InputHandler="*res://singletons/InputHandler.gd"
 GUI="*res://singletons/GUI/GUI.tscn"
 
 [debug]
