@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "CanvasLayer",
 "class": "GUI",
 "language": "GDScript",
-"path": "res://singletons/GUI/GUI.gd"
+"path": "res://ui/GUI/GUI.gd"
 }, {
 "base": "Control",
 "class": "GUIMenu",
