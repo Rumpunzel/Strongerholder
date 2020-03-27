@@ -34,7 +34,7 @@ func construct_graph():
 	astar_nodes.clear()
 	
 	for type in city.keys():
-		var weight = 1.0 if type == RingMap.BRIDGES else 1.0
+		var weight = 1.0 if type == RingMap.BRIDGE else 1.0
 		var rings = city[type]
 		
 		for ring in rings.keys():
@@ -51,7 +51,7 @@ func construct_graph():
 	
 func connect_nodes():
 	var city = RingMap.segments_dictionary
-	var bridges:Dictionary = city[RingMap.BRIDGES]
+	var bridges:Dictionary = city[RingMap.BRIDGE]
 	
 	for type in city.keys():
 		var rings = city[type]
@@ -128,7 +128,7 @@ func get_nearest(ring_vector:RingVector, type:String) -> RingVector:
 
 
 func construct_adjanceny_matrix():
-	var bridges:Dictionary = RingMap.segments_dictionary[RingMap.BRIDGES]
+	var bridges:Dictionary = RingMap.segments_dictionary[RingMap.BRIDGE]
 	
 	for ring in bridges.keys():
 		for segment in bridges[ring].keys():

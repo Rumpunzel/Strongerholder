@@ -22,6 +22,6 @@ func _ready():
 
 
 func build_stockpile():
-	focus_target.build_into(RingMap.STOCKPILES)
+	focus_target.build_into(RingMap.STOCKPILE)
 	
 	GUI.hide(focus_target)

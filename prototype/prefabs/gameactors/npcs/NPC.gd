@@ -20,10 +20,10 @@ func _ready():
 func _process(_delta):
 	if not did_it_once:
 		if not pathfinding_target:
-			var nearest_stockpile = RingMap.city_navigator.get_nearest(ring_vector, RingMap.STOCKPILES)
+			var nearest_stockpile = RingMap.city_navigator.get_nearest(ring_vector, RingMap.STOCKPILE)
 			
 			if nearest_stockpile:
-				set_object_of_interest(RingMap.segments_dictionary[RingMap.STOCKPILES][nearest_stockpile.ring][nearest_stockpile.segment])
+				set_object_of_interest(RingMap.segments_dictionary[RingMap.STOCKPILE][nearest_stockpile.ring][nearest_stockpile.segment])
 				set_pathfinding_target(nearest_stockpile)
 				print(object_of_interest)
 		

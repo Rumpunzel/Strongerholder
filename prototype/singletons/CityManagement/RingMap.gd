@@ -14,9 +14,9 @@ const NUMBER_OF_RINGS:int = 10
 
 const EMPTY = "empty"
 const BASE = "base"
-const BRIDGES = "bridges"
-const FOUNDATIONS = "foundations"
-const STOCKPILES = "stockpiles"
+const BRIDGE = "bridge"
+const FOUNDATION = "foundation"
+const STOCKPILE = "stockpile"
 const EVERYTHING = "everything"
 
 
