@@ -2,6 +2,8 @@ extends Control
 class_name GUIMenu
 
 
+onready var gui = get_parent()
+
 onready var tween:Tween = Tween.new()
 
 

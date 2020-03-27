@@ -4,22 +4,23 @@ extends Spatial
 
 var ring_map
 
+var gui
 
 
-func build_everything(new_ring_map:RingMap = null):
-	if new_ring_map and not ring_map:
-		ring_map = new_ring_map
+
+func build_everything(new_ring_map:RingMap, new_gui):
+	ring_map = new_ring_map
+	gui = new_gui
+
+	var new_build_point = BuildPoint.new(CityLayout.BASE, RingVector.new(0, 0), ring_map, gui)
+	new_build_point.name = "[base]"
 	
-	if ring_map:
-		var new_build_point = BuildPoint.new(CityLayout.BASE, RingVector.new(0, 0), ring_map)
-		new_build_point.name = "[base]"
-		
-		add_child(new_build_point)
-		
-		for i in range(CityLayout.NUMBER_OF_RINGS):
-			construct_ring(i)
-		
-		ring_map.done_building()
+	add_child(new_build_point)
+	
+	for i in range(CityLayout.NUMBER_OF_RINGS):
+		construct_ring(i)
+	
+	ring_map.done_building()
 
 
 func construct_ring(ring_number):
@@ -36,7 +37,7 @@ func construct_ring(ring_number):
 		else:
 			buildying_type = CityLayout.FOUNDATION
 		
-		new_build_point = BuildPoint.new(buildying_type, ring_vector, ring_map)
+		new_build_point = BuildPoint.new(buildying_type, ring_vector, ring_map, gui)
 		
 		add_child(new_build_point)
 	

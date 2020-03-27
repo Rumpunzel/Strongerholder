@@ -1,4 +1,6 @@
+tool
 extends CanvasLayer
+class_name GUI
 
 
 export(PackedScene) var build_menu

@@ -13,11 +13,14 @@ const highlight_material:Material = preload("res://prefabs/city/buldings/debug_m
 var building_type:String setget set_building_type, get_building_type
 var building:Foundation = null setget , get_building
 
+var gui
 
 
-func _init(new_building_type:String, new_ring_vector:RingVector, new_ring_map:RingMap).(new_ring_map):
+
+func _init(new_building_type:String, new_ring_vector:RingVector, new_ring_map:RingMap, new_gui).(new_ring_map):
 	set_building_type(new_building_type)
 	set_ring_vector(new_ring_vector)
+	gui = new_gui
 
 
 # Called when the node enters the scene tree for the first time.
@@ -47,7 +50,7 @@ func exited(body):
 		if object is Player:
 			set_highlighted(false)
 			
-			GUI.hide(self)
+			gui.hide(self)
 
 
 
@@ -87,6 +90,7 @@ func set_building():
 	building = buildings[building_type].instance()
 	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	building.ring_vector = ring_vector
+	building.gui = gui
 	
 	add_child(building)
 	
