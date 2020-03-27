@@ -5,7 +5,6 @@ func is_class(type): return type == "GameObject" or .is_class(type)
 func get_class(): return "GameObject"
 
 
-
 export var hit_points_max:float = 10.0
 export var indestructible:bool = false
 
@@ -13,13 +12,15 @@ export var indestructible:bool = false
 onready var hit_points:float = hit_points_max
 
 
+# Reference to the ring_map; pseudo Singleton only availably to GameObjects
 var ring_map:RingMap
-# Positions are abstracted using 2 dimensions
-#	ring_vector.x, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and
-#	ring_vector.y, meaning the angle (in radians) of the gameactor when rotated around the centre Vector3(0, 0, 0)
+# The position of the object in ring vector space
+#	for further information, look into the documentation in the RingVector class
 var ring_vector:RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
 
-#warning-ignore:unused_class_variable
+# The global position of the object in world space
+#	This will often be overwritten to give the global position of child nodes
+# warning-ignore:unused_class_variable
 var world_position:Vector3 setget set_world_position, get_world_position
 
 var highlighted:bool = false setget set_highlighted, get_highlighted

@@ -16,6 +16,12 @@ var raycasts:Dictionary = { }
 
 
 
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	create_raycasts()
+
+
+
 func create_raycasts():
 	create_raycast(FRONT)
 	create_raycast(BACK)

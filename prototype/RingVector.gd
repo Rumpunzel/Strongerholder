@@ -1,14 +1,22 @@
 extends Resource
 class_name RingVector
 
+# This is a custom data type to store position data
+#	a position is abstracted by 2 different parameters:
+#	- the radius from the center
+#	- the position on the circumference defined by the prior radius
 
+# There are 2 different types of these 2-dimensional vectors
+#	- a discrete vector; here the ring is subdivided into segments
 var ring:int setget set_ring, get_ring
 var segment:int setget set_segment, get_segment
 
+#	- a continous vector; here it describes the world distance from the center
+#		the position on the circumference is an angle in radians from -PI to PI
 var radius:float setget set_radius, get_radius
 var rotation:float setget set_rotation, get_rotation
 
-
+# This signal is emiited when the discrete parts of the vector change
 signal vector_changed
 
 
