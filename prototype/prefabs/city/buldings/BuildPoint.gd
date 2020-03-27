@@ -5,13 +5,13 @@ func is_class(type): return type == "BuildPoint" or .is_class(type)
 func get_class(): return "BuildPoint"
 
 
-const buildings:Dictionary = { RingMap.BASE: preload("res://prefabs/city/buldings/base.tscn"), RingMap.FOUNDATIONS: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), RingMap.BRIDGES: preload("res://prefabs/city/buldings/bridge/bridge.tscn"), RingMap.STOCKPILES: preload("res://prefabs/city/buldings/stockpile/stockpile.tscn") }
+const buildings:Dictionary = { RingMap.BASE: preload("res://prefabs/city/buldings/base.tscn"), RingMap.FOUNDATION: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), RingMap.BRIDGE: preload("res://prefabs/city/buldings/bridge/bridge.tscn"), RingMap.STOCKPILE: preload("res://prefabs/city/buldings/stockpile/stockpile.tscn") }
 
 const highlight_material:Material = preload("res://prefabs/city/buldings/debug_materials/highlight_material.tres")
 
 
 var building_type:String setget set_building_type, get_building_type
-var building:Foundation = null setget set_building, get_building
+var building:Foundation = null setget , get_building
 
 
 
@@ -22,7 +22,7 @@ func _init(new_building_type:String, new_ring_vector:RingVector):
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree():
-	set_building(buildings[building_type].instance())
+	set_building()
 	
 	RingMap.register_segment(building_type, ring_vector, self)
 
@@ -61,13 +61,10 @@ func interact(sender:GameObject, action:String):
 	
 	if building:
 		building.interact(sender, action)
-		
-		print("Which is a %s." % [building.name])
 
 
 func build_into(new_type:String):
 	set_building_type(new_type)
-	set_building(buildings[building_type].instance())
 	
 	RingMap.update_segment(building_type, new_type, ring_vector, self)
 
@@ -76,18 +73,24 @@ func build_into(new_type:String):
 
 func set_building_type(new_type:String):
 	building_type = new_type
+	
+	if building:
+		set_building()
 
 
-func set_building(new_building:Foundation):
+func set_building():
 	if building:
 		remove_child(building)
 		building.queue_free()
 		building = null
 	
-	building = new_building
+	building = buildings[building_type].instance()
 	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	building.ring_vector = ring_vector
+	
 	add_child(building)
+	
+	name = "[%s][%s, %s]" % [building_type, ring_vector.ring, ring_vector.segment]
 
 
 func set_ring_vector(new_vector:RingVector):
