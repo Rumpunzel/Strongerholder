@@ -44,4 +44,3 @@ func set_object_of_interest(new_object:GameObject):
 
 func get_object_of_interest() -> GameObject:
 	return object_of_interest
-

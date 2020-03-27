@@ -3,8 +3,6 @@ extends Spatial
 
 var ring_map
 
-var build_point = preload("res://prefabs/city/buldings/BuildPoint.gd")
-
 
 
 func build_everything(new_ring_map:RingMap = null):
@@ -12,7 +10,7 @@ func build_everything(new_ring_map:RingMap = null):
 		ring_map = new_ring_map
 	
 	if ring_map:
-		var new_build_point = build_point.new(CityLayout.BASE, RingVector.new(0, 0), ring_map)
+		var new_build_point = BuildPoint.new(CityLayout.BASE, RingVector.new(0, 0), ring_map)
 		new_build_point.name = "[base]"
 		
 		add_child(new_build_point)
@@ -37,7 +35,7 @@ func construct_ring(ring_number):
 		else:
 			buildying_type = CityLayout.FOUNDATION
 		
-		new_build_point = build_point.new(buildying_type, ring_vector, ring_map)
+		new_build_point = BuildPoint.new(buildying_type, ring_vector, ring_map)
 		
 		add_child(new_build_point)
 	

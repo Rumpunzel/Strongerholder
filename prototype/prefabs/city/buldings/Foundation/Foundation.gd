@@ -20,11 +20,6 @@ func _ready():
 	area.connect("body_exited", build_point, "exited")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
 
 func handle_highlighted(new_material):
 	get_node("block").material_override = new_material

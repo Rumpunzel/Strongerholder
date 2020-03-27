@@ -36,17 +36,6 @@ func _init(new_ring_map:RingMap = null):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ring_vector.connect("vector_changed", self, "updated_ring_vector")
-	
-#	var rad = global_transform.origin.distance_to(Vector3())
-#	var rot = Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2.DOWN)
-#	var vec = RingVector.new(rad, rot)
-#
-#	set_ring_vector(vec)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func setup(new_ring_map:RingMap):
