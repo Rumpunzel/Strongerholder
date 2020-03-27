@@ -42,6 +42,8 @@ func recalcuate(has_int_values:bool = false):
 		var new_radius = CityLayout.get_radius_minimum(ring)
 		var new_rotation = (float(segment) / CityLayout.get_number_of_segments(ring)) * TAU
 		
+		modulo_ring_vector()
+		
 		if not new_radius == radius or not new_rotation == rotation:
 			radius = new_radius
 			rotation = new_rotation
@@ -50,6 +52,8 @@ func recalcuate(has_int_values:bool = false):
 	else:
 		var new_ring = CityLayout.get_current_ring(radius)
 		var new_segment = CityLayout.get_current_segment(new_ring, rotation)
+		
+		modulo_ring_vector()
 		
 		if not new_ring == ring or not new_segment == segment:
 			ring = new_ring

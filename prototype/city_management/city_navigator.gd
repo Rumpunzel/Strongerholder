@@ -50,35 +50,32 @@ func construct_graph():
 	
 	
 func connect_nodes():
-	var city = ring_map.segments_dictionary
-	var bridges:Dictionary = city[CityLayout.BRIDGE]
+	var rings = ring_map.search_dictionary
+	var bridges:Dictionary = ring_map.segments_dictionary[CityLayout.BRIDGE]
 	
-	for type in city.keys():
-		var rings = city[type]
+	for ring in rings.keys():
+		var segments = rings[ring]
 		
-		for ring in rings.keys():
-			var segments = rings[ring]
+		for segment in segments.keys():
+			var seg_size = segments.size()
 			
-			for segment in segments.keys():
-				var seg_size = segments.size()
-				
-				for building in range(seg_size + 1):
-					if abs(segment - building) == 1 and not segment == (building % seg_size):
-						building %= seg_size
-						
-						pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
+			for building in range(seg_size + 1):
+				if abs(segment - building) == 1 and not segment == (building % seg_size):
+					building %= seg_size
+					
+					pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
+		
+		for bridge in bridges.get(ring + 1, { }).keys():
+			var max_distance = 0.5
+			var bridge_connected = false
 			
-			for bridge in bridges.get(ring + 1, { }).keys():
-				var max_distance = 0.5
-				var bridge_connected = false
-				
-				while not bridge_connected:
-					for segment in segments.keys():
-						if abs(segment - (bridge / float(CityLayout.get_number_of_segments(ring + 1))) * CityLayout.get_number_of_segments(ring)) <= max_distance:
-							pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
-							bridge_connected = true
-						
-						max_distance += 0.1
+			while not bridge_connected:
+				for segment in segments.keys():
+					if abs(segment - (bridge / float(CityLayout.get_number_of_segments(ring + 1))) * CityLayout.get_number_of_segments(ring)) <= max_distance:
+						pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
+						bridge_connected = true
+					
+					max_distance += 0.1
 
 
 
