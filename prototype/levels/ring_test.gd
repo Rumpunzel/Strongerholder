@@ -1,11 +1,10 @@
-tool
 extends Spatial
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var rm = RingMap.new()
-	$hill.setup(rm)
+	$hill.setup(rm, $GUI)
 	
 	var pl = preload("res://prefabs/gameactors/player/Player.tscn").instance()
 	pl.setup(rm)
