@@ -2,6 +2,8 @@ extends Node
 class_name CityNavigator
 
 
+var ring_map
+
 var pathfinder:AStar
 var astar_nodes:Array = [ ]
 
@@ -9,10 +11,8 @@ var adjacency_matrix:Dictionary = { }
 
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
+func _init(new_ring_map):
+	ring_map = new_ring_map
 
 
 func start_building():
@@ -27,14 +27,14 @@ func construct_pathfinder():
 
 
 func construct_graph():
-	var city = RingMap.segments_dictionary
+	var city = ring_map.segments_dictionary
 	var graph_size:int = 0
 	
 	pathfinder = AStar.new()
 	astar_nodes.clear()
 	
 	for type in city.keys():
-		var weight = 1.0 if type == RingMap.BRIDGE else 1.0
+		var weight = 1.0 if type == CityLayout.BRIDGE else 1.0
 		var rings = city[type]
 		
 		for ring in rings.keys():
@@ -50,8 +50,8 @@ func construct_graph():
 	
 	
 func connect_nodes():
-	var city = RingMap.segments_dictionary
-	var bridges:Dictionary = city[RingMap.BRIDGE]
+	var city = ring_map.segments_dictionary
+	var bridges:Dictionary = city[CityLayout.BRIDGE]
 	
 	for type in city.keys():
 		var rings = city[type]
@@ -74,7 +74,7 @@ func connect_nodes():
 				
 				while not bridge_connected:
 					for segment in segments.keys():
-						if abs(segment - (bridge / float(RingMap.get_number_of_segments(ring + 1))) * RingMap.get_number_of_segments(ring)) <= max_distance:
+						if abs(segment - (bridge / float(CityLayout.get_number_of_segments(ring + 1))) * CityLayout.get_number_of_segments(ring)) <= max_distance:
 							pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring + 1, bridge)))
 							bridge_connected = true
 						
@@ -82,7 +82,7 @@ func connect_nodes():
 
 
 
-func get_shortest_path(start_vector:RingVector, target_vector:RingVector) -> Array:
+func get_shortest_path(start_vector, target_vector) -> Array:
 	var start = astar_nodes.find(Vector2(start_vector.ring, start_vector.segment))
 	var destination = astar_nodes.find(Vector2(target_vector.ring, target_vector.segment))
 	
@@ -98,11 +98,11 @@ func get_shortest_path(start_vector:RingVector, target_vector:RingVector) -> Arr
 	return path_vectors
 
 
-func get_nearest(ring_vector:RingVector, type:String) -> RingVector:
+func get_nearest(ring_vector:RingVector, type:String):
 	var search_through:Dictionary = { }
 	
-	if not type == RingMap.EVERYTHING:
-		search_through = RingMap.segments_dictionary.get(type, { })
+	if not type == CityLayout.EVERYTHING:
+		search_through = ring_map.segments_dictionary.get(type, { })
 	else:
 		search_through = { }
 		print("INVALID SEARCH INPUT")
@@ -116,8 +116,9 @@ func get_nearest(ring_vector:RingVector, type:String) -> RingVector:
 			var segments = search_through[ring]
 			
 			for segment in segments.keys():
+				pass
 				var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
-				
+
 				if (shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size():
 					shortest_path = path
 		
@@ -128,7 +129,7 @@ func get_nearest(ring_vector:RingVector, type:String) -> RingVector:
 
 
 func construct_adjanceny_matrix():
-	var bridges:Dictionary = RingMap.segments_dictionary[RingMap.BRIDGE]
+	var bridges:Dictionary = ring_map.segments_dictionary[ring_map.BRIDGE]
 	
 	for ring in bridges.keys():
 		for segment in bridges[ring].keys():
@@ -141,10 +142,10 @@ func construct_adjanceny_matrix():
 					var ring_distance = abs(ring_connection - ring)
 					
 					var segment_distance = abs(segment_connection - segment)
-					segment_distance = (segment_distance % int(RingMap.get_number_of_segments(ring) / 2.0)) if segment_distance > RingMap.get_number_of_segments(ring) / 2.0 else segment_distance
+					segment_distance = (segment_distance % int(ring_map.get_number_of_segments(ring) / 2.0)) if segment_distance > ring_map.get_number_of_segments(ring) / 2.0 else segment_distance
 					
 					if ring_distance <= 1:
-						adjacency_matrix[start][end] = segment_distance + ring_distance * (RingMap.get_ring_width() / RingMap.SEGMENT_WIDTH)
+						adjacency_matrix[start][end] = segment_distance + ring_distance * (ring_map.get_ring_width() / ring_map.SEGMENT_WIDTH)
 	
 	print_adjacency_matrix()
 

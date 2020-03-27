@@ -5,17 +5,16 @@ func is_class(type): return type == "BuildPoint" or .is_class(type)
 func get_class(): return "BuildPoint"
 
 
-const buildings:Dictionary = { RingMap.BASE: preload("res://prefabs/city/buldings/base.tscn"), RingMap.FOUNDATION: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), RingMap.BRIDGE: preload("res://prefabs/city/buldings/bridge/bridge.tscn"), RingMap.STOCKPILE: preload("res://prefabs/city/buldings/stockpile/stockpile.tscn") }
+const buildings:Dictionary = { CityLayout.BASE: preload("res://prefabs/city/buldings/base.tscn"), CityLayout.FOUNDATION: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), CityLayout.BRIDGE: preload("res://prefabs/city/buldings/bridge/bridge.tscn"), CityLayout.STOCKPILE: preload("res://prefabs/city/buldings/stockpile/stockpile.tscn") }
 
 const highlight_material:Material = preload("res://prefabs/city/buldings/debug_materials/highlight_material.tres")
-
 
 var building_type:String setget set_building_type, get_building_type
 var building:Foundation = null setget , get_building
 
 
 
-func _init(new_building_type:String, new_ring_vector:RingVector):
+func _init(new_building_type:String, new_ring_vector:RingVector, new_ring_map:RingMap).(new_ring_map):
 	set_building_type(new_building_type)
 	set_ring_vector(new_ring_vector)
 
@@ -24,7 +23,7 @@ func _init(new_building_type:String, new_ring_vector:RingVector):
 func _enter_tree():
 	set_building()
 	
-	RingMap.register_segment(building_type, ring_vector, self)
+	ring_map.register_segment(building_type, ring_vector, self)
 
 
 
@@ -66,7 +65,7 @@ func interact(sender:GameObject, action:String):
 func build_into(new_type:String):
 	set_building_type(new_type)
 	
-	RingMap.update_segment(building_type, new_type, ring_vector, self)
+	ring_map.update_segment(building_type, new_type, ring_vector, self)
 
 
 
@@ -85,7 +84,7 @@ func set_building():
 		building = null
 	
 	building = buildings[building_type].instance()
-	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
+	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	building.ring_vector = ring_vector
 	
 	add_child(building)

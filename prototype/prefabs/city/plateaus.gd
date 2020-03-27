@@ -10,16 +10,16 @@ func _ready():
 
 
 func build_everything():
-	for i in range(RingMap.NUMBER_OF_RINGS):
+	for i in range(CityLayout.NUMBER_OF_RINGS):
 		build_plateau(i)
 
 
 func build_plateau(ring_number):
 	var new_plateau = CSGPolygon.new()
-	var inner_radius = RingMap.get_radius_minimum(ring_number) - RingMap.RING_GAP
-	var outer_radius = RingMap.get_radius_maximum(ring_number) + 1
-	var inner_height = RingMap.get_height_minimum(ring_number)
-	var outer_height = RingMap.get_height_maximum(ring_number)
+	var inner_radius = CityLayout.get_radius_minimum(ring_number) - CityLayout.RING_GAP
+	var outer_radius = CityLayout.get_radius_maximum(ring_number) + 1
+	var inner_height = CityLayout.get_height_minimum(ring_number)
+	var outer_height = CityLayout.get_height_maximum(ring_number)
 	
 	add_child(new_plateau)
 	

@@ -30,14 +30,13 @@ signal stopped_jumping
 
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func setup(new_ring_map:RingMap):
+	.setup(new_ring_map)
+	
+	if not pathfinder:
+		pathfinder = $pathfinder
+	
+	pathfinder.ring_map = ring_map
 
 
 
@@ -111,4 +110,7 @@ func get_focus_target() -> GameObject:
 
 
 func get_world_position():
-	return body.global_transform.origin
+	if body:
+		return body.global_transform.origin
+	else:
+		return .get_world_position()

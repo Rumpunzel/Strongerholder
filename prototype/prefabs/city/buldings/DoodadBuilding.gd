@@ -9,4 +9,3 @@ func handle_highlighted(_new_material):
 
 func interact(_sender:GameObject, _action:String):
 	pass
-

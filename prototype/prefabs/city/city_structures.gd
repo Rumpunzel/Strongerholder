@@ -1,30 +1,30 @@
 extends Spatial
 
 
-export(GDScript) var build_point
+var ring_map
+
+var build_point = preload("res://prefabs/city/buldings/BuildPoint.gd")
 
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	build_everything()
-
-
-
-func build_everything():
-	var new_build_point = build_point.new(RingMap.BASE, RingVector.new(0, 0))
-	new_build_point.name = "[base]"
+func build_everything(new_ring_map:RingMap = null):
+	if new_ring_map and not ring_map:
+		ring_map = new_ring_map
 	
-	add_child(new_build_point)
-	
-	for i in range(RingMap.NUMBER_OF_RINGS):
-		construct_ring(i)
-	
-	RingMap.done_building()
+	if ring_map:
+		var new_build_point = build_point.new(CityLayout.BASE, RingVector.new(0, 0), ring_map)
+		new_build_point.name = "[base]"
+		
+		add_child(new_build_point)
+		
+		for i in range(CityLayout.NUMBER_OF_RINGS):
+			construct_ring(i)
+		
+		ring_map.done_building()
 
 
 func construct_ring(ring_number):
-	var number_of_buildings:int = RingMap.get_number_of_segments(ring_number)
+	var number_of_buildings:int = CityLayout.get_number_of_segments(ring_number)
 	var number_of_bridges:int = biggest_factor(number_of_buildings, int((number_of_buildings - 1) / 2.0))
 	
 	for i in range(number_of_buildings):
@@ -33,11 +33,11 @@ func construct_ring(ring_number):
 		var ring_vector = RingVector.new(ring_number, i, true)
 		
 		if ring_number > 0 and i % number_of_bridges == 0:
-			buildying_type = RingMap.BRIDGE
+			buildying_type = CityLayout.BRIDGE
 		else:
-			buildying_type = RingMap.FOUNDATION
+			buildying_type = CityLayout.FOUNDATION
 		
-		new_build_point = build_point.new(buildying_type, ring_vector)
+		new_build_point = build_point.new(buildying_type, ring_vector, ring_map)
 		
 		add_child(new_build_point)
 	

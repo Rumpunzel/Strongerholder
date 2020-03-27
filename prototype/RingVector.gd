@@ -28,10 +28,11 @@ func _ready():
 	emit_signal("vector_changed")
 
 
+
 func recalcuate(has_int_values:bool = false):
 	if has_int_values:
-		var new_radius = RingMap.get_radius_minimum(ring)
-		var new_rotation = (float(segment) / RingMap.get_number_of_segments(ring)) * TAU
+		var new_radius = CityLayout.get_radius_minimum(ring)
+		var new_rotation = (float(segment) / CityLayout.get_number_of_segments(ring)) * TAU
 		
 		if not new_radius == radius or not new_rotation == rotation:
 			radius = new_radius
@@ -39,8 +40,8 @@ func recalcuate(has_int_values:bool = false):
 			
 			emit_signal("vector_changed")
 	else:
-		var new_ring = RingMap.get_current_ring(radius)
-		var new_segment = RingMap.get_current_segment(new_ring, rotation)
+		var new_ring = CityLayout.get_current_ring(radius)
+		var new_segment = CityLayout.get_current_segment(new_ring, rotation)
 		
 		if not new_ring == ring or not new_segment == segment:
 			ring = new_ring

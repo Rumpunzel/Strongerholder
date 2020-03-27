@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/city/buldings/BuildPoint.gd"
 }, {
+"base": "Resource",
+"class": "CityLayout",
+"language": "GDScript",
+"path": "res://CityLayout.gd"
+}, {
 "base": "Node",
 "class": "CityNavigator",
 "language": "GDScript",
@@ -70,6 +75,11 @@ _global_script_classes=[ {
 "path": "res://singletons/Inputs/PuppetMaster.gd"
 }, {
 "base": "Resource",
+"class": "RingMap",
+"language": "GDScript",
+"path": "res://singletons/CityManagement/RingMap.gd"
+}, {
+"base": "Resource",
 "class": "RingVector",
 "language": "GDScript",
 "path": "res://RingVector.gd"
@@ -77,6 +87,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Bridge": "",
 "BuildPoint": "",
+"CityLayout": "",
 "CityNavigator": "",
 "DoodadBuilding": "",
 "Foundation": "",
@@ -87,6 +98,7 @@ _global_script_class_icons={
 "PathFinder": "",
 "Player": "",
 "PuppetMaster": "",
+"RingMap": "",
 "RingVector": ""
 }
 
@@ -98,7 +110,6 @@ config/icon="res://assets/sprites/icon.png"
 
 [autoload]
 
-RingMap="*res://singletons/CityManagement/RingMap.gd"
 InputHandler="*res://singletons/Inputs/InputHandler.gd"
 GUI="*res://singletons/GUI/GUI.tscn"
 

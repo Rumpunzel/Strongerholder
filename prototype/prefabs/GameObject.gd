@@ -13,6 +13,7 @@ export var indestructible:bool = false
 onready var hit_points:float = hit_points_max
 
 
+var ring_map:RingMap
 # Positions are abstracted using 2 dimensions
 #	ring_vector.x, meaning how far the gameactor is from the centre Vector3(0, 0, 0) and
 #	ring_vector.y, meaning the angle (in radians) of the gameactor when rotated around the centre Vector3(0, 0, 0)
@@ -26,6 +27,10 @@ var highlighted:bool = false setget set_highlighted, get_highlighted
 
 signal entered_segment
 
+
+
+func _init(new_ring_map:RingMap = null):
+	ring_map = new_ring_map
 
 
 # Called when the node enters the scene tree for the first time.
@@ -44,6 +49,10 @@ func _ready():
 #	pass
 
 
+func setup(new_ring_map:RingMap):
+	ring_map = new_ring_map
+
+
 
 func updated_ring_vector():
 	emit_signal("entered_segment", ring_vector)
@@ -57,7 +66,7 @@ func interact(_sender:GameObject, _action:String):
 	pass
 
 
-func damage(_sender, damage_points:float):
+func damage(_sender:GameObject, damage_points:float):
 	hit_points -= damage_points
 	
 	if not indestructible and hit_points <= 0:
@@ -88,7 +97,10 @@ func get_ring_vector() -> RingVector:
 	return ring_vector
 
 func get_world_position() -> Vector3:
-	return global_transform.origin
+	if is_inside_tree():
+		return global_transform.origin
+	else:
+		return Vector3()
 
 
 func get_highlighted() -> bool:
