@@ -1,5 +1,5 @@
 tool
-extends PuppetMaster
+extends PathFinder
 
 
 

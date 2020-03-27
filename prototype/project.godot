@@ -110,7 +110,6 @@ config/icon="res://assets/sprites/icon.png"
 
 [autoload]
 
-InputHandler="*res://singletons/InputHandler.gd"
 GUI="*res://singletons/GUI/GUI.tscn"
 
 [debug]

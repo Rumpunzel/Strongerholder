@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://prefabs/gameactors/base/GameActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/gameactors/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/gameactors/player/camera.gd" type="Script" id=3]
 [ext_resource path="res://assets/city_environment.tres" type="Environment" id=4]
+[ext_resource path="res://prefabs/gameactors/player/input_handler.gd" type="Script" id=5]
 
 [node name="player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -21,3 +22,6 @@ fov = 90.0
 size = 15.0
 far = 8192.0
 script = ExtResource( 3 )
+
+[node name="pathfinder" parent="." index="1"]
+script = ExtResource( 5 )

@@ -30,6 +30,11 @@ signal stopped_jumping
 
 
 
+func _ready():
+	pathfinder.register_actor(self)
+
+
+
 func setup(new_ring_map:RingMap):
 	.setup(new_ring_map)
 	
