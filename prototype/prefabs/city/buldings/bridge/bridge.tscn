@@ -17,7 +17,7 @@ extents = Vector3( 5, 5, 14 )
 script = ExtResource( 3 )
 
 [node name="block" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -13 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13 )
 mesh = ExtResource( 2 )
 
 [node name="static_body2" type="StaticBody" parent="block" index="1"]
