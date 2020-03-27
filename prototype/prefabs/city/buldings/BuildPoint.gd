@@ -5,7 +5,7 @@ func is_class(type): return type == "BuildPoint" or .is_class(type)
 func get_class(): return "BuildPoint"
 
 
-const buildings:Dictionary = { RingMap.BASE: preload("res://prefabs/city/buldings/base.tscn"), RingMap.FOUNDATIONS: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), RingMap.BRIDGES: preload("res://prefabs/city/buldings/bridge/bridge.tscn") }
+const buildings:Dictionary = { RingMap.BASE: preload("res://prefabs/city/buldings/base.tscn"), RingMap.FOUNDATIONS: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), RingMap.BRIDGES: preload("res://prefabs/city/buldings/bridge/bridge.tscn"), RingMap.STOCKPILES: preload("res://prefabs/city/buldings/stockpile/stockpile.tscn") }
 
 const highlight_material:Material = preload("res://prefabs/city/buldings/debug_materials/highlight_material.tres")
 
@@ -23,7 +23,6 @@ func _init(new_building_type:String, new_ring_vector:RingVector):
 # Called when the node enters the scene tree for the first time.
 func _enter_tree():
 	set_building(buildings[building_type].instance())
-	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	
 	RingMap.register_segment(building_type, ring_vector, self)
 
@@ -66,12 +65,11 @@ func interact(sender:GameObject, action:String):
 		print("Which is a %s." % [building.name])
 
 
-func build_into(new_building:Foundation, new_type:String):
-	set_building(new_building)
+func build_into(new_type:String):
+	set_building_type(new_type)
+	set_building(buildings[building_type].instance())
 	
 	RingMap.update_segment(building_type, new_type, ring_vector, self)
-	
-	building_type = new_type
 
 
 
@@ -87,6 +85,7 @@ func set_building(new_building:Foundation):
 		building = null
 	
 	building = new_building
+	set_world_position(Vector3(0, RingMap.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	building.ring_vector = ring_vector
 	add_child(building)
 

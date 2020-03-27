@@ -22,7 +22,6 @@ func _ready():
 
 
 func build_stockpile():
-	var new_stockpile = preload("res://prefabs/city/buldings/stockpile/stockpile.tscn").instance()
-	focus_target.build_into(new_stockpile, RingMap.STOCKPILES)
+	focus_target.build_into(RingMap.STOCKPILES)
 	
 	GUI.hide(focus_target)
