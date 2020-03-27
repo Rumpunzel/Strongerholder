@@ -10,6 +10,8 @@ var segments_dictionary:Dictionary = { }
 var search_dictionary:Dictionary = { }
 
 
+signal city_changed
+
 
 
 func _init():
@@ -37,6 +39,8 @@ func register_segment(type:String, ring_vector:RingVector, object):
 	segments_dictionary[type] = segments_dictionary.get(type, { })
 	segments_dictionary[type][ring_vector.ring] = segments_dictionary[type].get(ring_vector.ring, { })
 	segments_dictionary[type][ring_vector.ring][ring_vector.segment] = object
+	
+	emit_signal("city_changed")
 
 
 func update_segment(old_type:String, new_type:String, ring_vector:RingVector, object):
