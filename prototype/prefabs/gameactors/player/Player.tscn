@@ -5,7 +5,6 @@
 [ext_resource path="res://prefabs/gameactors/player/camera.gd" type="Script" id=3]
 [ext_resource path="res://assets/city_environment.tres" type="Environment" id=4]
 
-
 [node name="player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 walkspeed = 5.0

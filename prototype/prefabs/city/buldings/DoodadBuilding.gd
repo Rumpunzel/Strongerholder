@@ -1,3 +1,4 @@
+tool
 extends Foundation
 class_name DoodadBuilding
 

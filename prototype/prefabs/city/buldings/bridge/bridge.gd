@@ -1,3 +1,4 @@
+tool
 extends DoodadBuilding
 class_name Bridge
 

@@ -1,4 +1,5 @@
 extends GameActor
+tool
 class_name NPC
 
 func is_class(type): return type == "NPC" or .is_class(type)
@@ -27,7 +28,7 @@ func _process(_delta):
 				set_pathfinding_target(nearest_stockpile)
 				print(object_of_interest)
 		
-		if focus_target == object_of_interest:
+		if object_of_interest and focus_target == object_of_interest:
 			object_of_interest.interact(self, "")
 			set_object_of_interest(null)
 			set_pathfinding_target(null)

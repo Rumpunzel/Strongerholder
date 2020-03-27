@@ -11,8 +11,10 @@ var search_dictionary:Dictionary = { }
 
 
 
+
 func _init():
 	city_navigator = CityNavigator.new(self)
+
 
 
 

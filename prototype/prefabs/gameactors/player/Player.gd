@@ -1,3 +1,4 @@
+tool
 extends GameActor
 class_name Player
 
