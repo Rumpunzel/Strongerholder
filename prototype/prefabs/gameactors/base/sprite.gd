@@ -1,8 +1,12 @@
-extends Sprite3D
+extends AnimatedSprite3D
 
 
 onready var camera = get_viewport().get_camera()
 
+
+
+func _ready():
+	playing = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
