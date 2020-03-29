@@ -52,7 +52,7 @@ func update_segment(old_type:String, new_type:String, ring_vector:RingVector, ob
 	done_building()
 
 
-func get_object_at_position(ring: int, segment:int, from:String = CityLayout.EVERYTHING):
+func get_object_at_position(ring_vector:RingVector, from:String = CityLayout.EVERYTHING):
 	var search_through:Dictionary = { }
 	
 	if not from == CityLayout.EVERYTHING:
@@ -60,4 +60,4 @@ func get_object_at_position(ring: int, segment:int, from:String = CityLayout.EVE
 	else:
 		search_through = search_dictionary
 	
-	return search_through.get(int(ring), { }).get(int(segment), null)
+	return search_through.get(ring_vector.ring, { }).get(ring_vector.segment, null)

@@ -13,7 +13,6 @@ func build_everything(new_ring_map:RingMap, new_gui):
 	gui = new_gui
 
 	var new_build_point = BuildPoint.new(CityLayout.BASE, RingVector.new(0, 0), ring_map, gui)
-	new_build_point.name = "[base]"
 	
 	add_child(new_build_point)
 	
