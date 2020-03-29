@@ -14,7 +14,7 @@ extents = Vector3( 0.1, 0.1, 0.1 )
 script = ExtResource( 3 )
 
 [node name="block" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -12 )
 mesh = ExtResource( 2 )
 
 [node name="left_railing" type="StaticBody" parent="block" index="0"]

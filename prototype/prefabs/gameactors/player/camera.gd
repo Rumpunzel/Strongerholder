@@ -9,4 +9,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	look_at(Vector3(0, 0, 0), Vector3.UP)
+	look_at(Vector3(0, global_transform.origin.y-4, 0), Vector3.UP)
