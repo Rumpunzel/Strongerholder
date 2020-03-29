@@ -8,7 +8,8 @@ func get_class(): return "BuildPoint"
 
 const buildings:Dictionary = { CityLayout.BASE: preload("res://prefabs/city/buldings/base.tscn"), CityLayout.FOUNDATION: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), CityLayout.BRIDGE: preload("res://prefabs/city/buldings/bridge/bridge.tscn"), CityLayout.STOCKPILE: preload("res://prefabs/city/buldings/stockpile/stockpile.tscn") }
 
-const highlight_material:Material = preload("res://prefabs/city/buldings/debug_materials/highlight_material.tres")
+const highlight_material:Material = preload("res://assets/materials/highlightShader.material")
+
 
 var building_type:String setget set_building_type, get_building_type
 var building:Foundation = null setget , get_building
