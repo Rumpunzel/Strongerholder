@@ -2,7 +2,7 @@
 
 ## Level Design
 
-## Atmosphere
+### Atmosphere
 
 - As a baseline, the world is peaceful and calm
 - Technology is not very advanced, facilitating the need for manual labor in individual steps which can be observed
@@ -11,7 +11,7 @@
   - There is a bigger emphasis of making it right than making it fast
 - The surrounding area can be explored and expanded into; it hides secrets and conflict
 
-## Structure
+### Structure
 
 - The world is comprised of cities
 - Each city consists of multiple rings encircling the center
