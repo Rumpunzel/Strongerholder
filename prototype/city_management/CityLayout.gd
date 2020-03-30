@@ -21,6 +21,8 @@ const FOUNDATION = "foundation"
 const STOCKPILE = "stockpile"
 const EVERYTHING = "everything"
 
+const TREE = "tree"
+
 
 
 # Recalculation of the current ring the gameactor is on

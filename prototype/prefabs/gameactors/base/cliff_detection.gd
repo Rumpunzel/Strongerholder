@@ -7,9 +7,9 @@ const LEFT = "left"
 const RIGHT = "right"
 
 
-export var depth:float = 3.0
+export var front:float = 5.0
+export var back:float = 1.0
 export var width:float = 3.0
-export var one_dimensional:bool = false
 
 
 var raycast_length:float = -50.0
@@ -20,8 +20,6 @@ var raycasts:Dictionary = { }
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if one_dimensional:
-		depth = CityLayout.ROAD_WIDTH + 1
 	create_raycasts()
 
 
@@ -41,9 +39,9 @@ func create_raycast(side:String):
 	
 	match side:
 		FRONT:
-			new_ray.transform.origin.z = -depth / 2.0
+			new_ray.transform.origin.z = -front
 		BACK:
-			new_ray.transform.origin.z = depth / 2.0
+			new_ray.transform.origin.z = back
 		LEFT:
 			new_ray.transform.origin.x = -width / 2.0
 		RIGHT:
