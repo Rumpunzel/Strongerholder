@@ -62,6 +62,10 @@ func recalcuate(has_int_values:bool = false):
 			emit_signal("vector_changed")
 
 
+func equals(other:RingVector):
+	return radius == other.radius and rotation == other.rotation
+
+
 func set_equal_to(new_vector:RingVector):
 	var changed = not (ring == new_vector.ring and segment == new_vector.segment)
 	
