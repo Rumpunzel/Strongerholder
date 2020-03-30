@@ -39,7 +39,7 @@ func change_animation(new_direction:Vector2):
 
 
 func vector_direction(new_direction:Vector2) -> String:
-	if abs(new_direction.x) >= abs(new_direction.y):
+	if abs(new_direction.x) > abs(new_direction.y):
 		if new_direction.x >= 0:
 			return DIRECTIONS[(DOWN + camera_offset) % DIRECTIONS.size()]
 		else:

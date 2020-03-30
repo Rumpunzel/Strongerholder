@@ -4,7 +4,7 @@
 [ext_resource path="res://prefabs/gameactors/player/camera.gd" type="Script" id=2]
 
 [node name="camera" type="Camera"]
-transform = Transform( 1, 0, 0, 0, 0.995634, 0.0933407, 0, -0.0933407, 0.995634, 0, 4, 20 )
+transform = Transform( 1, 0, 0, 0, 0.996194, 0.0871557, 0, -0.0871557, 0.996194, 0, 5, 20 )
 environment = ExtResource( 1 )
 projection = 1
 current = true

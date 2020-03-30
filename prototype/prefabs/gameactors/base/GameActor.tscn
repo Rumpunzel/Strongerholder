@@ -27,6 +27,7 @@ shape = SubResource( 1 )
 offset = Vector2( 0, 19 )
 pixel_size = 0.05
 billboard = 2
+shaded = true
 alpha_cut = 2
 frames = ExtResource( 1 )
 animation = "idle_d"
@@ -34,7 +35,6 @@ script = ExtResource( 5 )
 
 [node name="cliff_detection" type="Spatial" parent="body"]
 script = ExtResource( 3 )
-one_dimensional = true
 
 [node name="pathfinder" type="Node" parent="."]
 script = ExtResource( 4 )

@@ -1,5 +1,11 @@
-tool
 extends Camera
+
+
+const y_offset:float = 5.0
+
+export(NodePath) var ray_cast_node
+
+onready var ray_cast = get_node(ray_cast_node)
 
 
 
@@ -10,4 +16,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	look_at(Vector3(0, global_transform.origin.y - 3, 0), Vector3.UP)
+	global_transform.origin.y = ray_cast.get_collision_point().y +  y_offset

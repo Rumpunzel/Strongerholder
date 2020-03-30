@@ -7,11 +7,12 @@ const LEFT = "left"
 const RIGHT = "right"
 
 
-export var raycast_length:float = 7.0
 export var depth:float = 3.0
 export var width:float = 3.0
 export var one_dimensional:bool = false
 
+
+var raycast_length:float = -50.0
 
 var raycasts:Dictionary = { }
 
@@ -36,7 +37,7 @@ func create_raycast(side:String):
 	add_child(new_ray)
 	new_ray.name = side
 	new_ray.enabled = true
-	new_ray.cast_to.y = -raycast_length
+	new_ray.cast_to.y = raycast_length
 	
 	match side:
 		FRONT:
