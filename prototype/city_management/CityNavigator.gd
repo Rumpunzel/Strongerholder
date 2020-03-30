@@ -95,7 +95,7 @@ func get_shortest_path(start_vector, target_vector) -> Array:
 	return path_vectors
 
 
-func get_nearest(ring_vector:RingVector, type:String):
+func get_nearest(ring_vector:RingVector, type:String) -> RingVector:
 	var search_through:Dictionary = { }
 	
 	if not type == CityLayout.EVERYTHING:
@@ -113,13 +113,34 @@ func get_nearest(ring_vector:RingVector, type:String):
 			var segments = search_through[ring]
 			
 			for segment in segments.keys():
-				pass
 				var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
-
+				
 				if (shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size():
 					shortest_path = path
 		
 		var target = shortest_path.back() if not shortest_path.empty() else null
+		
+		return RingVector.new(target.x, target.y, true) if target else null
+
+
+func get_nearest_thing(ring_vector:RingVector, type:String) -> RingVector:
+	var search_through:Dictionary = ring_map.things_dictionary.get(type, { })
+	
+	if search_through.empty():
+		return null
+	else:
+		var shortest_path:Array = [ ]
+		
+		for ring in search_through.keys():
+			var segments = search_through[ring]
+			
+			for segment in segments.keys():
+				var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
+				
+				if (shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size():
+					shortest_path = path
+		
+		var target = shortest_path.back() if not shortest_path.empty() else [ ]
 		
 		return RingVector.new(target.x, target.y, true) if target else null
 

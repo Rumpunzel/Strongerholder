@@ -13,8 +13,6 @@ func get_class(): return "GameTree"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ring_map.register_segment(CityLayout.TREE, ring_vector, self)
-	
 	$sprite.frame = randi() % 7
 
 
@@ -23,6 +21,8 @@ func _ready():
 func set_ring_vector(new_vector:RingVector):
 	.set_ring_vector(new_vector)
 	rotation.y = ring_vector.rotation
+	
+	ring_map.register_thing(CityLayout.TREE, ring_vector, self)
 	
 	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
 

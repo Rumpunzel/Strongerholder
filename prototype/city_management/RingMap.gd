@@ -56,18 +56,19 @@ func update_segment(old_type:String, new_type:String, ring_vector:RingVector, ob
 
 
 func register_thing(type:String, ring_vector:RingVector, object):
-	segments_dictionary[type] = segments_dictionary.get(type, { })
-	segments_dictionary[type][ring_vector.ring] = segments_dictionary[type].get(ring_vector.ring, { })
-	segments_dictionary[type][ring_vector.ring][ring_vector.segment] = segments_dictionary[type][ring_vector.ring].get(ring_vector.segment, [ ]).append(object)
+	things_dictionary[type] = things_dictionary.get(type, { })
+	things_dictionary[type][ring_vector.ring] = things_dictionary[type].get(ring_vector.ring, { })
+	things_dictionary[type][ring_vector.ring][ring_vector.segment] = things_dictionary[type][ring_vector.ring].get(ring_vector.segment, [ ])
+	things_dictionary[type][ring_vector.ring][ring_vector.segment].append(object)
 	
 	emit_signal("thing_added")
 
 
 func update_thing(old_type:String, new_type:String, ring_vector:RingVector, object):
-	segments_dictionary[old_type] = segments_dictionary.get(old_type, { })
-	segments_dictionary[old_type][ring_vector.ring] = segments_dictionary[old_type].get(ring_vector.ring, { })
-	segments_dictionary[old_type][ring_vector.ring][ring_vector.segment] = segments_dictionary[old_type][ring_vector.ring].get(ring_vector.segment, [ ]).erase(object)
-	segments_dictionary[old_type][ring_vector.ring].erase(ring_vector.segment)
+	things_dictionary[old_type] = things_dictionary.get(old_type, { })
+	things_dictionary[old_type][ring_vector.ring] = things_dictionary[old_type].get(ring_vector.ring, { })
+	things_dictionary[old_type][ring_vector.ring][ring_vector.segment] = things_dictionary[old_type][ring_vector.ring].get(ring_vector.segment, [ ])
+	things_dictionary[old_type][ring_vector.ring].erase(ring_vector.segment)
 	
 	register_thing(new_type, ring_vector, object)
 

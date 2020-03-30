@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://prefabs/tree.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/things/GameTree/GameTree.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/trees/PixelArt_SimpleTrees_Jestan.png" type="Texture" id=2]
 
 [node name="tree" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="sprite" type="Sprite3D" parent="."]
-offset = Vector2( 0, 46 )
+offset = Vector2( 0, 53 )
 pixel_size = 0.1
 billboard = 2
 shaded = true

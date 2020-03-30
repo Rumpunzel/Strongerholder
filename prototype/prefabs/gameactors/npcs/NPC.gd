@@ -15,6 +15,15 @@ var did_it_once = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ring_map.connect("city_changed", self, "search_for_target")
+	
+	var t = Timer.new()
+	t.set_wait_time(1)
+	t.set_one_shot(true)
+	add_child(t)
+	t.start()
+	yield(t, "timeout")
+	
+	search_for_target()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,12 +38,16 @@ func _process(_delta):
 
 func search_for_target():
 	if not pathfinding_target:
+		var nearest_tree = ring_map.city_navigator.get_nearest_thing(ring_vector, CityLayout.TREE)
 		var nearest_stockpile = ring_map.city_navigator.get_nearest(ring_vector, CityLayout.STOCKPILE)
 		
-		if nearest_stockpile:
-			set_object_of_interest(ring_map.segments_dictionary[CityLayout.STOCKPILE][nearest_stockpile.ring][nearest_stockpile.segment])
-			set_pathfinding_target(nearest_stockpile)
-			print(object_of_interest)
+#		if nearest_stockpile:
+#			set_object_of_interest(ring_map.segments_dictionary[CityLayout.STOCKPILE][nearest_stockpile.ring][nearest_stockpile.segment])
+#			set_pathfinding_target(nearest_stockpile)
+		
+		if nearest_tree:
+			set_object_of_interest(ring_map.things_dictionary[CityLayout.TREE][nearest_tree.ring][nearest_tree.segment])
+			set_pathfinding_target(nearest_tree)
 
 
 

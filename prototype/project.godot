@@ -62,7 +62,7 @@ _global_script_classes=[ {
 "base": "GameObject",
 "class": "GameTree",
 "language": "GDScript",
-"path": "res://prefabs/tree.gd"
+"path": "res://prefabs/things/GameTree/GameTree.gd"
 }, {
 "base": "GameActor",
 "class": "NPC",
