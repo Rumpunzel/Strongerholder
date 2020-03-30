@@ -33,8 +33,6 @@ func _physics_process(delta):
 		if grounded:
 			fall_speed = 0.0
 			jump_speed = 0.0
-		
-		move_direction = Vector2()
 
 
 

@@ -10,6 +10,7 @@ const RIGHT = "right"
 export var raycast_length:float = 7.0
 export var depth:float = 3.0
 export var width:float = 3.0
+export var one_dimensional:bool = false
 
 
 var raycasts:Dictionary = { }
@@ -18,6 +19,8 @@ var raycasts:Dictionary = { }
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if one_dimensional:
+		depth = CityLayout.ROAD_WIDTH + 1
 	create_raycasts()
 
 
