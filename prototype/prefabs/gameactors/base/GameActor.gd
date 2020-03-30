@@ -6,6 +6,7 @@ func get_class(): return "GameActor"
 
 
 onready var body:KinematicBody = $body
+onready var sprite:Sprite3D = $body/sprite
 onready var cliff_dection = $body/cliff_detection
 onready var pathfinder = $pathfinder
 
@@ -55,8 +56,12 @@ func interact_with_focus(new_action:String = "") -> bool:
 func move_to(direction:Vector2, sprinting:bool):
 	movement_modifier = sprint_modifier if sprinting else 1.0
 	
-	body.move_direction = get_move_direction(direction)
+	var move_direction:Vector2 = get_move_direction(direction)
+	
+	body.move_direction = move_direction
 	set_ring_vector(body.ring_vector)
+	
+	sprite.change_animation(move_direction)
 	
 	# The position in the world can be displayed with a Vector2
 	#	with the x-axis being the ring_position and

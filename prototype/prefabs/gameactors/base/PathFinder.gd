@@ -28,6 +28,8 @@ func get_input() -> Array:
 			movement_vector = movement_vector.normalized()
 		
 			commands.append(MoveCommand.new(movement_vector, false))
+	else:
+		commands.append(MoveCommand.new(Vector2(), false))
 	
 	return commands
 
