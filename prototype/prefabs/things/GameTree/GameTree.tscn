@@ -1,18 +1,25 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://prefabs/things/GameTree/GameTree.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/trees/PixelArt_SimpleTrees_Jestan.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/trees/tree1.png" type="Texture" id=2]
+[ext_resource path="res://prefabs/things/GameTree/sprite.gd" type="Script" id=3]
+[ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/trees/tree2.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/trees/tree5.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/trees/tree7.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/trees/tree4.png" type="Texture" id=9]
 
 [node name="tree" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="sprite" type="Sprite3D" parent="."]
-offset = Vector2( 0, 53 )
+offset = Vector2( 0, 43 )
 pixel_size = 0.1
 billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource( 2 )
-vframes = 2
-hframes = 5
 region_rect = Rect2( 95, 22, 83, 106 )
+script = ExtResource( 3 )
+sprites = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ) ]

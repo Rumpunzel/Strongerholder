@@ -1,3 +1,4 @@
+tool
 extends Spatial
 
 
@@ -6,7 +7,7 @@ export(PackedScene) var tree
 
 var ring_map
 
-var tree_groups:int = 3
+var max_tree_groups:int = 5
 
 
 
@@ -21,10 +22,9 @@ func construct_ring(ring_number):
 	var number_of_buildings:int = CityLayout.get_number_of_segments(ring_number)
 	
 	for i in range(number_of_buildings):
-		for _j in range(tree_groups):
+		for _j in range(randi() % max_tree_groups):
 			var new_tree = tree.instance()
-			var offset = Vector2(randf() * 2, randf() * 0.2 - 0.1)
-			var ring_vector = RingVector.new(CityLayout.get_radius_minimum(ring_number) + offset.x, ((float(i) + 0.5) / float(number_of_buildings)) * TAU + offset.y)
+			var ring_vector = RingVector.new(CityLayout.get_radius_minimum(ring_number), (float(i) / float(number_of_buildings)) * TAU)
 			
 			new_tree.setup(ring_map)
 			

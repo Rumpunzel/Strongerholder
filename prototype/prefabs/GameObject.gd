@@ -26,6 +26,8 @@ var world_position:Vector3 setget set_world_position, get_world_position
 
 var highlighted:bool = false setget set_highlighted, get_highlighted
 
+var inventory:Dictionary = { } setget set_inventory, get_inventory
+
 
 signal entered_segment
 
@@ -83,9 +85,14 @@ func set_highlighted(is_highlighted:bool):
 	handle_highlighted()
 
 
+func set_inventory(new_inventory:Dictionary):
+	inventory = new_inventory
+
+
 
 func get_ring_vector() -> RingVector:
 	return ring_vector
+
 
 func get_world_position() -> Vector3:
 	if is_inside_tree():
@@ -96,3 +103,7 @@ func get_world_position() -> Vector3:
 
 func get_highlighted() -> bool:
 	return highlighted
+
+
+func get_inventory() -> Dictionary:
+	return inventory
