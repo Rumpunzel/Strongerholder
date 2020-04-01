@@ -33,14 +33,15 @@ func _ready():
 
 
 func entered(body):
-	var object = body.get_parent()
-	
-	if object is GameActor and not object.focus_targets.has(self):
-		object.focus_targets.append(self)
+	if ring_map.get_things_at_position(ring_vector, CityLayout.TREE).empty():
+		var object = body.get_parent()
 		
-		if object is Player:
-			object.object_of_interest = self
-			set_highlighted(true)
+		if object is GameActor and not object.focus_targets.has(self):
+			object.focus_targets.append(self)
+			
+			if object is Player:
+				object.object_of_interest = self
+				set_highlighted(true)
 
 func exited(body):
 	var object = body.get_parent()

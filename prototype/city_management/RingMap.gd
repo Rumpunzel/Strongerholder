@@ -88,3 +88,9 @@ func get_object_at_position(ring_vector:RingVector, from:String = CityLayout.EVE
 		search_through = search_dictionary
 	
 	return search_through.get(ring_vector.ring, { }).get(ring_vector.segment, null)
+
+
+func get_things_at_position(ring_vector:RingVector, type:String) -> Array:
+	var search_through:Dictionary = things_dictionary.get(type, { })
+	
+	return search_through.get(ring_vector.ring, { }).get(ring_vector.segment, [ ])
