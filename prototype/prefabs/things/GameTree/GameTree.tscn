@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/sprites/trees/tree4.png" type="Texture" id=9]
 
 [sub_resource type="CylinderShape" id=1]
+radius = 0.2
 height = 8.0
 
 [node name="tree" type="Spatial"]
