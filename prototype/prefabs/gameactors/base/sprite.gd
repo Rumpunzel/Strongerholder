@@ -7,7 +7,7 @@ const DIRECTIONS = { DOWN: "_d", TOP: "_t", RIGHT: "_r", LEFT: "_l" }
 
 onready var camera = get_viewport().get_camera()
 
-var previous_direction:Vector2 = Vector2()
+var previous_direction:Vector2 = Vector2(1, 0)
 var camera_offset:int = 0
 
 
@@ -22,7 +22,6 @@ func _process(_delta):
 		var angle = int(rad2deg((Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z))))) % 360
 		camera_offset = int(min(angle / 60.0, 2)) if angle >= 0 else int(max(angle / 60.0, -2)) + DIRECTIONS.size()
 		change_animation(previous_direction)
-		#flip_h = global_transform.origin.distance_to(camera.global_transform.origin) > camera.global_transform.origin.distance_to(Vector3())
 
 
 

@@ -13,8 +13,8 @@ func _unhandled_input(event):
 		if event.is_action_pressed("jump"):
 			commands.append(JumpCommand.new())
 		
-		#if Input.is_action_just_released("jump"):
-		#	commands.append(StopJumpCommand.new())
+#		if event.is_action_released("jump"):
+#			commands.append(StopJumpCommand.new())
 		
 		if not commands.empty():
 			get_tree().set_input_as_handled()
