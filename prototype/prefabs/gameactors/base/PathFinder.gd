@@ -7,6 +7,7 @@ var ring_map:RingMap setget set_ring_map, get_ring_map
 
 var start_ring_vector:RingVector setget set_start_ring_vector, get_start_ring_vector
 var pathfinding_target:RingVector setget set_pathfinding_target, get_pathfinding_target
+var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest
 
 var current_path:Array = [ ]
 var current_segments:Array = [ ]
@@ -58,6 +59,11 @@ func update_current_path(new_vector:RingVector):
 			new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
 			
 			current_segments.append(new_segment)
+	
+	if object_of_interest:
+		current_segments.append(object_of_interest.ring_vector)
+	
+	print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
 
 
 
@@ -74,6 +80,11 @@ func set_start_ring_vector(new_vector:RingVector):
 	start_ring_vector = new_vector
 
 
+func set_object_of_interest(new_object:GameObject):
+	object_of_interest = new_object
+	update_current_path(start_ring_vector)
+
+
 
 func get_ring_map() -> RingMap:
 	return ring_map
@@ -85,3 +96,7 @@ func get_pathfinding_target() -> RingVector:
 
 func get_start_ring_vector() -> RingVector:
 	return start_ring_vector
+
+
+func get_object_of_interest() -> GameObject:
+	return object_of_interest
