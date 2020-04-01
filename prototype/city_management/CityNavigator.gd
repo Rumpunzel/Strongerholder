@@ -140,7 +140,7 @@ func get_nearest_thing(ring_vector:RingVector, type:String) -> Array:
 			for segment in segments.keys():
 				var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
 				
-				if (shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size():
+				if not segments[segment].empty() and ((shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size()):
 					shortest_path = path
 					targets_array = segments[segment]
 		

@@ -74,7 +74,7 @@ func die(sender:GameObject):
 	game_tree.queue_free()
 	game_tree = null
 	
-	ring_map.unregister_thing(CityLayout.TREE, ring_vector)
+	ring_map.unregister_thing(CityLayout.TREE, ring_vector, self)
 
 
 
@@ -109,7 +109,6 @@ func set_ring_vector(new_vector:RingVector):
 func set_world_position(new_position:Vector3):
 	if game_tree:
 		game_tree.transform.origin = new_position
-		#ring_vector.rotation = Vector2(game_tree.transform.origin.x, game_tree.transform.origin.z).angle_to(Vector2.DOWN)
 	else:
 		.set_world_position(new_position)
 

@@ -64,17 +64,17 @@ func register_thing(type:String, ring_vector:RingVector, object):
 	emit_signal("thing_added")
 
 
-func unregister_thing(type:String, ring_vector:RingVector):
+func unregister_thing(type:String, ring_vector:RingVector, object):
 	things_dictionary[type] = things_dictionary.get(type, { })
 	things_dictionary[type][ring_vector.ring] = things_dictionary[type].get(ring_vector.ring, { })
 	things_dictionary[type][ring_vector.ring][ring_vector.segment] = things_dictionary[type][ring_vector.ring].get(ring_vector.segment, [ ])
-	things_dictionary[type][ring_vector.ring].erase(ring_vector.segment)
+	things_dictionary[type][ring_vector.ring][ring_vector.segment].erase(object)
 	
 	emit_signal("thing_added")
 
 
 func update_thing(old_type:String, new_type:String, ring_vector:RingVector, object):
-	unregister_thing(old_type, ring_vector)
+	unregister_thing(old_type, ring_vector, object)
 	register_thing(new_type, ring_vector, object)
 
 
