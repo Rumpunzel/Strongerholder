@@ -48,7 +48,10 @@ func setup(new_ring_map:RingMap):
 
 
 func interact_with_object(object:GameObject = object_of_interest) -> bool:
-	return object.interact("", self)
+	if object:
+		return object.interact("", self)
+	else:
+		return false
 
 
 func move_to(direction:Vector2, sprinting:bool):
