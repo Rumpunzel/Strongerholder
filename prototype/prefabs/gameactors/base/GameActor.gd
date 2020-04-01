@@ -22,7 +22,8 @@ var movement_modifier:float = 1.0
 
 var pathfinding_target:RingVector setget set_pathfinding_target, get_pathfinding_target
 
-var focus_target:GameObject = null setget set_focus_target, get_focus_target
+var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest
+var focus_targets:Array = [ ] setget set_focus_targets, get_focus_targets
 
 
 signal moved
@@ -46,11 +47,8 @@ func setup(new_ring_map:RingMap):
 
 
 
-func interact_with_focus(new_action:String = "") -> bool:
-	if focus_target:
-		return focus_target.interact(self, new_action)
-	
-	return false
+func interact_with_object(object:GameObject = object_of_interest) -> bool:
+	return object.interact("", self)
 
 
 func move_to(direction:Vector2, sprinting:bool):
@@ -108,8 +106,13 @@ func set_pathfinding_target(new_target:RingVector):
 	pathfinder.pathfinding_target = pathfinding_target
 
 
-func set_focus_target(new_target:GameObject):
-	focus_target = new_target
+func set_object_of_interest(new_object:GameObject):
+	object_of_interest = new_object
+	pathfinder.object_of_interest = object_of_interest
+
+
+func set_focus_targets(new_targets:Array):
+	focus_targets = new_targets
 
 
 
@@ -117,8 +120,12 @@ func get_pathfinding_target() -> RingVector:
 	return pathfinding_target
 
 
-func get_focus_target() -> GameObject:
-	return focus_target
+func get_object_of_interest() -> GameObject:
+	return object_of_interest
+
+
+func get_focus_targets() -> Array:
+	return focus_targets
 
 
 func get_world_position():

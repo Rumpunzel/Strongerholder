@@ -24,7 +24,7 @@ func _init(new_ring_vector:RingVector, new_ring_map:RingMap, new_gui).(new_ring_
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_tree()
-	
+	inventory.append("Wood")
 	ring_map.register_thing(CityLayout.TREE, ring_vector, self)
 
 
@@ -32,24 +32,25 @@ func _ready():
 func entered(body):
 	var object = body.get_parent()
 	
-	if object is GameActor:
-		object.focus_target = self
+	if object is GameActor and not object.focus_targets.has(self):
+		object.focus_targets.append(self)
 		
 		if object is Player:
+			object.object_of_interest = self
 			set_highlighted(true)
 
 func exited(body):
 	var object = body.get_parent()
 	
 	if object is GameActor:
-		if object.focus_target == self:
-			object.focus_target = null
+		if object.focus_targets.has(self):
+			object.focus_targets.erase(self)
 		
 		if object is Player:
-			set_highlighted(false)
+			if object.object_of_interest == self:
+				object.object_of_interest = null
 			
-			gui.hide(self)
-
+			set_highlighted(false)
 
 
 func handle_highlighted():
@@ -57,13 +58,23 @@ func handle_highlighted():
 		pass
 
 
-func interact(sender:GameObject, action:String) -> bool:
+func interact(action:String, sender:GameObject) -> bool:
 	print("%s %s with %s." % [sender.name, "interacted" if action == "" else action, name])
 	
 	if game_tree:
-		return game_tree.interact(sender, action)
+		return game_tree.interact(action, sender)
 	
 	return false
+
+
+func die(sender:GameObject):
+	while not inventory.empty():
+		sender.inventory.append(inventory.pop_front())
+	
+	game_tree.queue_free()
+	game_tree = null
+	
+	ring_map.unregister_thing(CityLayout.TREE, ring_vector)
 
 
 

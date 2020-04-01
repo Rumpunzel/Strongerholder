@@ -35,20 +35,24 @@ func _ready():
 func entered(body):
 	var object = body.get_parent()
 	
-	if object is GameActor:
-		object.focus_target = self
+	if object is GameActor and not object.focus_targets.has(self):
+		object.focus_targets.append(self)
 		
 		if object is Player:
+			object.object_of_interest = self
 			set_highlighted(true)
 
 func exited(body):
 	var object = body.get_parent()
 	
 	if object is GameActor:
-		if object.focus_target == self:
-			object.focus_target = null
+		if object.focus_targets.has(self):
+			object.focus_targets.erase(self)
 		
 		if object is Player:
+			if object.object_of_interest == self:
+				object.object_of_interest = null
+			
 			set_highlighted(false)
 			
 			gui.hide(self)
@@ -60,11 +64,11 @@ func handle_highlighted():
 		building.handle_highlighted(highlight_material if highlighted else null)
 
 
-func interact(sender:GameObject, action:String) -> bool:
+func interact(action:String, sender:GameObject) -> bool:
 	print("%s %s with %s." % [sender.name, "interacted" if action == "" else action, name])
 	
 	if building:
-		return building.interact(sender, action)
+		return building.interact(action, sender)
 	
 	return false
 
