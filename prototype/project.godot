@@ -244,6 +244,11 @@ name_casing=2
 
 [rendering]
 
+quality/shadow_atlas/quadrant_0_subdiv=2
+quality/shadow_atlas/quadrant_1_subdiv=3
+quality/shadow_atlas/quadrant_2_subdiv=4
+quality/shadow_atlas/quadrant_3_subdiv=5
+quality/shadows/filter_mode=2
 quality/subsurface_scattering/quality=2
 quality/filters/msaa=4
 environment/default_environment="res://assets/default_env.tres"
