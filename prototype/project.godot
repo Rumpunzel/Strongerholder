@@ -29,12 +29,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://city_management/CityNavigator.gd"
 }, {
+"base": "Spatial",
+"class": "CityObject",
+"language": "GDScript",
+"path": "res://prefabs/CityObject.gd"
+}, {
 "base": "Foundation",
 "class": "DoodadBuilding",
 "language": "GDScript",
 "path": "res://prefabs/city/buldings/DoodadBuilding.gd"
 }, {
-"base": "Spatial",
+"base": "CityObject",
 "class": "Foundation",
 "language": "GDScript",
 "path": "res://prefabs/city/buldings/Foundation/Foundation.gd"
@@ -59,7 +64,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/GameObject.gd"
 }, {
-"base": "GameObject",
+"base": "CityObject",
 "class": "GameTree",
 "language": "GDScript",
 "path": "res://prefabs/things/GameTree/GameTree.gd"
@@ -93,12 +98,18 @@ _global_script_classes=[ {
 "class": "RingVector",
 "language": "GDScript",
 "path": "res://city_management/RingVector.gd"
+}, {
+"base": "GameObject",
+"class": "TreePoint",
+"language": "GDScript",
+"path": "res://prefabs/things/GameTree/TreePoint.gd"
 } ]
 _global_script_class_icons={
 "Bridge": "",
 "BuildPoint": "",
 "CityLayout": "",
 "CityNavigator": "",
+"CityObject": "",
 "DoodadBuilding": "",
 "Foundation": "",
 "GUI": "",
@@ -111,7 +122,8 @@ _global_script_class_icons={
 "Player": "",
 "PuppetMaster": "",
 "RingMap": "",
-"RingVector": ""
+"RingVector": "",
+"TreePoint": ""
 }
 
 [application]

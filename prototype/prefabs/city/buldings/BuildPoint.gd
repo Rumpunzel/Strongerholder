@@ -25,7 +25,7 @@ func _init(new_building_type:String, new_ring_vector:RingVector, new_ring_map:Ri
 
 
 # Called when the node enters the scene tree for the first time.
-func _enter_tree():
+func _ready():
 	set_building()
 	
 	ring_map.register_segment(building_type, ring_vector, self)
@@ -91,9 +91,10 @@ func set_building():
 		building = null
 	
 	building = buildings[building_type].instance()
-	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	building.ring_vector = ring_vector
 	building.gui = gui
+	
+	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	
 	add_child(building)
 	
