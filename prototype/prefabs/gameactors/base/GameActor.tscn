@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://prefabs/gameactors/base/sprite.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://assets/sprites/hero/sprite.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://prefabs/gameactors/base/GameActor.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/gameactors/base/cliff_detection.gd" type="Script" id=3]
 [ext_resource path="res://prefabs/gameactors/base/PathFinder.gd" type="Script" id=4]

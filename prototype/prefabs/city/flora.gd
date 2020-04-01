@@ -23,6 +23,7 @@ func construct_ring(ring_number):
 	for i in range(number_of_buildings):
 		for j in range(max_tree_groups):
 			var random_position = (j + 1.0) / float(max_tree_groups + 2)
+			
 			if randi() % 4 > 0 and (not i == 0 or random_position < 0.4 or random_position > 0.6):
 				var ring_vector = RingVector.new(CityLayout.get_radius_minimum(ring_number), (float(i - 0.5 + random_position) / float(number_of_buildings)) * TAU)
 				var new_tree = TreePoint.new(ring_vector, ring_map, gui)
