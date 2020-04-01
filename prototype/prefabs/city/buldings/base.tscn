@@ -15,5 +15,8 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0 )
 mesh = ExtResource( 2 )
 
-[node name="collision_shape" parent="area" index="0"]
+[node name="area" parent="block" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28, 0 )
+
+[node name="collision_shape" parent="block/area" index="0"]
 shape = SubResource( 1 )

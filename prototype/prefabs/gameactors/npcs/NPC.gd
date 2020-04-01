@@ -38,7 +38,8 @@ func _process(_delta):
 
 func search_for_target():
 	if not pathfinding_target:
-		var nearest_tree = ring_map.city_navigator.get_nearest_thing(ring_vector, CityLayout.TREE)
+		var nearest_trees = ring_map.city_navigator.get_nearest_thing(ring_vector, CityLayout.TREE)
+		var nearest_tree = nearest_trees[randi() % nearest_trees.size()]
 		var nearest_stockpile = ring_map.city_navigator.get_nearest(ring_vector, CityLayout.STOCKPILE)
 		
 #		if nearest_stockpile:
@@ -46,8 +47,8 @@ func search_for_target():
 #			set_pathfinding_target(nearest_stockpile)
 		
 		if nearest_tree:
-			set_object_of_interest(ring_map.things_dictionary[CityLayout.TREE][nearest_tree.ring][nearest_tree.segment])
-			set_pathfinding_target(nearest_tree)
+			set_object_of_interest(nearest_tree)
+			set_pathfinding_target(nearest_tree.ring_vector)
 
 
 

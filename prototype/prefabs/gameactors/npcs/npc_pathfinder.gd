@@ -11,6 +11,8 @@ func update_current_path(new_vector:RingVector):
 	
 	if object_of_interest:
 		current_segments.append(object_of_interest.ring_vector)
+	
+	print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
 
 
 

@@ -58,8 +58,6 @@ func update_current_path(new_vector:RingVector):
 			new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
 			
 			current_segments.append(new_segment)
-		
-		print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
 
 
 
