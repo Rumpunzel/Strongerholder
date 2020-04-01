@@ -41,7 +41,7 @@ func search_for_target(object_type:String, thing:bool):
 			var shortest_distance = -1
 			
 			for target in nearest_targets:
-				if shortest_distance < 0 or get_world_position().distance_to(target.world_position) < shortest_distance:
+				if shortest_distance < 0 or abs(ring_vector.rotation - target.ring_vector.rotation) < shortest_distance:#get_world_position().distance_to(target.world_position) < shortest_distance:
 					nearest_target = target
 		else:
 			nearest_target = ring_map.city_navigator.get_nearest(ring_vector, object_type)
