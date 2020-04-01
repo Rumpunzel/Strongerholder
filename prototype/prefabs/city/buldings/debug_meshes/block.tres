@@ -1,7 +1,4 @@
-[gd_resource type="CubeMesh" load_steps=2 format=2]
-
-[ext_resource path="res://prefabs/city/buldings/debug_materials/fading_structure.tres" type="Material" id=1]
+[gd_resource type="CubeMesh" format=2]
 
 [resource]
-material = ExtResource( 1 )
-size = Vector3( 10, 2, 6 )
+size = Vector3( 10, 1, 6 )

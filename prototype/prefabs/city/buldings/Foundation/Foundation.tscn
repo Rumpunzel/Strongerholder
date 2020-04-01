@@ -13,7 +13,7 @@ structure_node = NodePath("block")
 area_node = NodePath("block/area")
 
 [node name="block" type="CSGMesh" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
 use_collision = true
 mesh = ExtResource( 1 )
 
