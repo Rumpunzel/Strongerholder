@@ -20,3 +20,9 @@ directional_shadow_max_distance = 8192.0
 [node name="hill" parent="." instance=ExtResource( 3 )]
 
 [node name="GUI" parent="." instance=ExtResource( 2 )]
+
+[node name="camera" type="Camera" parent="."]
+transform = Transform( 0.688899, 0.355736, -0.631562, 0, 0.871291, 0.490767, 0.724858, -0.338089, 0.600231, -207.709, 114.627, 157.632 )
+current = true
+size = 300.0
+far = 8192.0
