@@ -24,8 +24,6 @@ var gui setget set_gui, get_gui
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	yield(get_tree(), "idle_frame")
-	
 	game_object = get_parent()
 	
 	area.connect("body_entered", game_object, "entered")
@@ -37,7 +35,7 @@ func handle_highlighted(_new_material:Material):
 	assert(false)
 
 
-func interact(_sender:GameObject, _action:String) -> bool:
+func interact(_action:String,_sender:GameObject) -> bool:
 	assert(false)
 	return true
 

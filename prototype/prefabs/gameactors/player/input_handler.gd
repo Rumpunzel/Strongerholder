@@ -46,10 +46,5 @@ class StopJumpCommand extends PuppetMaster.Command:
 
 
 class InteractCommand extends PuppetMaster.Command:
-	var action:String = ""
-	
-	func _init(new_action:String = ""):
-		action = new_action
-	
 	func execute(actor:GameActor) -> bool:
-		return actor.interact_with_focus(action)
+		return actor.interact_with_object()

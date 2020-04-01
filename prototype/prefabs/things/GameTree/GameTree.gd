@@ -10,5 +10,5 @@ func handle_highlighted(_new_material:Material):
 	pass
 
 
-func interact(_sender:GameObject, _action:String) -> bool:
+func interact(_action:String, _sender:GameObject) -> bool:
 	return true

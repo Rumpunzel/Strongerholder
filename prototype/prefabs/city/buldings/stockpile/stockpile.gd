@@ -2,6 +2,6 @@ extends Foundation
 
 
 
-func interact(_sender:GameObject, _action:String) -> bool:
+func interact(_action:String, _sender:GameObject) -> bool:
 	return false
 

@@ -26,7 +26,7 @@ var world_position:Vector3 setget set_world_position, get_world_position
 
 var highlighted:bool = false setget set_highlighted, get_highlighted
 
-var inventory:Dictionary = { } setget set_inventory, get_inventory
+var inventory:Array = [ ] setget set_inventory, get_inventory
 
 
 signal entered_segment
@@ -55,19 +55,23 @@ func handle_highlighted():
 	pass
 
 
-func interact(_sender:GameObject, _action:String) -> bool:
-	return false
+func interact(_action:String, _sender:GameObject) -> bool:
+	assert(false)
+	return true
 
 
-func damage(_sender:GameObject, damage_points:float):
+func damage(damage_points:float, sender:GameObject) -> bool:
 	hit_points -= damage_points
 	
 	if not indestructible and hit_points <= 0:
-		die()
+		die(sender)
+		return false
+	
+	return true
 
 
-func die():
-	pass
+func die(_sender:GameObject):
+	assert(false)
 
 
 
@@ -85,7 +89,7 @@ func set_highlighted(is_highlighted:bool):
 	handle_highlighted()
 
 
-func set_inventory(new_inventory:Dictionary):
+func set_inventory(new_inventory:Array):
 	inventory = new_inventory
 
 
@@ -105,5 +109,5 @@ func get_highlighted() -> bool:
 	return highlighted
 
 
-func get_inventory() -> Dictionary:
+func get_inventory() -> Array:
 	return inventory
