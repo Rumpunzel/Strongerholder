@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://prefabs/things/GameTree/GameTree.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/trees/tree1.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/sprites/trees/tree7.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=8]
 [ext_resource path="res://assets/sprites/trees/tree4.png" type="Texture" id=9]
+[ext_resource path="res://prefabs/things/GameTree/fading_tree.tres" type="Material" id=10]
 
 [sub_resource type="CylinderShape" id=1]
 height = 8.0
@@ -19,13 +20,13 @@ structure_node = NodePath("sprite")
 area_node = NodePath("sprite/area")
 
 [node name="sprite" type="Sprite3D" parent="."]
+material_override = ExtResource( 10 )
 offset = Vector2( 0, 43 )
 pixel_size = 0.1
 billboard = 2
 shaded = true
 alpha_cut = 2
 texture = ExtResource( 2 )
-region_rect = Rect2( 95, 22, 83, 106 )
 script = ExtResource( 3 )
 sprites = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ) ]
 
