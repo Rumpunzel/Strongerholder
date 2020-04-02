@@ -8,5 +8,5 @@ func handle_highlighted(_new_material):
 	pass
 
 
-func interact(_action:String, _sender:GameObject) -> bool:
+func interact(_sender:GameObject) -> bool:
 	return false
