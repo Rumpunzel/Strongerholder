@@ -61,6 +61,9 @@ func setup(new_ring_map:RingMap):
 
 func interact_with_object(object:GameObject = object_of_interest) -> bool:
 	if object:
+		set_can_act(false)
+		action_timer.start()
+		
 		return object.interact("", self)
 	else:
 		return false
