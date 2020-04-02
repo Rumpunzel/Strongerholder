@@ -88,21 +88,8 @@ func move_to(direction:Vector2, sprinting:bool):
 	#print("current_segment: %d" % [current_segment])
 
 
-# This function has to be implemented by child classes
 func get_move_direction(direction:Vector2) -> Vector2:
-	if cliff_dection.is_on_edge(cliff_dection.FRONT):
-		direction.x = max(direction.x, 0)
-	
-	if cliff_dection.is_on_edge(cliff_dection.BACK):
-		direction.x = min(direction.x, 0)
-	
-	if cliff_dection.is_on_edge(cliff_dection.LEFT):
-		direction.y = max(direction.y, 0)
-	
-	if cliff_dection.is_on_edge(cliff_dection.RIGHT):
-		direction.y = min(direction.y, 0)
-	
-	return direction * walkspeed * movement_modifier
+	return cliff_dection.limit_movement(direction) * walkspeed * movement_modifier
 
 
 
