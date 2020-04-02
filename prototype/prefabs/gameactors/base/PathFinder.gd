@@ -15,17 +15,27 @@ var can_act:bool = true setget set_can_act, get_can_act
 var current_path:Array = [ ]
 var current_segments:Array = [ ]
 
+var update_pathfinding:bool = false setget set_update_pathfinding, get_update_pathfinding
+
 
 
 func _process(_delta):
 	if current_actor:
 		if not object_of_interest and currently_searching_for:
 			search_for_target(currently_searching_for)
+	
+	if update_pathfinding:
+		update_current_path()
+		update_pathfinding = false
 
 
 
 func get_input() -> Array:
 	var commands:Array = [ ]
+	
+	if object_of_interest and not currently_searching_for:
+		commands.append(InteractCommand.new(object_of_interest, 1.0))
+	
 	
 	var movement_vector:Vector2
 	var next_path_segment:RingVector = current_segments[0] if not current_segments.empty() else null
@@ -45,9 +55,6 @@ func get_input() -> Array:
 	else:
 		commands.append(MoveCommand.new(Vector2(), false))
 	
-	
-	if object_of_interest and not currently_searching_for:
-		commands.append(InteractCommand.new(object_of_interest, 1.0))
 	
 	return commands
 
@@ -115,7 +122,7 @@ func set_ring_map(new_ring_map:RingMap):
 
 func set_pathfinding_target(new_target:RingVector):
 	pathfinding_target = new_target
-	update_current_path()
+	update_pathfinding = true
 
 
 func set_object_of_interest(new_object:GameObject):
@@ -123,7 +130,7 @@ func set_object_of_interest(new_object:GameObject):
 		object_of_interest.disconnect("died", self, "reset_object_of_interest")
 	
 	object_of_interest = new_object
-	update_current_path()
+	update_pathfinding = true
 	
 	if object_of_interest:
 		object_of_interest.connect("died", self, "reset_object_of_interest", [object_of_interest])
@@ -133,12 +140,19 @@ func set_object_of_interest(new_object:GameObject):
 
 func set_currently_searching_for(new_interest):
 	currently_searching_for = new_interest
-	update_current_path()
-	#print(currently_searching_for)
+	
+	if new_interest:
+		reset_object_of_interest(object_of_interest)
+	else:
+		update_pathfinding = true
 
 
 func set_can_act(new_status:bool):
 	can_act = new_status
+
+
+func set_update_pathfinding(new_status:bool):
+	update_pathfinding = new_status
 
 
 
@@ -160,3 +174,7 @@ func get_currently_searching_for():
 
 func get_can_act() -> bool:
 	return can_act
+
+
+func get_update_pathfinding() -> bool:
+	return update_pathfinding

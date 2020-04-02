@@ -15,7 +15,8 @@ func _process(_delta:float):
 		var commands:Array = get_input()
 		
 		for command in commands:
-			command.execute(current_actor)
+			if command.execute(current_actor):
+				break
 
 
 

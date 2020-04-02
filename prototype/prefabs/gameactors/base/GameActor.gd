@@ -48,15 +48,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	print(currently_searching_for)
 	if object_of_interest:
 		if focus_targets.has(object_of_interest) and object_of_interest.type == currently_searching_for:
 			set_currently_searching_for(null)
-#			if not name == "player":
-#				print(object_of_interest.name)
-#				for t in focus_targets:
-#					print(t.name)
-#					print("-")
 
 
 
@@ -73,7 +67,7 @@ func interaction_with(object:GameObject) -> Dictionary:
 		
 		match object.type:
 			CityLayout.TREE:
-				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 5.0 ] }
+				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 10.0 ] }
 			
 			CityLayout.STOCKPILE:
 				if not inventory.empty():
