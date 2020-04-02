@@ -102,7 +102,7 @@ func set_tree():
 	
 	add_child(game_tree)
 	
-	name = "[tree][%s, %s]" % [ring_vector.radius, ring_vector.rotation]
+	name = "[tree:(%s, %s)]" % [ring_vector.radius, ring_vector.rotation]
 
 
 func set_ring_vector(new_vector:RingVector):
@@ -112,7 +112,7 @@ func set_ring_vector(new_vector:RingVector):
 	if game_tree:
 		game_tree.ring_vector = new_vector
 	
-	name = "[tree][%s, %s]" % [ring_vector.radius, ring_vector.rotation]
+	name = "[tree:(%s, %s)]" % [ring_vector.radius, ring_vector.rotation]
 
 
 func set_world_position(new_position:Vector3):

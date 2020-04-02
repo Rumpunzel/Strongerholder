@@ -67,7 +67,7 @@ func handle_highlighted():
 
 func interact(sender:GameObject) -> bool:
 	if building:
-		return building.interact(sender)
+		return building.interact(sender) and .interact(sender)
 	
 	return false and .interact(sender)
 
@@ -101,7 +101,7 @@ func set_building():
 	
 	add_child(building)
 	
-	name = "[%s][%s, %s]" % [type, ring_vector.ring, ring_vector.segment]
+	name = "[%s:(%s, %s)]" % [type, ring_vector.ring, ring_vector.segment]
 
 
 func set_ring_vector(new_vector:RingVector):
