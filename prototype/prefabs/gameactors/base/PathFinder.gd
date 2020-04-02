@@ -19,16 +19,14 @@ var current_segments:Array = [ ]
 
 func _process(_delta):
 	if current_actor:
-		if object_of_interest:
-			if false and can_act:
-				interact_with_object(object_of_interest)
-		elif currently_searching_for:
+		if not object_of_interest and currently_searching_for:
 			search_for_target(currently_searching_for)
 
 
 
 func get_input() -> Array:
 	var commands:Array = [ ]
+	
 	var movement_vector:Vector2
 	var next_path_segment:RingVector = current_segments[0] if not current_segments.empty() else null
 	
@@ -46,6 +44,10 @@ func get_input() -> Array:
 			commands.append(MoveCommand.new(movement_vector, false))
 	else:
 		commands.append(MoveCommand.new(Vector2(), false))
+	
+	
+	if object_of_interest and not currently_searching_for:
+		commands.append(InteractCommand.new(object_of_interest, 1.0))
 	
 	return commands
 
@@ -79,44 +81,30 @@ func update_current_path(new_vector:RingVector = current_actor.ring_vector):
 
 
 func search_for_target(object_type:String):
-	if not pathfinding_target:
-		var nearest_target
-		var thing = false
+	var nearest_target
+	var thing = false
+	
+	if object_type == CityLayout.TREE:
+		thing = true
+	
+	if thing:
+		var nearest_targets = ring_map.city_navigator.get_nearest_thing(current_actor.ring_vector, object_type)
+		var shortest_distance = -1
 		
-		if object_type == CityLayout.TREE:
-			thing = true
-		
-		if thing:
-			var nearest_targets = ring_map.city_navigator.get_nearest_thing(current_actor.ring_vector, object_type)
-			var shortest_distance = -1
-			
-			for target in nearest_targets:
-				if shortest_distance < 0 or abs(current_actor.ring_vector.rotation - target.ring_vector.rotation) < shortest_distance:
-					nearest_target = target
-		else:
-			nearest_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, object_type)
-		
-		if nearest_target:
-			set_object_of_interest(nearest_target)
-			set_pathfinding_target(nearest_target.ring_vector)
+		for target in nearest_targets:
+			if shortest_distance < 0 or abs(current_actor.ring_vector.rotation - target.ring_vector.rotation) < shortest_distance:
+				nearest_target = target
+	else:
+		nearest_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, object_type)
+	
+	if nearest_target:
+		set_object_of_interest(nearest_target)
+		set_pathfinding_target(nearest_target.ring_vector)
 
 
-func interact_with_object(object:GameObject = object_of_interest) -> bool:
-	var interacted:bool = false
-	
-	match object.get_class():
-		"TreePoint":
-			if not object_of_interest.damage(5, get_parent()):
-				set_object_of_interest(null)
-				interacted = true
-		_:
-			while not current_actor.inventory.empty():
-				object_of_interest.inventory.append(current_actor.inventory.pop_front())
-			
-			interacted = object_of_interest.interact("", get_parent())
-			set_object_of_interest(null)
-	
-	return interacted
+func reset_object_of_interest(old_object:GameObject):
+	if object_of_interest == old_object:
+		set_object_of_interest(null)
 
 
 
@@ -131,8 +119,14 @@ func set_pathfinding_target(new_target:RingVector):
 
 
 func set_object_of_interest(new_object:GameObject):
+	if object_of_interest:
+		object_of_interest.disconnect("died", self, "reset_object_of_interest")
+	
 	object_of_interest = new_object
 	update_current_path()
+	
+	if object_of_interest:
+		object_of_interest.connect("died", self, "reset_object_of_interest", [object_of_interest])
 	
 	current_actor.set_object_of_interest(object_of_interest)
 
@@ -140,6 +134,7 @@ func set_object_of_interest(new_object:GameObject):
 func set_currently_searching_for(new_interest):
 	currently_searching_for = new_interest
 	update_current_path()
+	#print(currently_searching_for)
 
 
 func set_can_act(new_status:bool):

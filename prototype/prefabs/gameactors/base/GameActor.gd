@@ -1,8 +1,12 @@
 extends GameObject
 class_name GameActor
 
-func is_class(type): return type == "GameActor" or .is_class(type)
+func is_class(class_type): return class_type == "GameActor" or .is_class(class_type)
 func get_class(): return "GameActor"
+
+
+const INTERACTION = "interaction"
+const PARAMETERS = "parameters"
 
 
 onready var body:KinematicBody = $body
@@ -19,8 +23,6 @@ export var jump_speed:float = 30.0
 # Multiplicative modifer to the movement speed
 #	is equal to 1.0 if the gameactor is walking normal
 var movement_modifier:float = 1.0
-
-var pathfinding_target:RingVector setget set_pathfinding_target, get_pathfinding_target
 
 var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
@@ -46,9 +48,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	print(currently_searching_for)
 	if object_of_interest:
-		if focus_targets.has(object_of_interest):
+		if focus_targets.has(object_of_interest) and object_of_interest.type == currently_searching_for:
 			set_currently_searching_for(null)
+#			if not name == "player":
+#				print(object_of_interest.name)
+#				for t in focus_targets:
+#					print(t.name)
+#					print("-")
 
 
 
@@ -59,14 +67,25 @@ func setup(new_ring_map:RingMap):
 
 
 
-func interact_with_object(object:GameObject = object_of_interest) -> bool:
+func interaction_with(object:GameObject) -> Dictionary:
 	if object:
-		set_can_act(false)
-		action_timer.start()
+		var basic_interaction:Dictionary = { INTERACTION: INTERACT_FUNCTION }
 		
-		return object.interact("", self)
+		match object.type:
+			CityLayout.TREE:
+				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 5.0 ] }
+			
+			CityLayout.STOCKPILE:
+				if not inventory.empty():
+					return { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ] }
+				else:
+					return { }
+			
+			_:
+				return basic_interaction
 	else:
-		return false
+		return { }
+
 
 
 func move_to(direction:Vector2, sprinting:bool):
@@ -105,9 +124,15 @@ func stop_jump():
 
 
 
+func add_focus_target(object:GameObject):
+	if not focus_targets.has(object):
+		focus_targets.append(object)
 
-func set_pathfinding_target(new_target:RingVector):
-	pathfinding_target = new_target
+
+func erase_focus_target(object:GameObject):
+	focus_targets.erase(object)
+
+
 
 
 func set_object_of_interest(new_object:GameObject):
@@ -115,8 +140,9 @@ func set_object_of_interest(new_object:GameObject):
 
 
 func set_currently_searching_for(new_interest):
-	currently_searching_for = new_interest
-	emit_signal("acquired_target", currently_searching_for)
+	if not new_interest == currently_searching_for:
+		currently_searching_for = new_interest
+		emit_signal("acquired_target", currently_searching_for)
 
 
 func set_focus_targets(new_targets:Array):
@@ -128,10 +154,6 @@ func set_can_act(new_status:bool):
 	
 	emit_signal("can_act_again", can_act)
 
-
-
-func get_pathfinding_target() -> RingVector:
-	return pathfinding_target
 
 
 func get_object_of_interest() -> GameObject:

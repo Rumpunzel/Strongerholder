@@ -2,8 +2,16 @@ tool
 extends Spatial
 class_name GameObject
 
-func is_class(type): return type == "GameObject" or .is_class(type)
+func is_class(class_type): return class_type == "GameObject" or .is_class(class_type)
 func get_class(): return "GameObject"
+
+
+const INTERACT_FUNCTION = "interact"
+const DAMAGE_FUNCTION = "damage"
+const GIVE_FUNCTION = "give"
+const TAKE_FUNCTION = "take"
+
+const EVERYTHING = "everything"
 
 
 export var hit_points_max:float = 10.0
@@ -30,6 +38,7 @@ var inventory:Array = [ ] setget set_inventory, get_inventory
 
 
 signal entered_segment
+signal died
 
 
 
@@ -55,13 +64,31 @@ func handle_highlighted():
 	pass
 
 
-func interact(_action:String, _sender:GameObject) -> bool:
-	assert(false)
+func interact(sender:GameObject) -> bool:
+	print("%s interacted with %s." % [sender.name, name])
+	
 	return true
+
+
+func give(new_items:Array, sender:GameObject):
+	print("%s gave %s: %s" % [sender.name, name, new_items])
+	
+	while not new_items.empty():
+		inventory.append(new_items.pop_front())
+
+
+func take(objects, sender:GameObject):
+	if objects == EVERYTHING:
+		objects = inventory
+	
+	if objects is Array:
+		sender.give(objects, self)
 
 
 func damage(damage_points:float, sender:GameObject) -> bool:
 	hit_points -= damage_points
+	
+	print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
 	
 	if not indestructible and hit_points <= 0:
 		die(sender)
@@ -71,7 +98,7 @@ func damage(damage_points:float, sender:GameObject) -> bool:
 
 
 func die(_sender:GameObject):
-	assert(false)
+	emit_signal("died")
 
 
 

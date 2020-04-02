@@ -42,8 +42,3 @@ class StopJumpCommand extends PuppetMaster.Command:
 	func execute(actor:GameActor) -> bool:
 		actor.stop_jump()
 		return false
-
-
-class InteractCommand extends PuppetMaster.Command:
-	func execute(actor:GameActor) -> bool:
-		return actor.interact_with_object()

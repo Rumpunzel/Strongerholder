@@ -1,13 +1,11 @@
 extends Node
 class_name PuppetMaster
 
-func is_class(type): return type == "PuppetMaster" or .is_class(type)
+func is_class(class_type): return class_type == "PuppetMaster" or .is_class(class_type)
 func get_class(): return "PuppetMaster"
 
 
 var current_actor:GameActor = null setget set_current_actor, get_current_actor
-
-var connected_signals:Array = [ ]
 
 
 
@@ -34,8 +32,8 @@ func remove_actor(old_actor):
 	if old_actor == current_actor:
 		set_current_actor(null)
 		
-		for con_signal in connected_signals:
-			con_signal.disconnect()
+#		for con_signal in connected_signals:
+#			con_signal.disconnect()
 
 
 
@@ -51,9 +49,15 @@ func get_current_actor() -> GameActor:
 
 
 class Command:
-	func execute(_actor) -> bool:
-		assert(false)
-		return true
+	var action_time:float = 0.0
+	
+	func execute(actor:GameActor) -> bool:
+		if actor.can_act:
+			if action_time > 0.0:
+				actor.set_can_act(false)
+				actor.action_timer.start(action_time)
+		
+		return false
 
 
 class MoveCommand extends Command:
@@ -65,11 +69,48 @@ class MoveCommand extends Command:
 		sprinting = new_sprinting
 		
 	func execute(actor:GameActor) -> bool:
-		actor.move_to(movement_vector, sprinting)
+		if actor.can_act:
+			actor.move_to(movement_vector, sprinting)
+		else:
+			actor.move_to(Vector2(), false)
+		
 		return false
 
 
 class JumpCommand extends Command:
 	func execute(actor:GameActor) -> bool:
-		actor.jump()
+		if actor.can_act:
+			actor.jump()
+		
+		return false
+
+
+class InteractCommand extends Command:
+	var object:GameObject
+	
+	func _init(new_object:GameObject = null, new_action_time:float = 0.0):
+		object = new_object
+		action_time = new_action_time
+	
+	func execute(actor:GameActor) -> bool:
+		if actor.can_act:
+			if action_time > 0.0:
+				actor.set_can_act(false)
+				actor.action_timer.start(action_time)
+				
+				yield(actor, "can_act_again")
+			
+			if not object:
+				object = actor.object_of_interest
+			
+			var interaction:Dictionary = actor.interaction_with(object)
+			
+			var function = interaction.get(GameActor.INTERACTION)
+			var parameters:Array = interaction.get(GameActor.PARAMETERS, [ ])
+			
+			parameters.append(actor)
+			
+			if function:
+				return object.callv(function, parameters)
+		
 		return false
