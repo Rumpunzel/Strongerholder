@@ -14,6 +14,7 @@ var can_act:bool = true setget set_can_act, get_can_act
 
 var current_path:Array = [ ]
 var current_segments:Array = [ ]
+var path_progress:int = 0
 
 var update_pathfinding:bool = false setget set_update_pathfinding, get_update_pathfinding
 
@@ -38,14 +39,14 @@ func get_input() -> Array:
 	
 	
 	var movement_vector:Vector2
-	var next_path_segment:RingVector = current_segments[0] if not current_segments.empty() else null
+	var next_path_segment:RingVector = current_segments[path_progress] if not current_segments.empty() else null
 	
 	if next_path_segment:
 		next_path_segment.modulo_ring_vector()
 		
 		movement_vector = Vector2(next_path_segment.radius - current_actor.ring_vector.radius, next_path_segment.rotation - current_actor.ring_vector.rotation)
 		movement_vector.x /= 256
-		print(next_path_segment.rotation - current_actor.ring_vector.rotation)
+		
 		#print("movement_vector: %s" % [movement_vector])
 		
 		if movement_vector.length() > 0:
@@ -62,29 +63,37 @@ func get_input() -> Array:
 func register_actor(new_actor:GameActor):
 	.register_actor(new_actor)
 	
-	current_actor.connect("entered_segment", self, "update_current_path")
+	current_actor.connect("entered_segment", self, "update_path_progress")
 	current_actor.connect("acquired_target", self, "set_currently_searching_for")
 	current_actor.connect("can_act_again", self, "set_can_act")
 
 
-func update_current_path(new_vector:RingVector = current_actor.ring_vector):
+func update_current_path():
 	current_path = [ ]
 	current_segments = [ ]
+	path_progress = 0
 	
 	if pathfinding_target:
-		current_path = ring_map.city_navigator.get_shortest_path(new_vector, pathfinding_target)
+		current_path = ring_map.city_navigator.get_shortest_path(current_actor.ring_vector, pathfinding_target)
 		
 		for segment in range(1, current_path.size()):
-			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
+			var coming_from_outside:bool = current_path[segment - 1].x > current_path[segment].x
+			var ring_offset:int = 1 if coming_from_outside else 0
+			var new_segment = RingVector.new(current_path[segment].x + ring_offset, current_path[segment].y, true)
 			
-			new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
+			#new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
 			
 			current_segments.append(new_segment)
 	
 	if currently_searching_for and object_of_interest:
 		current_segments.append(object_of_interest.ring_vector)
 	
-	#print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
+	print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
+
+
+func update_path_progress(new_vector:RingVector):
+	path_progress = int(max(path_progress, current_path.find(Vector2(new_vector.ring, new_vector.segment))))
+
 
 
 func search_for_target(object_type:String):
@@ -108,8 +117,8 @@ func search_for_target(object_type:String):
 		nearest_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, object_type)
 	
 	if nearest_target:
+		pathfinding_target = nearest_target.ring_vector
 		set_object_of_interest(nearest_target)
-		set_pathfinding_target(nearest_target.ring_vector)
 
 
 func reset_object_of_interest(old_object:GameObject):
@@ -125,7 +134,6 @@ func set_ring_map(new_ring_map:RingMap):
 
 func set_pathfinding_target(new_target:RingVector):
 	pathfinding_target = new_target
-	update_pathfinding = true
 
 
 func set_object_of_interest(new_object:GameObject):
