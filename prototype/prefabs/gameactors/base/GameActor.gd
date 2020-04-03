@@ -92,13 +92,7 @@ func move_to(direction:Vector2, sprinting:bool):
 	
 	sprite.change_animation(move_direction)
 	
-	# The position in the world can be displayed with a Vector2
-	#	with the x-axis being the ring_position and
-	#	with the y-axis being the ring_radius
 	emit_signal("moved", ring_vector)
-	
-	#print("current_ring: %d" % [current_ring])
-	#print("current_segment: %d" % [current_segment])
 
 
 func get_move_direction(direction:Vector2) -> Vector2:

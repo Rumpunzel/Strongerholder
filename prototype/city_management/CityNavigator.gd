@@ -120,9 +120,7 @@ func get_nearest(ring_vector:RingVector, type:String):
 					shortest_path = path
 					target = segments[segment]
 		
-		#var target = shortest_path.back() if not shortest_path.empty() else null
-		
-		return target#RingVector.new(target.x, target.y, true) if target else null
+		return target
 
 
 func get_nearest_thing(ring_vector:RingVector, type:String) -> Array:

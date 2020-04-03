@@ -45,7 +45,7 @@ func get_input() -> Array:
 		
 		movement_vector = Vector2(next_path_segment.radius - current_actor.ring_vector.radius, next_path_segment.rotation - current_actor.ring_vector.rotation)
 		movement_vector.x /= 256
-		
+		print(next_path_segment.rotation - current_actor.ring_vector.rotation)
 		#print("movement_vector: %s" % [movement_vector])
 		
 		if movement_vector.length() > 0:
@@ -99,8 +99,11 @@ func search_for_target(object_type:String):
 		var shortest_distance = -1
 		
 		for target in nearest_targets:
-			if shortest_distance < 0 or abs(current_actor.ring_vector.rotation - target.ring_vector.rotation) < shortest_distance:
+			var distance = abs(current_actor.ring_vector.rotation - target.ring_vector.rotation)
+			
+			if shortest_distance < 0 or distance < shortest_distance:
 				nearest_target = target
+				shortest_distance = distance
 	else:
 		nearest_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, object_type)
 	
