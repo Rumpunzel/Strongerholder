@@ -14,6 +14,8 @@ const highlight_material:Material = preload("res://assets/materials/highlightSha
 var type:String setget set_type, get_type
 var building:Foundation = null setget , get_building
 
+var building_width:int = 3
+
 var gui
 
 
@@ -33,7 +35,16 @@ func _ready():
 
 
 func entered(body):
-	if ring_map.get_things_at_position(ring_vector, CityLayout.TREE).empty():
+	var free:bool = true
+	
+	for i in range(building_width):
+		var new_vector:RingVector = RingVector.new(0, 0)
+		new_vector.set_equal_to(ring_vector)
+		new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+		
+		free = free and ring_map.get_things_at_position(new_vector, CityLayout.TREE).empty()
+	
+	if free:
 		var object = body.get_parent()
 		
 		if object is GameActor:
