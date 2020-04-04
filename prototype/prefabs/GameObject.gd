@@ -27,11 +27,6 @@ var ring_map:RingMap
 #	for further information, look into the documentation in the RingVector class
 var ring_vector:RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
 
-# The global position of the object in world space
-#	This will often be overwritten to give the global position of child nodes
-# warning-ignore:unused_class_variable
-var world_position:Vector3 setget set_world_position, get_world_position
-
 var highlighted:bool = false setget set_highlighted, get_highlighted
 
 var inventory:Array = [ ] setget set_inventory, get_inventory
@@ -108,10 +103,6 @@ func set_ring_vector(new_vector:RingVector):
 	ring_vector.set_equal_to(new_vector)
 
 
-func set_world_position(new_position:Vector3):
-	global_transform.origin = new_position
-
-
 func set_highlighted(is_highlighted:bool):
 	highlighted = is_highlighted
 	handle_highlighted()
@@ -124,13 +115,6 @@ func set_inventory(new_inventory:Array):
 
 func get_ring_vector() -> RingVector:
 	return ring_vector
-
-
-func get_world_position() -> Vector3:
-	if is_inside_tree():
-		return global_transform.origin
-	else:
-		return Vector3()
 
 
 func get_highlighted() -> bool:

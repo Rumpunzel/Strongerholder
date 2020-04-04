@@ -106,7 +106,7 @@ func set_building():
 	building = buildings[type].instance()
 	building.ring_vector = ring_vector
 	
-	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
+	building.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius)
 	
 	add_child(building)
 	
@@ -121,13 +121,6 @@ func set_ring_vector(new_vector:RingVector):
 		building.ring_vector = new_vector
 
 
-func set_world_position(new_position:Vector3):
-	if building:
-		building.transform.origin = new_position
-	else:
-		.set_world_position(new_position)
-
-
 
 func get_type() -> String:
 	return type
@@ -135,10 +128,3 @@ func get_type() -> String:
 
 func get_building() -> Foundation:
 	return building
-
-
-func get_world_position() -> Vector3:
-	if building:
-		return building.global_transform.origin
-	else:
-		return .get_world_position()

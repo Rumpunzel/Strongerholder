@@ -94,7 +94,7 @@ func set_tree():
 	game_tree = tree_scene.instance()
 	game_tree.ring_vector = ring_vector
 	
-	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
+	game_tree.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius)
 	
 	add_child(game_tree)
 	
@@ -111,13 +111,6 @@ func set_ring_vector(new_vector:RingVector):
 	name = "[tree:(%s, %s)]" % [ring_vector.radius, ring_vector.rotation]
 
 
-func set_world_position(new_position:Vector3):
-	if game_tree:
-		game_tree.transform.origin = new_position
-	else:
-		.set_world_position(new_position)
-
-
 
 func get_type() -> String:
 	return type
@@ -125,10 +118,3 @@ func get_type() -> String:
 
 func get_game_tree() -> GameTree:
 	return game_tree
-
-
-func get_world_position() -> Vector3:
-	if game_tree:
-		return game_tree.global_transform.origin
-	else:
-		return .get_world_position()

@@ -153,10 +153,3 @@ func get_focus_targets() -> Array:
 
 func get_can_act() -> bool:
 	return can_act
-
-
-func get_world_position():
-	if body:
-		return body.global_transform.origin
-	else:
-		return .get_world_position()
