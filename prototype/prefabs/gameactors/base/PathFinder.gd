@@ -40,19 +40,18 @@ func get_input() -> Array:
 	
 	
 	var movement_vector:Vector3 = Vector3()
-	var next_path_segment:RingVector = current_segments[path_progress] if not current_segments.empty() else null
+	var next_path_segment:RingVector = current_segments[path_progress] if path_progress < current_segments.size() else null
 	
 	if next_path_segment:
 		next_path_segment.modulo_ring_vector()
 		
 		movement_vector = Vector3(next_path_segment.radius - current_actor.ring_vector.radius, 0, next_path_segment.rotation - current_actor.ring_vector.rotation)
-		movement_vector.x /= 256
+		
+		movement_vector.z *= next_path_segment.radius
 		
 		#print("movement_vector: %s" % [movement_vector])
 		
 		if movement_vector.length() > 0:
-			movement_vector = movement_vector.normalized()
-		
 			commands.append(MoveCommand.new(movement_vector, false))
 	else:
 		commands.append(MoveCommand.new(Vector3(), false))
@@ -80,9 +79,9 @@ func update_current_path():
 		current_path = ring_map.city_navigator.get_shortest_path(current_actor.ring_vector, pathfinding_target)
 		
 		for segment in range(1, current_path.size()):
-			var coming_from_outside:bool = current_path[segment - 1].x > current_path[segment].x
-			var ring_offset:int = 1 if coming_from_outside else 0
-			var new_segment = RingVector.new(current_path[segment].x + ring_offset, current_path[segment].y, true)
+#			var coming_from_outside:bool = current_path[segment - 1].x > current_path[segment].x
+#			var ring_offset:int = 1 if coming_from_outside else 0
+			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
 			
 			new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
 			
