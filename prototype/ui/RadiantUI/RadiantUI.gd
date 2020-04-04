@@ -24,6 +24,8 @@ func _init(new_menu_buttons:Array, new_interaction_object = null, new_interactio
 	menu_buttons = new_menu_buttons
 	interaction_object = new_interaction_object
 	interaction = new_interaction
+	
+	be_a_retard = true
 
 
 func _ready():

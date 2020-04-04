@@ -26,7 +26,7 @@ func update_children():
 	
 	for i in children.size():
 		var child = children[i]
-		var child_angle = (ceil(i / 2.0) * (-1 if i % 2 == 0 else 1)) if be_a_retard else i
+		var child_angle = (ceil(i / 2.0) * (1 if i % 2 == 0 else -1)) if be_a_retard else i
 		
 		child_angle = (child_angle / float(children.size())) * deg2rad(container_angle)
 		
