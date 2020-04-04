@@ -3,6 +3,8 @@ class_name RadiantContainer
 
 
 export(float, 0, 360) var container_angle = 360
+
+export var center_children:bool = true
 export var be_a_retard:bool = false
 
 
@@ -29,6 +31,9 @@ func update_children():
 		child_angle = (child_angle / float(children.size())) * deg2rad(container_angle)
 		
 		child.rect_position = Vector2(0, -circle_radius).rotated(child_angle)
+		
+		if center_children:
+			child.rect_position -= child.rect_size / 2.0
 
 
 
