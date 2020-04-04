@@ -92,6 +92,7 @@ func set_center_button(new_button):
 	
 	if center_button:
 		add_actual_child(center_button)
+		center_button.grab_focus()
 	else:
 		close()
 
