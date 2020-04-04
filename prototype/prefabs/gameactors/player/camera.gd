@@ -8,7 +8,6 @@ export(NodePath) var ray_cast_node
 
 
 onready var ray_cast = get_node(ray_cast_node)
-onready var ui_layer = $ui_layer setget , get_ui_layer
 
 
 
@@ -23,11 +22,6 @@ func _process(_delta):
 
 
 func add_ui_element(new_element:Control, center_ui:bool = true):
-	var new_parent = $ui_layer/margin_container if center_ui else ui_layer
+	var new_parent = $ui_layer/control/margin_container if center_ui else $ui_layer/control
 	
 	new_parent.add_child(new_element)
-
-
-
-func get_ui_layer() -> CanvasLayer:
-	return ui_layer
