@@ -45,7 +45,7 @@ func get_input() -> Array:
 	if next_path_segment:
 		next_path_segment.modulo_ring_vector()
 		
-		#movement_vector = Vector3(next_path_segment.radius - current_actor.ring_vector.radius, next_path_segment.rotation - current_actor.ring_vector.rotation)
+		movement_vector = Vector3(next_path_segment.radius - current_actor.ring_vector.radius, 0, next_path_segment.rotation - current_actor.ring_vector.rotation)
 		movement_vector.x /= 256
 		
 		#print("movement_vector: %s" % [movement_vector])

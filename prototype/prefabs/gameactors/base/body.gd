@@ -21,21 +21,20 @@ var grounded:bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if not Engine.editor_hint:
-		look_at(Vector3(0, transform.origin.y, 0), Vector3.UP)
-		
-		var dir:Vector3 = transform.basis.x * move_direction.z + transform.basis.z * move_direction.x
-		jump_mod = max(move_direction.y, jump_mod - delta * 5)
-		fall_speed += default_gravity * delta * 0.5
-		dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
-		
-		move_and_slide(dir, Vector3.UP, true)
-		
-		grounded = is_on_floor()
-		
-		if grounded:
-			fall_speed = 0.0
-			jump_mod = 0.0
+	look_at(Vector3(0, transform.origin.y, 0), Vector3.UP)
+	
+	var dir:Vector3 = transform.basis.x * move_direction.z + transform.basis.z * move_direction.x
+	jump_mod = max(move_direction.y, jump_mod - delta * 5)
+	fall_speed += default_gravity * delta * 0.5
+	dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
+	
+	move_and_slide(dir, Vector3.UP, true)
+	
+	grounded = is_on_floor()
+	
+	if grounded:
+		fall_speed = 0.0
+		jump_mod = 0.0
 
 
 

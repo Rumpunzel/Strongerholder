@@ -57,7 +57,7 @@ func is_on_edge(side:String) -> bool:
 	return not raycasts[side].is_colliding()
 
 
-func limit_movement(direction:Vector2) -> Vector2:
+func limit_movement(direction:Vector3) -> Vector3:
 	if is_on_edge(FRONT):
 		direction.x = max(direction.x, 0)
 	
@@ -65,9 +65,9 @@ func limit_movement(direction:Vector2) -> Vector2:
 		direction.x = min(direction.x, 0)
 	
 	if is_on_edge(LEFT):
-		direction.y = max(direction.y, 0)
+		direction.z = max(direction.z, 0)
 	
 	if is_on_edge(RIGHT):
-		direction.y = min(direction.y, 0)
+		direction.z = min(direction.z, 0)
 	
 	return direction
