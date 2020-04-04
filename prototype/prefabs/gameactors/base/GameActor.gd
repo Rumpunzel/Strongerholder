@@ -17,7 +17,6 @@ onready var action_timer:Timer = $action_timer
 
 export var walkspeed:float = 3.0
 export var sprint_modifier:float = 2.5
-export var jump_speed:float = 30.0
 
 
 # Multiplicative modifer to the movement speed
@@ -32,8 +31,6 @@ var can_act:bool = true setget set_can_act, get_can_act
 
 
 signal moved
-signal jumped
-signal stopped_jumping
 signal acquired_target
 signal can_act_again
 
@@ -101,19 +98,12 @@ func move_to(direction:Vector3, sprinting:bool):
 
 
 func get_move_direction(direction:Vector3) -> Vector3:
-	return cliff_dection.limit_movement(direction) * walkspeed * movement_modifier
-
-
-
-func jump():
-	body.jump(jump_speed)
+	var move_direction = cliff_dection.limit_movement(direction)
+	move_direction.y = 0
+	move_direction = move_direction.normalized()
+	move_direction.y = direction.y
 	
-	emit_signal("jumped")
-
-func stop_jump():
-	body.jump()
-	
-	emit_signal("stopped_jumping")
+	return move_direction * walkspeed * movement_modifier
 
 
 
