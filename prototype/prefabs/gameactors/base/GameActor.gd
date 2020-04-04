@@ -72,13 +72,11 @@ func interaction_with(object:GameObject) -> Dictionary:
 			CityLayout.STOCKPILE:
 				if not inventory.empty():
 					return { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ] }
-				else:
-					return { }
 			
 			_:
 				return basic_interaction
-	else:
-		return { }
+	
+	return { }
 
 
 

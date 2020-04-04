@@ -10,13 +10,18 @@ var menu_buttons:Array
 var menu_layers:Array = [ ]
 var center_button = null setget set_center_button, get_center_button
 
+var interaction_object
+var interaction
+
 
 signal button_pressed
 
 
 
-func _init(new_menu_buttons:Array):
+func _init(new_menu_buttons:Array, new_interaction_object = null, new_interaction = null):
 	menu_buttons = new_menu_buttons
+	interaction_object = new_interaction_object
+	interaction = new_interaction
 
 
 func _ready():
@@ -57,6 +62,11 @@ func _button_pressed(button):
 		if not button.menu_buttons.empty():
 			place_buttons(button.menu_buttons)
 		else:
+			if interaction_object and interaction:
+				interaction_object.call(interaction, button.text)
+				interaction_object = null
+				interaction = null
+			
 			emit_signal("button_pressed", button.text)
 			close()
 	else:
