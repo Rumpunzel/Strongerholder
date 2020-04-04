@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "DoodadBuilding",
 "class": "Bridge",
 "language": "GDScript",
-"path": "res://prefabs/city/buldings/bridge/bridge.gd"
+"path": "res://prefabs/city/bridge/bridge.gd"
 }, {
 "base": "GameObject",
 "class": "BuildPoint",
 "language": "GDScript",
-"path": "res://prefabs/city/buldings/BuildPoint.gd"
+"path": "res://prefabs/city/BuildPoint.gd"
 }, {
 "base": "Resource",
 "class": "CityLayout",
@@ -37,12 +37,12 @@ _global_script_classes=[ {
 "base": "Foundation",
 "class": "DoodadBuilding",
 "language": "GDScript",
-"path": "res://prefabs/city/buldings/DoodadBuilding.gd"
+"path": "res://prefabs/city/DoodadBuilding.gd"
 }, {
 "base": "CityObject",
 "class": "Foundation",
 "language": "GDScript",
-"path": "res://prefabs/city/buldings/Foundation/Foundation.gd"
+"path": "res://prefabs/city/Foundation/Foundation.gd"
 }, {
 "base": "GameObject",
 "class": "GameActor",
@@ -135,7 +135,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Strongerholder"
-run/main_scene="res://levels/ring_test.tscn"
+run/main_scene="res://levels/hill.tscn"
 config/icon="res://assets/sprites/icon.png"
 
 [debug]
