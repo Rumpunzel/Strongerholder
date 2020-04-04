@@ -26,30 +26,30 @@ func _ready():
 
 
 
-func entered(body):
-	var object = body.get_parent()
-	
-	if object is GameActor:
-		object.add_focus_target(self)
-		connect("died", object, "erase_focus_target", [self])
-		
-		if object is Player:
-			object.object_of_interest = self
-			set_highlighted(true)
-
-func exited(body):
-	var object = body.get_parent()
-	
-	if object is GameActor:
-		if object.focus_targets.has(self):
-			object.erase_focus_target(self)
-			disconnect("died", object, "erase_focus_target")
-		
-		if object is Player:
-			if object.object_of_interest == self:
-				object.object_of_interest = null
-			
-			set_highlighted(false)
+#func entered(body):
+#	var object = body.get_parent()
+#
+#	if object is GameActor:
+#		object.add_focus_target(self)
+#		connect("died", object, "erase_focus_target", [self])
+#
+#		if object is Player:
+#			object.object_of_interest = self
+#			set_highlighted(true)
+#
+#func exited(body):
+#	var object = body.get_parent()
+#
+#	if object is GameActor:
+#		if object.focus_targets.has(self):
+#			object.erase_focus_target(self)
+#			disconnect("died", object, "erase_focus_target")
+#
+#		if object is Player:
+#			if object.object_of_interest == self:
+#				object.object_of_interest = null
+#
+#			set_highlighted(false)
 
 
 func handle_highlighted():
@@ -98,7 +98,7 @@ func set_tree():
 	
 	add_child(game_tree)
 	
-	name = "[tree:(%s, %s)]" % [ring_vector.radius, ring_vector.rotation]
+	name = "[tree:(%s, %s)]" % [ring_vector.ring, ring_vector.segment]
 
 
 func set_ring_vector(new_vector:RingVector):
@@ -108,7 +108,7 @@ func set_ring_vector(new_vector:RingVector):
 	if game_tree:
 		game_tree.ring_vector = new_vector
 	
-	name = "[tree:(%s, %s)]" % [ring_vector.radius, ring_vector.rotation]
+	name = "[tree:(%s, %s)]" % [ring_vector.ring, ring_vector.segment]
 
 
 

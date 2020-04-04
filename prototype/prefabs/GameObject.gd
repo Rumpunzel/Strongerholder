@@ -37,6 +37,7 @@ signal died
 
 
 
+
 func _init(new_ring_map:RingMap = null):
 	ring_map = new_ring_map
 
@@ -44,6 +45,7 @@ func _init(new_ring_map:RingMap = null):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ring_vector.connect("vector_changed", self, "updated_ring_vector")
+
 
 
 func setup(new_ring_map:RingMap):

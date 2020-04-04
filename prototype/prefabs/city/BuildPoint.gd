@@ -33,40 +33,40 @@ func _ready():
 
 
 
-func entered(body):
-	var free:bool = true
-	
-	for i in range(building_width):
-		var new_vector:RingVector = RingVector.new(0, 0)
-		new_vector.set_equal_to(ring_vector)
-		new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
-		
-		free = free and ring_map.get_things_at_position(new_vector, CityLayout.TREE).empty()
-	
-	if free:
-		var object = body.get_parent()
-		
-		if object is GameActor:
-			object.add_focus_target(self)
-			
-			if object is Player:
-				object.object_of_interest = self
-				set_highlighted(true)
-
-
-func exited(body):
-	var object = body.get_parent()
-	
-	if object is GameActor:
-		object.erase_focus_target(self)
-		
-		if object is Player:
-			if object.object_of_interest == self:
-				object.object_of_interest = null
-			
-			set_highlighted(false)
-			
-			#gui.hide(self)
+#func entered(body):
+#	var free:bool = true
+#
+#	for i in range(building_width):
+#		var new_vector:RingVector = RingVector.new(0, 0)
+#		new_vector.set_equal_to(ring_vector)
+#		new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+#
+#		free = free and ring_map.get_things_at_position(new_vector, CityLayout.TREE).empty()
+#
+#	if free:
+#		var object = body.get_parent()
+#
+#		if object is GameActor:
+#			object.add_focus_target(self)
+#
+#			if object is Player:
+#				object.object_of_interest = self
+#				set_highlighted(true)
+#
+#
+#func exited(body):
+#	var object = body.get_parent()
+#
+#	if object is GameActor:
+#		object.erase_focus_target(self)
+#
+#		if object is Player:
+#			if object.object_of_interest == self:
+#				object.object_of_interest = null
+#
+#			set_highlighted(false)
+#
+#			#gui.hide(self)
 
 
 

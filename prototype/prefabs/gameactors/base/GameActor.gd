@@ -25,14 +25,16 @@ var movement_modifier:float = 1.0
 
 var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
-var focus_targets:Array = [ ] setget set_focus_targets, get_focus_targets
+#var focus_targets:Array = [ ] setget set_focus_targets, get_focus_targets
 
 var can_act:bool = true setget set_can_act, get_can_act
 
 
 signal moved
+signal new_interest
 signal acquired_target
 signal can_act_again
+
 
 
 
@@ -41,13 +43,6 @@ func _ready():
 	
 	$pathfinder.register_actor(self)
 
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if object_of_interest:
-		if focus_targets.has(object_of_interest) and object_of_interest.type == currently_searching_for:
-			set_currently_searching_for(null)
 
 
 
@@ -107,19 +102,11 @@ func get_move_direction(direction:Vector3) -> Vector3:
 
 
 
-func add_focus_target(object:GameObject):
-	if not focus_targets.has(object):
-		focus_targets.append(object)
-
-
-func erase_focus_target(object:GameObject):
-	focus_targets.erase(object)
-
-
-
 
 func set_object_of_interest(new_object:GameObject):
-	object_of_interest = new_object
+	if not new_object == object_of_interest:
+		object_of_interest = new_object
+		emit_signal("new_interest", object_of_interest)
 
 
 func set_currently_searching_for(new_interest):
@@ -128,13 +115,8 @@ func set_currently_searching_for(new_interest):
 		emit_signal("acquired_target", currently_searching_for)
 
 
-func set_focus_targets(new_targets:Array):
-	focus_targets = new_targets
-
-
 func set_can_act(new_status:bool):
 	can_act = new_status
-	
 	emit_signal("can_act_again", can_act)
 
 
@@ -145,10 +127,6 @@ func get_object_of_interest() -> GameObject:
 
 func get_currently_searching_for():
 	return currently_searching_for
-
-
-func get_focus_targets() -> Array:
-	return focus_targets
 
 
 func get_can_act() -> bool:

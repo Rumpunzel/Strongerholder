@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "ObjectArea",
+"class": "ActorArea",
+"language": "GDScript",
+"path": "res://prefabs/gameactors/base/ActorArea.gd"
+}, {
 "base": "DoodadBuilding",
 "class": "Bridge",
 "language": "GDScript",
@@ -64,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/gameactors/npcs/NPC.gd"
 }, {
+"base": "Area",
+"class": "ObjectArea",
+"language": "GDScript",
+"path": "res://prefabs/ObjectArea.gd"
+}, {
 "base": "PuppetMaster",
 "class": "PathFinder",
 "language": "GDScript",
@@ -110,6 +120,7 @@ _global_script_classes=[ {
 "path": "res://prefabs/things/GameTree/TreePoint.gd"
 } ]
 _global_script_class_icons={
+"ActorArea": "",
 "Bridge": "",
 "BuildPoint": "",
 "CityLayout": "",
@@ -121,6 +132,7 @@ _global_script_class_icons={
 "GameObject": "",
 "GameTree": "",
 "NPC": "",
+"ObjectArea": "",
 "PathFinder": "",
 "Player": "",
 "PuppetMaster": "",

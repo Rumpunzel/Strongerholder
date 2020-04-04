@@ -24,8 +24,8 @@ var ring_vector:RingVector setget set_ring_vector, get_ring_vector
 func _ready():
 	game_object = get_parent()
 	
-	area.connect("body_entered", game_object, "entered")
-	area.connect("body_exited", game_object, "exited")
+#	area.connect("body_entered", game_object, "entered")
+#	area.connect("body_exited", game_object, "exited")
 
 
 
