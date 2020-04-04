@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/gameactors/PuppetMaster.gd"
 }, {
+"base": "CenterContainer",
+"class": "RadiantContainer",
+"language": "GDScript",
+"path": "res://ui/RadiantContainer.gd"
+}, {
 "base": "Resource",
 "class": "RingMap",
 "language": "GDScript",
@@ -121,6 +126,7 @@ _global_script_class_icons={
 "PathFinder": "",
 "Player": "",
 "PuppetMaster": "",
+"RadiantContainer": "",
 "RingMap": "",
 "RingVector": "",
 "TreePoint": ""
