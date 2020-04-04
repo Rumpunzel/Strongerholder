@@ -1,7 +1,8 @@
 tool
 extends Container
 
-export var button_radius = 100 
+export var button_radius = 100
+export var initial_offset = 90
 
 
 func _ready():
@@ -20,9 +21,10 @@ func place_buttons():
 	for btn in buttons:
 		if not "_button_pressed" in btn.get_signal_list():
 			btn.connect("pressed", self, "_button_pressed", [btn])
+			
 		btn.visible = true
 		btn.rect_position = Vector2(button_radius, 0).rotated(angle)
-		btn.rect_rotation = angle * 180 / PI + 90
+		btn.rect_rotation = rad2deg(angle) + initial_offset
 		angle += angle_offset
 
 
@@ -36,9 +38,11 @@ func _button_pressed(button):
 	
 	var angle = PI + angle_offset #in radians
 	for btn in children:
-		btn.connect("pressed", self, "_button_pressed", [btn])
+		if not "_button_pressed" in btn.get_signal_list():
+			btn.connect("pressed", self, "_button_pressed", [btn])
+			
 		btn.visible = true
 		btn.rect_position = Vector2(button_radius, 0).rotated(angle)
-		btn.rect_rotation = angle * 180 / PI + 90
+		btn.rect_rotation = rad2deg(angle) + initial_offset
 		
 		angle += angle_offset

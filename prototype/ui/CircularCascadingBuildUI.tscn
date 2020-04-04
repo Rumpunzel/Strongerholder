@@ -26,6 +26,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+initial_offset = 0
 
 [node name="button" type="Button" parent="container"]
 visible = false
