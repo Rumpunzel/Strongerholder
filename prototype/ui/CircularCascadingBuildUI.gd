@@ -10,9 +10,6 @@ func _ready():
 #Repositions the buttons
 func place_buttons():
 	var buttons = get_children()
-	
-	#Stop before we cause problems when no buttons are available
->>>>>>> Stashed changes
 	if buttons.size() == 0:
 		return
 
@@ -28,32 +25,9 @@ func place_buttons():
 		btn.rect_rotation = angle * 180 / PI + 90
 		angle += angle_offset
 
-<<<<<<< Updated upstream
-#utility function for adding buttons and recalculating their positions
-#TODO: Should probably just use a signal to run place_button on any tree change
-=======
-<<<<<<< HEAD
-=======
-#utility function for adding buttons and recalculating their positions
-#TODO: Should probably just use a signal to run place_button on any tree change
->>>>>>> master
->>>>>>> Stashed changes
-func add_button(btn):
-	add_child(btn)
-	place_buttons()
-
 
 func _button_pressed(button):
 	var children = button.get_children()
-<<<<<<< Updated upstream
-	#print(button.rotation())
-=======
-<<<<<<< HEAD
-	
-=======
-	#print(button.rotation())
->>>>>>> master
->>>>>>> Stashed changes
 	if children.size() == 0:
 		return
 		
