@@ -7,10 +7,11 @@ onready var default_gravity = ProjectSettings.get_setting("physics/2d/default_gr
 
 var ring_vector:RingVector setget set_ring_vector, get_ring_vector
 
-var move_direction:Vector2 = Vector2() setget set_move_direction, get_move_direction
+var move_direction:Vector3 = Vector3() setget set_move_direction, get_move_direction
 
 var fall_speed:float = 0.0
-var jump_speed:float = 0.0
+var jump_speed:float = 3.0
+var jump_mod:float = 0.0
 
 var fall_modifer:float = 1.0
 
@@ -23,16 +24,18 @@ func _physics_process(delta):
 	if not Engine.editor_hint:
 		look_at(Vector3(0, transform.origin.y, 0), Vector3.UP)
 		
-		var dir:Vector3 = transform.basis.x * move_direction.y + transform.basis.z * move_direction.x
-		fall_speed += default_gravity * fall_modifer * delta
+		var dir:Vector3 = transform.basis.x * move_direction.z + transform.basis.z * move_direction.x
+		jump_mod = max(move_direction.y, jump_mod - delta * 5)
+		fall_speed += default_gravity * delta * 0.5
+		dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
 		
-		move_and_slide(dir + Vector3(0, jump_speed - fall_speed, 0), Vector3.UP, true)
+		move_and_slide(dir, Vector3.UP, true)
 		
 		grounded = is_on_floor()
 		
 		if grounded:
 			fall_speed = 0.0
-			jump_speed = 0.0
+			jump_mod = 0.0
 
 
 
@@ -54,7 +57,7 @@ func set_ring_vector(new_vector:RingVector):
 	translation.z = ring_vector.radius
 
 
-func set_move_direction(new_dirction:Vector2):
+func set_move_direction(new_dirction:Vector3):
 	move_direction = new_dirction
 
 
@@ -72,5 +75,5 @@ func get_ring_vector() -> RingVector:
 	return ring_vector
 
 
-func get_move_direction() -> Vector2:
+func get_move_direction() -> Vector3:
 	return move_direction
