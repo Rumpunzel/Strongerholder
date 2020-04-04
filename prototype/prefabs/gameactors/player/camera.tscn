@@ -12,3 +12,17 @@ fov = 90.0
 size = 15.0
 far = 8192.0
 script = ExtResource( 2 )
+
+[node name="ui_layer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="margin_container" type="MarginContainer" parent="ui_layer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 400
+custom_constants/margin_top = 400
+custom_constants/margin_left = 400
+custom_constants/margin_bottom = 400
+__meta__ = {
+"_edit_use_anchors_": false
+}
