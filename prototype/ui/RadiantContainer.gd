@@ -21,7 +21,7 @@ func _ready():
 
 
 func update_children():
-	var children = circle_center.get_children()
+	var children = get_children()
 	var circle_radius = min(rect_size.x, rect_size.y) * 0.5
 	
 	for i in children.size():

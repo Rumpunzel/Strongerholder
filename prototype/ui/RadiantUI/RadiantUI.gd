@@ -1,17 +1,26 @@
 extends RadiantContainer
+class_name RadiantUI
 
 
-export(Array, String) var menu_buttons
+const EXIT_BUTTON = "Exit"
 
+
+var menu_buttons:Array
 
 var menu_layers:Array = [ ]
 var center_button = null setget set_center_button, get_center_button
 
 
+signal button_pressed
+
+
+
+func _init(new_menu_buttons:Array):
+	menu_buttons = new_menu_buttons
 
 
 func _ready():
-	set_center_button(RadiantUIButton.new("Exit"))
+	set_center_button(RadiantUIButton.new(EXIT_BUTTON))
 	
 	if not "_button_pressed" in center_button.get_signal_list():
 		center_button.connect("pressed", self, "_button_pressed", [center_button])
@@ -48,7 +57,7 @@ func _button_pressed(button):
 		if not button.menu_buttons.empty():
 			place_buttons(button.menu_buttons)
 		else:
-			print("click")
+			emit_signal("button_pressed", button.text)
 			close()
 	else:
 		place_buttons(menu_buttons)

@@ -8,6 +8,6 @@ var menu_buttons:Array
 
 func _init(new_name:String, new_buttons:Array = [ ]):
 	name = new_name
-	text = new_name.capitalize()
+	text = new_name
 	
 	menu_buttons = new_buttons

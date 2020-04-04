@@ -94,6 +94,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/RadiantContainer.gd"
 }, {
+"base": "RadiantContainer",
+"class": "RadiantUI",
+"language": "GDScript",
+"path": "res://ui/RadiantUI/RadiantUI.gd"
+}, {
 "base": "Button",
 "class": "RadiantUIButton",
 "language": "GDScript",
@@ -132,6 +137,7 @@ _global_script_class_icons={
 "Player": "",
 "PuppetMaster": "",
 "RadiantContainer": "",
+"RadiantUI": "",
 "RadiantUIButton": "",
 "RingMap": "",
 "RingVector": "",
