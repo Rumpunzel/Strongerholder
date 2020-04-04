@@ -1,0 +1,418 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/CircularCascadingBuildUI.gd" type="Script" id=1]
+
+[node name="control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.01477
+margin_top = 3.01468
+margin_right = -3.01477
+margin_bottom = 3.01465
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="Container" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.5
+margin_top = -8.5
+margin_right = 9.5
+margin_bottom = 8.5
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="Button" parent="container"]
+visible = false
+margin_right = 12.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button3" type="Button" parent="container/button"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button6" type="Button" parent="container/button/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button4" type="Button" parent="container/button"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button6" type="Button" parent="container/button/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button5" type="Button" parent="container/button"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button6" type="Button" parent="container/button/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button4" type="Button" parent="container"]
+visible = false
+margin_right = 12.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button3" type="Button" parent="container/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button6" type="Button" parent="container/button4/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button4/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button4/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button4" type="Button" parent="container/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button6" type="Button" parent="container/button4/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button4/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button4/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button5" type="Button" parent="container/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button6" type="Button" parent="container/button4/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button4/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button4/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button5" type="Button" parent="container"]
+visible = false
+margin_right = 12.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button3" type="Button" parent="container/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button6" type="Button" parent="container/button5/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button5/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button5/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button4" type="Button" parent="container/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button6" type="Button" parent="container/button5/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button5/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button5/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button5" type="Button" parent="container/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button6" type="Button" parent="container/button5/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button5/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button5/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button2" type="Button" parent="container"]
+visible = false
+margin_right = 12.0
+margin_bottom = 20.0
+text = "4"
+
+[node name="button3" type="Button" parent="container/button2"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button6" type="Button" parent="container/button2/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button2/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button2/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button4" type="Button" parent="container/button2"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button6" type="Button" parent="container/button2/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button2/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button2/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button5" type="Button" parent="container/button2"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button6" type="Button" parent="container/button2/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button2/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button2/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button3" type="Button" parent="container"]
+visible = false
+margin_right = 12.0
+margin_bottom = 20.0
+text = "5"
+
+[node name="button3" type="Button" parent="container/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button6" type="Button" parent="container/button3/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button3/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button3/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button4" type="Button" parent="container/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button6" type="Button" parent="container/button3/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button3/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button3/button4"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button5" type="Button" parent="container/button3"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
+
+[node name="button6" type="Button" parent="container/button3/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "1"
+
+[node name="button5" type="Button" parent="container/button3/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "2"
+
+[node name="button4" type="Button" parent="container/button3/button5"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "3"
