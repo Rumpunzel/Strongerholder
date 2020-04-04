@@ -2,7 +2,7 @@ tool
 extends GameActor
 class_name Player
 
-func is_class(type): return type == "Player" or .is_class(type)
+func is_class(class_type): return class_type == "Player" or .is_class(class_type)
 func get_class(): return "Player"
 
 

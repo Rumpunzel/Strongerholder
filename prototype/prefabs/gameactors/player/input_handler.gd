@@ -4,7 +4,7 @@ extends PathFinder
 
 
 func _unhandled_input(event):
-	if not current_actors.empty():
+	if current_actor:
 		var commands:Array = [ ]
 		
 		if event.is_action_released("interact"):
@@ -19,10 +19,9 @@ func _unhandled_input(event):
 		if not commands.empty():
 			get_tree().set_input_as_handled()
 		
-		for actor in current_actors:
-			for command in commands:
-				if command.execute(actor):
-					break
+		for command in commands:
+			if command.execute(current_actor):
+				break
 
 
 
@@ -43,8 +42,3 @@ class StopJumpCommand extends PuppetMaster.Command:
 	func execute(actor:GameActor) -> bool:
 		actor.stop_jump()
 		return false
-
-
-class InteractCommand extends PuppetMaster.Command:
-	func execute(actor:GameActor) -> bool:
-		return actor.interact_with_object()

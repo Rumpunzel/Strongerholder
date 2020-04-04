@@ -5,6 +5,3 @@
 
 [node name="npc" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-
-[node name="action_timer" type="Timer" parent="." index="2"]
-one_shot = true

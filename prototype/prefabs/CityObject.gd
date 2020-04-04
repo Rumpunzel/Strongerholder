@@ -2,7 +2,7 @@ tool
 extends Spatial
 class_name CityObject
 
-func is_class(type): return type == "CityObject" or .is_class(type)
+func is_class(class_type): return class_type == "CityObject" or .is_class(class_type)
 func get_class(): return "CityObject"
 
 
@@ -35,7 +35,7 @@ func handle_highlighted(_new_material:Material):
 	assert(false)
 
 
-func interact(_action:String,_sender:GameObject) -> bool:
+func interact(_sender:GameObject) -> bool:
 	assert(false)
 	return true
 

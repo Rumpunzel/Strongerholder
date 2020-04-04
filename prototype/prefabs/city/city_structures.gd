@@ -31,16 +31,19 @@ func construct_ring(ring_number):
 		var buildying_type
 		var ring_vector = RingVector.new(ring_number, i, true)
 		
-		if ring_number > 0 and i % number_of_bridges == 0:
-			buildying_type = CityLayout.BRIDGE
+		if i % CityLayout.SUB_SEGMENTS == 0:
+			if ring_number > 0 and i % number_of_bridges == 0:
+				buildying_type = CityLayout.BRIDGE
+			else:
+				buildying_type = CityLayout.FOUNDATION
+			
+			new_build_point = BuildPoint.new(buildying_type, ring_vector, ring_map, gui)
+			
+			add_child(new_build_point)
 		else:
-			buildying_type = CityLayout.FOUNDATION
-		
-		new_build_point = BuildPoint.new(buildying_type, ring_vector, ring_map, gui)
-		
-		add_child(new_build_point)
+			ring_map.register_segment(CityLayout.EMPTY, ring_vector, null)
 	
-	print("total buildings for ring %d: %d" % [ring_number, number_of_buildings])
+	print("total buildings for ring %d: %d" % [ring_number, float(number_of_buildings) / CityLayout.SUB_SEGMENTS])
 
 
 func biggest_factor(number:int, upper_limit:int = -1, lower_limit:int = 2) -> int:

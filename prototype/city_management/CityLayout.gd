@@ -12,6 +12,7 @@ const RING_SLOPE:float = -1.0
 const SLOPE_RADIUS:float = 420.0
 
 const NUMBER_OF_RINGS:int = 10
+const SUB_SEGMENTS:int = 5
 
 
 const EMPTY = "empty"
@@ -66,4 +67,4 @@ static func get_height_maximum(ring:int) -> float:
 
 
 static func get_number_of_segments(ring:int) -> int:
-	return int(max(1, (get_radius_minimum(ring) * 4) / SEGMENT_WIDTH))
+	return int(max(1, (get_radius_minimum(ring) * 4) / SEGMENT_WIDTH)) * SUB_SEGMENTS

@@ -30,6 +30,7 @@ func create_raycasts():
 	create_raycast(LEFT)
 	create_raycast(RIGHT)
 
+
 func create_raycast(side:String):
 	var new_ray = RayCast.new()
 	add_child(new_ray)
@@ -54,3 +55,19 @@ func create_raycast(side:String):
 
 func is_on_edge(side:String) -> bool:
 	return not raycasts[side].is_colliding()
+
+
+func limit_movement(direction:Vector2) -> Vector2:
+	if is_on_edge(FRONT):
+		direction.x = max(direction.x, 0)
+	
+	if is_on_edge(BACK):
+		direction.x = min(direction.x, 0)
+	
+	if is_on_edge(LEFT):
+		direction.y = max(direction.y, 0)
+	
+	if is_on_edge(RIGHT):
+		direction.y = min(direction.y, 0)
+	
+	return direction

@@ -2,7 +2,7 @@ tool
 extends GameObject
 class_name BuildPoint
 
-func is_class(type): return type == "BuildPoint" or .is_class(type)
+func is_class(class_type): return class_type == "BuildPoint" or .is_class(class_type)
 func get_class(): return "BuildPoint"
 
 
@@ -11,15 +11,17 @@ const buildings:Dictionary = { CityLayout.BASE: preload("res://prefabs/city/buld
 const highlight_material:Material = preload("res://assets/materials/highlightShader.material")
 
 
-var building_type:String setget set_building_type, get_building_type
+var type:String setget set_type, get_type
 var building:Foundation = null setget , get_building
+
+var building_width:int = 3
 
 var gui
 
 
 
-func _init(new_building_type:String, new_ring_vector:RingVector, new_ring_map:RingMap, new_gui).(new_ring_map):
-	set_building_type(new_building_type)
+func _init(new_type:String, new_ring_vector:RingVector, new_ring_map:RingMap, new_gui).(new_ring_map):
+	set_type(new_type)
 	set_ring_vector(new_ring_vector)
 	gui = new_gui
 
@@ -28,27 +30,36 @@ func _init(new_building_type:String, new_ring_vector:RingVector, new_ring_map:Ri
 func _ready():
 	set_building()
 	
-	ring_map.register_segment(building_type, ring_vector, self)
+	ring_map.register_segment(type, ring_vector, self)
 
 
 
 func entered(body):
-	if ring_map.get_things_at_position(ring_vector, CityLayout.TREE).empty():
+	var free:bool = true
+	
+	for i in range(building_width):
+		var new_vector:RingVector = RingVector.new(0, 0)
+		new_vector.set_equal_to(ring_vector)
+		new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+		
+		free = free and ring_map.get_things_at_position(new_vector, CityLayout.TREE).empty()
+	
+	if free:
 		var object = body.get_parent()
 		
-		if object is GameActor and not object.focus_targets.has(self):
-			object.focus_targets.append(self)
+		if object is GameActor:
+			object.add_focus_target(self)
 			
 			if object is Player:
 				object.object_of_interest = self
 				set_highlighted(true)
 
+
 func exited(body):
 	var object = body.get_parent()
 	
 	if object is GameActor:
-		if object.focus_targets.has(self):
-			object.focus_targets.erase(self)
+		object.erase_focus_target(self)
 		
 		if object is Player:
 			if object.object_of_interest == self:
@@ -65,25 +76,23 @@ func handle_highlighted():
 		building.handle_highlighted(highlight_material if highlighted else null)
 
 
-func interact(action:String, sender:GameObject) -> bool:
-	print("%s %s with %s." % [sender.name, "interacted" if action == "" else action, name])
-	
+func interact(sender:GameObject) -> bool:
 	if building:
-		return building.interact(action, sender)
+		return building.interact(sender) and .interact(sender)
 	
-	return false
+	return false and .interact(sender)
 
 
 func build_into(new_type:String):
-	set_building_type(new_type)
+	set_type(new_type)
 	
-	ring_map.update_segment(building_type, new_type, ring_vector, self)
+	ring_map.update_segment(type, new_type, ring_vector, self)
 
 
 
 
-func set_building_type(new_type:String):
-	building_type = new_type
+func set_type(new_type:String):
+	type = new_type
 	
 	if building:
 		set_building()
@@ -95,7 +104,7 @@ func set_building():
 		building.queue_free()
 		building = null
 	
-	building = buildings[building_type].instance()
+	building = buildings[type].instance()
 	building.ring_vector = ring_vector
 	building.gui = gui
 	
@@ -103,7 +112,7 @@ func set_building():
 	
 	add_child(building)
 	
-	name = "[%s][%s, %s]" % [building_type, ring_vector.ring, ring_vector.segment]
+	name = "[%s:(%s, %s)]" % [type, ring_vector.ring, ring_vector.segment]
 
 
 func set_ring_vector(new_vector:RingVector):
@@ -122,8 +131,8 @@ func set_world_position(new_position:Vector3):
 
 
 
-func get_building_type() -> String:
-	return building_type
+func get_type() -> String:
+	return type
 
 
 func get_building() -> Foundation:

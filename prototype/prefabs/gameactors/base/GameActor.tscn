@@ -38,3 +38,6 @@ script = ExtResource( 3 )
 
 [node name="pathfinder" type="Node" parent="."]
 script = ExtResource( 4 )
+
+[node name="action_timer" type="Timer" parent="."]
+one_shot = true

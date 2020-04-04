@@ -94,7 +94,7 @@ func set_ring(new_ring:int):
 	recalcuate(true)
 
 func set_segment(new_segment:int):
-	segment = new_segment
+	segment = (new_segment + CityLayout.get_number_of_segments(ring)) % CityLayout.get_number_of_segments(ring)
 	recalcuate(true)
 
 func set_radius (new_radius:float):

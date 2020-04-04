@@ -2,13 +2,14 @@ tool
 extends GameObject
 class_name TreePoint
 
-func is_class(type): return type == "TreePoint" or .is_class(type)
+func is_class(class_type): return class_type == "TreePoint" or .is_class(class_type)
 func get_class(): return "TreePoint"
 
 
 const tree_scene:PackedScene = preload("res://prefabs/things/GameTree/GameTree.tscn")
 
 
+var type:String = CityLayout.TREE setget set_type, get_type
 var game_tree:GameTree = null setget , get_game_tree
 
 var gui
@@ -16,7 +17,6 @@ var gui
 
 
 func _init(new_ring_vector:RingVector, new_ring_map:RingMap, new_gui).(new_ring_map):
-	#tree_offset += Vector3((randf() * 0.25 + (0.2 if randi() % 2 == 0 else -0.4)) * CityLayout.SEGMENT_WIDTH, 0, randf() * 2)
 	set_ring_vector(new_ring_vector)
 	gui = new_gui
 
@@ -32,8 +32,9 @@ func _ready():
 func entered(body):
 	var object = body.get_parent()
 	
-	if object is GameActor and not object.focus_targets.has(self):
-		object.focus_targets.append(self)
+	if object is GameActor:
+		object.add_focus_target(self)
+		connect("died", object, "erase_focus_target", [self])
 		
 		if object is Player:
 			object.object_of_interest = self
@@ -44,7 +45,8 @@ func exited(body):
 	
 	if object is GameActor:
 		if object.focus_targets.has(self):
-			object.focus_targets.erase(self)
+			object.erase_focus_target(self)
+			disconnect("died", object, "erase_focus_target")
 		
 		if object is Player:
 			if object.object_of_interest == self:
@@ -58,25 +60,32 @@ func handle_highlighted():
 		pass
 
 
-func interact(action:String, sender:GameObject) -> bool:
-	print("%s %s with %s." % [sender.name, "interacted" if action == "" else action, name])
-	
+func interact(sender:GameObject) -> bool:
 	if game_tree:
-		return game_tree.interact(action, sender)
+		return game_tree.interact(sender)
 	
-	return false
+	return false and .interact(sender)
 
 
 func die(sender:GameObject):
-	while not inventory.empty():
-		sender.inventory.append(inventory.pop_front())
+	if sender is GameActor and sender.object_of_interest == self:
+		sender.set_object_of_interest(null)
 	
-	game_tree.queue_free()
-	game_tree = null
+	sender.give(inventory, self)
 	
-	ring_map.unregister_thing(CityLayout.TREE, ring_vector, self)
+	if game_tree:
+		game_tree.queue_free()
+		game_tree = null
+		
+		ring_map.unregister_thing(CityLayout.TREE, ring_vector, self)
+		
+		.die(sender)
 
 
+
+
+func set_type(new_type:String):
+	type = new_type
 
 
 func set_tree():
@@ -93,7 +102,7 @@ func set_tree():
 	
 	add_child(game_tree)
 	
-	name = "[tree][%s, %s]" % [ring_vector.radius, ring_vector.rotation]
+	name = "[tree:(%s, %s)]" % [ring_vector.radius, ring_vector.rotation]
 
 
 func set_ring_vector(new_vector:RingVector):
@@ -103,7 +112,7 @@ func set_ring_vector(new_vector:RingVector):
 	if game_tree:
 		game_tree.ring_vector = new_vector
 	
-	name = "[tree][%s, %s]" % [ring_vector.radius, ring_vector.rotation]
+	name = "[tree:(%s, %s)]" % [ring_vector.radius, ring_vector.rotation]
 
 
 func set_world_position(new_position:Vector3):
@@ -112,6 +121,10 @@ func set_world_position(new_position:Vector3):
 	else:
 		.set_world_position(new_position)
 
+
+
+func get_type() -> String:
+	return type
 
 
 func get_game_tree() -> GameTree:
