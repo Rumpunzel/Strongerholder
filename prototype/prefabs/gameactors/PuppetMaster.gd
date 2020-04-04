@@ -44,10 +44,10 @@ class Command:
 
 
 class MoveCommand extends Command:
-	var movement_vector:Vector2
+	var movement_vector:Vector3
 	var sprinting:bool
 	
-	func _init(new_movement_vector:Vector2, new_sprinting:bool):
+	func _init(new_movement_vector:Vector3, new_sprinting:bool):
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 		
@@ -55,7 +55,7 @@ class MoveCommand extends Command:
 		if actor.can_act:
 			actor.move_to(movement_vector, sprinting)
 		else:
-			actor.move_to(Vector2(), false)
+			actor.move_to(Vector3(), false)
 		
 		return false
 

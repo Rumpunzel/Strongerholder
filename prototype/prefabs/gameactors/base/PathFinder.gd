@@ -39,13 +39,13 @@ func get_input() -> Array:
 		commands.append(InteractCommand.new(object_of_interest, 1.0))
 	
 	
-	var movement_vector:Vector2
+	var movement_vector:Vector3 = Vector3()
 	var next_path_segment:RingVector = current_segments[path_progress] if not current_segments.empty() else null
 	
 	if next_path_segment:
 		next_path_segment.modulo_ring_vector()
 		
-		movement_vector = Vector2(next_path_segment.radius - current_actor.ring_vector.radius, next_path_segment.rotation - current_actor.ring_vector.rotation)
+		#movement_vector = Vector3(next_path_segment.radius - current_actor.ring_vector.radius, next_path_segment.rotation - current_actor.ring_vector.rotation)
 		movement_vector.x /= 256
 		
 		#print("movement_vector: %s" % [movement_vector])
@@ -55,7 +55,7 @@ func get_input() -> Array:
 		
 			commands.append(MoveCommand.new(movement_vector, false))
 	else:
-		commands.append(MoveCommand.new(Vector2(), false))
+		commands.append(MoveCommand.new(Vector3(), false))
 	
 	
 	return commands

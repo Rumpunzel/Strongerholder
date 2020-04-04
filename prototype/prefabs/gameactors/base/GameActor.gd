@@ -87,21 +87,22 @@ func interaction_with(object:GameObject) -> Dictionary:
 
 
 
-func move_to(direction:Vector2, sprinting:bool):
+func move_to(direction:Vector3, sprinting:bool):
 	movement_modifier = sprint_modifier if sprinting else 1.0
 	
-	var move_direction:Vector2 = get_move_direction(direction)
+	var move_direction:Vector3 = get_move_direction(direction)
 	
 	body.move_direction = move_direction
 	set_ring_vector(body.ring_vector)
 	
-	sprite.change_animation(move_direction)
+	sprite.change_animation(Vector2(move_direction.x, move_direction.z))
 	
 	emit_signal("moved", ring_vector)
 
 
-func get_move_direction(direction:Vector2) -> Vector2:
-	return cliff_dection.limit_movement(direction) * walkspeed * movement_modifier
+func get_move_direction(direction:Vector3) -> Vector3:
+	#return cliff_dection.limit_movement(direction) * walkspeed * movement_modifier
+	return direction * walkspeed * movement_modifier
 
 
 
