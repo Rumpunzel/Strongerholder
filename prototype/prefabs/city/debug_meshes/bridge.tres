@@ -1,6 +1,7 @@
 [gd_resource type="CubeMesh" load_steps=2 format=2]
 
-[ext_resource path="res://prefabs/city/buldings/debug_materials/bridge_material.tres" type="Material" id=1]
+[ext_resource path="res://prefabs/city/debug_materials/bridge_material.tres" type="Material" id=1]
+
 
 [resource]
 material = ExtResource( 1 )
