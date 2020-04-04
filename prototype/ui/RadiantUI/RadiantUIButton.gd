@@ -11,3 +11,7 @@ func _init(new_name:String, new_buttons:Array = [ ]):
 	text = new_name
 	
 	menu_buttons = new_buttons
+
+
+func _pressed():
+	get_tree().set_input_as_handled()

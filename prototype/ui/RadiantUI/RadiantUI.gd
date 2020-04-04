@@ -40,6 +40,12 @@ func _ready():
 	place_buttons(menu_buttons)
 
 
+func _unhandled_input(event):
+	if event.is_action_released("ui_cancel"):
+		close()
+		get_tree().set_input_as_handled()
+
+
 
 func place_buttons(new_buttons:Array):
 	for button_name in new_buttons:
