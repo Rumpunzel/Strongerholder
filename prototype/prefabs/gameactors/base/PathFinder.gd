@@ -4,6 +4,8 @@ class_name PathFinder
 
 var ring_map:RingMap setget set_ring_map, get_ring_map
 
+var current_actor:GameActor = null
+
 var pathfinding_target:RingVector setget set_pathfinding_target, get_pathfinding_target
 
 var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest
@@ -60,7 +62,9 @@ func get_input() -> Array:
 
 
 func register_actor(new_actor:GameActor):
-	.register_actor(new_actor)
+	current_actor = new_actor
+	
+	connect("new_commands", current_actor, "listen_to_commands")
 	
 	current_actor.connect("entered_segment", self, "update_path_progress")
 	current_actor.connect("acquired_target", self, "set_currently_searching_for")

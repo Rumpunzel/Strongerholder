@@ -3,24 +3,24 @@ extends PathFinder
 
 
 func _unhandled_input(event):
-	if current_actor:
-		var commands:Array = [ ]
-		
-		if event.is_action_released("interact"):
-			commands.append(InteractCommand.new())
-		
-		if event.is_action_pressed("jump"):
-			commands.append(JumpCommand.new())
-		
+	var commands:Array = [ ]
+	
+	if event.is_action_released("interact"):
+		commands.append(InteractCommand.new())
+	
+	if event.is_action_pressed("jump"):
+		commands.append(JumpCommand.new())
+	
 #		if event.is_action_released("jump"):
 #			commands.append(StopJumpCommand.new())
-		
-		if not commands.empty():
-			get_tree().set_input_as_handled()
-		
-		for command in commands:
-			if command.execute(current_actor):
-				break
+	
+	if not commands.empty():
+		get_tree().set_input_as_handled()
+		emit_signal("new_commands", commands)
+	
+#	for command in commands:
+#		if command.execute(current_actor):
+#			break
 
 
 

@@ -61,6 +61,13 @@ func setup(new_ring_map:RingMap):
 
 
 
+func listen_to_commands(new_commands):
+	for command in new_commands:
+		if command.execute(self):
+			break
+
+
+
 func interaction_with(object:GameObject) -> Dictionary:
 	if object:
 		var basic_interaction:Dictionary = { INTERACTION: INTERACT_FUNCTION }

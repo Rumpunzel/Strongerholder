@@ -5,46 +5,28 @@ func is_class(class_type): return class_type == "PuppetMaster" or .is_class(clas
 func get_class(): return "PuppetMaster"
 
 
-var current_actor:GameActor = null setget set_current_actor, get_current_actor
+signal new_commands
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float):
-	if current_actor:
-		var commands:Array = get_input()
-		
-		for command in commands:
-			if command.execute(current_actor):
-				break
+#	if current_actor:
+#		var commands:Array = get_input()
+#
+#		for command in commands:
+#			if command.execute(current_actor):
+#				break
+	var commands:Array = get_input()
+	
+	if not commands.empty():
+		emit_signal("new_commands", commands)
 
 
 
 func get_input() -> Array:
 	assert(false)
 	return [ ]
-
-
-func register_actor(new_actor:GameActor):
-	set_current_actor(new_actor)
-
-
-func remove_actor(old_actor):
-	if old_actor == current_actor:
-		set_current_actor(null)
-		
-#		for con_signal in connected_signals:
-#			con_signal.disconnect()
-
-
-
-func set_current_actor(new_actor:GameActor):
-	current_actor = new_actor
-
-
-
-func get_current_actor() -> GameActor:
-	return current_actor
 
 
 
