@@ -105,8 +105,6 @@ func close(time:float = 0.3, pressed_button = null):
 	var tween:Tween = Tween.new()
 	add_actual_child(tween)
 	
-	yield(get_tree(), "idle_frame")
-	
 	tween.interpolate_property(center_button, "modulate:a", 1.0, 0.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
 	for button in get_children():

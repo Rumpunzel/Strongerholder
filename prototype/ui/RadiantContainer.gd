@@ -12,6 +12,7 @@ var circle_center:Control setget , get_circle_center
 
 
 
+
 func _ready():
 	for child in .get_children():
 		if not child == circle_center:

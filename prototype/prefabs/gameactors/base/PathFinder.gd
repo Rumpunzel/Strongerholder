@@ -84,7 +84,7 @@ func update_current_path():
 			var ring_offset:int = 1 if coming_from_outside else 0
 			var new_segment = RingVector.new(current_path[segment].x + ring_offset, current_path[segment].y, true)
 			
-			#new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
+			new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
 			
 			current_segments.append(new_segment)
 	
