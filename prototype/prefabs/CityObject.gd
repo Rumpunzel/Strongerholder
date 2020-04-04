@@ -18,8 +18,6 @@ var game_object
 
 var ring_vector:RingVector setget set_ring_vector, get_ring_vector
 
-var gui setget set_gui, get_gui
-
 
 
 # Called when the node enters the scene tree for the first time.
@@ -46,17 +44,9 @@ func set_ring_vector(new_vector:RingVector):
 	ring_vector = new_vector
 
 
-func set_gui(new_gui):
-	gui = new_gui
-
-
 
 func get_ring_vector() -> RingVector:
 	return ring_vector
-
-
-func get_gui():
-	return gui
 
 
 func get_structure():

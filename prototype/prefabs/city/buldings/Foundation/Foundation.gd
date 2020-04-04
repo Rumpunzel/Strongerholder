@@ -12,5 +12,5 @@ func handle_highlighted(new_material):
 
 
 func interact(_sender:GameObject) -> bool:
-	gui.show_build_menu(game_object)
+	#gui.show_build_menu(game_object)
 	return true

@@ -6,7 +6,7 @@ func _ready():
 	randomize()
 	
 	var rm = RingMap.new()
-	$hill.setup(rm, $GUI)
+	$hill.setup(rm)
 	
 	var pl = preload("res://prefabs/gameactors/player/Player.tscn").instance()
 	pl.setup(rm)

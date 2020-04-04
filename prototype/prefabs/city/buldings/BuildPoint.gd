@@ -6,6 +6,8 @@ func is_class(class_type): return class_type == "BuildPoint" or .is_class(class_
 func get_class(): return "BuildPoint"
 
 
+const BUILD_INTO_FUNCTION = "build_into"
+
 const buildings:Dictionary = { CityLayout.BASE: preload("res://prefabs/city/buldings/base.tscn"), CityLayout.FOUNDATION: preload("res://prefabs/city/buldings/Foundation/Foundation.tscn"), CityLayout.BRIDGE: preload("res://prefabs/city/buldings/bridge/bridge.tscn"), CityLayout.STOCKPILE: preload("res://prefabs/city/buldings/stockpile/stockpile.tscn") }
 
 const highlight_material:Material = preload("res://assets/materials/highlightShader.material")
@@ -16,14 +18,11 @@ var building:Foundation = null setget , get_building
 
 var building_width:int = 3
 
-var gui
 
 
-
-func _init(new_type:String, new_ring_vector:RingVector, new_ring_map:RingMap, new_gui).(new_ring_map):
+func _init(new_type:String, new_ring_vector:RingVector, new_ring_map:RingMap).(new_ring_map):
 	set_type(new_type)
 	set_ring_vector(new_ring_vector)
-	gui = new_gui
 
 
 # Called when the node enters the scene tree for the first time.
@@ -67,7 +66,7 @@ func exited(body):
 			
 			set_highlighted(false)
 			
-			gui.hide(self)
+			#gui.hide(self)
 
 
 
@@ -106,7 +105,6 @@ func set_building():
 	
 	building = buildings[type].instance()
 	building.ring_vector = ring_vector
-	building.gui = gui
 	
 	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	

@@ -1,4 +1,3 @@
-tool
 extends PuppetMaster
 class_name PathFinder
 

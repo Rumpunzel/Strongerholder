@@ -12,13 +12,10 @@ const tree_scene:PackedScene = preload("res://prefabs/things/GameTree/GameTree.t
 var type:String = CityLayout.TREE setget set_type, get_type
 var game_tree:GameTree = null setget , get_game_tree
 
-var gui
 
 
-
-func _init(new_ring_vector:RingVector, new_ring_map:RingMap, new_gui).(new_ring_map):
+func _init(new_ring_vector:RingVector, new_ring_map:RingMap).(new_ring_map):
 	set_ring_vector(new_ring_vector)
-	gui = new_gui
 
 
 # Called when the node enters the scene tree for the first time.
@@ -96,7 +93,6 @@ func set_tree():
 	
 	game_tree = tree_scene.instance()
 	game_tree.ring_vector = ring_vector
-	game_tree.gui = gui
 	
 	set_world_position(Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius))
 	
