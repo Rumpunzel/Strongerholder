@@ -1,8 +1,7 @@
 extends RadiantContainer
 
 
-export(PackedScene) var button_scene
-var number_of_buttons = 5
+export(Array, String) var menu_buttons
 
 
 var menu_layers:Array = [ ]
@@ -12,27 +11,29 @@ var center_button = null setget set_center_button, get_center_button
 
 
 func _ready():
-	set_center_button(button_scene.instance())
+	set_center_button(RadiantUIButton.new("Exit"))
 	
 	if not "_button_pressed" in center_button.get_signal_list():
 		center_button.connect("pressed", self, "_button_pressed", [center_button])
 	
-	var test_buttons:Array = [ ]
-	
-	for _i in range(number_of_buttons):
-		test_buttons.append(button_scene.instance())
-	
-	place_buttons(test_buttons)
+	place_buttons(menu_buttons)
 
 
 
 #Repositions the buttons
 func place_buttons(new_buttons:Array):
-	for button in new_buttons:
-		add_child(button)
+	for button_name in new_buttons:
+		var new_button
 		
-		if not "_button_pressed" in button.get_signal_list():
-			button.connect("pressed", self, "_button_pressed", [button])
+		if button_name == "Build":
+			new_button = RadiantUIButton.new(button_name, [CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE])
+		else:
+			new_button = RadiantUIButton.new(button_name)
+		
+		add_child(new_button)
+		
+		if not "_button_pressed" in new_button.get_signal_list():
+			new_button.connect("pressed", self, "_button_pressed", [new_button])
 	
 	update_children()
 
@@ -43,18 +44,14 @@ func _button_pressed(button):
 	
 	set_center_button(button)
 	
-	
-	var test_buttons:Array = [ ]
-	
 	if menu_layers.size() > 1:
-		for _i in range(int(ceil(number_of_buttons / 2.0))):
-			test_buttons.append(button_scene.instance())
+		if not button.menu_buttons.empty():
+			place_buttons(button.menu_buttons)
+		else:
+			print("click")
+			close()
 	else:
-		for _i in range(number_of_buttons):
-			test_buttons.append(button_scene.instance())
-	
-	
-	place_buttons(test_buttons)
+		place_buttons(menu_buttons)
 
 
 func close():
