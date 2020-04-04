@@ -16,10 +16,10 @@ const SUB_SEGMENTS:int = 5
 
 
 const EMPTY = "empty"
-const BASE = "base"
-const BRIDGE = "bridge"
-const FOUNDATION = "foundation"
-const STOCKPILE = "stockpile"
+const BASE = "Base"
+const BRIDGE = "Bridge"
+const FOUNDATION = "Foundation"
+const STOCKPILE = "Stockpile"
 const EVERYTHING = "everything"
 
 const TREE = "tree"
