@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/CircularUI/CircularCascadingBuildUI.gd" type="Script" id=1]
+[ext_resource path="res://ui/CircularUI/button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/RadiantContainer.gd" type="Script" id=3]
+
+[node name="control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.01477
+margin_top = 3.01468
+margin_right = -3.01477
+margin_bottom = 3.01465
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 300.0
+margin_top = 300.0
+margin_right = -300.0
+margin_bottom = -300.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+button_scene = ExtResource( 2 )
+
+[node name="RadiantContainer" type="CenterContainer" parent="."]
+anchor_top = -0.017
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 337.0
+margin_top = 223.36
+margin_right = -636.0
+margin_bottom = -277.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+be_a_retard = true
+
+[node name="label" type="Label" parent="RadiantContainer"]
+margin_left = 469.0
+margin_top = 292.0
+margin_right = 477.0
+margin_bottom = 306.0
+text = "1"
+
+[node name="label2" type="Label" parent="RadiantContainer"]
+margin_left = 469.0
+margin_top = 292.0
+margin_right = 477.0
+margin_bottom = 306.0
+text = "2"
+
+[node name="label3" type="Label" parent="RadiantContainer"]
+margin_left = 469.0
+margin_top = 292.0
+margin_right = 477.0
+margin_bottom = 306.0
+text = "3"
+
+[node name="label4" type="Label" parent="RadiantContainer"]
+margin_left = 469.0
+margin_top = 292.0
+margin_right = 477.0
+margin_bottom = 306.0
+text = "4"
+
+[node name="label5" type="Label" parent="RadiantContainer"]
+margin_left = 469.0
+margin_top = 292.0
+margin_right = 477.0
+margin_bottom = 306.0
+text = "5"
