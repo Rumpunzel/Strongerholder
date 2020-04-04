@@ -67,7 +67,7 @@ func connect_segments(ring):
 	
 	for segment in range(segments_in_ring):
 		var building = (segment + 1) % segments_in_ring
-		#print("%s and %s on ring %s" % [segment, building, ring])
+		
 		pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 
 func connect_bridges(ring, segments):

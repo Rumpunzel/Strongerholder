@@ -11,12 +11,6 @@ signal new_commands
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float):
-#	if current_actor:
-#		var commands:Array = get_input()
-#
-#		for command in commands:
-#			if command.execute(current_actor):
-#				break
 	var commands:Array = get_input()
 	
 	if not commands.empty():
@@ -56,14 +50,6 @@ class MoveCommand extends Command:
 			actor.move_to(movement_vector, sprinting)
 		else:
 			actor.move_to(Vector3(), false)
-		
-		return false
-
-
-class JumpCommand extends Command:
-	func execute(actor:GameActor) -> bool:
-		if actor.can_act:
-			actor.jump()
 		
 		return false
 
