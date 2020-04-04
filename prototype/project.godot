@@ -44,11 +44,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/city/buldings/Foundation/Foundation.gd"
 }, {
-"base": "CanvasLayer",
-"class": "GUI",
-"language": "GDScript",
-"path": "res://ui/GUI/GUI.gd"
-}, {
 "base": "Control",
 "class": "GUIMenu",
 "language": "GDScript",
@@ -127,7 +122,6 @@ _global_script_class_icons={
 "CityObject": "",
 "DoodadBuilding": "",
 "Foundation": "",
-"GUI": "",
 "GUIMenu": "",
 "GameActor": "",
 "GameObject": "",
