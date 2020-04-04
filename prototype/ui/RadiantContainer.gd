@@ -34,6 +34,7 @@ func update_children():
 		
 		if center_children:
 			child.rect_position -= child.rect_size / 2.0
+			child.rect_pivot_offset = child.rect_size / 2.0
 
 
 
