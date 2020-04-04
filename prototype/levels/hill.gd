@@ -5,7 +5,7 @@ extends Navigation
 func _ready():
 	randomize()
 	
-	var rm = RingMap.new()
+	var rm = RingMap.new(self)
 	
 	$navigation_mesh/city_structures.build_everything(rm)
 	$flora.grow_flora(rm)

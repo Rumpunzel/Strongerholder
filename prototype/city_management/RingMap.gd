@@ -3,8 +3,8 @@ extends Resource
 class_name RingMap
 
 
-onready var city_navigator:CityNavigator
-
+var navigation:Navigation
+var city_navigator:CityNavigator
 
 var segments_dictionary:Dictionary = { }
 var search_dictionary:Dictionary = { }
@@ -16,7 +16,9 @@ signal thing_added
 
 
 
-func _init():
+
+func _init(new_navigation:Navigation):
+	navigation = new_navigation
 	city_navigator = CityNavigator.new(self)
 
 
