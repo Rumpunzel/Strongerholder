@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/meshes/debug_meshes/block.tres" type="CubeMesh" id=1]
 [ext_resource path="res://prefabs/ObjectArea.gd" type="Script" id=2]
-[ext_resource path="res://prefabs/city/CityObject.gd" type="Script" id=3]
+[ext_resource path="res://prefabs/city/CityStructure.gd" type="Script" id=3]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 5.0
