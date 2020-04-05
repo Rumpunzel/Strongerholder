@@ -9,8 +9,8 @@ func get_class(): return "TreePoint"
 const tree_scene:PackedScene = preload("res://prefabs/things/GameTree/GameTree.tscn")
 
 
-var type:String = CityLayout.TREE setget set_type, get_type
 var game_tree:GameTree = null setget , get_game_tree
+
 
 
 
@@ -20,6 +20,8 @@ func _init(new_ring_vector:RingVector, new_ring_map:RingMap).(new_ring_map):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	set_type(CityLayout.TREE)
+	
 	set_tree()
 	inventory.append("Wood")
 	ring_map.register_thing(CityLayout.TREE, ring_vector, self)
@@ -81,10 +83,6 @@ func die(sender:GameObject):
 
 
 
-func set_type(new_type:String):
-	type = new_type
-
-
 func set_tree():
 	if game_tree:
 		remove_child(game_tree)
@@ -110,10 +108,6 @@ func set_ring_vector(new_vector:RingVector):
 	
 	name = "[tree:(%s, %s)]" % [ring_vector.ring, ring_vector.segment]
 
-
-
-func get_type() -> String:
-	return type
 
 
 func get_game_tree() -> GameTree:

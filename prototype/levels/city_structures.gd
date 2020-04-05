@@ -40,7 +40,7 @@ func construct_ring(ring_number):
 		else:
 			ring_map.register_segment(CityLayout.EMPTY, ring_vector, null)
 	
-	print("total buildings for ring %d: %d" % [ring_number, float(number_of_buildings) / CityLayout.SUB_SEGMENTS])
+	#print("total buildings for ring %d: %d" % [ring_number, float(number_of_buildings) / CityLayout.SUB_SEGMENTS])
 
 
 func biggest_factor(number:int, upper_limit:int = -1, lower_limit:int = 2) -> int:
@@ -53,6 +53,6 @@ func biggest_factor(number:int, upper_limit:int = -1, lower_limit:int = 2) -> in
 		if number % i == 0:
 			big_fac = i
 			
-	print("the biggest factor for %d is: %d" % [number, big_fac])
+	#print("the biggest factor for %d is: %d" % [number, big_fac])
 	
 	return big_fac

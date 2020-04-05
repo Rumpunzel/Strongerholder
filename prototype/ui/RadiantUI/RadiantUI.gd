@@ -85,7 +85,7 @@ func _button_pressed(button:RadiantUIButton):
 			child.queue_free()
 		
 		set_center_button(button.text)
-		print(menu_layers)
+		
 		if menu_layers.size() > 1:
 			place_buttons(button.menu_buttons)
 		else:

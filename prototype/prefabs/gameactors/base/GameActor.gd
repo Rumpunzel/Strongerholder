@@ -95,10 +95,10 @@ func move_to(direction:Vector3, sprinting:bool):
 func get_move_direction(direction:Vector3) -> Vector3:
 	var move_direction = cliff_dection.limit_movement(direction)
 	move_direction.y = 0
-	move_direction = move_direction.normalized()
+	move_direction = move_direction.normalized() * walkspeed * movement_modifier
 	move_direction.y = direction.y
 	
-	return move_direction * walkspeed * movement_modifier
+	return move_direction
 
 
 
