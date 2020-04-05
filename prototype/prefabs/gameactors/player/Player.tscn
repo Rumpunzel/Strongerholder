@@ -10,6 +10,7 @@
 [node name="player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 actor_behavior = ExtResource( 6 )
+walkspeed = 5.0
 
 [node name="area" parent="body" index="1"]
 script = ExtResource( 4 )
@@ -25,7 +26,6 @@ cast_to = Vector3( 0, -50, 0 )
 [node name="camera" parent="body" index="4" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195, 0, 0, 16 )
 v_offset = 5.0
-fov = 45.0
 ray_cast_node = NodePath("../ray_cast")
 
 [node name="pathfinder" parent="." index="1"]

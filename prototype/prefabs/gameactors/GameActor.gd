@@ -21,7 +21,7 @@ onready var action_timer:Timer = $action_timer
 onready var behavior = actor_behavior.new()
 
 
-export var walkspeed:float = 5.0
+export var walkspeed:float = 3.0
 export var sprint_modifier:float = 2.0
 
 
