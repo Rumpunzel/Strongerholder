@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://prefabs/gameactors/ActorArea.gd"
 }, {
 "base": "Resource",
+"class": "ActorBehavior",
+"language": "GDScript",
+"path": "res://prefabs/gameactors/ActorBehavior.gd"
+}, {
+"base": "Resource",
 "class": "CityLayout",
 "language": "GDScript",
 "path": "res://city_management/CityLayout.gd"
@@ -34,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/city/CityPoint.gd"
 }, {
+"base": "ActorBehavior",
+"class": "DefaultBehavior",
+"language": "GDScript",
+"path": "res://prefabs/gameactors/DefaultBehavior.gd"
+}, {
 "base": "GameObject",
 "class": "GameActor",
 "language": "GDScript",
@@ -44,11 +54,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/GameObject.gd"
 }, {
-"base": "GameActor",
-"class": "NPC",
-"language": "GDScript",
-"path": "res://prefabs/gameactors/npcs/NPC.gd"
-}, {
 "base": "Area",
 "class": "ObjectArea",
 "language": "GDScript",
@@ -58,6 +63,11 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://prefabs/gameactors/player/Player.gd"
+}, {
+"base": "ActorBehavior",
+"class": "PlayerBehavior",
+"language": "GDScript",
+"path": "res://prefabs/gameactors/player/PlayerBehavior.gd"
 }, {
 "base": "Node",
 "class": "PuppetMaster",
@@ -91,15 +101,17 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ActorArea": "",
+"ActorBehavior": "",
 "CityLayout": "",
 "CityNavigator": "",
 "CityObject": "",
 "CityPoint": "",
+"DefaultBehavior": "",
 "GameActor": "",
 "GameObject": "",
-"NPC": "",
 "ObjectArea": "",
 "Player": "",
+"PlayerBehavior": "",
 "PuppetMaster": "",
 "RadiantContainer": "",
 "RadiantUI": "",

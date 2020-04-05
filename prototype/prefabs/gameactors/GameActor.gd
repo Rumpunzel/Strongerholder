@@ -10,14 +10,19 @@ const PARAMETERS = "parameters"
 const ACTION_TIME = "action_time"
 
 
+export(GDScript) var actor_behavior
+
+
 onready var body:KinematicBody = $body
 onready var sprite:Sprite3D = $body/sprite
 onready var cliff_dection = $body/cliff_detection
 onready var action_timer:Timer = $action_timer
 
+onready var behavior = actor_behavior.new()
 
-export var walkspeed:float = 3.0
-export var sprint_modifier:float = 2.5
+
+export var walkspeed:float = 5.0
+export var sprint_modifier:float = 2.0
 
 
 # Multiplicative modifer to the movement speed
@@ -41,9 +46,13 @@ signal can_act_again
 
 
 func _ready():
+	connect("can_act_again", self, "acquire_new_target")
 	action_timer.connect("timeout", self, "set_can_act", [true])
 	
 	$pathfinder.register_actor(self)
+	
+	acquire_new_target()
+
 
 
 
@@ -101,6 +110,12 @@ func get_move_direction(direction:Vector3) -> Vector3:
 	move_direction.y = direction.y
 	
 	return move_direction
+
+
+
+func acquire_new_target(searching:bool = true):
+	if searching:
+		set_currently_searching_for(behavior.next_priority(inventory))
 
 
 
