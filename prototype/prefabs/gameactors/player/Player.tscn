@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://prefabs/gameactors/base/GameActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/gameactors/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/gameactors/player/camera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/gameactors/player/player_area.gd" type="Script" id=4]
 [ext_resource path="res://prefabs/gameactors/player/input_handler.gd" type="Script" id=5]
 
 [sub_resource type="CylinderShape" id=1]
@@ -11,6 +12,9 @@ radius = 2.0
 [node name="player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 walkspeed = 5.0
+
+[node name="area" parent="body" index="1"]
+script = ExtResource( 4 )
 
 [node name="collision" parent="body/area" index="0"]
 shape = SubResource( 1 )

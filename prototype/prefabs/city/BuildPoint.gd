@@ -13,10 +13,10 @@ const buildings:Dictionary = { CityLayout.BASE: preload("res://prefabs/city/base
 const highlight_material:Material = preload("res://assets/materials/highlightShader.material")
 
 
-var type:String setget set_type, get_type
 var building:Foundation = null setget , get_building
 
 var building_width:int = 3
+
 
 
 
@@ -31,42 +31,6 @@ func _ready():
 	
 	ring_map.register_segment(type, ring_vector, self)
 
-
-
-#func entered(body):
-#	var free:bool = true
-#
-#	for i in range(building_width):
-#		var new_vector:RingVector = RingVector.new(0, 0)
-#		new_vector.set_equal_to(ring_vector)
-#		new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
-#
-#		free = free and ring_map.get_things_at_position(new_vector, CityLayout.TREE).empty()
-#
-#	if free:
-#		var object = body.get_parent()
-#
-#		if object is GameActor:
-#			object.add_focus_target(self)
-#
-#			if object is Player:
-#				object.object_of_interest = self
-#				set_highlighted(true)
-#
-#
-#func exited(body):
-#	var object = body.get_parent()
-#
-#	if object is GameActor:
-#		object.erase_focus_target(self)
-#
-#		if object is Player:
-#			if object.object_of_interest == self:
-#				object.object_of_interest = null
-#
-#			set_highlighted(false)
-#
-#			#gui.hide(self)
 
 
 
@@ -91,7 +55,7 @@ func build_into(new_type:String):
 
 
 func set_type(new_type:String):
-	type = new_type
+	.set_type(new_type)
 	
 	if building:
 		set_building()
@@ -122,9 +86,19 @@ func set_ring_vector(new_vector:RingVector):
 
 
 
-func get_type() -> String:
-	return type
-
-
 func get_building() -> Foundation:
 	return building
+
+func get_active() -> bool:
+	var new_active = true
+	
+	for i in range(building_width):
+		var new_vector:RingVector = RingVector.new(0, 0)
+		new_vector.set_equal_to(ring_vector)
+		new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+		
+		new_active = new_active and ring_map.get_things_at_position(new_vector, CityLayout.TREE).empty()
+	
+	set_active(new_active)
+	
+	return active
