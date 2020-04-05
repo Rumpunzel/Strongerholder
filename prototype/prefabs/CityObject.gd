@@ -1,3 +1,4 @@
+tool
 extends Spatial
 class_name CityObject
 
@@ -22,12 +23,15 @@ var ring_vector:RingVector setget set_ring_vector, get_ring_vector
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	game_object = get_parent()
-	look_at(Vector3(0, transform.origin.y, 0), Vector3.UP)
+	
+#	area.connect("body_entered", game_object, "entered")
+#	area.connect("body_exited", game_object, "exited")
 
 
 
 func handle_highlighted(_new_material:Material):
 	assert(false)
+
 
 func interact(_sender:GameObject) -> bool:
 	assert(false)
@@ -35,18 +39,19 @@ func interact(_sender:GameObject) -> bool:
 
 
 
+
 func set_ring_vector(new_vector:RingVector):
 	ring_vector = new_vector
-	
-	global_transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius).rotated(Vector3.UP, ring_vector.rotation)
-	look_at(Vector3(0, transform.origin.y, 0), Vector3.UP)
+
 
 
 func get_ring_vector() -> RingVector:
 	return ring_vector
 
+
 func get_structure():
 	return structure
+
 
 func get_area() -> Area:
 	return area

@@ -1,3 +1,4 @@
+tool
 extends GameObject
 class_name BuildPoint
 
@@ -69,6 +70,8 @@ func set_building():
 	building = buildings[type].instance()
 	building.ring_vector = ring_vector
 	
+	building.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius)
+	
 	add_child(building)
 	
 	name = "[%s:(%s, %s)]" % [type, ring_vector.ring, ring_vector.segment]
@@ -76,6 +79,7 @@ func set_building():
 
 func set_ring_vector(new_vector:RingVector):
 	.set_ring_vector(new_vector)
+	rotation.y = ring_vector.rotation
 	
 	if building:
 		building.ring_vector = new_vector
