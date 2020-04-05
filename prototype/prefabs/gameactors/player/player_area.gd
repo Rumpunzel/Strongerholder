@@ -25,7 +25,8 @@ func parse_exiting_object(new_object:GameObject) -> bool:
 
 
 func highlight_object(new_object):
-	game_object.object_of_interest = new_object
+	if not game_object.object_of_interest or not new_object:
+		game_object.object_of_interest = new_object
 	
 	if new_object:
 		game_object.object_of_interest.set_highlighted(true)

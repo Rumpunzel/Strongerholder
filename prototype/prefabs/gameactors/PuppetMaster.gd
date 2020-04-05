@@ -60,7 +60,15 @@ func get_input() -> Array:
 	if next_path_segment:
 		next_path_segment.modulo_ring_vector()
 		
-		movement_vector = Vector3(next_path_segment.radius - current_actor.ring_vector.radius, 0, next_path_segment.rotation - current_actor.ring_vector.rotation)
+		var rotation_change = next_path_segment.rotation - current_actor.ring_vector.rotation
+		
+		while rotation_change > PI:
+			rotation_change -= TAU
+	
+		while rotation_change < -PI:
+			rotation_change += TAU
+		
+		movement_vector = Vector3(next_path_segment.radius - current_actor.ring_vector.radius, 0, rotation_change)
 		
 		movement_vector.z *= next_path_segment.radius
 		
@@ -93,19 +101,20 @@ func update_current_path():
 	path_progress = 0
 	
 	if pathfinding_target:
+		var side_of_the_road = CityLayout.ROAD_WIDTH * (0.25 + randf() * 0.5)
 		current_path = ring_map.city_navigator.get_shortest_path(current_actor.ring_vector, pathfinding_target)
 		
 		for segment in range(1, current_path.size()):
 			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
 			
-			new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
+			new_segment.radius += side_of_the_road
 			
 			current_segments.append(new_segment)
 	
 	if currently_searching_for and object_of_interest:
 		current_segments.append(object_of_interest.ring_vector)
 		
-		print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
+		#print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
 
 
 func update_path_progress(new_vector:RingVector):

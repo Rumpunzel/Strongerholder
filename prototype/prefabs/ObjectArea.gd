@@ -63,9 +63,10 @@ func parse_exiting_object(new_object:GameObject) -> bool:
 
 
 func parse_acitvating_object(new_object:GameObject):
-	inactive_objects_in_area.erase(new_object)
-	new_object.disconnect("activated", self, "parse_acitvating_object")
-	parse_entering_object(new_object)
+	if inactive_objects_in_area.has(new_object):
+		inactive_objects_in_area.erase(new_object)
+		new_object.disconnect("activated", self, "parse_acitvating_object")
+		parse_entering_object(new_object)
 
 
 
