@@ -58,7 +58,7 @@ func recalcuate(has_int_values:bool = false):
 		if not new_ring == ring or not new_segment == segment:
 			ring = new_ring
 			segment = new_segment
-		
+			
 			emit_signal("vector_changed")
 
 
