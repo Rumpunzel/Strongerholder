@@ -15,30 +15,11 @@ onready var structure = get_node(structure_node) setget , get_structure
 onready var area = get_node(area_node) setget , get_area
 
 
-var ring_vector:RingVector setget set_ring_vector, get_ring_vector
-
-
-
 
 func handle_highlighted(new_material:Material):
 	if can_be_highlighted:
 		structure.material_override = new_material
 
-
-func interact(_sender:GameObject) -> bool:
-	assert(false)
-	return true
-
-
-
-
-func set_ring_vector(new_vector:RingVector):
-	ring_vector = new_vector
-
-
-
-func get_ring_vector() -> RingVector:
-	return ring_vector
 
 
 func get_structure():
