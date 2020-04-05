@@ -60,8 +60,7 @@ func setup(new_ring_map:RingMap):
 
 
 func updated_ring_vector():
-	if ring_vector.radius <= CityLayout.get_radius_maximum(ring_vector.ring):
-		emit_signal("entered_segment", ring_vector)
+	emit_signal("entered_segment", ring_vector)
 
 
 func handle_highlighted():

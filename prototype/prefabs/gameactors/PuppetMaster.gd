@@ -98,18 +98,23 @@ func update_current_path():
 		for segment in range(1, current_path.size()):
 			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
 			
-			#new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
+			new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
 			
 			current_segments.append(new_segment)
 	
 	if currently_searching_for and object_of_interest:
 		current_segments.append(object_of_interest.ring_vector)
-	
-	print("current_path: %s\ncurrent_segments: %s" % [current_path, current_segments])
+		
+		print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
 
 
 func update_path_progress(new_vector:RingVector):
-	path_progress = int(max(path_progress, current_path.find(Vector2(new_vector.ring, new_vector.segment))))
+	var new_progress = current_path.find(Vector2(new_vector.ring, new_vector.segment))
+	
+	if new_progress > 0:
+		path_progress = int(max(path_progress, new_progress))
+	else:
+		update_current_path()
 
 
 
