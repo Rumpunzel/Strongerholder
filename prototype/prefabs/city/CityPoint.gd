@@ -7,11 +7,11 @@ func get_class(): return "CityPoint"
 
 const BUILD_INTO_FUNCTION = "build_into"
 
-const object_scenes:Dictionary = { CityLayout.TREE: preload("res://prefabs/things/GameTree.tscn"),
-		CityLayout.BASE: preload("res://prefabs/city/base.tscn"),
-		CityLayout.FOUNDATION: preload("res://prefabs/city/Foundation.tscn"),
-		CityLayout.BRIDGE: preload("res://prefabs/city/bridge.tscn"),
-		CityLayout.STOCKPILE: preload("res://prefabs/city/stockpile.tscn") }
+const object_scenes:Dictionary = { CityLayout.TREE: preload("res://prefabs/city/things/tree.tscn"),
+		CityLayout.BASE: preload("res://prefabs/city/buildings/base.tscn"),
+		CityLayout.FOUNDATION: preload("res://prefabs/city/buildings/foundation.tscn"),
+		CityLayout.BRIDGE: preload("res://prefabs/city/buildings/bridge.tscn"),
+		CityLayout.STOCKPILE: preload("res://prefabs/city/buildings/stockpile.tscn") }
 
 const highlight_material:Material = preload("res://assets/materials/highlightShader.material")
 
@@ -94,7 +94,6 @@ func set_object():
 		object = null
 	
 	object = object_scenes[type].instance()
-	object.ring_vector = ring_vector
 	
 	object.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius)
 	
