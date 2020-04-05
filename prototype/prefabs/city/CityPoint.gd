@@ -42,6 +42,10 @@ func _ready():
 		ring_map.register_segment(type, ring_vector, self)
 	else:
 		ring_map.register_thing(type, ring_vector, self)
+	
+	yield(get_tree(), "idle_frame")
+	
+	ring_map.connect("thing_added", self, "get_active")
 
 
 
