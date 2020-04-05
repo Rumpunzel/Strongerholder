@@ -26,7 +26,6 @@ var movement_modifier:float = 1.0
 
 var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
-#var focus_targets:Array = [ ] setget set_focus_targets, get_focus_targets
 
 var can_act:bool = true setget set_can_act, get_can_act
 
@@ -45,7 +44,6 @@ func _ready():
 	action_timer.connect("timeout", self, "set_can_act", [true])
 	
 	$pathfinder.register_actor(self)
-
 
 
 
@@ -89,7 +87,6 @@ func move_to(direction:Vector3, sprinting:bool):
 	var move_direction:Vector3 = get_move_direction(direction)
 	
 	body.move_direction = move_direction
-	set_ring_vector(body.ring_vector)
 	
 	sprite.change_animation(Vector2(move_direction.x, move_direction.z), current_action)
 	
@@ -129,14 +126,20 @@ func set_can_act(new_status:bool):
 	emit_signal("can_act_again", can_act)
 
 
+func set_ring_vector(new_vector:RingVector):
+	$body.ring_vector = new_vector
+	.set_ring_vector($body.ring_vector)
+
+
 
 func get_object_of_interest() -> GameObject:
 	return object_of_interest
 
-
 func get_currently_searching_for():
 	return currently_searching_for
 
-
 func get_can_act() -> bool:
 	return can_act
+
+func get_ring_vector() -> RingVector:
+	return $body.ring_vector

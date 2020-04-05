@@ -13,7 +13,9 @@ func _ready():
 	var pl = preload("res://prefabs/gameactors/player/Player.tscn").instance()
 	pl.setup(rm)
 	add_child(pl)
+	pl.set_ring_vector(RingVector.new(0, 0, true))
 	
 	var np = preload("res://prefabs/gameactors/npcs/NPC.tscn").instance()
 	np.setup(rm)
 	add_child(np)
+	np.set_ring_vector(RingVector.new(0, 0, true))

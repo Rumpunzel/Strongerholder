@@ -48,7 +48,7 @@ func set_ring_vector(new_vector:RingVector):
 	else:
 		ring_vector = new_vector
 	
-	translation.z = ring_vector.radius
+	global_transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius).rotated(Vector3.UP, ring_vector.rotation)
 
 
 func set_move_direction(new_dirction:Vector3):
