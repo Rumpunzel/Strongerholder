@@ -1,4 +1,3 @@
-tool
 extends Spatial
 
 
@@ -24,7 +23,6 @@ func construct_ring(ring_number):
 	var number_of_bridges:int = biggest_factor(number_of_buildings, int((number_of_buildings - 1) / 2.0))
 	
 	for i in range(number_of_buildings):
-		var new_build_point
 		var buildying_type
 		var ring_vector = RingVector.new(ring_number, i, true)
 		
@@ -34,9 +32,7 @@ func construct_ring(ring_number):
 			else:
 				buildying_type = CityLayout.FOUNDATION
 			
-			new_build_point = BuildPoint.new(buildying_type, ring_vector, ring_map)
-			
-			add_child(new_build_point)
+			add_child(BuildPoint.new(buildying_type, ring_vector, ring_map))
 		else:
 			ring_map.register_segment(CityLayout.EMPTY, ring_vector, null)
 	

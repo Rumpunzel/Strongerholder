@@ -1,4 +1,3 @@
-tool
 extends CityObject
 class_name Foundation
 
