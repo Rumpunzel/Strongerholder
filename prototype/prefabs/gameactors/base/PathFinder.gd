@@ -36,7 +36,7 @@ func get_input() -> Array:
 	var commands:Array = [ ]
 	
 	if object_of_interest and not currently_searching_for:
-		commands.append(InteractCommand.new(object_of_interest, 1.0))
+		commands.append(InteractCommand.new(object_of_interest))
 	
 	
 	var movement_vector:Vector3 = Vector3()

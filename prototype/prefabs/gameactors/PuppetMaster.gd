@@ -57,18 +57,11 @@ class MoveCommand extends Command:
 class InteractCommand extends Command:
 	var object:GameObject
 	
-	func _init(new_object:GameObject = null, new_action_time:float = 0.0):
+	func _init(new_object:GameObject = null):
 		object = new_object
-		action_time = new_action_time
 	
 	func execute(actor:GameActor) -> bool:
 		if actor.can_act:
-			if action_time > 0.0:
-				actor.set_can_act(false)
-				actor.action_timer.start(action_time)
-				
-				yield(actor, "can_act_again")
-			
 			if not object:
 				object = actor.object_of_interest
 			
@@ -76,8 +69,13 @@ class InteractCommand extends Command:
 			
 			var function = interaction.get(GameActor.INTERACTION)
 			var parameters:Array = interaction.get(GameActor.PARAMETERS, [ ])
+			action_time = interaction.get(GameActor.ACTION_TIME, 0.0)
 			
 			parameters.append(actor)
+			
+			if action_time > 0.0:
+				actor.set_can_act(false)
+				actor.action_timer.start(action_time)
 			
 			if function:
 				return object.callv(function, parameters)

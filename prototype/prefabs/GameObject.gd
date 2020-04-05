@@ -90,7 +90,16 @@ func take(objects, sender:GameObject):
 		sender.give(objects, self)
 
 
-func damage(damage_points:float, sender:GameObject) -> bool:
+func damage(damage_points:float, delay:float = 0.0, sender:GameObject = null) -> bool:
+	if delay > 0.0:
+		var timer = Timer.new()
+		add_child(timer)
+		timer.start(delay)
+		
+		yield(timer, "timeout")
+		
+		timer.queue_free()
+	
 	hit_points -= damage_points
 	
 	print("%s damaged %s for %s damage." % [sender.name, name, damage_points])

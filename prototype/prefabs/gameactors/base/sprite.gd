@@ -5,7 +5,7 @@ enum { DOWN, RIGHT, TOP, LEFT }
 
 const DIRECTIONS = { DOWN: "_d", TOP: "_t", RIGHT: "_r", LEFT: "_l" }
 
-onready var camera = get_viewport().get_camera()
+#onready var camera = get_viewport().get_camera()
 
 var previous_direction:Vector2 = Vector2(1, 0)
 var camera_offset:int = 0
@@ -25,10 +25,12 @@ func _ready():
 
 
 
-func change_animation(new_direction:Vector2):
+func change_animation(new_direction:Vector2, action:String):
 	var animation_name:String
 	
-	if new_direction.length() == 0:
+	if len(action) > 0:
+		animation_name = action + vector_direction(previous_direction)
+	elif new_direction.length() == 0:
 		animation_name = "idle" + vector_direction(previous_direction)
 	else:
 		animation_name = "run" + vector_direction(new_direction)

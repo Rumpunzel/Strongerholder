@@ -7,6 +7,7 @@ func get_class(): return "GameActor"
 
 const INTERACTION = "interaction"
 const PARAMETERS = "parameters"
+const ACTION_TIME = "action_time"
 
 
 onready var body:KinematicBody = $body
@@ -28,6 +29,8 @@ var currently_searching_for = null setget set_currently_searching_for, get_curre
 #var focus_targets:Array = [ ] setget set_focus_targets, get_focus_targets
 
 var can_act:bool = true setget set_can_act, get_can_act
+
+var current_action:String = ""
 
 
 signal moved
@@ -66,11 +69,12 @@ func interaction_with(object:GameObject) -> Dictionary:
 		
 		match object.type:
 			CityLayout.TREE:
-				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 5.0 ] }
+				current_action = "attack"
+				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 5.0, 0.3 ], ACTION_TIME: 0.8 }
 			
 			CityLayout.STOCKPILE:
 				if not inventory.empty():
-					return { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ] }
+					return { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ], ACTION_TIME: 0.2 }
 			
 			_:
 				return basic_interaction
@@ -87,7 +91,7 @@ func move_to(direction:Vector3, sprinting:bool):
 	body.move_direction = move_direction
 	set_ring_vector(body.ring_vector)
 	
-	sprite.change_animation(Vector2(move_direction.x, move_direction.z))
+	sprite.change_animation(Vector2(move_direction.x, move_direction.z), current_action)
 	
 	emit_signal("moved", ring_vector)
 
@@ -117,6 +121,11 @@ func set_currently_searching_for(new_interest):
 
 func set_can_act(new_status:bool):
 	can_act = new_status
+	
+	if can_act:
+		current_action = ""
+		sprite.change_animation(Vector2(), current_action)
+	
 	emit_signal("can_act_again", can_act)
 
 
