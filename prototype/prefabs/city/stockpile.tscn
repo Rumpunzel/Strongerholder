@@ -3,9 +3,7 @@
 [ext_resource path="res://prefabs/city/Foundation.tscn" type="PackedScene" id=1]
 
 [node name="stockpile" instance=ExtResource( 1 )]
-structure_node = NodePath("")
-area_node = NodePath("")
-can_be_highlighted = false
+can_be_highlighted = true
 
 [node name="csg_cylinder" type="CSGCylinder" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, -2 )

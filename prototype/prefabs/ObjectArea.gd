@@ -5,7 +5,7 @@ func is_class(class_type): return class_type == "ObjectArea" or .is_class(class_
 func get_class(): return "ObjectArea"
 
 
-var game_object:GameObject = null setget set_game_object, get_game_object
+var game_object:GameObject = null setget , get_game_object
 
 var objects_in_area:Array = [ ]
 var inactive_objects_in_area:Array = [ ]
@@ -18,8 +18,6 @@ signal added_object
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	game_object = get_game_object()
-	
 	connect("area_entered", self, "entered")
 	connect("area_exited", self, "exited")
 
@@ -69,11 +67,6 @@ func parse_acitvating_object(new_object:GameObject):
 	new_object.disconnect("activated", self, "parse_acitvating_object")
 	parse_entering_object(new_object)
 
-
-
-
-func set_game_object(new_object:GameObject):
-	game_object = new_object
 
 
 
