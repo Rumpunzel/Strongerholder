@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "CityObject",
 "language": "GDScript",
-"path": "res://prefabs/CityObject.gd"
+"path": "res://prefabs/city/CityObject.gd"
 }, {
 "base": "GameObject",
 "class": "CityPoint",
