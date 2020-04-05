@@ -66,7 +66,7 @@ func interaction_with(object:GameObject) -> Dictionary:
 		
 		match object.type:
 			CityLayout.TREE:
-				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 10.0 ] }
+				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 5.0 ] }
 			
 			CityLayout.STOCKPILE:
 				if not inventory.empty():

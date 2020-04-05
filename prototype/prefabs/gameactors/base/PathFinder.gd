@@ -79,11 +79,9 @@ func update_current_path():
 		current_path = ring_map.city_navigator.get_shortest_path(current_actor.ring_vector, pathfinding_target)
 		
 		for segment in range(1, current_path.size()):
-#			var coming_from_outside:bool = current_path[segment - 1].x > current_path[segment].x
-#			var ring_offset:int = 1 if coming_from_outside else 0
 			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
 			
-			new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
+			#new_segment.radius += CityLayout.ROAD_WIDTH / 2.0
 			
 			current_segments.append(new_segment)
 	
@@ -133,7 +131,6 @@ func reset_object_of_interest(old_object:GameObject):
 func set_ring_map(new_ring_map:RingMap):
 	ring_map = new_ring_map
 
-
 func set_pathfinding_target(new_target:RingVector):
 	pathfinding_target = new_target
 
@@ -163,31 +160,24 @@ func set_currently_searching_for(new_interest):
 func set_can_act(new_status:bool):
 	can_act = new_status
 
-
 func set_update_pathfinding(new_status:bool):
 	update_pathfinding = new_status
-
 
 
 func get_ring_map() -> RingMap:
 	return ring_map
 
-
 func get_pathfinding_target() -> RingVector:
 	return pathfinding_target
-
 
 func get_object_of_interest() -> GameObject:
 	return object_of_interest
 
-
 func get_currently_searching_for():
 	return currently_searching_for
 
-
 func get_can_act() -> bool:
 	return can_act
-
 
 func get_update_pathfinding() -> bool:
 	return update_pathfinding
