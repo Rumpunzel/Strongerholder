@@ -20,7 +20,7 @@ func build_everything(new_ring_map:RingMap):
 
 func construct_ring(ring_number):
 	var number_of_buildings:int = CityLayout.get_number_of_segments(ring_number)
-	var number_of_bridges:int = biggest_factor(number_of_buildings, int((number_of_buildings - 1) / 2.0))
+	var number_of_bridges:int = biggest_factor(number_of_buildings, int(float(number_of_buildings - 1) / CityLayout.SUB_SEGMENTS), CityLayout.SUB_SEGMENTS + 1)
 	
 	for i in range(number_of_buildings):
 		var buildying_type
@@ -48,7 +48,7 @@ func biggest_factor(number:int, upper_limit:int = -1, lower_limit:int = 2) -> in
 	for i in range(lower_limit, upper_limit + 1):
 		if number % i == 0:
 			big_fac = i
-			
+	
 	#print("the biggest factor for %d is: %d" % [number, big_fac])
 	
 	return big_fac
