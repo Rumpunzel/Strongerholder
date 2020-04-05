@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/gameactors/base/ActorArea.gd"
 }, {
-"base": "DoodadBuilding",
-"class": "Bridge",
-"language": "GDScript",
-"path": "res://prefabs/city/bridge/bridge.gd"
-}, {
 "base": "GameObject",
 "class": "BuildPoint",
 "language": "GDScript",
@@ -38,16 +33,6 @@ _global_script_classes=[ {
 "class": "CityObject",
 "language": "GDScript",
 "path": "res://prefabs/CityObject.gd"
-}, {
-"base": "Foundation",
-"class": "DoodadBuilding",
-"language": "GDScript",
-"path": "res://prefabs/city/DoodadBuilding.gd"
-}, {
-"base": "CityObject",
-"class": "Foundation",
-"language": "GDScript",
-"path": "res://prefabs/city/Foundation/Foundation.gd"
 }, {
 "base": "GameObject",
 "class": "GameActor",
@@ -121,13 +106,10 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ActorArea": "",
-"Bridge": "",
 "BuildPoint": "",
 "CityLayout": "",
 "CityNavigator": "",
 "CityObject": "",
-"DoodadBuilding": "",
-"Foundation": "",
 "GameActor": "",
 "GameObject": "",
 "GameTree": "",
