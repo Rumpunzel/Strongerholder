@@ -112,7 +112,7 @@
 [resource]
 animations = [ {
 "frames": [ ExtResource( 87 ), ExtResource( 77 ), ExtResource( 98 ), ExtResource( 79 ), ExtResource( 74 ), ExtResource( 73 ), ExtResource( 108 ), ExtResource( 106 ), ExtResource( 107 ) ],
-"loop": true,
+"loop": false,
 "name": "death_t",
 "speed": 10.0
 }, {
@@ -177,37 +177,37 @@ animations = [ {
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 70 ), ExtResource( 69 ), ExtResource( 64 ) ],
-"loop": true,
+"loop": false,
 "name": "hurt_l",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 71 ), ExtResource( 72 ), ExtResource( 61 ) ],
-"loop": true,
+"loop": false,
 "name": "hurt_t",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ) ],
-"loop": true,
+"loop": false,
 "name": "hurt_d",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 103 ), ExtResource( 104 ), ExtResource( 102 ), ExtResource( 89 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 88 ), ExtResource( 93 ), ExtResource( 85 ) ],
-"loop": true,
+"loop": false,
 "name": "death_l",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 86 ), ExtResource( 78 ), ExtResource( 96 ), ExtResource( 105 ), ExtResource( 100 ), ExtResource( 75 ), ExtResource( 99 ), ExtResource( 97 ), ExtResource( 94 ) ],
-"loop": true,
+"loop": false,
 "name": "death_d",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 62 ), ExtResource( 68 ), ExtResource( 63 ) ],
-"loop": true,
+"loop": false,
 "name": "hurt_r",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 76 ), ExtResource( 101 ), ExtResource( 95 ), ExtResource( 92 ), ExtResource( 91 ), ExtResource( 80 ), ExtResource( 82 ), ExtResource( 90 ), ExtResource( 81 ) ],
-"loop": true,
+"loop": false,
 "name": "death_r",
 "speed": 10.0
 } ]
