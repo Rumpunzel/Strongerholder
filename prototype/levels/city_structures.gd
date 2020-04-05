@@ -8,7 +8,7 @@ var ring_map
 func build_everything(new_ring_map:RingMap):
 	ring_map = new_ring_map
 
-	var new_build_point = BuildPoint.new(CityLayout.BASE, RingVector.new(0, 0), ring_map)
+	var new_build_point = CityPoint.new(CityLayout.BASE, RingVector.new(0, 0), ring_map)
 	
 	add_child(new_build_point)
 	
@@ -32,7 +32,7 @@ func construct_ring(ring_number):
 			else:
 				buildying_type = CityLayout.FOUNDATION
 			
-			add_child(BuildPoint.new(buildying_type, ring_vector, ring_map))
+			add_child(CityPoint.new(buildying_type, ring_vector, ring_map, true, 3))
 		else:
 			ring_map.register_segment(CityLayout.EMPTY, ring_vector, null)
 	

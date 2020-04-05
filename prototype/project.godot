@@ -12,12 +12,7 @@ _global_script_classes=[ {
 "base": "ObjectArea",
 "class": "ActorArea",
 "language": "GDScript",
-"path": "res://prefabs/gameactors/base/ActorArea.gd"
-}, {
-"base": "GameObject",
-"class": "BuildPoint",
-"language": "GDScript",
-"path": "res://prefabs/city/BuildPoint.gd"
+"path": "res://prefabs/gameactors/ActorArea.gd"
 }, {
 "base": "Resource",
 "class": "CityLayout",
@@ -35,19 +30,19 @@ _global_script_classes=[ {
 "path": "res://prefabs/CityObject.gd"
 }, {
 "base": "GameObject",
+"class": "CityPoint",
+"language": "GDScript",
+"path": "res://prefabs/city/CityPoint.gd"
+}, {
+"base": "GameObject",
 "class": "GameActor",
 "language": "GDScript",
-"path": "res://prefabs/gameactors/base/GameActor.gd"
+"path": "res://prefabs/gameactors/GameActor.gd"
 }, {
 "base": "Spatial",
 "class": "GameObject",
 "language": "GDScript",
 "path": "res://prefabs/GameObject.gd"
-}, {
-"base": "CityObject",
-"class": "GameTree",
-"language": "GDScript",
-"path": "res://prefabs/things/GameTree/GameTree.gd"
 }, {
 "base": "GameActor",
 "class": "NPC",
@@ -62,7 +57,7 @@ _global_script_classes=[ {
 "base": "PuppetMaster",
 "class": "PathFinder",
 "language": "GDScript",
-"path": "res://prefabs/gameactors/base/PathFinder.gd"
+"path": "res://prefabs/gameactors/PathFinder.gd"
 }, {
 "base": "GameActor",
 "class": "Player",
@@ -98,21 +93,15 @@ _global_script_classes=[ {
 "class": "RingVector",
 "language": "GDScript",
 "path": "res://city_management/RingVector.gd"
-}, {
-"base": "GameObject",
-"class": "TreePoint",
-"language": "GDScript",
-"path": "res://prefabs/things/GameTree/TreePoint.gd"
 } ]
 _global_script_class_icons={
 "ActorArea": "",
-"BuildPoint": "",
 "CityLayout": "",
 "CityNavigator": "",
 "CityObject": "",
+"CityPoint": "",
 "GameActor": "",
 "GameObject": "",
-"GameTree": "",
 "NPC": "",
 "ObjectArea": "",
 "PathFinder": "",
@@ -122,8 +111,7 @@ _global_script_class_icons={
 "RadiantUI": "",
 "RadiantUIButton": "",
 "RingMap": "",
-"RingVector": "",
-"TreePoint": ""
+"RingVector": ""
 }
 
 [application]

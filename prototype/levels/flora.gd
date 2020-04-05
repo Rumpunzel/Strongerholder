@@ -1,7 +1,7 @@
 extends Spatial
 
 
-var ring_map
+var ring_map:RingMap
 
 
 
@@ -16,6 +16,6 @@ func construct_ring(ring_number):
 	var number_of_buildings:int = CityLayout.get_number_of_segments(ring_number)
 	
 	for i in range(number_of_buildings):
-		if not i == 0 and randi() % 3 > 0:
+		if not i == 0 and randi() % 5 > 0:
 			var ring_vector = RingVector.new(CityLayout.get_radius_minimum(ring_number), (float(i) / float(number_of_buildings)) * TAU)
-			add_child(TreePoint.new(ring_vector, ring_map))
+			add_child(CityPoint.new(CityLayout.TREE, ring_vector, ring_map, false, 1, "Wood"))
