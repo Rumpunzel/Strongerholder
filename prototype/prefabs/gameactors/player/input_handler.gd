@@ -1,4 +1,4 @@
-extends PathFinder
+extends PuppetMaster
 
 
 
