@@ -17,6 +17,7 @@ var interaction
 
 
 signal button_pressed
+signal closed
 
 
 
@@ -108,6 +109,8 @@ func animate_in_buttons():
 
 
 func close(time:float = 0.3, pressed_button = null):
+	emit_signal("closed")
+	
 	var tween:Tween = Tween.new()
 	add_actual_child(tween)
 	
