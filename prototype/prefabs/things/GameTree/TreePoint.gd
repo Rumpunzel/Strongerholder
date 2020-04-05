@@ -1,4 +1,3 @@
-tool
 extends GameObject
 class_name TreePoint
 
@@ -27,31 +26,6 @@ func _ready():
 	ring_map.register_thing(CityLayout.TREE, ring_vector, self)
 
 
-
-#func entered(body):
-#	var object = body.get_parent()
-#
-#	if object is GameActor:
-#		object.add_focus_target(self)
-#		connect("died", object, "erase_focus_target", [self])
-#
-#		if object is Player:
-#			object.object_of_interest = self
-#			set_highlighted(true)
-#
-#func exited(body):
-#	var object = body.get_parent()
-#
-#	if object is GameActor:
-#		if object.focus_targets.has(self):
-#			object.erase_focus_target(self)
-#			disconnect("died", object, "erase_focus_target")
-#
-#		if object is Player:
-#			if object.object_of_interest == self:
-#				object.object_of_interest = null
-#
-#			set_highlighted(false)
 
 
 func handle_highlighted():

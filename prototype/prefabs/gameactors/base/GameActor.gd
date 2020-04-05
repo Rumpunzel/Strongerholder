@@ -87,6 +87,7 @@ func move_to(direction:Vector3, sprinting:bool):
 	var move_direction:Vector3 = get_move_direction(direction)
 	
 	body.move_direction = move_direction
+	.set_ring_vector(body.ring_vector)
 	
 	sprite.change_animation(Vector2(move_direction.x, move_direction.z), current_action)
 	

@@ -1,4 +1,3 @@
-tool
 extends GameObject
 class_name BuildPoint
 
@@ -8,12 +7,12 @@ func get_class(): return "BuildPoint"
 
 const BUILD_INTO_FUNCTION = "build_into"
 
-const buildings:Dictionary = { CityLayout.BASE: preload("res://prefabs/city/base.tscn"), CityLayout.FOUNDATION: preload("res://prefabs/city/Foundation/Foundation.tscn"), CityLayout.BRIDGE: preload("res://prefabs/city/bridge/bridge.tscn"), CityLayout.STOCKPILE: preload("res://prefabs/city/stockpile/stockpile.tscn") }
+const buildings:Dictionary = { CityLayout.BASE: preload("res://prefabs/city/base.tscn"), CityLayout.FOUNDATION: preload("res://prefabs/city/Foundation.tscn"), CityLayout.BRIDGE: preload("res://prefabs/city/bridge.tscn"), CityLayout.STOCKPILE: preload("res://prefabs/city/stockpile.tscn") }
 
 const highlight_material:Material = preload("res://assets/materials/highlightShader.material")
 
 
-var building:Foundation = null setget , get_building
+var building:CityObject = null setget , get_building
 
 var building_width:int = 3
 
@@ -86,7 +85,7 @@ func set_ring_vector(new_vector:RingVector):
 
 
 
-func get_building() -> Foundation:
+func get_building() -> CityObject:
 	return building
 
 func get_active() -> bool:
