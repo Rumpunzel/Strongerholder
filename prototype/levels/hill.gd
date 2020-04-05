@@ -15,7 +15,8 @@ func _ready():
 	add_child(pl)
 	pl.set_ring_vector(RingVector.new(0, 0, true))
 	
-	var np = preload("res://prefabs/gameactors/GameActor.tscn").instance()
-	np.setup(rm)
-	add_child(np)
-	np.set_ring_vector(RingVector.new(0, 0, true))
+	for i in range(CityLayout.get_number_of_segments(0)):
+		var np = preload("res://prefabs/gameactors/GameActor.tscn").instance()
+		np.setup(rm)
+		add_child(np)
+		np.set_ring_vector(RingVector.new(0, i, true))
