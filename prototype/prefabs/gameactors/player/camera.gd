@@ -14,8 +14,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	global_transform.origin.y = ray_cast.get_collision_point().y
+func _process(delta):
+	global_transform.origin.y = (ray_cast.get_collision_point().y - global_transform.origin.y) * delta
 
 
 func add_ui_element(new_element:Control, center_ui:bool = true):
