@@ -1,10 +1,8 @@
-tool
 extends Resource
 class_name RingMap
 
 
-onready var city_navigator:CityNavigator
-
+var city_navigator:CityNavigator
 
 var segments_dictionary:Dictionary = { }
 var search_dictionary:Dictionary = { }
@@ -13,6 +11,7 @@ var things_dictionary:Dictionary = { }
 
 signal city_changed
 signal thing_added
+
 
 
 

@@ -2,31 +2,29 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/hero_idle-t_00.png-6afaadcc4ab3d9f32e8e8e153fed3c6a.s3tc.stex"
-path.etc2="res://.import/hero_idle-t_00.png-6afaadcc4ab3d9f32e8e8e153fed3c6a.etc2.stex"
+path="res://.import/hero_idle-t_00.png-6afaadcc4ab3d9f32e8e8e153fed3c6a.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/sprites/hero/idle/hero_idle-t_00.png"
-dest_files=[ "res://.import/hero_idle-t_00.png-6afaadcc4ab3d9f32e8e8e153fed3c6a.s3tc.stex", "res://.import/hero_idle-t_00.png-6afaadcc4ab3d9f32e8e8e153fed3c6a.etc2.stex" ]
+dest_files=[ "res://.import/hero_idle-t_00.png-6afaadcc4ab3d9f32e8e8e153fed3c6a.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=true
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=1
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

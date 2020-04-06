@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://prefabs/city/buildings/foundation.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/meshes/debug_meshes/bridge.tres" type="CubeMesh" id=2]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 3.0
+height = 8.0
+
+[node name="bridge" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999783, -0.0208203, 0, 0.0208203, 0.999783, 0, 0, 0 )
+can_be_highlighted = false
+
+[node name="block" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -12.5 )
+mesh = ExtResource( 2 )
+
+[node name="area" parent="block" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+
+[node name="collision_shape" parent="block/area" index="0"]
+shape = SubResource( 1 )

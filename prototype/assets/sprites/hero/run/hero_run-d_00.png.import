@@ -2,21 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/hero_run-d_00.png-63de1b51561f9771728a975ef395d5c0.s3tc.stex"
-path.etc2="res://.import/hero_run-d_00.png-63de1b51561f9771728a975ef395d5c0.etc2.stex"
+path="res://.import/hero_run-d_00.png-63de1b51561f9771728a975ef395d5c0.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/sprites/hero/run/hero_run-d_00.png"
-dest_files=[ "res://.import/hero_run-d_00.png-63de1b51561f9771728a975ef395d5c0.s3tc.stex", "res://.import/hero_run-d_00.png-63de1b51561f9771728a975ef395d5c0.etc2.stex" ]
+dest_files=[ "res://.import/hero_run-d_00.png-63de1b51561f9771728a975ef395d5c0.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
@@ -26,7 +24,7 @@ flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=1
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

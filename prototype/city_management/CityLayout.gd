@@ -1,4 +1,3 @@
-tool
 extends Resource
 class_name CityLayout
 
@@ -8,7 +7,7 @@ const RING_GAP:float = 4.0
 const ROAD_WIDTH:float = 8.0
 const RING_WIDTH:float = 32.0
 const SEGMENT_WIDTH:float = 12.0
-const RING_SLOPE:float = -1.0
+const RING_SLOPE:float = -0.5
 const SLOPE_RADIUS:float = 420.0
 
 const NUMBER_OF_RINGS:int = 10
@@ -16,10 +15,10 @@ const SUB_SEGMENTS:int = 5
 
 
 const EMPTY = "empty"
-const BASE = "base"
-const BRIDGE = "bridge"
-const FOUNDATION = "foundation"
-const STOCKPILE = "stockpile"
+const BASE = "Base"
+const BRIDGE = "Bridge"
+const FOUNDATION = "Foundation"
+const STOCKPILE = "Stockpile"
 const EVERYTHING = "everything"
 
 const TREE = "tree"
