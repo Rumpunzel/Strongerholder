@@ -10,11 +10,14 @@ var astar_nodes:Array = [ ]
 var adjacency_matrix:Dictionary = { }
 
 var first_time:bool = true
+var previous_bridges:Dictionary = { }
+
 
 
 
 func _init(new_ring_map):
 	ring_map = new_ring_map
+
 
 
 func start_building():
@@ -27,7 +30,10 @@ func construct_pathfinder():
 	if not pathfinder:
 		construct_graph()
 	
-	connect_nodes()
+	var new_thread:Thread = Thread.new()
+	
+	new_thread.start(self, "connect_nodes")
+	new_thread.wait_to_finish()
 
 
 func construct_graph():
@@ -41,7 +47,7 @@ func construct_graph():
 		
 		for segment in range(segments):
 			var radius = CityLayout.get_radius_minimum(ring)
-			var point_vector = Vector2(radius + CityLayout.ROAD_WIDTH * 0.5, 0)
+			var point_vector = Vector2(radius, 0)
 			point_vector.rotated((float(segment) / CityLayout.get_number_of_segments(ring)) * TAU)
 			
 			pathfinder.add_point(graph_size, point_vector)
@@ -50,19 +56,25 @@ func construct_graph():
 			graph_size += 1
 
 
-func connect_nodes():
-	var rings = ring_map.search_dictionary
+func connect_nodes(_whatever):
+	var rings:Dictionary = ring_map.search_dictionary
+	var bridges:Dictionary = ring_map.segments_dictionary[CityLayout.BRIDGE]
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
 		
 		if first_time:
 			connect_segments(ring)
+			
 		
-		connect_bridges(ring, segments)
+		if not previous_bridges == bridges:
+			connect_bridges(bridges, ring, segments)
+	
+	first_time = false
+	previous_bridges = bridges
 
 
-func connect_segments(ring):
+func connect_segments(ring:int):
 	var segments_in_ring = CityLayout.get_number_of_segments(ring)
 	
 	for segment in range(segments_in_ring):
@@ -70,9 +82,8 @@ func connect_segments(ring):
 		
 		pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 
-func connect_bridges(ring, segments):
-	var bridges:Dictionary = ring_map.segments_dictionary[CityLayout.BRIDGE]
-	
+
+func connect_bridges(bridges:Dictionary, ring:int, segments:Dictionary):
 	for bridge in bridges.get(ring + 1, { }).keys():
 		var max_distance = 0.1
 		var bridge_connected = false
