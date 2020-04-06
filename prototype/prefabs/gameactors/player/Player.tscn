@@ -24,8 +24,8 @@ enabled = true
 cast_to = Vector3( 0, -50, 0 )
 
 [node name="camera" parent="body" index="4" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195, 0, 0, 15 )
-v_offset = 6.5
+transform = Transform( 1, 0, 0, 0, 0.997564, 0.0697565, 0, -0.0697565, 0.997564, 0, 0, 15 )
+v_offset = 5.0
 ray_cast_node = NodePath("../ray_cast")
 
 [node name="pathfinder" parent="." index="1"]

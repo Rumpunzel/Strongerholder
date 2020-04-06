@@ -7,7 +7,7 @@ const RING_GAP:float = 4.0
 const ROAD_WIDTH:float = 8.0
 const RING_WIDTH:float = 32.0
 const SEGMENT_WIDTH:float = 12.0
-const RING_SLOPE:float = -1.0
+const RING_SLOPE:float = -0.5
 const SLOPE_RADIUS:float = 420.0
 
 const NUMBER_OF_RINGS:int = 10

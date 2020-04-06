@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/ui_theme.tres" type="Theme" id=3]
 
 [node name="camera" type="Camera"]
-transform = Transform( 1, 0, 0, 0, 0.996194, 0.0871557, 0, -0.0871557, 0.996194, 0, 5, 20 )
 environment = ExtResource( 1 )
 projection = 1
 current = true
