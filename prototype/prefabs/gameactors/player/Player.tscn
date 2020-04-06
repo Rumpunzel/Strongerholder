@@ -5,7 +5,8 @@
 [ext_resource path="res://prefabs/gameactors/player/camera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prefabs/gameactors/player/player_area.gd" type="Script" id=4]
 [ext_resource path="res://prefabs/gameactors/player/input_handler.gd" type="Script" id=5]
-[ext_resource path="res://prefabs/gameactors/player/PlayerBehavior.gd" type="Script" id=6]
+[ext_resource path="res://prefabs/gameactors/behaviors/PlayerBehavior.gd" type="Script" id=6]
+
 
 [node name="player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
