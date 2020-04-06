@@ -15,19 +15,10 @@ export(GDScript) var actor_behavior
 
 onready var body:KinematicBody = $body
 onready var sprite:Sprite3D = $body/sprite
-onready var cliff_dection = $body/cliff_detection
 onready var action_timer:Timer = $action_timer
 
 onready var behavior = actor_behavior.new()
 
-
-export var walkspeed:float = 3.0
-export var sprint_modifier:float = 2.0
-
-
-# Multiplicative modifer to the movement speed
-#	is equal to 1.0 if the gameactor is walking normal
-var movement_modifier:float = 1.0
 
 var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
@@ -37,7 +28,6 @@ var can_act:bool = true setget set_can_act, get_can_act
 var current_action:String = ""
 
 
-signal moved
 signal new_interest
 signal acquired_target
 signal can_act_again
@@ -92,25 +82,12 @@ func interaction_with(object:GameObject) -> Dictionary:
 
 
 func move_to(direction:Vector3, sprinting:bool):
-	movement_modifier = sprint_modifier if sprinting else 1.0
+	body.sprinting = sprinting
+	body.move_direction = direction
 	
-	var move_direction:Vector3 = get_move_direction(direction)
-	
-	body.move_direction = move_direction
 	.set_ring_vector(body.ring_vector)
 	
-	sprite.change_animation(Vector2(move_direction.x, move_direction.z), current_action)
-	
-	emit_signal("moved", ring_vector)
-
-
-func get_move_direction(direction:Vector3) -> Vector3:
-	var move_direction = cliff_dection.limit_movement(direction)
-	move_direction.y = 0
-	move_direction = move_direction.normalized() * walkspeed * movement_modifier
-	move_direction.y = direction.y
-	
-	return move_direction
+	sprite.change_animation(Vector2(body.move_direction.x, body.move_direction.z), current_action)
 
 
 

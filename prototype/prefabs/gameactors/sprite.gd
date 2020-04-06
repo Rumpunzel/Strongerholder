@@ -3,13 +3,17 @@ extends AnimatedSprite3D
 
 enum { DOWN, RIGHT, TOP, LEFT }
 
+
 const DIRECTIONS = { DOWN: "_d", TOP: "_t", RIGHT: "_r", LEFT: "_l" }
 
+
 onready var camera = get_viewport().get_camera()
+
 
 var previous_direction:Vector2 = Vector2(1, 0)
 var previous_action:String = ""
 var camera_offset:int = 0
+
 
 
 
@@ -26,6 +30,7 @@ func _process(_delta):
 		if not new_camera_offset == camera_offset:
 			camera_offset = new_camera_offset
 			change_animation(previous_direction, previous_action)
+
 
 
 
