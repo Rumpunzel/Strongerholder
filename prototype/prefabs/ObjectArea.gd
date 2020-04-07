@@ -1,17 +1,14 @@
-extends Area
 class_name ObjectArea
-
-func is_class(class_type): return class_type == "ObjectArea" or .is_class(class_type)
-func get_class(): return "ObjectArea"
+extends Area
 
 
-var game_object:GameObject = null setget , get_game_object
-
-var objects_in_area:Array = [ ]
-var inactive_objects_in_area:Array = [ ]
+signal added_object(game_object)
 
 
-signal added_object
+var game_object: GameObject = null setget , get_game_object
+
+var objects_in_area: Array = [ ]
+var inactive_objects_in_area: Array = [ ]
 
 
 
@@ -25,19 +22,23 @@ func _ready():
 
 
 func entered(new_area:Area):
-	if new_area.is_class("ObjectArea"):
+	var area := new_area as ObjectArea
+	
+	if area:
 		if parse_entering_object(new_area.game_object):
 			emit_signal("added_object", new_area.game_object)
 
 
 func exited(new_area:Area):
-	if new_area.is_class("ObjectArea"):
+	var area := new_area as ObjectArea
+	
+	if area:
 		parse_exiting_object(new_area.game_object)
 
 
 
-func parse_entering_object(new_object:GameObject) -> bool:
-	if new_object.alive and new_object.active:
+func parse_entering_object(new_object: GameObject) -> bool:
+	if new_object.active:
 		objects_in_area.append(new_object)
 		new_object.connect("died", self, "parse_exiting_object", [new_object])
 		
@@ -49,7 +50,7 @@ func parse_entering_object(new_object:GameObject) -> bool:
 		return false
 
 
-func parse_exiting_object(new_object:GameObject) -> bool:
+func parse_exiting_object(new_object: GameObject) -> bool:
 	if objects_in_area.has(new_object):
 		objects_in_area.erase(new_object)
 		new_object.disconnect("died", self, "parse_exiting_object")
@@ -62,7 +63,7 @@ func parse_exiting_object(new_object:GameObject) -> bool:
 	return false
 
 
-func parse_acitvating_object(new_object:GameObject):
+func parse_acitvating_object(new_object: GameObject):
 	if inactive_objects_in_area.has(new_object):
 		inactive_objects_in_area.erase(new_object)
 		new_object.disconnect("activated", self, "parse_acitvating_object")

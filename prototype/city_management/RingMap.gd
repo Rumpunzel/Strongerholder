@@ -1,16 +1,16 @@
-extends Resource
 class_name RingMap
-
-
-var city_navigator:CityNavigator
-
-var segments_dictionary:Dictionary = { }
-var search_dictionary:Dictionary = { }
-var things_dictionary:Dictionary = { }
+extends Resource
 
 
 signal city_changed
 signal thing_added
+
+
+var city_navigator: CityNavigator
+
+var segments_dictionary: Dictionary = { }
+var search_dictionary: Dictionary = { }
+var things_dictionary: Dictionary = { }
 
 
 
@@ -36,7 +36,7 @@ func construct_search_dictionary():
 
 
 
-func register_segment(type:int, ring_vector:RingVector, object):
+func register_segment(type: int, ring_vector: RingVector, object):
 	segments_dictionary[type] = segments_dictionary.get(type, { })
 	segments_dictionary[type][ring_vector.ring] = segments_dictionary[type].get(ring_vector.ring, { })
 	segments_dictionary[type][ring_vector.ring][ring_vector.segment] = object
@@ -44,7 +44,7 @@ func register_segment(type:int, ring_vector:RingVector, object):
 	emit_signal("city_changed")
 
 
-func update_segment(old_type:int, new_type:int, ring_vector:RingVector, object):
+func update_segment(old_type: int, new_type: int, ring_vector: RingVector, object):
 	segments_dictionary[old_type] = segments_dictionary.get(old_type, { })
 	segments_dictionary[old_type][ring_vector.ring] = segments_dictionary[old_type].get(ring_vector.ring, { })
 	segments_dictionary[old_type][ring_vector.ring].erase(ring_vector.segment)
@@ -54,7 +54,7 @@ func update_segment(old_type:int, new_type:int, ring_vector:RingVector, object):
 
 
 
-func register_thing(type:int, ring_vector:RingVector, object):
+func register_thing(type: int, ring_vector: RingVector, object):
 	things_dictionary[type] = things_dictionary.get(type, { })
 	things_dictionary[type][ring_vector.ring] = things_dictionary[type].get(ring_vector.ring, { })
 	things_dictionary[type][ring_vector.ring][ring_vector.segment] = things_dictionary[type][ring_vector.ring].get(ring_vector.segment, [ ])
@@ -63,7 +63,7 @@ func register_thing(type:int, ring_vector:RingVector, object):
 	emit_signal("thing_added")
 
 
-func unregister_thing(type:int, ring_vector:RingVector, object):
+func unregister_thing(type: int, ring_vector: RingVector, object):
 	things_dictionary[type] = things_dictionary.get(type, { })
 	things_dictionary[type][ring_vector.ring] = things_dictionary[type].get(ring_vector.ring, { })
 	things_dictionary[type][ring_vector.ring][ring_vector.segment] = things_dictionary[type][ring_vector.ring].get(ring_vector.segment, [ ])
@@ -72,14 +72,14 @@ func unregister_thing(type:int, ring_vector:RingVector, object):
 	emit_signal("thing_added")
 
 
-func update_thing(old_type:int, new_type:int, ring_vector:RingVector, object):
+func update_thing(old_type: int, new_type: int, ring_vector: RingVector, object):
 	unregister_thing(old_type, ring_vector, object)
 	register_thing(new_type, ring_vector, object)
 
 
 
-func get_object_at_position(ring_vector:RingVector, from:int = CityLayout.OBJECTS.EVERYTHING):
-	var search_through:Dictionary = { }
+func get_object_at_position(ring_vector: RingVector, from: int = CityLayout.Objects.EVERYTHING):
+	var search_through: Dictionary = { }
 	
 	if not from == CityLayout.EVERYTHING:
 		search_through = segments_dictionary[from]
@@ -89,7 +89,7 @@ func get_object_at_position(ring_vector:RingVector, from:int = CityLayout.OBJECT
 	return search_through.get(ring_vector.ring, { }).get(ring_vector.segment, null)
 
 
-func get_things_at_position(ring_vector:RingVector, type:int) -> Array:
-	var search_through:Dictionary = things_dictionary.get(type, { })
+func get_things_at_position(ring_vector: RingVector, type: int) -> Array:
+	var search_through: Dictionary = things_dictionary.get(type, { })
 	
 	return search_through.get(ring_vector.ring, { }).get(ring_vector.segment, [ ])

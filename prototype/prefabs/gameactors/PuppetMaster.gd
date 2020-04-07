@@ -1,35 +1,35 @@
-extends Node
 class_name PuppetMaster
-
-func is_class(class_type): return class_type == "PuppetMaster" or .is_class(class_type)
-func get_class(): return "PuppetMaster"
+extends Node
 
 
-var ring_map:RingMap setget set_ring_map, get_ring_map
+signal new_commands(commands)
 
-var current_actor:GameActor = null
 
-var pathfinding_target:RingVector setget set_pathfinding_target, get_pathfinding_target
+var ring_map: RingMap setget set_ring_map, get_ring_map
 
-var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest
+var current_actor: GameActor = null
+
+var pathfinding_target: RingVector setget set_pathfinding_target, get_pathfinding_target
+
+var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
 
-var can_act:bool = true setget set_can_act, get_can_act
+var can_act: bool = true setget set_can_act, get_can_act
 
-var current_path:Array = [ ]
-var current_segments:Array = [ ]
-var path_progress:int = 0
+var current_path: Array = [ ]
+var current_segments: Array = [ ]
+var path_progress: int = 0
 
-var update_pathfinding:bool = false setget set_update_pathfinding, get_update_pathfinding
+var update_pathfinding: bool = false setget set_update_pathfinding, get_update_pathfinding
 
 
-signal new_commands
+
 
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta:float):
+func _process(_delta: float):
 	if current_actor:
 		if not object_of_interest and currently_searching_for:
 			search_for_target(currently_searching_for)
@@ -39,7 +39,7 @@ func _process(_delta:float):
 		update_pathfinding = false
 	
 	
-	var commands:Array = get_input()
+	var commands: Array = get_input()
 	
 	if not commands.empty():
 		emit_signal("new_commands", commands)
@@ -48,14 +48,14 @@ func _process(_delta:float):
 
 
 func get_input() -> Array:
-	var commands:Array = [ ]
+	var commands: Array = [ ]
 	
 	if object_of_interest and not currently_searching_for:
 		commands.append(InteractCommand.new(object_of_interest))
 	
 	
-	var movement_vector:Vector3 = Vector3()
-	var next_path_segment:RingVector = current_segments[path_progress] if path_progress < current_segments.size() else null
+	var movement_vector: Vector3 = Vector3()
+	var next_path_segment: RingVector = current_segments[path_progress] if path_progress < current_segments.size() else null
 	
 	if next_path_segment:
 		next_path_segment.modulo_ring_vector()
@@ -85,7 +85,7 @@ func get_input() -> Array:
 
 
 
-func register_actor(new_actor:GameActor):
+func register_actor(new_actor: GameActor):
 	current_actor = new_actor
 	
 	connect("new_commands", current_actor, "listen_to_commands")
@@ -117,7 +117,7 @@ func update_current_path():
 		#print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
 
 
-func update_path_progress(new_vector:RingVector):
+func update_path_progress(new_vector: RingVector):
 	var new_progress = current_path.find(Vector2(new_vector.ring, new_vector.segment))
 	
 	if new_progress > 0:
@@ -127,11 +127,11 @@ func update_path_progress(new_vector:RingVector):
 
 
 
-func search_for_target(object_type:int):
+func search_for_target(object_type: int):
 	var nearest_target
 	var thing = false
 	
-	if object_type == CityLayout.OBJECTS.TREE:
+	if object_type == CityLayout.Objects.TREE:
 		thing = true
 	
 	if thing:
@@ -152,21 +152,21 @@ func search_for_target(object_type:int):
 		set_object_of_interest(nearest_target)
 
 
-func reset_object_of_interest(old_object:GameObject):
+func reset_object_of_interest(old_object: GameObject):
 	if object_of_interest == old_object:
 		set_object_of_interest(null)
 
 
 
 
-func set_ring_map(new_ring_map:RingMap):
+func set_ring_map(new_ring_map: RingMap):
 	ring_map = new_ring_map
 
-func set_pathfinding_target(new_target:RingVector):
+func set_pathfinding_target(new_target: RingVector):
 	pathfinding_target = new_target
 
 
-func set_object_of_interest(new_object:GameObject):
+func set_object_of_interest(new_object: GameObject):
 	if object_of_interest:
 		object_of_interest.disconnect("died", self, "reset_object_of_interest")
 	
@@ -188,10 +188,10 @@ func set_currently_searching_for(new_interest):
 		update_pathfinding = true
 
 
-func set_can_act(new_status:bool):
+func set_can_act(new_status: bool):
 	can_act = new_status
 
-func set_update_pathfinding(new_status:bool):
+func set_update_pathfinding(new_status: bool):
 	update_pathfinding = new_status
 
 
@@ -217,9 +217,9 @@ func get_update_pathfinding() -> bool:
 
 
 class Command:
-	var action_time:float = 0.0
+	var action_time: float = 0.0
 	
-	func execute(actor:GameActor) -> bool:
+	func execute(actor: GameActor) -> bool:
 		if actor.can_act:
 			if action_time > 0.0:
 				actor.set_can_act(false)
@@ -229,14 +229,14 @@ class Command:
 
 
 class MoveCommand extends Command:
-	var movement_vector:Vector3
-	var sprinting:bool
+	var movement_vector: Vector3
+	var sprinting: bool
 	
-	func _init(new_movement_vector:Vector3, new_sprinting:bool):
+	func _init(new_movement_vector: Vector3, new_sprinting: bool):
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 		
-	func execute(actor:GameActor) -> bool:
+	func execute(actor: GameActor) -> bool:
 		if actor.can_act:
 			actor.move_to(movement_vector, sprinting)
 		else:
@@ -246,20 +246,20 @@ class MoveCommand extends Command:
 
 
 class InteractCommand extends Command:
-	var object:GameObject
+	var object: GameObject
 	
-	func _init(new_object:GameObject = null):
+	func _init(new_object: GameObject = null):
 		object = new_object
 	
-	func execute(actor:GameActor) -> bool:
+	func execute(actor: GameActor) -> bool:
 		if actor.can_act:
 			if not object:
 				object = actor.object_of_interest
 			
-			var interaction:Dictionary = actor.interaction_with(object)
+			var interaction: Dictionary = actor.interaction_with(object)
 			
 			var function = interaction.get(GameActor.INTERACTION)
-			var parameters:Array = interaction.get(GameActor.PARAMETERS, [ ])
+			var parameters: Array = interaction.get(GameActor.PARAMETERS, [ ])
 			action_time = interaction.get(GameActor.ACTION_TIME, 0.0)
 			
 			parameters.append(actor)

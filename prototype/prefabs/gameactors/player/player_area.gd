@@ -1,7 +1,7 @@
 extends ActorArea
 
 
-func parse_entering_object(new_object:GameObject) -> bool:
+func parse_entering_object(new_object: GameObject) -> bool:
 	if .parse_entering_object(new_object):
 		if game_object.object_of_interest:
 			game_object.object_of_interest.set_highlighted(false)
@@ -13,7 +13,7 @@ func parse_entering_object(new_object:GameObject) -> bool:
 	return false
 
 
-func parse_exiting_object(new_object:GameObject) -> bool:
+func parse_exiting_object(new_object: GameObject) -> bool:
 	if .parse_exiting_object(new_object) and new_object == game_object.object_of_interest:
 		new_object.set_highlighted(false)
 		

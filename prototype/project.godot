@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/gameactors/ActorArea.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "ActorBehavior",
 "language": "GDScript",
 "path": "res://prefabs/gameactors/ActorBehavior.gd"

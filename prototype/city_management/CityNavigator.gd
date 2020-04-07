@@ -1,16 +1,16 @@
-extends Node
 class_name CityNavigator
+extends Node
 
 
 var ring_map
 
-var pathfinder:AStar2D = null
-var astar_nodes:Array = [ ]
+var pathfinder: AStar2D = null
+var astar_nodes: Array = [ ]
 
-var adjacency_matrix:Dictionary = { }
+var adjacency_matrix: Dictionary = { }
 
-var first_time:bool = true
-var previous_bridges:Dictionary = { }
+var first_time: bool = true
+var previous_bridges: Dictionary = { }
 
 
 
@@ -30,14 +30,14 @@ func construct_pathfinder():
 	if not pathfinder:
 		construct_graph()
 	
-	var new_thread:Thread = Thread.new()
+	var new_thread: Thread = Thread.new()
 	
 	new_thread.start(self, "connect_nodes")
 	new_thread.wait_to_finish()
 
 
 func construct_graph():
-	var graph_size:int = 0
+	var graph_size: int = 0
 	
 	pathfinder = AStar2D.new()
 	astar_nodes.clear()
@@ -57,8 +57,8 @@ func construct_graph():
 
 
 func connect_nodes(_whatever):
-	var rings:Dictionary = ring_map.search_dictionary
-	var bridges:Dictionary = ring_map.segments_dictionary[CityLayout.OBJECTS.BRIDGE]
+	var rings: Dictionary = ring_map.search_dictionary
+	var bridges: Dictionary = ring_map.segments_dictionary[CityLayout.Objects.BRIDGE]
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
@@ -74,7 +74,7 @@ func connect_nodes(_whatever):
 	previous_bridges = bridges
 
 
-func connect_segments(ring:int):
+func connect_segments(ring: int):
 	var segments_in_ring = CityLayout.get_number_of_segments(ring)
 	
 	for segment in range(segments_in_ring):
@@ -83,7 +83,7 @@ func connect_segments(ring:int):
 		pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 
 
-func connect_bridges(bridges:Dictionary, ring:int, segments:Dictionary):
+func connect_bridges(bridges: Dictionary, ring: int, segments: Dictionary):
 	for bridge in bridges.get(ring + 1, { }).keys():
 		var max_distance = 0.1
 		var bridge_connected = false
@@ -98,12 +98,12 @@ func connect_bridges(bridges:Dictionary, ring:int, segments:Dictionary):
 
 
 
-func get_shortest_path(start_vector, target_vector) -> Array:
+func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> Array:
 	var start = astar_nodes.find(Vector2(start_vector.ring, start_vector.segment))
 	var destination = astar_nodes.find(Vector2(target_vector.ring, target_vector.segment))
 	
-	var path_ids:Array = [ ]
-	var path_vectors:Array = [ ]
+	var path_ids: Array = [ ]
+	var path_vectors: Array = [ ]
 	
 	if start >= 0 and destination >= 0:
 		path_ids = pathfinder.get_id_path(start, destination)
@@ -114,10 +114,10 @@ func get_shortest_path(start_vector, target_vector) -> Array:
 	return path_vectors
 
 
-func get_nearest(ring_vector:RingVector, type:int):
-	var search_through:Dictionary = { }
+func get_nearest(ring_vector: RingVector, type: int):
+	var search_through: Dictionary = { }
 	
-	if not type == CityLayout.OBJECTS.EVERYTHING:
+	if not type == CityLayout.Objects.EVERYTHING:
 		search_through = ring_map.segments_dictionary.get(type, { })
 	else:
 		search_through = { }
@@ -126,7 +126,7 @@ func get_nearest(ring_vector:RingVector, type:int):
 	if search_through.empty():
 		return null
 	else:
-		var shortest_path:Array = [ ]
+		var shortest_path: Array = [ ]
 		var target = null
 		
 		for ring in search_through.keys():
@@ -142,8 +142,8 @@ func get_nearest(ring_vector:RingVector, type:int):
 		return target
 
 
-func get_nearest_thing(ring_vector:RingVector, type:int) -> Array:
-	var search_through:Dictionary = ring_map.things_dictionary.get(type, { })
+func get_nearest_thing(ring_vector: RingVector, type: int) -> Array:
+	var search_through: Dictionary = ring_map.things_dictionary.get(type, { })
 	
 	if search_through.empty():
 		return [ ]
@@ -152,13 +152,13 @@ func get_nearest_thing(ring_vector:RingVector, type:int) -> Array:
 		var i = 0
 		
 		while targets_array.empty() and i < CityLayout.get_number_of_segments(CityLayout.NUMBER_OF_RINGS - 1):
-			var ring:int = ring_vector.ring + int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+			var ring: int = ring_vector.ring + int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
 			
 			if ring >= 0 and ring < CityLayout.NUMBER_OF_RINGS:
 				var search_vector = ring_vector
 				
 				if not ring == ring_vector.ring:
-					var nearest_bridge = get_nearest(ring_vector, CityLayout.OBJECTS.BRIDGE)
+					var nearest_bridge = get_nearest(ring_vector, CityLayout.Objects.BRIDGE)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
@@ -169,8 +169,8 @@ func get_nearest_thing(ring_vector:RingVector, type:int) -> Array:
 		
 		return targets_array
 
-func find_thing_on_ring(search_through:Dictionary, ring:int, ring_vector:RingVector) -> Array:
-	var shortest_path:Array = [ ]
+func find_thing_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector) -> Array:
+	var shortest_path: Array = [ ]
 	var targets_array = [ ]
 	var j = 0
 	var segments = search_through.get(ring, { })
@@ -193,7 +193,7 @@ func find_thing_on_ring(search_through:Dictionary, ring:int, ring_vector:RingVec
 
 
 func construct_adjanceny_matrix():
-	var bridges:Dictionary = ring_map.segments_dictionary[ring_map.BRIDGE]
+	var bridges: Dictionary = ring_map.segments_dictionary[ring_map.BRIDGE]
 	
 	for ring in bridges.keys():
 		for segment in bridges[ring].keys():
@@ -214,8 +214,8 @@ func construct_adjanceny_matrix():
 	print_adjacency_matrix()
 
 func print_adjacency_matrix():
-	var matrix_string:String = ""
-	var header_string:String = "\n\t"
+	var matrix_string: String = ""
+	var header_string: String = "\n\t"
 	var row_counter = 0
 	
 	

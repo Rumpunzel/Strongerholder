@@ -1,27 +1,29 @@
-extends Resource
 class_name RingVector
+extends Resource
 
 # This is a custom data type to store position data
 #	a position is abstracted by 2 different parameters:
 #	- the radius from the center
 #	- the position on the circumference defined by the prior radius
 
-# There are 2 different types of these 2-dimensional vectors
-#	- a discrete vector; here the ring is subdivided into segments
-var ring:int setget set_ring, get_ring
-var segment:int setget set_segment, get_segment
-
-#	- a continous vector; here it describes the world distance from the center
-#		the position on the circumference is an angle in radians from -PI to PI
-var radius:float setget set_radius, get_radius
-var rotation:float setget set_rotation, get_rotation
-
 # This signal is emiited when the discrete parts of the vector change
 signal vector_changed
 
+# There are 2 different types of these 2-dimensional vectors
+#	- a discrete vector; here the ring is subdivided into segments
+var ring: int setget set_ring, get_ring
+var segment: int setget set_segment, get_segment
+
+#	- a continous vector; here it describes the world distance from the center
+#		the position on the circumference is an angle in radians from -PI to PI
+var radius: float setget set_radius, get_radius
+var rotation: float setget set_rotation, get_rotation
 
 
-func _init(new_x, new_y, use_as_int_values:bool = false):
+
+
+
+func _init(new_x, new_y, use_as_int_values: bool = false):
 	if use_as_int_values:
 		ring = int(new_x)
 		segment = int(new_y)
@@ -37,7 +39,7 @@ func _ready():
 
 
 
-func recalcuate(has_int_values:bool = false):
+func recalcuate(has_int_values: bool = false):
 	if has_int_values:
 		var new_radius = CityLayout.get_radius_minimum(ring)
 		var new_rotation = (float(segment) / CityLayout.get_number_of_segments(ring)) * TAU
@@ -62,11 +64,11 @@ func recalcuate(has_int_values:bool = false):
 			emit_signal("vector_changed")
 
 
-func equals(other:RingVector):
+func equals(other: RingVector):
 	return radius == other.radius and rotation == other.rotation
 
 
-func set_equal_to(new_vector:RingVector):
+func set_equal_to(new_vector: RingVector):
 	var changed = not (ring == new_vector.ring and segment == new_vector.segment)
 	
 	ring = new_vector.ring
@@ -89,19 +91,19 @@ func modulo_ring_vector():
 
 
 
-func set_ring(new_ring:int):
+func set_ring(new_ring: int):
 	ring = new_ring
 	recalcuate(true)
 
-func set_segment(new_segment:int):
+func set_segment(new_segment: int):
 	segment = (new_segment + CityLayout.get_number_of_segments(ring)) % CityLayout.get_number_of_segments(ring)
 	recalcuate(true)
 
-func set_radius (new_radius:float):
+func set_radius (new_radius: float):
 	radius = new_radius
 	recalcuate()
 
-func set_rotation(new_rotation:float):
+func set_rotation(new_rotation: float):
 	rotation = new_rotation
 	modulo_ring_vector()
 	recalcuate()

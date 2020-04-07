@@ -1,8 +1,10 @@
-extends Spatial
 class_name GameObject
+extends Spatial
 
-func is_class(class_type): return class_type == "GameObject" or .is_class(class_type)
-func get_class(): return "GameObject"
+
+signal entered_segment(ring_vector)
+signal activated
+signal died
 
 
 const INTERACT_FUNCTION = "interact"
@@ -13,37 +15,32 @@ const TAKE_FUNCTION = "take"
 const EVERYTHING = "everything"
 
 
-export var hit_points_max:float = 10.0
-export var indestructible:bool = false
-
-
-onready var hit_points:float = hit_points_max
+export var hit_points_max: float = 10.0
+export var indestructible: bool = false
 
 
 # Reference to the ring_map; pseudo Singleton only availably to GameObjects
-var ring_map:RingMap
+var ring_map: RingMap
 # The position of the object in ring vector space
 #	for further information, look into the documentation in the RingVector class
-var ring_vector:RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
+var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
 
-var type:int setget set_type, get_type
+var type: int setget set_type, get_type
 
-var active:bool = true setget set_active, is_active
-var alive:bool = true setget set_alive, is_alive
+var active: bool = true setget set_active, is_active
+var alive: bool = true setget set_alive, is_alive
 
-var highlighted:bool = false setget set_highlighted, get_highlighted
+var highlighted: bool = false setget set_highlighted, get_highlighted
 
-var inventory:Array = [ ] setget set_inventory, get_inventory
+var inventory: Array = [ ] setget set_inventory, get_inventory
 
 
-signal entered_segment
-signal activated
-signal died
+onready var hit_points: float = hit_points_max
 
 
 
 
-func _init(new_ring_map:RingMap = null):
+func _init(new_ring_map: RingMap = null):
 	ring_map = new_ring_map
 
 
@@ -54,7 +51,7 @@ func _ready():
 
 
 
-func setup(new_ring_map:RingMap):
+func setup(new_ring_map: RingMap):
 	ring_map = new_ring_map
 
 
@@ -67,20 +64,20 @@ func handle_highlighted():
 	pass
 
 
-func interact(sender:GameObject) -> bool:
+func interact(sender: GameObject) -> bool:
 	print("%s interacted with %s." % [sender.name, name])
 	
 	return true
 
 
-func give(new_items:Array, sender:GameObject):
+func give(new_items: Array, sender: GameObject):
 	print("%s gave %s: %s" % [sender.name, name, new_items])
 	
 	while not new_items.empty():
 		inventory.append(new_items.pop_front())
 
 
-func take(objects, sender:GameObject):
+func take(objects, sender: GameObject):
 	if objects == EVERYTHING:
 		objects = inventory
 	
@@ -88,7 +85,7 @@ func take(objects, sender:GameObject):
 		sender.give(objects, self)
 
 
-func damage(damage_points:float, delay:float = 0.0, sender:GameObject = null) -> bool:
+func damage(damage_points: float, delay: float = 0.0, sender: GameObject = null) -> bool:
 	if delay > 0.0:
 		var timer = Timer.new()
 		add_child(timer)
@@ -109,33 +106,33 @@ func damage(damage_points:float, delay:float = 0.0, sender:GameObject = null) ->
 	return true
 
 
-func die(_sender:GameObject):
+func die(_sender: GameObject):
 	set_alive(false)
 
 
 
 
-func set_ring_vector(new_vector:RingVector):
+func set_ring_vector(new_vector: RingVector):
 	ring_vector.set_equal_to(new_vector)
 
-func set_type(new_type:int):
+func set_type(new_type: int):
 	type = new_type
 
-func set_active(new_status:bool):
+func set_active(new_status: bool):
 	active = new_status
 	if active:
 		emit_signal("activated")
 
-func set_alive(new_status:bool):
+func set_alive(new_status: bool):
 	alive = new_status
 	if not alive:
 		emit_signal("died")
 
-func set_highlighted(is_highlighted:bool):
+func set_highlighted(is_highlighted: bool):
 	highlighted = is_highlighted
 	handle_highlighted()
 
-func set_inventory(new_inventory:Array):
+func set_inventory(new_inventory: Array):
 	inventory = new_inventory
 
 

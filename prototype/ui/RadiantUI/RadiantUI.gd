@@ -1,14 +1,18 @@
-extends RadiantContainer
 class_name RadiantUI
+extends RadiantContainer
+
+
+signal button_pressed(text)
+signal closed
 
 
 const EXIT_BUTTON = "Exit"
 const MENU_BUTTON = "Menu"
 
 
-var menu_buttons:Array
+var menu_buttons: Array
 
-var menu_layers:Array = [ MENU_BUTTON ]
+var menu_layers: Array = [ MENU_BUTTON ]
 
 var center_button = null setget set_center_button, get_center_button
 
@@ -16,12 +20,9 @@ var interaction_object
 var interaction
 
 
-signal button_pressed
-signal closed
 
 
-
-func _init(new_menu_buttons:Array, new_interaction_object = null, new_interaction = null):
+func _init(new_menu_buttons: Array, new_interaction_object = null, new_interaction = null):
 	menu_buttons = new_menu_buttons
 	interaction_object = new_interaction_object
 	interaction = new_interaction
@@ -48,9 +49,10 @@ func _unhandled_input(event):
 
 
 
-func place_buttons(new_buttons:Array):
+
+func place_buttons(new_buttons: Array):
 	for button_name in new_buttons:
-		var new_button:RadiantUIButton
+		var new_button: RadiantUIButton
 		
 		if button_name == "Build":
 			new_button = RadiantUIButton.new(button_name, [CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE])
@@ -68,7 +70,7 @@ func place_buttons(new_buttons:Array):
 	animate_in_buttons()
 
 
-func _button_pressed(button:RadiantUIButton):
+func _button_pressed(button: RadiantUIButton):
 	if button.text == EXIT_BUTTON:
 		close()
 	elif not button == center_button and button.menu_buttons.empty():
@@ -108,7 +110,7 @@ func animate_in_buttons():
 	tween.start()
 
 
-func close(time:float = 0.3, pressed_button = null):
+func close(time: float = 0.3, pressed_button = null):
 	emit_signal("closed")
 	
 	var tween:Tween = Tween.new()

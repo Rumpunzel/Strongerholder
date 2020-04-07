@@ -1,14 +1,14 @@
-extends CenterContainer
 class_name RadiantContainer
+extends CenterContainer
 
 
 export(float, 0, 360) var container_angle = 360
 
-export var center_children:bool = true
-export var be_a_retard:bool = false
+export var center_children: bool = true
+export var be_a_retard: bool = false
 
 
-var circle_center:Control setget , get_circle_center
+var circle_center: Control setget , get_circle_center
 
 
 
@@ -39,7 +39,7 @@ func update_children():
 
 
 
-func add_child(node:Node, _legible_unique_name:bool = false):
+func add_child(node:Node, _legible_unique_name: bool = false):
 	get_circle_center().add_child(node)
 
 

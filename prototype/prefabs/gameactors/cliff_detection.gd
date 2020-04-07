@@ -7,14 +7,14 @@ const LEFT = "left"
 const RIGHT = "right"
 
 
-export var front:float = 5.0
-export var back:float = 1.0
-export var width:float = 3.0
+export var front: float = 5.0
+export var back: float = 1.0
+export var width: float = 3.0
 
 
-var raycast_length:float = -50.0
+var raycast_length: float = -50.0
 
-var raycasts:Dictionary = { }
+var raycasts: Dictionary = { }
 
 
 
@@ -31,7 +31,7 @@ func create_raycasts():
 	create_raycast(RIGHT)
 
 
-func create_raycast(side:String):
+func create_raycast(side: String):
 	var new_ray = RayCast.new()
 	add_child(new_ray)
 	new_ray.name = side
@@ -53,11 +53,11 @@ func create_raycast(side:String):
 	raycasts[side] = new_ray
 
 
-func is_on_edge(side:String) -> bool:
+func is_on_edge(side: String) -> bool:
 	return not raycasts[side].is_colliding()
 
 
-func limit_movement(direction:Vector3) -> Vector3:
+func limit_movement(direction: Vector3) -> Vector3:
 	if is_on_edge(FRONT):
 		direction.x = max(direction.x, 0)
 	

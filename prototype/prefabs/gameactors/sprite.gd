@@ -10,9 +10,9 @@ const DIRECTIONS = { DOWN: "_d", TOP: "_t", RIGHT: "_r", LEFT: "_l" }
 onready var camera = get_viewport().get_camera()
 
 
-var previous_direction:Vector2 = Vector2(1, 0)
-var previous_action:String = ""
-var camera_offset:int = 0
+var previous_direction: Vector2 = Vector2(1, 0)
+var previous_action: String = ""
+var camera_offset: int = 0
 
 
 
@@ -34,8 +34,8 @@ func _process(_delta):
 
 
 
-func change_animation(new_direction:Vector2, action:String):
-	var animation_name:String
+func change_animation(new_direction: Vector2, action: String):
+	var animation_name: String
 	
 	if len(action) > 0:
 		animation_name = action + vector_direction(previous_direction)
@@ -49,7 +49,7 @@ func change_animation(new_direction:Vector2, action:String):
 	animation = animation_name
 
 
-func vector_direction(new_direction:Vector2) -> String:
+func vector_direction(new_direction: Vector2) -> String:
 	if abs(new_direction.x) > abs(new_direction.y):
 		if new_direction.x >= 0:
 			return DIRECTIONS[(DOWN + camera_offset) % DIRECTIONS.size()]

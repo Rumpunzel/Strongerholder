@@ -1,5 +1,5 @@
-extends ObjectArea
 class_name ActorArea
+extends ObjectArea
 
 
 
