@@ -18,7 +18,7 @@ func _ready():
 func interaction_with(object:GameObject) -> Dictionary:
 	if object:
 		match object.type:
-			CityLayout.FOUNDATION:
+			CityLayout.OBJECTS.FOUNDATION:
 				if not last_menu:
 					last_menu = RadiantUI.new(["Build", "Inspect", "Destroy"], object, "build_into")
 					get_viewport().get_camera().add_ui_element(last_menu)

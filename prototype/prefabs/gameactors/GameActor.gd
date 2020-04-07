@@ -10,14 +10,10 @@ const PARAMETERS = "parameters"
 const ACTION_TIME = "action_time"
 
 
-export(GDScript) var actor_behavior
-
-
 onready var body:KinematicBody = $body
 onready var sprite:Sprite3D = $body/sprite
 onready var action_timer:Timer = $action_timer
-
-onready var behavior = actor_behavior.new()
+onready var behavior:ActorBehavior = $behavior
 
 
 var object_of_interest:GameObject = null setget set_object_of_interest, get_object_of_interest

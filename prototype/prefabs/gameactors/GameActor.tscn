@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/sprites/hero/sprite.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://prefabs/gameactors/ActorArea.gd" type="Script" id=6]
 [ext_resource path="res://prefabs/gameactors/body.gd" type="Script" id=7]
-[ext_resource path="res://prefabs/gameactors/behaviors/DefaultBehavior.gd" type="Script" id=8]
+[ext_resource path="res://prefabs/gameactors/behaviors/ActorBehavior.gd" type="Script" id=9]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
@@ -16,7 +16,6 @@ height = 0.01
 
 [node name="gameactor" type="Spatial"]
 script = ExtResource( 3 )
-actor_behavior = ExtResource( 8 )
 
 [node name="body" type="KinematicBody" parent="."]
 collision_layer = 2
@@ -54,3 +53,8 @@ script = ExtResource( 4 )
 
 [node name="action_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="behavior" type="Node" parent="."]
+script = ExtResource( 9 )
+inventory_empty = 200
+raw_material = 103

@@ -1,9 +1,19 @@
 extends Resource
 class_name CityLayout
 
-const THINGS:int = 100
+const BUILDINGS:int = 100
+const THINGS:int = 200
 
-enum OBJECTS { EVERYTHING = -1, EMPTY, BASE, BRIDGE, FOUNDATION, STOCKPILE, TREE = THINGS }
+enum OBJECTS {
+	NOTHING,
+	EVERYTHING,
+	EMPTY,
+	BASE = BUILDINGS,
+	BRIDGE,
+	FOUNDATION,
+	STOCKPILE,
+	TREE = THINGS,
+}
 
 const BASE_RADIUS:float = 12.0
 const RING_GAP:float = 4.0

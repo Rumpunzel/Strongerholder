@@ -7,11 +7,13 @@ func get_class(): return "CityPoint"
 
 const BUILD_INTO_FUNCTION = "build_into"
 
-const object_scenes:Dictionary = { CityLayout.OBJECTS.TREE: preload("res://prefabs/city/things/tree.tscn"),
-		CityLayout.OBJECTS.BASE: preload("res://prefabs/city/buildings/base.tscn"),
-		CityLayout.OBJECTS.FOUNDATION: preload("res://prefabs/city/buildings/foundation.tscn"),
-		CityLayout.OBJECTS.BRIDGE: preload("res://prefabs/city/buildings/bridge.tscn"),
-		CityLayout.OBJECTS.STOCKPILE: preload("res://prefabs/city/buildings/stockpile.tscn") }
+const object_scenes:Dictionary = {
+	CityLayout.OBJECTS.TREE: preload("res://prefabs/city/things/tree.tscn"),
+	CityLayout.OBJECTS.BASE: preload("res://prefabs/city/buildings/base.tscn"),
+	CityLayout.OBJECTS.FOUNDATION: preload("res://prefabs/city/buildings/foundation.tscn"),
+	CityLayout.OBJECTS.BRIDGE: preload("res://prefabs/city/buildings/bridge.tscn"),
+	CityLayout.OBJECTS.STOCKPILE: preload("res://prefabs/city/buildings/stockpile.tscn"),
+}
 
 const highlight_material:Material = preload("res://assets/materials/highlightShader.material")
 
