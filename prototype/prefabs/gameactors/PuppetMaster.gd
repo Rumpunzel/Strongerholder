@@ -127,11 +127,11 @@ func update_path_progress(new_vector:RingVector):
 
 
 
-func search_for_target(object_type:String):
+func search_for_target(object_type:int):
 	var nearest_target
 	var thing = false
 	
-	if object_type == CityLayout.TREE:
+	if object_type == CityLayout.OBJECTS.TREE:
 		thing = true
 	
 	if thing:

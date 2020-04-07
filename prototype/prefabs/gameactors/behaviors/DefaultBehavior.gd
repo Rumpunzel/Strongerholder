@@ -5,6 +5,6 @@ class_name DefaultBehavior
 
 func next_priority(inventory:Array):
 	if inventory.empty():
-		return CityLayout.TREE
+		return CityLayout.OBJECTS.TREE
 	else:
-		return CityLayout.STOCKPILE
+		return CityLayout.OBJECTS.STOCKPILE

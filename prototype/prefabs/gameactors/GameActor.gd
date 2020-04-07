@@ -65,11 +65,11 @@ func interaction_with(object:GameObject) -> Dictionary:
 		var basic_interaction:Dictionary = { INTERACTION: INTERACT_FUNCTION }
 		
 		match object.type:
-			CityLayout.TREE:
+			CityLayout.OBJECTS.TREE:
 				current_action = "attack"
 				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ], ACTION_TIME: 0.7 }
 			
-			CityLayout.STOCKPILE:
+			CityLayout.OBJECTS.STOCKPILE:
 				if not inventory.empty():
 					current_action = "death"
 					return { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ], ACTION_TIME: 1.0 }

@@ -26,10 +26,10 @@ var ring_map:RingMap
 #	for further information, look into the documentation in the RingVector class
 var ring_vector:RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
 
-var type:String setget set_type, get_type
+var type:int setget set_type, get_type
 
-var active:bool = true setget set_active, get_active
-var alive:bool = true setget set_alive, get_alive
+var active:bool = true setget set_active, is_active
+var alive:bool = true setget set_alive, is_alive
 
 var highlighted:bool = false setget set_highlighted, get_highlighted
 
@@ -118,7 +118,7 @@ func die(_sender:GameObject):
 func set_ring_vector(new_vector:RingVector):
 	ring_vector.set_equal_to(new_vector)
 
-func set_type(new_type:String):
+func set_type(new_type:int):
 	type = new_type
 
 func set_active(new_status:bool):
@@ -142,13 +142,13 @@ func set_inventory(new_inventory:Array):
 func get_ring_vector() -> RingVector:
 	return ring_vector
 
-func get_type() -> String:
+func get_type() -> int:
 	return type
 
-func get_active() -> bool:
-	return active
+func is_active() -> bool:
+	return active and alive
 
-func get_alive() -> bool:
+func is_alive() -> bool:
 	return alive
 
 func get_highlighted() -> bool:

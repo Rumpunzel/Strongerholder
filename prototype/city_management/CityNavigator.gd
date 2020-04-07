@@ -58,7 +58,7 @@ func construct_graph():
 
 func connect_nodes(_whatever):
 	var rings:Dictionary = ring_map.search_dictionary
-	var bridges:Dictionary = ring_map.segments_dictionary[CityLayout.BRIDGE]
+	var bridges:Dictionary = ring_map.segments_dictionary[CityLayout.OBJECTS.BRIDGE]
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
@@ -114,10 +114,10 @@ func get_shortest_path(start_vector, target_vector) -> Array:
 	return path_vectors
 
 
-func get_nearest(ring_vector:RingVector, type:String):
+func get_nearest(ring_vector:RingVector, type:int):
 	var search_through:Dictionary = { }
 	
-	if not type == CityLayout.EVERYTHING:
+	if not type == CityLayout.OBJECTS.EVERYTHING:
 		search_through = ring_map.segments_dictionary.get(type, { })
 	else:
 		search_through = { }
@@ -142,7 +142,7 @@ func get_nearest(ring_vector:RingVector, type:String):
 		return target
 
 
-func get_nearest_thing(ring_vector:RingVector, type:String) -> Array:
+func get_nearest_thing(ring_vector:RingVector, type:int) -> Array:
 	var search_through:Dictionary = ring_map.things_dictionary.get(type, { })
 	
 	if search_through.empty():
@@ -158,7 +158,7 @@ func get_nearest_thing(ring_vector:RingVector, type:String) -> Array:
 				var search_vector = ring_vector
 				
 				if not ring == ring_vector.ring:
-					var nearest_bridge = get_nearest(ring_vector, CityLayout.BRIDGE)
+					var nearest_bridge = get_nearest(ring_vector, CityLayout.OBJECTS.BRIDGE)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
