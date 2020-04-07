@@ -7,6 +7,7 @@ signal added_object(game_object)
 
 var game_object: GameObject = null setget , get_game_object
 
+
 var objects_in_area: Array = [ ]
 var inactive_objects_in_area: Array = [ ]
 

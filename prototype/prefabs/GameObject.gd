@@ -19,8 +19,6 @@ export var hit_points_max: float = 10.0
 export var indestructible: bool = false
 
 
-# Reference to the ring_map; pseudo Singleton only availably to GameObjects
-var ring_map: RingMap
 # The position of the object in ring vector space
 #	for further information, look into the documentation in the RingVector class
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
@@ -33,6 +31,10 @@ var alive: bool = true setget set_alive, is_alive
 var highlighted: bool = false setget set_highlighted, get_highlighted
 
 var inventory: Array = [ ] setget set_inventory, get_inventory
+
+
+# Reference to the ring_map; pseudo Singleton only availably to GameObjects
+var ring_map: RingMap
 
 
 onready var hit_points: float = hit_points_max

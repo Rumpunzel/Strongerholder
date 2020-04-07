@@ -44,6 +44,8 @@ alpha_cut = 2
 frames = ExtResource( 5 )
 animation = "idle_d"
 script = ExtResource( 1 )
+game_actor_node = NodePath("../..")
+body_node = NodePath("..")
 
 [node name="cliff_detection" type="Spatial" parent="body"]
 script = ExtResource( 2 )

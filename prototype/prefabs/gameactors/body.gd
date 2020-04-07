@@ -1,20 +1,19 @@
 extends KinematicBody
 
 
-
-onready var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-onready var cliff_dection = $cliff_detection
+signal moved(direction)
 
 
 var ring_vector: RingVector setget set_ring_vector, get_ring_vector
 
 var move_direction: Vector3 = Vector3() setget set_move_direction, get_move_direction
+var sprinting: bool = false setget set_sprinting, get_sprinting
+
 
 var move_speed: float = 3.0
 var sprint_modifier: float = 2.0
 var jump_speed: float = 15.0
 
-var sprinting: bool = false setget set_sprinting, get_sprinting
 # Multiplicative modifer to the movement speed
 #	is equal to 1.0 if the gameactor is walking normal
 var movement_modifier: float = 1.0
@@ -23,6 +22,10 @@ var jump_mod: float = 0.0
 
 var grounded: bool = false
 var can_jump: bool = false
+
+
+onready var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+onready var cliff_dection = $cliff_detection
 
 
 
@@ -40,7 +43,7 @@ func _physics_process(delta):
 	
 	dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
 	
-	move_and_slide(dir, Vector3.UP, true)
+	move_direction = move_and_slide(dir, Vector3.UP, true)
 	
 	grounded = is_on_floor()
 	
@@ -49,6 +52,16 @@ func _physics_process(delta):
 		jump_mod = 0.0
 		can_jump = move_direction.y <= 0
 
+
+
+
+func move_to(direction: Vector3, is_sprinting: bool) -> RingVector:
+	set_sprinting(is_sprinting)
+	set_move_direction(direction)
+	
+	emit_signal("moved", move_direction)
+	
+	return get_ring_vector()
 
 
 

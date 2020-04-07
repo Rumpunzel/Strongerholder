@@ -2,6 +2,7 @@ class_name GameActor
 extends GameObject
 
 
+signal acted(action)
 signal new_interest(object_of_interest)
 signal acquired_target(currently_searching_for)
 signal can_act_again(can_act)
@@ -15,13 +16,11 @@ const ACTION_TIME = "action_time"
 var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
 
+var current_action: String = "" setget set_current_action, get_current_action
 var can_act: bool = true setget set_can_act, get_can_act
-
-var current_action: String = ""
 
 
 onready var body: KinematicBody = $body
-onready var sprite: Sprite3D = $body/sprite
 onready var action_timer: Timer = $action_timer
 onready var behavior: ActorBehavior = $behavior
 
@@ -59,12 +58,12 @@ func interaction_with(object: GameObject) -> Dictionary:
 		
 		match object.type:
 			CityLayout.Objects.TREE:
-				current_action = "attack"
+				set_current_action("attack")
 				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ], ACTION_TIME: 0.7 }
 			
 			CityLayout.Objects.STOCKPILE:
 				if not inventory.empty():
-					current_action = "death"
+					set_current_action("death")
 					return { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ], ACTION_TIME: 1.0 }
 			
 			_:
@@ -75,12 +74,7 @@ func interaction_with(object: GameObject) -> Dictionary:
 
 
 func move_to(direction: Vector3, sprinting: bool):
-	body.sprinting = sprinting
-	body.move_direction = direction
-	
-	.set_ring_vector(body.ring_vector)
-	
-	sprite.change_animation(Vector2(body.move_direction.x, body.move_direction.z), current_action)
+	.set_ring_vector(body.move_to(direction, sprinting))
 
 
 
@@ -103,12 +97,16 @@ func set_currently_searching_for(new_interest):
 		emit_signal("acquired_target", currently_searching_for)
 
 
+func set_current_action(new_action: String):
+	current_action = new_action
+	emit_signal("acted", current_action)
+
+
 func set_can_act(new_status: bool):
 	can_act = new_status
 	
 	if can_act:
-		current_action = ""
-		sprite.change_animation(Vector2(), current_action)
+		set_current_action("")
 	
 	emit_signal("can_act_again", can_act)
 
@@ -124,6 +122,9 @@ func get_object_of_interest() -> GameObject:
 
 func get_currently_searching_for():
 	return currently_searching_for
+
+func get_current_action() -> String:
+	return current_action
 
 func get_can_act() -> bool:
 	return can_act
