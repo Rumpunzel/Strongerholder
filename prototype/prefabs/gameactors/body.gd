@@ -31,6 +31,7 @@ onready var default_gravity = ProjectSettings.get_setting("physics/2d/default_gr
 onready var cliff_dection = CliffDetection.new(self)
 onready var animation_tree: AnimationTree = get_node(animation_tree_node)
 onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+onready var camera = get_viewport().get_camera()
 
 
 
@@ -57,8 +58,6 @@ func _physics_process(delta):
 		jump_mod = 0.0
 		can_jump = velocity.y <= 0
 	
-	parse_state()
-	
 	emit_signal("moved", velocity)
 
 
@@ -67,18 +66,22 @@ func _physics_process(delta):
 func move_to(direction: Vector3, is_sprinting: bool) -> RingVector:
 	set_sprinting(is_sprinting)
 	set_velocity(direction)
+	parse_state(direction)
 	
 	return get_ring_vector()
 
 
-func parse_state():
-	var movement_vector: Vector2 = Vector2(velocity.x, velocity. z).normalized()
-	# TODO: fix sprites being displayed correctly
-	if movement_vector.length() > 0:
-		animation_tree.set("parameters/idle/blend_position", movement_vector)
-		animation_tree.set("parameters/run/blend_position", movement_vector)
-		animation_tree.set("parameters/attack/blend_position", movement_vector)
-		animation_tree.set("parameters/give/blend_position", movement_vector)
+func parse_state(direction: Vector3):
+	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z))
+	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else Vector2.DOWN
+	movement_vector = movement_vector.rotated(angle)
+	
+	animation_tree.set("parameters/idle/blend_position", movement_vector)
+	animation_tree.set("parameters/run/blend_position", movement_vector)
+	animation_tree.set("parameters/attack/blend_position", movement_vector)
+	animation_tree.set("parameters/give/blend_position", movement_vector)
+	
+	if direction.length() > 0:
 		state_machine.travel("run")
 	elif state_machine.get_current_node() == "run":
 		state_machine.travel("idle")

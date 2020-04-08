@@ -68,12 +68,8 @@ func get_input() -> Array:
 		movement_vector.z *= next_path_segment.radius
 		
 		#print("movement_vector: %s" % [movement_vector])
-		
-		if movement_vector.length() > 0:
-			commands.append(MoveCommand.new(movement_vector))
-	else:
-		commands.append(MoveCommand.new(Vector3()))
 	
+	commands.append(MoveCommand.new(movement_vector))
 	
 	return commands
 
