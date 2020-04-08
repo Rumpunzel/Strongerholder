@@ -54,7 +54,7 @@ func place_buttons(new_buttons: Array):
 	for button_name in new_buttons:
 		var new_button: RadiantUIButton
 		
-		if button_name == "Build":
+		if button_name is String and button_name == "Build":
 			new_button = RadiantUIButton.new(button_name, [CityLayout.Objects.STOCKPILE, CityLayout.Objects.STOCKPILE, CityLayout.Objects.STOCKPILE, CityLayout.Objects.STOCKPILE, CityLayout.Objects.STOCKPILE])
 		else:
 			new_button = RadiantUIButton.new(button_name)

@@ -61,7 +61,10 @@ func interact(sender: GameObject) -> bool:
 	return false and .interact(sender)
 
 
-func build_into(new_type: int):
+func build_into(new_type):
+	if new_type is String:
+		new_type = CityLayout.Objects.values()[CityLayout.Objects.keys().find(new_type.to_upper())]
+	
 	set_type(new_type)
 	
 	ring_map.update_segment(type, new_type, ring_vector, self)
