@@ -1,22 +1,27 @@
 extends Camera
 
 
-export(NodePath) var ray_cast_node
+export(NodePath) var node_to_follow
+export var stick_to_ground: bool = true
 
 
-onready var ray_cast = get_node(ray_cast_node)
+onready var ray_cast = RayCast.new()
 
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	ray_cast.enabled = true
+	ray_cast.cast_to.y = -50
+	get_node(node_to_follow).call_deferred("add_child", ray_cast)
+	ray_cast.transform.origin.y = 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	global_transform.origin.y = (ray_cast.get_collision_point().y - global_transform.origin.y) * delta
+	if stick_to_ground:
+		global_transform.origin.y = (ray_cast.get_collision_point().y - global_transform.origin.y) * delta
 
 
 
