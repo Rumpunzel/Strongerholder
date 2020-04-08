@@ -57,16 +57,7 @@ func _physics_process(delta):
 		jump_mod = 0.0
 		can_jump = velocity.y <= 0
 	
-	var movement_vector: Vector2 = Vector2(velocity.x, velocity. z).normalized()
-	
-	if movement_vector.length() > 0:
-		animation_tree.set("parameters/idle/blend_position", movement_vector)
-		animation_tree.set("parameters/run/blend_position", movement_vector)
-		animation_tree.set("parameters/attack/blend_position", movement_vector)
-		animation_tree.set("parameters/give/blend_position", movement_vector)
-		state_machine.travel("run")
-	elif state_machine.get_current_node() == "run":
-		state_machine.travel("idle")
+	parse_state()
 	
 	emit_signal("moved", velocity)
 
@@ -78,6 +69,19 @@ func move_to(direction: Vector3, is_sprinting: bool) -> RingVector:
 	set_velocity(direction)
 	
 	return get_ring_vector()
+
+
+func parse_state():
+	var movement_vector: Vector2 = Vector2(velocity.x, velocity. z).normalized()
+	# TODO: fix sprites being displayed correctly
+	if movement_vector.length() > 0:
+		animation_tree.set("parameters/idle/blend_position", movement_vector)
+		animation_tree.set("parameters/run/blend_position", movement_vector)
+		animation_tree.set("parameters/attack/blend_position", movement_vector)
+		animation_tree.set("parameters/give/blend_position", movement_vector)
+		state_machine.travel("run")
+	elif state_machine.get_current_node() == "run":
+		state_machine.travel("idle")
 
 
 
