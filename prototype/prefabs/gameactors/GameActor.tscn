@@ -1,18 +1,209 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=67 format=2]
 
-[ext_resource path="res://prefabs/gameactors/sprite.gd" type="Script" id=1]
-[ext_resource path="res://prefabs/gameactors/cliff_detection.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/gameactors/animations/idle_up.tres" type="Animation" id=1]
+[ext_resource path="res://prefabs/gameactors/animations/run_down.tres" type="Animation" id=2]
 [ext_resource path="res://prefabs/gameactors/GameActor.gd" type="Script" id=3]
 [ext_resource path="res://prefabs/gameactors/PuppetMaster.gd" type="Script" id=4]
-[ext_resource path="res://assets/sprites/hero/sprite.tres" type="SpriteFrames" id=5]
+[ext_resource path="res://prefabs/gameactors/animations/run_right.tres" type="Animation" id=5]
 [ext_resource path="res://prefabs/gameactors/ActorArea.gd" type="Script" id=6]
 [ext_resource path="res://prefabs/gameactors/body.gd" type="Script" id=7]
+[ext_resource path="res://prefabs/gameactors/animations/idle_left.tres" type="Animation" id=8]
 [ext_resource path="res://prefabs/gameactors/ActorBehavior.gd" type="Script" id=9]
+[ext_resource path="res://assets/sprites/hero/hero_sprite_sheet.png" type="Texture" id=10]
+[ext_resource path="res://prefabs/gameactors/animations/idle_down.tres" type="Animation" id=11]
+[ext_resource path="res://prefabs/gameactors/animations/idle_right.tres" type="Animation" id=12]
+[ext_resource path="res://prefabs/gameactors/animations/attack_up.tres" type="Animation" id=13]
+[ext_resource path="res://prefabs/gameactors/animations/attack_down.tres" type="Animation" id=14]
+[ext_resource path="res://prefabs/gameactors/animations/attack_right.tres" type="Animation" id=15]
+[ext_resource path="res://prefabs/gameactors/animations/run_up.tres" type="Animation" id=16]
+[ext_resource path="res://prefabs/gameactors/animations/give_right.tres" type="Animation" id=17]
+[ext_resource path="res://prefabs/gameactors/animations/give_up.tres" type="Animation" id=18]
+[ext_resource path="res://prefabs/gameactors/animations/attack_left.tres" type="Animation" id=19]
+[ext_resource path="res://prefabs/gameactors/animations/give_down.tres" type="Animation" id=20]
+[ext_resource path="res://prefabs/gameactors/animations/run_left.tres" type="Animation" id=21]
+[ext_resource path="res://prefabs/gameactors/animations/give_left.tres" type="Animation" id=22]
+[ext_resource path="res://prefabs/gameactors/animations/give_idle_down.tres" type="Animation" id=23]
+[ext_resource path="res://prefabs/gameactors/animations/give_idle_left.tres" type="Animation" id=24]
+[ext_resource path="res://prefabs/gameactors/animations/give_idle_up.tres" type="Animation" id=25]
+[ext_resource path="res://prefabs/gameactors/animations/give_idle_right.tres" type="Animation" id=26]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
 
 [sub_resource type="CylinderShape" id=2]
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "attack_left"
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "attack_right"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "give_down"
+
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "attack_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=30]
+blend_point_0/node = SubResource( 26 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 27 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 28 )
+blend_point_2/pos = Vector2( 0, 1.1 )
+blend_point_3/node = SubResource( 29 )
+blend_point_3/pos = Vector2( 0, -1.1 )
+min_space = Vector2( -1, -1.1 )
+max_space = Vector2( 1, 1.1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=31]
+animation = "give_left"
+
+[sub_resource type="AnimationNodeAnimation" id=32]
+animation = "give_up"
+
+[sub_resource type="AnimationNodeAnimation" id=33]
+animation = "give_down"
+
+[sub_resource type="AnimationNodeAnimation" id=34]
+animation = "give_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=35]
+blend_point_0/node = SubResource( 31 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 32 )
+blend_point_1/pos = Vector2( 0, -1.1 )
+blend_point_2/node = SubResource( 33 )
+blend_point_2/pos = Vector2( 0, 1.1 )
+blend_point_3/node = SubResource( 34 )
+blend_point_3/pos = Vector2( 1, 0 )
+min_space = Vector2( -1, -1.1 )
+max_space = Vector2( 1, 1.1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=54]
+animation = "give_idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id=55]
+animation = "give_idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id=56]
+animation = "give_idle_down"
+
+[sub_resource type="AnimationNodeAnimation" id=57]
+animation = "give_idle_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=58]
+blend_point_0/node = SubResource( 54 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 55 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 56 )
+blend_point_2/pos = Vector2( 0, 1.1 )
+blend_point_3/node = SubResource( 57 )
+blend_point_3/pos = Vector2( 0, -1.1 )
+min_space = Vector2( -1, -1.1 )
+max_space = Vector2( 1, 1.1 )
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "idle_left"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "idle_down"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "idle_up"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "idle_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=23]
+blend_point_0/node = SubResource( 19 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 20 )
+blend_point_1/pos = Vector2( 0, 1.1 )
+blend_point_2/node = SubResource( 21 )
+blend_point_2/pos = Vector2( 0, -1.1 )
+blend_point_3/node = SubResource( 22 )
+blend_point_3/pos = Vector2( 1, 0 )
+min_space = Vector2( -1, -1.1 )
+max_space = Vector2( 1, 1.1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=36]
+animation = "run_left"
+
+[sub_resource type="AnimationNodeAnimation" id=37]
+animation = "run_down"
+
+[sub_resource type="AnimationNodeAnimation" id=38]
+animation = "run_up"
+
+[sub_resource type="AnimationNodeAnimation" id=39]
+animation = "run_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=40]
+blend_point_0/node = SubResource( 36 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 37 )
+blend_point_1/pos = Vector2( 0, 1.1 )
+blend_point_2/node = SubResource( 38 )
+blend_point_2/pos = Vector2( 0, -1.1 )
+blend_point_3/node = SubResource( 39 )
+blend_point_3/pos = Vector2( 1, 0 )
+min_space = Vector2( -1, -1.1 )
+max_space = Vector2( 1, 1.1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=46]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=47]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=48]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=59]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=60]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=61]
+
+[sub_resource type="AnimationNodeStateMachine" id=24]
+states/attack/node = SubResource( 30 )
+states/attack/position = Vector2( 778, 83 )
+states/give/node = SubResource( 35 )
+states/give/position = Vector2( 778, 456 )
+states/give_idle/node = SubResource( 58 )
+states/give_idle/position = Vector2( 778, 571.486 )
+states/idle/node = SubResource( 23 )
+states/idle/position = Vector2( 680, 271 )
+states/run/node = SubResource( 40 )
+states/run/position = Vector2( 873, 271 )
+transitions = [ "idle", "run", SubResource( 41 ), "run", "idle", SubResource( 42 ), "idle", "give", SubResource( 43 ), "idle", "attack", SubResource( 45 ), "attack", "idle", SubResource( 46 ), "run", "give", SubResource( 47 ), "run", "attack", SubResource( 48 ), "give", "give_idle", SubResource( 59 ), "give_idle", "run", SubResource( 60 ), "give_idle", "idle", SubResource( 61 ) ]
+start_node = "idle"
+graph_offset = Vector2( 43, 36.4864 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=25]
+
+[sub_resource type="GDScript" id=62]
+script/source = "extends AnimationTree
+
+
+func _init():
+	active = true
+"
 
 [node name="gameactor" type="Spatial"]
 script = ExtResource( 3 )
@@ -21,6 +212,7 @@ script = ExtResource( 3 )
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 7 )
+animation_tree_node = NodePath("../animation_tree")
 
 [node name="collision" type="CollisionShape" parent="body"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
@@ -35,28 +227,56 @@ script = ExtResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 2 )
 
-[node name="sprite" type="AnimatedSprite3D" parent="body"]
-offset = Vector2( 0, 19 )
+[node name="sprite" type="Sprite3D" parent="body"]
+offset = Vector2( 0, 18 )
 pixel_size = 0.05
 billboard = 2
 shaded = true
 alpha_cut = 2
-frames = ExtResource( 5 )
-animation = "idle_d"
-script = ExtResource( 1 )
-game_actor_node = NodePath("../..")
-body_node = NodePath("..")
-
-[node name="cliff_detection" type="Spatial" parent="body"]
-script = ExtResource( 2 )
+texture = ExtResource( 10 )
+vframes = 12
+hframes = 9
+frame = 39
 
 [node name="pathfinder" type="Node" parent="."]
 script = ExtResource( 4 )
-
-[node name="action_timer" type="Timer" parent="."]
-one_shot = true
 
 [node name="behavior" type="Node" parent="."]
 script = ExtResource( 9 )
 inventory_empty = 200
 raw_material = 103
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+anims/attack_down = ExtResource( 14 )
+anims/attack_left = ExtResource( 19 )
+anims/attack_right = ExtResource( 15 )
+anims/attack_up = ExtResource( 13 )
+anims/give_down = ExtResource( 20 )
+anims/give_idle_down = ExtResource( 23 )
+anims/give_idle_left = ExtResource( 24 )
+anims/give_idle_right = ExtResource( 26 )
+anims/give_idle_up = ExtResource( 25 )
+anims/give_left = ExtResource( 22 )
+anims/give_right = ExtResource( 17 )
+anims/give_up = ExtResource( 18 )
+anims/idle_down = ExtResource( 11 )
+anims/idle_left = ExtResource( 8 )
+anims/idle_right = ExtResource( 12 )
+anims/idle_up = ExtResource( 1 )
+anims/run_down = ExtResource( 2 )
+anims/run_left = ExtResource( 21 )
+anims/run_right = ExtResource( 5 )
+anims/run_up = ExtResource( 16 )
+
+[node name="animation_tree" type="AnimationTree" parent="."]
+tree_root = SubResource( 24 )
+anim_player = NodePath("../animation_player")
+process_mode = 0
+parameters/playback = SubResource( 25 )
+parameters/attack/blend_position = Vector2( 0, 0 )
+parameters/give/blend_position = Vector2( 0, 0 )
+parameters/give_idle/blend_position = Vector2( 0, 0 )
+parameters/idle/blend_position = Vector2( 0, 1 )
+parameters/run/blend_position = Vector2( 0, 0 )
+script = SubResource( 62 )
