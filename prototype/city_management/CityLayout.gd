@@ -2,8 +2,8 @@ class_name CityLayout
 extends Resource
 
 
-const BUILDINGS: int = 100
-const THINGS: int = 200
+const BUILDINGS: int = 128
+const THINGS: int = 256
 
 enum Objects {
 	NOTHING,

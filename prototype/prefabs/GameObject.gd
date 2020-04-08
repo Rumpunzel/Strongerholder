@@ -99,7 +99,7 @@ func damage(damage_points: float, delay: float = 0.0, sender: GameObject = null)
 	
 	hit_points -= damage_points
 	
-	#print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
+	print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
 	
 	if not indestructible and hit_points <= 0:
 		die(sender)
