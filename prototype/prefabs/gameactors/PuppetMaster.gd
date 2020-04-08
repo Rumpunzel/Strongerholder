@@ -212,6 +212,7 @@ class Command:
 		return false
 
 
+
 class MoveCommand extends Command:
 	var movement_vector: Vector3
 	var sprinting: bool
@@ -225,20 +226,29 @@ class MoveCommand extends Command:
 		return false
 
 
+
 class InteractCommand extends Command:
+	const INTERACTION: String = "interaction"
+	const PARAMETERS: String = "parameters"
+	
+	const BASIC_INTERACTION: Dictionary = { INTERACTION: GameObject.INTERACT_FUNCTION }
+	
+	
 	var object: GameObject
+	
 	
 	func _init(new_object: GameObject = null):
 		object = new_object
+	
 	
 	func parse_command(actor: GameActor) -> bool:
 		if not object:
 			object = actor.object_of_interest
 			
-		var interaction: Dictionary = actor.interaction_with(object)
+		var interaction: Dictionary = interaction_with(actor)
 		
-		var function = interaction.get(GameActor.INTERACTION)
-		var parameters: Array = interaction.get(GameActor.PARAMETERS, [ ])
+		var function = interaction.get(INTERACTION)
+		var parameters: Array = interaction.get(PARAMETERS, [ ])
 		
 		parameters.append(actor)
 		
@@ -246,3 +256,26 @@ class InteractCommand extends Command:
 			return object.callv(function, parameters)
 		
 		return false
+	
+	
+	func interaction_with(actor: GameActor) -> Dictionary:
+		if object:
+			var interaction: Dictionary = BASIC_INTERACTION
+			var animation: String = "give"
+			
+			match object.type:
+				CityLayout.Objects.TREE:
+					animation = "attack"
+					interaction = { INTERACTION: GameObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
+				
+				CityLayout.Objects.STOCKPILE:
+					if not actor.inventory.empty():
+						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
+					else:
+						return { }
+			
+			actor.animate(animation)
+			
+			return interaction
+		
+		return { }

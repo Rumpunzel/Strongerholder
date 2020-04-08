@@ -6,11 +6,6 @@ signal new_interest(object_of_interest)
 signal acquired_target(currently_searching_for)
 
 
-const INTERACTION: String = "interaction"
-const PARAMETERS: String = "parameters"
-const BASIC_INTERACTION: Dictionary = { INTERACTION: INTERACT_FUNCTION }
-
-
 var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
 
@@ -25,8 +20,6 @@ onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.ge
 
 func _ready():
 	$pathfinder.register_actor(self)
-	
-	acquire_new_target()
 
 
 
@@ -45,33 +38,6 @@ func listen_to_commands(new_commands):
 
 func move_to(direction: Vector3, sprinting: bool = false):
 	.set_ring_vector(body.move_to(direction, sprinting))
-
-
-func interaction_with(object: GameObject) -> Dictionary:
-	if object:
-		var interaction: Dictionary = BASIC_INTERACTION
-		var animation: String = "give"
-		
-		match object.type:
-			CityLayout.Objects.FOUNDATION:
-				var new_menu = RadiantUI.new(["Build", "Inspect", "Destroy"], object, "build_into")
-				animation_tree.set("parameters/conditions/outside_menu", false)
-				new_menu.connect("closed", animation_tree, "set", ["parameters/conditions/outside_menu", true])
-				get_viewport().get_camera().add_ui_element(new_menu)
-			
-			CityLayout.Objects.TREE:
-				animation = "attack"
-				interaction = { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
-			
-			CityLayout.Objects.STOCKPILE:
-				if not inventory.empty():
-					interaction = { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ] }
-		
-		animate(animation)
-		
-		return interaction
-	
-	return { }
 
 
 func animate(animation: String, stop_movement: bool = true):
