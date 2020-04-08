@@ -7,23 +7,18 @@ signal new_commands(commands)
 
 var ring_map: RingMap setget set_ring_map, get_ring_map
 
-var current_actor: GameActor = null
-
 var pathfinding_target: RingVector setget set_pathfinding_target, get_pathfinding_target
 
 var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
 
-var can_act: bool = true setget set_can_act, get_can_act
-
-var current_path: Array = [ ]
-var current_segments: Array = [ ]
-var path_progress: int = 0
-
 var update_pathfinding: bool = false setget set_update_pathfinding, get_update_pathfinding
 
 
-
+var current_actor: GameActor = null
+var current_path: Array = [ ]
+var current_segments: Array = [ ]
+var path_progress: int = 0
 
 
 
@@ -75,9 +70,9 @@ func get_input() -> Array:
 		#print("movement_vector: %s" % [movement_vector])
 		
 		if movement_vector.length() > 0:
-			commands.append(MoveCommand.new(movement_vector, false))
+			commands.append(MoveCommand.new(movement_vector))
 	else:
-		commands.append(MoveCommand.new(Vector3(), false))
+		commands.append(MoveCommand.new(Vector3()))
 	
 	
 	return commands
@@ -92,7 +87,6 @@ func register_actor(new_actor: GameActor):
 	
 	current_actor.connect("entered_segment", self, "update_path_progress")
 	current_actor.connect("acquired_target", self, "set_currently_searching_for")
-	current_actor.connect("can_act_again", self, "set_can_act")
 
 
 func update_current_path():
@@ -188,11 +182,9 @@ func set_currently_searching_for(new_interest):
 		update_pathfinding = true
 
 
-func set_can_act(new_status: bool):
-	can_act = new_status
-
 func set_update_pathfinding(new_status: bool):
 	update_pathfinding = new_status
+
 
 
 func get_ring_map() -> RingMap:
@@ -207,9 +199,6 @@ func get_object_of_interest() -> GameObject:
 func get_currently_searching_for():
 	return currently_searching_for
 
-func get_can_act() -> bool:
-	return can_act
-
 func get_update_pathfinding() -> bool:
 	return update_pathfinding
 
@@ -217,14 +206,13 @@ func get_update_pathfinding() -> bool:
 
 
 class Command:
-	var action_time: float = 0.0
-	
 	func execute(actor: GameActor) -> bool:
-		if actor.can_act:
-			if action_time > 0.0:
-				actor.set_can_act(false)
-				actor.action_timer.start(action_time)
-		
+		if actor.can_act():
+			return parse_command(actor)
+		else:
+			return false
+	
+	func parse_command(_actor: GameActor) -> bool:
 		return false
 
 
@@ -232,16 +220,12 @@ class MoveCommand extends Command:
 	var movement_vector: Vector3
 	var sprinting: bool
 	
-	func _init(new_movement_vector: Vector3, new_sprinting: bool):
+	func _init(new_movement_vector: Vector3, new_sprinting: bool = false):
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 		
-	func execute(actor: GameActor) -> bool:
-		if actor.can_act:
-			actor.move_to(movement_vector, sprinting)
-		else:
-			actor.move_to(Vector3(), false)
-		
+	func parse_command(actor: GameActor) -> bool:
+		actor.move_to(movement_vector, sprinting)
 		return false
 
 
@@ -251,24 +235,18 @@ class InteractCommand extends Command:
 	func _init(new_object: GameObject = null):
 		object = new_object
 	
-	func execute(actor: GameActor) -> bool:
-		if actor.can_act:
-			if not object:
-				object = actor.object_of_interest
+	func parse_command(actor: GameActor) -> bool:
+		if not object:
+			object = actor.object_of_interest
 			
-			var interaction: Dictionary = actor.interaction_with(object)
-			
-			var function = interaction.get(GameActor.INTERACTION)
-			var parameters: Array = interaction.get(GameActor.PARAMETERS, [ ])
-			action_time = interaction.get(GameActor.ACTION_TIME, 0.0)
-			
-			parameters.append(actor)
-			
-			if action_time > 0.0:
-				actor.set_can_act(false)
-				actor.action_timer.start(action_time)
-			
-			if function:
-				return object.callv(function, parameters)
+		var interaction: Dictionary = actor.interaction_with(object)
+		
+		var function = interaction.get(GameActor.INTERACTION)
+		var parameters: Array = interaction.get(GameActor.PARAMETERS, [ ])
+		
+		parameters.append(actor)
+		
+		if function:
+			return object.callv(function, parameters)
 		
 		return false

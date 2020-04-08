@@ -209,8 +209,8 @@ script = ExtResource( 4 )
 
 [node name="behavior" type="Node" parent="."]
 script = ExtResource( 9 )
-inventory_empty = 200
-raw_material = 103
+inventory_empty = 256
+raw_material = 131
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 playback_process_mode = 0

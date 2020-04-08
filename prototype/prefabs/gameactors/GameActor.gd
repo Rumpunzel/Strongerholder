@@ -2,35 +2,28 @@ class_name GameActor
 extends GameObject
 
 
-signal acted(action)
 signal new_interest(object_of_interest)
 signal acquired_target(currently_searching_for)
-signal can_act_again(can_act)
 
 
-const INTERACTION = "interaction"
-const PARAMETERS = "parameters"
-const ACTION_TIME = "action_time"
+const INTERACTION: String = "interaction"
+const PARAMETERS: String = "parameters"
+const BASIC_INTERACTION: Dictionary = { INTERACTION: INTERACT_FUNCTION }
 
 
 var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
 
-var current_action: String = "" setget set_current_action, get_current_action
-var can_act: bool = true setget set_can_act, get_can_act
-
 
 onready var body: KinematicBody = $body
-onready var action_timer: Timer = $action_timer
 onready var behavior: ActorBehavior = $behavior
+onready var animation_tree: AnimationTree = $animation_tree
+onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 
 
 
 
 func _ready():
-	connect("can_act_again", self, "acquire_new_target")
-	action_timer.connect("timeout", self, "set_can_act", [true])
-	
 	$pathfinder.register_actor(self)
 	
 	acquire_new_target()
@@ -44,43 +37,62 @@ func setup(new_ring_map: RingMap):
 	$pathfinder.ring_map = ring_map
 
 
-
 func listen_to_commands(new_commands):
 	for command in new_commands:
 		if command.execute(self):
 			break
 
 
+func move_to(direction: Vector3, sprinting: bool = false):
+	.set_ring_vector(body.move_to(direction, sprinting))
+
 
 func interaction_with(object: GameObject) -> Dictionary:
 	if object:
-		var basic_interaction: Dictionary = { INTERACTION: INTERACT_FUNCTION }
+		var interaction: Dictionary = BASIC_INTERACTION
+		var animation: String = "give"
 		
 		match object.type:
+			CityLayout.Objects.FOUNDATION:
+				var new_menu = RadiantUI.new(["Build", "Inspect", "Destroy"], object, "build_into")
+				animation_tree.set("parameters/conditions/outside_menu", false)
+				new_menu.connect("closed", animation_tree, "set", ["parameters/conditions/outside_menu", true])
+				get_viewport().get_camera().add_ui_element(new_menu)
+			
 			CityLayout.Objects.TREE:
-				set_current_action("attack")
-				return { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ], ACTION_TIME: 0.7 }
+				animation = "attack"
+				interaction = { INTERACTION: DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
 			
 			CityLayout.Objects.STOCKPILE:
 				if not inventory.empty():
-					set_current_action("death")
-					return { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ], ACTION_TIME: 1.0 }
-			
-			_:
-				return basic_interaction
+					interaction = { INTERACTION: GIVE_FUNCTION, PARAMETERS: [ inventory ] }
+		
+		animate(animation)
+		
+		return interaction
 	
 	return { }
 
 
+func animate(animation: String, stop_movement: bool = true):
+	state_machine.travel(animation)
+	
+	if stop_movement:
+		move_to(Vector3())
 
-func move_to(direction: Vector3, sprinting: bool):
-	.set_ring_vector(body.move_to(direction, sprinting))
+
+func acquire_new_target():
+	set_currently_searching_for(behavior.next_priority(inventory))
 
 
-
-func acquire_new_target(searching: bool = true):
-	if searching:
-		set_currently_searching_for(behavior.next_priority(inventory))
+func can_act() -> bool:
+	var state: String = state_machine.get_current_node()
+	var is_idle: bool = state.ends_with("idle") or state == "run"
+	
+	if is_idle:
+		acquire_new_target()
+	
+	return is_idle
 
 
 
@@ -97,20 +109,6 @@ func set_currently_searching_for(new_interest):
 		emit_signal("acquired_target", currently_searching_for)
 
 
-func set_current_action(new_action: String):
-	current_action = new_action
-	emit_signal("acted", current_action)
-
-
-func set_can_act(new_status: bool):
-	can_act = new_status
-	
-	if can_act:
-		set_current_action("")
-	
-	emit_signal("can_act_again", can_act)
-
-
 func set_ring_vector(new_vector: RingVector):
 	$body.ring_vector = new_vector
 	.set_ring_vector($body.ring_vector)
@@ -122,12 +120,6 @@ func get_object_of_interest() -> GameObject:
 
 func get_currently_searching_for():
 	return currently_searching_for
-
-func get_current_action() -> String:
-	return current_action
-
-func get_can_act() -> bool:
-	return can_act
 
 func get_ring_vector() -> RingVector:
 	return $body.ring_vector
