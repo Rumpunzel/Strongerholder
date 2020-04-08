@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://prefabs/gameactors/animations/idle_up.tres" type="Animation" id=1]
 [ext_resource path="res://prefabs/gameactors/animations/run_down.tres" type="Animation" id=2]
@@ -22,10 +22,6 @@
 [ext_resource path="res://prefabs/gameactors/animations/give_down.tres" type="Animation" id=20]
 [ext_resource path="res://prefabs/gameactors/animations/run_left.tres" type="Animation" id=21]
 [ext_resource path="res://prefabs/gameactors/animations/give_left.tres" type="Animation" id=22]
-[ext_resource path="res://prefabs/gameactors/animations/give_idle_down.tres" type="Animation" id=23]
-[ext_resource path="res://prefabs/gameactors/animations/give_idle_left.tres" type="Animation" id=24]
-[ext_resource path="res://prefabs/gameactors/animations/give_idle_up.tres" type="Animation" id=25]
-[ext_resource path="res://prefabs/gameactors/animations/give_idle_right.tres" type="Animation" id=26]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
@@ -81,30 +77,6 @@ blend_point_3/pos = Vector2( 1, 0 )
 min_space = Vector2( -1, -1.1 )
 max_space = Vector2( 1, 1.1 )
 blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id=54]
-animation = "give_idle_left"
-
-[sub_resource type="AnimationNodeAnimation" id=55]
-animation = "give_idle_right"
-
-[sub_resource type="AnimationNodeAnimation" id=56]
-animation = "give_idle_down"
-
-[sub_resource type="AnimationNodeAnimation" id=57]
-animation = "give_idle_up"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=58]
-blend_point_0/node = SubResource( 54 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 55 )
-blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 56 )
-blend_point_2/pos = Vector2( 0, 1.1 )
-blend_point_3/node = SubResource( 57 )
-blend_point_3/pos = Vector2( 0, -1.1 )
-min_space = Vector2( -1, -1.1 )
-max_space = Vector2( 1, 1.1 )
 
 [sub_resource type="AnimationNodeAnimation" id=19]
 animation = "idle_left"
@@ -172,26 +144,20 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=48]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=59]
+[sub_resource type="AnimationNodeStateMachineTransition" id=63]
 switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=60]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=61]
+advance_condition = "outside_menu"
 
 [sub_resource type="AnimationNodeStateMachine" id=24]
 states/attack/node = SubResource( 30 )
 states/attack/position = Vector2( 778, 83 )
 states/give/node = SubResource( 35 )
 states/give/position = Vector2( 778, 456 )
-states/give_idle/node = SubResource( 58 )
-states/give_idle/position = Vector2( 778, 571.486 )
 states/idle/node = SubResource( 23 )
 states/idle/position = Vector2( 680, 271 )
 states/run/node = SubResource( 40 )
 states/run/position = Vector2( 873, 271 )
-transitions = [ "idle", "run", SubResource( 41 ), "run", "idle", SubResource( 42 ), "idle", "give", SubResource( 43 ), "idle", "attack", SubResource( 45 ), "attack", "idle", SubResource( 46 ), "run", "give", SubResource( 47 ), "run", "attack", SubResource( 48 ), "give", "give_idle", SubResource( 59 ), "give_idle", "run", SubResource( 60 ), "give_idle", "idle", SubResource( 61 ) ]
+transitions = [ "idle", "run", SubResource( 41 ), "run", "idle", SubResource( 42 ), "idle", "give", SubResource( 43 ), "idle", "attack", SubResource( 45 ), "attack", "idle", SubResource( 46 ), "run", "give", SubResource( 47 ), "run", "attack", SubResource( 48 ), "give", "idle", SubResource( 63 ) ]
 start_node = "idle"
 graph_offset = Vector2( 43, 36.4864 )
 
@@ -236,7 +202,7 @@ alpha_cut = 2
 texture = ExtResource( 10 )
 vframes = 12
 hframes = 9
-frame = 39
+frame = 51
 
 [node name="pathfinder" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -253,10 +219,6 @@ anims/attack_left = ExtResource( 19 )
 anims/attack_right = ExtResource( 15 )
 anims/attack_up = ExtResource( 13 )
 anims/give_down = ExtResource( 20 )
-anims/give_idle_down = ExtResource( 23 )
-anims/give_idle_left = ExtResource( 24 )
-anims/give_idle_right = ExtResource( 26 )
-anims/give_idle_up = ExtResource( 25 )
 anims/give_left = ExtResource( 22 )
 anims/give_right = ExtResource( 17 )
 anims/give_up = ExtResource( 18 )
@@ -274,9 +236,9 @@ tree_root = SubResource( 24 )
 anim_player = NodePath("../animation_player")
 process_mode = 0
 parameters/playback = SubResource( 25 )
+parameters/conditions/outside_menu = true
 parameters/attack/blend_position = Vector2( 0, 0 )
 parameters/give/blend_position = Vector2( 0, 0 )
-parameters/give_idle/blend_position = Vector2( 0, 0 )
 parameters/idle/blend_position = Vector2( 0, 1 )
 parameters/run/blend_position = Vector2( 0, 0 )
 script = SubResource( 62 )
