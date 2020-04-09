@@ -5,11 +5,11 @@ extends GameObject
 const BUILD_INTO_FUNCTION = "build_into"
 
 const object_scenes: Dictionary = {
-	CityLayout.Objects.TREE: preload("res://prefabs/city/things/tree.tscn"),
-	CityLayout.Objects.BASE: preload("res://prefabs/city/buildings/base.tscn"),
-	CityLayout.Objects.FOUNDATION: preload("res://prefabs/city/buildings/foundation.tscn"),
-	CityLayout.Objects.BRIDGE: preload("res://prefabs/city/buildings/bridge.tscn"),
-	CityLayout.Objects.STOCKPILE: preload("res://prefabs/city/buildings/stockpile.tscn"),
+	CityLayout.Objects.TREE: preload("res://prefabs/game_objects/city/things/tree.tscn"),
+	CityLayout.Objects.BASE: preload("res://prefabs/game_objects/city/buildings/base.tscn"),
+	CityLayout.Objects.FOUNDATION: preload("res://prefabs/game_objects/city/buildings/foundation.tscn"),
+	CityLayout.Objects.BRIDGE: preload("res://prefabs/game_objects/city/buildings/bridge.tscn"),
+	CityLayout.Objects.STOCKPILE: preload("res://prefabs/game_objects/city/buildings/stockpile.tscn"),
 }
 
 const highlight_material: Material = preload("res://assets/materials/highlightShader.material")

@@ -1,26 +1,26 @@
 [gd_scene load_steps=57 format=2]
 
-[ext_resource path="res://prefabs/gameactors/animations/idle_up.tres" type="Animation" id=1]
-[ext_resource path="res://prefabs/gameactors/animations/run_down.tres" type="Animation" id=2]
-[ext_resource path="res://prefabs/gameactors/GameActor.gd" type="Script" id=3]
-[ext_resource path="res://prefabs/camera/PlayerCamera.tscn" type="PackedScene" id=4]
-[ext_resource path="res://prefabs/gameactors/animations/run_right.tres" type="Animation" id=5]
-[ext_resource path="res://prefabs/gameactors/body/ActorArea.gd" type="Script" id=6]
-[ext_resource path="res://prefabs/gameactors/body/body.gd" type="Script" id=7]
-[ext_resource path="res://prefabs/gameactors/animations/idle_left.tres" type="Animation" id=8]
-[ext_resource path="res://assets/sprites/hero/hero_sprite_sheet.png" type="Texture" id=10]
-[ext_resource path="res://prefabs/gameactors/animations/idle_down.tres" type="Animation" id=11]
-[ext_resource path="res://prefabs/gameactors/animations/idle_right.tres" type="Animation" id=12]
-[ext_resource path="res://prefabs/gameactors/animations/attack_up.tres" type="Animation" id=13]
-[ext_resource path="res://prefabs/gameactors/animations/attack_down.tres" type="Animation" id=14]
-[ext_resource path="res://prefabs/gameactors/animations/attack_right.tres" type="Animation" id=15]
-[ext_resource path="res://prefabs/gameactors/animations/run_up.tres" type="Animation" id=16]
-[ext_resource path="res://prefabs/gameactors/animations/give_right.tres" type="Animation" id=17]
-[ext_resource path="res://prefabs/gameactors/animations/give_up.tres" type="Animation" id=18]
-[ext_resource path="res://prefabs/gameactors/animations/attack_left.tres" type="Animation" id=19]
-[ext_resource path="res://prefabs/gameactors/animations/give_down.tres" type="Animation" id=20]
-[ext_resource path="res://prefabs/gameactors/animations/run_left.tres" type="Animation" id=21]
-[ext_resource path="res://prefabs/gameactors/animations/give_left.tres" type="Animation" id=22]
+[ext_resource path="res://prefabs/game_objects/game_actors/body/ActorArea.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/game_objects/game_actors/body/body.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/game_objects/game_actors/GameActor.gd" type="Script" id=3]
+[ext_resource path="res://assets/sprites/hero/hero_sprite_sheet.png" type="Texture" id=4]
+[ext_resource path="res://prefabs/camera/PlayerCamera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_left.tres" type="Animation" id=6]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_down.tres" type="Animation" id=7]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_right.tres" type="Animation" id=8]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/give_down.tres" type="Animation" id=9]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack_right.tres" type="Animation" id=10]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/run_up.tres" type="Animation" id=11]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/give_right.tres" type="Animation" id=12]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/run_right.tres" type="Animation" id=13]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack_up.tres" type="Animation" id=14]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack_down.tres" type="Animation" id=15]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack_left.tres" type="Animation" id=16]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_up.tres" type="Animation" id=17]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/run_left.tres" type="Animation" id=18]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/give_left.tres" type="Animation" id=19]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/give_up.tres" type="Animation" id=20]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/run_down.tres" type="Animation" id=21]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
@@ -178,12 +178,12 @@ func _init():
 
 [node name="gameactor" type="Spatial"]
 script = ExtResource( 3 )
-player_camera = ExtResource( 4 )
+player_camera = ExtResource( 5 )
 
 [node name="body" type="KinematicBody" parent="."]
 collision_layer = 2
 collision_mask = 5
-script = ExtResource( 7 )
+script = ExtResource( 2 )
 animation_tree_node = NodePath("../animation_tree")
 
 [node name="collision" type="CollisionShape" parent="body"]
@@ -193,7 +193,7 @@ shape = SubResource( 1 )
 [node name="area" type="Area" parent="body"]
 collision_layer = 2
 collision_mask = 7
-script = ExtResource( 6 )
+script = ExtResource( 1 )
 
 [node name="collision" type="CollisionShape" parent="body/area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
@@ -205,29 +205,29 @@ pixel_size = 0.05
 billboard = 2
 shaded = true
 alpha_cut = 2
-texture = ExtResource( 10 )
+texture = ExtResource( 4 )
 vframes = 12
 hframes = 9
 frame = 50
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
-anims/attack_down = ExtResource( 14 )
-anims/attack_left = ExtResource( 19 )
-anims/attack_right = ExtResource( 15 )
-anims/attack_up = ExtResource( 13 )
-anims/give_down = ExtResource( 20 )
-anims/give_left = ExtResource( 22 )
-anims/give_right = ExtResource( 17 )
-anims/give_up = ExtResource( 18 )
-anims/idle_down = ExtResource( 11 )
-anims/idle_left = ExtResource( 8 )
-anims/idle_right = ExtResource( 12 )
-anims/idle_up = ExtResource( 1 )
-anims/run_down = ExtResource( 2 )
-anims/run_left = ExtResource( 21 )
-anims/run_right = ExtResource( 5 )
-anims/run_up = ExtResource( 16 )
+anims/attack_down = ExtResource( 15 )
+anims/attack_left = ExtResource( 16 )
+anims/attack_right = ExtResource( 10 )
+anims/attack_up = ExtResource( 14 )
+anims/give_down = ExtResource( 9 )
+anims/give_left = ExtResource( 19 )
+anims/give_right = ExtResource( 12 )
+anims/give_up = ExtResource( 20 )
+anims/idle_down = ExtResource( 7 )
+anims/idle_left = ExtResource( 6 )
+anims/idle_right = ExtResource( 8 )
+anims/idle_up = ExtResource( 17 )
+anims/run_down = ExtResource( 21 )
+anims/run_left = ExtResource( 18 )
+anims/run_right = ExtResource( 13 )
+anims/run_up = ExtResource( 11 )
 
 [node name="animation_tree" type="AnimationTree" parent="."]
 tree_root = SubResource( 33 )

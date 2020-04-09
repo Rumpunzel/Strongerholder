@@ -1,6 +1,8 @@
 extends Spatial
 
 
+export(PackedScene) var game_actor
+
 
 func _ready():
 	randomize()
@@ -11,6 +13,6 @@ func _ready():
 	$flora.grow_flora(rm)
 	
 	for i in range(CityLayout.get_number_of_segments(0)):
-		var np = preload("res://prefabs/gameactors/GameActor.tscn").instance()
+		var np = game_actor.instance()
 		add_child(np)
 		np.setup(rm, RingVector.new(0, i, true), 1 if i == 0 else 0)
