@@ -6,6 +6,8 @@ signal new_interest(object_of_interest)
 signal acquired_target(currently_searching_for)
 
 
+export(PackedScene) var player_camera
+
 export var player_controlled: int = 0 setget , get_player_controlled
 
 
@@ -13,16 +15,16 @@ var object_of_interest: GameObject = null setget set_object_of_interest, get_obj
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
 
 
+var pathfinder: PuppetMaster
+var behavior: ActorBehavior
+
+
 onready var body: KinematicBody = $body
-onready var behavior: ActorBehavior = $behavior
+
 onready var animation_tree: AnimationTree = $animation_tree
 onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 
 
-
-
-func _ready():
-	$pathfinder.register_actor(self)
 
 
 func _process(_delta):
@@ -32,10 +34,12 @@ func _process(_delta):
 
 
 
-func setup(new_ring_map: RingMap):
-	.setup(new_ring_map)
+func setup(new_ring_map: RingMap, new_ring_vector:RingVector, controlling_player: int = 0):
+	.setup(new_ring_map, new_ring_vector)
 	
-	$pathfinder.ring_map = ring_map
+	behavior = ActorBehavior.new()
+	
+	set_player_controlled(controlling_player)
 
 
 func listen_to_commands(new_commands):
@@ -68,20 +72,29 @@ func can_act() -> bool:
 
 
 
-func set_player_controlled(new_player: int, new_camera = preload("res://prefabs/gameactors/player/PlayerCamera.tscn").instance()):
-	if new_player > 0:
-		$pathfinder.unregister_actor(self)
-		$pathfinder.set_script(load("res://prefabs/gameactors/player/InputMaster.gd"))
-		$pathfinder.ring_map = ring_map
-		$pathfinder.register_actor(self)
-		behavior.blank_prios()
+func set_player_controlled(new_player: int):
+	if new_player > 0 and not player_controlled:
+		if pathfinder:
+			pathfinder.queue_free()
+		
+		behavior.set_priorities(CityLayout.Objects.NOTHING, CityLayout.Objects.NOTHING, CityLayout.Objects.NOTHING)
+		
+		pathfinder = InputMaster.new(ring_map, self)
+		add_child(pathfinder)
+		
+		var new_camera = player_camera.instance()
 		add_child(new_camera)
-		new_camera.set_node_to_follow(body)
+		new_camera.set_node_to_follow($body)
 	else:
-		$pathfinder.unregister_actor(self)
-		$pathfinder.set_script(load("res://prefabs/gameactors/PuppetMaster.gd"))
-		$pathfinder.ring_map = ring_map
-		$pathfinder.register_actor(self)
+		if pathfinder:
+			pathfinder.queue_free()
+		
+		behavior.set_priorities(CityLayout.Objects.TREE, CityLayout.Objects.STOCKPILE, CityLayout.Objects.NOTHING)
+		
+		pathfinder = PuppetMaster.new(ring_map, self)
+		add_child(pathfinder)
+		#add_child(new_camera)
+		#new_camera.set_node_to_follow(body)
 	
 	player_controlled = new_player
 

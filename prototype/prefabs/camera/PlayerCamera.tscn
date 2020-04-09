@@ -1,15 +1,15 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/city_environment.tres" type="Environment" id=1]
-[ext_resource path="res://prefabs/gameactors/player/PlayerCamera.gd" type="Script" id=2]
-[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/city_environment.tres" type="Environment" id=2]
+[ext_resource path="res://prefabs/camera/PlayerCamera.gd" type="Script" id=3]
 
 [node name="player_camera" type="Spatial"]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.997564, 0.0697565, 0, -0.0697565, 0.997564, 0, 0, 15 )
-environment = ExtResource( 1 )
+environment = ExtResource( 2 )
 v_offset = 5.0
 projection = 1
 current = true
@@ -23,7 +23,7 @@ layer = 100
 [node name="control" type="Control" parent="camera/ui_layer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 3 )
+theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -5,8 +5,6 @@ extends Node
 signal new_commands(commands)
 
 
-var ring_map: RingMap setget set_ring_map, get_ring_map
-
 var pathfinding_target: RingVector setget set_pathfinding_target, get_pathfinding_target
 
 var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
@@ -15,12 +13,21 @@ var currently_searching_for = null setget set_currently_searching_for, get_curre
 var update_pathfinding: bool = false setget set_update_pathfinding, get_update_pathfinding
 
 
-var current_actor: GameActor = null
+var ring_map: RingMap
+var current_actor = null
+
 var current_path: Array = [ ]
 var current_segments: Array = [ ]
 var path_progress: int = 0
 
 
+
+
+func _init(new_ring_map: RingMap, new_actor = null):
+	ring_map = new_ring_map
+	
+	if new_actor:
+		register_actor(new_actor)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,7 +83,7 @@ func get_input() -> Array:
 
 
 
-func register_actor(new_actor: GameActor):
+func register_actor(new_actor):
 	if not new_actor == current_actor:
 		unregister_actor(current_actor)
 		
@@ -87,7 +94,7 @@ func register_actor(new_actor: GameActor):
 		current_actor.connect("entered_segment", self, "update_path_progress")
 		current_actor.connect("acquired_target", self, "set_currently_searching_for")
 
-func unregister_actor(old_actor: GameActor):
+func unregister_actor(old_actor):
 	if current_actor and old_actor == current_actor:
 		disconnect("new_commands", current_actor, "listen_to_commands")
 		
@@ -159,9 +166,6 @@ func reset_object_of_interest(old_object: GameObject):
 
 
 
-func set_ring_map(new_ring_map: RingMap):
-	ring_map = new_ring_map
-
 func set_pathfinding_target(new_target: RingVector):
 	pathfinding_target = new_target
 
@@ -193,8 +197,6 @@ func set_update_pathfinding(new_status: bool):
 
 
 
-func get_ring_map() -> RingMap:
-	return ring_map
 
 func get_pathfinding_target() -> RingVector:
 	return pathfinding_target
@@ -212,13 +214,13 @@ func get_update_pathfinding() -> bool:
 
 
 class Command:
-	func execute(actor: GameActor) -> bool:
+	func execute(actor) -> bool:
 		if actor.can_act():
 			return parse_command(actor)
 		else:
 			return false
 	
-	func parse_command(_actor: GameActor) -> bool:
+	func parse_command(_actor) -> bool:
 		assert(false)
 		return false
 
@@ -232,7 +234,7 @@ class MoveCommand extends Command:
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 		
-	func parse_command(actor: GameActor) -> bool:
+	func parse_command(actor) -> bool:
 		actor.move_to(movement_vector, sprinting)
 		return false
 
@@ -252,7 +254,7 @@ class InteractCommand extends Command:
 		object = new_object
 	
 	
-	func parse_command(actor: GameActor) -> bool:
+	func parse_command(actor) -> bool:
 		if not object:
 			object = actor.object_of_interest
 		
@@ -269,7 +271,7 @@ class InteractCommand extends Command:
 		return false
 	
 	
-	func interaction_with(actor: GameActor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
+	func interaction_with(actor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
 		if object:
 			match object.type:
 				CityLayout.Objects.TREE:

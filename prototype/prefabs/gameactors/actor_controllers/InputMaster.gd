@@ -3,6 +3,14 @@ extends PuppetMaster
 
 
 
+
+func _init(new_ring_map: RingMap, new_actor = null).(new_ring_map, new_actor):
+	pass
+
+
+
+
+
 func get_input() -> Array:
 	var commands: Array = [ ]
 	
@@ -21,12 +29,11 @@ func get_input() -> Array:
 
 
 class InteractCommand extends PuppetMaster.InteractCommand:
-	func interaction_with(actor: GameActor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
+	func interaction_with(actor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
 		if object:
 			match object.type:
 				CityLayout.Objects.FOUNDATION:
 					animation = "give"
-					
 					var new_menu = RadiantUI.new(["Build", "Inspect", "Destroy"], object, "build_into")
 					new_menu.connect("closed", actor.animation_tree, "set", ["parameters/conditions/outside_menu", true])
 					actor.animation_tree.set("parameters/conditions/outside_menu", false)
