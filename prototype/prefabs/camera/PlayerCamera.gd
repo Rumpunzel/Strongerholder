@@ -12,9 +12,6 @@ var node_to_follow: Spatial = null setget set_node_to_follow, get_node_to_follow
 onready var camera = $camera
 onready var ray_cast = RayCast.new()
 
-onready var ui = $camera/ui_layer/control/margin_container
-onready var control_layer = $camera/ui_layer/control
-
 
 
 
@@ -38,14 +35,6 @@ func _process(delta):
 		rotation.y += rot_diff * delta * 5
 		camera.transform.origin.z += (node_to_follow.ring_vector.radius + camera_distance - camera.transform.origin.z) * delta * 5
 		camera.transform.origin.y += (ray_cast.get_collision_point().y - camera.transform.origin.y) * delta
-
-
-
-
-func add_ui_element(new_element: Control, center_ui: bool = true):
-	var new_parent = ui if center_ui else control_layer
-	
-	new_parent.add_child(new_element)
 
 
 
