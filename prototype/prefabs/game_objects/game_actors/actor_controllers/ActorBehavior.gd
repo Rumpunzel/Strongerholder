@@ -1,5 +1,5 @@
 class_name ActorBehavior
-extends Node
+extends Resource
 
 
 signal new_object_of_interest(object_of_interest)
@@ -35,12 +35,7 @@ func _init(new_actor, new_ring_map):
 	set_priorities(current_actor.type)
 	
 	ring_map = new_ring_map
-	ring_map.connect("city_changed", self, "set_object_of_interest", [null])
-
-
-func _process(_delta):
-	if not priorities.empty() and not object_of_interest and current_actor.can_act():
-		set_object_of_interest(next_priority())
+	ring_map.connect("city_changed", self, "force_search")
 
 
 
@@ -84,6 +79,10 @@ func search_for_target(object_type: int) -> GameObject:
 		nearest_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, object_type)
 	
 	return nearest_target
+
+
+func force_search():
+	set_object_of_interest(next_priority())
 
 
 

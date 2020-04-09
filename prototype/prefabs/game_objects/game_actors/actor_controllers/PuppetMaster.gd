@@ -29,10 +29,11 @@ func _init(new_ring_map: RingMap, new_actor = null):
 		register_actor(new_actor)
 		
 		actor_behavior = ActorBehavior.new(current_actor, ring_map)
-		add_child(actor_behavior)
 		
 		actor_behavior.connect("new_object_of_interest", self, "set_object_of_interest")
-		connect("looking_for_target", actor_behavior, "set_object_of_interest")
+		connect("looking_for_target", actor_behavior, "force_search")
+		
+		actor_behavior.force_search()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -55,7 +56,7 @@ func get_input() -> Array:
 	
 	if current_actor.is_in_range(object_of_interest):
 		commands.append(InteractCommand.new(object_of_interest))
-		reset_object_of_interest(object_of_interest)
+		actor_behavior.force_search()
 	
 	
 	var movement_vector: Vector3 = Vector3()
@@ -146,16 +147,18 @@ func set_pathfinding_target(new_target: RingVector):
 
 func set_object_of_interest(new_object: GameObject):
 	if object_of_interest:
-		object_of_interest.disconnect("died", self, "reset_object_of_interest")
+		object_of_interest.disconnect("died", actor_behavior, "force_search")
 	
 	object_of_interest = new_object
 	
 	if object_of_interest:
 		pathfinding_target = object_of_interest.ring_vector
-		update_pathfinding = true
-		object_of_interest.connect("died", self, "reset_object_of_interest", [object_of_interest])
+		object_of_interest.connect("died", actor_behavior, "force_search")
 	else:
-		emit_signal("looking_for_target", null)
+		pathfinding_target = null
+		emit_signal("looking_for_target")
+	
+	update_pathfinding = true
 
 
 

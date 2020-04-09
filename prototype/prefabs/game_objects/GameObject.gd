@@ -75,7 +75,7 @@ func interact(sender: GameObject) -> bool:
 
 
 func give(new_items: Array, sender: GameObject):
-	print("%s gave %s: %s" % [sender.name, name, new_items])
+	#print("%s gave %s: %s" % [sender.name, name, new_items])
 	
 	while not new_items.empty():
 		inventory.append(new_items.pop_front())
