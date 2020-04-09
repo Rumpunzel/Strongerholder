@@ -53,9 +53,10 @@ func _ready():
 
 
 
-func setup(new_ring_map: RingMap, new_ring_vector:RingVector):
+func setup(new_ring_map: RingMap, new_ring_vector:RingVector, new_type: int):
 	ring_map = new_ring_map
 	set_ring_vector(new_ring_vector)
+	set_type(new_type)
 
 
 

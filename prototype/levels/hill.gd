@@ -15,4 +15,4 @@ func _ready():
 	for i in range(CityLayout.get_number_of_segments(0)):
 		var np = game_actor.instance()
 		add_child(np)
-		np.setup(rm, RingVector.new(0, i, true), 1 if i == 0 else 0)
+		np.setup(rm, RingVector.new(0, i, true), Constants.Objects.PLAYER if i == 0 else Constants.Objects.WOODSMAN, 1 if i == 0 else 0)

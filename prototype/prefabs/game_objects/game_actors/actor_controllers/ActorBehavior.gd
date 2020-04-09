@@ -2,27 +2,41 @@ class_name ActorBehavior
 extends Resource
 
 
-var inventory_empty
-var raw_material
-var processed_material
+const INVENTORY_EMPTY = "inventory_empty"
+const RAW_MATERIAL = "raw_material"
+const PROCESSED_MATERIAL = "processed_material"
+
+
+const ACTOR_PRIORITIES = {
+	Constants.Objects.PLAYER: { },
+	Constants.Objects.WOODSMAN: {
+		INVENTORY_EMPTY: Constants.Objects.TREE,
+		RAW_MATERIAL: Constants.Objects.STOCKPILE,
+	},
+}
+
+
+var priorities: Dictionary = { }
 
 
 
 
-func _init(new_inventory_empty: int = Constants.Objects.NOTHING, new_raw_material: int = Constants.Objects.NOTHING, new_processed_material: int = Constants.Objects.NOTHING):
-	set_priorities(new_inventory_empty, new_raw_material, new_processed_material)
+func _init(new_actor: int):
+	set_priorities(new_actor)
 
 
 
 
 func next_priority(inventory: Array):
+	var status: String
+	
 	if inventory.empty():
-		return inventory_empty
+		status = INVENTORY_EMPTY
 	else:
-		return raw_material
+		status = RAW_MATERIAL
+	
+	return priorities.get(status, Constants.Objects.NOTHING)
 
 
-func set_priorities(new_inventory_empty: int, new_raw_material: int, new_processed_material: int):
-	inventory_empty = new_inventory_empty
-	raw_material = new_raw_material
-	processed_material = new_processed_material
+func set_priorities(new_actor: int):
+	priorities = ACTOR_PRIORITIES[new_actor]

@@ -34,10 +34,10 @@ func _process(_delta):
 
 
 
-func setup(new_ring_map: RingMap, new_ring_vector:RingVector, controlling_player: int = 0):
-	.setup(new_ring_map, new_ring_vector)
+func setup(new_ring_map: RingMap, new_ring_vector:RingVector, new_type: int, controlling_player: int = 0):
+	.setup(new_ring_map, new_ring_vector, new_type)
 	
-	behavior = ActorBehavior.new()
+	behavior = ActorBehavior.new(new_type)
 	
 	set_player_controlled(controlling_player)
 
@@ -77,7 +77,7 @@ func set_player_controlled(new_player: int):
 		if pathfinder:
 			pathfinder.queue_free()
 		
-		behavior.set_priorities(Constants.Objects.NOTHING, Constants.Objects.NOTHING, Constants.Objects.NOTHING)
+		behavior.set_priorities(Constants.Objects.PLAYER)
 		
 		pathfinder = InputMaster.new(ring_map, self)
 		add_child(pathfinder)
@@ -89,7 +89,7 @@ func set_player_controlled(new_player: int):
 		if pathfinder:
 			pathfinder.queue_free()
 		
-		behavior.set_priorities(Constants.Objects.TREE, Constants.Objects.STOCKPILE, Constants.Objects.NOTHING)
+		behavior.set_priorities(type)
 		
 		pathfinder = PuppetMaster.new(ring_map, self)
 		add_child(pathfinder)

@@ -6,6 +6,7 @@ const ACTORS: int = 64
 const BUILDINGS: int = 512
 const THINGS: int = 1024
 
+
 enum Objects {
 	NOTHING,
 	EVERYTHING,
