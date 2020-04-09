@@ -13,7 +13,7 @@ var velocity: Vector3 = Vector3() setget set_velocity, get_velocity
 var sprinting: bool = false setget set_sprinting, get_sprinting
 
 
-var move_speed: float = 3.0
+var move_speed: float = 4.0
 var sprint_modifier: float = 2.0
 var jump_speed: float = 15.0
 

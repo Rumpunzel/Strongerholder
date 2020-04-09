@@ -2,24 +2,16 @@ class_name GameActor
 extends GameObject
 
 
-signal new_interest(object_of_interest)
-signal acquired_target(currently_searching_for)
-
-
 export(PackedScene) var player_camera
 
-export var player_controlled: int = 0 setget , get_player_controlled
-
-
-var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
-var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
+export var player_controlled: int = -1 setget , get_player_controlled
 
 
 var pathfinder: PuppetMaster
-var behavior: ActorBehavior
 
 
 onready var body: KinematicBody = $body
+onready var area: ActorArea = $body/area
 
 onready var animation_tree: AnimationTree = $animation_tree
 onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
@@ -27,17 +19,11 @@ onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.ge
 
 
 
-func _process(_delta):
-	if can_act():
-		acquire_new_target()
-
-
-
-
-func setup(new_ring_map: RingMap, new_ring_vector:RingVector, new_type: int, controlling_player: int = 0):
+func setup(new_ring_map: RingMap, new_ring_vector: RingVector, new_type: int, controlling_player: int = 0):
 	.setup(new_ring_map, new_ring_vector, new_type)
 	
-	behavior = ActorBehavior.new(new_type)
+	if new_type == Constants.Objects.PLAYER:
+		controlling_player = 1
 	
 	set_player_controlled(controlling_player)
 
@@ -59,10 +45,6 @@ func animate(animation: String, stop_movement: bool = true):
 	state_machine.travel(animation)
 
 
-func acquire_new_target():
-	set_currently_searching_for(behavior.next_priority(inventory))
-
-
 func can_act() -> bool:
 	var state: String = state_machine.get_current_node()
 	var is_idle: bool = state.ends_with("idle") or state == "run"
@@ -70,61 +52,50 @@ func can_act() -> bool:
 	return is_idle
 
 
+func is_in_range(object_of_interest) -> bool:
+	return area.has_object(object_of_interest)
+
+
 
 
 func set_player_controlled(new_player: int):
-	if new_player > 0 and not player_controlled:
-		if pathfinder:
-			pathfinder.queue_free()
+	if not new_player == player_controlled:
+		if new_player > 0 and player_controlled <= 0:
+			if pathfinder:
+				pathfinder.queue_free()
+			
+			pathfinder = InputMaster.new(ring_map, self)
+			
+			var new_camera = player_camera.instance()
+			add_child(new_camera)
+			new_camera.set_node_to_follow($body)
+		else:
+			if pathfinder:
+				pathfinder.queue_free()
+			
+			pathfinder = PuppetMaster.new(ring_map, self)
+			#add_child(new_camera)
+			#new_camera.set_node_to_follow(body)
 		
-		behavior.set_priorities(Constants.Objects.PLAYER)
-		
-		pathfinder = InputMaster.new(ring_map, self)
 		add_child(pathfinder)
 		
-		var new_camera = player_camera.instance()
-		add_child(new_camera)
-		new_camera.set_node_to_follow($body)
-	else:
-		if pathfinder:
-			pathfinder.queue_free()
-		
-		behavior.set_priorities(type)
-		
-		pathfinder = PuppetMaster.new(ring_map, self)
-		add_child(pathfinder)
-		#add_child(new_camera)
-		#new_camera.set_node_to_follow(body)
-	
-	player_controlled = new_player
-
-
-func set_object_of_interest(new_object: GameObject):
-	if not new_object == object_of_interest:
-		object_of_interest = new_object
-		emit_signal("new_interest", object_of_interest)
-
-
-func set_currently_searching_for(new_interest):
-	if not new_interest == currently_searching_for:
-		currently_searching_for = new_interest
-		emit_signal("acquired_target", currently_searching_for)
+		player_controlled = new_player
 
 
 func set_ring_vector(new_vector: RingVector):
 	$body.ring_vector = new_vector
 	.set_ring_vector($body.ring_vector)
 
+func set_object_of_interest(new_object: GameObject):
+	pathfinder.object_of_interest = new_object
+
 
 
 func get_player_controlled() -> int:
 	return player_controlled
 
-func get_object_of_interest() -> GameObject:
-	return object_of_interest
-
-func get_currently_searching_for():
-	return currently_searching_for
-
 func get_ring_vector() -> RingVector:
 	return $body.ring_vector
+
+func get_object_of_interest() -> GameObject:
+	return pathfinder.object_of_interest

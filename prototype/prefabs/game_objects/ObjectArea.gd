@@ -22,7 +22,11 @@ func _ready():
 
 
 
-func entered(new_area:Area):
+func has_object(object: GameObject) -> bool:
+	return objects_in_area.has(object)
+
+
+func entered(new_area: Area):
 	var area := new_area as ObjectArea
 	
 	if area:
@@ -30,7 +34,7 @@ func entered(new_area:Area):
 			emit_signal("added_object", new_area.game_object)
 
 
-func exited(new_area:Area):
+func exited(new_area: Area):
 	var area := new_area as ObjectArea
 	
 	if area:
