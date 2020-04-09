@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://prefabs/gameactors/animations/idle_up.tres" type="Animation" id=1]
 [ext_resource path="res://prefabs/gameactors/animations/run_down.tres" type="Animation" id=2]
@@ -141,14 +141,20 @@ switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=29]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=30]
 switch_mode = 2
 advance_condition = "outside_menu"
 
-[sub_resource type="AnimationNodeStateMachine" id=31]
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id=29]
 states/attack/node = SubResource( 7 )
 states/attack/position = Vector2( 778, 83 )
 states/give/node = SubResource( 12 )
@@ -157,13 +163,13 @@ states/idle/node = SubResource( 17 )
 states/idle/position = Vector2( 680, 271 )
 states/run/node = SubResource( 22 )
 states/run/position = Vector2( 873, 271 )
-transitions = [ "idle", "run", SubResource( 23 ), "run", "idle", SubResource( 24 ), "idle", "give", SubResource( 25 ), "idle", "attack", SubResource( 26 ), "attack", "idle", SubResource( 27 ), "run", "give", SubResource( 28 ), "run", "attack", SubResource( 29 ), "give", "idle", SubResource( 30 ) ]
+transitions = [ "idle", "run", SubResource( 23 ), "run", "idle", SubResource( 24 ), "idle", "give", SubResource( 25 ), "idle", "attack", SubResource( 26 ), "attack", "idle", SubResource( 27 ), "give", "idle", SubResource( 28 ), "run", "attack", SubResource( 32 ), "attack", "run", SubResource( 33 ), "run", "give", SubResource( 34 ), "give", "run", SubResource( 35 ) ]
 start_node = "idle"
-graph_offset = Vector2( 43, 36.4864 )
+graph_offset = Vector2( 46, 48.6992 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=32]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=30]
 
-[sub_resource type="GDScript" id=33]
+[sub_resource type="GDScript" id=31]
 script/source = "extends AnimationTree
 
 
@@ -232,13 +238,13 @@ anims/run_right = ExtResource( 5 )
 anims/run_up = ExtResource( 16 )
 
 [node name="animation_tree" type="AnimationTree" parent="."]
-tree_root = SubResource( 31 )
+tree_root = SubResource( 29 )
 anim_player = NodePath("../animation_player")
 process_mode = 0
-parameters/playback = SubResource( 32 )
+parameters/playback = SubResource( 30 )
 parameters/conditions/outside_menu = true
 parameters/attack/blend_position = Vector2( 0, 0 )
 parameters/give/blend_position = Vector2( 0, 0 )
 parameters/idle/blend_position = Vector2( 0, 0 )
 parameters/run/blend_position = Vector2( 0, 0 )
-script = SubResource( 33 )
+script = SubResource( 31 )

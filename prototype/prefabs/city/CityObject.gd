@@ -55,10 +55,7 @@ func handle_highlighted():
 
 
 func interact(sender: GameObject) -> bool:
-	if object:
-		return .interact(sender)
-	
-	return false and .interact(sender)
+	return object and .interact(sender)
 
 
 func build_into(new_type):

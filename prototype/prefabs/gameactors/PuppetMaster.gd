@@ -209,6 +209,7 @@ class Command:
 			return false
 	
 	func parse_command(_actor: GameActor) -> bool:
+		assert(false)
 		return false
 
 
@@ -244,7 +245,7 @@ class InteractCommand extends Command:
 	func parse_command(actor: GameActor) -> bool:
 		if not object:
 			object = actor.object_of_interest
-			
+		
 		var interaction: Dictionary = interaction_with(actor)
 		
 		var function = interaction.get(INTERACTION)
@@ -258,11 +259,8 @@ class InteractCommand extends Command:
 		return false
 	
 	
-	func interaction_with(actor: GameActor) -> Dictionary:
+	func interaction_with(actor: GameActor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "give") -> Dictionary:
 		if object:
-			var interaction: Dictionary = BASIC_INTERACTION
-			var animation: String = "give"
-			
 			match object.type:
 				CityLayout.Objects.TREE:
 					animation = "attack"

@@ -14,7 +14,6 @@ script = ExtResource( 4 )
 
 [node name="sprite" parent="body" index="2"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
-frame = 54
 
 [node name="camera" parent="body" index="3" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 0.997564, 0.0697565, 0, -0.0697565, 0.997564, 0, 0, 15 )

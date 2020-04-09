@@ -41,10 +41,10 @@ func move_to(direction: Vector3, sprinting: bool = false):
 
 
 func animate(animation: String, stop_movement: bool = true):
-	state_machine.travel(animation)
-	
 	if stop_movement:
 		move_to(Vector3())
+	
+	state_machine.travel(animation)
 
 
 func acquire_new_target():
