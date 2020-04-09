@@ -10,6 +10,7 @@ const object_scenes: Dictionary = {
 	Constants.Objects.FOUNDATION: preload("res://prefabs/game_objects/city/buildings/foundation.tscn"),
 	Constants.Objects.BRIDGE: preload("res://prefabs/game_objects/city/buildings/bridge.tscn"),
 	Constants.Objects.STOCKPILE: preload("res://prefabs/game_objects/city/buildings/stockpile.tscn"),
+	Constants.Objects.WOODCUTTERS_HUT: preload("res://prefabs/game_objects/city/buildings/woodcutters_hut.tscn"),
 }
 
 const highlight_material: Material = preload("res://assets/materials/highlightShader.material")
@@ -60,7 +61,8 @@ func interact(sender: GameObject) -> bool:
 
 func build_into(new_type):
 	if new_type is String:
-		new_type = Constants.Objects.values()[Constants.Objects.keys().find(new_type.to_upper())]
+		new_type = new_type.replace(" ", "_").to_upper()
+		new_type = Constants.Objects.values()[Constants.Objects.keys().find(new_type)]
 	
 	set_type(new_type)
 	
@@ -68,7 +70,7 @@ func build_into(new_type):
 
 
 func die(sender: GameObject):
-	if sender is GameActor and sender.object_of_interest == self:
+	if sender is GameActor and sender.get_object_of_interest() == self:
 		sender.set_object_of_interest(null)
 	
 	sender.give(inventory, self)

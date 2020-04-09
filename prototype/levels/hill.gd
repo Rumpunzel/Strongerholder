@@ -7,12 +7,20 @@ export(PackedScene) var game_actor
 func _ready():
 	randomize()
 	
-	var rm = RingMap.new()
+	var ring_map = RingMap.new()
 	
-	$city_structures.build_everything(rm)
-	$flora.grow_flora(rm)
+	$city_structures.build_everything(ring_map)
+	$flora.grow_flora(ring_map)
 	
 	for i in range(CityLayout.get_number_of_segments(0)):
-		var np = game_actor.instance()
-		add_child(np)
-		np.setup(rm, RingVector.new(0, i, true), Constants.Objects.PLAYER if i == 0 else Constants.Objects.WOODSMAN, 1 if i == 0 else 0)
+		var new_actor = game_actor.instance()
+		var actor_type: int
+		
+		add_child(new_actor, true)
+		
+		if i == 0:
+			actor_type = Constants.Objects.PLAYER
+		else:#if i < CityLayout.get_number_of_segments(0) * 0.7:
+			actor_type = Constants.Objects.WOODSMAN
+		
+		new_actor.setup(ring_map, RingVector.new(0, i, true), actor_type)

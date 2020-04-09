@@ -19,6 +19,7 @@ enum Objects {
 	BRIDGE,
 	FOUNDATION,
 	STOCKPILE,
+	WOODCUTTERS_HUT,
 	
 	TREE = THINGS,
 }

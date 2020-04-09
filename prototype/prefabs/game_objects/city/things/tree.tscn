@@ -17,7 +17,7 @@ extents = Vector3( 0.5, 4, 3 )
 [node name="tree" type="Spatial"]
 script = ExtResource( 9 )
 structure_node = NodePath("sprite")
-area_node = NodePath("sprite/area")
+area_node = NodePath("area")
 
 [node name="sprite" type="Sprite3D" parent="."]
 offset = Vector2( 0, 43 )
@@ -29,11 +29,11 @@ texture = ExtResource( 3 )
 script = ExtResource( 8 )
 sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
 
-[node name="area" type="Area" parent="sprite"]
+[node name="area" type="Area" parent="."]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 10 )
 
-[node name="collision_shape" type="CollisionShape" parent="sprite/area"]
+[node name="collision_shape" type="CollisionShape" parent="area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1 )
 shape = SubResource( 1 )
