@@ -32,7 +32,7 @@ class InteractCommand extends PuppetMaster.InteractCommand:
 	func interaction_with(actor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
 		if object:
 			match object.type:
-				CityLayout.Objects.FOUNDATION:
+				Constants.Objects.FOUNDATION:
 					animation = "give"
 					var new_menu = RadiantUI.new(["Build", "Inspect", "Destroy"], object, "build_into")
 					new_menu.connect("closed", actor.animation_tree, "set", ["parameters/conditions/outside_menu", true])

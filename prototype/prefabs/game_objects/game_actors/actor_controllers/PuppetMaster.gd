@@ -138,7 +138,7 @@ func search_for_target(object_type: int):
 	var nearest_target
 	var thing = false
 	
-	if object_type == CityLayout.Objects.TREE:
+	if object_type == Constants.Objects.TREE:
 		thing = true
 	
 	if thing:
@@ -274,11 +274,11 @@ class InteractCommand extends Command:
 	func interaction_with(actor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
 		if object:
 			match object.type:
-				CityLayout.Objects.TREE:
+				Constants.Objects.TREE:
 					animation = "attack"
 					interaction = { INTERACTION: GameObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
 				
-				CityLayout.Objects.STOCKPILE:
+				Constants.Objects.STOCKPILE:
 					if not actor.inventory.empty():
 						animation = "give"
 						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }

@@ -5,11 +5,11 @@ extends GameObject
 const BUILD_INTO_FUNCTION = "build_into"
 
 const object_scenes: Dictionary = {
-	CityLayout.Objects.TREE: preload("res://prefabs/game_objects/city/things/tree.tscn"),
-	CityLayout.Objects.BASE: preload("res://prefabs/game_objects/city/buildings/base.tscn"),
-	CityLayout.Objects.FOUNDATION: preload("res://prefabs/game_objects/city/buildings/foundation.tscn"),
-	CityLayout.Objects.BRIDGE: preload("res://prefabs/game_objects/city/buildings/bridge.tscn"),
-	CityLayout.Objects.STOCKPILE: preload("res://prefabs/game_objects/city/buildings/stockpile.tscn"),
+	Constants.Objects.TREE: preload("res://prefabs/game_objects/city/things/tree.tscn"),
+	Constants.Objects.BASE: preload("res://prefabs/game_objects/city/buildings/base.tscn"),
+	Constants.Objects.FOUNDATION: preload("res://prefabs/game_objects/city/buildings/foundation.tscn"),
+	Constants.Objects.BRIDGE: preload("res://prefabs/game_objects/city/buildings/bridge.tscn"),
+	Constants.Objects.STOCKPILE: preload("res://prefabs/game_objects/city/buildings/stockpile.tscn"),
 }
 
 const highlight_material: Material = preload("res://assets/materials/highlightShader.material")
@@ -60,7 +60,7 @@ func interact(sender: GameObject) -> bool:
 
 func build_into(new_type):
 	if new_type is String:
-		new_type = CityLayout.Objects.values()[CityLayout.Objects.keys().find(new_type.to_upper())]
+		new_type = Constants.Objects.values()[Constants.Objects.keys().find(new_type.to_upper())]
 	
 	set_type(new_type)
 	
@@ -102,7 +102,7 @@ func set_object():
 	
 	add_child(object)
 	
-	name = "[%s:(%s, %s)]" % [CityLayout.enum_name(CityLayout.Objects, type), ring_vector.ring, ring_vector.segment]
+	name = "[%s:(%s, %s)]" % [Constants.enum_name(Constants.Objects, type), ring_vector.ring, ring_vector.segment]
 
 
 func set_ring_vector(new_vector: RingVector):
@@ -126,7 +126,7 @@ func get_active() -> bool:
 			new_vector.set_equal_to(ring_vector)
 			new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
 			
-			new_active = new_active and ring_map.get_things_at_position(new_vector, CityLayout.Objects.TREE).empty()
+			new_active = new_active and ring_map.get_things_at_position(new_vector, Constants.Objects.TREE).empty()
 		
 		set_active(new_active)
 	

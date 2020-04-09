@@ -58,7 +58,7 @@ func construct_graph():
 
 func connect_nodes(_whatever):
 	var rings: Dictionary = ring_map.search_dictionary
-	var bridges: Dictionary = ring_map.segments_dictionary[CityLayout.Objects.BRIDGE]
+	var bridges: Dictionary = ring_map.segments_dictionary[Constants.Objects.BRIDGE]
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
@@ -117,7 +117,7 @@ func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> A
 func get_nearest(ring_vector: RingVector, type: int):
 	var search_through: Dictionary = { }
 	
-	if not type == CityLayout.Objects.EVERYTHING:
+	if not type == Constants.Objects.EVERYTHING:
 		search_through = ring_map.segments_dictionary.get(type, { })
 	else:
 		search_through = { }
@@ -158,7 +158,7 @@ func get_nearest_thing(ring_vector: RingVector, type: int) -> Array:
 				var search_vector = ring_vector
 				
 				if not ring == ring_vector.ring:
-					var nearest_bridge = get_nearest(ring_vector, CityLayout.Objects.BRIDGE)
+					var nearest_bridge = get_nearest(ring_vector, Constants.Objects.BRIDGE)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector

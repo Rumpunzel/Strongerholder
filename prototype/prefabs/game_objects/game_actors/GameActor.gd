@@ -77,7 +77,7 @@ func set_player_controlled(new_player: int):
 		if pathfinder:
 			pathfinder.queue_free()
 		
-		behavior.set_priorities(CityLayout.Objects.NOTHING, CityLayout.Objects.NOTHING, CityLayout.Objects.NOTHING)
+		behavior.set_priorities(Constants.Objects.NOTHING, Constants.Objects.NOTHING, Constants.Objects.NOTHING)
 		
 		pathfinder = InputMaster.new(ring_map, self)
 		add_child(pathfinder)
@@ -89,7 +89,7 @@ func set_player_controlled(new_player: int):
 		if pathfinder:
 			pathfinder.queue_free()
 		
-		behavior.set_priorities(CityLayout.Objects.TREE, CityLayout.Objects.STOCKPILE, CityLayout.Objects.NOTHING)
+		behavior.set_priorities(Constants.Objects.TREE, Constants.Objects.STOCKPILE, Constants.Objects.NOTHING)
 		
 		pathfinder = PuppetMaster.new(ring_map, self)
 		add_child(pathfinder)

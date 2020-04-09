@@ -9,7 +9,7 @@ var processed_material
 
 
 
-func _init(new_inventory_empty: int = CityLayout.Objects.NOTHING, new_raw_material: int = CityLayout.Objects.NOTHING, new_processed_material: int = CityLayout.Objects.NOTHING):
+func _init(new_inventory_empty: int = Constants.Objects.NOTHING, new_raw_material: int = Constants.Objects.NOTHING, new_processed_material: int = Constants.Objects.NOTHING):
 	set_priorities(new_inventory_empty, new_raw_material, new_processed_material)
 
 

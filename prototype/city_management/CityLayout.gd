@@ -2,20 +2,6 @@ class_name CityLayout
 extends Resource
 
 
-const BUILDINGS: int = 128
-const THINGS: int = 256
-
-enum Objects {
-	NOTHING,
-	EVERYTHING,
-	EMPTY,
-	BASE = BUILDINGS,
-	BRIDGE,
-	FOUNDATION,
-	STOCKPILE,
-	TREE = THINGS,
-}
-
 const BASE_RADIUS: float = 12.0
 const RING_GAP: float = 4.0
 const ROAD_WIDTH: float = 8.0
@@ -27,10 +13,6 @@ const SLOPE_RADIUS: float = 420.0
 const NUMBER_OF_RINGS: int = 10
 const SUB_SEGMENTS: int = 5
 
-
-
-static func enum_name(enumerator, index: int) -> String:
-	return enumerator.keys()[enumerator.values().find(index)]
 
 
 # Recalculation of the current ring the gameactor is on

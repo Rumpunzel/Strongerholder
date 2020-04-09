@@ -78,7 +78,7 @@ func update_thing(old_type: int, new_type: int, ring_vector: RingVector, object)
 
 
 
-func get_object_at_position(ring_vector: RingVector, from: int = CityLayout.Objects.EVERYTHING):
+func get_object_at_position(ring_vector: RingVector, from: int = Constants.Objects.EVERYTHING):
 	var search_through: Dictionary = { }
 	
 	if not from == CityLayout.EVERYTHING:

@@ -8,7 +8,7 @@ var ring_map
 func build_everything(new_ring_map: RingMap):
 	ring_map = new_ring_map
 	
-	var new_build_point = CityObject.new(CityLayout.Objects.BASE, RingVector.new(0, 0), ring_map)
+	var new_build_point = CityObject.new(Constants.Objects.BASE, RingVector.new(0, 0), ring_map)
 	
 	add_child(new_build_point)
 	
@@ -28,13 +28,13 @@ func construct_ring(ring_number: int):
 		
 		if i % CityLayout.SUB_SEGMENTS == 0:
 			if ring_number > 0 and i % number_of_bridges == 0:
-				buildying_type = CityLayout.Objects.BRIDGE
+				buildying_type = Constants.Objects.BRIDGE
 			else:
-				buildying_type = CityLayout.Objects.FOUNDATION
+				buildying_type = Constants.Objects.FOUNDATION
 			
 			add_child(CityObject.new(buildying_type, ring_vector, ring_map, true, 3))
 		else:
-			ring_map.register_segment(CityLayout.Objects.EMPTY, ring_vector, null)
+			ring_map.register_segment(Constants.Objects.EMPTY, ring_vector, null)
 	
 	#print("total buildings for ring %d: %d" % [ring_number, float(number_of_buildings) / CityLayout.SUB_SEGMENTS])
 
