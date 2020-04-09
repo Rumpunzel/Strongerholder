@@ -104,7 +104,7 @@ func animate_in_buttons(delay: float = 0.0):
 	yield(get_tree(), "idle_frame")
 	
 	if delay > 0.0:
-		tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay * 0.5)
 	
 	for button in get_children():
 		tween.interpolate_property(button, "rect_position", Vector2(), button.rect_position, 0.4, Tween.TRANS_BACK,Tween.EASE_OUT, delay)
