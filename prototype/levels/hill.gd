@@ -10,10 +10,11 @@ func _ready():
 	$city_structures.build_everything(rm)
 	$flora.grow_flora(rm)
 	
-	var pl = preload("res://prefabs/gameactors/player/Player.tscn").instance()
+	var pl = preload("res://prefabs/gameactors/GameActor.tscn").instance()
 	pl.setup(rm)
 	add_child(pl)
 	pl.set_ring_vector(RingVector.new(0, 0, true))
+	pl.set_player_controlled(true)
 	
 	for i in range(CityLayout.get_number_of_segments(0)):
 		var np = preload("res://prefabs/gameactors/GameActor.tscn").instance()

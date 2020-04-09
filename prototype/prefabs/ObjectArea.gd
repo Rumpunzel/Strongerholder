@@ -39,16 +39,16 @@ func exited(new_area:Area):
 
 
 func parse_entering_object(new_object: GameObject) -> bool:
-	if new_object.active:
+	if new_object.active and not objects_in_area.has(new_object):
 		objects_in_area.append(new_object)
 		new_object.connect("died", self, "parse_exiting_object", [new_object])
 		
 		return true
-	else:
+	elif not inactive_objects_in_area.has(new_object):
 		inactive_objects_in_area.append(new_object)
 		new_object.connect("activated", self, "parse_acitvating_object", [new_object])
-		
-		return false
+	
+	return false
 
 
 func parse_exiting_object(new_object: GameObject) -> bool:

@@ -31,7 +31,6 @@ onready var default_gravity = ProjectSettings.get_setting("physics/2d/default_gr
 onready var cliff_dection = CliffDetection.new(self)
 onready var animation_tree: AnimationTree = get_node(animation_tree_node)
 onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
-onready var camera = get_viewport().get_camera()
 
 
 
@@ -72,7 +71,8 @@ func move_to(direction: Vector3, is_sprinting: bool) -> RingVector:
 
 
 func parse_state(direction: Vector3):
-	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z))
+	var camera = get_viewport().get_camera()
+	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z)) if camera else 0.0
 	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else Vector2.DOWN
 	movement_vector = movement_vector.rotated(angle)
 	

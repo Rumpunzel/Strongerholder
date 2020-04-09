@@ -64,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/ObjectArea.gd"
 }, {
+"base": "Spatial",
+"class": "PlayerCamera",
+"language": "GDScript",
+"path": "res://prefabs/gameactors/player/PlayerCamera.gd"
+}, {
 "base": "Node",
 "class": "PuppetMaster",
 "language": "GDScript",
@@ -106,6 +111,7 @@ _global_script_class_icons={
 "GameObject": "",
 "InputMaster": "",
 "ObjectArea": "",
+"PlayerCamera": "",
 "PuppetMaster": "",
 "RadiantContainer": "",
 "RadiantUI": "",

@@ -6,6 +6,9 @@ signal new_interest(object_of_interest)
 signal acquired_target(currently_searching_for)
 
 
+export var player_controlled: int = 0 setget , get_player_controlled
+
+
 var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
 var currently_searching_for = null setget set_currently_searching_for, get_currently_searching_for
 
@@ -20,6 +23,11 @@ onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.ge
 
 func _ready():
 	$pathfinder.register_actor(self)
+
+
+func _process(_delta):
+	if can_act():
+		acquire_new_target()
 
 
 
@@ -55,12 +63,27 @@ func can_act() -> bool:
 	var state: String = state_machine.get_current_node()
 	var is_idle: bool = state.ends_with("idle") or state == "run"
 	
-	if is_idle:
-		acquire_new_target()
-	
 	return is_idle
 
 
+
+
+func set_player_controlled(new_player: int, new_camera = preload("res://prefabs/gameactors/player/PlayerCamera.tscn").instance()):
+	if new_player > 0:
+		$pathfinder.unregister_actor(self)
+		$pathfinder.set_script(load("res://prefabs/gameactors/player/InputMaster.gd"))
+		$pathfinder.ring_map = ring_map
+		$pathfinder.register_actor(self)
+		behavior.blank_prios()
+		add_child(new_camera)
+		new_camera.set_node_to_follow(body)
+	else:
+		$pathfinder.unregister_actor(self)
+		$pathfinder.set_script(load("res://prefabs/gameactors/PuppetMaster.gd"))
+		$pathfinder.ring_map = ring_map
+		$pathfinder.register_actor(self)
+	
+	player_controlled = new_player
 
 
 func set_object_of_interest(new_object: GameObject):
@@ -80,6 +103,9 @@ func set_ring_vector(new_vector: RingVector):
 	.set_ring_vector($body.ring_vector)
 
 
+
+func get_player_controlled() -> int:
+	return player_controlled
 
 func get_object_of_interest() -> GameObject:
 	return object_of_interest

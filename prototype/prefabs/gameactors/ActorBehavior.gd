@@ -13,3 +13,9 @@ func next_priority(inventory: Array):
 		return inventory_empty
 	else:
 		return raw_material
+
+
+func blank_prios():
+	inventory_empty = CityLayout.Objects.NOTHING
+	raw_material = CityLayout.Objects.NOTHING
+	processed_material = CityLayout.Objects.NOTHING

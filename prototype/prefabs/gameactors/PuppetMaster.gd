@@ -77,12 +77,22 @@ func get_input() -> Array:
 
 
 func register_actor(new_actor: GameActor):
-	current_actor = new_actor
-	
-	connect("new_commands", current_actor, "listen_to_commands")
-	
-	current_actor.connect("entered_segment", self, "update_path_progress")
-	current_actor.connect("acquired_target", self, "set_currently_searching_for")
+	if not new_actor == current_actor:
+		unregister_actor(current_actor)
+		
+		current_actor = new_actor
+		
+		connect("new_commands", current_actor, "listen_to_commands")
+		
+		current_actor.connect("entered_segment", self, "update_path_progress")
+		current_actor.connect("acquired_target", self, "set_currently_searching_for")
+
+func unregister_actor(old_actor: GameActor):
+	if current_actor and old_actor == current_actor:
+		disconnect("new_commands", current_actor, "listen_to_commands")
+		
+		current_actor.disconnect("entered_segment", self, "update_path_progress")
+		current_actor.disconnect("acquired_target", self, "set_currently_searching_for")
 
 
 func update_current_path():
@@ -259,7 +269,7 @@ class InteractCommand extends Command:
 		return false
 	
 	
-	func interaction_with(actor: GameActor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "give") -> Dictionary:
+	func interaction_with(actor: GameActor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
 		if object:
 			match object.type:
 				CityLayout.Objects.TREE:
@@ -268,11 +278,13 @@ class InteractCommand extends Command:
 				
 				CityLayout.Objects.STOCKPILE:
 					if not actor.inventory.empty():
+						animation = "give"
 						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
 					else:
 						return { }
 			
-			actor.animate(animation)
+			if animation.length() > 0:
+				actor.animate(animation)
 			
 			return interaction
 		
