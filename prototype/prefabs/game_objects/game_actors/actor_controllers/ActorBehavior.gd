@@ -26,6 +26,7 @@ var object_of_interest: GameObject = null setget set_object_of_interest, get_obj
 var current_actor
 var ring_map: RingMap
 var priorities: Dictionary = { }
+var currently_looking_for: int = Constants.Objects.NOTHING
 
 
 
@@ -54,31 +55,16 @@ func next_priority() -> GameObject:
 	var next_target: GameObject = null
 	
 	for target_type in priority_list:
-		next_target = search_for_target(target_type)
+		if not target_type == currently_looking_for:
+			next_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, target_type)
+			currently_looking_for = target_type
+		else:
+			next_target = object_of_interest
 		
 		if next_target:
 			break
 	
 	return next_target
-
-
-func search_for_target(object_type: int) -> GameObject:
-	var nearest_target = null
-	
-	if object_type >= Constants.THINGS:
-		var nearest_targets = ring_map.city_navigator.get_nearest_thing(current_actor.ring_vector, object_type)
-		var shortest_distance = -1
-		
-		for target in nearest_targets:
-			var distance = abs(current_actor.ring_vector.rotation - target.ring_vector.rotation)
-			
-			if shortest_distance < 0 or distance < shortest_distance:
-				nearest_target = target
-				shortest_distance = distance
-	else:
-		nearest_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, object_type)
-	
-	return nearest_target
 
 
 func force_search():

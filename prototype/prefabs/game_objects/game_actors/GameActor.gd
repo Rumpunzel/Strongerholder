@@ -87,7 +87,7 @@ func set_ring_vector(new_vector: RingVector):
 	.set_ring_vector($body.ring_vector)
 
 func set_object_of_interest(new_object: GameObject):
-	pathfinder.object_of_interest = new_object
+	pathfinder.set_object_of_interest(new_object, false)
 
 
 

@@ -11,12 +11,16 @@ var object_of_interest: GameObject = null setget set_object_of_interest, get_obj
 
 
 var ring_map: RingMap
-var current_actor = null
 var actor_behavior: ActorBehavior
+
+var current_actor = null
 
 var current_path: Array = [ ]
 var current_segments: Array = [ ]
+
 var path_progress: int = 0
+
+var update_target: bool = false
 var update_pathfinding: bool = false
 
 
@@ -31,13 +35,17 @@ func _init(new_ring_map: RingMap, new_actor = null):
 		actor_behavior = ActorBehavior.new(current_actor, ring_map)
 		
 		actor_behavior.connect("new_object_of_interest", self, "set_object_of_interest")
-		connect("looking_for_target", actor_behavior, "force_search")
+		connect("looking_for_target", self, "queue_update")
 		
-		actor_behavior.force_search()
+		queue_search()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
+	if update_target:
+		actor_behavior.force_search()
+		update_target = false
+	
 	if update_pathfinding:
 		update_current_path()
 		update_pathfinding = false
@@ -56,7 +64,7 @@ func get_input() -> Array:
 	
 	if current_actor.is_in_range(object_of_interest):
 		commands.append(InteractCommand.new(object_of_interest))
-		actor_behavior.force_search()
+		queue_search()
 	
 	
 	var movement_vector: Vector3 = Vector3()
@@ -93,13 +101,12 @@ func register_actor(new_actor):
 		current_actor = new_actor
 		
 		connect("new_commands", current_actor, "listen_to_commands")
-		
 		current_actor.connect("entered_segment", self, "update_path_progress")
+
 
 func unregister_actor(old_actor):
 	if current_actor and old_actor == current_actor:
 		disconnect("new_commands", current_actor, "listen_to_commands")
-		
 		current_actor.disconnect("entered_segment", self, "update_path_progress")
 
 
@@ -118,11 +125,11 @@ func update_current_path():
 			new_segment.radius += side_of_the_road
 			
 			current_segments.append(new_segment)
-	
-	if object_of_interest:
-		current_segments.append(object_of_interest.ring_vector)
 		
-		#print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
+		if object_of_interest:
+			current_segments.append(object_of_interest.ring_vector)
+			
+			print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
 
 
 func update_path_progress(new_vector: RingVector):
@@ -131,12 +138,14 @@ func update_path_progress(new_vector: RingVector):
 	if new_progress > 0:
 		path_progress = int(max(path_progress, new_progress))
 	else:
-		update_current_path()
+		queue_update()
 
 
-func reset_object_of_interest(old_object: GameObject):
-	if object_of_interest == old_object:
-		set_object_of_interest(null)
+func queue_search():
+	update_target = true
+
+func queue_update():
+	update_pathfinding = true
 
 
 
@@ -145,20 +154,22 @@ func set_pathfinding_target(new_target: RingVector):
 	pathfinding_target = new_target
 
 
-func set_object_of_interest(new_object: GameObject):
-	if object_of_interest:
-		object_of_interest.disconnect("died", actor_behavior, "force_search")
-	
-	object_of_interest = new_object
-	
-	if object_of_interest:
-		pathfinding_target = object_of_interest.ring_vector
-		object_of_interest.connect("died", actor_behavior, "force_search")
-	else:
-		pathfinding_target = null
-		emit_signal("looking_for_target")
-	
-	update_pathfinding = true
+func set_object_of_interest(new_object: GameObject, calculate_pathfinding: bool = true):
+	if not new_object == object_of_interest:
+		if object_of_interest and calculate_pathfinding:
+			object_of_interest.disconnect("died", self, "queue_search")
+		
+		object_of_interest = new_object
+		
+		if calculate_pathfinding:
+			if object_of_interest:
+				pathfinding_target = object_of_interest.ring_vector
+				object_of_interest.connect("died", self, "queue_search")
+			else:
+				pathfinding_target = null
+				emit_signal("looking_for_target")
+			
+			queue_update()
 
 
 

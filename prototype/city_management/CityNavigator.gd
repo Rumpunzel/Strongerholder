@@ -115,81 +115,60 @@ func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> A
 
 
 func get_nearest(ring_vector: RingVector, type: int):
-	var search_through: Dictionary = { }
-	
-	if not type == Constants.Objects.EVERYTHING:
-		search_through = ring_map.segments_dictionary.get(type, { })
-	else:
-		search_through = { }
-		print("INVALID SEARCH INPUT")
+	var dic: Dictionary = ring_map.things_dictionary if type >= Constants.THINGS else ring_map.segments_dictionary
+	var search_through: Dictionary = dic.get(type, { })
 	
 	if search_through.empty():
+		print("INVALID SEARCH INPUT OF: %s" % [Constants.enum_name(Constants.Objects, type)])
 		return null
 	else:
-		var shortest_path: Array = [ ]
 		var target = null
-		
-		for ring in search_through.keys():
-			var segments = search_through[ring]
-			
-			for segment in segments.keys():
-				var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
-				
-				if (shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size():
-					shortest_path = path
-					target = segments[segment]
-		
-		return target
-
-
-func get_nearest_thing(ring_vector: RingVector, type: int) -> Array:
-	var search_through: Dictionary = ring_map.things_dictionary.get(type, { })
-	
-	if search_through.empty():
-		return [ ]
-	else:
-		var targets_array = [ ]
 		var i = 0
 		
-		while targets_array.empty() and i < CityLayout.get_number_of_segments(CityLayout.NUMBER_OF_RINGS - 1):
+		while not target and i < CityLayout.NUMBER_OF_RINGS:
 			var ring: int = ring_vector.ring + int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
 			
 			if ring >= 0 and ring < CityLayout.NUMBER_OF_RINGS:
 				var search_vector = ring_vector
 				
 				if not ring == ring_vector.ring:
-					var nearest_bridge = get_nearest(ring_vector, Constants.Objects.BRIDGE)
+					var current_vector = RingVector.new(CityLayout.get_radius_minimum(ring), ring_vector.rotation)
+					var nearest_bridge = get_nearest(current_vector, Constants.Objects.BRIDGE)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
 				
-				targets_array = find_thing_on_ring(search_through, ring, search_vector)
+				target = find_thing_on_ring(search_through, ring, search_vector)
 			
 			i += 1
 		
-		return targets_array
+		return target
 
-func find_thing_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector) -> Array:
-	var shortest_path: Array = [ ]
-	var targets_array = [ ]
+
+func find_thing_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector):
+	var shortest_path: float = -1.0
+	var target = null
 	var j = 0
 	var segments = search_through.get(ring, { })
 	var segments_in_ring = CityLayout.get_number_of_segments(ring)
 	
-	while targets_array.empty() and j < segments_in_ring:
+	while not target and j < segments_in_ring:
 		var segment = ring_vector.segment + int(ceil(j / 2.0) * (1 if j % 2 == 0 else -1))
-		
 		segment = (segment + segments_in_ring) % segments_in_ring
 		
-		var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
-		
-		if not segments.get(segment, [ ]).empty() and ((shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size()):
-			shortest_path = path
-			targets_array = segments[segment]
+		if segments.get(segment):
+			var path_length: float = abs(ring_vector.rotation - (float(segment) / float(segments_in_ring)) * TAU)
+			
+			while path_length > PI:
+				path_length -= PI
+			
+			if (shortest_path < 0.0 and path_length >= 0.0) or path_length < shortest_path:
+				shortest_path = path_length
+				target = segments[segment]
 		
 		j += 1
 	
-	return targets_array
+	return target
 
 
 func construct_adjanceny_matrix():
