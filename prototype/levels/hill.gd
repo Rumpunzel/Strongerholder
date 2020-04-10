@@ -20,7 +20,9 @@ func _ready():
 		
 		if i == 0:
 			actor_type = Constants.Objects.PLAYER
-		else:#if i < CityLayout.get_number_of_segments(0) * 0.7:
+		elif i < CityLayout.get_number_of_segments(0) * 0.7:
 			actor_type = Constants.Objects.WOODSMAN
+		else:
+			actor_type = Constants.Objects.CARPENTER
 		
 		new_actor.setup(ring_map, RingVector.new(0, i, true), actor_type)

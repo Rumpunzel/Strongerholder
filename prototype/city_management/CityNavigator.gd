@@ -112,15 +112,8 @@ func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> A
 	return path_vectors
 
 
-func get_nearest(ring_vector: RingVector, type: int, priority_list: Array = [ ]):
-	var dictionary: Dictionary
-	
-	match Constants.object_type(type):
-		Constants.BUILDINGS:
-			dictionary = ring_map.structures.dictionary
-		Constants.RESOURCES:
-			dictionary = ring_map.resources.dictionary
-	
+
+func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, priority_list: Array = [ ]):
 	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
@@ -138,19 +131,19 @@ func get_nearest(ring_vector: RingVector, type: int, priority_list: Array = [ ])
 				
 				if not ring == ring_vector.ring:
 					var current_vector = RingVector.new(CityLayout.get_radius_minimum(ring), ring_vector.rotation)
-					var nearest_bridge = get_nearest(current_vector, Constants.Objects.BRIDGE)
+					var nearest_bridge = get_nearest(dictionary, Constants.Objects.BRIDGE, current_vector)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
 				
-				target = find_things_on_ring(search_through, ring, search_vector, priority_list)
+				target = find_things_on_ring(search_through, ring, search_vector, type, priority_list)
 			
 			i += 1
 		
 		return target
 
 
-func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, priority_list: Array = [ ]):
+func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, type: int, priority_list: Array = [ ]):
 	var shortest_path: float = -1.0
 	var target = null
 	var j = 0
@@ -189,6 +182,7 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 		j += 1
 	
 	return target
+
 
 
 func construct_adjanceny_matrix():

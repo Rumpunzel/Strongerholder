@@ -4,16 +4,21 @@ extends GameObject
 
 const BUILD_INTO_FUNCTION = "build_into"
 
-const object_scenes: Dictionary = {
-	Constants.Objects.TREE: preload("res://prefabs/game_objects/city/things/tree.tscn"),
-	Constants.Objects.BASE: preload("res://prefabs/game_objects/city/buildings/base.tscn"),
-	Constants.Objects.FOUNDATION: preload("res://prefabs/game_objects/city/buildings/foundation.tscn"),
-	Constants.Objects.BRIDGE: preload("res://prefabs/game_objects/city/buildings/bridge.tscn"),
-	Constants.Objects.STOCKPILE: preload("res://prefabs/game_objects/city/buildings/stockpile.tscn"),
-	Constants.Objects.WOODCUTTERS_HUT: preload("res://prefabs/game_objects/city/buildings/woodcutters_hut.tscn"),
+const HIGHLIGHT_MATERIAL: Material = preload("res://assets/materials/highlightShader.material")
+
+const BUILDING_REQUESTS = {
+	Constants.Objects.STOCKPILE: [ Constants.Objects.WOOD ],
 }
 
-const highlight_material: Material = preload("res://assets/materials/highlightShader.material")
+
+var object_scenes: Dictionary = {
+	Constants.Objects.TREE: load("res://prefabs/game_objects/city/things/tree.tscn"),
+	Constants.Objects.BASE: load("res://prefabs/game_objects/city/buildings/base.tscn"),
+	Constants.Objects.FOUNDATION: load("res://prefabs/game_objects/city/buildings/foundation.tscn"),
+	Constants.Objects.BRIDGE: load("res://prefabs/game_objects/city/buildings/bridge.tscn"),
+	Constants.Objects.STOCKPILE: load("res://prefabs/game_objects/city/buildings/stockpile.tscn"),
+	Constants.Objects.WOODCUTTERS_HUT: load("res://prefabs/game_objects/city/buildings/woodcutters_hut.tscn"),
+}
 
 
 var object:CityStructure = null setget , get_object
@@ -50,7 +55,7 @@ func _ready():
 
 func handle_highlighted():
 	if object:
-		object.handle_highlighted(highlight_material if highlighted else null)
+		object.handle_highlighted(HIGHLIGHT_MATERIAL if highlighted else null)
 
 
 func interact(sender: GameObject) -> bool:
@@ -65,12 +70,16 @@ func unregister_item(new_item):
 	ring_map.unregister_resource(new_item, ring_vector, self)
 
 
+
 func build_into(new_type):
 	if new_type is String:
 		new_type = new_type.replace(" ", "_").to_upper()
 		new_type = Constants.Objects.values()[Constants.Objects.keys().find(new_type)]
 	
 	set_type(new_type)
+	
+	for request in BUILDING_REQUESTS.get(new_type, [ ]):
+		ring_map.register_request(request, ring_vector, self)
 	
 	ring_map.update_structure(type, new_type, ring_vector, self)
 
