@@ -19,20 +19,20 @@ func register_in_dictionary(type: int, ring_vector: RingVector, object):
 func unregister_in_dictionary(type: int, ring_vector: RingVector, object):
 	var type_dic: Dictionary = dictionary.get(type, { })
 	var ring_dic: Dictionary = { }
-	var segment_dic: Dictionary = { }
+	var segment_array: Array = [ ]
 	
 	if not type_dic.empty():
 		ring_dic = type_dic.get(ring_vector.ring, { })
 		
 		if not ring_dic.empty():
-			segment_dic = ring_dic.get(ring_vector.segment, { })
+			segment_array = ring_dic.get(ring_vector.segment, { })
 			
-			if segment_dic.has(object):
-				segment_dic.erase(object)
+			if segment_array.has(object):
+				segment_array.erase(object)
 	
 	
-	if segment_dic.empty():
-		ring_dic.erase(segment_dic)
+	if segment_array.empty():
+		ring_dic.erase(segment_array)
 	
 	if ring_dic.empty():
 		type_dic.erase(type)

@@ -52,7 +52,7 @@ func next_priority() -> GameObject:
 	
 	for target_type in priority_list:
 		if not target_type == currently_looking_for:
-			next_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, target_type, priorities.get(target_type))
+			next_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, target_type, priorities.get(target_type, [ ]))
 		else:
 			next_target = object_of_interest
 		
@@ -63,10 +63,8 @@ func next_priority() -> GameObject:
 	if not next_target:
 		currently_looking_for = Constants.Objects.NOTHING
 	
-	print("%s is looking for: %s" % [current_actor.name, Constants.enum_name(Constants.Objects, currently_looking_for)])
-	
-	if next_target:
-		print("and found it in: %s" % [next_target.name])
+	if not next_target == object_of_interest:
+		print("%s is looking for: %s%s" % [current_actor.name, Constants.enum_name(Constants.Objects, currently_looking_for), (" and found it in: %s" % [next_target.name]) if next_target else ""])
 	
 	return next_target
 

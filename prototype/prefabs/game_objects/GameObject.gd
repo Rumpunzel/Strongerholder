@@ -12,8 +12,8 @@ signal sent_item(item)
 
 const INTERACT_FUNCTION = "interact"
 const DAMAGE_FUNCTION = "damage"
-const GIVE_FUNCTION = "give"
-const TAKE_FUNCTION = "take"
+const GIVE_FUNCTION = "receive_items"
+const TAKE_FUNCTION = "send_items"
 
 const EVERYTHING = "everything"
 
@@ -82,8 +82,9 @@ func receive_items(new_items: Array, sender: GameObject):
 		var new_item = sender.send_item(item, self) if sender else item
 		inventory.append(new_item)
 		emit_signal("received_item", item)
-	
-	#print("%s gave %s: %s" % [sender.name, name, new_items])
+		
+		if sender:
+			print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Objects, new_item)])
 
 
 func send_item(item_to_send, _sender: GameObject):

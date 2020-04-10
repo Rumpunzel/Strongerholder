@@ -34,7 +34,7 @@ animation = "attack_left"
 animation = "attack_right"
 
 [sub_resource type="AnimationNodeAnimation" id=5]
-animation = "give_down"
+animation = "attack_down"
 
 [sub_resource type="AnimationNodeAnimation" id=6]
 animation = "attack_up"
@@ -235,7 +235,7 @@ anim_player = NodePath("../animation_player")
 process_mode = 0
 parameters/playback = SubResource( 34 )
 parameters/conditions/outside_menu = true
-parameters/attack/blend_position = Vector2( 0, 0 )
+parameters/attack/blend_position = Vector2( 0.0499719, 0.890173 )
 parameters/give/blend_position = Vector2( 0, 0 )
 parameters/idle/blend_position = Vector2( 0, 0 )
 parameters/run/blend_position = Vector2( 0, 0 )

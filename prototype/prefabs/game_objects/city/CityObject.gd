@@ -72,12 +72,12 @@ func build_into(new_type):
 	
 	set_type(new_type)
 	
-	ring_map.update_thing(type, new_type, ring_vector, self)
+	ring_map.update_structure(type, new_type, ring_vector, self)
 
 
 func die(sender: GameObject):
 	if sender:
-		sender.give(inventory, self)
+		sender.receive_items(inventory, self)
 	
 	if object:
 		object.queue_free()

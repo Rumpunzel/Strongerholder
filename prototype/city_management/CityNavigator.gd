@@ -32,8 +32,7 @@ func construct_pathfinder():
 	
 	var new_thread: Thread = Thread.new()
 	
-	new_thread.start(self, "connect_nodes")
-	new_thread.wait_to_finish()
+	connect_nodes()
 
 
 func construct_graph():
@@ -56,16 +55,15 @@ func construct_graph():
 			graph_size += 1
 
 
-func connect_nodes(_whatever):
+func connect_nodes():
 	var rings: Dictionary = ring_map.search_dictionary
-	var bridges: Dictionary = ring_map.segments_dictionary[Constants.Objects.BRIDGE]
+	var bridges: Dictionary = ring_map.structures.dictionary[Constants.Objects.BRIDGE]
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
 		
 		if first_time:
 			connect_segments(ring)
-			
 		
 		if not previous_bridges == bridges:
 			connect_bridges(bridges, ring, segments)
