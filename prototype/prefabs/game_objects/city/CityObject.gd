@@ -43,7 +43,7 @@ func _ready():
 	
 	yield(get_tree(), "idle_frame")
 	
-	#ring_map.connect("thing_added", self, "get_active")
+	ring_map.connect("city_changed", self, "is_active")
 
 
 
@@ -123,7 +123,7 @@ func set_ring_vector(new_vector: RingVector):
 func get_object() -> CityStructure:
 	return object
 
-func get_active() -> bool:
+func is_active() -> bool:
 	if Constants.object_type(type) == Constants.BUILDINGS:
 		var new_active = true
 		
@@ -132,8 +132,8 @@ func get_active() -> bool:
 			new_vector.set_equal_to(ring_vector)
 			new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
 			
-			new_active = new_active and not ring_map.get_thing_at_position(new_vector, Constants.Objects.TREE)
+			new_active = new_active and ring_map.get_structures_at_position(new_vector, Constants.Objects.TREE).empty()
 		
 		set_active(new_active)
 	
-	return active
+	return active and alive

@@ -40,7 +40,7 @@ func construct_search_dictionary():
 func get_structures_at_position(ring_vector: RingVector, from: int = Constants.Objects.EVERYTHING) -> Array:
 	var search_through: Dictionary = { }
 	
-	if not from == CityLayout.EVERYTHING:
+	if not from == Constants.Objects.EVERYTHING:
 		search_through = structures.dictionary[from]
 	else:
 		search_through = search_dictionary
