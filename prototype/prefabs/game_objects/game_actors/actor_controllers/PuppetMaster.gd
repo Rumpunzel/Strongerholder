@@ -136,7 +136,7 @@ func update_path_progress(new_vector: RingVector):
 		if new_progress > 0:
 			path_progress = int(max(path_progress, new_progress))
 		else:
-			queue_search()
+			queue_update()
 
 
 func queue_search():
@@ -154,14 +154,14 @@ func set_pathfinding_target(new_target: RingVector):
 
 func set_object_of_interest(new_object: GameObject, calculate_pathfinding: bool = true):
 	if object_of_interest and calculate_pathfinding:
-		object_of_interest.disconnect("died", self, "queue_search")
+		object_of_interest.disconnect("died", actor_behavior, "force_search")
 	
 	object_of_interest = new_object
 	
 	if calculate_pathfinding:
 		if object_of_interest:
 			pathfinding_target = object_of_interest.ring_vector
-			object_of_interest.connect("died", self, "queue_search")
+			object_of_interest.connect("died", actor_behavior, "force_search", [true])
 		else:
 			pathfinding_target = null
 		

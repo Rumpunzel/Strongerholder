@@ -25,7 +25,7 @@ func unregister_in_dictionary(type: int, ring_vector: RingVector, object):
 		ring_dic = type_dic.get(ring_vector.ring, { })
 		
 		if not ring_dic.empty():
-			segment_array = ring_dic.get(ring_vector.segment, { })
+			segment_array = ring_dic.get(ring_vector.segment, [ ])
 			
 			if segment_array.has(object):
 				segment_array.erase(object)

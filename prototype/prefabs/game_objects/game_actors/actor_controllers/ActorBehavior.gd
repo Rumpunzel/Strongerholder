@@ -53,14 +53,18 @@ func next_priority() -> GameObject:
 	for target_type in priority_list:
 		if not target_type == currently_looking_for:
 			var target_priorities = priorities.get(target_type, [ ])
-			var targets_exist = false
 			
-			for prio in target_priorities:
-				if ring_map.structures.dictionary.has(prio):
-					targets_exist = true
-					break
-			
-			if targets_exist:
+			if Constants.object_type(target_type) == Constants.RESOURCES:
+				var targets_exist = false
+				
+				for prio in target_priorities:
+					if ring_map.structures.dictionary.has(prio):
+						targets_exist = true
+						break
+				
+				if targets_exist:
+					next_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, target_type, target_priorities)
+			else:
 				next_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, target_type, target_priorities)
 		else:
 			next_target = object_of_interest
@@ -78,7 +82,10 @@ func next_priority() -> GameObject:
 	return next_target
 
 
-func force_search():
+func force_search(reset_target: bool = false):
+	if reset_target:
+		currently_looking_for = Constants.Objects.NOTHING
+	
 	set_object_of_interest(next_priority())
 
 
