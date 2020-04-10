@@ -265,6 +265,10 @@ interact={
 
 name_casing=2
 
+[physics]
+
+2d/default_gravity=50
+
 [rendering]
 
 quality/shadow_atlas/quadrant_0_subdiv=2

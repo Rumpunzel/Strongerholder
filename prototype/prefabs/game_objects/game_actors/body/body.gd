@@ -15,7 +15,7 @@ var sprinting: bool = false setget set_sprinting, get_sprinting
 
 var move_speed: float = 4.0
 var sprint_modifier: float = 2.0
-var jump_speed: float = 15.0
+var jump_speed: float = 20.0
 
 # Multiplicative modifer to the movement speed
 #	is equal to 1.0 if the gameactor is walking normal
@@ -41,10 +41,14 @@ func _physics_process(delta):
 	
 	var dir: Vector3 = transform.basis.x * velocity.z + transform.basis.z * velocity.x
 	
-	if can_jump:
-		jump_mod = max(velocity.y, jump_mod - delta * 5)
+	can_jump = can_jump and velocity.y > 0
 	
-	fall_speed += default_gravity * delta * 0.5
+	if can_jump:
+		jump_mod = min(1.0, jump_mod + velocity.y * delta * 10)
+	else:
+		jump_mod -= delta * 2
+	
+	fall_speed += default_gravity * delta
 	
 	dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
 	
