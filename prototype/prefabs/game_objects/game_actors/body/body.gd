@@ -80,12 +80,12 @@ func parse_state(direction: Vector3):
 	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else Vector2.DOWN
 	movement_vector = movement_vector.rotated(angle)
 	
-	animation_tree.set("parameters/idle/blend_position", movement_vector)
-	animation_tree.set("parameters/run/blend_position", movement_vector)
-	animation_tree.set("parameters/attack/blend_position", movement_vector)
-	animation_tree.set("parameters/give/blend_position", movement_vector)
-	
 	if direction.length() > 0:
+		animation_tree.set("parameters/idle/blend_position", movement_vector)
+		animation_tree.set("parameters/run/blend_position", movement_vector)
+		animation_tree.set("parameters/attack/blend_position", movement_vector)
+		animation_tree.set("parameters/give/blend_position", movement_vector)
+		
 		state_machine.travel("run")
 	elif state_machine.get_current_node() == "run":
 		state_machine.travel("idle")
