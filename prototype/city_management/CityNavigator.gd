@@ -182,7 +182,7 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 							break
 						else:
 							for i in range(priority):
-								if ring_map.structures.dictionary.get(priority_list[i]):
+								if ring_map.structures.dictionary.has(priority_list[i]):
 									target = object
 									break
 		
