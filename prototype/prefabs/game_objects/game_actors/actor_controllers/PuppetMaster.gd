@@ -131,12 +131,7 @@ func update_current_path():
 
 func update_path_progress(new_vector: RingVector):
 	if pathfinding_target:
-		var new_progress = current_path.find(Vector2(new_vector.ring, new_vector.segment))
-		
-		if new_progress > 0:
-			path_progress = int(max(path_progress, new_progress))
-		else:
-			queue_update()
+		path_progress = int(max(path_progress, current_path.find(Vector2(new_vector.ring, new_vector.segment))))
 
 
 func queue_search():
