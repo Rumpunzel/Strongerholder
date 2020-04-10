@@ -19,16 +19,14 @@ const highlight_material: Material = preload("res://assets/materials/highlightSh
 var object:CityStructure = null setget , get_object
 
 var object_width: int = 1
-var is_building: bool = true
 
 
 
 
-func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, building: bool = true, new_width: int = 1, new_inventory = null).(new_ring_map):
+func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, new_width: int = 1, new_inventory = null).(new_ring_map):
 	set_type(new_type)
 	set_ring_vector(new_ring_vector)
 	
-	is_building = building
 	object_width = new_width
 	
 	inventory.append(new_inventory)
@@ -38,10 +36,7 @@ func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, bu
 func _ready():
 	set_object()
 	
-	if is_building:
-		ring_map.register_segment(type, ring_vector, self)
-	else:
-		ring_map.register_thing(type, ring_vector, self)
+	ring_map.register_thing(type, ring_vector, self)
 	
 	yield(get_tree(), "idle_frame")
 	
@@ -66,7 +61,7 @@ func build_into(new_type):
 	
 	set_type(new_type)
 	
-	ring_map.update_segment(type, new_type, ring_vector, self)
+	ring_map.update_thing(type, new_type, ring_vector, self)
 
 
 func die(sender: GameObject):
@@ -120,7 +115,7 @@ func get_object() -> CityStructure:
 	return object
 
 func get_active() -> bool:
-	if is_building:
+	if type < Constants.THINGS:
 		var new_active = true
 		
 		for i in range(object_width):
@@ -128,7 +123,7 @@ func get_active() -> bool:
 			new_vector.set_equal_to(ring_vector)
 			new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
 			
-			new_active = new_active and ring_map.get_things_at_position(new_vector, Constants.Objects.TREE).empty()
+			new_active = new_active and not ring_map.get_thing_at_position(new_vector, Constants.Objects.TREE)
 		
 		set_active(new_active)
 	

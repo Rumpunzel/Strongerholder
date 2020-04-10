@@ -36,44 +36,45 @@ func construct_search_dictionary():
 
 
 
-func register_segment(type: int, ring_vector: RingVector, object):
-	segments_dictionary[type] = segments_dictionary.get(type, { })
-	segments_dictionary[type][ring_vector.ring] = segments_dictionary[type].get(ring_vector.ring, { })
-	segments_dictionary[type][ring_vector.ring][ring_vector.segment] = object
-	
-	emit_signal("city_changed")
-
-
-func update_segment(old_type: int, new_type: int, ring_vector: RingVector, object):
-	segments_dictionary[old_type] = segments_dictionary.get(old_type, { })
-	segments_dictionary[old_type][ring_vector.ring] = segments_dictionary[old_type].get(ring_vector.ring, { })
-	segments_dictionary[old_type][ring_vector.ring].erase(ring_vector.segment)
-	
-	register_segment(new_type, ring_vector, object)
-	done_building()
-
-
-
 func register_thing(type: int, ring_vector: RingVector, object):
-	things_dictionary[type] = things_dictionary.get(type, { })
-	things_dictionary[type][ring_vector.ring] = things_dictionary[type].get(ring_vector.ring, { })
-	things_dictionary[type][ring_vector.ring][ring_vector.segment] = things_dictionary[type][ring_vector.ring].get(ring_vector.segment, [ ])
-	things_dictionary[type][ring_vector.ring][ring_vector.segment].append(object)
+	var dic: Dictionary = things_dictionary if type >= Constants.THINGS else segments_dictionary
 	
-	emit_signal("thing_added")
+	dic[type] = dic.get(type, { })
+	dic[type][ring_vector.ring] = dic[type].get(ring_vector.ring, { })
+	dic[type][ring_vector.ring][ring_vector.segment] = object
+	
+	if type >= Constants.THINGS:
+		emit_signal("thing_added")
+	else:
+		emit_signal("city_changed")
 
 
-func unregister_thing(type: int, ring_vector: RingVector, object):
-	things_dictionary[type] = things_dictionary.get(type, { })
-	things_dictionary[type][ring_vector.ring] = things_dictionary[type].get(ring_vector.ring, { })
-	things_dictionary[type][ring_vector.ring][ring_vector.segment] = things_dictionary[type][ring_vector.ring].get(ring_vector.segment, [ ])
-	things_dictionary[type][ring_vector.ring][ring_vector.segment].erase(object)
+func unregister_thing(type: int, ring_vector: RingVector, object, emit_signal: bool = true):
+	var dic: Dictionary = things_dictionary if type >= Constants.THINGS else segments_dictionary
+	var type_dic: Dictionary = dic.get(type, { })
+	var ring_dic: Dictionary = { }
 	
-	emit_signal("thing_added")
+	if not type_dic.empty():
+		ring_dic = type_dic.get(ring_vector.ring, { })
+		
+		if ring_dic and ring_dic.get(ring_vector.segment) == object:
+			ring_dic.erase(ring_vector.segment)
+	
+	if ring_dic.empty():
+		type_dic.erase(type)
+	
+	if type_dic.empty():
+		dic.erase(type)
+	
+	if emit_signal:
+		if type >= Constants.THINGS:
+			emit_signal("thing_added")
+		else:
+			emit_signal("city_changed")
 
 
 func update_thing(old_type: int, new_type: int, ring_vector: RingVector, object):
-	unregister_thing(old_type, ring_vector, object)
+	unregister_thing(old_type, ring_vector, object, false)
 	register_thing(new_type, ring_vector, object)
 
 
@@ -89,7 +90,7 @@ func get_object_at_position(ring_vector: RingVector, from: int = Constants.Objec
 	return search_through.get(ring_vector.ring, { }).get(ring_vector.segment, null)
 
 
-func get_things_at_position(ring_vector: RingVector, type: int) -> Array:
+func get_thing_at_position(ring_vector: RingVector, type: int):
 	var search_through: Dictionary = things_dictionary.get(type, { })
 	
-	return search_through.get(ring_vector.ring, { }).get(ring_vector.segment, [ ])
+	return search_through.get(ring_vector.ring, { }).get(ring_vector.segment, null)
