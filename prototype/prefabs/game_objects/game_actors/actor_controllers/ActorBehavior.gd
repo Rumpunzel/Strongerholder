@@ -6,16 +6,13 @@ signal new_object_of_interest(object_of_interest)
 
 
 const INVENTORY_EMPTY = "inventory_empty"
-const RAW_MATERIAL = "raw_material"
-const PROCESSED_MATERIAL = "processed_material"
 
 
 const ACTOR_PRIORITIES = {
 	Constants.Objects.PLAYER: { },
 	Constants.Objects.WOODSMAN: {
-		INVENTORY_EMPTY: [ Constants.Objects.TREE, ],
-		RAW_MATERIAL: [ Constants.Objects.WOODCUTTERS_HUT, Constants.Objects.STOCKPILE, ],
-		PROCESSED_MATERIAL: [ Constants.Objects.STOCKPILE, ],
+		INVENTORY_EMPTY: [ Constants.Objects.WOOD, ],
+		Constants.Objects.WOOD: [ Constants.Objects.WOODCUTTERS_HUT, Constants.Objects.STOCKPILE, ],
 	},
 }
 
@@ -42,27 +39,34 @@ func _init(new_actor, new_ring_map):
 
 
 func next_priority() -> GameObject:
-	var status: String
-	
-	if current_actor.inventory.empty():
-		status = INVENTORY_EMPTY
-	elif current_actor.inventory.has("Wood"):
-		status = RAW_MATERIAL
-	else:
-		status = PROCESSED_MATERIAL
-	
-	var priority_list: Array = priorities.get(status, [ ])
 	var next_target: GameObject = null
+	var next_status = INVENTORY_EMPTY
+	
+	if not current_actor.inventory.empty():
+		for status in priorities.keys():
+			if current_actor.inventory.has(status):
+				next_status = status
+	
+	
+	var priority_list: Array = priorities.get(next_status, [ ])
 	
 	for target_type in priority_list:
 		if not target_type == currently_looking_for:
-			next_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, target_type)
-			currently_looking_for = target_type
+			next_target = ring_map.city_navigator.get_nearest(current_actor.ring_vector, target_type, priorities.get(target_type))
 		else:
 			next_target = object_of_interest
 		
 		if next_target:
+			currently_looking_for = target_type
 			break
+	
+	if not next_target:
+		currently_looking_for = Constants.Objects.NOTHING
+	
+	print("%s is looking for: %s" % [current_actor.name, Constants.enum_name(Constants.Objects, currently_looking_for)])
+	
+	if next_target:
+		print("and found it in: %s" % [next_target.name])
 	
 	return next_target
 
@@ -79,8 +83,7 @@ func set_object_of_interest(new_object: GameObject):
 	if not new_object == object_of_interest:
 		object_of_interest = new_object
 		
-		if object_of_interest:
-			emit_signal("new_object_of_interest", object_of_interest)
+		emit_signal("new_object_of_interest", object_of_interest)
 
 
 func get_object_of_interest() -> GameObject:

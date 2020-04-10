@@ -114,9 +114,16 @@ func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> A
 	return path_vectors
 
 
-func get_nearest(ring_vector: RingVector, type: int):
-	var dic: Dictionary = ring_map.things_dictionary if type >= Constants.THINGS else ring_map.segments_dictionary
-	var search_through: Dictionary = dic.get(type, { })
+func get_nearest(ring_vector: RingVector, type: int, priority_list: Array = [ ]):
+	var dictionary: Dictionary
+	
+	match Constants.object_type(type):
+		Constants.BUILDINGS:
+			dictionary = ring_map.structures.dictionary
+		Constants.RESOURCES:
+			dictionary = ring_map.resources.dictionary
+	
+	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
 		print("INVALID SEARCH INPUT OF: %s" % [Constants.enum_name(Constants.Objects, type)])
@@ -138,14 +145,14 @@ func get_nearest(ring_vector: RingVector, type: int):
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
 				
-				target = find_thing_on_ring(search_through, ring, search_vector)
+				target = find_things_on_ring(search_through, ring, search_vector, priority_list)
 			
 			i += 1
 		
 		return target
 
 
-func find_thing_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector):
+func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, priority_list: Array = [ ]):
 	var shortest_path: float = -1.0
 	var target = null
 	var j = 0
@@ -164,7 +171,22 @@ func find_thing_on_ring(search_through: Dictionary, ring: int, ring_vector: Ring
 			
 			if (shortest_path < 0.0 and path_length >= 0.0) or path_length < shortest_path:
 				shortest_path = path_length
-				target = segments[segment]
+				var targets_array: Array = segments[segment]
+				
+				if priority_list.empty():
+					target = targets_array.front()
+				else:
+					for object in targets_array:
+						var priority = priority_list.find(object.type)
+						
+						if priority < 0:
+							target = object
+							break
+						else:
+							for i in range(priority):
+								if ring_map.structures.dictionary.get(priority_list[i]):
+									target = object
+									break
 		
 		j += 1
 	
@@ -172,7 +194,7 @@ func find_thing_on_ring(search_through: Dictionary, ring: int, ring_vector: Ring
 
 
 func construct_adjanceny_matrix():
-	var bridges: Dictionary = ring_map.segments_dictionary[ring_map.BRIDGE]
+	var bridges: Dictionary = ring_map.strucutres.dictionary[ring_map.BRIDGE]
 	
 	for ring in bridges.keys():
 		for segment in bridges[ring].keys():

@@ -6,6 +6,9 @@ signal entered_segment(ring_vector)
 signal activated
 signal died
 
+signal received_item(item)
+signal sent_item(item)
+
 
 const INTERACT_FUNCTION = "interact"
 const DAMAGE_FUNCTION = "damage"
@@ -74,19 +77,19 @@ func interact(sender: GameObject) -> bool:
 	return true
 
 
-func give(new_items: Array, sender: GameObject):
+func receive_items(new_items: Array, sender: GameObject):
+	for item in new_items:
+		var new_item = sender.send_item(item, self) if sender else item
+		inventory.append(new_item)
+		emit_signal("received_item", item)
+	
 	#print("%s gave %s: %s" % [sender.name, name, new_items])
-	
-	while not new_items.empty():
-		inventory.append(new_items.pop_front())
 
 
-func take(objects, sender: GameObject):
-	if objects == EVERYTHING:
-		objects = inventory
-	
-	if objects is Array:
-		sender.give(objects, self)
+func send_item(item_to_send, _sender: GameObject):
+	inventory.erase(item_to_send)
+	emit_signal("sent_item", item_to_send)
+	return item_to_send
 
 
 func damage(damage_points: float, delay: float = 0.0, sender: GameObject = null) -> bool:

@@ -23,24 +23,27 @@ var object_width: int = 1
 
 
 
-func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, new_width: int = 1, new_inventory = null).(new_ring_map):
+func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, new_width: int = 1, new_inventory = [ ]).(new_ring_map):
 	set_type(new_type)
 	set_ring_vector(new_ring_vector)
 	
 	object_width = new_width
 	
-	inventory.append(new_inventory)
+	connect("received_item", self, "register_item")
+	connect("sent_item", self, "unregister_item")
+	
+	receive_items(new_inventory, null)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_object()
 	
-	ring_map.register_thing(type, ring_vector, self)
+	ring_map.register_structure(type, ring_vector, self)
 	
 	yield(get_tree(), "idle_frame")
 	
-	ring_map.connect("thing_added", self, "get_active")
+	#ring_map.connect("thing_added", self, "get_active")
 
 
 
@@ -54,6 +57,14 @@ func interact(sender: GameObject) -> bool:
 	return object and .interact(sender)
 
 
+func register_item(new_item):
+	ring_map.register_resource(new_item, ring_vector, self)
+
+
+func unregister_item(new_item):
+	ring_map.unregister_resource(new_item, ring_vector, self)
+
+
 func build_into(new_type):
 	if new_type is String:
 		new_type = new_type.replace(" ", "_").to_upper()
@@ -65,16 +76,14 @@ func build_into(new_type):
 
 
 func die(sender: GameObject):
-	if sender is GameActor and sender.get_object_of_interest() == self:
-		sender.set_object_of_interest(null)
-	
-	sender.give(inventory, self)
+	if sender:
+		sender.give(inventory, self)
 	
 	if object:
 		object.queue_free()
 		object = null
 		
-		ring_map.unregister_thing(type, ring_vector, self)
+		ring_map.unregister_structure(type, ring_vector, self)
 		
 		.die(sender)
 
@@ -115,7 +124,7 @@ func get_object() -> CityStructure:
 	return object
 
 func get_active() -> bool:
-	if type < Constants.THINGS:
+	if Constants.object_type(type) == Constants.BUILDINGS:
 		var new_active = true
 		
 		for i in range(object_width):
