@@ -99,3 +99,6 @@ func get_ring_vector() -> RingVector:
 
 func get_object_of_interest() -> GameObject:
 	return pathfinder.object_of_interest
+
+func is_looking_for() -> int:
+	return pathfinder.get_currently_looking_for()

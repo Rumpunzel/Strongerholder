@@ -173,6 +173,7 @@ script/source = "extends AnimationTree
 
 
 func _init():
+	set(\"parameters/idle/blend_position\", Vector2(0, 1))
 	active = true
 "
 
@@ -235,8 +236,8 @@ anim_player = NodePath("../animation_player")
 process_mode = 0
 parameters/playback = SubResource( 34 )
 parameters/conditions/outside_menu = true
-parameters/attack/blend_position = Vector2( 0.0499719, 0.890173 )
+parameters/attack/blend_position = Vector2( 0, 0 )
 parameters/give/blend_position = Vector2( 0, 0 )
-parameters/idle/blend_position = Vector2( 0, 0 )
+parameters/idle/blend_position = Vector2( 0, 1 )
 parameters/run/blend_position = Vector2( 0, 0 )
 script = SubResource( 35 )

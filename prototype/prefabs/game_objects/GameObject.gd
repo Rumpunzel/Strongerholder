@@ -13,7 +13,6 @@ signal sent_item(item)
 const INTERACT_FUNCTION = "interact"
 const DAMAGE_FUNCTION = "damage"
 const GIVE_FUNCTION = "receive_items"
-const TAKE_FUNCTION = "send_items"
 
 const EVERYTHING = "everything"
 
@@ -80,17 +79,23 @@ func interact(sender: GameObject) -> bool:
 func receive_items(new_items: Array, sender: GameObject):
 	for item in new_items:
 		var new_item = sender.send_item(item, self) if sender else item
-		inventory.append(new_item)
-		emit_signal("received_item", item)
 		
-		if sender:
-			print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Objects, new_item)])
+		if new_item:
+			inventory.append(new_item)
+			emit_signal("received_item", item)
+			
+			if sender:
+				print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Objects, new_item)])
 
 
 func send_item(item_to_send, _sender: GameObject):
-	inventory.erase(item_to_send)
-	emit_signal("sent_item", item_to_send)
-	return item_to_send
+	if inventory.has(item_to_send):
+		inventory.erase(item_to_send)
+		emit_signal("sent_item", item_to_send)
+		
+		return item_to_send
+	else:
+		return null
 
 
 func damage(damage_points: float, delay: float = 0.0, sender: GameObject = null) -> bool:
@@ -125,6 +130,7 @@ func set_ring_vector(new_vector: RingVector):
 
 func set_type(new_type: int):
 	type = new_type
+	name = Constants.enum_name(Constants.Objects, type)
 
 func set_active(new_status: bool):
 	active = new_status

@@ -18,12 +18,12 @@ const ACTOR_PRIORITIES = {
 
 
 var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
+var currently_looking_for: int = Constants.Objects.NOTHING setget set_currently_looking_for, get_currently_looking_for
 
 
 var current_actor
 var ring_map: RingMap
 var priorities: Dictionary = { }
-var currently_looking_for: int = Constants.Objects.NOTHING
 
 
 
@@ -63,8 +63,8 @@ func next_priority() -> GameObject:
 	if not next_target:
 		currently_looking_for = Constants.Objects.NOTHING
 	
-	if not next_target == object_of_interest:
-		print("%s is looking for: %s%s" % [current_actor.name, Constants.enum_name(Constants.Objects, currently_looking_for), (" and found it in: %s" % [next_target.name]) if next_target else ""])
+#	if not next_target == object_of_interest:
+#		print("%s is looking for: %s%s" % [current_actor.name, Constants.enum_name(Constants.Objects, currently_looking_for), (" and found it in: %s" % [next_target.name]) if next_target else ""])
 	
 	return next_target
 
@@ -83,6 +83,12 @@ func set_object_of_interest(new_object: GameObject):
 		
 		emit_signal("new_object_of_interest", object_of_interest)
 
+func set_currently_looking_for(new_type: int):
+	currently_looking_for = new_type
+
 
 func get_object_of_interest() -> GameObject:
 	return object_of_interest
+
+func get_currently_looking_for() -> int:
+	return currently_looking_for

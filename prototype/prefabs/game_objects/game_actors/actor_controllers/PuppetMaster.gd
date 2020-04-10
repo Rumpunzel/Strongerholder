@@ -162,7 +162,6 @@ func set_object_of_interest(new_object: GameObject, calculate_pathfinding: bool 
 		if object_of_interest:
 			pathfinding_target = object_of_interest.ring_vector
 			object_of_interest.connect("died", self, "queue_search")
-			print(object_of_interest.name)
 		else:
 			pathfinding_target = null
 		
@@ -176,6 +175,9 @@ func get_pathfinding_target() -> RingVector:
 
 func get_object_of_interest() -> GameObject:
 	return object_of_interest
+
+func get_currently_looking_for() -> int:
+	return actor_behavior.currently_looking_for
 
 
 
@@ -208,26 +210,30 @@ class MoveCommand extends Command:
 
 
 class InteractCommand extends Command:
+	const SUBJECT: String = "subject"
+	const OBJECT: String = "object"
 	const INTERACTION: String = "interaction"
 	const PARAMETERS: String = "parameters"
 	
 	const BASIC_INTERACTION: Dictionary = { INTERACTION: GameObject.INTERACT_FUNCTION }
 	
 	
-	var object: GameObject
+	var other_object: GameObject
 	
 	
 	func _init(new_object: GameObject):
-		object = new_object
+		other_object = new_object
 	
 	
 	func parse_command(actor) -> bool:
 		var interaction: Dictionary = interaction_with(actor)
 		
+		var subject = interaction.get(SUBJECT, actor)
+		var object = interaction.get(OBJECT, other_object)
 		var function = interaction.get(INTERACTION)
 		var parameters: Array = interaction.get(PARAMETERS, [ ])
 		
-		parameters.append(actor)
+		parameters.append(subject)
 		
 		if function:
 			return object.callv(function, parameters)
@@ -236,17 +242,18 @@ class InteractCommand extends Command:
 	
 	
 	func interaction_with(actor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
-		if object:
+		if other_object:
 			if animation == "":
-				if object.type == Constants.Objects.TREE:
+				if other_object.type == Constants.Objects.TREE:
 					animation = "attack"
 					interaction = { INTERACTION: GameObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
-				elif Constants.object_type(object.type) == Constants.BUILDINGS:
+				elif Constants.object_type(other_object.type) == Constants.BUILDINGS:
 					if not actor.inventory.empty():
 						animation = "give"
 						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
 					else:
-						return { }
+						animation = "give"
+						interaction = { SUBJECT: other_object, OBJECT: actor, INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ [ actor.is_looking_for() ] ] }
 			
 			if animation.length() > 0:
 				actor.animate(animation)

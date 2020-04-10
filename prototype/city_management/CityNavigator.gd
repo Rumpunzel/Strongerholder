@@ -124,7 +124,7 @@ func get_nearest(ring_vector: RingVector, type: int, priority_list: Array = [ ])
 	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
-		print("INVALID SEARCH INPUT OF: %s" % [Constants.enum_name(Constants.Objects, type)])
+		#print("INVALID SEARCH INPUT OF: %s" % [Constants.enum_name(Constants.Objects, type)])
 		return null
 	else:
 		var target = null

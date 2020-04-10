@@ -16,6 +16,8 @@ var inactive_objects_in_area: Array = [ ]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_game_object()
+	
 	connect("area_entered", self, "entered")
 	connect("area_exited", self, "exited")
 
@@ -30,15 +32,15 @@ func entered(new_area: Area):
 	var area := new_area as ObjectArea
 	
 	if area:
-		if parse_entering_object(new_area.game_object):
-			emit_signal("added_object", new_area.game_object)
+		if parse_entering_object(area.game_object):
+			emit_signal("added_object", area.game_object)
 
 
 func exited(new_area: Area):
 	var area := new_area as ObjectArea
 	
 	if area:
-		parse_exiting_object(new_area.game_object)
+		parse_exiting_object(area.game_object)
 
 
 
