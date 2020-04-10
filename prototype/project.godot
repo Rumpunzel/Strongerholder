@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://prefabs/game_objects/game_actors/GameActor.gd"
 }, {
+"base": "Resource",
+"class": "GameItem",
+"language": "GDScript",
+"path": "res://GameItem.gd"
+}, {
 "base": "Spatial",
 "class": "GameObject",
 "language": "GDScript",
@@ -95,6 +100,11 @@ _global_script_classes=[ {
 "path": "res://ui/RadiantUI/RadiantUIButton.gd"
 }, {
 "base": "Resource",
+"class": "RingDictionary",
+"language": "GDScript",
+"path": "res://RingDictionary.gd"
+}, {
+"base": "Resource",
 "class": "RingMap",
 "language": "GDScript",
 "path": "res://city_management/RingMap.gd"
@@ -114,6 +124,7 @@ _global_script_class_icons={
 "CliffDetection": "",
 "Constants": "",
 "GameActor": "",
+"GameItem": "",
 "GameObject": "",
 "InputMaster": "",
 "ObjectArea": "",
@@ -122,6 +133,7 @@ _global_script_class_icons={
 "RadiantContainer": "",
 "RadiantUI": "",
 "RadiantUIButton": "",
+"RingDictionary": "",
 "RingMap": "",
 "RingVector": ""
 }
