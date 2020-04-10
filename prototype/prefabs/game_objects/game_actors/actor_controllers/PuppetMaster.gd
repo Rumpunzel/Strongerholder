@@ -3,7 +3,6 @@ extends Node
 
 
 signal new_commands(commands)
-signal looking_for_target(nothing)
 
 
 var pathfinding_target: RingVector setget set_pathfinding_target, get_pathfinding_target
@@ -35,7 +34,6 @@ func _init(new_ring_map: RingMap, new_actor = null):
 		actor_behavior = ActorBehavior.new(current_actor, ring_map)
 		
 		actor_behavior.connect("new_object_of_interest", self, "set_object_of_interest")
-		connect("looking_for_target", self, "queue_update")
 		
 		queue_search()
 
@@ -62,7 +60,7 @@ func _process(_delta: float):
 func get_input() -> Array:
 	var commands: Array = [ ]
 	
-	if current_actor.is_in_range(object_of_interest):
+	if object_of_interest and current_actor.can_act() and current_actor.is_in_range(object_of_interest):
 		commands.append(InteractCommand.new(object_of_interest))
 		queue_search()
 	
@@ -77,7 +75,7 @@ func get_input() -> Array:
 		
 		while rotation_change > PI:
 			rotation_change -= TAU
-	
+		
 		while rotation_change < -PI:
 			rotation_change += TAU
 		
@@ -121,7 +119,6 @@ func update_current_path():
 		
 		for segment in range(1, current_path.size()):
 			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
-			
 			new_segment.radius += side_of_the_road
 			
 			current_segments.append(new_segment)
@@ -129,16 +126,17 @@ func update_current_path():
 		if object_of_interest:
 			current_segments.append(object_of_interest.ring_vector)
 			
-			print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
+			#print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
 
 
 func update_path_progress(new_vector: RingVector):
-	var new_progress = current_path.find(Vector2(new_vector.ring, new_vector.segment))
-	
-	if new_progress > 0:
-		path_progress = int(max(path_progress, new_progress))
-	else:
-		queue_update()
+	if pathfinding_target:
+		var new_progress = current_path.find(Vector2(new_vector.ring, new_vector.segment))
+		
+		if new_progress > 0:
+			path_progress = int(max(path_progress, new_progress))
+		else:
+			queue_search()
 
 
 func queue_search():
@@ -155,21 +153,20 @@ func set_pathfinding_target(new_target: RingVector):
 
 
 func set_object_of_interest(new_object: GameObject, calculate_pathfinding: bool = true):
-	if not new_object == object_of_interest:
-		if object_of_interest and calculate_pathfinding:
-			object_of_interest.disconnect("died", self, "queue_search")
+	if object_of_interest and calculate_pathfinding:
+		object_of_interest.disconnect("died", self, "queue_search")
+	
+	object_of_interest = new_object
+	
+	if calculate_pathfinding:
+		if object_of_interest:
+			pathfinding_target = object_of_interest.ring_vector
+			object_of_interest.connect("died", self, "queue_search")
+			print(object_of_interest.name)
+		else:
+			pathfinding_target = null
 		
-		object_of_interest = new_object
-		
-		if calculate_pathfinding:
-			if object_of_interest:
-				pathfinding_target = object_of_interest.ring_vector
-				object_of_interest.connect("died", self, "queue_search")
-			else:
-				pathfinding_target = null
-				emit_signal("looking_for_target")
-			
-			queue_update()
+		queue_update()
 
 
 
@@ -244,7 +241,7 @@ class InteractCommand extends Command:
 				if object.type == Constants.Objects.TREE:
 					animation = "attack"
 					interaction = { INTERACTION: GameObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
-				elif object.type >= Constants.BUILDINGS:
+				elif Constants.object_type(object.type) == Constants.BUILDINGS:
 					if not actor.inventory.empty():
 						animation = "give"
 						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
