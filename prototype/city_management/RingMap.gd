@@ -12,7 +12,6 @@ var search_dictionary: Dictionary = { }
 
 var structures: RingDictionary = RingDictionary.new()
 var resources: RingDictionary = RingDictionary.new()
-var requests: RingDictionary = RingDictionary.new()
 
 
 
@@ -87,18 +86,4 @@ func unregister_resource(type: int, ring_vector: RingVector, object, emit_signal
 
 func update_resource(old_type: int, new_type: int, ring_vector: RingVector, object):
 	unregister_resource(old_type, ring_vector, object, false)
-	register_resource(new_type, ring_vector, object)
-
-
-
-func register_request(type: int, ring_vector: RingVector, object):
-	requests.register_in_dictionary(type, ring_vector, object)
-
-
-func unregister_request(type: int, ring_vector: RingVector, object):
-	requests.unregister_in_dictionary(type, ring_vector, object)
-
-
-func update_request(old_type: int, new_type: int, ring_vector: RingVector, object):
-	unregister_resource(old_type, ring_vector, object)
 	register_resource(new_type, ring_vector, object)

@@ -19,7 +19,6 @@ var current_segments: Array = [ ]
 
 var path_progress: int = 0
 
-var update_target: bool = false
 var update_pathfinding: bool = false
 
 
@@ -35,15 +34,11 @@ func _init(new_ring_map: RingMap, new_actor = null):
 		
 		actor_behavior.connect("new_object_of_interest", self, "set_object_of_interest")
 		
-		queue_search()
+		actor_behavior.force_search()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
-	if update_target:
-		actor_behavior.force_search()
-		update_target = false
-	
 	if update_pathfinding:
 		update_current_path()
 		update_pathfinding = false
@@ -62,7 +57,7 @@ func get_input() -> Array:
 	
 	if object_of_interest and current_actor.can_act() and current_actor.is_in_range(object_of_interest):
 		commands.append(InteractCommand.new(object_of_interest))
-		queue_search()
+		actor_behavior.force_search(true)
 	
 	
 	var movement_vector: Vector3 = Vector3()
@@ -133,9 +128,6 @@ func update_path_progress(new_vector: RingVector):
 	if pathfinding_target:
 		path_progress = int(max(path_progress, current_path.find(Vector2(new_vector.ring, new_vector.segment))))
 
-
-func queue_search():
-	update_target = true
 
 func queue_update():
 	update_pathfinding = true
@@ -243,12 +235,12 @@ class InteractCommand extends Command:
 					animation = "attack"
 					interaction = { INTERACTION: GameObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
 				elif Constants.object_type(other_object.type) == Constants.BUILDINGS:
-					if not actor.inventory.empty():
-						animation = "give"
-						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
-					else:
+					if actor.inventory.empty():
 						animation = "give"
 						interaction = { SUBJECT: other_object, OBJECT: actor, INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ [ actor.is_looking_for() ] ] }
+					else:
+						animation = "give"
+						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
 			
 			if animation.length() > 0:
 				actor.animate(animation)

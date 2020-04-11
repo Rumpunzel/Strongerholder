@@ -13,13 +13,13 @@ const ACTOR_PRIORITIES = {
 	
 	Constants.Objects.WOODSMAN: {
 		INVENTORY_EMPTY: [ Constants.Objects.WOOD, ],
-		Constants.Objects.WOOD: [ Constants.Objects.STOCKPILE ]#Constants.Objects.WOOD + Constants.REQUEST, ],
+		Constants.Objects.WOOD: [ Constants.REQUEST + Constants.Objects.WOOD, ],
 	},
 	
 	Constants.Objects.CARPENTER: {
 		INVENTORY_EMPTY: [ Constants.Objects.WOOD_PLANKS, Constants.Objects.WOOD, ],
-		Constants.Objects.WOOD_PLANKS: [ Constants.Objects.WOOD_PLANKS + Constants.REQUEST, ],
 		Constants.Objects.WOOD: [ Constants.Objects.WOODCUTTERS_HUT, ],
+		Constants.Objects.WOOD_PLANKS: [ Constants.REQUEST + Constants.Objects.WOOD_PLANKS, ],
 	},
 }
 
@@ -61,30 +61,25 @@ func next_priority() -> GameObject:
 		if not target_type == currently_looking_for:
 			var target_priorities = priorities.get(target_type, [ ])
 			var dictionary: Dictionary = { }
-			var targets_exist = true
+			var targets_exists = true
 			
 			match Constants.object_type(target_type):
 				Constants.REQUEST:
-					dictionary = ring_map.requests.dictionary
-					target_type -= Constants.REQUEST
-					print(dictionary)
+					dictionary = ring_map.resources.dictionary
 				
 				Constants.RESOURCES:
 					dictionary = ring_map.resources.dictionary
-					targets_exist = false
+					targets_exists = false
 					
 					for prio in target_priorities:
-						if ring_map.structures.dictionary.has(prio):
-							targets_exist = true
-							break
-						elif ring_map.requests.dictionary.has(prio - Constants.REQUEST):
-							targets_exist = true
+						if ring_map.structures.dictionary.has(prio) or ring_map.resources.dictionary.has(prio):
+							targets_exists = true
 							break
 				
 				_:
 					dictionary = ring_map.structures.dictionary
 			
-			if targets_exist:
+			if targets_exists:
 				next_target = ring_map.city_navigator.get_nearest(dictionary, target_type, current_actor.ring_vector, target_priorities)
 		else:
 			next_target = object_of_interest
@@ -110,6 +105,7 @@ func force_search(reset_target: bool = false):
 
 
 
+
 func set_priorities(new_actor: int):
 	priorities = ACTOR_PRIORITIES.get(new_actor, { })
 
@@ -121,6 +117,7 @@ func set_object_of_interest(new_object: GameObject):
 
 func set_currently_looking_for(new_type: int):
 	currently_looking_for = new_type
+
 
 
 func get_object_of_interest() -> GameObject:

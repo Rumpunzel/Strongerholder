@@ -7,7 +7,8 @@ const BUILD_INTO_FUNCTION = "build_into"
 const HIGHLIGHT_MATERIAL: Material = preload("res://assets/materials/highlightShader.material")
 
 const BUILDING_REQUESTS = {
-	Constants.Objects.STOCKPILE: [ Constants.Objects.WOOD ],
+	Constants.Objects.STOCKPILE: [ Constants.Objects.WOOD, Constants.Objects.WOOD_PLANKS, ],
+	Constants.Objects.WOODCUTTERS_HUT: [ Constants.Objects.WOOD ],
 }
 
 
@@ -79,7 +80,7 @@ func build_into(new_type):
 	set_type(new_type)
 	
 	for request in BUILDING_REQUESTS.get(new_type, [ ]):
-		ring_map.register_request(request, ring_vector, self)
+		ring_map.register_resource(request + Constants.REQUEST, ring_vector, self)
 	
 	ring_map.update_structure(type, new_type, ring_vector, self)
 
