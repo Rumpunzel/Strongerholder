@@ -175,6 +175,7 @@ switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=36]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id=37]
 states/attack/node = SubResource( 7 )
