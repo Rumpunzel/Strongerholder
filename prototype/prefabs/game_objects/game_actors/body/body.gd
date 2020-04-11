@@ -77,15 +77,12 @@ func move_to(direction: Vector3, is_sprinting: bool) -> RingVector:
 func parse_state(direction: Vector3):
 	var camera = get_viewport().get_camera()
 	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z)) if camera else 0.0
-	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else Vector2.DOWN
+	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else animation_tree.blend_positions
 	movement_vector = movement_vector.rotated(angle)
 	
+	
 	if direction.length() > 0:
-		animation_tree.set("parameters/idle/blend_position", movement_vector)
-		animation_tree.set("parameters/run/blend_position", movement_vector)
-		animation_tree.set("parameters/attack/blend_position", movement_vector)
-		animation_tree.set("parameters/give/blend_position", movement_vector)
-		
+		animation_tree.blend_positions = movement_vector
 		state_machine.travel("run")
 	elif state_machine.get_current_node() == "run":
 		state_machine.travel("idle")

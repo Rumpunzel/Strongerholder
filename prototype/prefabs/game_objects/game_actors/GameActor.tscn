@@ -1,26 +1,31 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://prefabs/game_objects/game_actors/body/ActorArea.gd" type="Script" id=1]
 [ext_resource path="res://prefabs/game_objects/game_actors/body/body.gd" type="Script" id=2]
 [ext_resource path="res://prefabs/game_objects/game_actors/GameActor.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/hero/hero_sprite_sheet.png" type="Texture" id=4]
 [ext_resource path="res://prefabs/camera/PlayerCamera.tscn" type="PackedScene" id=5]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_left.tres" type="Animation" id=6]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_down.tres" type="Animation" id=7]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_right.tres" type="Animation" id=8]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/give_down.tres" type="Animation" id=9]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack_right.tres" type="Animation" id=10]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/run_up.tres" type="Animation" id=11]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/give_right.tres" type="Animation" id=12]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/run_right.tres" type="Animation" id=13]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack_up.tres" type="Animation" id=14]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack_down.tres" type="Animation" id=15]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack_left.tres" type="Animation" id=16]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_up.tres" type="Animation" id=17]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/run_left.tres" type="Animation" id=18]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/give_left.tres" type="Animation" id=19]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/give_up.tres" type="Animation" id=20]
-[ext_resource path="res://prefabs/game_objects/game_actors/animations/run_down.tres" type="Animation" id=21]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle/idle_left.tres" type="Animation" id=6]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle/idle_down.tres" type="Animation" id=7]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle/idle_right.tres" type="Animation" id=8]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/give/give_down.tres" type="Animation" id=9]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack/attack_right.tres" type="Animation" id=10]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/run/run_up.tres" type="Animation" id=11]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/give/give_right.tres" type="Animation" id=12]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=13]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack/attack_up.tres" type="Animation" id=14]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack/attack_down.tres" type="Animation" id=15]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/attack/attack_left.tres" type="Animation" id=16]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle/idle_up.tres" type="Animation" id=17]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/run/run_left.tres" type="Animation" id=18]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/give/give_left.tres" type="Animation" id=19]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/give/give_up.tres" type="Animation" id=20]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/run/run_down.tres" type="Animation" id=21]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/animation_tree.gd" type="Script" id=22]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_give/idle_give_left.tres" type="Animation" id=23]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_give/idle_give_down.tres" type="Animation" id=24]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_give/idle_give_right.tres" type="Animation" id=25]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_give/idle_give_up.tres" type="Animation" id=26]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
@@ -103,79 +108,90 @@ max_space = Vector2( 1, 1.1 )
 blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id=18]
-animation = "run_left"
+animation = "idle_give_down"
 
 [sub_resource type="AnimationNodeAnimation" id=19]
-animation = "run_down"
+animation = "idle_give_up"
 
 [sub_resource type="AnimationNodeAnimation" id=20]
-animation = "run_up"
+animation = "idle_give_left"
 
 [sub_resource type="AnimationNodeAnimation" id=21]
-animation = "run_right"
+animation = "idle_give_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=22]
 blend_point_0/node = SubResource( 18 )
-blend_point_0/pos = Vector2( -1, 0 )
+blend_point_0/pos = Vector2( 0, 1 )
 blend_point_1/node = SubResource( 19 )
-blend_point_1/pos = Vector2( 0, 1.1 )
+blend_point_1/pos = Vector2( 0, -1 )
 blend_point_2/node = SubResource( 20 )
-blend_point_2/pos = Vector2( 0, -1.1 )
+blend_point_2/pos = Vector2( -1, 0 )
 blend_point_3/node = SubResource( 21 )
+blend_point_3/pos = Vector2( 1, 0 )
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "run_left"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "run_down"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "run_up"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "run_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=27]
+blend_point_0/node = SubResource( 23 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 24 )
+blend_point_1/pos = Vector2( 0, 1.1 )
+blend_point_2/node = SubResource( 25 )
+blend_point_2/pos = Vector2( 0, -1.1 )
+blend_point_3/node = SubResource( 26 )
 blend_point_3/pos = Vector2( 1, 0 )
 min_space = Vector2( -1, -1.1 )
 max_space = Vector2( 1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=26]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=27]
-switch_mode = 2
-auto_advance = true
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
-switch_mode = 2
-advance_condition = "outside_menu"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=30]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=31]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
 switch_mode = 2
+auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachine" id=33]
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+
+[sub_resource type="AnimationNodeStateMachine" id=37]
 states/attack/node = SubResource( 7 )
-states/attack/position = Vector2( 778, 83 )
+states/attack/position = Vector2( 680, 67 )
 states/give/node = SubResource( 12 )
-states/give/position = Vector2( 778, 456 )
+states/give/position = Vector2( 873, 456 )
 states/idle/node = SubResource( 17 )
 states/idle/position = Vector2( 680, 271 )
-states/run/node = SubResource( 22 )
+states/idle_give/node = SubResource( 22 )
+states/idle_give/position = Vector2( 680, 456 )
+states/run/node = SubResource( 27 )
 states/run/position = Vector2( 873, 271 )
-transitions = [ "idle", "run", SubResource( 23 ), "run", "idle", SubResource( 24 ), "idle", "give", SubResource( 25 ), "idle", "attack", SubResource( 26 ), "attack", "idle", SubResource( 27 ), "give", "idle", SubResource( 28 ), "run", "attack", SubResource( 29 ), "attack", "run", SubResource( 30 ), "run", "give", SubResource( 31 ), "give", "run", SubResource( 32 ) ]
+transitions = [ "idle", "run", SubResource( 28 ), "run", "idle", SubResource( 29 ), "idle", "give", SubResource( 30 ), "idle", "attack", SubResource( 31 ), "attack", "idle", SubResource( 32 ), "run", "give", SubResource( 33 ), "run", "attack", SubResource( 34 ), "give", "idle_give", SubResource( 35 ), "idle_give", "idle", SubResource( 36 ) ]
 start_node = "idle"
-graph_offset = Vector2( 46, 48.6992 )
+graph_offset = Vector2( 39.8274, 316.699 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=34]
-
-[sub_resource type="GDScript" id=35]
-script/source = "extends AnimationTree
-
-
-func _init():
-	set(\"parameters/idle/blend_position\", Vector2(0, 1))
-	active = true
-"
+[sub_resource type="AnimationNodeStateMachinePlayback" id=38]
 
 [node name="gameactor" type="Spatial"]
 script = ExtResource( 3 )
@@ -222,6 +238,10 @@ anims/give_left = ExtResource( 19 )
 anims/give_right = ExtResource( 12 )
 anims/give_up = ExtResource( 20 )
 anims/idle_down = ExtResource( 7 )
+anims/idle_give_down = ExtResource( 24 )
+anims/idle_give_left = ExtResource( 23 )
+anims/idle_give_right = ExtResource( 25 )
+anims/idle_give_up = ExtResource( 26 )
 anims/idle_left = ExtResource( 6 )
 anims/idle_right = ExtResource( 8 )
 anims/idle_up = ExtResource( 17 )
@@ -231,13 +251,13 @@ anims/run_right = ExtResource( 13 )
 anims/run_up = ExtResource( 11 )
 
 [node name="animation_tree" type="AnimationTree" parent="."]
-tree_root = SubResource( 33 )
+tree_root = SubResource( 37 )
 anim_player = NodePath("../animation_player")
 process_mode = 0
-parameters/playback = SubResource( 34 )
-parameters/conditions/outside_menu = true
+parameters/playback = SubResource( 38 )
 parameters/attack/blend_position = Vector2( 0, 0 )
 parameters/give/blend_position = Vector2( 0, 0 )
-parameters/idle/blend_position = Vector2( 0, 1 )
+parameters/idle/blend_position = Vector2( 0, 0 )
+parameters/idle_give/blend_position = Vector2( 0, 0 )
 parameters/run/blend_position = Vector2( 0, 0 )
-script = SubResource( 35 )
+script = ExtResource( 22 )
