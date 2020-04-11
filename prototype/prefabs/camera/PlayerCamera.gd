@@ -5,12 +5,15 @@ extends Spatial
 export var camera_distance: float = 15.0
 export var stick_to_ground: bool = true
 
+export var listener_off_ground: float = 5.0
+
 
 var node_to_follow: Spatial = null setget set_node_to_follow, get_node_to_follow
 
 
-onready var camera = $camera
-onready var ray_cast = RayCast.new()
+onready var camera: Camera = $camera
+onready var ray_cast: RayCast = RayCast.new()
+onready var listener: Listener = Listener.new()
 
 
 
@@ -19,6 +22,7 @@ onready var ray_cast = RayCast.new()
 func _ready():
 	ray_cast.enabled = true
 	ray_cast.cast_to.y = -50
+	listener.make_current()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,10 +46,14 @@ func _process(delta):
 func set_node_to_follow(new_node: Spatial):
 	if node_to_follow:
 		node_to_follow.remove_child(ray_cast)
+		node_to_follow.remove_child(listener)
 	
 	node_to_follow = new_node
 	node_to_follow.add_child(ray_cast)
 	ray_cast.transform.origin = Vector3(0, 1, 0)
+	
+	node_to_follow.add_child(listener)
+	listener.transform.origin = Vector3(0, listener_off_ground, 0)
 
 
 func get_node_to_follow() -> Spatial:
