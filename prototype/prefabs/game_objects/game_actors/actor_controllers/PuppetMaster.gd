@@ -55,7 +55,7 @@ func _process(_delta: float):
 func get_input() -> Array:
 	var commands: Array = [ ]
 	
-	if object_of_interest and current_actor.can_act() and current_actor.is_in_range(object_of_interest):
+	if object_of_interest and current_actor.is_in_range(object_of_interest):
 		commands.append(InteractCommand.new(object_of_interest))
 		actor_behavior.force_search()
 	
@@ -171,7 +171,7 @@ func get_currently_looking_for() -> int:
 
 class Command:
 	func execute(actor) -> bool:
-		if actor.can_act():
+		if actor.can_act:
 			return parse_command(actor)
 		else:
 			return false

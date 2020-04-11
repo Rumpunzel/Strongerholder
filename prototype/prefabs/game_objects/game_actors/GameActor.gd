@@ -7,7 +7,12 @@ export(PackedScene) var player_camera
 export var player_controlled: int = -1 setget , get_player_controlled
 
 
+var can_act: bool = true setget set_can_act, get_can_act
+
+
 var pathfinder: PuppetMaster
+
+var next_animation: String = "idle"
 
 
 onready var body: KinematicBody = $body
@@ -16,6 +21,12 @@ onready var area: ActorArea = $body/area
 onready var animation_tree: AnimationTree = $animation_tree
 onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 
+
+
+
+func _process(_delta):
+	if not is_idle_animation(next_animation):
+		next_animation = "idle"
 
 
 
@@ -39,21 +50,20 @@ func move_to(direction: Vector3, sprinting: bool = false):
 
 
 func animate(animation: String, stop_movement: bool = true):
-	if stop_movement:
-		move_to(Vector3())
-	
-	state_machine.travel(animation)
-
-
-func can_act() -> bool:
-	var state: String = state_machine.get_current_node()
-	var is_idle: bool = state.ends_with("idle") or state == "run"
-	
-	return is_idle
+	if is_idle_animation(next_animation):
+		next_animation = animation
+		
+		if stop_movement:
+			move_to(Vector3())
+		
+		state_machine.travel(animation)
 
 
 func is_in_range(object_of_interest) -> bool:
 	return area.has_object(object_of_interest)
+
+func is_idle_animation(animation: String) -> bool:
+	return animation.begins_with("idle") or animation == "run"
 
 
 
@@ -82,6 +92,9 @@ func set_player_controlled(new_player: int):
 		player_controlled = new_player
 
 
+func set_can_act(new_status: bool):
+	can_act = new_status
+
 func set_ring_vector(new_vector: RingVector):
 	$body.ring_vector = new_vector
 	.set_ring_vector($body.ring_vector)
@@ -93,6 +106,12 @@ func set_object_of_interest(new_object: GameObject):
 
 func get_player_controlled() -> int:
 	return player_controlled
+
+func get_can_act() -> bool:
+	if can_act:
+		return is_idle_animation(next_animation) and is_idle_animation(state_machine.get_current_node())
+	
+	return can_act
 
 func get_ring_vector() -> RingVector:
 	return $body.ring_vector

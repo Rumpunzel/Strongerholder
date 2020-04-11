@@ -84,8 +84,8 @@ func receive_items(new_items: Array, sender: GameObject):
 			inventory.append(new_item)
 			emit_signal("received_item", item)
 			
-			if sender:
-				print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Objects, new_item)])
+#			if sender:
+#				print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Objects, new_item)])
 
 
 func send_item(item_to_send, _sender: GameObject):
