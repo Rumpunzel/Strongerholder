@@ -102,7 +102,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "RingDictionary",
 "language": "GDScript",
-"path": "res://RingDictionary.gd"
+"path": "res://city_management/RingDictionary.gd"
 }, {
 "base": "Resource",
 "class": "RingMap",
