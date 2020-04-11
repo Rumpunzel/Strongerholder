@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://prefabs/game_objects/game_actors/body/ActorArea.gd" type="Script" id=1]
 [ext_resource path="res://prefabs/game_objects/game_actors/body/body.gd" type="Script" id=2]
@@ -26,6 +26,8 @@
 [ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_give/idle_give_down.tres" type="Animation" id=24]
 [ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_give/idle_give_right.tres" type="Animation" id=25]
 [ext_resource path="res://prefabs/game_objects/game_actors/animations/idle_give/idle_give_up.tres" type="Animation" id=26]
+[ext_resource path="res://prefabs/game_objects/game_actors/animations/animation_player.gd" type="Script" id=27]
+[ext_resource path="res://prefabs/game_objects/game_actors/footstep_sounds.gd" type="Script" id=28]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
@@ -190,7 +192,7 @@ states/run/node = SubResource( 27 )
 states/run/position = Vector2( 873, 271 )
 transitions = [ "idle", "run", SubResource( 28 ), "run", "idle", SubResource( 29 ), "idle", "give", SubResource( 30 ), "idle", "attack", SubResource( 31 ), "attack", "idle", SubResource( 32 ), "run", "give", SubResource( 33 ), "run", "attack", SubResource( 34 ), "give", "idle_give", SubResource( 35 ), "idle_give", "idle", SubResource( 36 ) ]
 start_node = "idle"
-graph_offset = Vector2( 39.8274, 316.699 )
+graph_offset = Vector2( 70.8274, 59.699 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=38]
 
@@ -226,7 +228,13 @@ alpha_cut = 2
 texture = ExtResource( 4 )
 vframes = 12
 hframes = 9
-frame = 50
+frame = 27
+
+[node name="footstep_sounds" type="AudioStreamPlayer3D" parent="body"]
+unit_db = -12.0
+script = ExtResource( 28 )
+animation_player_node = NodePath("../../animation_player")
+step_sounds = "res://assets/sounds/footsteps"
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 playback_process_mode = 0
@@ -250,6 +258,7 @@ anims/run_down = ExtResource( 21 )
 anims/run_left = ExtResource( 18 )
 anims/run_right = ExtResource( 13 )
 anims/run_up = ExtResource( 11 )
+script = ExtResource( 27 )
 
 [node name="animation_tree" type="AnimationTree" parent="."]
 tree_root = SubResource( 37 )

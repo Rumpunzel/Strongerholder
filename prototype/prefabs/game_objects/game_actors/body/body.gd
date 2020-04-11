@@ -52,7 +52,7 @@ func _physics_process(delta):
 	
 	dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
 	
-	velocity = move_and_slide(dir, Vector3.UP, true)
+	var new_velocity = move_and_slide(dir, Vector3.UP, true)
 	
 	grounded = is_on_floor()
 	
@@ -60,6 +60,8 @@ func _physics_process(delta):
 		fall_speed = 0.0
 		jump_mod = 0.0
 		can_jump = velocity.y <= 0
+	
+	velocity = new_velocity
 	
 	emit_signal("moved", velocity)
 

@@ -33,7 +33,19 @@ func parse_exiting_object(new_object: GameObject) -> bool:
 
 
 func highlight_object(new_object):
-	if not game_object.get_object_of_interest() or not new_object:
+	var must_be_highlighted: bool = true
+	var object: GameObject = game_object.get_object_of_interest()
+	
+	if new_object and object:
+		match Constants.object_type(new_object.type):
+			Constants.BUILDINGS:
+				must_be_highlighted = true
+			Constants.THINGS:
+				must_be_highlighted = not Constants.object_type(object.type) == Constants.BUILDINGS
+			_:
+				must_be_highlighted = false
+	
+	if must_be_highlighted:
 		game_object.set_object_of_interest(new_object)
 	
 	if new_object:

@@ -40,8 +40,6 @@ class InteractCommand extends PuppetMaster.InteractCommand:
 				var new_menu = RadiantUI.new(["Build", "Inspect", "Destroy"], other_object, "build_into")
 				actor.can_act = false
 				new_menu.connect("closed", actor, "set_can_act", [true])
-				#new_menu.connect("closed", actor.animation_tree, "set", ["parameters/conditions/outside_menu", true])
-				#actor.animation_tree.set("parameters/conditions/outside_menu", false)
 				actor.get_viewport().get_camera().add_ui_element(new_menu)
 		
 		return .interaction_with(actor, interaction, animation)

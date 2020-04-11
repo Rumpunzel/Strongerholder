@@ -236,8 +236,9 @@ class InteractCommand extends Command:
 					interaction = { INTERACTION: GameObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
 				elif Constants.object_type(other_object.type) == Constants.BUILDINGS:
 					if actor.inventory.empty():
-						animation = "give"
-						interaction = { SUBJECT: other_object, OBJECT: actor, INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ [ actor.is_looking_for() ] ] }
+						if not actor.is_looking_for() == Constants.Objects.NOTHING:
+							animation = "give"
+							interaction = { SUBJECT: other_object, OBJECT: actor, INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ [ actor.is_looking_for() ] ] }
 					else:
 						animation = "give"
 						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }

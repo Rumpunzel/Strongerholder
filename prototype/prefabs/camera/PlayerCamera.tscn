@@ -9,7 +9,7 @@
 script = ExtResource( 3 )
 
 [node name="camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.997564, 0.0697565, 0, -0.0697565, 0.997564, 0, 0, 15 )
+transform = Transform( 1, 0, 0, 0, 0.999391, 0.0348995, 0, -0.0348995, 0.999391, 0, 0, 15 )
 environment = ExtResource( 2 )
 v_offset = 5.0
 projection = 1
