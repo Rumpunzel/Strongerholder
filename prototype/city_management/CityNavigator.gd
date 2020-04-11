@@ -30,8 +30,6 @@ func construct_pathfinder():
 	if not pathfinder:
 		construct_graph()
 	
-	var new_thread: Thread = Thread.new()
-	
 	connect_nodes()
 
 
@@ -136,14 +134,14 @@ func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, pri
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
 				
-				target = find_things_on_ring(search_through, ring, search_vector, type, priority_list)
+				target = find_things_on_ring(search_through, ring, search_vector, priority_list)
 			
 			i += 1
 		
 		return target
 
 
-func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, type: int, priority_list: Array = [ ]):
+func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, priority_list: Array = [ ]):
 	var shortest_path: float = -1.0
 	var target = null
 	var j = 0

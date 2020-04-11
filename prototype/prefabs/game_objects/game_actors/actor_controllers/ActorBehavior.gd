@@ -97,10 +97,8 @@ func next_priority() -> GameObject:
 	return next_target
 
 
-func force_search(reset_target: bool = false):
-	if reset_target:
-		currently_looking_for = Constants.Objects.NOTHING
-	
+func force_search():
+	currently_looking_for = Constants.Objects.NOTHING
 	set_object_of_interest(next_priority())
 
 

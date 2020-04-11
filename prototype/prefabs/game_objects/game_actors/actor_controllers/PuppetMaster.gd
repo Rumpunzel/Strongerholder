@@ -57,7 +57,7 @@ func get_input() -> Array:
 	
 	if object_of_interest and current_actor.can_act() and current_actor.is_in_range(object_of_interest):
 		commands.append(InteractCommand.new(object_of_interest))
-		actor_behavior.force_search(true)
+		actor_behavior.force_search()
 	
 	
 	var movement_vector: Vector3 = Vector3()
@@ -148,7 +148,7 @@ func set_object_of_interest(new_object: GameObject, calculate_pathfinding: bool 
 	if calculate_pathfinding:
 		if object_of_interest:
 			pathfinding_target = object_of_interest.ring_vector
-			object_of_interest.connect("died", actor_behavior, "force_search", [true])
+			object_of_interest.connect("died", actor_behavior, "force_search")
 		else:
 			pathfinding_target = null
 		
