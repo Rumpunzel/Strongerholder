@@ -1,0 +1,39 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/sprites/trees/tree2.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/trees/tree1.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/trees/tree5.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/trees/tree4.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/trees/tree7.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=7]
+[ext_resource path="res://prefabs/game_objects/city/things/random_sprite.gd" type="Script" id=8]
+[ext_resource path="res://prefabs/game_objects/city/CityStructure.gd" type="Script" id=9]
+[ext_resource path="res://prefabs/game_objects/ObjectArea.gd" type="Script" id=10]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.5, 4, 3 )
+
+[node name="tree" type="Spatial"]
+script = ExtResource( 9 )
+structure_node = NodePath("sprite")
+area_node = NodePath("area")
+
+[node name="sprite" type="Sprite3D" parent="."]
+offset = Vector2( 0, 43 )
+pixel_size = 0.1
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource( 3 )
+script = ExtResource( 8 )
+sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
+
+[node name="area" type="Area" parent="."]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource( 10 )
+
+[node name="collision_shape" type="CollisionShape" parent="area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1 )
+shape = SubResource( 1 )

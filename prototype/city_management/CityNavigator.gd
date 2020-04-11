@@ -1,16 +1,16 @@
-extends Node
 class_name CityNavigator
+extends Node
 
 
 var ring_map
 
-var pathfinder:AStar2D = null
-var astar_nodes:Array = [ ]
+var pathfinder: AStar2D = null
+var astar_nodes: Array = [ ]
 
-var adjacency_matrix:Dictionary = { }
+var adjacency_matrix: Dictionary = { }
 
-var first_time:bool = true
-var previous_bridges:Dictionary = { }
+var first_time: bool = true
+var previous_bridges: Dictionary = { }
 
 
 
@@ -30,14 +30,11 @@ func construct_pathfinder():
 	if not pathfinder:
 		construct_graph()
 	
-	var new_thread:Thread = Thread.new()
-	
-	new_thread.start(self, "connect_nodes")
-	new_thread.wait_to_finish()
+	connect_nodes()
 
 
 func construct_graph():
-	var graph_size:int = 0
+	var graph_size: int = 0
 	
 	pathfinder = AStar2D.new()
 	astar_nodes.clear()
@@ -56,16 +53,15 @@ func construct_graph():
 			graph_size += 1
 
 
-func connect_nodes(_whatever):
-	var rings:Dictionary = ring_map.search_dictionary
-	var bridges:Dictionary = ring_map.segments_dictionary[CityLayout.BRIDGE]
+func connect_nodes():
+	var rings: Dictionary = ring_map.search_dictionary
+	var bridges: Dictionary = ring_map.structures.dictionary[Constants.Objects.BRIDGE]
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
 		
 		if first_time:
 			connect_segments(ring)
-			
 		
 		if not previous_bridges == bridges:
 			connect_bridges(bridges, ring, segments)
@@ -74,7 +70,7 @@ func connect_nodes(_whatever):
 	previous_bridges = bridges
 
 
-func connect_segments(ring:int):
+func connect_segments(ring: int):
 	var segments_in_ring = CityLayout.get_number_of_segments(ring)
 	
 	for segment in range(segments_in_ring):
@@ -83,7 +79,7 @@ func connect_segments(ring:int):
 		pathfinder.connect_points(astar_nodes.find(Vector2(ring, segment)), astar_nodes.find(Vector2(ring, building)))
 
 
-func connect_bridges(bridges:Dictionary, ring:int, segments:Dictionary):
+func connect_bridges(bridges: Dictionary, ring: int, segments: Dictionary):
 	for bridge in bridges.get(ring + 1, { }).keys():
 		var max_distance = 0.1
 		var bridge_connected = false
@@ -98,12 +94,12 @@ func connect_bridges(bridges:Dictionary, ring:int, segments:Dictionary):
 
 
 
-func get_shortest_path(start_vector, target_vector) -> Array:
+func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> Array:
 	var start = astar_nodes.find(Vector2(start_vector.ring, start_vector.segment))
 	var destination = astar_nodes.find(Vector2(target_vector.ring, target_vector.segment))
 	
-	var path_ids:Array = [ ]
-	var path_vectors:Array = [ ]
+	var path_ids: Array = [ ]
+	var path_vectors: Array = [ ]
 	
 	if start >= 0 and destination >= 0:
 		path_ids = pathfinder.get_id_path(start, destination)
@@ -114,86 +110,85 @@ func get_shortest_path(start_vector, target_vector) -> Array:
 	return path_vectors
 
 
-func get_nearest(ring_vector:RingVector, type:String):
-	var search_through:Dictionary = { }
-	
-	if not type == CityLayout.EVERYTHING:
-		search_through = ring_map.segments_dictionary.get(type, { })
-	else:
-		search_through = { }
-		print("INVALID SEARCH INPUT")
+
+func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, priority_list: Array = [ ]):
+	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
+		#print("INVALID SEARCH INPUT OF: %s" % [Constants.enum_name(Constants.Objects, type)])
 		return null
 	else:
-		var shortest_path:Array = [ ]
 		var target = null
-		
-		for ring in search_through.keys():
-			var segments = search_through[ring]
-			
-			for segment in segments.keys():
-				var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
-				
-				if (shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size():
-					shortest_path = path
-					target = segments[segment]
-		
-		return target
-
-
-func get_nearest_thing(ring_vector:RingVector, type:String) -> Array:
-	var search_through:Dictionary = ring_map.things_dictionary.get(type, { })
-	
-	if search_through.empty():
-		return [ ]
-	else:
-		var targets_array = [ ]
 		var i = 0
 		
-		while targets_array.empty() and i < CityLayout.get_number_of_segments(CityLayout.NUMBER_OF_RINGS - 1):
-			var ring:int = ring_vector.ring + int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+		while not target and i < CityLayout.NUMBER_OF_RINGS + 1:
+			var ring: int = ring_vector.ring + int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
 			
 			if ring >= 0 and ring < CityLayout.NUMBER_OF_RINGS:
 				var search_vector = ring_vector
 				
 				if not ring == ring_vector.ring:
-					var nearest_bridge = get_nearest(ring_vector, CityLayout.BRIDGE)
+					var current_vector = RingVector.new(CityLayout.get_radius_minimum(ring), ring_vector.rotation)
+					var nearest_bridge = get_nearest(ring_map.structures.dictionary, Constants.Objects.BRIDGE, current_vector)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
 				
-				targets_array = find_thing_on_ring(search_through, ring, search_vector)
+				target = find_things_on_ring(search_through, ring, search_vector, priority_list)
 			
 			i += 1
 		
-		return targets_array
+		return target
 
-func find_thing_on_ring(search_through:Dictionary, ring:int, ring_vector:RingVector) -> Array:
-	var shortest_path:Array = [ ]
-	var targets_array = [ ]
+
+func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, priority_list: Array = [ ]):
+	var shortest_path: float = -1.0
+	var target = null
 	var j = 0
 	var segments = search_through.get(ring, { })
 	var segments_in_ring = CityLayout.get_number_of_segments(ring)
 	
-	while targets_array.empty() and j < segments_in_ring:
+	while not target and j < segments_in_ring:
 		var segment = ring_vector.segment + int(ceil(j / 2.0) * (1 if j % 2 == 0 else -1))
-		
 		segment = (segment + segments_in_ring) % segments_in_ring
 		
-		var path = get_shortest_path(ring_vector, RingVector.new(ring, segment, true))
-		
-		if not segments.get(segment, [ ]).empty() and ((shortest_path.empty() and path.size() > 0) or path.size() < shortest_path.size()):
-			shortest_path = path
-			targets_array = segments[segment]
+		if segments.get(segment):
+			var path_length: float = abs(ring_vector.rotation - (float(segment) / float(segments_in_ring)) * TAU)
+			
+			while path_length > PI:
+				path_length -= PI
+			
+			if (shortest_path < 0.0 and path_length >= 0.0) or path_length < shortest_path:
+				shortest_path = path_length
+				var targets_array: Array = segments[segment]
+				
+				if priority_list.empty():
+					target = targets_array.front()
+				else:
+					for object in targets_array:
+						var priority = priority_list.find(object.type)
+						
+						if priority < 0:
+							for prio in priority_list:
+								if not (Constants.object_type(prio) == Constants.REQUEST and ring_map.resources.has(object, prio)):
+									target = object
+						
+						if not target:
+							for i in range(priority):
+								if ring_map.structures.dictionary.has(priority_list[i]):
+									target = object
+									break
+						else:
+							break
 		
 		j += 1
 	
-	return targets_array
+	return target
+
 
 
 func construct_adjanceny_matrix():
-	var bridges:Dictionary = ring_map.segments_dictionary[ring_map.BRIDGE]
+	var bridges: Dictionary = ring_map.strucutres.dictionary[ring_map.BRIDGE]
 	
 	for ring in bridges.keys():
 		for segment in bridges[ring].keys():
@@ -214,8 +209,8 @@ func construct_adjanceny_matrix():
 	print_adjacency_matrix()
 
 func print_adjacency_matrix():
-	var matrix_string:String = ""
-	var header_string:String = "\n\t"
+	var matrix_string: String = ""
+	var header_string: String = "\n\t"
 	var row_counter = 0
 	
 	

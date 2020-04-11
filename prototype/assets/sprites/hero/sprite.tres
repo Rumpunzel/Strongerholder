@@ -111,10 +111,10 @@
 
 [resource]
 animations = [ {
-"frames": [ ExtResource( 87 ), ExtResource( 77 ), ExtResource( 98 ), ExtResource( 79 ), ExtResource( 74 ), ExtResource( 73 ), ExtResource( 108 ), ExtResource( 106 ), ExtResource( 107 ) ],
-"loop": false,
-"name": "death_t",
-"speed": 10.0
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "idle_l",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 20 ), ExtResource( 36 ), ExtResource( 40 ), ExtResource( 26 ), ExtResource( 21 ), ExtResource( 29 ) ],
 "loop": true,
@@ -131,50 +131,25 @@ animations = [ {
 "name": "idle_r",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "idle_l",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 45 ), ExtResource( 53 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 41 ) ],
-"loop": false,
-"name": "attack_t",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 55 ), ExtResource( 52 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ) ],
-"loop": false,
-"name": "attack_r",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 31 ), ExtResource( 32 ), ExtResource( 37 ), ExtResource( 24 ), ExtResource( 35 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "run_l",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 22 ), ExtResource( 25 ), ExtResource( 38 ), ExtResource( 19 ), ExtResource( 27 ), ExtResource( 28 ) ],
 "loop": true,
 "name": "run_r",
 "speed": 7.0
-}, {
-"frames": [ ExtResource( 60 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 54 ) ],
-"loop": false,
-"name": "attack_l",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 16 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "idle_t",
-"speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "idle_d",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 49 ), ExtResource( 56 ), ExtResource( 59 ), ExtResource( 57 ), ExtResource( 58 ) ],
-"loop": false,
-"name": "attack_d",
-"speed": 10.0
+"frames": [ ExtResource( 31 ), ExtResource( 32 ), ExtResource( 37 ), ExtResource( 24 ), ExtResource( 35 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "run_l",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "idle_t",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 70 ), ExtResource( 69 ), ExtResource( 64 ) ],
 "loop": false,
@@ -186,28 +161,53 @@ animations = [ {
 "name": "hurt_t",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ) ],
-"loop": false,
-"name": "hurt_d",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 103 ), ExtResource( 104 ), ExtResource( 102 ), ExtResource( 89 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 88 ), ExtResource( 93 ), ExtResource( 85 ) ],
-"loop": false,
-"name": "death_l",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 86 ), ExtResource( 78 ), ExtResource( 96 ), ExtResource( 105 ), ExtResource( 100 ), ExtResource( 75 ), ExtResource( 99 ), ExtResource( 97 ), ExtResource( 94 ) ],
-"loop": false,
-"name": "death_d",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 62 ), ExtResource( 68 ), ExtResource( 63 ) ],
 "loop": false,
 "name": "hurt_r",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ) ],
+"loop": false,
+"name": "hurt_d",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ), ExtResource( 56 ), ExtResource( 59 ), ExtResource( 57 ), ExtResource( 58 ) ],
+"loop": false,
+"name": "damage_d",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 103 ), ExtResource( 104 ), ExtResource( 102 ), ExtResource( 89 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 88 ), ExtResource( 93 ), ExtResource( 85 ) ],
+"loop": false,
+"name": "give_l",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 45 ), ExtResource( 53 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 41 ) ],
+"loop": false,
+"name": "damage_t",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 76 ), ExtResource( 101 ), ExtResource( 95 ), ExtResource( 92 ), ExtResource( 91 ), ExtResource( 80 ), ExtResource( 82 ), ExtResource( 90 ), ExtResource( 81 ) ],
 "loop": false,
-"name": "death_r",
+"name": "give_r",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 86 ), ExtResource( 78 ), ExtResource( 96 ), ExtResource( 105 ), ExtResource( 100 ), ExtResource( 75 ), ExtResource( 99 ), ExtResource( 97 ), ExtResource( 94 ) ],
+"loop": false,
+"name": "give_d",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 60 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 54 ) ],
+"loop": false,
+"name": "damage_l",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 55 ), ExtResource( 52 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ) ],
+"loop": false,
+"name": "damage_r",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 87 ), ExtResource( 77 ), ExtResource( 98 ), ExtResource( 79 ), ExtResource( 74 ), ExtResource( 73 ), ExtResource( 108 ), ExtResource( 106 ), ExtResource( 107 ) ],
+"loop": false,
+"name": "give_t",
 "speed": 10.0
 } ]

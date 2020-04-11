@@ -1,22 +1,28 @@
 extends Spatial
 
 
+export(PackedScene) var game_actor
+
 
 func _ready():
 	randomize()
 	
-	var rm = RingMap.new()
+	var ring_map = RingMap.new()
 	
-	$city_structures.build_everything(rm)
-	$flora.grow_flora(rm)
-	
-	var pl = preload("res://prefabs/gameactors/player/Player.tscn").instance()
-	pl.setup(rm)
-	add_child(pl)
-	pl.set_ring_vector(RingVector.new(0, 0, true))
+	$city_structures.build_everything(ring_map)
+	$flora.grow_flora(ring_map)
 	
 	for i in range(CityLayout.get_number_of_segments(0)):
-		var np = preload("res://prefabs/gameactors/GameActor.tscn").instance()
-		np.setup(rm)
-		add_child(np)
-		np.set_ring_vector(RingVector.new(0, i, true))
+		var new_actor = game_actor.instance()
+		var actor_type: int
+		
+		add_child(new_actor, true)
+		
+		if i == 0:
+			actor_type = Constants.Objects.PLAYER
+		elif i % 2 == 1:
+			actor_type = Constants.Objects.WOODSMAN
+		else:
+			actor_type = Constants.Objects.CARPENTER
+		
+		new_actor.setup(ring_map, RingVector.new(0, i, true), actor_type)

@@ -1,14 +1,18 @@
-extends RadiantContainer
 class_name RadiantUI
+extends RadiantContainer
+
+
+signal button_pressed(text)
+signal closed
 
 
 const EXIT_BUTTON = "Exit"
 const MENU_BUTTON = "Menu"
 
 
-var menu_buttons:Array
+var menu_buttons: Array
 
-var menu_layers:Array = [ MENU_BUTTON ]
+var menu_layers: Array = [ MENU_BUTTON ]
 
 var center_button = null setget set_center_button, get_center_button
 
@@ -16,12 +20,9 @@ var interaction_object
 var interaction
 
 
-signal button_pressed
-signal closed
 
 
-
-func _init(new_menu_buttons:Array, new_interaction_object = null, new_interaction = null):
+func _init(new_menu_buttons: Array, new_interaction_object = null, new_interaction = null):
 	menu_buttons = new_menu_buttons
 	interaction_object = new_interaction_object
 	interaction = new_interaction
@@ -31,6 +32,7 @@ func _init(new_menu_buttons:Array, new_interaction_object = null, new_interactio
 
 func _ready():
 	center_button = RadiantUIButton.new(EXIT_BUTTON)
+	center_button.modulate.a = 0
 	add_actual_child(center_button)
 	
 	center_button.grab_focus()
@@ -38,7 +40,7 @@ func _ready():
 	if not "_button_pressed" in center_button.get_signal_list():
 		center_button.connect("pressed", self, "_button_pressed", [center_button])
 	
-	place_buttons(menu_buttons)
+	place_buttons(menu_buttons, 0.5)
 
 
 func _unhandled_input(event):
@@ -48,12 +50,13 @@ func _unhandled_input(event):
 
 
 
-func place_buttons(new_buttons:Array):
+
+func place_buttons(new_buttons: Array, delay: float = 0.0):
 	for button_name in new_buttons:
-		var new_button:RadiantUIButton
+		var new_button: RadiantUIButton
 		
-		if button_name == "Build":
-			new_button = RadiantUIButton.new(button_name, [CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE, CityLayout.STOCKPILE])
+		if button_name is String and button_name == "Build":
+			new_button = RadiantUIButton.new(button_name, [Constants.Objects.STOCKPILE, Constants.Objects.WOODCUTTERS_HUT])
 		else:
 			new_button = RadiantUIButton.new(button_name)
 		
@@ -65,14 +68,15 @@ func place_buttons(new_buttons:Array):
 	
 	update_children()
 	
-	animate_in_buttons()
+	animate_in_buttons(delay)
 
 
-func _button_pressed(button:RadiantUIButton):
+func _button_pressed(button: RadiantUIButton):
 	if button.text == EXIT_BUTTON:
 		close()
 	elif not button == center_button and button.menu_buttons.empty():
 		if interaction_object and interaction:
+			
 			interaction_object.call(interaction, button.text)
 			interaction_object = null
 			interaction = null
@@ -91,37 +95,38 @@ func _button_pressed(button:RadiantUIButton):
 			place_buttons(button.menu_buttons)
 		else:
 			place_buttons(menu_buttons)
-		
-		
 
 
-func animate_in_buttons():
+func animate_in_buttons(delay: float = 0.0):
 	var tween:Tween = Tween.new()
 	add_actual_child(tween)
 	
 	yield(get_tree(), "idle_frame")
 	
+	if delay > 0.0:
+		tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay * 0.5)
+	
 	for button in get_children():
-		tween.interpolate_property(button, "rect_position", Vector2(), button.rect_position, 0.3, Tween.TRANS_BACK,Tween.EASE_OUT)
-		tween.interpolate_property(button, "modulate:a", 0.0, 1.0, 0.3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		tween.interpolate_property(button, "rect_position", Vector2(), button.rect_position, 0.4, Tween.TRANS_BACK,Tween.EASE_OUT, delay)
+		tween.interpolate_property(button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay)
 	
 	tween.start()
 
 
-func close(time:float = 0.3, pressed_button = null):
+func close(time: float = 0.3, pressed_button = null):
 	emit_signal("closed")
 	
 	var tween:Tween = Tween.new()
 	add_actual_child(tween)
 	
-	tween.interpolate_property(center_button, "modulate:a", 1.0, 0.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.interpolate_property(center_button, "modulate:a", null, 0.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, time * 0.5)
 	
 	for button in get_children():
-		tween.interpolate_property(button, "rect_position", button.rect_position, -button.rect_size / 2.0, time, Tween.TRANS_BACK,Tween.EASE_IN)
-		tween.interpolate_property(button, "modulate:a", 1.0, 0.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		tween.interpolate_property(button, "rect_position", null, -button.rect_size / 2.0, time, Tween.TRANS_BACK,Tween.EASE_IN)
+		tween.interpolate_property(button, "modulate:a", null, 0.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
 	if pressed_button:
-		tween.interpolate_property(pressed_button, "rect_scale", pressed_button.rect_scale, pressed_button.rect_scale * 3.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		tween.interpolate_property(pressed_button, "rect_scale", null, pressed_button.rect_scale * 3.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
 	tween.start()
 	

@@ -14,17 +14,17 @@ dest_files=[ "res://.import/hero_run-d_05.png-03c09a194a3b77fcdfedc54ca58e06a7.s
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=0
+compress/normal_map=2
 flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=1
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

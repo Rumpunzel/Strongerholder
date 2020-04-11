@@ -14,12 +14,12 @@ dest_files=[ "res://.import/hero_death-t_03.png-b82697876beb6bf4cdedde36ff9791cc
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=0
-flags/repeat=true
+compress/normal_map=2
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

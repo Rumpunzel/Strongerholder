@@ -2,26 +2,24 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/PixelArt_SimpleTreesOutlined_Jestan.png-c1b1ada144ea63e6921fa92c44ead09b.s3tc.stex"
-path.etc2="res://.import/PixelArt_SimpleTreesOutlined_Jestan.png-c1b1ada144ea63e6921fa92c44ead09b.etc2.stex"
+path="res://.import/PixelArt_SimpleTreesOutlined_Jestan.png-c1b1ada144ea63e6921fa92c44ead09b.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/sprites/trees/PixelArt_SimpleTreesOutlined_Jestan.png"
-dest_files=[ "res://.import/PixelArt_SimpleTreesOutlined_Jestan.png-c1b1ada144ea63e6921fa92c44ead09b.s3tc.stex", "res://.import/PixelArt_SimpleTreesOutlined_Jestan.png-c1b1ada144ea63e6921fa92c44ead09b.etc2.stex" ]
+dest_files=[ "res://.import/PixelArt_SimpleTreesOutlined_Jestan.png-c1b1ada144ea63e6921fa92c44ead09b.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=0
-flags/repeat=true
+compress/normal_map=2
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
