@@ -6,6 +6,12 @@ var dictionary: Dictionary = { } setget , get_dictionary
 
 
 
+func has(object, type: int = -1) -> bool:
+	var search_through: Dictionary = dictionary.get(type, { }) if type > 0 else dictionary
+	return search_through.get(object.ring_vector.ring, { }).get(object.ring_vector.segment, [ ]).has(object)
+
+
+
 func register_in_dictionary(type: int, ring_vector: RingVector, object):
 	dictionary[type] = dictionary.get(type, { })
 	
