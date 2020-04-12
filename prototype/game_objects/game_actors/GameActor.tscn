@@ -29,7 +29,6 @@
 [ext_resource path="res://game_objects/game_actors/animations/run/run_down.tres" type="Animation" id=27]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_up.tres" type="Animation" id=28]
 
-
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
 
@@ -232,7 +231,8 @@ hframes = 9
 frame = 50
 
 [node name="footstep_sounds" type="AudioStreamPlayer3D" parent="body"]
-unit_db = -12.0
+attenuation_model = 1
+unit_db = -6.0
 script = ExtResource( 6 )
 animation_player_node = NodePath("../../animation_player")
 step_sounds = "res://assets/sounds/footsteps"

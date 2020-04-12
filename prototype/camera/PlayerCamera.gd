@@ -22,6 +22,7 @@ onready var listener: Listener = Listener.new()
 func _ready():
 	ray_cast.enabled = true
 	ray_cast.cast_to.y = -50
+	
 	listener.make_current()
 
 
