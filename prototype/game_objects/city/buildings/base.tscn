@@ -6,6 +6,6 @@
 [node name="base" instance=ExtResource( 1 )]
 can_be_highlighted = false
 
-[node name="block" parent="." index="0"]
+[node name="structure" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0 )
 mesh = ExtResource( 2 )
