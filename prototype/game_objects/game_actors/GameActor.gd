@@ -6,7 +6,6 @@ export(PackedScene) var player_camera
 
 export var player_controlled: int = -1 setget , get_player_controlled
 
-
 var can_act: bool = true setget set_can_act, get_can_act
 
 
