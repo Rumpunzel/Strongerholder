@@ -11,16 +11,13 @@
 [ext_resource path="res://game_objects/city/CityStructure.gd" type="Script" id=9]
 [ext_resource path="res://game_objects/ObjectArea.gd" type="Script" id=10]
 
-
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 4, 3 )
 
 [node name="tree" type="Spatial"]
 script = ExtResource( 9 )
-structure_node = NodePath("sprite")
-area_node = NodePath("area")
 
-[node name="sprite" type="Sprite3D" parent="."]
+[node name="structure" type="Sprite3D" parent="."]
 offset = Vector2( 0, 43 )
 pixel_size = 0.1
 billboard = 2

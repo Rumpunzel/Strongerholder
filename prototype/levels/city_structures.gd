@@ -32,7 +32,7 @@ func construct_ring(ring_number: int):
 			else:
 				buildying_type = Constants.Objects.FOUNDATION
 			
-			add_child(CityObject.new(buildying_type, ring_vector, ring_map, 3))
+			add_child(CityObject.new(buildying_type, ring_vector, ring_map))
 	
 	#print("total buildings for ring %d: %d" % [ring_number, float(number_of_buildings) / CityLayout.SUB_SEGMENTS])
 

@@ -26,6 +26,7 @@ export var indestructible: bool = false
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
 
 var type: int setget set_type, get_type
+var object = null setget set_object, get_object
 
 var active: bool = true setget set_active, is_active
 var alive: bool = true setget set_alive, is_alive
@@ -132,6 +133,22 @@ func set_type(new_type: int):
 	type = new_type
 	name = Constants.enum_name(Constants.Objects, type)
 
+
+func set_object(new_object):
+	if object:
+		remove_child(object)
+		object.queue_free()
+		object = null
+	
+	object = new_object
+	
+	object.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius)
+	
+	add_child(object)
+	
+	name = "[%s:(%s, %s)]" % [Constants.enum_name(Constants.Objects, type), ring_vector.ring, ring_vector.segment]
+
+
 func set_active(new_status: bool):
 	active = new_status
 	if active:
@@ -150,11 +167,15 @@ func set_inventory(new_inventory: Array):
 	inventory = new_inventory
 
 
+
 func get_ring_vector() -> RingVector:
 	return ring_vector
 
 func get_type() -> int:
 	return type
+
+func get_object():
+	return object
 
 func is_active() -> bool:
 	return active and alive

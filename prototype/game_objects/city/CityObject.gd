@@ -15,25 +15,18 @@ const BUILDING_REQUESTS = {
 var object_scenes: Dictionary = {
 	Constants.Objects.TREE: load("res://game_objects/city/things/tree.tscn"),
 	Constants.Objects.BASE: load("res://game_objects/city/buildings/base.tscn"),
-	Constants.Objects.FOUNDATION: load("res://game_objects/city/buildings/foundation.tscn"),
+	Constants.Objects.FOUNDATION: load("res://game_objects/city/buildings/CityStructure.tscn"),
 	Constants.Objects.BRIDGE: load("res://game_objects/city/buildings/bridge.tscn"),
 	Constants.Objects.STOCKPILE: load("res://game_objects/city/buildings/stockpile.tscn"),
 	Constants.Objects.WOODCUTTERS_HUT: load("res://game_objects/city/buildings/woodcutters_hut.tscn"),
 }
 
 
-var object:CityStructure = null setget , get_object
-
-var object_width: int = 1
 
 
-
-
-func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, new_width: int = 1, new_inventory = [ ]).(new_ring_map):
+func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, new_inventory = [ ]).(new_ring_map):
 	set_type(new_type)
 	set_ring_vector(new_ring_vector)
-	
-	object_width = new_width
 	
 	connect("received_item", self, "register_item")
 	connect("sent_item", self, "unregister_item")
@@ -43,7 +36,7 @@ func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, ne
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	set_object()
+	set_object(object_scenes[type].instance())
 	
 	ring_map.register_structure(type, ring_vector, self)
 	
@@ -99,27 +92,6 @@ func die(sender: GameObject):
 
 
 
-func set_type(new_type: int):
-	.set_type(new_type)
-	
-	if object:
-		set_object()
-
-
-func set_object():
-	if object:
-		remove_child(object)
-		object.queue_free()
-		object = null
-	
-	object = object_scenes[type].instance()
-	
-	object.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius)
-	
-	add_child(object)
-	
-	name = "[%s:(%s, %s)]" % [Constants.enum_name(Constants.Objects, type), ring_vector.ring, ring_vector.segment]
-
 
 func set_ring_vector(new_vector: RingVector):
 	.set_ring_vector(new_vector)
@@ -129,21 +101,28 @@ func set_ring_vector(new_vector: RingVector):
 		object.ring_vector = new_vector
 
 
+func set_type(new_type: int):
+	.set_type(new_type)
+	
+	if object:
+		set_object(object_scenes[type].instance())
 
-func get_object() -> CityStructure:
-	return object
+
 
 func is_active() -> bool:
-	if Constants.object_type(type) == Constants.BUILDINGS:
-		var new_active = true
-		
-		for i in range(object_width):
-			var new_vector: RingVector = RingVector.new(0, 0)
-			new_vector.set_equal_to(ring_vector)
-			new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+	if object:
+		if Constants.object_type(type) == Constants.BUILDINGS:
+			var new_active = true
 			
-			new_active = new_active and ring_map.get_structures_at_position(new_vector, Constants.Objects.TREE).empty()
+			for i in range(object.object_width):
+				var new_vector: RingVector = RingVector.new(0, 0)
+				new_vector.set_equal_to(ring_vector)
+				new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+				
+				new_active = new_active and ring_map.get_structures_at_position(new_vector, Constants.Objects.TREE).empty()
+			
+			set_active(new_active)
 		
-		set_active(new_active)
-	
-	return active and alive
+		return active and alive
+	else:
+		return false
