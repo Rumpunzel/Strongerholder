@@ -148,7 +148,7 @@ func set_object_of_interest(new_object: GameObject, calculate_pathfinding: bool 
 	if calculate_pathfinding:
 		if object_of_interest:
 			pathfinding_target = object_of_interest.ring_vector
-			object_of_interest.connect("died", actor_behavior, "force_search")
+			object_of_interest.connect("died", actor_behavior, "force_search", [false])
 		else:
 			pathfinding_target = null
 		

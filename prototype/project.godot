@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/body/ActorArea.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "ActorBehavior",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/ActorBehavior.gd"
@@ -79,12 +79,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/ObjectArea.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "PlayerCamera",
 "language": "GDScript",
 "path": "res://camera/PlayerCamera.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "PuppetMaster",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/PuppetMaster.gd"
