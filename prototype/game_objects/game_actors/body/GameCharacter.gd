@@ -1,3 +1,4 @@
+class_name GameCharacter
 extends KinematicBody
 
 
@@ -24,13 +25,13 @@ var fall_speed: float = 0.0
 var jump_mod: float = 0.0
 
 var grounded: bool = false
-var can_jump: bool = false
+var can_jump: bool = true
 
 
-onready var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-onready var cliff_dection = CliffDetection.new(self)
-onready var animation_tree: AnimationTree = get_node(animation_tree_node)
-onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+onready var default_gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+onready var cliff_dection: CliffDetection = CliffDetection.new(self)
+onready var area: ActorArea = $area setget , get_area
+onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
 
 
 
@@ -68,7 +69,7 @@ func _physics_process(delta):
 
 
 
-func move_to(direction: Vector3, is_sprinting: bool) -> RingVector:
+func move_to(direction: Vector3, is_sprinting: bool = false) -> RingVector:
 	set_sprinting(is_sprinting)
 	set_velocity(direction)
 	parse_state(direction)
@@ -85,9 +86,25 @@ func parse_state(direction: Vector3):
 	
 	if direction.length() > 0:
 		animation_tree.blend_positions = movement_vector
-		state_machine.travel("run")
-	elif state_machine.get_current_node() == "run":
-		state_machine.travel("idle")
+		animation_tree.travel("run")
+	elif animation_tree.get_current_state() == "run":
+		animation_tree.travel("idle")
+
+
+func animate(animation: String, stop_movement: bool = true):
+	if animation_tree.is_idle_animation():
+		if stop_movement:
+			move_to(Vector3())
+		
+		animation_tree.travel(animation)
+
+
+func is_idle() -> bool:
+	return animation_tree.is_idle()
+
+
+func is_in_range(object_of_interest) -> bool:
+	return area.has_object(object_of_interest)
 
 
 
@@ -126,9 +143,11 @@ func get_ring_vector() -> RingVector:
 	return ring_vector
 
 
+func get_area() -> ActorArea:
+	return area
+
 func get_velocity() -> Vector3:
 	return velocity
-
 
 func get_sprinting() -> bool:
 	return sprinting
