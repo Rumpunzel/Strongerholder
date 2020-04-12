@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/meshes/debug_meshes/block.tres" type="CubeMesh" id=1]
-[ext_resource path="res://prefabs/game_objects/city/CityStructure.gd" type="Script" id=2]
-[ext_resource path="res://prefabs/game_objects/ObjectArea.gd" type="Script" id=3]
+[ext_resource path="res://game_objects/city/CityStructure.gd" type="Script" id=2]
+[ext_resource path="res://game_objects/ObjectArea.gd" type="Script" id=3]
+
 
 [sub_resource type="CylinderShape" id=1]
 radius = 5.0

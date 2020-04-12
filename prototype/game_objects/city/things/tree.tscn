@@ -7,9 +7,10 @@
 [ext_resource path="res://assets/sprites/trees/tree4.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/trees/tree7.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=7]
-[ext_resource path="res://prefabs/game_objects/city/things/random_sprite.gd" type="Script" id=8]
-[ext_resource path="res://prefabs/game_objects/city/CityStructure.gd" type="Script" id=9]
-[ext_resource path="res://prefabs/game_objects/ObjectArea.gd" type="Script" id=10]
+[ext_resource path="res://game_objects/city/things/random_sprite.gd" type="Script" id=8]
+[ext_resource path="res://game_objects/city/CityStructure.gd" type="Script" id=9]
+[ext_resource path="res://game_objects/ObjectArea.gd" type="Script" id=10]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 4, 3 )

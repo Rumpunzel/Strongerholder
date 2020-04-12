@@ -13,12 +13,12 @@ const BUILDING_REQUESTS = {
 
 
 var object_scenes: Dictionary = {
-	Constants.Objects.TREE: load("res://prefabs/game_objects/city/things/tree.tscn"),
-	Constants.Objects.BASE: load("res://prefabs/game_objects/city/buildings/base.tscn"),
-	Constants.Objects.FOUNDATION: load("res://prefabs/game_objects/city/buildings/foundation.tscn"),
-	Constants.Objects.BRIDGE: load("res://prefabs/game_objects/city/buildings/bridge.tscn"),
-	Constants.Objects.STOCKPILE: load("res://prefabs/game_objects/city/buildings/stockpile.tscn"),
-	Constants.Objects.WOODCUTTERS_HUT: load("res://prefabs/game_objects/city/buildings/woodcutters_hut.tscn"),
+	Constants.Objects.TREE: load("res://game_objects/city/things/tree.tscn"),
+	Constants.Objects.BASE: load("res://game_objects/city/buildings/base.tscn"),
+	Constants.Objects.FOUNDATION: load("res://game_objects/city/buildings/foundation.tscn"),
+	Constants.Objects.BRIDGE: load("res://game_objects/city/buildings/bridge.tscn"),
+	Constants.Objects.STOCKPILE: load("res://game_objects/city/buildings/stockpile.tscn"),
+	Constants.Objects.WOODCUTTERS_HUT: load("res://game_objects/city/buildings/woodcutters_hut.tscn"),
 }
 
 
