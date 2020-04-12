@@ -35,6 +35,8 @@ func create_raycast(side: int, side_name: String, body: KinematicBody):
 	new_ray.name = side_name
 	new_ray.enabled = true
 	new_ray.cast_to.y = raycast_length
+	new_ray.set_collision_mask_bit(0, true)
+	new_ray.set_collision_mask_bit(2, true)
 	
 	match side:
 		Sides.DOWN:
