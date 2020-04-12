@@ -31,7 +31,7 @@ func construct_ring(ring_number: int):
 				buildying_type = Constants.Objects.BRIDGE
 			else:
 				buildying_type = Constants.Objects.FOUNDATION
-			#buildying_type = Constants.Objects.STOCKPILE if randi() % 2 > 0 else Constants.Objects.WOODCUTTERS_HUT
+			
 			add_child(CityObject.new(buildying_type, ring_vector, ring_map, 3))
 	
 	#print("total buildings for ring %d: %d" % [ring_number, float(number_of_buildings) / CityLayout.SUB_SEGMENTS])

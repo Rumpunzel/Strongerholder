@@ -2,7 +2,7 @@ class_name CityLayout
 extends Resource
 
 
-const BASE_RADIUS: float = 16.0
+const BASE_RADIUS: float = 24.0
 const RING_GAP: float = 4.0
 const ROAD_WIDTH: float = 8.0
 const RING_WIDTH: float = 32.0
