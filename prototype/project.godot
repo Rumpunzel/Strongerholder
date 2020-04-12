@@ -119,10 +119,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://city_management/RingMap.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "RingObject",
 "language": "GDScript",
-"path": "res://game_objects/GameObject.gd"
+"path": "res://game_objects/RingObject.gd"
 }, {
 "base": "Resource",
 "class": "RingVector",
