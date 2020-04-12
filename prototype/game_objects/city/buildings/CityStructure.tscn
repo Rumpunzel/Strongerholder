@@ -4,18 +4,16 @@
 [ext_resource path="res://game_objects/city/CityStructure.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/ObjectArea.gd" type="Script" id=3]
 
-
 [sub_resource type="CylinderShape" id=1]
 radius = 5.0
 height = 8.0
 
-[node name="foundation" type="Spatial"]
+[node name="city_structure" type="Spatial"]
 script = ExtResource( 2 )
-structure_node = NodePath("block")
-area_node = NodePath("area")
 can_be_highlighted = true
+object_width = 3
 
-[node name="block" type="CSGMesh" parent="."]
+[node name="structure" type="CSGMesh" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
 use_collision = true
 collision_layer = 4
