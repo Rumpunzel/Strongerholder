@@ -24,7 +24,7 @@ const ACTOR_PRIORITIES = {
 }
 
 
-var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
+var object_of_interest: RingObject = null setget set_object_of_interest, get_object_of_interest
 var currently_looking_for: int = Constants.Objects.NOTHING setget set_currently_looking_for, get_currently_looking_for
 
 
@@ -45,8 +45,8 @@ func _init(new_actor, new_ring_map):
 
 
 
-func next_priority() -> GameObject:
-	var next_target: GameObject = null
+func next_priority() -> RingObject:
+	var next_target: RingObject = null
 	var next_status = INVENTORY_EMPTY
 	
 	if not current_actor.inventory.empty():
@@ -109,7 +109,7 @@ func force_search(reset_target_type: bool = true):
 func set_priorities(new_actor: int):
 	priorities = ACTOR_PRIORITIES.get(new_actor, { })
 
-func set_object_of_interest(new_object: GameObject):
+func set_object_of_interest(new_object: RingObject):
 	if not new_object == object_of_interest:
 		object_of_interest = new_object
 		
@@ -120,7 +120,7 @@ func set_currently_looking_for(new_type: int):
 
 
 
-func get_object_of_interest() -> GameObject:
+func get_object_of_interest() -> RingObject:
 	return object_of_interest
 
 func get_currently_looking_for() -> int:

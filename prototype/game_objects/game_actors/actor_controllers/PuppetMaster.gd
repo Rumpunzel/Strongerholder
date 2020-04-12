@@ -6,7 +6,7 @@ signal new_commands(commands)
 
 
 var pathfinding_target: RingVector setget set_pathfinding_target, get_pathfinding_target
-var object_of_interest: GameObject = null setget set_object_of_interest, get_object_of_interest
+var object_of_interest: RingObject = null setget set_object_of_interest, get_object_of_interest
 
 
 var ring_map: RingMap
@@ -139,7 +139,7 @@ func set_pathfinding_target(new_target: RingVector):
 	pathfinding_target = new_target
 
 
-func set_object_of_interest(new_object: GameObject, calculate_pathfinding: bool = true):
+func set_object_of_interest(new_object: RingObject, calculate_pathfinding: bool = true):
 	if object_of_interest and calculate_pathfinding:
 		object_of_interest.disconnect("died", actor_behavior, "force_search")
 	
@@ -160,7 +160,7 @@ func set_object_of_interest(new_object: GameObject, calculate_pathfinding: bool 
 func get_pathfinding_target() -> RingVector:
 	return pathfinding_target
 
-func get_object_of_interest() -> GameObject:
+func get_object_of_interest() -> RingObject:
 	return object_of_interest
 
 func get_currently_looking_for() -> int:
@@ -202,13 +202,13 @@ class InteractCommand extends Command:
 	const INTERACTION: String = "interaction"
 	const PARAMETERS: String = "parameters"
 	
-	const BASIC_INTERACTION: Dictionary = { INTERACTION: GameObject.INTERACT_FUNCTION }
+	const BASIC_INTERACTION: Dictionary = { INTERACTION: RingObject.INTERACT_FUNCTION }
 	
 	
-	var other_object: GameObject
+	var other_object: RingObject
 	
 	
-	func _init(new_object: GameObject):
+	func _init(new_object: RingObject):
 		other_object = new_object
 	
 	
@@ -233,15 +233,15 @@ class InteractCommand extends Command:
 			if animation == "":
 				if other_object.type == Constants.Objects.TREE:
 					animation = "attack"
-					interaction = { INTERACTION: GameObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
+					interaction = { INTERACTION: RingObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
 				elif Constants.object_type(other_object.type) == Constants.BUILDINGS:
 					if actor.inventory.empty():
 						if not actor.is_looking_for() == Constants.Objects.NOTHING:
 							animation = "give"
-							interaction = { SUBJECT: other_object, OBJECT: actor, INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ [ actor.is_looking_for() ] ] }
+							interaction = { SUBJECT: other_object, OBJECT: actor, INTERACTION: RingObject.GIVE_FUNCTION, PARAMETERS: [ [ actor.is_looking_for() ] ] }
 					else:
 						animation = "give"
-						interaction = { INTERACTION: GameObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
+						interaction = { INTERACTION: RingObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
 			
 			if animation.length() > 0:
 				actor.animate(animation)

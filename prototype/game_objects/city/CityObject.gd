@@ -1,5 +1,5 @@
 class_name CityObject
-extends GameObject
+extends RingObject
 
 
 const BUILD_INTO_FUNCTION = "build_into"
@@ -52,7 +52,7 @@ func handle_highlighted():
 		object.handle_highlighted(HIGHLIGHT_MATERIAL if highlighted else null)
 
 
-func interact(sender: GameObject) -> bool:
+func interact(sender: RingObject) -> bool:
 	return object and .interact(sender)
 
 
@@ -78,7 +78,7 @@ func build_into(new_type):
 	ring_map.update_structure(type, new_type, ring_vector, self)
 
 
-func die(sender: GameObject):
+func die(sender: RingObject):
 	if sender:
 		sender.receive_items(inventory, self)
 	

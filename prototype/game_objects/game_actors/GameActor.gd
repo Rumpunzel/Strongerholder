@@ -1,5 +1,5 @@
 class_name GameActor
-extends GameObject
+extends RingObject
 
 
 export(PackedScene) var player_camera
@@ -79,7 +79,7 @@ func set_ring_vector(new_vector: RingVector):
 	$game_character.ring_vector = new_vector
 	.set_ring_vector($game_character.ring_vector)
 
-func set_object_of_interest(new_object: GameObject):
+func set_object_of_interest(new_object: RingObject):
 	pathfinder.set_object_of_interest(new_object, false)
 
 
@@ -96,7 +96,7 @@ func get_can_act() -> bool:
 func get_ring_vector() -> RingVector:
 	return $game_character.ring_vector
 
-func get_object_of_interest() -> GameObject:
+func get_object_of_interest() -> RingObject:
 	return pathfinder.object_of_interest
 
 func is_looking_for() -> int:

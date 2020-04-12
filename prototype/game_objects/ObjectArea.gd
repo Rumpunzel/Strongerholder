@@ -5,7 +5,7 @@ extends Area
 signal added_object(game_object)
 
 
-var game_object: GameObject = null setget , get_game_object
+var game_object: RingObject = null setget , get_game_object
 
 
 var objects_in_area: Array = [ ]
@@ -24,7 +24,7 @@ func _ready():
 
 
 
-func has_object(object: GameObject) -> bool:
+func has_object(object: RingObject) -> bool:
 	return objects_in_area.has(object)
 
 
@@ -44,7 +44,7 @@ func exited(new_area: Area):
 
 
 
-func parse_entering_object(new_object: GameObject) -> bool:
+func parse_entering_object(new_object: RingObject) -> bool:
 	if new_object.active and not objects_in_area.has(new_object):
 		objects_in_area.append(new_object)
 		new_object.connect("died", self, "parse_exiting_object", [new_object])
@@ -57,7 +57,7 @@ func parse_entering_object(new_object: GameObject) -> bool:
 	return false
 
 
-func parse_exiting_object(new_object: GameObject) -> bool:
+func parse_exiting_object(new_object: RingObject) -> bool:
 	if objects_in_area.has(new_object):
 		objects_in_area.erase(new_object)
 		new_object.disconnect("died", self, "parse_exiting_object")
@@ -70,7 +70,7 @@ func parse_exiting_object(new_object: GameObject) -> bool:
 	return false
 
 
-func parse_acitvating_object(new_object: GameObject):
+func parse_acitvating_object(new_object: RingObject):
 	if inactive_objects_in_area.has(new_object):
 		inactive_objects_in_area.erase(new_object)
 		new_object.disconnect("activated", self, "parse_acitvating_object")
@@ -79,13 +79,13 @@ func parse_acitvating_object(new_object: GameObject):
 
 
 
-func get_game_object() -> GameObject:
+func get_game_object() -> RingObject:
 	var node = self
 	
 	while not game_object:
 		node = node.get_parent()
 		
-		if node is GameObject:
+		if node is RingObject:
 			game_object = node
 	
 	return game_object

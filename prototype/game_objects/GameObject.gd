@@ -1,4 +1,4 @@
-class_name GameObject
+class_name RingObject
 extends Spatial
 
 
@@ -36,7 +36,7 @@ var highlighted: bool = false setget set_highlighted, get_highlighted
 var inventory: Array = [ ] setget set_inventory, get_inventory
 
 
-# Reference to the ring_map; pseudo Singleton only availably to GameObjects
+# Reference to the ring_map; pseudo Singleton only availably to RingObjects
 var ring_map: RingMap
 
 
@@ -71,13 +71,13 @@ func handle_highlighted():
 	pass
 
 
-func interact(sender: GameObject) -> bool:
+func interact(sender: RingObject) -> bool:
 	print("%s interacted with %s." % [sender.name, name])
 	
 	return true
 
 
-func receive_items(new_items: Array, sender: GameObject):
+func receive_items(new_items: Array, sender: RingObject):
 	for item in new_items:
 		var new_item = sender.send_item(item, self) if sender else item
 		
@@ -89,7 +89,7 @@ func receive_items(new_items: Array, sender: GameObject):
 #				print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Objects, new_item)])
 
 
-func send_item(item_to_send, _sender: GameObject):
+func send_item(item_to_send, _sender: RingObject):
 	if inventory.has(item_to_send):
 		inventory.erase(item_to_send)
 		emit_signal("sent_item", item_to_send)
@@ -99,7 +99,7 @@ func send_item(item_to_send, _sender: GameObject):
 		return null
 
 
-func damage(damage_points: float, delay: float = 0.0, sender: GameObject = null) -> bool:
+func damage(damage_points: float, delay: float = 0.0, sender: RingObject = null) -> bool:
 	if delay > 0.0:
 		var timer = Timer.new()
 		add_child(timer)
@@ -120,7 +120,7 @@ func damage(damage_points: float, delay: float = 0.0, sender: GameObject = null)
 	return true
 
 
-func die(_sender: GameObject):
+func die(_sender: RingObject):
 	set_alive(false)
 
 

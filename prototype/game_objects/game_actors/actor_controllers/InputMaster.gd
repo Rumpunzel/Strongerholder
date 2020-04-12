@@ -29,7 +29,7 @@ func get_input() -> Array:
 
 
 class InteractCommand extends PuppetMaster.InteractCommand:
-	func _init(new_object: GameObject).(new_object):
+	func _init(new_object: RingObject).(new_object):
 		pass
 	
 	func interaction_with(actor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
