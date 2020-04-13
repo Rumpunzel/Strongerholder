@@ -1,25 +1,31 @@
 class_name PlayerCamera
-extends Spatial
+extends Camera
 
 
 export var camera_distance: float = 15.0
-export var stick_to_ground: bool = true
+export var camera_angle: float = -2.0
 
+export var stick_to_ground: bool = true
 export var listener_off_ground: float = 5.0
 
+export var camera_speed:float = 3.0
 
 var node_to_follow: Spatial = null setget set_node_to_follow, get_node_to_follow
 
 
-onready var camera: Camera = $camera
 onready var ray_cast: RayCast = RayCast.new()
 onready var listener: Listener = Listener.new()
+
+onready var ui = $ui_layer/control/margin_container
+onready var control_layer = $ui_layer/control
 
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rotation.x = deg2rad(camera_angle)
+	
 	ray_cast.enabled = true
 	ray_cast.cast_to.y = -50
 	
@@ -28,20 +34,29 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if node_to_follow and stick_to_ground:
-		var rot_diff = node_to_follow.ring_vector.rotation - rotation.y
+	if node_to_follow:
+		var new_y: float = 0.0
 		
-		while rot_diff > PI:
-			rot_diff -= TAU
+		if stick_to_ground:
+			new_y = ray_cast.get_collision_point().y
 		
-		while rot_diff < -PI:
-			rot_diff += TAU
+		var new_z: float = node_to_follow.ring_vector.radius + camera_distance
 		
-		rotation.y += rot_diff * delta * 5
-		camera.transform.origin.z += (node_to_follow.ring_vector.radius + camera_distance - camera.transform.origin.z) * delta * 5
-		camera.transform.origin.y += (ray_cast.get_collision_point().y - camera.transform.origin.y) * delta
+		var new_origin: Vector3 = Vector3(0, new_y, new_z).rotated(Vector3.UP, node_to_follow.ring_vector.rotation)
+		
+		transform.origin.x += (new_origin.x - transform.origin.x) * delta * camera_speed
+		transform.origin.y += (new_origin.y - transform.origin.y) * delta
+		transform.origin.z += (new_origin.z - transform.origin.z) * delta * camera_speed
+		
+		rotation.y = atan2(transform.origin.x, transform.origin.z)
 
 
+
+
+func add_ui_element(new_element: Control, center_ui: bool = true):
+	var new_parent = ui if center_ui else control_layer
+	
+	new_parent.add_child(new_element)
 
 
 func set_node_to_follow(new_node: Spatial):
