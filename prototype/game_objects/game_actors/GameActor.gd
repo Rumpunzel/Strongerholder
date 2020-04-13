@@ -30,6 +30,10 @@ func _ready():
 	set_object(object_scenes[type].instance())
 
 
+func _process(_delta):
+	listen_to_commands(pathfinder.get_input())
+
+
 
 
 func listen_to_commands(new_commands):
@@ -61,8 +65,6 @@ func set_player_controlled(new_player: int):
 			pathfinder = InputMaster.new(ring_map, self)
 		else:
 			pathfinder = PuppetMaster.new(ring_map, self)
-		
-		add_child(pathfinder)
 		
 		player_controlled = new_player
 

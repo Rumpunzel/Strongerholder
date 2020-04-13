@@ -1,8 +1,5 @@
 class_name PuppetMaster
-extends Node
-
-
-signal new_commands(commands)
+extends Resource
 
 
 var pathfinding_target: RingVector setget set_pathfinding_target, get_pathfinding_target
@@ -37,22 +34,13 @@ func _init(new_ring_map: RingMap, new_actor = null):
 		actor_behavior.force_search()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float):
+
+
+func get_input() -> Array:
 	if update_pathfinding:
 		update_current_path()
 		update_pathfinding = false
 	
-	
-	var commands: Array = get_input()
-	
-	if not commands.empty():
-		emit_signal("new_commands", commands)
-
-
-
-
-func get_input() -> Array:
 	var commands: Array = [ ]
 	
 	if object_of_interest and current_actor.is_in_range(object_of_interest):
@@ -93,13 +81,11 @@ func register_actor(new_actor):
 		
 		current_actor = new_actor
 		
-		connect("new_commands", current_actor, "listen_to_commands")
 		current_actor.connect("entered_segment", self, "update_path_progress")
 
 
 func unregister_actor(old_actor):
 	if current_actor and old_actor == current_actor:
-		disconnect("new_commands", current_actor, "listen_to_commands")
 		current_actor.disconnect("entered_segment", self, "update_path_progress")
 
 
