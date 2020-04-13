@@ -2,7 +2,7 @@ class_name RingDictionary
 extends Resource
 
 
-var dictionary: Dictionary = { } setget invalid, get_dictionary
+var dictionary: Dictionary = { } setget , get_dictionary
 
 
 
@@ -51,11 +51,6 @@ func update_in_dictionary(old_type: int, new_type: int, ring_vector: RingVector,
 	unregister_in_dictionary(old_type, ring_vector, object)
 	register_in_dictionary(new_type, ring_vector, object)
 
-
-
-func invalid(_input):
-	print("THIS IS A READ ONLY VARIABLE")
-	assert(false)
 
 
 func get_dictionary() -> Dictionary:

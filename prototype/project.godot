@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/ActorBehavior.gd"
 }, {
-"base": "Reference",
+"base": "ObjectStats",
 "class": "ActorStats",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/ActorStats.gd"
