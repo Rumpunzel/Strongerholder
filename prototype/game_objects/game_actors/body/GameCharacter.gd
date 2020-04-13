@@ -5,7 +5,7 @@ extends KinematicBody
 signal moved(direction)
 
 
-export(Resource) var actor_stats = ActorStats.new()
+export(Resource) var object_stats = ActorStats.new() setget , get_object_stats
 export(NodePath) var animation_tree_node
 
 
@@ -14,10 +14,6 @@ var ring_vector: RingVector setget set_ring_vector, get_ring_vector
 var velocity: Vector3 = Vector3() setget set_velocity, get_velocity
 var sprinting: bool = false setget set_sprinting, get_sprinting
 
-
-var move_speed: float = 4.0
-var sprint_modifier: float = 2.0
-var jump_speed: float = 20.0
 
 # Multiplicative modifer to the movement speed
 #	is equal to 1.0 if the gameactor is walking normal
@@ -52,7 +48,7 @@ func _physics_process(delta):
 	
 	fall_speed += default_gravity * delta
 	
-	dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
+	dir += transform.basis.y * (object_stats.jump_speed * jump_mod - fall_speed)
 	
 	var new_velocity = move_and_slide(dir, Vector3.UP, true)
 	
@@ -125,13 +121,13 @@ func set_ring_vector(new_vector: RingVector):
 func set_velocity(new_velocity: Vector3):
 	velocity = cliff_dection.limit_movement(new_velocity)
 	velocity.y = 0
-	velocity = velocity.normalized() * move_speed * movement_modifier
+	velocity = velocity.normalized() * object_stats.move_speed * movement_modifier
 	velocity.y = new_velocity.y
 
 
 func set_sprinting(new_status: bool):
 	sprinting = new_status
-	movement_modifier = sprint_modifier if sprinting else 1.0
+	movement_modifier = object_stats.sprint_modifier if sprinting else 1.0
 
 
 
@@ -147,6 +143,9 @@ func get_ring_vector() -> RingVector:
 	
 	return ring_vector
 
+
+func get_object_stats() -> ActorStats:
+	return object_stats
 
 func get_area() -> ActorArea:
 	return area

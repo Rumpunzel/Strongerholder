@@ -2,7 +2,7 @@ class_name CityStructure
 extends StaticBody
 
 
-export(Resource) var structure_stats = ObjectStats.new()
+export(Resource) var object_stats = ObjectStats.new() setget , get_object_stats
 export(Material) var highlight_material
 
 export var object_width: int = 1 setget , get_object_width
@@ -25,6 +25,8 @@ func handle_highlighted(highlighted: bool):
 		structure.material_override = null
 
 
+func get_object_stats() -> ObjectStats:
+	return object_stats
 
 func get_object_width() -> int:
 	return object_width

@@ -17,10 +17,6 @@ const GIVE_FUNCTION = "receive_items"
 const EVERYTHING = "everything"
 
 
-export var hit_points_max: float = 10.0
-export var indestructible: bool = false
-
-
 # The position of the object in ring vector space
 #	for further information, look into the documentation in the RingVector class
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
@@ -39,8 +35,7 @@ var inventory: Array = [ ] setget set_inventory, get_inventory
 # Reference to the ring_map; pseudo Singleton only availably to RingObjects
 var ring_map: RingMap
 
-
-onready var hit_points: float = hit_points_max
+var hit_points: float
 
 
 
@@ -109,7 +104,7 @@ func damage(damage_points: float, delay: float = 0.0, sender: RingObject = null)
 	
 	#print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
 	
-	if not indestructible and hit_points <= 0:
+	if not object.object_stats.indestructible and hit_points <= 0:
 		die(sender)
 		return false
 	
@@ -147,6 +142,8 @@ func set_object(new_object):
 	object.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius).rotated(Vector3.UP, ring_vector.rotation)
 	
 	add_child(object)
+	
+	hit_points = object.object_stats.hit_points_max
 	
 	name = "[%s:(%s, %s)]" % [Constants.enum_name(Constants.Objects, type), ring_vector.ring, ring_vector.segment]
 
