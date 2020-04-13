@@ -38,7 +38,7 @@ onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	look_at(Vector3(0, transform.origin.y, 0), Vector3.UP)
+	rotation.y = atan2(transform.origin.x, transform.origin.z)
 	
 	var dir: Vector3 = transform.basis.x * velocity.z + transform.basis.z * velocity.x
 	

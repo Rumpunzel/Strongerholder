@@ -1,5 +1,5 @@
-class_name RingObject
-extends Node
+class_name GameObject
+extends Spatial
 
 
 signal entered_segment(ring_vector)
@@ -142,7 +142,7 @@ func set_object(new_object):
 	
 	object = new_object
 	
-	object.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius).rotated(Vector3.UP, ring_vector.rotation)
+	object.transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius)
 	
 	add_child(object)
 	

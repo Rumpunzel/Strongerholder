@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://GameItem.gd"
 }, {
+"base": "Spatial",
+"class": "GameObject",
+"language": "GDScript",
+"path": "res://GameObject.gd"
+}, {
 "base": "PuppetMaster",
 "class": "InputMaster",
 "language": "GDScript",
@@ -119,7 +124,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://city_management/RingMap.gd"
 }, {
-"base": "Spatial",
+"base": "Node",
 "class": "RingObject",
 "language": "GDScript",
 "path": "res://game_objects/RingObject.gd"
@@ -143,6 +148,7 @@ _global_script_class_icons={
 "GameActor": "",
 "GameCharacter": "",
 "GameItem": "",
+"GameObject": "",
 "InputMaster": "",
 "ObjectArea": "",
 "PlayerCamera": "",

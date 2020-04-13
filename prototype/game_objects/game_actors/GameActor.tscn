@@ -4,7 +4,7 @@
 [ext_resource path="res://game_objects/game_actors/game_character.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_objects/game_actors/GameActor.gd" type="Script" id=10]
 
-[node name="game_actor" type="Spatial"]
+[node name="game_actor" type="Node"]
 script = ExtResource( 10 )
 player_camera = ExtResource( 1 )
 
