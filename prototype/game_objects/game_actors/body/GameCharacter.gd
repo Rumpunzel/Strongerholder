@@ -104,7 +104,7 @@ func is_in_range(object_of_interest) -> bool:
 	return area.has_object(object_of_interest)
 
 
-func handle_highlighted(highlighted: bool):
+func handle_highlighted(_highlighted: bool):
 	pass
 
 

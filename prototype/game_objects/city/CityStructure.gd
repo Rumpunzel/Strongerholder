@@ -5,7 +5,7 @@ extends StaticBody
 export(Resource) var object_stats = ObjectStats.new() setget , get_object_stats
 export(Material) var highlight_material
 
-export var object_width: int = 1 setget , get_object_width
+export var structure_width: int = 1 setget , get_structure_width
 
 
 onready var structure = $structure setget , get_structure
@@ -28,8 +28,8 @@ func handle_highlighted(highlighted: bool):
 func get_object_stats() -> ObjectStats:
 	return object_stats
 
-func get_object_width() -> int:
-	return object_width
+func get_structure_width() -> int:
+	return structure_width
 
 func get_structure():
 	return structure

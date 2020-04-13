@@ -79,7 +79,7 @@ func is_active() -> bool:
 		if Constants.object_type(type) == Constants.BUILDINGS:
 			var new_active = true
 			
-			for i in range(object.object_width):
+			for i in range(object.structure_width):
 				var new_vector: RingVector = RingVector.new(0, 0)
 				new_vector.set_equal_to(ring_vector)
 				new_vector.segment += int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
