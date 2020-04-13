@@ -27,7 +27,6 @@
 [ext_resource path="res://game_objects/game_actors/body/ActorArea.gd" type="Script" id=25]
 [ext_resource path="res://assets/sprites/hero/hero_sprite_sheet.png" type="Texture" id=26]
 
-
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
 

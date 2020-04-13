@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city/CityObject.gd"
 }, {
-"base": "Spatial",
+"base": "StaticBody",
 "class": "CityStructure",
 "language": "GDScript",
 "path": "res://game_objects/city/CityStructure.gd"
@@ -140,7 +140,7 @@ _global_script_class_icons={
 "AnimationStateMachine": "",
 "CityLayout": "",
 "CityNavigator": "",
-"CityObject": "",
+"CityObject": "res://assets/icons/icon_house.svg",
 "CityStructure": "",
 "CliffDetection": "",
 "Constants": "",

@@ -1,4 +1,4 @@
-class_name CityObject
+class_name CityObject, "res://assets/icons/icon_house.svg"
 extends RingObject
 
 

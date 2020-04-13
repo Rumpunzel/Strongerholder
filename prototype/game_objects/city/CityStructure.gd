@@ -1,5 +1,5 @@
 class_name CityStructure
-extends Spatial
+extends StaticBody
 
 
 export(Material) var highlight_material
