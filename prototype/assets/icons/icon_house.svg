@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:export-filename="/home/djrm/Projects/godot/tools/editor/icons/icon_control.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
+   sodipodi:docname="icon_house.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="22.627416"
+     inkscape:cx="32.031677"
+     inkscape:cy="24.493189"
+     inkscape:document-units="px"
+     inkscape:current-layer="svg2"
+     showgrid="true"
+     units="px"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:document-rotation="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3336"
+       empspacing="4" />
+    <sodipodi:guide
+       position="13,15"
+       orientation="0,1"
+       id="guide4135"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="1,10"
+       orientation="1,0"
+       id="guide4137"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="9,1"
+       orientation="0,1"
+       id="guide4139"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="15,8"
+       orientation="1,0"
+       id="guide4141"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="icon"
+     inkscape:groupmode="layer"
+     id="layer1" />
+  <g
+     id="g3814"
+     transform="matrix(0.03124989,0,0,0.0328778,1.3621843e-6,-0.41674264)">
+    <g
+       id="g3748">
+	<g
+   id="g3746">
+		<path
+   id="path3744"
+   d="M 503.402,228.885 273.684,19.567 C 263.601,10.378 248.396,10.379 238.317,19.566 L 8.598,228.886 c -8.077,7.36 -10.745,18.7 -6.799,28.889 3.947,10.189 13.557,16.772 24.484,16.772 h 36.69 v 209.721 c 0,8.315 6.742,15.057 15.057,15.057 h 125.914 c 8.315,0 15.057,-6.741 15.057,-15.057 V 356.932 h 74.002 v 127.337 c 0,8.315 6.742,15.057 15.057,15.057 h 125.908 c 8.315,0 15.057,-6.741 15.057,-15.057 V 274.547 h 36.697 c 10.926,0 20.537,-6.584 24.484,-16.772 3.941,-10.19 1.273,-21.529 -6.804,-28.89 z"
+   inkscape:connector-curvature="0" />
+
+	</g>
+
+</g>
+    <g
+       id="g3754">
+	<g
+   id="g3752">
+		<path
+   id="path3750"
+   d="M 445.092,42.73 H 343.973 l 116.176,105.636 v -90.58 c 0,-8.315 -6.741,-15.056 -15.057,-15.056 z"
+   inkscape:connector-curvature="0" />
+
+	</g>
+
+</g>
+    <g
+       id="g3756">
+</g>
+    <g
+       id="g3758">
+</g>
+    <g
+       id="g3760">
+</g>
+    <g
+       id="g3762">
+</g>
+    <g
+       id="g3764">
+</g>
+    <g
+       id="g3766">
+</g>
+    <g
+       id="g3768">
+</g>
+    <g
+       id="g3770">
+</g>
+    <g
+       id="g3772">
+</g>
+    <g
+       id="g3774">
+</g>
+    <g
+       id="g3776">
+</g>
+    <g
+       id="g3778">
+</g>
+    <g
+       id="g3780">
+</g>
+    <g
+       id="g3782">
+</g>
+    <g
+       id="g3784">
+</g>
+  </g>
+</svg>
