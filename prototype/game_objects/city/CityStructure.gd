@@ -1,7 +1,8 @@
 class_name CityStructure
 extends Spatial
 
-export var can_be_highlighted: bool = false
+
+export(Material) var highlight_material
 
 export var object_width: int = 1 setget , get_object_width
 
@@ -11,9 +12,16 @@ onready var area = $area setget , get_area
 
 
 
-func handle_highlighted(new_material: Material):
-	if can_be_highlighted:
-		structure.material_override = new_material
+func _enter_tree():
+	rotation.y = atan2(transform.origin.x, transform.origin.z)
+
+
+
+func handle_highlighted(highlighted: bool):
+	if highlighted and highlight_material:
+		structure.material_override = highlight_material
+	else:
+		structure.material_override = null
 
 
 

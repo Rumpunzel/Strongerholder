@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/meshes/debug_meshes/block.tres" type="CubeMesh" id=1]
 [ext_resource path="res://game_objects/city/CityStructure.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/ObjectArea.gd" type="Script" id=3]
+[ext_resource path="res://assets/materials/highlightShader.material" type="Material" id=4]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 5.0
@@ -10,7 +11,7 @@ height = 8.0
 
 [node name="city_structure" type="Spatial"]
 script = ExtResource( 2 )
-can_be_highlighted = true
+highlight_material = ExtResource( 4 )
 object_width = 3
 
 [node name="structure" type="CSGMesh" parent="."]

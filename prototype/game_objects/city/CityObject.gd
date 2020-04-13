@@ -4,8 +4,6 @@ extends RingObject
 
 const BUILD_INTO_FUNCTION = "build_into"
 
-const HIGHLIGHT_MATERIAL: Material = preload("res://assets/materials/highlightShader.material")
-
 const BUILDING_REQUESTS = {
 	Constants.Objects.STOCKPILE: [ Constants.Objects.WOOD, Constants.Objects.WOOD_PLANKS, ],
 	Constants.Objects.WOODCUTTERS_HUT: [ Constants.Objects.WOOD ],
@@ -49,7 +47,7 @@ func _ready():
 
 func handle_highlighted():
 	if object:
-		object.handle_highlighted(HIGHLIGHT_MATERIAL if highlighted else null)
+		object.handle_highlighted(highlighted)
 
 
 func interact(sender: RingObject) -> bool:
@@ -71,6 +69,7 @@ func build_into(new_type):
 		new_type = Constants.Objects.values()[Constants.Objects.keys().find(new_type)]
 	
 	set_type(new_type)
+	set_object(object_scenes[type].instance())
 	
 	for request in BUILDING_REQUESTS.get(new_type, [ ]):
 		ring_map.register_resource(request + Constants.REQUEST, ring_vector, self)
@@ -90,22 +89,6 @@ func die(sender: RingObject):
 		
 		.die(sender)
 
-
-
-
-func set_ring_vector(new_vector: RingVector):
-	.set_ring_vector(new_vector)
-	rotation.y = ring_vector.rotation
-	
-	if object:
-		object.ring_vector = new_vector
-
-
-func set_type(new_type: int):
-	.set_type(new_type)
-	
-	if object:
-		set_object(object_scenes[type].instance())
 
 
 

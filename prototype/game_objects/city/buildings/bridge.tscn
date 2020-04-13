@@ -5,7 +5,7 @@
 
 [node name="bridge" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 0.999783, -0.0208203, 0, 0.0208203, 0.999783, 0, 0, 0 )
-can_be_highlighted = false
+highlight_material = null
 
 [node name="structure" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
