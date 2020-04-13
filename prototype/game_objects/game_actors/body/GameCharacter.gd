@@ -5,6 +5,7 @@ extends KinematicBody
 signal moved(direction)
 
 
+export(Resource) var actor_stats = ActorStats.new()
 export(NodePath) var animation_tree_node
 
 

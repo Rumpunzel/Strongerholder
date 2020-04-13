@@ -2,6 +2,7 @@ class_name CityStructure
 extends StaticBody
 
 
+export(Resource) var structure_stats = ObjectStats.new()
 export(Material) var highlight_material
 
 export var object_width: int = 1 setget , get_object_width
