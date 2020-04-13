@@ -89,7 +89,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/ObjectArea.gd"
 }, {
-"base": "Spatial",
+"base": "Camera",
 "class": "PlayerCamera",
 "language": "GDScript",
 "path": "res://camera/PlayerCamera.gd"

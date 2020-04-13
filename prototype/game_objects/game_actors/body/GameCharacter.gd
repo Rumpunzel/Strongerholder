@@ -107,6 +107,10 @@ func is_in_range(object_of_interest) -> bool:
 	return area.has_object(object_of_interest)
 
 
+func handle_highlighted(highlighted: bool):
+	pass
+
+
 
 func set_ring_vector(new_vector: RingVector):
 	if ring_vector:

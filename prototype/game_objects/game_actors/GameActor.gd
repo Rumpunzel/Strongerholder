@@ -2,29 +2,33 @@ class_name GameActor
 extends RingObject
 
 
-export(PackedScene) var player_camera
-
-export var player_controlled: int = -1 setget , get_player_controlled
-
-
 var can_act: bool = true setget set_can_act, get_can_act
 
 
 var pathfinder: PuppetMaster
+var player_controlled: int = -1 setget , get_player_controlled
+
+var object_scenes: Dictionary = {
+	Constants.Objects.PLAYER: load("res://game_objects/game_actors/game_character.tscn"),
+	Constants.Objects.WOODSMAN: load("res://game_objects/game_actors/game_character.tscn"),
+	Constants.Objects.CARPENTER: load("res://game_objects/game_actors/game_character.tscn"),
+}
 
 
-onready var game_character: GameCharacter = $game_character
 
 
-
-
-func setup(new_ring_map: RingMap, new_ring_vector: RingVector, new_type: int, controlling_player: int = 0):
-	.setup(new_ring_map, new_ring_vector, new_type)
-	
-	if new_type == Constants.Objects.PLAYER:
+func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, new_inventory = [ ], controlling_player: int = 0).(new_type, new_ring_vector, new_ring_map):
+	if type == Constants.Objects.PLAYER:
 		controlling_player = 1
 	
 	set_player_controlled(controlling_player)
+	
+	receive_items(new_inventory, null)
+
+
+func _ready():
+	set_object(object_scenes[type].instance())
+
 
 
 
@@ -35,37 +39,28 @@ func listen_to_commands(new_commands):
 
 
 func move_to(direction: Vector3, sprinting: bool = false):
-	.set_ring_vector(game_character.move_to(direction, sprinting))
+	.set_ring_vector(object.move_to(direction, sprinting))
 
 
 func animate(animation: String, stop_movement: bool = true):
-	game_character.animate(animation, stop_movement)
+	object.animate(animation, stop_movement)
 
 
 func is_in_range(object_of_interest) -> bool:
-	return game_character.is_in_range(object_of_interest)
+	return object.is_in_range(object_of_interest)
 
 
 
 
 func set_player_controlled(new_player: int):
 	if not new_player == player_controlled:
+		if pathfinder:
+			pathfinder.queue_free()
+		
 		if new_player > 0 and player_controlled <= 0:
-			if pathfinder:
-				pathfinder.queue_free()
-			
 			pathfinder = InputMaster.new(ring_map, self)
-			
-			var new_camera = player_camera.instance()
-			add_child(new_camera)
-			new_camera.set_node_to_follow($game_character)
 		else:
-			if pathfinder:
-				pathfinder.queue_free()
-			
 			pathfinder = PuppetMaster.new(ring_map, self)
-			#add_child(new_camera)
-			#new_camera.set_node_to_follow(body)
 		
 		add_child(pathfinder)
 		
@@ -76,8 +71,11 @@ func set_can_act(new_status: bool):
 	can_act = new_status
 
 func set_ring_vector(new_vector: RingVector):
-	$game_character.ring_vector = new_vector
-	.set_ring_vector($game_character.ring_vector)
+	if object:
+		object.ring_vector = new_vector
+		.set_ring_vector(object.ring_vector)
+	else:
+		.set_ring_vector(new_vector)
 
 func set_object_of_interest(new_object: RingObject):
 	pathfinder.set_object_of_interest(new_object, false)
@@ -88,13 +86,13 @@ func get_player_controlled() -> int:
 	return player_controlled
 
 func get_can_act() -> bool:
-	if can_act:
-		return game_character.is_idle()
+	if object and can_act:
+		return object.is_idle()
 	else:
 		return can_act
 
 func get_ring_vector() -> RingVector:
-	return $game_character.ring_vector
+	return object.ring_vector if object else null
 
 func get_object_of_interest() -> RingObject:
 	return pathfinder.object_of_interest

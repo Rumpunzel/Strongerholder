@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://camera/PlayerCamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/hill.gd" type="Script" id=2]
 [ext_resource path="res://levels/plateaus.gd" type="Script" id=3]
 [ext_resource path="res://levels/flora.gd" type="Script" id=4]
@@ -8,7 +8,7 @@
 
 [node name="hill" type="Position3D"]
 script = ExtResource( 2 )
-game_actor = ExtResource( 1 )
+camera = ExtResource( 1 )
 
 [node name="directional_light" type="DirectionalLight" parent="."]
 transform = Transform( -0.406559, 0.776308, 0.481722, -0.717735, -0.597628, 0.357347, 0.565302, -0.200466, 0.800154, 86.5364, 159.337, 197.169 )

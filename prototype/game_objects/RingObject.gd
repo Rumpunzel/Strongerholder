@@ -45,7 +45,9 @@ onready var hit_points: float = hit_points_max
 
 
 
-func _init(new_ring_map: RingMap = null):
+func _init(new_type: int, new_ring_vector:RingVector, new_ring_map: RingMap):
+	set_type(new_type)
+	set_ring_vector(new_ring_vector)
 	ring_map = new_ring_map
 
 
@@ -56,25 +58,19 @@ func _ready():
 
 
 
-func setup(new_ring_map: RingMap, new_ring_vector:RingVector, new_type: int):
-	ring_map = new_ring_map
-	set_ring_vector(new_ring_vector)
-	set_type(new_type)
-
-
-
 func updated_ring_vector():
 	emit_signal("entered_segment", ring_vector)
 
 
 func handle_highlighted():
-	pass
+	if object:
+		object.handle_highlighted(highlighted)
 
 
 func interact(sender: RingObject) -> bool:
 	print("%s interacted with %s." % [sender.name, name])
 	
-	return true
+	return object and true
 
 
 func receive_items(new_items: Array, sender: RingObject):
@@ -120,9 +116,15 @@ func damage(damage_points: float, delay: float = 0.0, sender: RingObject = null)
 	return true
 
 
-func die(_sender: RingObject):
+func die(sender: RingObject):
 	set_alive(false)
-
+	
+	if sender:
+		sender.receive_items(inventory, self)
+	
+	if object:
+		object.queue_free()
+		object = null
 
 
 

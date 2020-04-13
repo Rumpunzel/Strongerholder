@@ -22,10 +22,7 @@ var object_scenes: Dictionary = {
 
 
 
-func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, new_inventory = [ ]).(new_ring_map):
-	set_type(new_type)
-	set_ring_vector(new_ring_vector)
-	
+func _init(new_type: int, new_ring_vector: RingVector, new_ring_map: RingMap, new_inventory = [ ]).(new_type, new_ring_vector, new_ring_map):
 	connect("received_item", self, "register_item")
 	connect("sent_item", self, "unregister_item")
 	
@@ -43,15 +40,6 @@ func _ready():
 	ring_map.connect("city_changed", self, "is_active")
 
 
-
-
-func handle_highlighted():
-	if object:
-		object.handle_highlighted(highlighted)
-
-
-func interact(sender: RingObject) -> bool:
-	return object and .interact(sender)
 
 
 func register_item(new_item):
@@ -78,16 +66,10 @@ func build_into(new_type):
 
 
 func die(sender: RingObject):
-	if sender:
-		sender.receive_items(inventory, self)
-	
 	if object:
-		object.queue_free()
-		object = null
-		
 		ring_map.unregister_structure(type, ring_vector, self)
-		
-		.die(sender)
+	
+	.die(sender)
 
 
 
