@@ -8,12 +8,15 @@ extents = Vector3( 3, 1, 12.5 )
 
 [node name="bridge" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 0.999783, -0.0208203, 0, 0.0208203, 0.999783, 0, 0, 0 )
-highlight_material = null
 
-[node name="structure" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
-mesh = ExtResource( 2 )
-
-[node name="collision_shape" parent="." index="1"]
+[node name="collision_shape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
 shape = SubResource( 1 )
+
+[node name="structure" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
+mesh = ExtResource( 2 )
+highlight_material = null
+
+[node name="hit_box" parent="." index="2"]
+type = 258

@@ -2,15 +2,10 @@
 
 [ext_resource path="res://assets/meshes/debug_meshes/block.tres" type="CubeMesh" id=1]
 [ext_resource path="res://game_objects/city/CityStructure.gd" type="Script" id=2]
-[ext_resource path="res://game_objects/ObjectArea.gd" type="Script" id=3]
+[ext_resource path="res://game_objects/city/StructureHitBox.gd" type="Script" id=3]
 [ext_resource path="res://assets/materials/highlightShader.material" type="Material" id=4]
-[ext_resource path="res://game_objects/ObjectStats.gd" type="Script" id=5]
-
-[sub_resource type="Resource" id=3]
-script = ExtResource( 5 )
-hit_points_max = 10.0
-indestructible = false
-starting_inventory = [  ]
+[ext_resource path="res://game_objects/city/StructureInventory.gd" type="Script" id=5]
+[ext_resource path="res://game_objects/city/buildings/structure.gd" type="Script" id=6]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 5, 0.5, 3 )
@@ -22,24 +17,29 @@ height = 8.0
 [node name="city_structure" type="StaticBody"]
 collision_layer = 4
 script = ExtResource( 2 )
-object_stats = SubResource( 3 )
-highlight_material = ExtResource( 4 )
-structure_width = 3
-
-[node name="structure" type="CSGMesh" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
-collision_layer = 4
-mesh = ExtResource( 1 )
 
 [node name="collision_shape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
 shape = SubResource( 1 )
 
-[node name="area" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -1 )
-collision_layer = 5
-collision_mask = 2
-script = ExtResource( 3 )
+[node name="structure" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
+collision_layer = 4
+mesh = ExtResource( 1 )
+script = ExtResource( 6 )
+highlight_material = ExtResource( 4 )
 
-[node name="collision_shape" type="CollisionShape" parent="area"]
+[node name="hit_box" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -1 )
+collision_layer = 4096
+collision_mask = 6144
+script = ExtResource( 3 )
+graphics_node = NodePath("../structure")
+type = 259
+blocked_by = 262
+
+[node name="collision_shape" type="CollisionShape" parent="hit_box"]
 shape = SubResource( 2 )
+
+[node name="inventory" type="Node" parent="."]
+script = ExtResource( 5 )
