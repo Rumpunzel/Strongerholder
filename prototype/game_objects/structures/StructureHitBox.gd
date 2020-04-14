@@ -42,7 +42,7 @@ func is_active() -> bool:
 		var new_active = true
 		
 		for hit_box in overlapping_hit_boxes:
-			new_active = hit_box.type == blocked_by
+			new_active = not hit_box.type == blocked_by
 			
 			if not new_active:
 				break

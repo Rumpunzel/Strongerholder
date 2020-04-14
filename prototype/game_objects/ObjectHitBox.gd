@@ -86,6 +86,7 @@ func parse_exiting_hit_box(new_hit_box: ObjectHitBox):
 	elif inactive_overlapping_hit_boxes.has(new_hit_box):
 		inactive_overlapping_hit_boxes.erase(new_hit_box)
 		new_hit_box.disconnect("activated", self, "parse_acitvating_hit_box")
+		new_hit_box.disconnect("died", self, "parse_exiting_hit_box")
 
 
 func parse_acitvating_hit_box(new_hit_box: ObjectHitBox):
