@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "StaticBody",
 "class": "CityStructure",
 "language": "GDScript",
-"path": "res://game_objects/city/CityStructure.gd"
+"path": "res://game_objects/structures/CityStructure.gd"
 }, {
 "base": "Resource",
 "class": "CliffDetection",
@@ -69,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/InputMaster.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/Inventory.gd"
@@ -122,12 +122,12 @@ _global_script_classes=[ {
 "base": "ObjectHitBox",
 "class": "StructureHitBox",
 "language": "GDScript",
-"path": "res://game_objects/city/StructureHitBox.gd"
+"path": "res://game_objects/structures/StructureHitBox.gd"
 }, {
 "base": "Inventory",
 "class": "StructureInventory",
 "language": "GDScript",
-"path": "res://game_objects/city/StructureInventory.gd"
+"path": "res://game_objects/structures/StructureInventory.gd"
 } ]
 _global_script_class_icons={
 "ActorBehavior": "",
@@ -142,7 +142,7 @@ _global_script_class_icons={
 "GameActor": "",
 "Hill": "res://assets/icons/icon_hill.svg",
 "InputMaster": "",
-"Inventory": "",
+"Inventory": "res://assets/icons/icon_inventory.svg",
 "ObjectHitBox": "",
 "PlayerCamera": "",
 "PuppetMaster": "res://assets/icons/icon_puppet_master.svg",

@@ -6,10 +6,10 @@
 [ext_resource path="res://levels/flora.gd" type="Script" id=4]
 [ext_resource path="res://levels/city_structures.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=6]
-[ext_resource path="res://game_objects/city/things/tree.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game_objects/city/buildings/bridge.tscn" type="PackedScene" id=8]
-[ext_resource path="res://game_objects/city/buildings/CityStructure.tscn" type="PackedScene" id=9]
-[ext_resource path="res://game_objects/city/buildings/base.tscn" type="PackedScene" id=10]
+[ext_resource path="res://game_objects/structures/things/tree.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game_objects/structures/buildings/bridge.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=9]
+[ext_resource path="res://game_objects/structures/buildings/base.tscn" type="PackedScene" id=10]
 
 [node name="hill" type="Position3D"]
 script = ExtResource( 2 )

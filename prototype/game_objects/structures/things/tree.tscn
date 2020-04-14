@@ -7,10 +7,11 @@
 [ext_resource path="res://assets/sprites/trees/tree4.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/trees/tree7.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=7]
-[ext_resource path="res://game_objects/city/things/random_sprite.gd" type="Script" id=8]
-[ext_resource path="res://game_objects/city/CityStructure.gd" type="Script" id=9]
-[ext_resource path="res://game_objects/city/StructureHitBox.gd" type="Script" id=10]
-[ext_resource path="res://game_objects/city/StructureInventory.gd" type="Script" id=11]
+[ext_resource path="res://game_objects/structures/things/random_sprite.gd" type="Script" id=8]
+[ext_resource path="res://game_objects/structures/CityStructure.gd" type="Script" id=9]
+[ext_resource path="res://game_objects/structures/StructureHitBox.gd" type="Script" id=10]
+[ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=11]
+
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.5

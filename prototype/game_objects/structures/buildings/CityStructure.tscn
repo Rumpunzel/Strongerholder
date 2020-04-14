@@ -1,11 +1,12 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/meshes/debug_meshes/block.tres" type="CubeMesh" id=1]
-[ext_resource path="res://game_objects/city/CityStructure.gd" type="Script" id=2]
-[ext_resource path="res://game_objects/city/StructureHitBox.gd" type="Script" id=3]
+[ext_resource path="res://game_objects/structures/CityStructure.gd" type="Script" id=2]
+[ext_resource path="res://game_objects/structures/StructureHitBox.gd" type="Script" id=3]
 [ext_resource path="res://assets/materials/highlightShader.material" type="Material" id=4]
-[ext_resource path="res://game_objects/city/StructureInventory.gd" type="Script" id=5]
-[ext_resource path="res://game_objects/city/buildings/structure.gd" type="Script" id=6]
+[ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=5]
+[ext_resource path="res://game_objects/structures/buildings/structure.gd" type="Script" id=6]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 5, 0.5, 3 )
