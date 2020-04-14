@@ -3,6 +3,8 @@ extends AnimationTree
 
 
 var blend_positions: Vector2 setget set_blend_positions, get_blend_positions
+var can_act: bool = true setget set_can_act, get_can_act
+
 
 var next_animation: String = "idle"
 
@@ -19,16 +21,16 @@ func _init():
 
 func _process(_delta):
 	if not is_idle_animation(next_animation):
-		next_animation = "idle"
+		pass#next_animation = "idle"
 
 
 
 
 func travel(new_animation: String):
-	if is_idle_animation(next_animation):
-		next_animation = new_animation
-		
+	if true or is_idle_animation(next_animation):
 		state_machine.travel(new_animation)
+	
+	next_animation = new_animation
 
 
 func is_idle() -> bool:
@@ -49,6 +51,9 @@ func set_blend_positions(new_direction: Vector2):
 	set("parameters/give/blend_position", blend_positions)
 	set("parameters/idle_give/blend_position", blend_positions)
 
+func set_can_act(new_status: bool):
+	can_act = new_status
+
 
 
 func get_blend_positions() -> Vector2:
@@ -56,3 +61,6 @@ func get_blend_positions() -> Vector2:
 
 func get_current_state() -> String:
 	return state_machine.get_current_node()
+
+func get_can_act() -> bool:
+	return can_act and is_idle()
