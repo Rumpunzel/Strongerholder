@@ -1,14 +1,20 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://camera/PlayerCamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/hill.gd" type="Script" id=2]
 [ext_resource path="res://levels/plateaus.gd" type="Script" id=3]
 [ext_resource path="res://levels/flora.gd" type="Script" id=4]
 [ext_resource path="res://levels/city_structures.gd" type="Script" id=5]
+[ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game_objects/city/things/tree.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game_objects/city/buildings/bridge.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_objects/city/buildings/CityStructure.tscn" type="PackedScene" id=9]
+[ext_resource path="res://game_objects/city/buildings/base.tscn" type="PackedScene" id=10]
 
 [node name="hill" type="Position3D"]
 script = ExtResource( 2 )
 camera = ExtResource( 1 )
+game_actor = ExtResource( 6 )
 
 [node name="directional_light" type="DirectionalLight" parent="."]
 transform = Transform( -0.406559, 0.776308, 0.481722, -0.717735, -0.597628, 0.357347, 0.565302, -0.200466, 0.800154, 86.5364, 159.337, 197.169 )
@@ -20,11 +26,15 @@ directional_shadow_blend_splits = true
 directional_shadow_depth_range = 1
 directional_shadow_max_distance = 8192.0
 
-[node name="city_structures" type="Spatial" parent="."]
-script = ExtResource( 5 )
-
 [node name="plateaus" type="Spatial" parent="."]
 script = ExtResource( 3 )
 
+[node name="city_structures" type="Spatial" parent="."]
+script = ExtResource( 5 )
+base = ExtResource( 10 )
+foundation = ExtResource( 9 )
+bridge = ExtResource( 8 )
+
 [node name="flora" type="Spatial" parent="."]
 script = ExtResource( 4 )
+tree = ExtResource( 7 )
