@@ -1,15 +1,20 @@
-class_name GameCharacter
+class_name GameActor
 extends KinematicBody
 
 
 signal moved(direction)
+signal entered_segment(ring_vector)
 
 
-export(Resource) var object_stats = ActorStats.new() setget , get_object_stats
+export(NodePath) var puppet_master_node
 export(NodePath) var animation_tree_node
 
+export var move_speed: float = 4.0 setget , get_move_speed
+export var sprint_modifier: float = 2.0 setget , get_sprint_modifier
+export var jump_speed: float = 20.0 setget , get_jump_speed
 
-var ring_vector: RingVector setget set_ring_vector, get_ring_vector
+
+var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
 
 var velocity: Vector3 = Vector3() setget set_velocity, get_velocity
 var sprinting: bool = false setget set_sprinting, get_sprinting
@@ -27,10 +32,20 @@ var can_jump: bool = true
 
 onready var default_gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 onready var cliff_dection: CliffDetection = CliffDetection.new(self)
-onready var area: ActorArea = $area setget , get_area
+
+onready var puppet_master: PuppetMaster = get_node(puppet_master_node)
 onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
 
 
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	ring_vector.connect("vector_changed", self, "updated_ring_vector")
+
+func _setup(new_ring_vector: RingVector, player_controlled: bool = false):
+	set_ring_vector(new_ring_vector)
+	set_player_controlled(player_controlled)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,7 +63,7 @@ func _physics_process(delta):
 	
 	fall_speed += default_gravity * delta
 	
-	dir += transform.basis.y * (object_stats.jump_speed * jump_mod - fall_speed)
+	dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
 	
 	var new_velocity = move_and_slide(dir, Vector3.UP, true)
 	
@@ -75,37 +90,32 @@ func move_to(direction: Vector3, is_sprinting: bool = false) -> RingVector:
 
 
 func parse_state(direction: Vector3):
-	var camera = get_viewport().get_camera()
-	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z)) if camera else 0.0
-	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else animation_tree.blend_positions
-	movement_vector = movement_vector.rotated(angle)
-	
+#	var camera = get_viewport().get_camera()
+#	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z)) if camera else 0.0
+#	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else animation_tree.blend_positions
+#	movement_vector = movement_vector.rotated(angle)
 	
 	if direction.length() > 0:
-		animation_tree.blend_positions = movement_vector
-		animation_tree.travel("run")
-	elif animation_tree.get_current_state() == "run":
-		animation_tree.travel("idle")
+		#animation_tree.blend_positions = direction
+		animate("run", false)
+#	else:
+#		if name == "game_actor":
+#			print(direction)
+#		#animation_tree.blend_positions = v
+		#animate("idle", false)
 
 
 func animate(animation: String, stop_movement: bool = true):
-	if animation_tree.is_idle_animation():
+	if true or animation_tree.is_idle_animation():
 		if stop_movement:
 			move_to(Vector3())
-		
+#		assert(not animation == "idle")
 		animation_tree.travel(animation)
 
 
-func is_idle() -> bool:
-	return animation_tree.is_idle()
+func updated_ring_vector():
+	emit_signal("entered_segment", ring_vector)
 
-
-func is_in_range(object_of_interest) -> bool:
-	return area.has_object(object_of_interest)
-
-
-func handle_highlighted(_highlighted: bool):
-	pass
 
 
 
@@ -121,13 +131,18 @@ func set_ring_vector(new_vector: RingVector):
 func set_velocity(new_velocity: Vector3):
 	velocity = cliff_dection.limit_movement(new_velocity)
 	velocity.y = 0
-	velocity = velocity.normalized() * object_stats.move_speed * movement_modifier
+	velocity = velocity.normalized() * move_speed * movement_modifier
 	velocity.y = new_velocity.y
 
 
 func set_sprinting(new_status: bool):
 	sprinting = new_status
-	movement_modifier = object_stats.sprint_modifier if sprinting else 1.0
+	movement_modifier = sprint_modifier if sprinting else 1.0
+
+
+func set_player_controlled(new_status: bool):
+	puppet_master.set_player_controlled(new_status)
+
 
 
 
@@ -144,11 +159,14 @@ func get_ring_vector() -> RingVector:
 	return ring_vector
 
 
-func get_object_stats() -> ActorStats:
-	return object_stats
+func get_move_speed() -> float:
+	return move_speed
 
-func get_area() -> ActorArea:
-	return area
+func get_sprint_modifier() -> float:
+	return sprint_modifier
+
+func get_jump_speed() -> float:
+	return jump_speed
 
 func get_velocity() -> Vector3:
 	return velocity
