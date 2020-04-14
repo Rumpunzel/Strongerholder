@@ -21,24 +21,24 @@ func _ready():
 
 
 func receive_item(item, sender):
-	var new_item = sender.send_item(item, self) if sender else item
-	
-	if new_item:
-		contents.append(new_item)
+	if item:
+		contents.append(item)
 		emit_signal("received_item", item)
 		
 		if sender:
-			print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Resources, new_item)])
+			print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Resources, item)])
 
 
-func send_item(item_to_send, _sender):
+func send_item(item_to_send, receiver):
 	if contents.has(item_to_send):
 		contents.erase(item_to_send)
+		receiver.receive_item(item_to_send, self)
 		emit_signal("sent_item", item_to_send)
-		
-		return item_to_send
-	else:
-		return null
+
+
+func send_all_items(receiver):
+	for item in contents:
+		send_item(item, receiver)
 
 
 func initialize():

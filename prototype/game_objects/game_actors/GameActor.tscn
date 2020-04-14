@@ -54,6 +54,7 @@ shape = SubResource( 1 )
 collision_layer = 2048
 collision_mask = 6144
 script = ExtResource( 25 )
+inventory_node = NodePath("../utility_nodes/inventory")
 graphics_node = NodePath("../../game_actor/sprite")
 
 [node name="collision" type="CollisionShape" parent="hit_box"]

@@ -22,24 +22,25 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
 shape = SubResource( 1 )
 
+[node name="hit_box" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -1 )
+collision_layer = 4096
+collision_mask = 6144
+script = ExtResource( 3 )
+inventory_node = NodePath("../inventory")
+graphics_node = NodePath("../structure")
+type = 259
+blocked_by = [ 262 ]
+
+[node name="collision_shape" type="CollisionShape" parent="hit_box"]
+shape = SubResource( 2 )
+
 [node name="structure" type="CSGMesh" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
 collision_layer = 4
 mesh = ExtResource( 1 )
 script = ExtResource( 6 )
 highlight_material = ExtResource( 4 )
-
-[node name="hit_box" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -1 )
-collision_layer = 4096
-collision_mask = 6144
-script = ExtResource( 3 )
-graphics_node = NodePath("../structure")
-type = 259
-blocked_by = 262
-
-[node name="collision_shape" type="CollisionShape" parent="hit_box"]
-shape = SubResource( 2 )
 
 [node name="inventory" type="Node" parent="."]
 script = ExtResource( 5 )

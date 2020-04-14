@@ -7,6 +7,7 @@ signal activated
 signal died
 
 
+export(NodePath) var inventory_node
 export(NodePath) var graphics_node
 
 export var hit_points_max: float = 10.0 setget , get_hit_points_max
@@ -21,6 +22,8 @@ var highlighted: bool = false setget set_highlighted, get_highlighted
 var overlapping_hit_boxes: Array = [ ]
 var inactive_overlapping_hit_boxes: Array = [ ]
 
+
+onready var inventory: Inventory = get_node(inventory_node)
 
 onready var hit_points: float = hit_points_max
 
@@ -49,10 +52,17 @@ func damage(damage_points: float, sender: ObjectHitBox = null) -> bool:
 func die(sender: ObjectHitBox):
 	set_alive(false)
 	
-#	if sender:
-#		sender.receive_items(inventory, self)
+	inventory.send_all_items(sender)
 	
 	owner.set_process(false)
+
+
+func receive_item(item, sender):
+	inventory.receive_item(item, sender)
+
+
+func request_item(item, receiver):
+	inventory.send_item(item, receiver)
 
 
 
@@ -118,8 +128,15 @@ func set_highlighted(is_highlighted: bool):
 
 
 
-func has_hit_box(hit_box: ObjectHitBox) -> bool:
-	return overlapping_hit_boxes.has(hit_box)
+func has_object(object) -> ObjectHitBox:
+	if overlapping_hit_boxes.has(object):
+		return object
+	
+	for hit_box in overlapping_hit_boxes:
+		if hit_box.owner == object:
+			return hit_box
+	
+	return null
 
 func is_active() -> bool:
 	return active and alive

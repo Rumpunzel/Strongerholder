@@ -4,6 +4,8 @@ extends ObjectHitBox
 
 export(Constants.Actors) var type: int setget , get_type
 
+export var attack_value: float = 2.0
+
 
 var currently_highlighting: ObjectHitBox = null
 

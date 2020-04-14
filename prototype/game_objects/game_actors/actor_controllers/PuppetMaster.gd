@@ -18,8 +18,6 @@ var object_of_interest = null setget set_object_of_interest, get_object_of_inter
 var puppeteer: Puppeteer
 var actor_behavior: ActorBehavior
 
-var current_actor = null
-
 var current_path: Array = [ ]
 var current_segments: Array = [ ]
 
@@ -55,7 +53,7 @@ func _process(_delta: float):
 		update_pathfinding = false
 	
 	if animation_tree.can_act:
-		var commands: Array = puppeteer.get_input(object_of_interest, current_actor, current_segments, path_progress, actor_behavior)
+		var commands: Array = puppeteer.get_input(object_of_interest, hit_box, game_actor.ring_vector, current_segments, path_progress, actor_behavior, animation_tree)
 		
 		for command in commands:
 			var subject = game_actor
@@ -76,7 +74,7 @@ func update_current_path():
 	
 	if pathfinding_target:
 		var side_of_the_road = CityLayout.ROAD_WIDTH * (0.25 + randf() * 0.5)
-		current_path = RingMap.city_navigator.get_shortest_path(current_actor.ring_vector, pathfinding_target)
+		current_path = RingMap.city_navigator.get_shortest_path(game_actor.ring_vector, pathfinding_target)
 		
 		for segment in range(1, current_path.size()):
 			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
@@ -87,7 +85,7 @@ func update_current_path():
 		if object_of_interest:
 			current_segments.append(object_of_interest.ring_vector)
 			
-			#print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [current_actor.name, current_path, current_segments])
+			#print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [game_actor.name, current_path, current_segments])
 
 
 func update_path_progress(new_vector: RingVector):
@@ -114,7 +112,7 @@ func set_object_of_interest(new_object, calculate_pathfinding: bool = true):
 	if calculate_pathfinding:
 		if object_of_interest:
 			pathfinding_target = object_of_interest.ring_vector
-			object_of_interest.connect("died", actor_behavior, "force_search", [current_actor.ring_vector, false])
+			object_of_interest.connect("died", actor_behavior, "force_search", [game_actor.ring_vector, false])
 		else:
 			pathfinding_target = null
 		
