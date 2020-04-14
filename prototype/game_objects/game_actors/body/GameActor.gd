@@ -92,26 +92,23 @@ func move_to(direction: Vector3, is_sprinting: bool = false) -> RingVector:
 
 
 func parse_state(direction: Vector3):
-#	var camera = get_viewport().get_camera()
-#	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z)) if camera else 0.0
-#	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else animation_tree.blend_positions
-#	movement_vector = movement_vector.rotated(angle)
+	var camera = get_viewport().get_camera()
+	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z)) if camera else 0.0
+	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else animation_tree.blend_positions
+	movement_vector = movement_vector.rotated(angle)
 	
 	if direction.length() > 0:
-		#animation_tree.blend_positions = direction
+		animation_tree.blend_positions = movement_vector
 		animate("run", false)
-#	else:
-#		if name == "game_actor":
-#			print(direction)
-#		#animation_tree.blend_positions = v
-		#animate("idle", false)
+	else:
+		animate("idle", false)
 
 
 func animate(animation: String, stop_movement: bool = true):
 	if true or animation_tree.is_idle_animation():
 		if stop_movement:
 			move_to(Vector3())
-#		assert(not animation == "idle")
+		
 		animation_tree.travel(animation)
 
 
