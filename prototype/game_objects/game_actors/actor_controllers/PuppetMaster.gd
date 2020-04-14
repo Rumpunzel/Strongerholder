@@ -1,12 +1,21 @@
-class_name PuppetMaster
-extends Resource
+class_name PuppetMaster, "res://assets/icons/icon_puppet_master.svg"
+extends Node
+
+
+export(NodePath) var game_actor_node
+export(NodePath) var hit_box_node
+export(NodePath) var inventory_node
+export(NodePath) var animation_tree_node
+
+export(Constants.Actors) var behaves_like
+#export(Array, Array, Constants.Resources) var behavior_overrides
 
 
 var pathfinding_target: RingVector setget set_pathfinding_target, get_pathfinding_target
-var object_of_interest: RingObject = null setget set_object_of_interest, get_object_of_interest
+var object_of_interest = null setget set_object_of_interest, get_object_of_interest
 
 
-var ring_map: RingMap
+var puppeteer: Puppeteer
 var actor_behavior: ActorBehavior
 
 var current_actor = null
@@ -19,74 +28,45 @@ var path_progress: int = 0
 var update_pathfinding: bool = false
 
 
+onready var game_actor = get_node(game_actor_node)
+onready var hit_box = get_node(hit_box_node)
+onready var animation_tree = get_node(animation_tree_node)
 
 
-func _init(new_ring_map: RingMap, new_actor = null):
-	ring_map = new_ring_map
+
+
+func _ready():
+	puppeteer = Puppeteer.new()
 	
-	if new_actor:
-		register_actor(new_actor)
-		
-		actor_behavior = ActorBehavior.new(current_actor, ring_map)
-		
-		actor_behavior.connect("new_object_of_interest", self, "set_object_of_interest")
-		
-		actor_behavior.force_search()
+	game_actor.connect("entered_segment", self, "update_path_progress")
+	
+	actor_behavior = ActorBehavior.new(behaves_like, get_node(inventory_node))
+	actor_behavior.connect("new_object_of_interest", self, "set_object_of_interest")
+	
+	actor_behavior.force_search(game_actor.ring_vector)
+	
+	RingMap.connect("city_changed", actor_behavior, "call_deferred", ["force_search", game_actor.ring_vector])
 
 
-
-
-func get_input() -> Array:
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float):
 	if update_pathfinding:
-		update_current_path()
+		call_deferred("update_current_path")
 		update_pathfinding = false
 	
-	var commands: Array = [ ]
-	
-	if object_of_interest and current_actor.is_in_range(object_of_interest):
-		commands.append(InteractCommand.new(object_of_interest))
-		actor_behavior.force_search()
-	
-	
-	var movement_vector: Vector3 = Vector3()
-	var next_path_segment: RingVector = current_segments[path_progress] if path_progress < current_segments.size() else null
-	
-	if next_path_segment:
-		next_path_segment.modulo_ring_vector()
+	if animation_tree.can_act:
+		var commands: Array = puppeteer.get_input(object_of_interest, current_actor, current_segments, path_progress, actor_behavior)
 		
-		var rotation_change = next_path_segment.rotation - current_actor.ring_vector.rotation
-		
-		while rotation_change > PI:
-			rotation_change -= TAU
-		
-		while rotation_change < -PI:
-			rotation_change += TAU
-		
-		movement_vector = Vector3(next_path_segment.radius - current_actor.ring_vector.radius, 0, rotation_change)
-		
-		movement_vector.z *= next_path_segment.radius
-		
-		#print("movement_vector: %s" % [movement_vector])
-	
-	commands.append(MoveCommand.new(movement_vector))
-	
-	return commands
+		for command in commands:
+			var subject = game_actor
+			
+			if command is Puppeteer.InteractCommand:
+				subject = hit_box
+			
+			if command.execute(subject):
+				break
 
 
-
-
-func register_actor(new_actor):
-	if not new_actor == current_actor:
-		unregister_actor(current_actor)
-		
-		current_actor = new_actor
-		
-		current_actor.connect("entered_segment", self, "update_path_progress")
-
-
-func unregister_actor(old_actor):
-	if current_actor and old_actor == current_actor:
-		current_actor.disconnect("entered_segment", self, "update_path_progress")
 
 
 func update_current_path():
@@ -96,7 +76,7 @@ func update_current_path():
 	
 	if pathfinding_target:
 		var side_of_the_road = CityLayout.ROAD_WIDTH * (0.25 + randf() * 0.5)
-		current_path = ring_map.city_navigator.get_shortest_path(current_actor.ring_vector, pathfinding_target)
+		current_path = RingMap.city_navigator.get_shortest_path(current_actor.ring_vector, pathfinding_target)
 		
 		for segment in range(1, current_path.size()):
 			var new_segment = RingVector.new(current_path[segment].x, current_path[segment].y, true)
@@ -125,7 +105,7 @@ func set_pathfinding_target(new_target: RingVector):
 	pathfinding_target = new_target
 
 
-func set_object_of_interest(new_object: RingObject, calculate_pathfinding: bool = true):
+func set_object_of_interest(new_object, calculate_pathfinding: bool = true):
 	if object_of_interest and calculate_pathfinding:
 		object_of_interest.disconnect("died", actor_behavior, "force_search")
 	
@@ -134,104 +114,27 @@ func set_object_of_interest(new_object: RingObject, calculate_pathfinding: bool 
 	if calculate_pathfinding:
 		if object_of_interest:
 			pathfinding_target = object_of_interest.ring_vector
-			object_of_interest.connect("died", actor_behavior, "force_search", [false])
+			object_of_interest.connect("died", actor_behavior, "force_search", [current_actor.ring_vector, false])
 		else:
 			pathfinding_target = null
 		
 		queue_update()
 
 
+func set_player_controlled(player_controlled: bool):
+	if not player_controlled == is_player_controlled():
+		puppeteer = InputMaster.new() if player_controlled else Puppeteer.new()
 
+
+
+func is_player_controlled() -> bool:
+	return puppeteer is InputMaster
 
 func get_pathfinding_target() -> RingVector:
 	return pathfinding_target
 
-func get_object_of_interest() -> RingObject:
+func get_object_of_interest():
 	return object_of_interest
 
 func get_currently_looking_for() -> int:
 	return actor_behavior.currently_looking_for
-
-
-
-
-class Command:
-	func execute(actor) -> bool:
-		if actor.can_act:
-			return parse_command(actor)
-		else:
-			return false
-	
-	func parse_command(_actor) -> bool:
-		assert(false)
-		return false
-
-
-
-class MoveCommand extends Command:
-	var movement_vector: Vector3
-	var sprinting: bool
-	
-	func _init(new_movement_vector: Vector3, new_sprinting: bool = false):
-		movement_vector = new_movement_vector
-		sprinting = new_sprinting
-		
-	func parse_command(actor) -> bool:
-		actor.move_to(movement_vector, sprinting)
-		return false
-
-
-
-class InteractCommand extends Command:
-	const SUBJECT: String = "subject"
-	const OBJECT: String = "object"
-	const INTERACTION: String = "interaction"
-	const PARAMETERS: String = "parameters"
-	
-	const BASIC_INTERACTION: Dictionary = { INTERACTION: RingObject.INTERACT_FUNCTION }
-	
-	
-	var other_object: RingObject
-	
-	
-	func _init(new_object: RingObject):
-		other_object = new_object
-	
-	
-	func parse_command(actor) -> bool:
-		var interaction: Dictionary = interaction_with(actor)
-		
-		var subject = interaction.get(SUBJECT, actor)
-		var object = interaction.get(OBJECT, other_object)
-		var function = interaction.get(INTERACTION)
-		var parameters: Array = interaction.get(PARAMETERS, [ ])
-		
-		parameters.append(subject)
-		
-		if function:
-			return object.callv(function, parameters)
-		
-		return false
-	
-	
-	func interaction_with(actor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
-		if other_object:
-			if animation == "":
-				if other_object.type == Constants.Objects.TREE:
-					animation = "attack"
-					interaction = { INTERACTION: RingObject.DAMAGE_FUNCTION, PARAMETERS: [ 2.0, 0.3 ] }
-				elif Constants.object_type(other_object.type) == Constants.BUILDINGS:
-					if actor.inventory.empty():
-						if not actor.is_looking_for() == Constants.Objects.NOTHING:
-							animation = "give"
-							interaction = { SUBJECT: other_object, OBJECT: actor, INTERACTION: RingObject.GIVE_FUNCTION, PARAMETERS: [ [ actor.is_looking_for() ] ] }
-					else:
-						animation = "give"
-						interaction = { INTERACTION: RingObject.GIVE_FUNCTION, PARAMETERS: [ actor.inventory ] }
-			
-			if animation.length() > 0:
-				actor.animate(animation)
-			
-			return interaction
-		
-		return { }

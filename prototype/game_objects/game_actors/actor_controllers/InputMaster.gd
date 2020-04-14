@@ -1,17 +1,9 @@
 class_name InputMaster
-extends PuppetMaster
+extends Puppeteer
 
 
 
-
-func _init(new_ring_map: RingMap, new_actor = null).(new_ring_map, new_actor):
-	pass
-
-
-
-
-
-func get_input() -> Array:
+func get_input(object_of_interest, _current_actor, _current_segments: Array, _path_progress: int, _actor_behavior: ActorBehavior) -> Array:
 	var commands: Array = [ ]
 	
 	if Input.is_action_pressed("interact"):
@@ -28,13 +20,13 @@ func get_input() -> Array:
 
 
 
-class InteractCommand extends PuppetMaster.InteractCommand:
-	func _init(new_object: RingObject).(new_object):
+class InteractCommand extends Puppeteer.InteractCommand:
+	func _init(new_object).(new_object):
 		pass
 	
-	func interaction_with(actor, interaction: Dictionary = BASIC_INTERACTION, animation: String = "") -> Dictionary:
+	func interaction_with(actor, interaction: Dictionary = { }, animation: String = "") -> Dictionary:
 		if other_object:
-			if other_object.type == Constants.Objects.FOUNDATION:
+			if other_object.type == Constants.Structures.FOUNDATION:
 				animation = "give"
 				
 				var new_menu = RadiantUI.new(["Build", "Inspect", "Destroy"], other_object, "build_into")
