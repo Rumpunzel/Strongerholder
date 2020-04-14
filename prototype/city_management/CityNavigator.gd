@@ -1,5 +1,5 @@
 class_name CityNavigator
-extends Node
+extends Resource
 
 
 var ring_map
@@ -55,7 +55,7 @@ func construct_graph():
 
 func connect_nodes():
 	var rings: Dictionary = ring_map.search_dictionary
-	var bridges: Dictionary = ring_map.structures.dictionary[Constants.Objects.BRIDGE]
+	var bridges: Dictionary = ring_map.structures.dictionary[Constants.Structures.BRIDGE]
 	
 	for ring in rings.keys():
 		var segments = rings[ring]
@@ -115,7 +115,6 @@ func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, pri
 	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
-		#print("INVALID SEARCH INPUT OF: %s" % [Constants.enum_name(Constants.Objects, type)])
 		return null
 	else:
 		var target = null
@@ -129,7 +128,7 @@ func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, pri
 				
 				if not ring == ring_vector.ring:
 					var current_vector = RingVector.new(CityLayout.get_radius_minimum(ring), ring_vector.rotation)
-					var nearest_bridge = get_nearest(ring_map.structures.dictionary, Constants.Objects.BRIDGE, current_vector)
+					var nearest_bridge = get_nearest(ring_map.structures.dictionary, Constants.Structures.BRIDGE, current_vector)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
@@ -170,7 +169,7 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 						
 						if priority < 0:
 							for prio in priority_list:
-								if not (Constants.object_type(prio) == Constants.REQUEST and ring_map.resources.has(object, prio)):
+								if not (Constants.is_request(prio) and ring_map.resources.has(object, prio)):
 									target = object
 						
 						if not target:
