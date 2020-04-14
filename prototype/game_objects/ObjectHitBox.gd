@@ -9,11 +9,8 @@ signal died
 
 export(NodePath) var graphics_node
 
-
 export var hit_points_max: float = 10.0 setget , get_hit_points_max
 export var indestructible: bool = false setget , get_indestructible
-
-
 
 
 var active: bool = true setget set_active, is_active

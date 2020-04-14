@@ -2,8 +2,6 @@ class_name ActorHitBox
 extends ObjectHitBox
 
 
-export(NodePath) var puppet_master_node
-
 export(Constants.Actors) var type: int setget , get_type
 
 
@@ -23,7 +21,7 @@ func parse_exiting_hit_box(new_hit_box: ObjectHitBox):
 
 
 func highlight_object():
-	if get_node(puppet_master_node).is_player_controlled():
+	if type == Constants.Actors.PLAYER:
 		if currently_highlighting:
 			currently_highlighting.set_highlighted(false)
 		

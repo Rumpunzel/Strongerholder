@@ -6,6 +6,7 @@ signal moved(direction)
 signal entered_segment(ring_vector)
 
 
+export(NodePath) var hit_box_node
 export(NodePath) var puppet_master_node
 export(NodePath) var animation_tree_node
 
@@ -33,6 +34,7 @@ var can_jump: bool = true
 onready var default_gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 onready var cliff_dection: CliffDetection = CliffDetection.new(self)
 
+onready var hit_box: ActorHitBox = get_node(hit_box_node)
 onready var puppet_master: PuppetMaster = get_node(puppet_master_node)
 onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
 
@@ -43,9 +45,9 @@ onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node
 func _ready():
 	ring_vector.connect("vector_changed", self, "updated_ring_vector")
 
-func _setup(new_ring_vector: RingVector, player_controlled: bool = false):
+func _setup(new_ring_vector: RingVector, actor_type: int):
 	set_ring_vector(new_ring_vector)
-	set_player_controlled(player_controlled)
+	set_actor_type(actor_type)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -140,8 +142,9 @@ func set_sprinting(new_status: bool):
 	movement_modifier = sprint_modifier if sprinting else 1.0
 
 
-func set_player_controlled(new_status: bool):
-	puppet_master.set_player_controlled(new_status)
+func set_actor_type(actor_type: int):
+	hit_box.type = actor_type
+	puppet_master.set_actor_type(actor_type)
 
 
 

@@ -112,4 +112,3 @@ class InteractCommand extends Command:
 			return interaction
 		
 		return { }
-

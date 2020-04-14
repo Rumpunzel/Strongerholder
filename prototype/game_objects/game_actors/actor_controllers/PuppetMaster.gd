@@ -121,14 +121,12 @@ func set_object_of_interest(new_object, calculate_pathfinding: bool = true):
 		queue_update()
 
 
-func set_player_controlled(player_controlled: bool):
-	if not player_controlled == is_player_controlled():
-		puppeteer = InputMaster.new() if player_controlled else Puppeteer.new()
+func set_actor_type(actor_type: int):
+	if not actor_type == behaves_like:
+		puppeteer = InputMaster.new() if actor_type == Constants.Actors.PLAYER else Puppeteer.new()
 
 
 
-func is_player_controlled() -> bool:
-	return puppeteer is InputMaster
 
 func get_pathfinding_target() -> RingVector:
 	return pathfinding_target
