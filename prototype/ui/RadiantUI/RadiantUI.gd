@@ -56,7 +56,7 @@ func place_buttons(new_buttons: Array, delay: float = 0.0):
 		var new_button: RadiantUIButton
 		
 		if button_name is String and button_name == "Build":
-			new_button = RadiantUIButton.new(button_name, [Constants.Objects.STOCKPILE, Constants.Objects.WOODCUTTERS_HUT])
+			new_button = RadiantUIButton.new(button_name, [Constants.Structures.STOCKPILE, Constants.Structures.WOODCUTTERS_HUT])
 		else:
 			new_button = RadiantUIButton.new(button_name)
 		
