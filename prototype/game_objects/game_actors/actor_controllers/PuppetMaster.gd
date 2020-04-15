@@ -53,7 +53,7 @@ func _process(_delta: float):
 		update_pathfinding = false
 	
 	if animation_tree.can_act:
-		var commands: Array = puppeteer.get_input(object_of_interest, hit_box, game_actor.ring_vector, current_segments, path_progress, actor_behavior, animation_tree)
+		var commands: Array = puppeteer.get_input(object_of_interest, hit_box, game_actor.ring_vector, current_segments, path_progress, actor_behavior)
 		
 		for command in commands:
 			var subject = game_actor
@@ -122,6 +122,8 @@ func set_object_of_interest(new_object, calculate_pathfinding: bool = true):
 func set_actor_type(actor_type: int):
 	if not actor_type == behaves_like:
 		puppeteer = InputMaster.new() if actor_type == Constants.Actors.PLAYER else Puppeteer.new()
+		actor_behavior.set_priorities(actor_type)
+		actor_behavior.force_search(game_actor.ring_vector)
 
 
 

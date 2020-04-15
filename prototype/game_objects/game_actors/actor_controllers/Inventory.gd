@@ -26,7 +26,7 @@ func receive_item(item, sender):
 		emit_signal("received_item", item)
 		
 		if sender:
-			print("%s gave %s: %s" % [sender.name, name, Constants.enum_name(Constants.Resources, item)])
+			print("%s gave %s: %s" % [sender.owner.name, owner.name, Constants.enum_name(Constants.Resources, item)])
 
 
 func send_item(item_to_send, receiver):

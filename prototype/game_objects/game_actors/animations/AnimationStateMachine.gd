@@ -21,13 +21,16 @@ func _init():
 
 func _process(_delta):
 	if not is_idle_animation(next_animation):
-		pass#next_animation = "idle"
+		next_animation = "idle"
 
 
 
 
-func travel(new_animation: String):
+func travel(new_animation: String, stop_movement: bool = true):
 	if true or is_idle_animation(next_animation):
+		if stop_movement:
+			owner.move_to(Vector3())
+		
 		state_machine.travel(new_animation)
 	
 	next_animation = new_animation

@@ -37,7 +37,7 @@ func _ready():
 
 
 
-func damage(damage_points: float, sender: ObjectHitBox = null) -> bool:
+func damage(damage_points: float, sender: ObjectHitBox) -> bool:
 	hit_points -= damage_points
 	
 	#print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
@@ -54,15 +54,16 @@ func die(sender: ObjectHitBox):
 	
 	inventory.send_all_items(sender)
 	
+	owner.visible = false
 	owner.set_process(false)
 
 
-func receive_item(item, sender):
-	inventory.receive_item(item, sender)
-
-
-func request_item(item, receiver):
+func offer_item(item, receiver):
 	inventory.send_item(item, receiver)
+
+
+func request_item(item, sender):
+	inventory.receive_item(item, sender)
 
 
 

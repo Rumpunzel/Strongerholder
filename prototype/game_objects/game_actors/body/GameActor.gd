@@ -99,17 +99,9 @@ func parse_state(direction: Vector3):
 	
 	if direction.length() > 0:
 		animation_tree.blend_positions = movement_vector
-		animate("run", false)
-	else:
-		animate("idle", false)
-
-
-func animate(animation: String, stop_movement: bool = true):
-	if true or animation_tree.is_idle_animation():
-		if stop_movement:
-			move_to(Vector3())
-		
-		animation_tree.travel(animation)
+		animation_tree.travel("run", false)
+	elif animation_tree.get_current_state() == "run":
+		animation_tree.travel("idle", false)
 
 
 func updated_ring_vector():

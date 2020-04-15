@@ -2,12 +2,12 @@ class_name Puppeteer
 extends Resource
 
 
-func get_input(object_of_interest, hit_box: ActorHitBox, ring_vector: RingVector, current_segments: Array, path_progress: int, actor_behavior: ActorBehavior, animation_tree: AnimationStateMachine) -> Array:
+func get_input(object_of_interest, hit_box: ActorHitBox, ring_vector: RingVector, current_segments: Array, path_progress: int, actor_behavior: ActorBehavior) -> Array:
 	var commands: Array = [ ]
 	var hit_box_in_range = hit_box.has_object(object_of_interest)
 	
 	if object_of_interest and hit_box_in_range:
-		commands.append(InteractCommand.new(hit_box_in_range, actor_behavior.currently_looking_for, animation_tree))
+		commands.append(InteractCommand.new(hit_box_in_range, actor_behavior.currently_looking_for))
 		actor_behavior.force_search(ring_vector)
 	
 	
@@ -62,35 +62,27 @@ class MoveCommand extends Command:
 class InteractCommand extends Command:
 	var hit_box
 	var looking_for
-	var animation_tree
 	
-	func _init(new_hit_box, new_looking_for, new_animation_tree):
+	func _init(new_hit_box, new_looking_for):
 		hit_box = new_hit_box
 		looking_for = new_looking_for
-		animation_tree = new_animation_tree
 	
 	func execute(actor) -> bool:
-		var animation: String = ""
-		
-		if hit_box.type == Constants.Structures.FOUNDATION:
-			animation = "give"
-			var new_menu = RadiantUI.new(["Build", "Inspect", "Destroy"], hit_box.owner, "build_into")
-			#actor.can_act = false
-			#new_menu.connect("closed", actor, "set_can_act", [true])
-			actor.get_viewport().get_camera().add_ui_element(new_menu)
-		elif hit_box.type == Constants.Structures.TREE:
-			animation = "attack"
-			hit_box.damage(actor.attack_value)
+		if hit_box:
+			return parse(actor)
+		else:
+			return false
+	
+	func parse(actor) -> bool:
+		if hit_box.type == Constants.Structures.TREE:
+			actor.attack(hit_box)
+			return true
 		elif Constants.is_structure(hit_box.type):
-			if actor.inventory.empty():
-				if not looking_for == Constants.Resources.NOTHING:
-					animation = "give"
-					hit_box.request_item(looking_for, self)
+			if looking_for == Constants.Resources.NOTHING:
+				actor.offer_item(looking_for, hit_box)
+				return true
 			else:
-				animation = "give"
-				actor.inventory.send_all_items(hit_box)
+				actor.request_item(looking_for, hit_box)
+				return true
 		
-		if animation.length() > 0:
-			animation_tree.travel(animation)
-		
-		return true
+		return false

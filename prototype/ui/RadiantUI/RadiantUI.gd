@@ -40,7 +40,7 @@ func _ready():
 	if not "_button_pressed" in center_button.get_signal_list():
 		center_button.connect("pressed", self, "_button_pressed", [center_button])
 	
-	place_buttons(menu_buttons, 0.5)
+	place_buttons(menu_buttons)
 
 
 func _unhandled_input(event):
@@ -51,7 +51,7 @@ func _unhandled_input(event):
 
 
 
-func place_buttons(new_buttons: Array, delay: float = 0.0):
+func place_buttons(new_buttons: Array):
 	for button_name in new_buttons:
 		var new_button: RadiantUIButton
 		
@@ -68,7 +68,7 @@ func place_buttons(new_buttons: Array, delay: float = 0.0):
 	
 	update_children()
 	
-	animate_in_buttons(delay)
+	animate_in_buttons()
 
 
 func _button_pressed(button: RadiantUIButton):
@@ -97,18 +97,17 @@ func _button_pressed(button: RadiantUIButton):
 			place_buttons(menu_buttons)
 
 
-func animate_in_buttons(delay: float = 0.0):
+func animate_in_buttons():
 	var tween:Tween = Tween.new()
 	add_actual_child(tween)
 	
 	yield(get_tree(), "idle_frame")
 	
-	if delay > 0.0:
-		tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay * 0.5)
+	tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
 	for button in get_children():
-		tween.interpolate_property(button, "rect_position", Vector2(), button.rect_position, 0.4, Tween.TRANS_BACK,Tween.EASE_OUT, delay)
-		tween.interpolate_property(button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay)
+		tween.interpolate_property(button, "rect_position", Vector2(), button.rect_position, 0.4, Tween.TRANS_BACK,Tween.EASE_OUT)
+		tween.interpolate_property(button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
 	tween.start()
 
