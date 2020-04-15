@@ -7,14 +7,11 @@ export(Array, Constants.Structures) var blocked_by
 
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	RingMap.register_structure(type, owner)
-	
-	yield(get_tree(), "idle_frame")
+func initialize():
+	.initialize()
 	
 	RingMap.connect("city_changed", self, "is_active")
-
+	RingMap.register_structure(type, owner)
 
 
 func build_into(new_type):
@@ -31,7 +28,6 @@ func build_into(new_type):
 
 func die(sender):
 	RingMap.unregister_structure(type, owner)
-	
 	.die(sender)
 
 
@@ -43,17 +39,17 @@ func set_type(new_type):
 
 
 func is_active() -> bool:
-	var new_active = true
-	
-	for hit_box in overlapping_hit_boxes:
-		new_active = not blocked_by.has(hit_box.type)
-		
-		if not new_active:
-			break
-	
-	set_active(new_active)
+	set_active(not is_blocked())
 	
 	return .is_active()
+
+
+func is_blocked() -> bool:
+	for hit_box in overlapping_hit_boxes:
+		if (Constants.is_structure(hit_box.type) and blocked_by.has(Constants.Structures.EVERYTHING)) or blocked_by.has(hit_box.type):
+			return true
+	
+	return false
 
 
 func get_type() -> int:

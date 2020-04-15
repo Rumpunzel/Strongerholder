@@ -11,6 +11,7 @@ enum {
 
 enum Actors {
 	NOTHING = 64,
+	EVERYTHING,
 	PLAYER,
 	WOODSMAN,
 	CARPENTER,
@@ -18,6 +19,7 @@ enum Actors {
 
 enum Structures {
 	NOTHING = 256,
+	EVERYTHING,
 	BASE,
 	BRIDGE,
 	FOUNDATION,
@@ -28,6 +30,7 @@ enum Structures {
 
 enum Resources {
 	NOTHING = 1024,
+	EVERYTHING,
 	WOOD,
 	WOOD_PLANKS,
 	STONE,
