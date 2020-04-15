@@ -152,7 +152,7 @@ func has_object(object) -> ObjectHitBox:
 	for hit_box in overlapping_hit_boxes:
 		if hit_box.owner == object:
 			return hit_box
-	print("shit")
+	
 	return null
 
 func is_active() -> bool:

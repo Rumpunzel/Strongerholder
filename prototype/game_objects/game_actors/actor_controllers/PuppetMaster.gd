@@ -84,7 +84,6 @@ func update_current_path():
 		
 		if object_of_interest:
 			current_segments.append(object_of_interest.ring_vector)
-			
 			#print("\n%s:\ncurrent_path: %s\ncurrent_segments: %s\n" % [game_actor.name, current_path, current_segments])
 
 
