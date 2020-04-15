@@ -32,7 +32,7 @@ collision_mask = 2048
 script = ExtResource( 10 )
 inventory_node = NodePath("../inventory")
 graphics_node = NodePath("../structure")
-type = 262
+type = 263
 
 [node name="collision_shape" type="CollisionShape" parent="hit_box"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
@@ -50,4 +50,4 @@ sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5
 
 [node name="inventory" type="Node" parent="."]
 script = ExtResource( 11 )
-starting_inventory = [ 1025 ]
+starting_inventory = [ 1026 ]

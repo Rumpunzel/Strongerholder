@@ -4,6 +4,7 @@ extends KinematicBody
 
 signal moved(direction)
 signal entered_segment(ring_vector)
+signal died
 
 
 export(NodePath) var hit_box_node
@@ -16,6 +17,7 @@ export var jump_speed: float = 20.0 setget , get_jump_speed
 
 
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
+var type: int setget set_type, get_type
 
 var velocity: Vector3 = Vector3() setget set_velocity, get_velocity
 var sprinting: bool = false setget set_sprinting, get_sprinting
@@ -108,6 +110,10 @@ func updated_ring_vector():
 	emit_signal("entered_segment", ring_vector)
 
 
+func object_died():
+	emit_signal("died")
+
+
 
 
 func set_ring_vector(new_vector: RingVector):
@@ -117,6 +123,11 @@ func set_ring_vector(new_vector: RingVector):
 		ring_vector = new_vector
 	
 	global_transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius).rotated(Vector3.UP, ring_vector.rotation)
+
+
+func set_type(new_type):
+	$hit_box.type = new_type
+	type = new_type
 
 
 func set_velocity(new_velocity: Vector3):
@@ -150,6 +161,9 @@ func get_ring_vector() -> RingVector:
 	
 	return ring_vector
 
+
+func get_type() -> int:
+	return $hit_box.type
 
 func get_move_speed() -> float:
 	return move_speed

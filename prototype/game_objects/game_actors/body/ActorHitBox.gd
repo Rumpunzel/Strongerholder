@@ -11,10 +11,19 @@ export(NodePath) var animation_tree_node
 
 
 var currently_highlighting: ObjectHitBox = null
+var placing_this_building = null setget set_placing_this_building, get_placing_this_building
 
 
 onready var animation_player: AnimationPlayer = get_node(animation_player_node)
 onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
+
+
+
+
+func initialize():
+	.initialize()
+	owner.connect("entered_segment", self, "move_building")
+
 
 
 
@@ -43,19 +52,42 @@ func request_item(item, sender):
 
 
 func open_menu(new_menu: RadiantUI):
-	animation_tree.travel("give")
-	animation_tree.can_act = false
-	new_menu.connect("closed", animation_tree, "set_can_act", [true])
-	
-	yield(animation_player, "given")
-	
-	get_viewport().get_camera().add_ui_element(new_menu)
+	if not placing_this_building:
+		animation_tree.travel("give")
+		animation_tree.can_act = false
+		new_menu.connect("closed", animation_tree, "set_can_act", [true])
+		
+		yield(animation_player, "given")
+		
+		get_viewport().get_camera().add_ui_element(new_menu)
+	elif not placing_this_building.is_blocked():
+		animation_tree.travel("give")
+		
+		yield(animation_player, "given")
+		
+		if placing_this_building:
+			placing_this_building.activate_structure()
+			placing_this_building = null
+	else:
+		animation_tree.travel("give")
+		
+		yield(animation_player, "given")
+		
+		print("blocked")
+
+
+func move_building(new_vector: RingVector):
+	if placing_this_building:
+		placing_this_building.ring_vector = RingVector.new(new_vector.ring, new_vector.segment, true)
 
 
 
-func parse_entering_hit_box(new_hit_box: ObjectHitBox):
-	.parse_entering_hit_box(new_hit_box)
-	highlight_object()
+func parse_entering_hit_box(new_hit_box: ObjectHitBox) -> bool:
+	if .parse_entering_hit_box(new_hit_box):
+		highlight_object()
+		return true
+	else:
+		return false
 
 
 func parse_exiting_hit_box(new_hit_box: ObjectHitBox):
@@ -76,5 +108,17 @@ func highlight_object():
 			currently_highlighting = null
 
 
+
+
+func set_placing_this_building(new_object):
+	placing_this_building = new_object
+	get_tree().current_scene.get_node("city_structures").add_child(placing_this_building)
+	move_building(owner.ring_vector)
+
+
+
 func get_type() -> int:
 	return type
+
+func get_placing_this_building():
+	return placing_this_building

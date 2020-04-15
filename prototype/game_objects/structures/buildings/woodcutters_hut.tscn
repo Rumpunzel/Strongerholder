@@ -15,11 +15,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4 )
 shape = SubResource( 1 )
 
 [node name="hit_box" parent="." index="1"]
-type = 261
+type = 262
 
 [node name="structure" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4 )
 mesh = SubResource( 2 )
 
 [node name="inventory" parent="." index="3"]
-requests = [ 1025 ]
+requests = [ 1026 ]

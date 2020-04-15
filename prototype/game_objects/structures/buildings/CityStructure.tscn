@@ -21,6 +21,7 @@ script = ExtResource( 2 )
 [node name="collision_shape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="hit_box" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -1 )
@@ -29,8 +30,9 @@ collision_mask = 6144
 script = ExtResource( 3 )
 inventory_node = NodePath("../inventory")
 graphics_node = NodePath("../structure")
+start_active = false
 type = 259
-blocked_by = [ 262 ]
+blocked_by = [ 257 ]
 
 [node name="collision_shape" type="CollisionShape" parent="hit_box"]
 shape = SubResource( 2 )
@@ -44,3 +46,4 @@ highlight_material = ExtResource( 4 )
 
 [node name="inventory" type="Node" parent="."]
 script = ExtResource( 5 )
+start_active = false

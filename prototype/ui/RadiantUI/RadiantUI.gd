@@ -9,25 +9,24 @@ signal closed
 const EXIT_BUTTON = "Exit"
 const MENU_BUTTON = "Menu"
 
+const BUILDINGS_DIRECTORY = "res://game_objects/structures/buildings/"
+
 
 var menu_buttons: Array
-
 var menu_layers: Array = [ MENU_BUTTON ]
 
 var center_button = null setget set_center_button, get_center_button
 
-var interaction_object
-var interaction
+var actor
 
 
 
 
-func _init(new_menu_buttons: Array, new_interaction_object = null, new_interaction = null):
+func _init(new_menu_buttons: Array, new_actor):
 	menu_buttons = new_menu_buttons
-	interaction_object = new_interaction_object
-	interaction = new_interaction
-	
 	be_a_retard = true
+	
+	actor = new_actor
 
 
 func _ready():
@@ -75,11 +74,12 @@ func _button_pressed(button: RadiantUIButton):
 	if button.text == EXIT_BUTTON:
 		close()
 	elif not button == center_button and button.menu_buttons.empty():
-		if interaction_object and interaction:
-			
-			interaction_object.call(interaction, button.text)
-			interaction_object = null
-			interaction = null
+		var new_scene = FileHelper.list_files_in_directory(BUILDINGS_DIRECTORY, true, ".tscn", true).get(button.text.to_lower())
+		var new_structure
+		
+		if new_scene:
+			new_structure = load(new_scene).instance()
+			actor.placing_this_building = new_structure
 		
 		emit_signal("button_pressed", button.text)
 		

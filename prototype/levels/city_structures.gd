@@ -2,7 +2,6 @@ extends Spatial
 
 
 export(PackedScene) var base
-export(PackedScene) var foundation
 export(PackedScene) var bridge
 
 
@@ -27,11 +26,8 @@ func construct_ring(ring_number: int):
 		if i % CityLayout.SUB_SEGMENTS == 0:
 			if ring_number > 0 and i % number_of_bridges == 0:
 				new_building = bridge.instance()
-			else:
-				new_building = foundation.instance()
-			
-			add_child(new_building)
-			new_building._setup(ring_vector)
+				add_child(new_building)
+				new_building._setup(ring_vector)
 	
 	#print("total buildings for ring %d: %d" % [ring_number, float(number_of_buildings) / CityLayout.SUB_SEGMENTS])
 

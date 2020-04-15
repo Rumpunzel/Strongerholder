@@ -58,7 +58,7 @@ func _process(_delta: float):
 		for command in commands:
 			var subject = game_actor
 			
-			if command is Puppeteer.InteractCommand:
+			if command is Puppeteer.InteractCommand or command is InputMaster.MenuCommand:
 				subject = hit_box
 			
 			if command.execute(subject):

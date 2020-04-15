@@ -2,7 +2,11 @@ class_name CityStructure
 extends StaticBody
 
 
+signal died
+
+
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
+var type: int setget set_type, get_type
 
 
 
@@ -11,6 +15,23 @@ func _ready():
 
 func _setup(new_ring_vector: RingVector):
 	set_ring_vector(new_ring_vector)
+	activate_structure()
+
+
+
+func activate_structure():
+	$collision_shape.disabled = false
+	
+	if not $hit_box.start_active:
+		$hit_box.initialize()
+	
+	if not $inventory.start_active:
+		$inventory.initialize()
+
+
+func object_died():
+	emit_signal("died")
+
 
 
 
@@ -20,8 +41,14 @@ func set_ring_vector(new_vector: RingVector):
 	else:
 		ring_vector = new_vector
 	
-	global_transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius).rotated(Vector3.UP, ring_vector.rotation)
+	var new_position: Vector3 = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius).rotated(Vector3.UP, ring_vector.rotation)
+	global_transform.origin = new_position
 	rotation.y = atan2(transform.origin.x, transform.origin.z)
+
+
+func set_type(new_type):
+	$hit_box.type = new_type
+	type = new_type
 
 
 
@@ -36,3 +63,9 @@ func get_ring_vector() -> RingVector:
 		ring_vector.rotation = rot
 	
 	return ring_vector
+
+func is_blocked() -> bool:
+	return $hit_box.is_blocked()
+
+func get_type() -> int:
+	return $hit_box.type

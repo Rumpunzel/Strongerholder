@@ -12,10 +12,11 @@ export(NodePath) var graphics_node
 
 export var hit_points_max: float = 10.0 setget , get_hit_points_max
 export var indestructible: bool = false setget , get_indestructible
+export var start_active: bool = true
 
 
 var active: bool = true setget set_active, is_active
-var alive: bool = true setget set_alive, is_alive
+var alive: bool = false setget set_alive, is_alive
 var highlighted: bool = false setget set_highlighted, get_highlighted
 
 
@@ -32,9 +33,19 @@ onready var hit_points: float = hit_points_max
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if start_active:
+		initialize()
+	
 	connect("area_entered", self, "entered")
 	connect("area_exited", self, "exited")
 
+
+
+
+func initialize():
+	alive = true
+	
+	connect("died", owner, "object_died")
 
 
 func damage(damage_points: float, sender: ObjectHitBox) -> bool:
@@ -52,7 +63,7 @@ func damage(damage_points: float, sender: ObjectHitBox) -> bool:
 func die(sender: ObjectHitBox):
 	set_alive(false)
 	
-	inventory.send_all_items(sender)
+	inventory.send_all_items(sender.inventory)
 	
 	owner.visible = false
 	owner.set_process(false)
@@ -77,14 +88,18 @@ func exited(new_hit_box: ObjectHitBox):
 
 
 
-func parse_entering_hit_box(new_hit_box: ObjectHitBox):
+func parse_entering_hit_box(new_hit_box: ObjectHitBox) -> bool:
 	if new_hit_box.active and not overlapping_hit_boxes.has(new_hit_box):
 		add_hit_box_to_array(new_hit_box, overlapping_hit_boxes)
 		new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
+		
+		return true
 	elif not inactive_overlapping_hit_boxes.has(new_hit_box):
 		add_hit_box_to_array(new_hit_box, inactive_overlapping_hit_boxes)
 		new_hit_box.connect("activated", self, "parse_acitvating_hit_box", [new_hit_box])
 		new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
+		
+	return false
 
 
 func parse_exiting_hit_box(new_hit_box: ObjectHitBox):
@@ -101,6 +116,7 @@ func parse_acitvating_hit_box(new_hit_box: ObjectHitBox):
 	if inactive_overlapping_hit_boxes.has(new_hit_box):
 		inactive_overlapping_hit_boxes.erase(new_hit_box)
 		new_hit_box.disconnect("activated", self, "parse_acitvating_hit_box")
+		new_hit_box.disconnect("died", self, "parse_exiting_hit_box")
 		parse_entering_hit_box(new_hit_box)
 
 
@@ -136,7 +152,7 @@ func has_object(object) -> ObjectHitBox:
 	for hit_box in overlapping_hit_boxes:
 		if hit_box.owner == object:
 			return hit_box
-	
+	print("shit")
 	return null
 
 func is_active() -> bool:
