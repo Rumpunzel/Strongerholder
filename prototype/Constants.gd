@@ -36,13 +36,13 @@ enum Resources {
 
 
 static func is_actor(index: int) -> bool:
-	return Actors.has(index)
+	return Actors.values().has(index)
 
 static func is_structure(index: int) -> bool:
-	return Structures.has(index)
+	return Structures.values().has(index)
 
 static func is_resource(index: int) -> bool:
-	return Resources.has(index)
+	return Resources.values().has(index)
 
 static func is_request(index: int) -> bool:
 	return index >= REQUEST

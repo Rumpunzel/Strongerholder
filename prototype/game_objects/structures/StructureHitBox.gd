@@ -2,7 +2,7 @@ class_name StructureHitBox
 extends ObjectHitBox
 
 
-export(Constants.Structures) var type: int setget , get_type
+export(Constants.Structures) var type: int setget set_type, get_type
 export(Array, Constants.Structures) var blocked_by
 
 
@@ -22,10 +22,10 @@ func build_into(new_type):
 		new_type = new_type.replace(" ", "_").to_upper()
 		new_type = Constants.Structures.values()[Constants.Structures.keys().find(new_type)]
 	
-	#set_type(new_type)
+	set_type(new_type)
 	#set_object(object_scenes[type].instance())
 	
-	RingMap.update_structure(type, new_type, self)
+	RingMap.update_structure(type, new_type, owner)
 
 
 
@@ -34,6 +34,11 @@ func die(sender):
 	
 	.die(sender)
 
+
+
+
+func set_type(new_type):
+	type = new_type
 
 
 
