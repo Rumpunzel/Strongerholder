@@ -41,7 +41,7 @@ func _ready():
 
 
 func initialize():
-	alive = true
+	set_alive(true)
 	
 	connect("died", owner, "object_died")
 
@@ -135,6 +135,7 @@ func set_active(new_status: bool):
 
 func set_alive(new_status: bool):
 	alive = new_status
+	set_active(is_active())
 	if not alive:
 		emit_signal("died")
 
