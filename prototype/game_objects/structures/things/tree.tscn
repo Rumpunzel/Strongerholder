@@ -1,0 +1,56 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/sprites/trees/tree2.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/trees/tree1.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/trees/tree5.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/trees/tree4.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/trees/tree7.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=7]
+[ext_resource path="res://game_objects/structures/things/random_sprite.gd" type="Script" id=8]
+[ext_resource path="res://game_objects/structures/CityStructure.gd" type="Script" id=9]
+[ext_resource path="res://game_objects/structures/StructureHitBox.gd" type="Script" id=10]
+[ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=11]
+[ext_resource path="res://game_objects/game_actors/collision_shape.gd" type="Script" id=12]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 0.5
+height = 6.0
+
+[sub_resource type="CylinderShape" id=2]
+height = 6.0
+
+[node name="tree" type="StaticBody"]
+script = ExtResource( 9 )
+
+[node name="collision_shape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+shape = SubResource( 1 )
+script = ExtResource( 12 )
+
+[node name="hit_box" type="Area" parent="."]
+collision_layer = 4096
+collision_mask = 7168
+script = ExtResource( 10 )
+inventory_node = NodePath("../inventory")
+type = 263
+blocked_by = [  ]
+
+[node name="collision_shape" type="CollisionShape" parent="hit_box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+shape = SubResource( 2 )
+
+[node name="structure" type="Sprite3D" parent="."]
+offset = Vector2( 0, 43 )
+pixel_size = 0.1
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource( 3 )
+script = ExtResource( 8 )
+hit_box_node = NodePath("../hit_box")
+sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
+
+[node name="inventory" type="Node" parent="."]
+script = ExtResource( 11 )
+starting_inventory = [ 1026 ]

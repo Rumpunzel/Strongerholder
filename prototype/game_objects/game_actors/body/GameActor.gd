@@ -1,15 +1,24 @@
-class_name GameCharacter
+class_name GameActor
 extends KinematicBody
 
 
 signal moved(direction)
+signal entered_segment(ring_vector)
+signal activate
+signal died
 
 
-export(Resource) var object_stats = ActorStats.new() setget , get_object_stats
+export(NodePath) var hit_box_node
+export(NodePath) var puppet_master_node
 export(NodePath) var animation_tree_node
 
+export var move_speed: float = 4.0 setget , get_move_speed
+export var sprint_modifier: float = 2.0 setget , get_sprint_modifier
+export var jump_speed: float = 20.0 setget , get_jump_speed
 
-var ring_vector: RingVector setget set_ring_vector, get_ring_vector
+
+var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
+var type: int setget set_actor_type, get_actor_type
 
 var velocity: Vector3 = Vector3() setget set_velocity, get_velocity
 var sprinting: bool = false setget set_sprinting, get_sprinting
@@ -27,10 +36,22 @@ var can_jump: bool = true
 
 onready var default_gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 onready var cliff_dection: CliffDetection = CliffDetection.new(self)
-onready var area: ActorArea = $area setget , get_area
+
+onready var hit_box: ActorHitBox = get_node(hit_box_node)
+onready var puppet_master: PuppetMaster = get_node(puppet_master_node)
 onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
 
 
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	ring_vector.connect("vector_changed", self, "updated_ring_vector")
+
+func _setup(new_ring_vector: RingVector, actor_type: int):
+	set_ring_vector(new_ring_vector)
+	set_actor_type(actor_type)
+	activate_actor()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,7 +69,7 @@ func _physics_process(delta):
 	
 	fall_speed += default_gravity * delta
 	
-	dir += transform.basis.y * (object_stats.jump_speed * jump_mod - fall_speed)
+	dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
 	
 	var new_velocity = move_and_slide(dir, Vector3.UP, true)
 	
@@ -66,6 +87,10 @@ func _physics_process(delta):
 
 
 
+func activate_actor():
+	emit_signal("activate")
+
+
 func move_to(direction: Vector3, is_sprinting: bool = false) -> RingVector:
 	set_sprinting(is_sprinting)
 	set_velocity(direction)
@@ -80,32 +105,20 @@ func parse_state(direction: Vector3):
 	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else animation_tree.blend_positions
 	movement_vector = movement_vector.rotated(angle)
 	
-	
 	if direction.length() > 0:
 		animation_tree.blend_positions = movement_vector
-		animation_tree.travel("run")
+		animation_tree.travel("run", false)
 	elif animation_tree.get_current_state() == "run":
-		animation_tree.travel("idle")
+		animation_tree.travel("idle", false)
 
 
-func animate(animation: String, stop_movement: bool = true):
-	if animation_tree.is_idle_animation():
-		if stop_movement:
-			move_to(Vector3())
-		
-		animation_tree.travel(animation)
+func updated_ring_vector():
+	emit_signal("entered_segment", ring_vector)
 
 
-func is_idle() -> bool:
-	return animation_tree.is_idle()
+func object_died():
+	emit_signal("died")
 
-
-func is_in_range(object_of_interest) -> bool:
-	return area.has_object(object_of_interest)
-
-
-func handle_highlighted(highlighted: bool):
-	pass
 
 
 
@@ -121,13 +134,21 @@ func set_ring_vector(new_vector: RingVector):
 func set_velocity(new_velocity: Vector3):
 	velocity = cliff_dection.limit_movement(new_velocity)
 	velocity.y = 0
-	velocity = velocity.normalized() * object_stats.move_speed * movement_modifier
+	velocity = velocity.normalized() * move_speed * movement_modifier
 	velocity.y = new_velocity.y
 
 
 func set_sprinting(new_status: bool):
 	sprinting = new_status
-	movement_modifier = object_stats.sprint_modifier if sprinting else 1.0
+	movement_modifier = sprint_modifier if sprinting else 1.0
+
+
+func set_actor_type(actor_type: int):
+	hit_box.type = actor_type
+	puppet_master.set_actor_type(actor_type)
+	name = str(actor_type)
+	type = actor_type
+
 
 
 
@@ -144,11 +165,17 @@ func get_ring_vector() -> RingVector:
 	return ring_vector
 
 
-func get_object_stats() -> ActorStats:
-	return object_stats
+func get_actor_type() -> int:
+	return hit_box.type
 
-func get_area() -> ActorArea:
-	return area
+func get_move_speed() -> float:
+	return move_speed
+
+func get_sprint_modifier() -> float:
+	return sprint_modifier
+
+func get_jump_speed() -> float:
+	return jump_speed
 
 func get_velocity() -> Vector3:
 	return velocity

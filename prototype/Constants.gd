@@ -2,51 +2,53 @@ class_name Constants
 extends Resource
 
 
-const NONE: int = 0
-const BUILDINGS: int = 64
-const ACTORS: int = 256
-const THINGS: int = 512
-const RESOURCES: int = 1024
-const REQUEST: int = 2048
-
-
-enum Objects {
-	NOTHING = NONE,
+enum {
+	NOTHING = 0,
 	EVERYTHING,
 	EMPTY,
-	
-	BASE = BUILDINGS,
+	REQUEST = 2048,
+}
+
+enum Actors {
+	NOTHING = 64,
+	EVERYTHING,
+	PLAYER,
+	WOODSMAN,
+	CARPENTER,
+}
+
+enum Structures {
+	NOTHING = 256,
+	EVERYTHING,
+	BASE,
 	BRIDGE,
 	FOUNDATION,
 	STOCKPILE,
 	WOODCUTTERS_HUT,
-	
-	PLAYER = ACTORS,
-	WOODSMAN,
-	CARPENTER,
-	
-	WOOD = RESOURCES,
+	TREE,
+}
+
+enum Resources {
+	NOTHING = 1024,
+	EVERYTHING,
+	WOOD,
 	WOOD_PLANKS,
 	STONE,
-	
-	TREE = THINGS,
 }
 
 
 
-static func object_type(enum_index: int) -> int:
-	if enum_index < BUILDINGS:
-		return NONE
-	elif enum_index < ACTORS:
-		return BUILDINGS
-	elif enum_index < THINGS:
-		return ACTORS
-	elif enum_index < RESOURCES:
-		return THINGS
-	elif enum_index < REQUEST:
-		return RESOURCES
-	else:
-		return REQUEST
+static func is_actor(index) -> bool:
+	return Actors.values().has(index)
+
+static func is_structure(index) -> bool:
+	return Structures.values().has(index)
+
+static func is_resource(index) -> bool:
+	return Resources.values().has(index)
+
+static func is_request(index) -> bool:
+	return index is int and index >= REQUEST
 
 
 static func enum_name(enumerator, index: int) -> String:

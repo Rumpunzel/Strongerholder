@@ -5,103 +5,95 @@ extends Resource
 signal new_object_of_interest(object_of_interest)
 
 
-const INVENTORY_EMPTY = "inventory_empty"
-
-
 const ACTOR_PRIORITIES = {
-	Constants.Objects.PLAYER: { },
+	Constants.Actors.PLAYER: { },
 	
-	Constants.Objects.WOODSMAN: {
-		INVENTORY_EMPTY: [ Constants.Objects.WOOD, ],
-		Constants.Objects.WOOD: [ Constants.REQUEST + Constants.Objects.WOOD, ],
+	Constants.Actors.WOODSMAN: {
+		Constants.Resources.NOTHING: [ Constants.Resources.WOOD, ],
+		Constants.Resources.WOOD: [ Constants.REQUEST + Constants.Resources.WOOD, ],
 	},
 	
-	Constants.Objects.CARPENTER: {
-		INVENTORY_EMPTY: [ Constants.Objects.WOOD_PLANKS, Constants.Objects.WOOD, ],
-		Constants.Objects.WOOD: [ Constants.Objects.WOODCUTTERS_HUT, ],
-		Constants.Objects.WOOD_PLANKS: [ Constants.REQUEST + Constants.Objects.WOOD_PLANKS, ],
+	Constants.Actors.CARPENTER: {
+		Constants.Resources.NOTHING: [ Constants.Resources.WOOD_PLANKS, Constants.Resources.WOOD, ],
+		Constants.Resources.WOOD: [ Constants.Structures.WOODCUTTERS_HUT, ],
+		Constants.Resources.WOOD_PLANKS: [ Constants.REQUEST + Constants.Resources.WOOD_PLANKS, ],
 	},
 }
 
+const TARGET_TYPE = "target_type"
+const TARGET_RESOURCE = "target_resource"
 
-var object_of_interest: RingObject = null setget set_object_of_interest, get_object_of_interest
-var currently_looking_for: int = Constants.Objects.NOTHING setget set_currently_looking_for, get_currently_looking_for
+
+var object_of_interest = null setget set_object_of_interest, get_object_of_interest
+var currently_looking_for: Dictionary = { } setget set_currently_looking_for, get_currently_looking_for
 
 
-var current_actor
-var ring_map: RingMap
+var inventory
 var priorities: Dictionary = { }
 
 
 
 
-func _init(new_actor, new_ring_map):
-	current_actor = new_actor
-	set_priorities(current_actor.type)
+func _init(new_behavior: int, new_inventory):
+	set_priorities(new_behavior)
+	inventory = new_inventory
+
+
+
+
+func next_priority(actor_position: RingVector):
+	var next_target = null
+	var next_status = Constants.Resources.NOTHING
 	
-	ring_map = new_ring_map
-	ring_map.connect("city_changed", self, "force_search")
-
-
-
-
-func next_priority() -> RingObject:
-	var next_target: RingObject = null
-	var next_status = INVENTORY_EMPTY
-	
-	if not current_actor.inventory.empty():
+	if not inventory.empty():
 		for status in priorities.keys():
-			if current_actor.inventory.has(status):
+			if inventory.has(status):
 				next_status = status
 	
 	
 	var priority_list: Array = priorities.get(next_status, [ ])
 	
 	for target_type in priority_list:
-		if not target_type == currently_looking_for:
+		if not target_type == currently_looking_for.get(TARGET_TYPE):
 			var target_priorities = priorities.get(target_type, [ ])
 			var dictionary: Dictionary = { }
 			var targets_exists = true
 			
-			match Constants.object_type(target_type):
-				Constants.REQUEST:
-					dictionary = ring_map.resources.dictionary
+			if Constants.is_request(target_type):
+				dictionary = RingMap.resources.dictionary
 				
-				Constants.RESOURCES:
-					dictionary = ring_map.resources.dictionary
-					targets_exists = false
-					
-					for prio in target_priorities:
-						if ring_map.structures.dictionary.has(prio) or ring_map.resources.dictionary.has(prio):
-							targets_exists = true
-							break
+			elif Constants.is_resource(target_type):
+				dictionary = RingMap.resources.dictionary
+				targets_exists = false
 				
-				_:
-					dictionary = ring_map.structures.dictionary
+				for prio in target_priorities:
+					if RingMap.structures.dictionary.has(prio) or RingMap.resources.dictionary.has(prio):
+						targets_exists = true
+						break
+				
+			else:
+				dictionary = RingMap.structures.dictionary
 			
 			if targets_exists:
-				next_target = ring_map.city_navigator.get_nearest(dictionary, target_type, current_actor.ring_vector, target_priorities)
+				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities)
 		else:
 			next_target = object_of_interest
 		
 		if next_target:
-			currently_looking_for = target_type
+			currently_looking_for = { TARGET_TYPE: target_type, TARGET_RESOURCE: next_status }
 			break
 	
 	if not next_target:
-		currently_looking_for = Constants.Objects.NOTHING
-	
-#	if not next_target == object_of_interest:
-#		print("%s is looking for: %s%s" % [current_actor.name, Constants.enum_name(Constants.Objects, currently_looking_for), (" and found it in: %s" % [next_target.name]) if next_target else ""])
+		currently_looking_for = { }
 	
 	return next_target
 
 
-func force_search(reset_target_type: bool = true):
+func force_search(actor_position: RingVector, reset_target_type: bool = true):
 	if reset_target_type:
-		currently_looking_for = Constants.Objects.NOTHING
+		currently_looking_for = { }
 	
-	set_object_of_interest(next_priority())
+	set_object_of_interest(next_priority(actor_position))
 
 
 
@@ -109,19 +101,19 @@ func force_search(reset_target_type: bool = true):
 func set_priorities(new_actor: int):
 	priorities = ACTOR_PRIORITIES.get(new_actor, { })
 
-func set_object_of_interest(new_object: RingObject):
+func set_object_of_interest(new_object):
 	if not new_object == object_of_interest:
 		object_of_interest = new_object
 		
 		emit_signal("new_object_of_interest", object_of_interest)
 
-func set_currently_looking_for(new_type: int):
+func set_currently_looking_for(new_type: Dictionary):
 	currently_looking_for = new_type
 
 
 
-func get_object_of_interest() -> RingObject:
+func get_object_of_interest():
 	return object_of_interest
 
-func get_currently_looking_for() -> int:
+func get_currently_looking_for() -> Dictionary:
 	return currently_looking_for

@@ -9,20 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "ObjectArea",
-"class": "ActorArea",
-"language": "GDScript",
-"path": "res://game_objects/game_actors/body/ActorArea.gd"
-}, {
 "base": "Resource",
 "class": "ActorBehavior",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/ActorBehavior.gd"
 }, {
-"base": "ObjectStats",
-"class": "ActorStats",
+"base": "ObjectHitBox",
+"class": "ActorHitBox",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/ActorStats.gd"
+"path": "res://game_objects/game_actors/body/ActorHitBox.gd"
 }, {
 "base": "AnimationTree",
 "class": "AnimationStateMachine",
@@ -34,20 +29,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://city_management/CityLayout.gd"
 }, {
-"base": "Node",
+"base": "Resource",
 "class": "CityNavigator",
 "language": "GDScript",
 "path": "res://city_management/CityNavigator.gd"
 }, {
-"base": "RingObject",
-"class": "CityObject",
-"language": "GDScript",
-"path": "res://game_objects/city/CityObject.gd"
-}, {
 "base": "StaticBody",
 "class": "CityStructure",
 "language": "GDScript",
-"path": "res://game_objects/city/CityStructure.gd"
+"path": "res://game_objects/structures/CityStructure.gd"
 }, {
 "base": "Resource",
 "class": "CliffDetection",
@@ -64,30 +54,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://helpers/FileHelper.gd"
 }, {
-"base": "RingObject",
+"base": "KinematicBody",
 "class": "GameActor",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/GameActor.gd"
+"path": "res://game_objects/game_actors/body/GameActor.gd"
 }, {
-"base": "KinematicBody",
-"class": "GameCharacter",
+"base": "Sprite3D",
+"class": "GameSprite",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/body/GameCharacter.gd"
+"path": "res://game_objects/game_actors/GameSprite.gd"
 }, {
-"base": "PuppetMaster",
+"base": "Spatial",
+"class": "Hill",
+"language": "GDScript",
+"path": "res://levels/hill.gd"
+}, {
+"base": "Puppeteer",
 "class": "InputMaster",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/InputMaster.gd"
 }, {
-"base": "Area",
-"class": "ObjectArea",
+"base": "Node",
+"class": "Inventory",
 "language": "GDScript",
-"path": "res://game_objects/ObjectArea.gd"
+"path": "res://game_objects/game_actors/actor_controllers/Inventory.gd"
 }, {
-"base": "Resource",
-"class": "ObjectStats",
+"base": "Area",
+"class": "ObjectHitBox",
 "language": "GDScript",
-"path": "res://game_objects/ObjectStats.gd"
+"path": "res://game_objects/ObjectHitBox.gd"
 }, {
 "base": "Camera",
 "class": "PlayerCamera",
@@ -98,6 +93,11 @@ _global_script_classes=[ {
 "class": "PuppetMaster",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/PuppetMaster.gd"
+}, {
+"base": "Resource",
+"class": "Puppeteer",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/Puppeteer.gd"
 }, {
 "base": "CenterContainer",
 "class": "RadiantContainer",
@@ -120,46 +120,46 @@ _global_script_classes=[ {
 "path": "res://city_management/RingDictionary.gd"
 }, {
 "base": "Resource",
-"class": "RingMap",
-"language": "GDScript",
-"path": "res://city_management/RingMap.gd"
-}, {
-"base": "Node",
-"class": "RingObject",
-"language": "GDScript",
-"path": "res://game_objects/RingObject.gd"
-}, {
-"base": "Resource",
 "class": "RingVector",
 "language": "GDScript",
 "path": "res://city_management/RingVector.gd"
+}, {
+"base": "ObjectHitBox",
+"class": "StructureHitBox",
+"language": "GDScript",
+"path": "res://game_objects/structures/StructureHitBox.gd"
+}, {
+"base": "Inventory",
+"class": "StructureInventory",
+"language": "GDScript",
+"path": "res://game_objects/structures/StructureInventory.gd"
 } ]
 _global_script_class_icons={
-"ActorArea": "",
 "ActorBehavior": "",
-"ActorStats": "",
+"ActorHitBox": "",
 "AnimationStateMachine": "",
 "CityLayout": "",
 "CityNavigator": "",
-"CityObject": "res://assets/icons/icon_house.svg",
 "CityStructure": "",
 "CliffDetection": "",
 "Constants": "",
 "FileHelper": "",
 "GameActor": "",
-"GameCharacter": "",
+"GameSprite": "",
+"Hill": "res://assets/icons/icon_hill.svg",
 "InputMaster": "",
-"ObjectArea": "",
-"ObjectStats": "",
+"Inventory": "res://assets/icons/icon_inventory.svg",
+"ObjectHitBox": "",
 "PlayerCamera": "",
-"PuppetMaster": "",
+"PuppetMaster": "res://assets/icons/icon_puppet_master.svg",
+"Puppeteer": "",
 "RadiantContainer": "",
 "RadiantUI": "",
 "RadiantUIButton": "",
 "RingDictionary": "",
-"RingMap": "",
-"RingObject": "",
-"RingVector": ""
+"RingVector": "",
+"StructureHitBox": "",
+"StructureInventory": ""
 }
 
 [application]
@@ -167,6 +167,10 @@ _global_script_class_icons={
 config/name="Strongerholder"
 run/main_scene="res://levels/hill.tscn"
 config/icon="res://assets/sprites/icon.png"
+
+[autoload]
+
+RingMap="*res://city_management/RingMap.gd"
 
 [debug]
 
@@ -290,12 +294,21 @@ interact={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
  ]
 }
+open_menu={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
 3d_physics/layer_1="World"
 3d_physics/layer_2="GameActors"
 3d_physics/layer_3="Structures"
+3d_physics/layer_11="WorldAreas"
+3d_physics/layer_12="ActorAreas"
+3d_physics/layer_13="StructureAreas"
 
 [node]
 

@@ -15,3 +15,17 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 81, 82, 83, 84, 85, 86, 87, 88, 89 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("animation_player")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "just_given"
+} ]
+}

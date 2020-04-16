@@ -9,25 +9,24 @@ signal closed
 const EXIT_BUTTON = "Exit"
 const MENU_BUTTON = "Menu"
 
+const BUILDINGS_DIRECTORY = "res://game_objects/structures/buildings/"
+
 
 var menu_buttons: Array
-
 var menu_layers: Array = [ MENU_BUTTON ]
 
 var center_button = null setget set_center_button, get_center_button
 
-var interaction_object
-var interaction
+var actor
 
 
 
 
-func _init(new_menu_buttons: Array, new_interaction_object = null, new_interaction = null):
+func _init(new_menu_buttons: Array, new_actor):
 	menu_buttons = new_menu_buttons
-	interaction_object = new_interaction_object
-	interaction = new_interaction
-	
 	be_a_retard = true
+	
+	actor = new_actor
 
 
 func _ready():
@@ -40,7 +39,7 @@ func _ready():
 	if not "_button_pressed" in center_button.get_signal_list():
 		center_button.connect("pressed", self, "_button_pressed", [center_button])
 	
-	place_buttons(menu_buttons, 0.5)
+	place_buttons(menu_buttons)
 
 
 func _unhandled_input(event):
@@ -51,12 +50,12 @@ func _unhandled_input(event):
 
 
 
-func place_buttons(new_buttons: Array, delay: float = 0.0):
+func place_buttons(new_buttons: Array):
 	for button_name in new_buttons:
 		var new_button: RadiantUIButton
 		
 		if button_name is String and button_name == "Build":
-			new_button = RadiantUIButton.new(button_name, [Constants.Objects.STOCKPILE, Constants.Objects.WOODCUTTERS_HUT])
+			new_button = RadiantUIButton.new(button_name, [Constants.Structures.STOCKPILE, Constants.Structures.WOODCUTTERS_HUT])
 		else:
 			new_button = RadiantUIButton.new(button_name)
 		
@@ -68,18 +67,19 @@ func place_buttons(new_buttons: Array, delay: float = 0.0):
 	
 	update_children()
 	
-	animate_in_buttons(delay)
+	animate_in_buttons()
 
 
 func _button_pressed(button: RadiantUIButton):
 	if button.text == EXIT_BUTTON:
 		close()
 	elif not button == center_button and button.menu_buttons.empty():
-		if interaction_object and interaction:
-			
-			interaction_object.call(interaction, button.text)
-			interaction_object = null
-			interaction = null
+		var new_scene = FileHelper.list_files_in_directory(BUILDINGS_DIRECTORY, true, ".tscn", true).get(button.text.replace(" ", "_").to_lower())
+		var new_structure
+		
+		if new_scene:
+			new_structure = load(new_scene).instance()
+			actor.placing_this_building = new_structure
 		
 		emit_signal("button_pressed", button.text)
 		
@@ -97,18 +97,17 @@ func _button_pressed(button: RadiantUIButton):
 			place_buttons(menu_buttons)
 
 
-func animate_in_buttons(delay: float = 0.0):
+func animate_in_buttons():
 	var tween:Tween = Tween.new()
 	add_actual_child(tween)
 	
 	yield(get_tree(), "idle_frame")
 	
-	if delay > 0.0:
-		tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay * 0.5)
+	tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
 	for button in get_children():
-		tween.interpolate_property(button, "rect_position", Vector2(), button.rect_position, 0.4, Tween.TRANS_BACK,Tween.EASE_OUT, delay)
-		tween.interpolate_property(button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay)
+		tween.interpolate_property(button, "rect_position", Vector2(), button.rect_position, 0.4, Tween.TRANS_BACK,Tween.EASE_OUT)
+		tween.interpolate_property(button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
 	tween.start()
 

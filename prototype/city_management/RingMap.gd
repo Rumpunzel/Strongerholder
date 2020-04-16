@@ -1,12 +1,9 @@
-class_name RingMap
-extends Resource
+extends Node
 
 
 signal city_changed
 signal resources_changed
 
-
-var city_navigator: CityNavigator
 
 var search_dictionary: Dictionary = { }
 
@@ -14,10 +11,7 @@ var structures: RingDictionary = RingDictionary.new()
 var resources: RingDictionary = RingDictionary.new()
 
 
-
-
-func _init():
-	city_navigator = CityNavigator.new(self)
+onready var city_navigator: CityNavigator = CityNavigator.new(self)
 
 
 
@@ -37,10 +31,10 @@ func construct_search_dictionary():
 
 
 
-func get_structures_at_position(ring_vector: RingVector, from: int = Constants.Objects.EVERYTHING) -> Array:
+func get_structures_at_position(ring_vector: RingVector, from: int = Constants.EVERYTHING) -> Array:
 	var search_through: Dictionary = { }
 	
-	if not from == Constants.Objects.EVERYTHING:
+	if not from == Constants.EVERYTHING:
 		search_through = structures.dictionary[from]
 	else:
 		search_through = search_dictionary
@@ -55,35 +49,35 @@ func get_resources_at_position(ring_vector: RingVector, type: int) -> Array:
 
 
 
-func register_structure(type: int, ring_vector: RingVector, object):
-	structures.register_in_dictionary(type, ring_vector, object)
+func register_structure(type: int, object):
+	structures.register_in_dictionary(type, object.ring_vector, object)
 	emit_signal("city_changed")
 
 
-func unregister_structure(type: int, ring_vector: RingVector, object, emit_signal: bool = true):
-	structures.unregister_in_dictionary(type, ring_vector, object)
+func unregister_structure(type: int, object, emit_signal: bool = true):
+	structures.unregister_in_dictionary(type, object.ring_vector, object)
 	if emit_signal:
 		emit_signal("city_changed")
 
 
-func update_structure(old_type: int, new_type: int, ring_vector: RingVector, object):
-	unregister_structure(new_type, ring_vector, object, false)
-	register_structure(old_type, ring_vector, object)
+func update_structure(old_type: int, new_type: int, object):
+	unregister_structure(new_type, object, false)
+	register_structure(old_type, object)
 
 
 
 
-func register_resource(type: int, ring_vector: RingVector, object):
-	resources.register_in_dictionary(type, ring_vector, object)
+func register_resource(type: int, object):
+	resources.register_in_dictionary(type, object.ring_vector, object)
 	emit_signal("resources_changed")
 
 
-func unregister_resource(type: int, ring_vector: RingVector, object, emit_signal: bool = true):
-	resources.unregister_in_dictionary(type, ring_vector, object)
+func unregister_resource(type: int, object, emit_signal: bool = true):
+	resources.unregister_in_dictionary(type, object.ring_vector, object)
 	if emit_signal:
 		emit_signal("resources_changed")
 
 
-func update_resource(old_type: int, new_type: int, ring_vector: RingVector, object):
-	unregister_resource(old_type, ring_vector, object, false)
-	register_resource(new_type, ring_vector, object)
+func update_resource(old_type: int, new_type: int, object):
+	unregister_resource(old_type, object, false)
+	register_resource(new_type, object)
