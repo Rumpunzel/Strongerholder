@@ -53,12 +53,9 @@ func request_item(item, sender):
 
 func open_menu(new_menu: RadiantUI):
 	if not placing_this_building:
-		animation_tree.travel("give")
+		animation_tree.travel("idle")
 		animation_tree.can_act = false
 		new_menu.connect("closed", animation_tree, "set_can_act", [true])
-		
-		yield(animation_player, "given")
-		
 		get_viewport().get_camera().add_ui_element(new_menu)
 	elif not placing_this_building.is_blocked():
 		animation_tree.travel("give")
