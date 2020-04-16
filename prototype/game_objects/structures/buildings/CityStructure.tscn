@@ -5,8 +5,8 @@
 [ext_resource path="res://game_objects/structures/StructureHitBox.gd" type="Script" id=3]
 [ext_resource path="res://assets/materials/highlightShader.material" type="Material" id=4]
 [ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=5]
-[ext_resource path="res://game_objects/structures/buildings/structure.gd" type="Script" id=6]
-[ext_resource path="res://game_objects/game_actors/collision_shape.gd" type="Script" id=7]
+[ext_resource path="res://game_objects/GameMesh.gd" type="Script" id=6]
+[ext_resource path="res://game_objects/structures/buildings/collision_shape.gd" type="Script" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 5, 0.5, 3 )

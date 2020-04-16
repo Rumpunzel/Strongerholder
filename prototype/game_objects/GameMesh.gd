@@ -1,3 +1,4 @@
+class_name GameMesh
 extends CSGMesh
 
 

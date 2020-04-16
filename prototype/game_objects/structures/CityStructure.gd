@@ -1,4 +1,4 @@
-class_name CityStructure
+class_name CityStructure, "res://assets/icons/icon_house.svg"
 extends StaticBody
 
 
