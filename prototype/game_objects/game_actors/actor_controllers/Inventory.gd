@@ -8,17 +8,8 @@ signal sent_item(item)
 
 export(Array, Constants.Resources) var starting_inventory: Array
 
-export var start_active: bool = true
-
 
 var contents: Array setget , get_contents
-
-
-
-
-func _ready():
-	if start_active:
-		initialize()
 
 
 

@@ -38,17 +38,17 @@ enum Resources {
 
 
 
-static func is_actor(index: int) -> bool:
+static func is_actor(index) -> bool:
 	return Actors.values().has(index)
 
-static func is_structure(index: int) -> bool:
+static func is_structure(index) -> bool:
 	return Structures.values().has(index)
 
-static func is_resource(index: int) -> bool:
+static func is_resource(index) -> bool:
 	return Resources.values().has(index)
 
-static func is_request(index: int) -> bool:
-	return index >= REQUEST
+static func is_request(index) -> bool:
+	return index is int and index >= REQUEST
 
 
 static func enum_name(enumerator, index: int) -> String:

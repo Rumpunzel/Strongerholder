@@ -13,7 +13,11 @@ func initialize():
 	.initialize()
 	
 	if requests.has(Constants.Resources.EVERYTHING):
-		requests = Constants.Resources.values()
+		requests = [ ]
+		
+		for value in Constants.Resources.values():
+			if value > Constants.Resources.EVERYTHING:
+				requests.append(value)
 	
 	for request in requests:
 		RingMap.register_resource(request + Constants.REQUEST, owner)

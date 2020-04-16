@@ -12,7 +12,6 @@ export(NodePath) var graphics_node
 
 export var hit_points_max: float = 10.0 setget , get_hit_points_max
 export var indestructible: bool = false setget , get_indestructible
-export var start_active: bool = true
 
 
 var active: bool = true setget set_active, is_active
@@ -33,9 +32,6 @@ onready var hit_points: float = hit_points_max
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if start_active:
-		initialize()
-	
 	connect("area_entered", self, "entered")
 	connect("area_exited", self, "exited")
 
@@ -65,16 +61,17 @@ func die(sender: ObjectHitBox):
 	
 	inventory.send_all_items(sender.inventory)
 	
+	owner.get_node("collision_shape").disabled = true
 	owner.visible = false
 	owner.set_process(false)
 
 
 func offer_item(item, receiver):
-	inventory.send_item(item, receiver)
+	inventory.send_item(item, receiver.inventory)
 
 
 func request_item(item, sender):
-	inventory.receive_item(item, sender)
+	sender.offer_item(item, self)
 
 
 

@@ -40,7 +40,7 @@ func offer_item(item, receiver):
 	
 	yield(animation_player, "given")
 	
-	inventory.send_item(item, receiver)
+	.offer_item(item, receiver)
 
 
 func request_item(item, sender):
@@ -48,7 +48,7 @@ func request_item(item, sender):
 	
 	yield(animation_player, "given")
 	
-	inventory.receive_item(item, sender)
+	.request_item(item, sender)
 
 
 func open_menu(new_menu: RadiantUI):

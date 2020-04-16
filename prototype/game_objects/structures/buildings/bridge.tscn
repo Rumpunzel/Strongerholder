@@ -13,6 +13,9 @@ transform = Transform( 1, 0, 0, 0, 0.999783, -0.0208203, 0, 0.0208203, 0.999783,
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
 shape = SubResource( 1 )
 
+[node name="hit_box" parent="." index="1"]
+type = 259
+
 [node name="structure" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
 mesh = ExtResource( 2 )

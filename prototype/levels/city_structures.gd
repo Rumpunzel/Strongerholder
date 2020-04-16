@@ -26,7 +26,7 @@ func construct_ring(ring_number: int):
 		if i % CityLayout.SUB_SEGMENTS == 0:
 			if ring_number > 0 and i % number_of_bridges == 0:
 				new_building = bridge.instance()
-				add_child(new_building)
+				add_child(new_building, true)
 				new_building._setup(ring_vector)
 	
 	#print("total buildings for ring %d: %d" % [ring_number, float(number_of_buildings) / CityLayout.SUB_SEGMENTS])

@@ -50,6 +50,7 @@ func _ready():
 func _setup(new_ring_vector: RingVector, actor_type: int):
 	set_ring_vector(new_ring_vector)
 	set_actor_type(actor_type)
+	activate_actor()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -83,6 +84,13 @@ func _physics_process(delta):
 	emit_signal("moved", velocity)
 
 
+
+
+func activate_actor():
+	$collision_shape.disabled = false
+	
+	$hit_box.initialize()
+	$utility_nodes/inventory.initialize()
 
 
 func move_to(direction: Vector3, is_sprinting: bool = false) -> RingVector:
@@ -128,6 +136,7 @@ func set_ring_vector(new_vector: RingVector):
 func set_type(new_type):
 	$hit_box.type = new_type
 	type = new_type
+	name = str(type)
 
 
 func set_velocity(new_velocity: Vector3):

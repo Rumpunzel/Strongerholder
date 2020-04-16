@@ -133,5 +133,5 @@ func get_pathfinding_target() -> RingVector:
 func get_object_of_interest():
 	return object_of_interest
 
-func get_currently_looking_for() -> int:
+func get_currently_looking_for() -> Dictionary:
 	return actor_behavior.currently_looking_for

@@ -61,9 +61,9 @@ class MoveCommand extends Command:
 
 class InteractCommand extends Command:
 	var hit_box
-	var looking_for
+	var looking_for: Dictionary
 	
-	func _init(new_hit_box, new_looking_for):
+	func _init(new_hit_box, new_looking_for: Dictionary):
 		hit_box = new_hit_box
 		looking_for = new_looking_for
 	
@@ -74,15 +74,23 @@ class InteractCommand extends Command:
 			return false
 	
 	func parse(actor) -> bool:
-		if hit_box.type == Constants.Structures.TREE:
+		var type = hit_box.type
+		
+		if type == Constants.Structures.TREE:
 			actor.attack(hit_box)
 			return true
-		elif Constants.is_structure(hit_box.type):
-			if looking_for == Constants.Resources.NOTHING:
-				actor.offer_item(looking_for, hit_box)
+		elif Constants.is_structure(type):
+			var target_type = looking_for.get(ActorBehavior.TARGET_TYPE)
+			var target_resource = looking_for.get(ActorBehavior.TARGET_RESOURCE)
+			
+			if Constants.is_request(target_resource):
+				target_resource -= Constants.REQUEST
+			
+			if Constants.is_resource(target_type):
+				actor.request_item(target_type, hit_box)
 				return true
-			else:
-				actor.request_item(looking_for, hit_box)
+			elif Constants.is_resource(target_resource):
+				actor.offer_item(target_resource, hit_box)
 				return true
 		
 		return false

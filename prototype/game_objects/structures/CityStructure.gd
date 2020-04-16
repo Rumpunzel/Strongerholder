@@ -22,11 +22,8 @@ func _setup(new_ring_vector: RingVector):
 func activate_structure():
 	$collision_shape.disabled = false
 	
-	if not $hit_box.start_active:
-		$hit_box.initialize()
-	
-	if not $inventory.start_active:
-		$inventory.initialize()
+	$hit_box.initialize()
+	$inventory.initialize()
 
 
 func object_died():

@@ -20,9 +20,12 @@ const ACTOR_PRIORITIES = {
 	},
 }
 
+const TARGET_TYPE = "target_type"
+const TARGET_RESOURCE = "target_resource"
+
 
 var object_of_interest = null setget set_object_of_interest, get_object_of_interest
-var currently_looking_for: int = Constants.NOTHING setget set_currently_looking_for, get_currently_looking_for
+var currently_looking_for: Dictionary = { } setget set_currently_looking_for, get_currently_looking_for
 
 
 var inventory
@@ -51,14 +54,14 @@ func next_priority(actor_position: RingVector):
 	var priority_list: Array = priorities.get(next_status, [ ])
 	
 	for target_type in priority_list:
-		if not target_type == currently_looking_for:
+		if not target_type == currently_looking_for.get(TARGET_TYPE):
 			var target_priorities = priorities.get(target_type, [ ])
 			var dictionary: Dictionary = { }
 			var targets_exists = true
 			
 			if Constants.is_request(target_type):
 				dictionary = RingMap.resources.dictionary
-			
+				
 			elif Constants.is_resource(target_type):
 				dictionary = RingMap.resources.dictionary
 				targets_exists = false
@@ -67,7 +70,7 @@ func next_priority(actor_position: RingVector):
 					if RingMap.structures.dictionary.has(prio) or RingMap.resources.dictionary.has(prio):
 						targets_exists = true
 						break
-			
+				
 			else:
 				dictionary = RingMap.structures.dictionary
 			
@@ -77,18 +80,18 @@ func next_priority(actor_position: RingVector):
 			next_target = object_of_interest
 		
 		if next_target:
-			currently_looking_for = target_type
+			currently_looking_for = { TARGET_TYPE: target_type, TARGET_RESOURCE: next_status }
 			break
 	
 	if not next_target:
-		currently_looking_for = Constants.NOTHING
+		currently_looking_for = { }
 	
 	return next_target
 
 
 func force_search(actor_position: RingVector, reset_target_type: bool = true):
 	if reset_target_type:
-		currently_looking_for = Constants.NOTHING
+		currently_looking_for = { }
 	
 	set_object_of_interest(next_priority(actor_position))
 
@@ -104,7 +107,7 @@ func set_object_of_interest(new_object):
 		
 		emit_signal("new_object_of_interest", object_of_interest)
 
-func set_currently_looking_for(new_type: int):
+func set_currently_looking_for(new_type: Dictionary):
 	currently_looking_for = new_type
 
 
@@ -112,5 +115,5 @@ func set_currently_looking_for(new_type: int):
 func get_object_of_interest():
 	return object_of_interest
 
-func get_currently_looking_for() -> int:
+func get_currently_looking_for() -> Dictionary:
 	return currently_looking_for

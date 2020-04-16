@@ -74,7 +74,7 @@ func _button_pressed(button: RadiantUIButton):
 	if button.text == EXIT_BUTTON:
 		close()
 	elif not button == center_button and button.menu_buttons.empty():
-		var new_scene = FileHelper.list_files_in_directory(BUILDINGS_DIRECTORY, true, ".tscn", true).get(button.text.to_lower())
+		var new_scene = FileHelper.list_files_in_directory(BUILDINGS_DIRECTORY, true, ".tscn", true).get(button.text.replace(" ", "_").to_lower())
 		var new_structure
 		
 		if new_scene:

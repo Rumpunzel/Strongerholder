@@ -46,20 +46,20 @@ hit_box_node = NodePath("hit_box")
 puppet_master_node = NodePath("utility_nodes/puppet_master")
 animation_tree_node = NodePath("animation_tree")
 
-[node name="collision" type="CollisionShape" parent="."]
+[node name="collision_shape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
 shape = SubResource( 1 )
 
 [node name="hit_box" type="Area" parent="."]
 collision_layer = 2048
-collision_mask = 6144
+collision_mask = 7168
 script = ExtResource( 25 )
 inventory_node = NodePath("../utility_nodes/inventory")
 graphics_node = NodePath("../../game_actor/sprite")
 animation_player_node = NodePath("../animation_player")
 animation_tree_node = NodePath("../animation_tree")
 
-[node name="collision" type="CollisionShape" parent="hit_box"]
+[node name="collision_shape" type="CollisionShape" parent="hit_box"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 2 )
 
@@ -80,9 +80,9 @@ script = ExtResource( 29 )
 [node name="puppet_master" type="Node" parent="utility_nodes"]
 script = ExtResource( 27 )
 game_actor_node = NodePath("../..")
-hit_box_node = NodePath("../../../game_actor/hit_box")
-inventory_node = NodePath("../../../game_actor/utility_nodes/inventory")
-animation_tree_node = NodePath("../../../game_actor/animation_tree")
+hit_box_node = NodePath("../../hit_box")
+inventory_node = NodePath("../inventory")
+animation_tree_node = NodePath("../../animation_tree")
 
 [node name="inventory" type="Node" parent="utility_nodes"]
 script = ExtResource( 28 )
