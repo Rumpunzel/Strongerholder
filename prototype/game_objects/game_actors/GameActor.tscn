@@ -4,7 +4,7 @@
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_left.tres" type="Animation" id=2]
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_down.tres" type="Animation" id=3]
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=4]
-[ext_resource path="res://game_objects/game_actors/animations/AnimationStateMachine.gd" type="Script" id=5]
+[ext_resource path="res://game_objects/game_actors/AnimationStateMachine.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_up.tres" type="Animation" id=6]
 [ext_resource path="res://game_objects/game_actors/animations/idle_give/idle_give_right.tres" type="Animation" id=7]
 [ext_resource path="res://game_objects/game_actors/animations/idle_give/idle_give_left.tres" type="Animation" id=8]
@@ -27,7 +27,7 @@
 [ext_resource path="res://game_objects/game_actors/body/ActorHitBox.gd" type="Script" id=25]
 [ext_resource path="res://assets/sprites/hero/hero_sprite_sheet.png" type="Texture" id=26]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/PuppetMaster.gd" type="Script" id=27]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/Inventory.gd" type="Script" id=28]
+[ext_resource path="res://game_objects/Inventory.gd" type="Script" id=28]
 [ext_resource path="res://game_objects/GameSprite.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=30]
 
@@ -42,9 +42,9 @@ height = 0.01
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 23 )
-hit_box_node = NodePath("hit_box")
-puppet_master_node = NodePath("utility_nodes/puppet_master")
-animation_tree_node = NodePath("animation_tree")
+_hit_box_node = NodePath("hit_box")
+_puppet_master_node = NodePath("utility_nodes/puppet_master")
+_animation_tree_node = NodePath("animation_tree")
 
 [node name="collision_shape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
@@ -55,9 +55,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 collision_layer = 2048
 collision_mask = 7168
 script = ExtResource( 25 )
-inventory_node = NodePath("../utility_nodes/inventory")
-animation_player_node = NodePath("../animation_player")
-animation_tree_node = NodePath("../animation_tree")
+_inventory_node = NodePath("../utility_nodes/inventory")
+_animation_player_node = NodePath("../animation_player")
+_animation_tree_node = NodePath("../animation_tree")
 
 [node name="collision_shape" type="CollisionShape" parent="hit_box"]
 shape = SubResource( 2 )
@@ -73,15 +73,15 @@ vframes = 12
 hframes = 9
 frame = 50
 script = ExtResource( 29 )
-hit_box_node = NodePath("../hit_box")
+_hit_box_node = NodePath("../hit_box")
 
 [node name="utility_nodes" type="Node" parent="."]
 
 [node name="puppet_master" type="Node" parent="utility_nodes"]
 script = ExtResource( 27 )
-hit_box_node = NodePath("../../hit_box")
-inventory_node = NodePath("../inventory")
-animation_tree_node = NodePath("../../animation_tree")
+_hit_box_node = NodePath("../../hit_box")
+_inventory_node = NodePath("../inventory")
+_animation_tree_node = NodePath("../../animation_tree")
 
 [node name="inventory" type="Node" parent="utility_nodes"]
 script = ExtResource( 28 )
@@ -124,5 +124,5 @@ script = ExtResource( 5 )
 attenuation_model = 1
 unit_db = -6.0
 script = ExtResource( 24 )
-animation_player_node = NodePath("../animation_player")
-step_sounds = "res://assets/sounds/footsteps"
+_animation_player_node = NodePath("../animation_player")
+_step_sounds = "res://assets/sounds/footsteps"

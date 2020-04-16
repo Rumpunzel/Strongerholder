@@ -3,7 +3,7 @@ extends ObjectHitBox
 
 
 export(Constants.Structures) var type: int setget set_type, get_type
-export(Array, Constants.Structures) var blocked_by = [Constants.Structures.EVERYTHING]
+export(Array, Constants.Structures) var _blocked_by = [Constants.Structures.EVERYTHING]
 
 
 
@@ -34,8 +34,8 @@ func is_active() -> bool:
 
 
 func is_blocked() -> bool:
-	for hit_box in overlapping_hit_boxes:
-		if blocked_by.has(hit_box.type) or (Constants.is_structure(hit_box.type) and blocked_by.has(Constants.Structures.EVERYTHING)):
+	for hit_box in _overlapping_hit_boxes:
+		if _blocked_by.has(hit_box.type) or (Constants.is_structure(hit_box.type) and _blocked_by.has(Constants.Structures.EVERYTHING)):
 			return true
 	
 	return false

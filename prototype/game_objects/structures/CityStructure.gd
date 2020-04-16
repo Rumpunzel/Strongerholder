@@ -11,12 +11,14 @@ var type: int setget set_type, get_type
 
 
 
+
 func _ready():
 	pass
 
 func _setup(new_ring_vector: RingVector):
 	set_ring_vector(new_ring_vector)
 	activate_structure()
+
 
 
 

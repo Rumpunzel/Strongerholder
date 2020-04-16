@@ -29,7 +29,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2 )
 collision_layer = 4096
 collision_mask = 7168
 script = ExtResource( 3 )
-inventory_node = NodePath("../inventory")
+_inventory_node = NodePath("../inventory")
 
 [node name="collision_shape" type="CollisionShape" parent="hit_box"]
 shape = SubResource( 2 )
@@ -39,9 +39,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
 collision_layer = 4
 mesh = ExtResource( 1 )
 script = ExtResource( 6 )
-hit_box_node = NodePath("../hit_box")
-highlight_material = ExtResource( 4 )
-placement_material = ExtResource( 8 )
+_hit_box_node = NodePath("../hit_box")
+_highlight_material = ExtResource( 4 )
+_placement_material = ExtResource( 8 )
 
 [node name="inventory" type="Node" parent="."]
 script = ExtResource( 5 )

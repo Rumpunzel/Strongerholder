@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "AnimationTree",
 "class": "AnimationStateMachine",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/animations/AnimationStateMachine.gd"
+"path": "res://game_objects/game_actors/AnimationStateMachine.gd"
 }, {
 "base": "Resource",
 "class": "CityLayout",
@@ -82,7 +82,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Inventory",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/Inventory.gd"
+"path": "res://game_objects/Inventory.gd"
 }, {
 "base": "Area",
 "class": "ObjectHitBox",

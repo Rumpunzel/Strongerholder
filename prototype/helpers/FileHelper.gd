@@ -4,7 +4,7 @@ extends Resource
 
 static func list_files_in_directory(directory_path:String, recursive:bool = false, file_suffix:String = "", as_dictionary = false):
 	var files = [ ]
-	var directory = Directory.new()
+	var directory: Directory = Directory.new()
 	
 	directory.open(directory_path)
 	directory.list_dir_begin(true)
@@ -25,7 +25,7 @@ static func list_files_in_directory(directory_path:String, recursive:bool = fals
 	directory.list_dir_end()
 	
 	if as_dictionary:
-		var dic_files = { }
+		var dic_files: Dictionary = { }
 		
 		for file in files:
 			dic_files[file.get_file().trim_suffix(file_suffix)] = file
@@ -36,5 +36,5 @@ static func list_files_in_directory(directory_path:String, recursive:bool = fals
 
 
 static func delete_file(file_path:String):
-	var directory = Directory.new()
+	var directory: Directory = Directory.new()
 	directory.remove(file_path)

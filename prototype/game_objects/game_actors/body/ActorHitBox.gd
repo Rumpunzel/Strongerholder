@@ -4,76 +4,71 @@ extends ObjectHitBox
 
 export(Constants.Actors) var type: int setget , get_type
 
-export var attack_value: float = 2.0
+export var attack_value: float = 2.0 setget set_attack_value, get_attack_value
 
-export(NodePath) var animation_player_node
-export(NodePath) var animation_tree_node
+export(NodePath) var _animation_player_node
+export(NodePath) var _animation_tree_node
 
 
-var currently_highlighting: ObjectHitBox = null
+var currently_highlighting: ObjectHitBox = null setget , get_currently_highlighting
 var placing_this_building = null setget set_placing_this_building, get_placing_this_building
 
 
-onready var animation_player: AnimationPlayer = get_node(animation_player_node)
-onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
+onready var _animation_player: AnimationPlayer = get_node(_animation_player_node)
+onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
 
 
 
 func initialize():
 	.initialize()
-	owner.connect("entered_segment", self, "move_building")
+	owner.connect("entered_segment", self, "_move_building")
 
 
 
 
 func attack(other_hit_box: ObjectHitBox):
-	animation_tree.travel("attack")
+	_animation_tree.travel("attack")
 	
-	yield(animation_player, "attacked")
+	yield(_animation_player, "attacked")
 	
 	other_hit_box.damage(attack_value, self)
 
 
 func offer_item(item: int, receiver: ObjectHitBox):
-	animation_tree.travel("give")
+	_animation_tree.travel("give")
 	
-	yield(animation_player, "given")
+	yield(_animation_player, "given")
 	
 	.offer_item(item, receiver)
 
 
 func request_item(item: int, sender: ObjectHitBox):
-	animation_tree.travel("give")
+	_animation_tree.travel("give")
 	
-	yield(animation_player, "given")
+	yield(_animation_player, "given")
 	
 	.request_item(item, sender)
 
 
 func open_menu(new_menu: RadiantUI):
 	if not placing_this_building:
-		animation_tree.travel("idle")
+		_animation_tree.travel("idle")
 		
-		animation_tree.can_act = false
-		new_menu.connect("closed", animation_tree, "set_can_act", [true])
+		_animation_tree.can_act = false
+		new_menu.connect("closed", _animation_tree, "set_can_act", [true])
 		
 		get_viewport().get_camera().add_ui_element(new_menu)
 	elif not placing_this_building.is_blocked():
-		animation_tree.travel("give")
+		_animation_tree.travel("give")
 		
-		yield(animation_player, "given")
+		yield(_animation_player, "given")
 		
 		if placing_this_building:
 			placing_this_building.activate_structure()
 			placing_this_building = null
 	else:
-		animation_tree.travel("give")
-
-
-func move_building(new_vector: RingVector):
-	if placing_this_building:
-		placing_this_building.ring_vector = RingVector.new(new_vector.ring, new_vector.segment, true)
+		_animation_tree.travel("give")
 
 
 
@@ -97,8 +92,8 @@ func highlight_object():
 		if currently_highlighting:
 			currently_highlighting.set_highlighted(false)
 		
-		if not overlapping_hit_boxes.empty():
-			currently_highlighting = overlapping_hit_boxes.front()
+		if not _overlapping_hit_boxes.empty():
+			currently_highlighting = _overlapping_hit_boxes.front()
 			currently_highlighting.set_highlighted(true)
 		else:
 			currently_highlighting = null
@@ -106,15 +101,31 @@ func highlight_object():
 
 
 
+func _move_building(new_vector: RingVector):
+	if placing_this_building:
+		placing_this_building.ring_vector = RingVector.new(new_vector.ring, new_vector.segment, true)
+
+
+
+
+func set_attack_value(new_value: float):
+	attack_value = new_value
+
 func set_placing_this_building(new_object):
 	placing_this_building = new_object
 	get_tree().current_scene.get_node("city_structures").add_child(placing_this_building)
-	move_building(owner.ring_vector)
+	_move_building(owner.ring_vector)
 
 
 
 func get_type() -> int:
 	return type
+
+func get_attack_value() -> float:
+	return attack_value
+
+func get_currently_highlighting() -> ObjectHitBox:
+	return currently_highlighting
 
 func get_placing_this_building():
 	return placing_this_building

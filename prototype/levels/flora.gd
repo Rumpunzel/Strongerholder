@@ -6,10 +6,10 @@ export(PackedScene) var tree
 
 func grow_flora():
 	for i in range(1, CityLayout.NUMBER_OF_RINGS):
-		construct_ring(i)
+		_construct_ring(i)
 
 
-func construct_ring(ring_number):
+func _construct_ring(ring_number):
 	var number_of_buildings: int = CityLayout.get_number_of_segments(ring_number)
 	
 	for i in range(number_of_buildings):

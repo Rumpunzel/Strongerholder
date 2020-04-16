@@ -4,111 +4,45 @@ extends Resource
 
 # Reference to the RingMap Singleton
 #	this is a reference as accessing the RingMap Singleton from here would create a cylcic dependancy
-var ring_map
+var _ring_map
 
-var pathfinder: AStar2D = AStar2D.new()
-# Dictionary pointing from Vector2s representing RingVector ring and segment to indexes in the Astar2D pathfinder
-var astar_nodes: Dictionary = { }
+var _pathfinder: AStar2D = AStar2D.new()
+# Dictionary pointing from Vector2s representing RingVector ring and segment to indexes in the Astar2D _pathfinder
+var _astar_nodes: Dictionary = { }
 
 # Variable to ensure that the segments on each ring are connected only once
 #	dynamic connections only occur with brides
-var first_time: bool = true
+var _first_time: bool = true
 # Same reason here; we only want to reconnect the graph if the amount of bridges has changed
-var previous_bridges: int = -1
+var _previous_bridges: int = -1
 
 
 
 
 func _init(new_ring_map):
-	ring_map = new_ring_map
+	_ring_map = new_ring_map
 
 
 
 func start_building():
-	construct_pathfinder()
+	_construct_pathfinder()
 
-
-
-func construct_pathfinder():
-	construct_graph()
-	connect_nodes()
-
-
-func construct_graph():
-	var graph_size: int = 0
-	
-	for ring in range(CityLayout.NUMBER_OF_RINGS):
-		var segments = CityLayout.get_number_of_segments(ring)
-		
-		for segment in range(segments):
-			var radius = CityLayout.get_radius_minimum(ring)
-			var point_vector = Vector2(radius, 0)
-			point_vector.rotated((float(segment) / CityLayout.get_number_of_segments(ring)) * TAU)
-			
-			pathfinder.add_point(graph_size, point_vector)
-			astar_nodes[Vector2(ring, segment)] = graph_size
-			
-			graph_size += 1
-
-
-func connect_nodes():
-	var bridges: Dictionary = ring_map.structures.dictionary[Constants.Structures.BRIDGE]
-	
-	for ring in range(CityLayout.NUMBER_OF_RINGS):
-		var segments = CityLayout.get_number_of_segments(ring)
-		
-		# Connect the segments only once
-		if first_time:
-			connect_segments(ring)
-		
-		if not previous_bridges == bridges.size():
-			connect_bridges(bridges, ring, segments)
-	
-	first_time = false
-	previous_bridges = bridges.size()
-
-
-# Connect all the segments for each ring
-func connect_segments(ring: int):
-	var segments_in_ring = CityLayout.get_number_of_segments(ring)
-	
-	for segment in range(segments_in_ring):
-		var building = (segment + 1) % segments_in_ring
-		
-		pathfinder.connect_points(astar_nodes[Vector2(ring, segment)], astar_nodes[Vector2(ring, building)])
-
-
-# Find connections between rings where bridges have been built
-func connect_bridges(bridges: Dictionary, ring: int, segments: int):
-	for bridge in bridges.get(ring + 1, { }).keys():
-		# Maximum offset allowed for a bridge to be connected to a node on another ring
-		var max_distance: float = 0.1
-		var bridge_connected = false
-		
-		# Search until the bridge is connected at least once
-		while not bridge_connected:
-			for segment in range(segments):
-				if abs(segment - (bridge / float(CityLayout.get_number_of_segments(ring + 1))) * CityLayout.get_number_of_segments(ring)) <= max_distance:
-					pathfinder.connect_points(astar_nodes[Vector2(ring, segment)], astar_nodes[Vector2(ring + 1, bridge)])
-					bridge_connected = true
-				
-				max_distance += 0.1
 
 
 
 # Find the shortest path between to RingVectors with the Astar2D search
 func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> Array:
-	var start = astar_nodes[Vector2(start_vector.ring, start_vector.segment)]
-	var destination = astar_nodes[Vector2(target_vector.ring, target_vector.segment)]
+	var start = _astar_nodes[Vector2(start_vector.ring, start_vector.segment)]
+	var destination = _astar_nodes[Vector2(target_vector.ring, target_vector.segment)]
 	
 	var path_ids: Array = [ ]
 	var path_vectors: Array = [ ]
 	
 	if start >= 0 and destination >= 0:
-		path_ids = pathfinder.get_id_path(start, destination)
+		path_ids = _pathfinder.get_id_path(start, destination)
 		
 		for node in path_ids:
-			path_vectors.append(astar_nodes.keys()[astar_nodes.values()[node]])
+			path_vectors.append(_astar_nodes.keys()[_astar_nodes.values()[node]])
 	
 	return path_vectors
 
@@ -141,7 +75,7 @@ func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, sou
 				#	it will find the nearest bridge to ring_vector on the new ring and use its position as the new start position
 				if not ring == ring_vector.ring:
 					var current_vector = RingVector.new(CityLayout.get_radius_minimum(ring), ring_vector.rotation)
-					var nearest_bridge = get_nearest(ring_map.structures.dictionary, Constants.Structures.BRIDGE, current_vector)
+					var nearest_bridge = get_nearest(_ring_map.structures.dictionary, Constants.Structures.BRIDGE, current_vector)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
@@ -195,7 +129,7 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 						#	this can only happend if we are searching for something the requests a resource
 						if excluded_source_index < 0:
 							for source in sources_to_exclude:
-								if not (Constants.is_request(source) and ring_map.resources.has(object, source)):
+								if not (Constants.is_request(source) and _ring_map.resources.has(object, source)):
 									target = object
 						
 						# If the current object is in the sources_to_exclude list,
@@ -209,7 +143,7 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 						#		if there is not such HUT, then the STOCKPILE is not a valid target
 						if not target:
 							for i in range(excluded_source_index):
-								if ring_map.structures.dictionary.has(sources_to_exclude[i]):
+								if _ring_map.structures.dictionary.has(sources_to_exclude[i]):
 									target = object
 									break
 						else:
@@ -218,3 +152,71 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 		j += 1
 	
 	return target
+
+
+
+
+func _construct_pathfinder():
+	_construct_graph()
+	_connect_nodes()
+
+
+func _construct_graph():
+	var graph_size: int = 0
+	
+	for ring in range(CityLayout.NUMBER_OF_RINGS):
+		var segments = CityLayout.get_number_of_segments(ring)
+		
+		for segment in range(segments):
+			var radius = CityLayout.get_radius_minimum(ring)
+			var point_vector = Vector2(radius, 0)
+			point_vector.rotated((float(segment) / CityLayout.get_number_of_segments(ring)) * TAU)
+			
+			_pathfinder.add_point(graph_size, point_vector)
+			_astar_nodes[Vector2(ring, segment)] = graph_size
+			
+			graph_size += 1
+
+
+func _connect_nodes():
+	var bridges: Dictionary = _ring_map.structures.dictionary[Constants.Structures.BRIDGE]
+	
+	for ring in range(CityLayout.NUMBER_OF_RINGS):
+		var segments = CityLayout.get_number_of_segments(ring)
+		
+		# Connect the segments only once
+		if _first_time:
+			_connect_segments(ring)
+		
+		if not _previous_bridges == bridges.size():
+			_connect_bridges(bridges, ring, segments)
+	
+	_first_time = false
+	_previous_bridges = bridges.size()
+
+
+# Connect all the segments for each ring
+func _connect_segments(ring: int):
+	var segments_in_ring = CityLayout.get_number_of_segments(ring)
+	
+	for segment in range(segments_in_ring):
+		var building = (segment + 1) % segments_in_ring
+		
+		_pathfinder.connect_points(_astar_nodes[Vector2(ring, segment)], _astar_nodes[Vector2(ring, building)])
+
+
+# Find connections between rings where bridges have been built
+func _connect_bridges(bridges: Dictionary, ring: int, segments: int):
+	for bridge in bridges.get(ring + 1, { }).keys():
+		# Maximum offset allowed for a bridge to be connected to a node on another ring
+		var max_distance: float = 0.1
+		var bridge_connected = false
+		
+		# Search until the bridge is connected at least once
+		while not bridge_connected:
+			for segment in range(segments):
+				if abs(segment - (bridge / float(CityLayout.get_number_of_segments(ring + 1))) * CityLayout.get_number_of_segments(ring)) <= max_distance:
+					_pathfinder.connect_points(_astar_nodes[Vector2(ring, segment)], _astar_nodes[Vector2(ring + 1, bridge)])
+					bridge_connected = true
+				
+				max_distance += 0.1

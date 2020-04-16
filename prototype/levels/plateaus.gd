@@ -4,16 +4,16 @@ extends Spatial
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	build_everything()
+	_build_everything()
 
 
 
-func build_everything():
+func _build_everything():
 	for i in range(CityLayout.NUMBER_OF_RINGS):
-		build_plateau(i)
+		_build_plateau(i)
 
 
-func build_plateau(ring_number: int):
+func _build_plateau(ring_number: int):
 	var new_plateau = CSGPolygon.new()
 	
 	var inner_radius = CityLayout.get_radius_minimum(ring_number) - 3

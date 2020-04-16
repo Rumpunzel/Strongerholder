@@ -22,4 +22,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4 )
 mesh = SubResource( 2 )
 
 [node name="inventory" parent="." index="3"]
-requests = [ 1026 ]
+_requests = [ 1026 ]

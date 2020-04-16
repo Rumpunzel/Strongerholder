@@ -19,4 +19,4 @@ type = 259
 [node name="structure" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
 mesh = ExtResource( 2 )
-highlight_material = null
+_highlight_material = null

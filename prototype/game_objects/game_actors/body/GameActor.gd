@@ -8,9 +8,9 @@ signal activate
 signal died
 
 
-export(NodePath) var hit_box_node
-export(NodePath) var puppet_master_node
-export(NodePath) var animation_tree_node
+export(NodePath) var _hit_box_node
+export(NodePath) var _puppet_master_node
+export(NodePath) var _animation_tree_node
 
 export var move_speed: float = 4.0 setget , get_move_speed
 export var sprint_modifier: float = 2.0 setget , get_sprint_modifier
@@ -26,27 +26,27 @@ var sprinting: bool = false setget set_sprinting, get_sprinting
 
 # Multiplicative modifer to the movement speed
 #	is equal to 1.0 if the gameactor is walking normal
-var movement_modifier: float = 1.0
-var fall_speed: float = 0.0
-var jump_mod: float = 0.0
+var _movement_modifier: float = 1.0
+var _fall_speed: float = 0.0
+var _jump_mod: float = 0.0
 
-var grounded: bool = false
-var can_jump: bool = true
+var _grounded: bool = false
+var _can_jump: bool = true
 
 
-onready var default_gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
-onready var cliff_dection: CliffDetection = CliffDetection.new(self)
+onready var _default_gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+onready var _cliff_dection: CliffDetection = CliffDetection.new(self)
 
-onready var hit_box: ActorHitBox = get_node(hit_box_node)
-onready var puppet_master = get_node(puppet_master_node)
-onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
+onready var _hit_box: ActorHitBox = get_node(_hit_box_node)
+onready var _puppet_master = get_node(_puppet_master_node)
+onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ring_vector.connect("vector_changed", self, "updated_ring_vector")
+	ring_vector.connect("vector_changed", self, "_updated_ring_vector")
 
 func _setup(new_ring_vector: RingVector, actor_type: int):
 	set_ring_vector(new_ring_vector)
@@ -60,25 +60,25 @@ func _physics_process(delta):
 	
 	var dir: Vector3 = transform.basis.x * velocity.z + transform.basis.z * velocity.x
 	
-	can_jump = can_jump and velocity.y > 0
+	_can_jump = _can_jump and velocity.y > 0
 	
-	if can_jump:
-		jump_mod = min(1.0, jump_mod + velocity.y * delta * 10)
+	if _can_jump:
+		_jump_mod = min(1.0, _jump_mod + velocity.y * delta * 10)
 	else:
-		jump_mod -= delta * 2
+		_jump_mod -= delta * 2
 	
-	fall_speed += default_gravity * delta
+	_fall_speed += _default_gravity * delta
 	
-	dir += transform.basis.y * (jump_speed * jump_mod - fall_speed)
+	dir += transform.basis.y * (jump_speed * _jump_mod - _fall_speed)
 	
 	var new_velocity = move_and_slide(dir, Vector3.UP, true)
 	
-	grounded = is_on_floor()
+	_grounded = is_on_floor()
 	
-	if grounded:
-		fall_speed = 0.0
-		jump_mod = 0.0
-		can_jump = velocity.y <= 0
+	if _grounded:
+		_fall_speed = 0.0
+		_jump_mod = 0.0
+		_can_jump = velocity.y <= 0
 	
 	velocity = new_velocity
 	
@@ -94,30 +94,34 @@ func activate_actor():
 func move_to(direction: Vector3, is_sprinting: bool = false) -> RingVector:
 	set_sprinting(is_sprinting)
 	set_velocity(direction)
-	parse_state(direction)
+	_parse_state(direction)
 	
 	return get_ring_vector()
 
 
-func parse_state(direction: Vector3):
+func object_died():
+	emit_signal("died")
+
+
+
+
+
+func _parse_state(direction: Vector3):
 	var camera = get_viewport().get_camera()
 	var angle = -Vector2(global_transform.origin.x, global_transform.origin.z).angle_to(Vector2(camera.global_transform.origin.x, camera.global_transform.origin.z)) if camera else 0.0
-	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else animation_tree.blend_positions
+	var movement_vector: Vector2 = Vector2(direction.z, direction. x) if direction.length() > 0 else _animation_tree.blend_positions
 	movement_vector = movement_vector.rotated(angle)
 	
 	if direction.length() > 0:
-		animation_tree.blend_positions = movement_vector
-		animation_tree.travel("run", false)
-	elif animation_tree.get_current_state() == "run":
-		animation_tree.travel("idle", false)
+		_animation_tree.blend_positions = movement_vector
+		_animation_tree.travel("run", false)
+	elif _animation_tree.get_current_state() == "run":
+		_animation_tree.travel("idle", false)
 
 
-func updated_ring_vector():
+func _updated_ring_vector():
 	emit_signal("entered_segment", ring_vector)
 
-
-func object_died():
-	emit_signal("died")
 
 
 
@@ -132,20 +136,20 @@ func set_ring_vector(new_vector: RingVector):
 
 
 func set_velocity(new_velocity: Vector3):
-	velocity = cliff_dection.limit_movement(new_velocity)
+	velocity = _cliff_dection.limit_movement(new_velocity)
 	velocity.y = 0
-	velocity = velocity.normalized() * move_speed * movement_modifier
+	velocity = velocity.normalized() * move_speed * _movement_modifier
 	velocity.y = new_velocity.y
 
 
 func set_sprinting(new_status: bool):
 	sprinting = new_status
-	movement_modifier = sprint_modifier if sprinting else 1.0
+	_movement_modifier = sprint_modifier if sprinting else 1.0
 
 
 func set_actor_type(actor_type: int):
-	hit_box.type = actor_type
-	puppet_master.set_actor_type(actor_type)
+	_hit_box.type = actor_type
+	_puppet_master.set_actor_type(actor_type)
 	name = str(Constants.enum_name(Constants.Actors, actor_type))
 	type = actor_type
 
@@ -166,7 +170,7 @@ func get_ring_vector() -> RingVector:
 
 
 func get_actor_type() -> int:
-	return hit_box.type
+	return _hit_box.type
 
 func get_move_speed() -> float:
 	return move_speed

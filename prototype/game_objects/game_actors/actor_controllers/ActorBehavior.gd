@@ -24,30 +24,38 @@ const TARGET_TYPE: String = "target_type"
 const TARGET_RESOURCE: String = "target_resource"
 
 
+var priorities: Dictionary = { } setget set_priorities, get_priorities
 var object_of_interest = null setget set_object_of_interest, get_object_of_interest
 var currently_looking_for: Dictionary = { } setget set_currently_looking_for, get_currently_looking_for
 
 
-var inventory: Inventory
-var priorities: Dictionary = { }
+var _inventory: Inventory
 
 
 
 
 func _init(new_behavior: int, new_inventory: Inventory):
-	set_priorities(new_behavior)
-	inventory = new_inventory
+	set_priorities_from_actor(new_behavior)
+	_inventory = new_inventory
 
 
 
 
-func next_priority(actor_position: RingVector):
+func force_search(actor_position: RingVector, reset_target_type: bool = true):
+	if reset_target_type:
+		currently_looking_for = { }
+	
+	set_object_of_interest(_next_priority(actor_position))
+
+
+
+func _next_priority(actor_position: RingVector):
 	var next_target = null
 	var next_status: int = Constants.Resources.NOTHING
 	
-	if not inventory.empty():
+	if not _inventory.empty():
 		for status in priorities.keys():
-			if inventory.has(status):
+			if _inventory.has(status):
 				next_status = status
 	
 	
@@ -89,17 +97,13 @@ func next_priority(actor_position: RingVector):
 	return next_target
 
 
-func force_search(actor_position: RingVector, reset_target_type: bool = true):
-	if reset_target_type:
-		currently_looking_for = { }
-	
-	set_object_of_interest(next_priority(actor_position))
 
 
+func set_priorities_from_actor(new_actor: int):
+	set_priorities(ACTOR_PRIORITIES.get(new_actor, { }))
 
-
-func set_priorities(new_actor: int):
-	priorities = ACTOR_PRIORITIES.get(new_actor, { })
+func set_priorities(new_priorities: Dictionary):
+	priorities = new_priorities
 
 func set_object_of_interest(new_object):
 	if not new_object == object_of_interest:
@@ -111,6 +115,8 @@ func set_currently_looking_for(new_type: Dictionary):
 	currently_looking_for = new_type
 
 
+func get_priorities() -> Dictionary:
+	return priorities
 
 func get_object_of_interest():
 	return object_of_interest

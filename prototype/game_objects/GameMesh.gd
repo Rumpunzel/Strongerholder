@@ -2,46 +2,46 @@ class_name GameMesh
 extends CSGMesh
 
 
-export(NodePath) var hit_box_node
+export(NodePath) var _hit_box_node
 
-export(Material) var highlight_material: Material
-export(Material) var placement_material: Material
-
-
-var placed: bool = false
+export(Material) var _highlight_material: Material
+export(Material) var _placement_material: Material
 
 
-onready var hit_box: StructureHitBox = get_node(hit_box_node)
+var _placed: bool = false
+
+
+onready var _hit_box: StructureHitBox = get_node(_hit_box_node)
 
 
 
 
 func _ready():
 	owner.connect("activate", self, "initialize")
-	hit_box.connect("highlighted", self, "handle_highlighted")
+	_hit_box.connect("highlighted", self, "handle_highlighted")
 	
-	material_override = placement_material
+	material_override = _placement_material
 
 
 func _process(_delta):
-	if not placed and material_override:
-		material_override.set_shader_param("is_invalid", hit_box.is_blocked())
+	if not _placed and material_override:
+		material_override.set_shader_param("is_invalid", _hit_box.is_blocked())
 
 
 
 
 
 func initialize():
-	placed = true
+	_placed = true
 	
-	if material_override == placement_material:
+	if material_override == _placement_material:
 		material_override = null
 	
 	set_process(false)
 
 
 func handle_highlighted(highlighted: bool):
-	if highlighted and highlight_material:
-		material_override = highlight_material
+	if highlighted and _highlight_material:
+		material_override = _highlight_material
 	else:
 		material_override = null

@@ -2,10 +2,10 @@ class_name RadiantContainer
 extends CenterContainer
 
 
-export(float, 0, 360) var container_angle = 360
+export(float, 0, 360) var _container_angle = 360
 
-export var center_children: bool = true
-export var be_a_retard: bool = false
+export var _center_children: bool = true
+export var _be_a_retard: bool = false
 
 
 var circle_center: Control setget , get_circle_center
@@ -27,13 +27,13 @@ func update_children():
 	
 	for i in children.size():
 		var child = children[i]
-		var child_angle = (ceil(i / 2.0) * (1 if i % 2 == 0 else -1)) if be_a_retard else i
+		var child_angle = (ceil(i / 2.0) * (1 if i % 2 == 0 else -1)) if _be_a_retard else i
 		
-		child_angle = (child_angle / float(children.size())) * deg2rad(container_angle)
+		child_angle = (child_angle / float(children.size())) * deg2rad(_container_angle)
 		
 		child.rect_position = Vector2(0, -circle_radius).rotated(child_angle)
 		
-		if center_children:
+		if _center_children:
 			child.rect_position -= child.rect_size / 2.0
 			child.rect_pivot_offset = child.rect_size / 2.0
 

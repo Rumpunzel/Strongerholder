@@ -6,7 +6,7 @@ signal received_item(item)
 signal sent_item(item)
 
 
-export(Array, Constants.Resources) var starting_inventory: Array
+export(Array, Constants.Resources) var _starting_inventory: Array
 
 
 var contents: Array setget , get_contents
@@ -21,7 +21,7 @@ func _ready():
 
 
 func initialize():
-	for item in starting_inventory:
+	for item in _starting_inventory:
 		receive_item(item, null)
 
 
