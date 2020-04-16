@@ -3,7 +3,7 @@ extends Resource
 
 
 static func list_files_in_directory(directory_path:String, recursive:bool = false, file_suffix:String = "", as_dictionary = false):
-	var files = []
+	var files = [ ]
 	var directory = Directory.new()
 	
 	directory.open(directory_path)

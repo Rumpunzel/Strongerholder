@@ -2,7 +2,7 @@ class_name StructureInventory, "res://assets/icons/structures/icon_structure_inv
 extends Inventory
 
 
-export(Array, Constants.Resources) var requests
+export(Array, Constants.Resources) var requests: Array
 
 
 
@@ -13,7 +13,7 @@ func initialize():
 	.initialize()
 	
 	if requests.has(Constants.Resources.EVERYTHING):
-		requests = [ ]
+		requests.clear()
 		
 		for value in Constants.Resources.values():
 			if value > Constants.Resources.EVERYTHING:

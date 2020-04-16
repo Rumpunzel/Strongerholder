@@ -67,8 +67,8 @@ func _process(_delta: float):
 
 
 func update_current_path():
-	current_path = [ ]
-	current_segments = [ ]
+	current_path.clear()
+	current_segments.clear()
 	path_progress = 0
 	
 	if pathfinding_target:

@@ -84,14 +84,14 @@ func next_priority(actor_position: RingVector):
 			break
 	
 	if not next_target:
-		currently_looking_for = { }
+		currently_looking_for.clear()
 	
 	return next_target
 
 
 func force_search(actor_position: RingVector, reset_target_type: bool = true):
 	if reset_target_type:
-		currently_looking_for = { }
+		currently_looking_for.clear()
 	
 	set_object_of_interest(next_priority(actor_position))
 
