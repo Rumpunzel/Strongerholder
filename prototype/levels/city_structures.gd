@@ -8,6 +8,7 @@ export(PackedScene) var bridge
 func build_everything():
 	var new_build_point = base.instance()
 	add_child(new_build_point)
+	new_build_point._setup(RingVector.new(0, 0))
 	
 	for i in range(CityLayout.NUMBER_OF_RINGS):
 		construct_ring(i)

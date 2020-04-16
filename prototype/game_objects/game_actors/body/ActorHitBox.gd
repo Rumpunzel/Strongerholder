@@ -67,10 +67,6 @@ func open_menu(new_menu: RadiantUI):
 			placing_this_building = null
 	else:
 		animation_tree.travel("give")
-		
-		yield(animation_player, "given")
-		
-		print("blocked")
 
 
 func move_building(new_vector: RingVector):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/meshes/debug_meshes/block.tres" type="CubeMesh" id=1]
 [ext_resource path="res://game_objects/structures/CityStructure.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/GameMesh.gd" type="Script" id=6]
 [ext_resource path="res://game_objects/structures/buildings/collision_shape.gd" type="Script" id=7]
+[ext_resource path="res://assets/materials/BuildingPlacement.material" type="Material" id=8]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 5, 0.5, 3 )
@@ -40,6 +41,7 @@ mesh = ExtResource( 1 )
 script = ExtResource( 6 )
 hit_box_node = NodePath("../hit_box")
 highlight_material = ExtResource( 4 )
+placement_material = ExtResource( 8 )
 
 [node name="inventory" type="Node" parent="."]
 script = ExtResource( 5 )
