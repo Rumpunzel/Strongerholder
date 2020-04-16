@@ -28,7 +28,7 @@
 [ext_resource path="res://assets/sprites/hero/hero_sprite_sheet.png" type="Texture" id=26]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/PuppetMaster.gd" type="Script" id=27]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/Inventory.gd" type="Script" id=28]
-[ext_resource path="res://game_objects/game_actors/sprite.gd" type="Script" id=29]
+[ext_resource path="res://game_objects/game_actors/GameSprite.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=30]
 [ext_resource path="res://game_objects/game_actors/collision_shape.gd" type="Script" id=31]
 
@@ -57,7 +57,6 @@ collision_layer = 2048
 collision_mask = 7168
 script = ExtResource( 25 )
 inventory_node = NodePath("../utility_nodes/inventory")
-graphics_node = NodePath("../sprite")
 animation_player_node = NodePath("../animation_player")
 animation_tree_node = NodePath("../animation_tree")
 
@@ -76,12 +75,12 @@ vframes = 12
 hframes = 9
 frame = 50
 script = ExtResource( 29 )
+hit_box_node = NodePath("../hit_box")
 
 [node name="utility_nodes" type="Node" parent="."]
 
 [node name="puppet_master" type="Node" parent="utility_nodes"]
 script = ExtResource( 27 )
-game_actor_node = NodePath("../..")
 hit_box_node = NodePath("../../hit_box")
 inventory_node = NodePath("../inventory")
 animation_tree_node = NodePath("../../animation_tree")

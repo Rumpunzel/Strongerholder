@@ -3,12 +3,12 @@ extends Area
 
 
 signal added_object(game_object)
+signal highlighted
 signal activated
 signal died
 
 
 export(NodePath) var inventory_node
-export(NodePath) var graphics_node
 
 export var hit_points_max: float = 10.0 setget , get_hit_points_max
 export var indestructible: bool = false setget , get_indestructible
@@ -140,7 +140,7 @@ func set_alive(new_status: bool):
 
 func set_highlighted(is_highlighted: bool):
 	highlighted = is_highlighted
-	get_node(graphics_node).handle_highlighted(highlighted)
+	emit_signal("highlighted", highlighted)
 
 
 

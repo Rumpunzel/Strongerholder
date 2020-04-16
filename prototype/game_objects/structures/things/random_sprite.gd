@@ -1,4 +1,4 @@
-extends Sprite3D
+extends GameSprite
 
 
 export(Array, Texture) var sprites
@@ -11,8 +11,3 @@ func _ready():
 	offset.y = texture.get_height() / 2.0
 	flip_h = randi() % 5 == 0
 	modulate = Color(0.9 + randf() * 0.1, 0.9 + randf() * 0.1, 0.9 + randf() * 0.1)
-
-
-
-func handle_highlighted(_highlighted: bool):
-	pass

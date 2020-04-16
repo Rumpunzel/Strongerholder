@@ -33,7 +33,6 @@ collision_layer = 4096
 collision_mask = 7168
 script = ExtResource( 10 )
 inventory_node = NodePath("../inventory")
-graphics_node = NodePath("../structure")
 type = 263
 blocked_by = [  ]
 
@@ -49,6 +48,7 @@ shaded = true
 alpha_cut = 2
 texture = ExtResource( 3 )
 script = ExtResource( 8 )
+hit_box_node = NodePath("../hit_box")
 sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
 
 [node name="inventory" type="Node" parent="."]

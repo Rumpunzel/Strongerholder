@@ -2,7 +2,6 @@ class_name PuppetMaster, "res://assets/icons/icon_puppet_master.svg"
 extends Node
 
 
-export(NodePath) var game_actor_node
 export(NodePath) var hit_box_node
 export(NodePath) var inventory_node
 export(NodePath) var animation_tree_node
@@ -26,7 +25,7 @@ var path_progress: int = 0
 var update_pathfinding: bool = false
 
 
-onready var game_actor = get_node(game_actor_node)
+onready var game_actor = owner
 onready var hit_box = get_node(hit_box_node)
 onready var animation_tree = get_node(animation_tree_node)
 
