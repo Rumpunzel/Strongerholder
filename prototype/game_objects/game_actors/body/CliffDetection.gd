@@ -30,7 +30,7 @@ func create_raycasts(body: KinematicBody):
 
 
 func create_raycast(side: int, side_name: String, body: KinematicBody):
-	var new_ray = RayCast.new()
+	var new_ray: RayCast = RayCast.new()
 	body.add_child(new_ray)
 	new_ray.name = side_name
 	new_ray.enabled = true

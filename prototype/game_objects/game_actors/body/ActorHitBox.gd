@@ -35,7 +35,7 @@ func attack(other_hit_box: ObjectHitBox):
 	other_hit_box.damage(attack_value, self)
 
 
-func offer_item(item, receiver):
+func offer_item(item: int, receiver: ObjectHitBox):
 	animation_tree.travel("give")
 	
 	yield(animation_player, "given")
@@ -43,7 +43,7 @@ func offer_item(item, receiver):
 	.offer_item(item, receiver)
 
 
-func request_item(item, sender):
+func request_item(item: int, sender: ObjectHitBox):
 	animation_tree.travel("give")
 	
 	yield(animation_player, "given")
@@ -54,8 +54,10 @@ func request_item(item, sender):
 func open_menu(new_menu: RadiantUI):
 	if not placing_this_building:
 		animation_tree.travel("idle")
+		
 		animation_tree.can_act = false
 		new_menu.connect("closed", animation_tree, "set_can_act", [true])
+		
 		get_viewport().get_camera().add_ui_element(new_menu)
 	elif not placing_this_building.is_blocked():
 		animation_tree.travel("give")

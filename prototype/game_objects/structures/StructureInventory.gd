@@ -23,9 +23,9 @@ func initialize():
 		RingMap.register_resource(request + Constants.REQUEST, owner)
 
 
-func register_item(new_item):
+func register_item(new_item: int):
 	RingMap.register_resource(new_item, owner)
 
 
-func unregister_item(new_item):
+func unregister_item(new_item: int):
 	RingMap.unregister_resource(new_item, owner)

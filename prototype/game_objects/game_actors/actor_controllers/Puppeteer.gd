@@ -53,27 +53,27 @@ class MoveCommand extends Command:
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 		
-	func execute(actor) -> bool:
+	func execute(actor: GameActor) -> bool:
 		actor.move_to(movement_vector, sprinting)
 		return false
 
 
 
 class InteractCommand extends Command:
-	var hit_box
+	var hit_box: ObjectHitBox
 	var looking_for: Dictionary
 	
-	func _init(new_hit_box, new_looking_for: Dictionary):
+	func _init(new_hit_box: ObjectHitBox, new_looking_for: Dictionary):
 		hit_box = new_hit_box
 		looking_for = new_looking_for
 	
-	func execute(actor) -> bool:
+	func execute(actor: ActorHitBox) -> bool:
 		if hit_box:
 			return parse(actor)
 		else:
 			return false
 	
-	func parse(actor) -> bool:
+	func parse(actor: ActorHitBox) -> bool:
 		var type = hit_box.type
 		
 		if type == Constants.Structures.TREE:

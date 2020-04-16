@@ -4,7 +4,7 @@ extends Sprite3D
 
 export(NodePath) var hit_box_node
 
-export(Material) var highlight_material
+export(Material) var highlight_material: Material
 
 
 

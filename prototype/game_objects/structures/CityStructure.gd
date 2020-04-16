@@ -41,7 +41,7 @@ func set_ring_vector(new_vector: RingVector):
 	rotation.y = atan2(transform.origin.x, transform.origin.z)
 
 
-func set_type(new_type):
+func set_type(new_type: int):
 	$hit_box.type = new_type
 	type = new_type
 

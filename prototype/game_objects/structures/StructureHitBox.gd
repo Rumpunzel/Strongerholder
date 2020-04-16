@@ -15,14 +15,14 @@ func initialize():
 
 
 
-func die(sender):
+func die(sender: ObjectHitBox):
 	RingMap.unregister_structure(type, owner)
 	.die(sender)
 
 
 
 
-func set_type(new_type):
+func set_type(new_type: int):
 	type = new_type
 
 

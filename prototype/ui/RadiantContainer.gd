@@ -39,7 +39,7 @@ func update_children():
 
 
 
-func add_child(node:Node, _legible_unique_name: bool = false):
+func add_child(node: Node, _legible_unique_name: bool = false):
 	get_circle_center().add_child(node)
 
 
@@ -51,16 +51,16 @@ func get_child_count() -> int:
 	return get_circle_center().get_child_count()
 
 
-func remove_child(node:Node):
+func remove_child(node: Node):
 	get_circle_center().remove_child(node)
 
 
 
-func add_actual_child(node:Node):
+func add_actual_child(node: Node):
 	.add_child(node)
 
 
-func remove_actual_child(node:Node):
+func remove_actual_child(node: Node):
 	.remove_child(node)
 
 

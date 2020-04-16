@@ -25,7 +25,7 @@ func initialize():
 		receive_item(item, null)
 
 
-func receive_item(item, sender):
+func receive_item(item: int, sender):
 	if item:
 		contents.append(item)
 		emit_signal("received_item", item)
@@ -34,7 +34,7 @@ func receive_item(item, sender):
 			print("%s gave %s: %s" % [sender.owner.name, owner.name, Constants.enum_name(Constants.Resources, item)])
 
 
-func send_item(item_to_send, receiver):
+func send_item(item_to_send: int, receiver):
 	if contents.has(item_to_send):
 		contents.erase(item_to_send)
 		receiver.receive_item(item_to_send, self)
@@ -49,7 +49,7 @@ func send_all_items(receiver):
 func empty() -> bool:
 	return contents.empty()
 
-func has(object) -> bool:
+func has(object: int) -> bool:
 	return contents.has(object)
 
 

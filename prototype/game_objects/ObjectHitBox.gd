@@ -68,11 +68,11 @@ func die(sender: ObjectHitBox):
 	owner.set_process(false)
 
 
-func offer_item(item, receiver):
+func offer_item(item, receiver: ObjectHitBox):
 	inventory.send_item(item, receiver.inventory)
 
 
-func request_item(item, sender):
+func request_item(item, sender: ObjectHitBox):
 	sender.offer_item(item, self)
 
 
@@ -106,6 +106,7 @@ func parse_exiting_hit_box(new_hit_box: ObjectHitBox):
 	if overlapping_hit_boxes.has(new_hit_box):
 		overlapping_hit_boxes.erase(new_hit_box)
 		new_hit_box.disconnect("died", self, "parse_exiting_hit_box")
+		
 	elif inactive_overlapping_hit_boxes.has(new_hit_box):
 		inactive_overlapping_hit_boxes.erase(new_hit_box)
 		new_hit_box.disconnect("activated", self, "parse_acitvating_hit_box")

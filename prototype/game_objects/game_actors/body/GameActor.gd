@@ -38,7 +38,7 @@ onready var default_gravity: float = ProjectSettings.get_setting("physics/2d/def
 onready var cliff_dection: CliffDetection = CliffDetection.new(self)
 
 onready var hit_box: ActorHitBox = get_node(hit_box_node)
-onready var puppet_master: PuppetMaster = get_node(puppet_master_node)
+onready var puppet_master = get_node(puppet_master_node)
 onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
 
 

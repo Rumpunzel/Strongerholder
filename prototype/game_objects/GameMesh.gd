@@ -4,8 +4,8 @@ extends CSGMesh
 
 export(NodePath) var hit_box_node
 
-export(Material) var highlight_material
-export(Material) var placement_material
+export(Material) var highlight_material: Material
+export(Material) var placement_material: Material
 
 
 var placed: bool = false

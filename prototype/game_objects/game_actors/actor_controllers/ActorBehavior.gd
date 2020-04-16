@@ -5,7 +5,7 @@ extends Resource
 signal new_object_of_interest(object_of_interest)
 
 
-const ACTOR_PRIORITIES = {
+const ACTOR_PRIORITIES: Dictionary = {
 	Constants.Actors.PLAYER: { },
 	
 	Constants.Actors.WOODSMAN: {
@@ -20,21 +20,21 @@ const ACTOR_PRIORITIES = {
 	},
 }
 
-const TARGET_TYPE = "target_type"
-const TARGET_RESOURCE = "target_resource"
+const TARGET_TYPE: String = "target_type"
+const TARGET_RESOURCE: String = "target_resource"
 
 
 var object_of_interest = null setget set_object_of_interest, get_object_of_interest
 var currently_looking_for: Dictionary = { } setget set_currently_looking_for, get_currently_looking_for
 
 
-var inventory
+var inventory: Inventory
 var priorities: Dictionary = { }
 
 
 
 
-func _init(new_behavior: int, new_inventory):
+func _init(new_behavior: int, new_inventory: Inventory):
 	set_priorities(new_behavior)
 	inventory = new_inventory
 
@@ -43,7 +43,7 @@ func _init(new_behavior: int, new_inventory):
 
 func next_priority(actor_position: RingVector):
 	var next_target = null
-	var next_status = Constants.Resources.NOTHING
+	var next_status: int = Constants.Resources.NOTHING
 	
 	if not inventory.empty():
 		for status in priorities.keys():
@@ -55,9 +55,9 @@ func next_priority(actor_position: RingVector):
 	
 	for target_type in priority_list:
 		if not target_type == currently_looking_for.get(TARGET_TYPE):
-			var target_priorities = priorities.get(target_type, [ ])
+			var target_priorities: Array = priorities.get(target_type, [ ])
 			var dictionary: Dictionary = { }
-			var targets_exists = true
+			var targets_exists: bool = true
 			
 			if Constants.is_request(target_type):
 				dictionary = RingMap.resources.dictionary

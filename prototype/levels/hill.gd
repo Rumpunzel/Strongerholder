@@ -14,7 +14,7 @@ func _ready():
 	$city_structures.build_everything()
 	$flora.grow_flora()
 	
-	var new_camera = camera.instance()
+	var new_camera: PlayerCamera = camera.instance()
 	add_child(new_camera)
 	
 	for i in range(CityLayout.get_number_of_segments(0)):

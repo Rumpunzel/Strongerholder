@@ -25,9 +25,9 @@ var path_progress: int = 0
 var update_pathfinding: bool = false
 
 
-onready var game_actor = owner
-onready var hit_box = get_node(hit_box_node)
-onready var animation_tree = get_node(animation_tree_node)
+onready var game_actor: GameActor = owner
+onready var hit_box: ActorHitBox = get_node(hit_box_node)
+onready var animation_tree: AnimationStateMachine = get_node(animation_tree_node)
 
 
 

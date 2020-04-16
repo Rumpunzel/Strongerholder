@@ -13,7 +13,7 @@ func build_everything():
 		build_plateau(i)
 
 
-func build_plateau(ring_number):
+func build_plateau(ring_number: int):
 	var new_plateau = CSGPolygon.new()
 	
 	var inner_radius = CityLayout.get_radius_minimum(ring_number) - 3

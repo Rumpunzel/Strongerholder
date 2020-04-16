@@ -136,7 +136,7 @@ func close(time: float = 0.3, pressed_button = null):
 
 
 
-func set_center_button(new_button):
+func set_center_button(new_button: String):
 	if menu_layers.has(new_button):
 		if new_button == MENU_BUTTON:
 			menu_layers.remove(0)
