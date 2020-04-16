@@ -2,12 +2,18 @@ class_name CityNavigator, "res://assets/icons/icon_city_navigator.svg"
 extends Resource
 
 
+# Reference to the RingMap Singleton
+#	this is a reference as accessing the RingMap Singleton from here would create a cylcic dependancy
 var ring_map
 
 var pathfinder: AStar2D = AStar2D.new()
+# Dictionary pointing from Vector2s representing RingVector ring and segment to indexes in the Astar2D pathfinder
 var astar_nodes: Dictionary = { }
 
+# Variable to ensure that the segments on each ring are connected only once
+#	dynamic connections only occur with brides
 var first_time: bool = true
+# Same reason here; we only want to reconnect the graph if the amount of bridges has changed
 var previous_bridges: int = -1
 
 
@@ -51,6 +57,7 @@ func connect_nodes():
 	for ring in range(CityLayout.NUMBER_OF_RINGS):
 		var segments = CityLayout.get_number_of_segments(ring)
 		
+		# Connect the segments only once
 		if first_time:
 			connect_segments(ring)
 		
@@ -61,6 +68,7 @@ func connect_nodes():
 	previous_bridges = bridges.size()
 
 
+# Connect all the segments for each ring
 func connect_segments(ring: int):
 	var segments_in_ring = CityLayout.get_number_of_segments(ring)
 	
@@ -70,11 +78,14 @@ func connect_segments(ring: int):
 		pathfinder.connect_points(astar_nodes[Vector2(ring, segment)], astar_nodes[Vector2(ring, building)])
 
 
+# Find connections between rings where bridges have been built
 func connect_bridges(bridges: Dictionary, ring: int, segments: int):
 	for bridge in bridges.get(ring + 1, { }).keys():
-		var max_distance = 0.1
+		# Maximum offset allowed for a bridge to be connected to a node on another ring
+		var max_distance: float = 0.1
 		var bridge_connected = false
 		
+		# Search until the bridge is connected at least once
 		while not bridge_connected:
 			for segment in range(segments):
 				if abs(segment - (bridge / float(CityLayout.get_number_of_segments(ring + 1))) * CityLayout.get_number_of_segments(ring)) <= max_distance:
@@ -85,6 +96,7 @@ func connect_bridges(bridges: Dictionary, ring: int, segments: int):
 
 
 
+# Find the shortest path between to RingVectors with the Astar2D search
 func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> Array:
 	var start = astar_nodes[Vector2(start_vector.ring, start_vector.segment)]
 	var destination = astar_nodes[Vector2(target_vector.ring, target_vector.segment)]
@@ -102,7 +114,13 @@ func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> A
 
 
 
-func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, priority_list: Array = [ ]):
+# Searches for the nearest target which has the specified type
+#	searches in the provided dictionary (stored in the RingMap Singleton)
+#	ring_vector is the start position from where is to be searched
+#	in sources_to_exclude, an array of types can be specified where the resources shall be delivered afterwards (in descending order of importance)
+#		this is only necessary when searching for resources
+#		if this is not done, then a STOCKPILE with wood may be returned as a valid target in a search for wood only for the wood to be immediately redelivered to said STOCKPILE
+func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, sources_to_exclude: Array = [ ]):
 	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
@@ -111,12 +129,16 @@ func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, pri
 		var target = null
 		var i = 0
 		
+		# Goes through most of the rings in alternating order [ring_vector.ring + (0, -1, 1, -2, 2, ...)]
+		#	starts with the ring the ring_vector is on
 		while not target and i < CityLayout.NUMBER_OF_RINGS + 1:
 			var ring: int = ring_vector.ring + int(ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
 			
 			if ring >= 0 and ring < CityLayout.NUMBER_OF_RINGS:
 				var search_vector = ring_vector
 				
+				# If the algorithm is searching a different ring from the one ring_vector is on,
+				#	it will find the nearest bridge to ring_vector on the new ring and use its position as the new start position
 				if not ring == ring_vector.ring:
 					var current_vector = RingVector.new(CityLayout.get_radius_minimum(ring), ring_vector.rotation)
 					var nearest_bridge = get_nearest(ring_map.structures.dictionary, Constants.Structures.BRIDGE, current_vector)
@@ -124,48 +146,70 @@ func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, pri
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
 				
-				target = find_things_on_ring(search_through, ring, search_vector, priority_list)
+				# Search the current ring for a target which satisfies the conditions set
+				target = find_things_on_ring(search_through, ring, search_vector, sources_to_exclude)
 			
 			i += 1
 		
 		return target
 
 
-func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, priority_list: Array = [ ]):
-	var shortest_path: float = -1.0
-	var target = null
-	var j = 0
-	var segments = search_through.get(ring, { })
-	var segments_in_ring = CityLayout.get_number_of_segments(ring)
+# For information on the parameters, see 'get_nearest()'
+func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, sources_to_exclude: Array = [ ]):
+	var segments: Dictionary = search_through.get(ring, { })
+	var segments_in_ring: int = CityLayout.get_number_of_segments(ring)
 	
+	var target = null
+	
+	
+	var j: int = 0
+	
+	# Searches all the segments in the provided ring in alternating order [ring_vector.segment + (0, -1, 1, -2, 2, ...)]
 	while not target and j < segments_in_ring:
-		var segment = ring_vector.segment + int(ceil(j / 2.0) * (1 if j % 2 == 0 else -1))
+		var segment: int = ring_vector.segment + int(ceil(j / 2.0) * (1 if j % 2 == 0 else -1))
+		# Ensure segment is positive
 		segment = (segment + segments_in_ring) % segments_in_ring
 		
 		if segments.get(segment):
+			# Make a simple path estimation based on the rotation of ring_vector and the potential target segment
 			var path_length: float = abs(ring_vector.rotation - (float(segment) / float(segments_in_ring)) * TAU)
 			
 			while path_length > PI:
 				path_length -= PI
 			
-			if (shortest_path < 0.0 and path_length >= 0.0) or path_length < shortest_path:
-				shortest_path = path_length
+			# Check if the path is a viable candidate
+			if path_length >= 0.0:
 				var targets_array: Array = segments[segment]
 				
-				if priority_list.empty():
+				# Return a target that satisfies the conditions as there are no conditions
+				if sources_to_exclude.empty():
 					target = targets_array.front()
 				else:
+					# Check all potential targets in the current segment
 					for object in targets_array:
-						var priority = priority_list.find(object.type)
+						# Check if the current object is in the sources_to_exclude list
+						var excluded_source_index: int = sources_to_exclude.find(object.type)
 						
-						if priority < 0:
-							for prio in priority_list:
-								if not (Constants.is_request(prio) and ring_map.resources.has(object, prio)):
+						# If the current object is NOT explicitely in the sources_to_exclude list,
+						#	make sure that is not implicitely on there
+						#	this can only happend if we are searching for something the requests a resource
+						if excluded_source_index < 0:
+							for source in sources_to_exclude:
+								if not (Constants.is_request(source) and ring_map.resources.has(object, source)):
 									target = object
 						
+						# If the current object is in the sources_to_exclude list,
+						#	check if a concrete object exists which is higher on the priority list provided in sources_to_exclude
+						#	if that is the case, then the current object becomes a viable target
+						#	e.g. sources_to_exclude list is [WOODCUTTERS_HUT, WOOD_REQUEST] while we are looking for something to which to give WOOD
+						#		we have found a STOCKPILE with WOOD
+						#		we now check the sources_to_exclude list and as the STOCKPILE requests WOOD, it is on the list
+						#		now, we check if there exists a WOODCUTTERS_HUT
+						#		if it does, then the STOCKPILE becomes a valid target, as the GameActor would take the WOOD from the STOCKPILE and then deliver it to the WOODCUTTERS_HUT
+						#		if there is not such HUT, then the STOCKPILE is not a valid target
 						if not target:
-							for i in range(priority):
-								if ring_map.structures.dictionary.has(priority_list[i]):
+							for i in range(excluded_source_index):
+								if ring_map.structures.dictionary.has(sources_to_exclude[i]):
 									target = object
 									break
 						else:
