@@ -2,7 +2,7 @@ class_name StructureInventory, "res://assets/icons/structures/icon_structure_inv
 extends Inventory
 
 
-export(Array, Constants.Resources) var _requests: Array
+export(Array, Constants.Resources) var requests: Array = [ ] setget set_requests, get_requests
 
 
 
@@ -12,14 +12,14 @@ func initialize():
 	
 	.initialize()
 	
-	if _requests.has(Constants.Resources.EVERYTHING):
-		_requests.clear()
+	if requests.has(Constants.Resources.EVERYTHING):
+		requests.clear()
 		
 		for value in Constants.Resources.values():
 			if value > Constants.Resources.EVERYTHING:
-				_requests.append(value)
+				requests.append(value)
 	
-	for request in _requests:
+	for request in requests:
 		RingMap.register_resource(request + Constants.REQUEST, owner)
 
 
@@ -29,3 +29,13 @@ func register_item(new_item: int):
 
 func unregister_item(new_item: int):
 	RingMap.unregister_resource(new_item, owner)
+
+
+
+
+func set_requests(new_requests: Array):
+	requests = new_requests
+
+
+func get_requests() -> Array:
+	return requests

@@ -61,7 +61,7 @@ func damage(damage_points: float, sender: ObjectHitBox) -> bool:
 func die(sender: ObjectHitBox):
 	set_alive(false)
 	
-	_inventory.send_all_items(sender._inventory)
+	_inventory._send_all_items(sender._inventory)
 	
 	owner.get_node("collision_shape").disabled = true
 	owner.visible = false
@@ -69,7 +69,7 @@ func die(sender: ObjectHitBox):
 
 
 func offer_item(item, receiver: ObjectHitBox):
-	_inventory.send_item(item, receiver._inventory)
+	_inventory.request_item(item, receiver._inventory)
 
 
 func request_item(item, sender: ObjectHitBox):

@@ -34,16 +34,9 @@ func receive_item(item: int, sender):
 			print("%s gave %s: %s" % [sender.owner.name, owner.name, Constants.enum_name(Constants.Resources, item)])
 
 
-func send_item(item_to_send: int, receiver):
-	if contents.has(item_to_send):
-		contents.erase(item_to_send)
-		receiver.receive_item(item_to_send, self)
-		emit_signal("sent_item", item_to_send)
+func request_item(requested_item: int, receiver):
+	_send_item(requested_item, receiver)
 
-
-func send_all_items(receiver):
-	for item in contents:
-		send_item(item, receiver)
 
 
 func empty() -> bool:
@@ -51,6 +44,22 @@ func empty() -> bool:
 
 func has(object: int) -> bool:
 	return contents.has(object)
+
+
+
+
+func _send_item(item_to_send: int, receiver):
+	if contents.has(item_to_send):
+		contents.erase(item_to_send)
+		receiver.receive_item(item_to_send, self)
+		emit_signal("sent_item", item_to_send)
+
+
+func _send_all_items(receiver):
+	for item in contents:
+		_send_item(item, receiver)
+
+
 
 
 func get_contents() -> Array:
