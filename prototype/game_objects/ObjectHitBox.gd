@@ -32,6 +32,8 @@ onready var hit_points: float = hit_points_max
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	owner.connect("activate", self, "initialize")
+	
 	connect("area_entered", self, "entered")
 	connect("area_exited", self, "exited")
 

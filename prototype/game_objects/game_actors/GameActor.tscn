@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_right.tres" type="Animation" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_left.tres" type="Animation" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://game_objects/game_actors/actor_controllers/Inventory.gd" type="Script" id=28]
 [ext_resource path="res://game_objects/game_actors/sprite.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=30]
+[ext_resource path="res://game_objects/game_actors/collision_shape.gd" type="Script" id=31]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
@@ -49,6 +50,7 @@ animation_tree_node = NodePath("animation_tree")
 [node name="collision_shape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
 shape = SubResource( 1 )
+script = ExtResource( 31 )
 
 [node name="hit_box" type="Area" parent="."]
 collision_layer = 2048

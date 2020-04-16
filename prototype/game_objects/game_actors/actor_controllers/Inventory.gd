@@ -14,6 +14,17 @@ var contents: Array setget , get_contents
 
 
 
+func _ready():
+	owner.connect("activate", self, "initialize")
+
+
+
+
+func initialize():
+	for item in starting_inventory:
+		receive_item(item, null)
+
+
 func receive_item(item, sender):
 	if item:
 		contents.append(item)
@@ -33,11 +44,6 @@ func send_item(item_to_send, receiver):
 func send_all_items(receiver):
 	for item in contents:
 		send_item(item, receiver)
-
-
-func initialize():
-	for item in starting_inventory:
-		receive_item(item, null)
 
 
 func empty() -> bool:

@@ -4,6 +4,7 @@ extends KinematicBody
 
 signal moved(direction)
 signal entered_segment(ring_vector)
+signal activate
 signal died
 
 
@@ -87,10 +88,7 @@ func _physics_process(delta):
 
 
 func activate_actor():
-	$collision_shape.disabled = false
-	
-	$hit_box.initialize()
-	$utility_nodes/inventory.initialize()
+	emit_signal("activate")
 
 
 func move_to(direction: Vector3, is_sprinting: bool = false) -> RingVector:
@@ -168,7 +166,7 @@ func get_ring_vector() -> RingVector:
 
 
 func get_actor_type() -> int:
-	return $hit_box.type
+	return hit_box.type
 
 func get_move_speed() -> float:
 	return move_speed

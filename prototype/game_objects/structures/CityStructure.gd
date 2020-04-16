@@ -2,6 +2,7 @@ class_name CityStructure
 extends StaticBody
 
 
+signal activate
 signal died
 
 
@@ -20,10 +21,7 @@ func _setup(new_ring_vector: RingVector):
 
 
 func activate_structure():
-	$collision_shape.disabled = false
-	
-	$hit_box.initialize()
-	$inventory.initialize()
+	emit_signal("activate")
 
 
 func object_died():

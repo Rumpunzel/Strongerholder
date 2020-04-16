@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/meshes/debug_meshes/block.tres" type="CubeMesh" id=1]
 [ext_resource path="res://game_objects/structures/CityStructure.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/materials/highlightShader.material" type="Material" id=4]
 [ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/structures/buildings/structure.gd" type="Script" id=6]
+[ext_resource path="res://game_objects/game_actors/collision_shape.gd" type="Script" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 5, 0.5, 3 )
@@ -20,7 +21,7 @@ script = ExtResource( 2 )
 [node name="collision_shape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4 )
 shape = SubResource( 1 )
-disabled = true
+script = ExtResource( 7 )
 
 [node name="hit_box" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1 )
