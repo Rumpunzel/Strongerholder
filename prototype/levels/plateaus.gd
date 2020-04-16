@@ -21,7 +21,7 @@ func build_plateau(ring_number):
 	var inner_height = CityLayout.get_height_minimum(ring_number)
 	var outer_height = CityLayout.get_height_maximum(ring_number)
 	
-	add_child(new_plateau)
+	add_child(new_plateau, true)
 	
 	new_plateau.name = "plateau_%2d" % [ring_number]
 	

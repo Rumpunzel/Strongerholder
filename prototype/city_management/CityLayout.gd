@@ -1,15 +1,15 @@
-class_name CityLayout
+class_name CityLayout, "res://assets/icons/icon_village.svg"
 extends Resource
 
 
-const BASE_RADIUS: float = 16.0
+const BASE_RADIUS: float = 24.0
 const RING_GAP: float = 4.0
 const ROAD_WIDTH: float = 8.0
 const RING_WIDTH: float = 32.0
 const SEGMENT_WIDTH: float = 12.0
 const RING_SLOPE: float = -0.5
 
-const NUMBER_OF_RINGS: int = 10
+const NUMBER_OF_RINGS: int = 5
 const SUB_SEGMENTS: int = 5
 
 
