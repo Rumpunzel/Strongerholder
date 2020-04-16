@@ -9,7 +9,7 @@ const RING_WIDTH: float = 32.0
 const SEGMENT_WIDTH: float = 12.0
 const RING_SLOPE: float = -0.5
 
-const NUMBER_OF_RINGS: int = 3
+const NUMBER_OF_RINGS: int = 10
 const SUB_SEGMENTS: int = 5
 
 
