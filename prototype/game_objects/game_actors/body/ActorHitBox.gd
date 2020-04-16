@@ -1,4 +1,4 @@
-class_name ActorHitBox
+class_name ActorHitBox, "res://assets/icons/game_actors/actor_hit_box.svg"
 extends ObjectHitBox
 
 

@@ -1,4 +1,4 @@
-class_name StructureInventory
+class_name StructureInventory, "res://assets/icons/structures/icon_structure_inventory.svg"
 extends Inventory
 
 

@@ -1,4 +1,4 @@
-class_name CityNavigator
+class_name CityNavigator, "res://assets/icons/icon_city_navigator.svg"
 extends Resource
 
 

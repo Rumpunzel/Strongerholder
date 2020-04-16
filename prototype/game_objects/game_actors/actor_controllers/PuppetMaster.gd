@@ -1,4 +1,4 @@
-class_name PuppetMaster, "res://assets/icons/icon_puppet_master.svg"
+class_name PuppetMaster, "res://assets/icons/game_actors/icon_puppet_master.svg"
 extends Node
 
 

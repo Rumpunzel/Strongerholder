@@ -1,4 +1,4 @@
-class_name ObjectHitBox
+class_name ObjectHitBox, "res://assets/icons/icon_hit_box.svg"
 extends Area
 
 

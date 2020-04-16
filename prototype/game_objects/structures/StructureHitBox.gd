@@ -1,4 +1,4 @@
-class_name StructureHitBox
+class_name StructureHitBox, "res://assets/icons/structures/icon_structure_hit_box.svg"
 extends ObjectHitBox
 
 
