@@ -146,7 +146,7 @@ func set_sprinting(new_status: bool):
 func set_actor_type(actor_type: int):
 	hit_box.type = actor_type
 	puppet_master.set_actor_type(actor_type)
-	name = str(actor_type)
+	name = str(Constants.enum_name(Constants.Actors, actor_type))
 	type = actor_type
 
 
