@@ -51,6 +51,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0
 shape = SubResource( 1 )
 
 [node name="hit_box" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 collision_layer = 2048
 collision_mask = 7168
 script = ExtResource( 25 )
@@ -59,7 +60,6 @@ animation_player_node = NodePath("../animation_player")
 animation_tree_node = NodePath("../animation_tree")
 
 [node name="collision_shape" type="CollisionShape" parent="hit_box"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 2 )
 
 [node name="sprite" type="Sprite3D" parent="."]
