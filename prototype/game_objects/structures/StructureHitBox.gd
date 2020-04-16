@@ -14,16 +14,6 @@ func initialize():
 	RingMap.register_structure(type, owner)
 
 
-func build_into(new_type):
-	if new_type is String:
-		new_type = new_type.replace(" ", "_").to_upper()
-		new_type = Constants.Structures.values()[Constants.Structures.keys().find(new_type)]
-	
-	set_type(new_type)
-	
-	RingMap.update_structure(type, new_type, owner)
-
-
 
 func die(sender):
 	RingMap.unregister_structure(type, owner)
@@ -38,7 +28,7 @@ func set_type(new_type):
 
 
 func is_active() -> bool:
-	set_active(not is_blocked())
+	set_active(not is_blocked() and alive)
 	
 	return .is_active()
 

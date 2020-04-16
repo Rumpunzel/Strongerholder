@@ -33,7 +33,10 @@ func _process(_delta):
 
 func initialize():
 	placed = true
-	material_override = null
+	
+	if material_override == placement_material:
+		material_override = null
+	
 	set_process(false)
 
 

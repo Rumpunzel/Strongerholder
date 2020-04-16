@@ -78,6 +78,7 @@ func move_building(new_vector: RingVector):
 func parse_entering_hit_box(new_hit_box: ObjectHitBox) -> bool:
 	if .parse_entering_hit_box(new_hit_box):
 		highlight_object()
+		
 		return true
 	else:
 		return false

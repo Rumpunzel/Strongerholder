@@ -14,7 +14,7 @@ export var hit_points_max: float = 10.0 setget , get_hit_points_max
 export var indestructible: bool = false setget , get_indestructible
 
 
-var active: bool = true setget set_active, is_active
+var active: bool = false setget set_active, is_active
 var alive: bool = false setget set_alive, is_alive
 var highlighted: bool = false setget set_highlighted, get_highlighted
 
@@ -88,11 +88,12 @@ func exited(new_hit_box: ObjectHitBox):
 
 
 func parse_entering_hit_box(new_hit_box: ObjectHitBox) -> bool:
-	if new_hit_box.active and not overlapping_hit_boxes.has(new_hit_box):
-		add_hit_box_to_array(new_hit_box, overlapping_hit_boxes)
-		new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
-		
-		return true
+	if new_hit_box.active:
+		if not overlapping_hit_boxes.has(new_hit_box):
+			add_hit_box_to_array(new_hit_box, overlapping_hit_boxes)
+			new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
+			
+			return true
 	elif not inactive_overlapping_hit_boxes.has(new_hit_box):
 		add_hit_box_to_array(new_hit_box, inactive_overlapping_hit_boxes)
 		new_hit_box.connect("activated", self, "parse_acitvating_hit_box", [new_hit_box])
@@ -129,15 +130,17 @@ func add_hit_box_to_array(new_hit_box: ObjectHitBox, array: Array):
 
 
 func set_active(new_status: bool):
-	active = new_status
-	if active:
+	if not active and new_status:
 		emit_signal("activated")
+	
+	active = new_status
 
 func set_alive(new_status: bool):
+	if alive and not new_status:
+		emit_signal("died")
+	
 	alive = new_status
 	set_active(is_active())
-	if not alive:
-		emit_signal("died")
 
 func set_highlighted(is_highlighted: bool):
 	highlighted = is_highlighted
