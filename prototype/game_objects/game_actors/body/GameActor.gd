@@ -17,7 +17,7 @@ export var jump_speed: float = 20.0 setget , get_jump_speed
 
 
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
-var type: int setget set_type, get_type
+var type: int setget set_actor_type, get_actor_type
 
 var velocity: Vector3 = Vector3() setget set_velocity, get_velocity
 var sprinting: bool = false setget set_sprinting, get_sprinting
@@ -133,12 +133,6 @@ func set_ring_vector(new_vector: RingVector):
 	global_transform.origin = Vector3(0, CityLayout.get_height_minimum(ring_vector.ring), ring_vector.radius).rotated(Vector3.UP, ring_vector.rotation)
 
 
-func set_type(new_type):
-	$hit_box.type = new_type
-	type = new_type
-	name = str(type)
-
-
 func set_velocity(new_velocity: Vector3):
 	velocity = cliff_dection.limit_movement(new_velocity)
 	velocity.y = 0
@@ -154,6 +148,8 @@ func set_sprinting(new_status: bool):
 func set_actor_type(actor_type: int):
 	hit_box.type = actor_type
 	puppet_master.set_actor_type(actor_type)
+	name = str(actor_type)
+	type = actor_type
 
 
 
@@ -171,7 +167,7 @@ func get_ring_vector() -> RingVector:
 	return ring_vector
 
 
-func get_type() -> int:
+func get_actor_type() -> int:
 	return $hit_box.type
 
 func get_move_speed() -> float:
