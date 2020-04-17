@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_right.tres" type="Animation" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_left.tres" type="Animation" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://game_objects/Inventory.gd" type="Script" id=28]
 [ext_resource path="res://game_objects/GameSprite.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=30]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/Tool.gd" type="Script" id=31]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
@@ -56,6 +57,7 @@ collision_layer = 2048
 collision_mask = 7168
 script = ExtResource( 25 )
 _inventory_node = NodePath("../utility_nodes/inventory")
+_tool_node = NodePath("../utility_nodes/tool")
 _animation_player_node = NodePath("../animation_player")
 _animation_tree_node = NodePath("../animation_tree")
 
@@ -75,7 +77,8 @@ frame = 50
 script = ExtResource( 29 )
 _hit_box_node = NodePath("../hit_box")
 
-[node name="utility_nodes" type="Node" parent="."]
+[node name="utility_nodes" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
 
 [node name="puppet_master" type="Node" parent="utility_nodes"]
 script = ExtResource( 27 )
@@ -85,6 +88,19 @@ _animation_tree_node = NodePath("../../animation_tree")
 
 [node name="inventory" type="Node" parent="utility_nodes"]
 script = ExtResource( 28 )
+
+[node name="tool" type="AudioStreamPlayer3D" parent="utility_nodes"]
+max_db = 0.0
+script = ExtResource( 31 )
+_tool_sounds = "res://assets/sounds/axe"
+
+[node name="footstep_sounds" type="AudioStreamPlayer3D" parent="utility_nodes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0 )
+unit_db = -24.0
+max_db = 0.0
+script = ExtResource( 24 )
+_animation_player_node = NodePath("../../animation_player")
+_step_sounds = "res://assets/sounds/footsteps"
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 anims/attack_down = ExtResource( 20 )
@@ -119,10 +135,3 @@ parameters/idle/blend_position = Vector2( 0, 0 )
 parameters/idle_give/blend_position = Vector2( 0, 0 )
 parameters/run/blend_position = Vector2( 0, 0 )
 script = ExtResource( 5 )
-
-[node name="footstep_sounds" type="AudioStreamPlayer3D" parent="."]
-attenuation_model = 1
-unit_db = -6.0
-script = ExtResource( 24 )
-_animation_player_node = NodePath("../animation_player")
-_step_sounds = "res://assets/sounds/footsteps"

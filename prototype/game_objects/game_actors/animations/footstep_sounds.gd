@@ -1,4 +1,4 @@
-extends AudioStreamPlayer3D
+extends GameAudioPlayer
 
 
 export(NodePath) var _animation_player_node: String
@@ -18,9 +18,3 @@ func _ready():
 
 func play_step_sound():
 	play_audio_from_array(_sounds)
-
-
-func play_audio_from_array(audio_array: Array):
-	if not audio_array.empty():
-		stream = load(audio_array[randi() % audio_array.size()])
-		play()

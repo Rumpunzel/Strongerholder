@@ -4,8 +4,7 @@ extends ObjectHitBox
 
 export(Constants.Actors) var type: int
 
-export var attack_value: float = 2.0
-
+export(NodePath) var _tool_node
 export(NodePath) var _animation_player_node
 export(NodePath) var _animation_tree_node
 
@@ -14,6 +13,7 @@ var currently_highlighting: ObjectHitBox = null
 var placing_this_building = null setget set_placing_this_building
 
 
+onready var _tool = get_node(_tool_node)
 onready var _animation_player: AnimationPlayer = get_node(_animation_player_node)
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
@@ -32,7 +32,7 @@ func attack(other_hit_box: ObjectHitBox):
 	
 	yield(_animation_player, "attacked")
 	
-	other_hit_box.damage(attack_value, self)
+	_tool.attack(other_hit_box, self)
 
 
 func offer_item(item: int, receiver: ObjectHitBox):

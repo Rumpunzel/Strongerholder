@@ -6,7 +6,7 @@ export var _camera_distance: float = 15.0
 export var _camera_angle: float = -2.0
 
 export var _stick_to_ground: bool = true
-export var _listener_off_ground: float = 5.0
+export var _listener_off_ground: float = 1.0
 
 export var _camera_speed:float = 3.0
 

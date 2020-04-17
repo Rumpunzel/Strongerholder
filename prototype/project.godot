@@ -59,10 +59,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/body/GameActor.gd"
 }, {
+"base": "AudioStreamPlayer3D",
+"class": "GameAudioPlayer",
+"language": "GDScript",
+"path": "res://helpers/GameAudioPlayer.gd"
+}, {
 "base": "CSGMesh",
 "class": "GameMesh",
 "language": "GDScript",
 "path": "res://game_objects/GameMesh.gd"
+}, {
+"base": "Node",
+"class": "GameResource",
+"language": "GDScript",
+"path": "res://GameResource.gd"
 }, {
 "base": "Sprite3D",
 "class": "GameSprite",
@@ -143,6 +153,11 @@ _global_script_classes=[ {
 "class": "StructureInventory",
 "language": "GDScript",
 "path": "res://game_objects/structures/StructureInventory.gd"
+}, {
+"base": "GameAudioPlayer",
+"class": "Tool",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/Tool.gd"
 } ]
 _global_script_class_icons={
 "ActorBehavior": "",
@@ -155,7 +170,9 @@ _global_script_class_icons={
 "Constants": "",
 "FileHelper": "",
 "GameActor": "res://assets/icons/game_actors/icon_game_actor.svg",
+"GameAudioPlayer": "",
 "GameMesh": "",
+"GameResource": "res://assets/icons/icon_resource.svg",
 "GameSprite": "",
 "Hill": "res://assets/icons/icon_hill.svg",
 "InputMaster": "",
@@ -171,7 +188,8 @@ _global_script_class_icons={
 "RingDictionary": "",
 "RingVector": "",
 "StructureHitBox": "res://assets/icons/structures/icon_structure_hit_box.svg",
-"StructureInventory": "res://assets/icons/structures/icon_structure_inventory.svg"
+"StructureInventory": "res://assets/icons/structures/icon_structure_inventory.svg",
+"Tool": "res://assets/icons/game_actors/icon_tool.svg"
 }
 
 [application]
