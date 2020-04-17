@@ -6,7 +6,7 @@ export(NodePath) var _inventory_node
 
 export(Array, Constants.Resources) var _input_resources
 export(Array, Constants.Resources) var _output_resources
-export var _process_time: float = 1.0
+export var _process_time: float = 2.0
 
 
 onready var _inventory: Inventory = get_node(_inventory_node)
@@ -34,11 +34,12 @@ func initialize():
 
 
 func _check_item_viability(new_item: int):
-	if _input_resources.has(new_item):
-		_inventory.request_item(new_item, self)
+	if _process_timer.is_stopped():
+		if _input_resources.has(new_item):
+			_inventory.request_item(new_item, self)
 
 
-func _check_item_numbers(_new_item: int):
+func _check_item_numbers(_new_item = null):
 	for item in contents:
 		if not contents.count(item) == _input_resources.count(item):
 			return
@@ -57,3 +58,6 @@ func _send_prodcut():
 	for item in _output_resources:
 		contents.append(item)
 		_send_item(item, _inventory)
+	
+	for item in _input_resources:
+		_check_item_viability(item)

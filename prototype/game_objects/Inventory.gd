@@ -30,8 +30,8 @@ func receive_item(item: int, sender):
 		contents.append(item)
 		emit_signal("received_item", item)
 		
-		if sender:
-			print("%s gave %s: %s" % [sender.owner.name, owner.name, Constants.enum_name(Constants.Resources, item)])
+#		if sender:
+#			print("%s gave %s: %s" % [sender.owner.name, owner.name, Constants.enum_name(Constants.Resources, item)])
 
 
 func request_item(requested_item: int, receiver):
