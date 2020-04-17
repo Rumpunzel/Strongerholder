@@ -2,7 +2,7 @@ class_name StructureHitBox, "res://assets/icons/structures/icon_structure_hit_bo
 extends ObjectHitBox
 
 
-export(Constants.Structures) var type: int setget set_type, get_type
+export(Constants.Structures) var type: int
 export(Array, Constants.Structures) var _blocked_by = [ ]
 
 
@@ -21,12 +21,6 @@ func die(sender: ObjectHitBox):
 
 
 
-
-func set_type(new_type: int):
-	type = new_type
-
-
-
 func is_active() -> bool:
 	set_active(not is_blocked() and alive)
 	
@@ -39,7 +33,3 @@ func is_blocked() -> bool:
 			return true
 	
 	return false
-
-
-func get_type() -> int:
-	return type

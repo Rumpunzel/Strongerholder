@@ -24,9 +24,9 @@ const TARGET_TYPE: String = "target_type"
 const TARGET_RESOURCE: String = "target_resource"
 
 
-var priorities: Dictionary = { } setget set_priorities, get_priorities
-var object_of_interest = null setget set_object_of_interest, get_object_of_interest
-var currently_looking_for: Dictionary = { } setget set_currently_looking_for, get_currently_looking_for
+var priorities: Dictionary = { }
+var object_of_interest = null setget set_object_of_interest
+var currently_looking_for: Dictionary = { }
 
 
 var _inventory: Inventory
@@ -100,26 +100,10 @@ func _next_priority(actor_position: RingVector):
 
 
 func set_priorities_from_actor(new_actor: int):
-	set_priorities(ACTOR_PRIORITIES.get(new_actor, { }))
-
-func set_priorities(new_priorities: Dictionary):
-	priorities = new_priorities
+	priorities = ACTOR_PRIORITIES.get(new_actor, { })
 
 func set_object_of_interest(new_object):
 	if not new_object == object_of_interest:
 		object_of_interest = new_object
 		
 		emit_signal("new_object_of_interest", object_of_interest)
-
-func set_currently_looking_for(new_type: Dictionary):
-	currently_looking_for = new_type
-
-
-func get_priorities() -> Dictionary:
-	return priorities
-
-func get_object_of_interest():
-	return object_of_interest
-
-func get_currently_looking_for() -> Dictionary:
-	return currently_looking_for

@@ -12,16 +12,16 @@ export(NodePath) var _hit_box_node
 export(NodePath) var _puppet_master_node
 export(NodePath) var _animation_tree_node
 
-export var move_speed: float = 4.0 setget , get_move_speed
-export var sprint_modifier: float = 2.0 setget , get_sprint_modifier
-export var jump_speed: float = 20.0 setget , get_jump_speed
+export var move_speed: float = 4.0
+export var sprint_modifier: float = 2.0
+export var jump_speed: float = 20.0
 
 
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
-var type: int setget set_actor_type, get_actor_type
+var type: int setget set_actor_type
 
-var velocity: Vector3 = Vector3() setget set_velocity, get_velocity
-var sprinting: bool = false setget set_sprinting, get_sprinting
+var velocity: Vector3 = Vector3() setget set_velocity
+var sprinting: bool = false setget set_sprinting
 
 
 # Multiplicative modifer to the movement speed
@@ -167,22 +167,3 @@ func get_ring_vector() -> RingVector:
 		ring_vector.rotation = rot
 	
 	return ring_vector
-
-
-func get_actor_type() -> int:
-	return _hit_box.type
-
-func get_move_speed() -> float:
-	return move_speed
-
-func get_sprint_modifier() -> float:
-	return sprint_modifier
-
-func get_jump_speed() -> float:
-	return jump_speed
-
-func get_velocity() -> Vector3:
-	return velocity
-
-func get_sprinting() -> bool:
-	return sprinting

@@ -10,8 +10,8 @@ export(Constants.Actors) var _behaves_like
 #export(Array, Array, Constants.Resources) var behavior_overrides
 
 
-var pathfinding_target: RingVector setget set_pathfinding_target, get_pathfinding_target
-var object_of_interest = null setget set_object_of_interest, get_object_of_interest
+var pathfinding_target: RingVector
+var object_of_interest = null setget set_object_of_interest
 
 
 var _puppeteer: Puppeteer
@@ -97,11 +97,6 @@ func _queue_update():
 
 
 
-
-func set_pathfinding_target(new_target: RingVector):
-	pathfinding_target = new_target
-
-
 func set_object_of_interest(new_object, calculate_pathfinding: bool = true):
 	if object_of_interest and calculate_pathfinding:
 		object_of_interest.disconnect("died", _actor_behavior, "force_search")
@@ -125,13 +120,6 @@ func set_actor_type(actor_type: int):
 		_actor_behavior.force_search(_game_actor.ring_vector)
 
 
-
-
-func get_pathfinding_target() -> RingVector:
-	return pathfinding_target
-
-func get_object_of_interest():
-	return object_of_interest
 
 func get_currently_looking_for() -> Dictionary:
 	return _actor_behavior.currently_looking_for

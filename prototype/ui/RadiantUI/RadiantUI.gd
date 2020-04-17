@@ -18,7 +18,7 @@ var _menu_layers: Array = [ MENU_BUTTON ]
 var _actor
 
 
-var center_button = null setget set_center_button, get_center_button
+var center_button = null setget set_center_button
 
 
 
@@ -151,8 +151,3 @@ func set_center_button(new_button: String):
 		_menu_layers.push_front(new_button)
 	
 	center_button.grab_focus()
-
-
-
-func get_center_button():
-	return center_button

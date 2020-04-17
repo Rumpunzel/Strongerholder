@@ -10,7 +10,7 @@ export var _listener_off_ground: float = 5.0
 
 export var _camera_speed:float = 3.0
 
-var node_to_follow: Spatial = null setget set_node_to_follow, get_node_to_follow
+var node_to_follow: Spatial = null setget set_node_to_follow
 
 
 onready var _ray_cast: RayCast = RayCast.new()
@@ -72,7 +72,3 @@ func set_node_to_follow(new_node: Spatial):
 	
 	node_to_follow.add_child(_listener)
 	_listener.transform.origin = Vector3(0, _listener_off_ground, 0)
-
-
-func get_node_to_follow() -> Spatial:
-	return node_to_follow

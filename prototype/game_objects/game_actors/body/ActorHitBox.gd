@@ -2,16 +2,16 @@ class_name ActorHitBox, "res://assets/icons/game_actors/actor_hit_box.svg"
 extends ObjectHitBox
 
 
-export(Constants.Actors) var type: int setget , get_type
+export(Constants.Actors) var type: int
 
-export var attack_value: float = 2.0 setget set_attack_value, get_attack_value
+export var attack_value: float = 2.0
 
 export(NodePath) var _animation_player_node
 export(NodePath) var _animation_tree_node
 
 
-var currently_highlighting: ObjectHitBox = null setget , get_currently_highlighting
-var placing_this_building = null setget set_placing_this_building, get_placing_this_building
+var currently_highlighting: ObjectHitBox = null
+var placing_this_building = null setget set_placing_this_building
 
 
 onready var _animation_player: AnimationPlayer = get_node(_animation_player_node)
@@ -108,24 +108,7 @@ func _move_building(new_vector: RingVector):
 
 
 
-func set_attack_value(new_value: float):
-	attack_value = new_value
-
 func set_placing_this_building(new_object):
 	placing_this_building = new_object
 	get_tree().current_scene.get_node("city_structures").add_child(placing_this_building)
 	_move_building(owner.ring_vector)
-
-
-
-func get_type() -> int:
-	return type
-
-func get_attack_value() -> float:
-	return attack_value
-
-func get_currently_highlighting() -> ObjectHitBox:
-	return currently_highlighting
-
-func get_placing_this_building():
-	return placing_this_building

@@ -10,13 +10,13 @@ signal died
 
 export(NodePath) var _inventory_node
 
-export var hit_points_max: float = 10.0 setget , get_hit_points_max
-export var indestructible: bool = false setget , get_indestructible
+export var hit_points_max: float = 10.0
+export var indestructible: bool = false
 
 
 var active: bool = false setget set_active, is_active
-var alive: bool = false setget set_alive, is_alive
-var highlighted: bool = false setget set_highlighted, get_highlighted
+var alive: bool = false setget set_alive
+var highlighted: bool = false setget set_highlighted
 
 
 var _overlapping_hit_boxes: Array = [ ]
@@ -161,18 +161,3 @@ func has_object(object) -> ObjectHitBox:
 
 func is_active() -> bool:
 	return active and alive
-
-func is_alive() -> bool:
-	return alive
-
-func get_highlighted() -> bool:
-	return highlighted
-
-func get_hit_points_max() -> float:
-	return hit_points_max
-
-func get_indestructible() -> bool:
-	return indestructible
-
-func get_hit_points() -> float:
-	return hit_points

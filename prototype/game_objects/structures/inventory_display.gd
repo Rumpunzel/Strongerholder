@@ -19,7 +19,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_display(_new_item = null):
-	var display_string: String = "%s: " % [owner.name]
+	var display_string: String = "%s:" % [owner.name]
 	var types_displayed: Array = [ ]
 	
 	_inventory.contents.sort()

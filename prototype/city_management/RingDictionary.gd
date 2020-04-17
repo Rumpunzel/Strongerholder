@@ -2,7 +2,7 @@ class_name RingDictionary
 extends Resource
 
 
-var dictionary: Dictionary = { } setget , get_dictionary
+var dictionary: Dictionary = { } setget set_dictionary
 
 
 
@@ -53,5 +53,6 @@ func update_in_dictionary(old_type: int, new_type: int, ring_vector: RingVector,
 
 
 
-func get_dictionary() -> Dictionary:
-	return dictionary
+func set_dictionary(_new_dictionary: Dictionary):
+	print("You can set the dictionary for RingDictionary from outside!")
+	assert(false)

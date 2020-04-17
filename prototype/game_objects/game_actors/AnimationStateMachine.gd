@@ -2,7 +2,7 @@ class_name AnimationStateMachine
 extends AnimationTree
 
 
-var blend_positions: Vector2 setget set_blend_positions, get_blend_positions
+var blend_positions: Vector2 setget set_blend_positions
 var can_act: bool = true setget set_can_act, get_can_act
 
 
@@ -57,10 +57,6 @@ func set_blend_positions(new_direction: Vector2):
 func set_can_act(new_status: bool):
 	can_act = new_status
 
-
-
-func get_blend_positions() -> Vector2:
-	return blend_positions
 
 func get_current_state() -> String:
 	return _state_machine.get_current_node()

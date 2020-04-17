@@ -9,7 +9,7 @@ signal sent_item(item)
 export(Array, Constants.Resources) var _starting_inventory: Array
 
 
-var contents: Array setget , get_contents
+var contents: Array = [ ]
 
 
 
@@ -30,8 +30,9 @@ func receive_item(item: int, sender):
 		contents.append(item)
 		emit_signal("received_item", item)
 		
-#		if sender:
-#			print("%s gave %s: %s" % [sender.owner.name, owner.name, Constants.enum_name(Constants.Resources, item)])
+		if sender:
+			pass
+			#print("%s gave %s: %s" % [sender.owner.name, owner.name, Constants.enum_name(Constants.Resources, item)])
 
 
 func request_item(requested_item: int, receiver):
@@ -58,9 +59,3 @@ func _send_item(item_to_send: int, receiver):
 func _send_all_items(receiver):
 	for item in contents:
 		_send_item(item, receiver)
-
-
-
-
-func get_contents() -> Array:
-	return contents
