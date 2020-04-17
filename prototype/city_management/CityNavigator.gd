@@ -74,8 +74,7 @@ func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, sou
 				# If the algorithm is searching a different ring from the one ring_vector is on,
 				#	it will find the nearest bridge to ring_vector on the new ring and use its position as the new start position
 				if not ring == ring_vector.ring:
-					var current_vector = RingVector.new(CityLayout.get_radius_minimum(ring), ring_vector.rotation)
-					var nearest_bridge = get_nearest(_ring_map.structures.dictionary, Constants.Structures.BRIDGE, current_vector)
+					var nearest_bridge = get_nearest_bridge(ring_vector, ring)
 					
 					if nearest_bridge:
 						search_vector = nearest_bridge.ring_vector
@@ -86,6 +85,22 @@ func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, sou
 			i += 1
 		
 		return target
+
+
+func get_nearest_bridge(ring_vector: RingVector, ring: int):
+	var search_through: Dictionary = _ring_map.structures.dictionary.get(Constants.Structures.BRIDGE, { }).get(ring, { })
+	var shortest_path: int = -1
+	var nearest_bridge = null
+	
+	for segment in search_through.values():
+		var bridge = segment.front()
+		var path: int = get_shortest_path(ring_vector, bridge.ring_vector).size()
+		
+		if (shortest_path < 0 and path >= 0) or path < shortest_path:
+			nearest_bridge = bridge
+			shortest_path = path
+	
+	return nearest_bridge
 
 
 # For information on the parameters, see 'get_nearest()'
@@ -179,7 +194,7 @@ func _construct_graph():
 
 
 func _connect_nodes():
-	var bridges: Dictionary = _ring_map.structures.dictionary[Constants.Structures.BRIDGE]
+	var bridges: Dictionary = _ring_map.structures.dictionary.get(Constants.Structures.BRIDGE, { })
 	
 	for ring in range(CityLayout.NUMBER_OF_RINGS):
 		var segments = CityLayout.get_number_of_segments(ring)
