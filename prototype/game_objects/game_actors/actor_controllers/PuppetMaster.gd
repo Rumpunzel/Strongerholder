@@ -52,13 +52,14 @@ func _process(_delta: float):
 		_update_pathfinding = false
 	
 	if _animation_tree.can_act:
-		var commands: Array = _puppeteer.get_input(object_of_interest, _hit_box, _game_actor.ring_vector, _current_segments, _path_progress, _actor_behavior)
+		var commands: Array = _puppeteer.get_input(object_of_interest, _hit_box, _game_actor.ring_vector, _current_segments, _path_progress, _actor_behavior.currently_looking_for)
 		
 		for command in commands:
 			var subject = _game_actor
 			
 			if command is Puppeteer.InteractCommand or command is InputMaster.MenuCommand:
 				subject = _hit_box
+				_actor_behavior.force_search(_game_actor.ring_vector)
 			
 			if command.execute(subject):
 				break

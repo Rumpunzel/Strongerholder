@@ -3,14 +3,14 @@ extends Puppeteer
 
 
 
-func get_input(_object_of_interest, hit_box: ActorHitBox, _ring_vector: RingVector, _current_segments: Array, _path_progress: int, actor_behavior: ActorBehavior) -> Array:
+func get_input(_object_of_interest, hit_box: ActorHitBox, _ring_vector: RingVector, _current_segments: Array, _path_progress: int, currently_looking_for: Dictionary) -> Array:
 	var commands: Array = [ ]
 	
 	if Input.is_action_pressed("open_menu"):
 		commands.append(MenuCommand.new())
 	
 	if Input.is_action_pressed("interact"):
-		commands.append(InteractCommand.new(hit_box.currently_highlighting, actor_behavior.currently_looking_for))
+		commands.append(InteractCommand.new(hit_box.currently_highlighting, currently_looking_for))
 		#get_tree().set_input_as_handled()
 	
 	var movement_vector: Vector3 = Vector3(Input.get_action_strength("move_down") - Input.get_action_strength("move_up"), Input.get_action_strength("jump"), Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
