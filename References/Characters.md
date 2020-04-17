@@ -21,13 +21,13 @@
 
 ## The Innkeep
 
-Will run the inn built in the town. What more would you even need to know to confirm that this is the best character?
+*Will run the inn built in the town. What more would you even need to know to confirm that this is the best character?*
 
 
 
 ## The Knight
 
-An imposing figure with a booming voice and presence clad in armour from head to toe.
+*An imposing figure with a booming voice and presence clad in armour from head to toe.*
 
 ### Personal Story
 
@@ -44,7 +44,7 @@ Has to come to terms with the fact that the torch which burns brightest, burns f
 
 ## The Sorcerer
 
-A mysterious scholar of the arcane arts who constantly hides beneath a **big hat.**
+*A mysterious scholar of the arcane arts who constantly hides beneath a **big hat.***
 
 ### Personal Story
 
