@@ -3,7 +3,7 @@ extends ObjectHitBox
 
 
 export(Constants.Structures) var type: int setget set_type, get_type
-export(Array, Constants.Structures) var _blocked_by = [Constants.Structures.EVERYTHING]
+export(Array, Constants.Structures) var _blocked_by = [ ]
 
 
 
