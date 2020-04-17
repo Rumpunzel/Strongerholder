@@ -15,8 +15,8 @@ const ACTOR_PRIORITIES: Dictionary = {
 	
 	Constants.Actors.CARPENTER: {
 		Constants.Resources.NOTHING: [ Constants.Resources.WOOD_PLANKS, Constants.Resources.WOOD, ],
-		Constants.Resources.WOOD: [ Constants.Structures.WOODCUTTERS_HUT, ],
 		Constants.Resources.WOOD_PLANKS: [ Constants.REQUEST + Constants.Resources.WOOD_PLANKS, ],
+		Constants.Resources.WOOD: [ Constants.Structures.WOODCUTTERS_HUT, ],
 	},
 }
 

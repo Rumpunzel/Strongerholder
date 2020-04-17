@@ -23,12 +23,14 @@ var _current_segments: Array = [ ]
 var _path_progress: int = 0
 
 var _update_pathfinding: bool = false
+var _update_target: bool = false
 
 
 onready var _game_actor: GameActor = owner
 onready var _hit_box: ActorHitBox = get_node(_hit_box_node)
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
+onready var _update_tick: int = randi() % 16
 
 
 
@@ -42,14 +44,18 @@ func _ready():
 	
 	_actor_behavior.force_search(_game_actor.ring_vector)
 	
-	RingMap.connect("city_changed", _actor_behavior, "call_deferred", ["force_search", _game_actor.ring_vector])
+	RingMap.connect("city_changed", self, "queue_search")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
-	if _update_pathfinding:
-		call_deferred("_update_current_path")
+	if _update_pathfinding and OS.get_ticks_msec() % 16 == _update_tick:
+		_update_current_path()
 		_update_pathfinding = false
+	
+	if _update_target and OS.get_ticks_msec() % 16 == _update_tick:
+		_actor_behavior.force_search(_game_actor.ring_vector)
+		_update_target = false
 	
 	if _animation_tree.can_act:
 		var commands: Array = _puppeteer.get_input(object_of_interest, _hit_box, _game_actor.ring_vector, _current_segments, _path_progress, _actor_behavior.currently_looking_for)
@@ -94,6 +100,11 @@ func _update_path_progress(new_vector: RingVector):
 
 func _queue_update():
 	_update_pathfinding = true
+
+
+func queue_search():
+	_update_target = true
+
 
 
 
