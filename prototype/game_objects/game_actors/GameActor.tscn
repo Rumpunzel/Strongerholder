@@ -4,7 +4,7 @@
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_left.tres" type="Animation" id=2]
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_down.tres" type="Animation" id=3]
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=4]
-[ext_resource path="res://game_objects/game_actors/AnimationStateMachine.gd" type="Script" id=5]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/AnimationStateMachine.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_up.tres" type="Animation" id=6]
 [ext_resource path="res://game_objects/game_actors/animations/idle_give/idle_give_right.tres" type="Animation" id=7]
 [ext_resource path="res://game_objects/game_actors/animations/idle_give/idle_give_left.tres" type="Animation" id=8]
@@ -30,7 +30,7 @@
 [ext_resource path="res://game_objects/Inventory.gd" type="Script" id=28]
 [ext_resource path="res://game_objects/GameSprite.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=30]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/Tool.gd" type="Script" id=31]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/ToolBelt.gd" type="Script" id=32]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01
@@ -43,7 +43,6 @@ height = 0.01
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 23 )
-_hit_box_node = NodePath("hit_box")
 _puppet_master_node = NodePath("utility_nodes/puppet_master")
 _animation_tree_node = NodePath("animation_tree")
 
@@ -57,7 +56,8 @@ collision_layer = 2048
 collision_mask = 7168
 script = ExtResource( 25 )
 _inventory_node = NodePath("../utility_nodes/inventory")
-_tool_node = NodePath("../utility_nodes/tool")
+_puppet_master_node = NodePath("../utility_nodes/puppet_master")
+_tool_belt_node = NodePath("../utility_nodes/tool_belt")
 _animation_player_node = NodePath("../animation_player")
 _animation_tree_node = NodePath("../animation_tree")
 
@@ -83,16 +83,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
 [node name="puppet_master" type="Node" parent="utility_nodes"]
 script = ExtResource( 27 )
 _hit_box_node = NodePath("../../hit_box")
-_inventory_node = NodePath("../inventory")
+_tool_belt_node = NodePath("../tool_belt")
 _animation_tree_node = NodePath("../../animation_tree")
 
 [node name="inventory" type="Node" parent="utility_nodes"]
 script = ExtResource( 28 )
 
-[node name="tool" type="AudioStreamPlayer3D" parent="utility_nodes"]
+[node name="tool_belt" type="AudioStreamPlayer3D" parent="utility_nodes"]
 max_db = 0.0
-script = ExtResource( 31 )
-_tool_sounds = "res://assets/sounds/axe"
+script = ExtResource( 32 )
+_inventory_node = NodePath("../inventory")
+_animation_player_node = NodePath("../../animation_player")
+_animation_tree_node = NodePath("../../animation_tree")
 
 [node name="footstep_sounds" type="AudioStreamPlayer3D" parent="utility_nodes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0 )

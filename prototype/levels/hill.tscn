@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://camera/PlayerCamera.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/hill.gd" type="Script" id=2]
@@ -8,12 +8,16 @@
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://game_objects/structures/things/tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://game_objects/structures/buildings/bridge.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_objects/game_actors/characters/carpenter.tscn" type="PackedScene" id=9]
 [ext_resource path="res://game_objects/structures/buildings/base.tscn" type="PackedScene" id=10]
+[ext_resource path="res://game_objects/game_actors/characters/woodsman.tscn" type="PackedScene" id=11]
 
 [node name="hill" type="Position3D"]
 script = ExtResource( 2 )
 camera = ExtResource( 1 )
 game_actor = ExtResource( 6 )
+woodsman = ExtResource( 11 )
+carpenter = ExtResource( 9 )
 
 [node name="directional_light" type="DirectionalLight" parent="."]
 transform = Transform( -0.406559, 0.776308, 0.481722, -0.717735, -0.597628, 0.357347, 0.565302, -0.200466, 0.800154, 86.5364, 159.337, 197.169 )
