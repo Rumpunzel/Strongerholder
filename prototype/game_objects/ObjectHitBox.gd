@@ -68,6 +68,11 @@ func die(sender: ObjectHitBox):
 	owner.set_process(false)
 
 
+
+func inventory_has_item(item: int) -> bool:
+	return _inventory.has(item)
+
+
 func offer_item(item, receiver: ObjectHitBox):
 	_inventory.request_item(item, receiver._inventory)
 

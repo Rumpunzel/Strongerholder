@@ -12,7 +12,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="hit_box" parent="." index="1"]
-type = 258
+type = 257
 
 [node name="structure" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0 )

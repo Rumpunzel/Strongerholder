@@ -17,7 +17,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4 )
 shape = SubResource( 1 )
 
 [node name="hit_box" parent="." index="1"]
-type = 262
+type = 261
 
 [node name="structure" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4 )
@@ -26,8 +26,8 @@ mesh = SubResource( 2 )
 [node name="refinery" type="Node" parent="." index="4"]
 script = ExtResource( 2 )
 _inventory_node = NodePath("../inventory")
-_input_resources = [ 1026 ]
-_output_resources = [ 1027, 1027, 1027, 1027 ]
+_input_resources = [ 1025 ]
+_output_resources = [ 1026, 1026, 1026, 1026 ]
 
 [node name="inventory_display" parent="." index="5" instance=ExtResource( 3 )]
 _inventory_node = NodePath("../inventory")

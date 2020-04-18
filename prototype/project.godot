@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "AnimationTree",
 "class": "AnimationStateMachine",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/AnimationStateMachine.gd"
+"path": "res://game_objects/game_actors/actor_controllers/AnimationStateMachine.gd"
 }, {
 "base": "Resource",
 "class": "CityLayout",
@@ -48,6 +48,11 @@ _global_script_classes=[ {
 "class": "Constants",
 "language": "GDScript",
 "path": "res://Constants.gd"
+}, {
+"base": "Spyglass",
+"class": "CraftTool",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/CraftTool.gd"
 }, {
 "base": "Resource",
 "class": "FileHelper",
@@ -144,6 +149,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://city_management/RingVector.gd"
 }, {
+"base": "Node",
+"class": "Spyglass",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/Spyglass.gd"
+}, {
 "base": "ObjectHitBox",
 "class": "StructureHitBox",
 "language": "GDScript",
@@ -155,19 +165,20 @@ _global_script_classes=[ {
 "path": "res://game_objects/structures/StructureInventory.gd"
 }, {
 "base": "GameAudioPlayer",
-"class": "Tool",
+"class": "ToolBelt",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/Tool.gd"
+"path": "res://game_objects/game_actors/actor_controllers/ToolBelt.gd"
 } ]
 _global_script_class_icons={
 "ActorBehavior": "",
-"ActorHitBox": "res://assets/icons/game_actors/actor_hit_box.svg",
+"ActorHitBox": "res://assets/icons/game_actors/icon_actor_hit_box.svg",
 "AnimationStateMachine": "",
 "CityLayout": "res://assets/icons/icon_village.svg",
 "CityNavigator": "res://assets/icons/icon_city_navigator.svg",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
 "CliffDetection": "",
 "Constants": "",
+"CraftTool": "res://assets/icons/game_actors/icon_craft_tool.svg",
 "FileHelper": "",
 "GameActor": "res://assets/icons/game_actors/icon_game_actor.svg",
 "GameAudioPlayer": "",
@@ -187,9 +198,10 @@ _global_script_class_icons={
 "Refinery": "res://assets/icons/icon_refinery.svg",
 "RingDictionary": "",
 "RingVector": "",
+"Spyglass": "res://assets/icons/game_actors/icon_spyglass.svg",
 "StructureHitBox": "res://assets/icons/structures/icon_structure_hit_box.svg",
 "StructureInventory": "res://assets/icons/structures/icon_structure_inventory.svg",
-"Tool": "res://assets/icons/game_actors/icon_tool.svg"
+"ToolBelt": "res://assets/icons/game_actors/icon_tool_belt.svg"
 }
 
 [application]
