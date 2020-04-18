@@ -1,10 +1,9 @@
-class_name ActorHitBox, "res://assets/icons/game_actors/actor_hit_box.svg"
+class_name ActorHitBox, "res://assets/icons/game_actors/icon_actor_hit_box.svg"
 extends ObjectHitBox
 
 
-export(Constants.Actors) var type: int
-
-export(NodePath) var _tool_node
+export(NodePath) var _puppet_master_node
+export(NodePath) var _tool_belt_node
 export(NodePath) var _animation_player_node
 export(NodePath) var _animation_tree_node
 
@@ -13,7 +12,11 @@ var currently_highlighting: ObjectHitBox = null
 var placing_this_building = null setget set_placing_this_building
 
 
-onready var _tool = get_node(_tool_node)
+var type: int = Constants.Actors.NOTHING
+
+
+onready var _puppet_master = get_node(_puppet_master_node)
+onready var _tool_belt = get_node(_tool_belt_node)
 onready var _animation_player: AnimationPlayer = get_node(_animation_player_node)
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
@@ -27,28 +30,9 @@ func initialize():
 
 
 
-func attack(other_hit_box: ObjectHitBox):
-	_animation_tree.travel("attack")
-	
-	yield(_animation_player, "attacked")
-	
-	_tool.attack(other_hit_box, self)
+func interact_with(other_hit_box: ObjectHitBox):
+	_tool_belt.interact_with(other_hit_box, self)
 
-
-func offer_item(item: int, receiver: ObjectHitBox):
-	_animation_tree.travel("give")
-	
-	yield(_animation_player, "given")
-	
-	.offer_item(item, receiver)
-
-
-func request_item(item: int, sender: ObjectHitBox):
-	_animation_tree.travel("give")
-	
-	yield(_animation_player, "given")
-	
-	.request_item(item, sender)
 
 
 func open_menu(new_menu: RadiantUI):
@@ -62,7 +46,7 @@ func open_menu(new_menu: RadiantUI):
 	elif not placing_this_building.is_blocked():
 		_animation_tree.travel("give")
 		
-		yield(_animation_player, "given")
+		yield(_animation_player, "acted")
 		
 		if placing_this_building:
 			placing_this_building.activate_structure()
@@ -88,7 +72,7 @@ func parse_exiting_hit_box(new_hit_box: ObjectHitBox):
 
 
 func highlight_object():
-	if type == Constants.Actors.PLAYER:
+	if _puppet_master.is_player_controlled():
 		if currently_highlighting:
 			currently_highlighting.set_highlighted(false)
 		
@@ -104,7 +88,6 @@ func highlight_object():
 func _move_building(new_vector: RingVector):
 	if placing_this_building:
 		placing_this_building.ring_vector = RingVector.new(new_vector.ring, new_vector.segment, true)
-
 
 
 

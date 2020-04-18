@@ -8,7 +8,6 @@ signal activate
 signal died
 
 
-export(NodePath) var _hit_box_node
 export(NodePath) var _puppet_master_node
 export(NodePath) var _animation_tree_node
 
@@ -18,7 +17,6 @@ export var jump_speed: float = 20.0
 
 
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
-var type: int setget set_actor_type
 
 var velocity: Vector3 = Vector3() setget set_velocity
 var sprinting: bool = false setget set_sprinting
@@ -37,7 +35,6 @@ var _can_jump: bool = true
 onready var _default_gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 onready var _cliff_dection: CliffDetection = CliffDetection.new(self)
 
-onready var _hit_box: ActorHitBox = get_node(_hit_box_node)
 onready var _puppet_master = get_node(_puppet_master_node)
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
@@ -48,9 +45,9 @@ onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_no
 func _ready():
 	ring_vector.connect("vector_changed", self, "_updated_ring_vector")
 
-func _setup(new_ring_vector: RingVector, actor_type: int):
+func _setup(new_ring_vector: RingVector, player_controlled: bool = false):
 	set_ring_vector(new_ring_vector)
-	set_actor_type(actor_type)
+	_puppet_master.set_player_controlled(player_controlled)
 	activate_actor()
 
 
@@ -91,12 +88,10 @@ func activate_actor():
 	emit_signal("activate")
 
 
-func move_to(direction: Vector3, is_sprinting: bool = false) -> RingVector:
+func move_to(direction: Vector3, is_sprinting: bool = false):
 	set_sprinting(is_sprinting)
 	set_velocity(direction)
 	_parse_state(direction)
-	
-	return get_ring_vector()
 
 
 func object_died():
@@ -145,13 +140,6 @@ func set_velocity(new_velocity: Vector3):
 func set_sprinting(new_status: bool):
 	sprinting = new_status
 	_movement_modifier = sprint_modifier if sprinting else 1.0
-
-
-func set_actor_type(actor_type: int):
-	_hit_box.type = actor_type
-	_puppet_master.set_actor_type(actor_type)
-	name = str(Constants.enum_name(Constants.Actors, actor_type))
-	type = actor_type
 
 
 

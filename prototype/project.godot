@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
-"class": "ActorBehavior",
-"language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/ActorBehavior.gd"
-}, {
 "base": "ObjectHitBox",
 "class": "ActorHitBox",
 "language": "GDScript",
@@ -170,7 +165,6 @@ _global_script_classes=[ {
 "path": "res://game_objects/game_actors/actor_controllers/ToolBelt.gd"
 } ]
 _global_script_class_icons={
-"ActorBehavior": "",
 "ActorHitBox": "res://assets/icons/game_actors/icon_actor_hit_box.svg",
 "AnimationStateMachine": "",
 "CityLayout": "res://assets/icons/icon_village.svg",

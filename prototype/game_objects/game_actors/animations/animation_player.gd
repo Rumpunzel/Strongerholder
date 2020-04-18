@@ -1,16 +1,15 @@
 extends AnimationPlayer
 
 
-signal attacked
-signal given
+signal acted
 signal stepped
 
 
 func just_attacked():
-	emit_signal("attacked")
+	emit_signal("acted")
 
 func just_given():
-	emit_signal("given")
+	emit_signal("acted")
 
 func just_stepped():
 	emit_signal("stepped")

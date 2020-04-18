@@ -68,28 +68,7 @@ class InteractCommand extends Command:
 	
 	func execute(actor: ActorHitBox) -> bool:
 		if hit_box:
-			return parse(actor)
+			actor.interact_with(hit_box)
+			return true
 		else:
 			return false
-	
-	func parse(actor: ActorHitBox) -> bool:
-		var type = hit_box.type
-		
-		if type == Constants.Structures.TREE:
-			actor.attack(hit_box)
-			return true
-		elif Constants.is_structure(type):
-			var target_type = looking_for.get(ActorBehavior.TARGET_TYPE)
-			var target_resource = looking_for.get(ActorBehavior.TARGET_RESOURCE)
-			
-			if Constants.is_request(target_resource):
-				target_resource -= Constants.REQUEST
-			
-			if Constants.is_resource(target_type):
-				actor.request_item(target_type, hit_box)
-				return true
-			elif Constants.is_resource(target_resource):
-				actor.offer_item(target_resource, hit_box)
-				return true
-		
-		return false
