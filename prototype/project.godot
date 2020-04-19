@@ -72,7 +72,7 @@ _global_script_classes=[ {
 "base": "KinematicBody",
 "class": "GameResource",
 "language": "GDScript",
-"path": "res://GameResource.gd"
+"path": "res://game_objects/resources/GameResource.gd"
 }, {
 "base": "Sprite3D",
 "class": "GameSprite",

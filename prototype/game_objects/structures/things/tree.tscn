@@ -11,7 +11,8 @@
 [ext_resource path="res://game_objects/structures/CityStructure.gd" type="Script" id=9]
 [ext_resource path="res://game_objects/structures/StructureHitBox.gd" type="Script" id=10]
 [ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=11]
-[ext_resource path="res://wood.tscn" type="PackedScene" id=12]
+[ext_resource path="res://game_objects/resources/wood.tscn" type="PackedScene" id=12]
+
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.5
