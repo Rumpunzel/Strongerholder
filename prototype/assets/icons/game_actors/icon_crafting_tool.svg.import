@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_craft_tool.svg-010b035648204c3ebf72f23ef5d77434.stex"
+path="res://.import/icon_crafting_tool.svg-f751a39337277934d5dcaeb34da13f3b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/game_actors/icon_craft_tool.svg"
-dest_files=[ "res://.import/icon_craft_tool.svg-010b035648204c3ebf72f23ef5d77434.stex" ]
+source_file="res://assets/icons/game_actors/icon_crafting_tool.svg"
+dest_files=[ "res://.import/icon_crafting_tool.svg-f751a39337277934d5dcaeb34da13f3b.stex" ]
 
 [params]
 
