@@ -19,12 +19,12 @@ func _ready():
 	var new_camera: PlayerCamera = camera.instance()
 	add_child(new_camera)
 	
-	for i in range(2):#CityLayout.get_number_of_segments(0)):
+	for i in range(CityLayout.get_number_of_segments(0)):
 		var new_character: GameActor
 		
 		if i == 0:
 			new_character = game_actor.instance()
-		elif i % 4 == 1:
+		elif i % 2 == 1:
 			new_character = carpenter.instance()
 		else:
 			new_character = woodsman.instance()

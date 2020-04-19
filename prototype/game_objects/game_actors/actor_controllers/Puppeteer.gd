@@ -2,12 +2,12 @@ class_name Puppeteer
 extends Resource
 
 
-func get_input(object_of_interest, hit_box: ActorHitBox, ring_vector: RingVector, current_segments: Array, path_progress: int, currently_looking_for: Dictionary) -> Array:
+func get_input(object_of_interest, hit_box: ActorHitBox, ring_vector: RingVector, current_segments: Array, path_progress: int) -> Array:
 	var commands: Array = [ ]
 	var hit_box_in_range = hit_box.has_object(object_of_interest)
 	
 	if object_of_interest and hit_box_in_range:
-		commands.append(InteractCommand.new(hit_box_in_range, currently_looking_for))
+		commands.append(InteractCommand.new(hit_box_in_range))
 	
 	
 	var movement_vector: Vector3 = Vector3()
@@ -60,11 +60,9 @@ class MoveCommand extends Command:
 
 class InteractCommand extends Command:
 	var hit_box: ObjectHitBox
-	var looking_for: Dictionary
 	
-	func _init(new_hit_box: ObjectHitBox, new_looking_for: Dictionary):
+	func _init(new_hit_box: ObjectHitBox):
 		hit_box = new_hit_box
-		looking_for = new_looking_for
 	
 	func execute(actor: ActorHitBox) -> bool:
 		if hit_box:

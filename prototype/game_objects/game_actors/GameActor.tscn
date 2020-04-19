@@ -32,7 +32,7 @@
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=30]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/CraftTool.gd" type="Script" id=31]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/ToolBelt.gd" type="Script" id=32]
-[ext_resource path="res://game_objects/game_actors/SpyglassBelt.gd" type="Script" id=33]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/ResourceLocator.gd" type="Script" id=33]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 0.01

@@ -137,7 +137,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "ResourceLocator",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/SpyglassBelt.gd"
+"path": "res://game_objects/game_actors/actor_controllers/ResourceLocator.gd"
 }, {
 "base": "Resource",
 "class": "RingDictionary",

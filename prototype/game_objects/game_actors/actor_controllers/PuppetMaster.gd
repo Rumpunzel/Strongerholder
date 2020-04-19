@@ -45,14 +45,13 @@ func _process(_delta: float):
 	
 	
 	if _animation_tree.can_act:
-		var commands: Array = _puppeteer.get_input(object_of_interest, _hit_box, _game_actor.ring_vector, _current_segments, _path_progress, _tool_belt.currently_looking_for)
+		var commands: Array = _puppeteer.get_input(object_of_interest, _hit_box, _game_actor.ring_vector, _current_segments, _path_progress)
 		
 		for command in commands:
 			var subject = _game_actor
 			
 			if command is Puppeteer.InteractCommand or command is InputMaster.MenuCommand:
 				subject = _hit_box
-				_tool_belt.force_search()
 			
 			if command.execute(subject):
 				break

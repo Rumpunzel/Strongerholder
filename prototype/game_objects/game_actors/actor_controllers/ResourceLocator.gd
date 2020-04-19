@@ -44,38 +44,36 @@ func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox):
 	if other_hit_box:
 		var craft_tool: CraftTool = _tool_belt.has_tool_for_this(other_hit_box)
 		
+		var target_type = currently_looking_for.get(TARGET_TYPE)
+		var target_resource = currently_looking_for.get(TARGET_RESOURCE)
+		
 		if craft_tool:
 			_animation_tree.travel(craft_tool.animation)
 			
 			yield(_animation_player, "acted")
 			
 			craft_tool.interact_with(other_hit_box, own_hit_box, _tool_belt)
-			return
-		
-		
-		var target_type = currently_looking_for.get(TARGET_TYPE)
-		var target_resource = currently_looking_for.get(TARGET_RESOURCE)
-		
-		if target_type and Constants.is_resource(target_type):
-			_animation_tree.travel("give")
-#			print(target_resource)
-#			print(other_hit_box._inventory.contents)
-			yield(_animation_player, "acted")
 			
-			own_hit_box.request_item(target_type, other_hit_box)
-			return
-		
-		if target_resource:
+		elif target_resource:
 			if Constants.is_request(target_resource):
 				target_resource -= Constants.REQUEST
-			print(target_resource)
-			print(_inventory.contents)
-			print(other_hit_box.owner.name)
+			
+			set_object_of_interest(null)
 			_animation_tree.travel("give")
 			
 			yield(_animation_player, "acted")
 			
 			own_hit_box.offer_item(target_resource, other_hit_box)
+			force_search()
+			
+		elif target_type and Constants.is_resource(target_type):
+			set_object_of_interest(null)
+			_animation_tree.travel("give")
+			
+			yield(_animation_player, "acted")
+			
+			own_hit_box.request_item(target_type, other_hit_box)
+			force_search()
 
 
 
@@ -93,10 +91,10 @@ func _next_priority(actor_position: RingVector):
 	var next_target = null
 	var next_status: int = Constants.Resources.NOTHING
 	
-	if not _inventory.empty():
-		for status in _priorities.keys():
-			if _inventory.has(status):
-				next_status = status
+	for status in _priorities.keys():
+		if _inventory.has(status):
+			next_status = status
+			break
 	
 	var priority_list: Array = _priorities.get(next_status, [ ])
 	
@@ -125,6 +123,7 @@ func _next_priority(actor_position: RingVector):
 			
 			
 			if targets_exists:
+				# TODO: check if the actors also has an appropriate tool
 				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities)
 		else:
 			next_target = object_of_interest
@@ -160,6 +159,8 @@ func set_object_of_interest(new_object):
 			object_of_interest.disconnect("died", self, "force_search")
 		
 		object_of_interest = new_object
-		object_of_interest.connect("died", self, "force_search")
+		
+		if object_of_interest:
+			object_of_interest.connect("died", self, "force_search")
 		
 		emit_signal("new_object_of_interest", object_of_interest)

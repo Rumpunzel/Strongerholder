@@ -129,7 +129,7 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 			# Check if the path is a viable candidate
 			if path_length >= 0.0:
 				var targets_array: Array = segments[segment]
-				
+				#print(sources_to_exclude)
 				# Return a target that satisfies the conditions as there are no conditions
 				if sources_to_exclude.empty():
 					target = targets_array.front()
@@ -144,8 +144,10 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 						#	this can only happend if we are searching for something the requests a resource
 						if excluded_source_index < 0:
 							for source in sources_to_exclude:
-								if not (Constants.is_request(source) and _ring_map.resources.has(object, source)):
-									target = object
+								if Constants.is_request(source) and _ring_map.resources.has(object, source):
+									excluded_source_index = sources_to_exclude.find(source)
+									break
+						
 						
 						# If the current object is in the sources_to_exclude list,
 						#	check if a concrete object exists which is higher on the priority list provided in sources_to_exclude
@@ -156,12 +158,15 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 						#		now, we check if there exists a WOODCUTTERS_HUT
 						#		if it does, then the STOCKPILE becomes a valid target, as the GameActor would take the WOOD from the STOCKPILE and then deliver it to the WOODCUTTERS_HUT
 						#		if there is not such HUT, then the STOCKPILE is not a valid target
-						if not target:
+						if excluded_source_index >= 0:
 							for i in range(excluded_source_index):
 								if _ring_map.structures.dictionary.has(sources_to_exclude[i]):
 									target = object
 									break
 						else:
+							target = object
+						
+						if target:
 							break
 		
 		j += 1
