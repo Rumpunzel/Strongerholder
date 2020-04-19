@@ -25,17 +25,5 @@ func get_input(_object_of_interest, hit_box: ActorHitBox, _ring_vector: RingVect
 
 class MenuCommand extends Puppeteer.Command:
 	func execute(actor: ActorHitBox) -> bool:
-		actor.open_menu(RadiantUI.new(["Build", "Inspect", "Destroy"], actor))
+		actor.open_menu(RadiantUI.new(["Stockpile", "Woodcutters Hut"], actor))
 		return true
-
-
-class InteractCommand extends Puppeteer.InteractCommand:
-	func _init(new_hit_box: ObjectHitBox).(new_hit_box):
-		pass
-	
-	func parse(actor: ActorHitBox) -> bool:
-		if hit_box.type == Constants.Structures.FOUNDATION:
-			actor.open_menu(RadiantUI.new(["Build", "Inspect", "Destroy"], actor.owner))
-			return true
-		
-		return .parse(actor)
