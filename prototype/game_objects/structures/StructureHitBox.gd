@@ -29,7 +29,7 @@ func is_active() -> bool:
 
 func is_blocked() -> bool:
 	for hit_box in _overlapping_hit_boxes:
-		if _blocked_by.has(hit_box.type) or (Constants.is_structure(hit_box.type) and _blocked_by.has(Constants.Structures.EVERYTHING)):
+		if _blocked_by.has(hit_box.type) or ((Constants.is_structure(hit_box.type) or Constants.is_thing(hit_box.type)) and _blocked_by.has(Constants.Structures.EVERYTHING)):
 			return true
 	
 	return false

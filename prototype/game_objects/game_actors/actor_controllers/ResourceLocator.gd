@@ -55,8 +55,8 @@ func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox):
 			
 			craft_tool.interact_with(other_hit_box, own_hit_box, _tool_belt)
 			
-		elif target_resource:
-			if target_resource is String and target_resource.begins_with("Request_"):
+		elif target_resource is String and not target_resource == "Empty":
+			if target_resource.begins_with("Request_"):
 				target_resource = target_resource.trim_prefix()
 			
 			set_object_of_interest(null)
@@ -106,7 +106,7 @@ func _next_priority(actor_position: RingVector):
 			var dictionary: Dictionary = { }
 			var targets_exists: bool = true
 			
-			
+			# TODO: find out why the woodcutter's hut behaviour only works when building it first
 			if target_type is String and target_type.begins_with("Request_"):
 				dictionary = RingMap.resources.dictionary
 				

@@ -12,7 +12,7 @@ modulate = Color( 1, 0.501961, 0.501961, 1 )
 
 [node name="resources" type="Node" parent="utility_nodes/resource_locator" index="0"]
 script = ExtResource( 3 )
-search_for_resources = [ "Wood", "WoodPlanks" ]
+search_for_resources = [ "WoodPlanks", "Wood" ]
 
 [node name="woodcutters_hut" type="Node" parent="utility_nodes/resource_locator" index="1"]
 script = ExtResource( 3 )
