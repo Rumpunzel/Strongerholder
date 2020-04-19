@@ -24,7 +24,7 @@ var _update_target: bool = false
 
 onready var _game_actor: GameActor = owner
 onready var _hit_box: ActorHitBox = get_node(_hit_box_node)
-onready var _tool_belt: ToolBelt = get_node(_tool_belt_node)
+onready var _tool_belt = get_node(_tool_belt_node)
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
 

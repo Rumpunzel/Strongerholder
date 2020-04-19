@@ -1,8 +1,12 @@
-class_name CraftTool, "res://assets/icons/game_actors/icon_craft_tool.svg"
-extends Spyglass
+class_name CraftTool, "res://assets/icons/game_actors/icon_crafting_tool.svg"
+extends Node
 
+
+export(Array, Constants.Structures) var used_for: Array
 
 export var attack_value: float = 2.0
+export(String, "attack", "give") var animation
+
 
 export(String, DIR) var _tool_sounds: String
 
@@ -12,11 +16,10 @@ onready var _sounds: Array = FileHelper.list_files_in_directory(_tool_sounds, fa
 
 
 func check_for_interaction(other_hit_box: ObjectHitBox):
-	for item in get_searching_for():
-		if Constants.is_thing(other_hit_box.type) and other_hit_box.inventory_has_item(item):
-			return "attack"
+	if used_for.has(other_hit_box.type):
+		return true
 	
-	return .check_for_interaction(other_hit_box)
+	return false
 
 
 func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox, tool_belt: ToolBelt):

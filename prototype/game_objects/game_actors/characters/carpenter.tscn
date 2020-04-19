@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/CraftTool.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/Spyglass.gd" type="Script" id=3]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
@@ -11,12 +10,11 @@
 [node name="sprite" parent="." index="2"]
 modulate = Color( 1, 0.501961, 0.501961, 1 )
 
-[node name="woodsaw" type="Node" parent="utility_nodes/tool_belt" index="0"]
-script = ExtResource( 2 )
+[node name="resources" type="Node" parent="utility_nodes/resource_locator" index="0"]
+script = ExtResource( 3 )
 search_for_resources = [ 1026, 1025 ]
-_tool_sounds = "res://assets/sounds/axe"
 
-[node name="spyglass" type="Node" parent="utility_nodes/tool_belt" index="1"]
+[node name="woodcutters_hut" type="Node" parent="utility_nodes/resource_locator" index="1"]
 script = ExtResource( 3 )
 inventory_trigger = 1025
 search_for_structures = [ 261 ]

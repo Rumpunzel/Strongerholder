@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/CraftTool.gd" type="Script" id=2]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/Spyglass.gd" type="Script" id=2]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -10,10 +10,9 @@
 [node name="sprite" parent="." index="2"]
 modulate = Color( 0.501961, 1, 0.501961, 1 )
 
-[node name="axe" type="Node" parent="utility_nodes/tool_belt" index="0"]
+[node name="resources" type="Node" parent="utility_nodes/resource_locator" index="0"]
 script = ExtResource( 2 )
 search_for_resources = [ 1025 ]
-_tool_sounds = "res://assets/sounds/axe"
 
 [node name="animation_tree" parent="." index="5"]
 parameters/playback = SubResource( 1 )

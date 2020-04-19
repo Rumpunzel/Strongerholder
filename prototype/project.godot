@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Constants.gd"
 }, {
-"base": "Spyglass",
+"base": "Node",
 "class": "CraftTool",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/CraftTool.gd"
@@ -134,6 +134,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/Refinery.gd"
 }, {
+"base": "Node",
+"class": "ResourceLocator",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/SpyglassBelt.gd"
+}, {
 "base": "Resource",
 "class": "RingDictionary",
 "language": "GDScript",
@@ -167,12 +172,12 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ActorHitBox": "res://assets/icons/game_actors/icon_actor_hit_box.svg",
 "AnimationStateMachine": "",
-"CityLayout": "res://assets/icons/icon_village.svg",
-"CityNavigator": "res://assets/icons/icon_city_navigator.svg",
+"CityLayout": "",
+"CityNavigator": "",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
 "CliffDetection": "",
 "Constants": "",
-"CraftTool": "res://assets/icons/game_actors/icon_craft_tool.svg",
+"CraftTool": "res://assets/icons/game_actors/icon_crafting_tool.svg",
 "FileHelper": "",
 "GameActor": "res://assets/icons/game_actors/icon_game_actor.svg",
 "GameAudioPlayer": "",
@@ -190,6 +195,7 @@ _global_script_class_icons={
 "RadiantUI": "",
 "RadiantUIButton": "",
 "Refinery": "res://assets/icons/icon_refinery.svg",
+"ResourceLocator": "res://assets/icons/game_actors/icon_resource_locator.svg",
 "RingDictionary": "",
 "RingVector": "",
 "Spyglass": "res://assets/icons/game_actors/icon_spyglass.svg",
