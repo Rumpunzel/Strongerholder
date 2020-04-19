@@ -60,24 +60,24 @@ func unregister_structure(type: int, object, emit_signal: bool = true):
 		emit_signal("city_changed")
 
 
-func update_structure(old_type: int, new_type: int, object):
-	unregister_structure(new_type, object, false)
-	register_structure(old_type, object)
+func update_structure(old_resource: int, new_resource: int, object):
+	unregister_structure(new_resource, object, false)
+	register_structure(old_resource, object)
 
 
 
 
-func register_resource(type: int, object):
-	resources.register_in_dictionary(type, object.ring_vector, object)
+func register_resource(resource: String, object):
+	resources.register_in_dictionary(resource, object.ring_vector, object)
 	emit_signal("resources_changed")
 
 
-func unregister_resource(type: int, object, emit_signal: bool = true):
-	resources.unregister_in_dictionary(type, object.ring_vector, object)
+func unregister_resource(resource: String, object, emit_signal: bool = true):
+	resources.unregister_in_dictionary(resource, object.ring_vector, object)
 	if emit_signal:
 		emit_signal("resources_changed")
 
 
-func update_resource(old_type: int, new_type: int, object):
-	unregister_resource(old_type, object, false)
-	register_resource(new_type, object)
+func update_resource(old_resource: String, new_resource: String, object):
+	unregister_resource(old_resource, object, false)
+	register_resource(new_resource, object)

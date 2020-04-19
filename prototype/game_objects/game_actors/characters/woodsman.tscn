@@ -12,7 +12,7 @@ modulate = Color( 0.501961, 1, 0.501961, 1 )
 
 [node name="resources" type="Node" parent="utility_nodes/resource_locator" index="0"]
 script = ExtResource( 2 )
-search_for_resources = [ 1025 ]
+search_for_resources = [ "Wood" ]
 
 [node name="animation_tree" parent="." index="5"]
 parameters/playback = SubResource( 1 )

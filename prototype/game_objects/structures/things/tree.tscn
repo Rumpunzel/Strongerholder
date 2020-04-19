@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/sprites/trees/tree2.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://game_objects/structures/CityStructure.gd" type="Script" id=9]
 [ext_resource path="res://game_objects/structures/StructureHitBox.gd" type="Script" id=10]
 [ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=11]
+[ext_resource path="res://wood.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.5
@@ -50,4 +51,4 @@ _sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 
 
 [node name="inventory" type="Node" parent="."]
 script = ExtResource( 11 )
-_starting_inventory = [ 1025 ]
+_starting_inventory = [ ExtResource( 12 ) ]

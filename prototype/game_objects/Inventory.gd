@@ -6,7 +6,7 @@ signal received_item(item)
 signal sent_item(item)
 
 
-export(Array, Constants.Resources) var _starting_inventory: Array
+export(Array, PackedScene) var _starting_inventory: Array
 
 
 var contents: Array = [ ]
@@ -22,34 +22,49 @@ func _ready():
 
 func initialize():
 	for item in _starting_inventory:
-		receive_item(item, null)
+		receive_item(item.instance(), null)
 
 
-func receive_item(item: int, sender):
+func receive_item(item: GameResource, sender):
 	if item:
 		contents.append(item)
 		emit_signal("received_item", item)
 		
 		if sender:
 			pass
-			#print("%s gave %s: %s" % [sender.owner.name, owner.name, Constants.enum_name(Constants.Resources, item)])
+			#print("%s gave %s: %s" % [sender.owner.name, owner.name, item.type])
 
 
-func request_item(requested_item: int, receiver):
-	_send_item(requested_item, receiver)
+func request_item(requested_item, receiver):
+	if requested_item is GameResource:
+		_send_item(requested_item, receiver)
+	else:
+		var item: GameResource = null
+		
+		for resource in contents:
+			if resource.type == requested_item:
+				item = resource
+				break
+		
+		if item:
+			_send_item(item, receiver)
 
 
 
 func empty() -> bool:
 	return contents.empty()
 
-func has(object: int) -> bool:
-	return contents.has(object)
+func has(object_type: String) -> bool:
+	for item in contents:
+		if item.type == object_type:
+			return true
+	
+	return false
 
 
 
 
-func _send_item(item_to_send: int, receiver):
+func _send_item(item_to_send: GameResource, receiver):
 	if contents.has(item_to_send):
 		contents.erase(item_to_send)
 		receiver.receive_item(item_to_send, self)

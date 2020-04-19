@@ -6,7 +6,6 @@ enum {
 	NOTHING = 0,
 	EVERYTHING,
 	EMPTY,
-	REQUEST = 2048,
 }
 
 enum Actors {
@@ -29,14 +28,6 @@ enum Structures {
 	TREE = 512,
 }
 
-enum Resources {
-	NOTHING = 0,
-	EVERYTHING = 1024,
-	WOOD,
-	WOOD_PLANKS,
-	STONE,
-}
-
 
 
 static func is_actor(index) -> bool:
@@ -47,12 +38,6 @@ static func is_structure(index) -> bool:
 
 static func is_thing(index) -> bool:
 	return index >= Structures.TREE and Structures.values().has(index)
-
-static func is_resource(index) -> bool:
-	return index > Resources.EVERYTHING and Resources.values().has(index)
-
-static func is_request(index) -> bool:
-	return index is int and index >= REQUEST
 
 
 static func enum_name(enumerator, index: int) -> String:

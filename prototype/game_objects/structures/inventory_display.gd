@@ -20,13 +20,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update_display(_new_item = null):
 	var display_string: String = "%s:" % [owner.name]
-	var types_displayed: Array = [ ]
+	var content: Dictionary = { }
 	
 	_inventory.contents.sort()
 	
 	for item in _inventory.contents:
-		if not types_displayed.has(item):
-			display_string += "  %s: %s" % [Constants.enum_name(Constants.Resources, item), _inventory.contents.count(item)]
-			types_displayed.append(item)
+		content[item.type] = content.get(item.type, 0) + 1
+	
+	for item in content.keys():
+		display_string += "  %s: %s" % [item, content[item]]
 	
 	$label.text = display_string

@@ -6,13 +6,13 @@ var dictionary: Dictionary = { } setget set_dictionary
 
 
 
-func has(object, type: int = -1) -> bool:
-	var search_through: Dictionary = dictionary.get(type, { }) if type > 0 else dictionary
+func has(object, type = null) -> bool:
+	var search_through: Dictionary = dictionary.get(type, { }) if type else dictionary
 	return search_through.get(object.ring_vector.ring, { }).get(object.ring_vector.segment, [ ]).has(object)
 
 
 
-func register_in_dictionary(type: int, ring_vector: RingVector, object):
+func register_in_dictionary(type, ring_vector: RingVector, object):
 	dictionary[type] = dictionary.get(type, { })
 	
 	dictionary[type][ring_vector.ring] = dictionary[type].get(ring_vector.ring, { })
@@ -22,7 +22,7 @@ func register_in_dictionary(type: int, ring_vector: RingVector, object):
 	dictionary[type][ring_vector.ring][ring_vector.segment].append(object)
 
 
-func unregister_in_dictionary(type: int, ring_vector: RingVector, object):
+func unregister_in_dictionary(type, ring_vector: RingVector, object):
 	var type_dic: Dictionary = dictionary.get(type, { })
 	var ring_dic: Dictionary = { }
 	var segment_array: Array = [ ]
@@ -47,7 +47,7 @@ func unregister_in_dictionary(type: int, ring_vector: RingVector, object):
 		dictionary.erase(type)
 
 
-func update_in_dictionary(old_type: int, new_type: int, ring_vector: RingVector, object):
+func update_in_dictionary(old_type, new_type, ring_vector: RingVector, object):
 	unregister_in_dictionary(old_type, ring_vector, object)
 	register_in_dictionary(new_type, ring_vector, object)
 

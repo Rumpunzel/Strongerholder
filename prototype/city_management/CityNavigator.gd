@@ -54,7 +54,7 @@ func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> A
 #	in sources_to_exclude, an array of types can be specified where the resources shall be delivered afterwards (in descending order of importance)
 #		this is only necessary when searching for resources
 #		if this is not done, then a STOCKPILE with wood may be returned as a valid target in a search for wood only for the wood to be immediately redelivered to said STOCKPILE
-func get_nearest(dictionary: Dictionary, type: int, ring_vector: RingVector, sources_to_exclude: Array = [ ]):
+func get_nearest(dictionary: Dictionary, type, ring_vector: RingVector, sources_to_exclude: Array = [ ]):
 	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
@@ -144,7 +144,7 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 						#	this can only happend if we are searching for something the requests a resource
 						if excluded_source_index < 0:
 							for source in sources_to_exclude:
-								if Constants.is_request(source) and _ring_map.resources.has(object, source):
+								if source is String and source.begins_with("Request_") and _ring_map.resources.has(object, source):
 									excluded_source_index = sources_to_exclude.find(source)
 									break
 						

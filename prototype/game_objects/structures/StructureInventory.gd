@@ -2,7 +2,8 @@ class_name StructureInventory, "res://assets/icons/structures/icon_structure_inv
 extends Inventory
 
 
-export(Array, Constants.Resources) var requests: Array = [ ]
+export(Array, String) var requests: Array = [ ]
+export var request_everything: bool = false
 
 
 
@@ -12,20 +13,19 @@ func initialize():
 	
 	.initialize()
 	
-	if requests.has(Constants.Resources.EVERYTHING):
+	if request_everything:
 		requests.clear()
 		
-		for value in Constants.Resources.values():
-			if value > Constants.Resources.EVERYTHING:
-				requests.append(value)
+		for value in  GameResource.RESOURCES:
+			requests.append(value)
 	
 	for request in requests:
-		RingMap.register_resource(request + Constants.REQUEST, owner)
+		RingMap.register_resource("%s%s" % [GameResource.REQUEST, request], owner)
 
 
-func register_item(new_item: int):
-	RingMap.register_resource(new_item, owner)
+func register_item(new_item: GameResource):
+	RingMap.register_resource(new_item.type, owner)
 
 
-func unregister_item(new_item: int):
-	RingMap.unregister_resource(new_item, owner)
+func unregister_item(new_item: GameResource):
+	RingMap.unregister_resource(new_item.type, owner)

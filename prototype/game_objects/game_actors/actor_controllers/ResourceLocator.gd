@@ -47,6 +47,7 @@ func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox):
 		var target_type = currently_looking_for.get(TARGET_TYPE)
 		var target_resource = currently_looking_for.get(TARGET_RESOURCE)
 		
+		
 		if craft_tool:
 			_animation_tree.travel(craft_tool.animation)
 			
@@ -55,8 +56,8 @@ func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox):
 			craft_tool.interact_with(other_hit_box, own_hit_box, _tool_belt)
 			
 		elif target_resource:
-			if Constants.is_request(target_resource):
-				target_resource -= Constants.REQUEST
+			if target_resource is String and target_resource.begins_with("Request_"):
+				target_resource = target_resource.trim_prefix()
 			
 			set_object_of_interest(null)
 			_animation_tree.travel("give")
@@ -66,7 +67,7 @@ func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox):
 			own_hit_box.offer_item(target_resource, other_hit_box)
 			force_search()
 			
-		elif target_type and Constants.is_resource(target_type):
+		elif target_type and GameResource.RESOURCES.has(target_type):
 			set_object_of_interest(null)
 			_animation_tree.travel("give")
 			
@@ -89,7 +90,7 @@ func force_search(reset_target_type: bool = true, super_soft_reset: bool = false
 
 func _next_priority(actor_position: RingVector):
 	var next_target = null
-	var next_status: int = Constants.Resources.NOTHING
+	var next_status: String = "Empty"
 	
 	for status in _priorities.keys():
 		if _inventory.has(status):
@@ -106,10 +107,10 @@ func _next_priority(actor_position: RingVector):
 			var targets_exists: bool = true
 			
 			
-			if Constants.is_request(target_type):
+			if target_type is String and target_type.begins_with("Request_"):
 				dictionary = RingMap.resources.dictionary
 				
-			elif Constants.is_resource(target_type):
+			elif GameResource.RESOURCES.has(target_type):
 				dictionary = RingMap.resources.dictionary
 				targets_exists = false
 				
@@ -145,10 +146,9 @@ func _construct_priorites():
 	for spyglass in get_children():
 		_priorities[spyglass.inventory_trigger] = _priorities.get(spyglass.inventory_trigger, [ ]) + spyglass.get_searching_for()
 	
-	for resource in Constants.Resources.values():
-		if resource > Constants.Resources.EVERYTHING:
-			_priorities[resource] = _priorities.get(resource, [ ])
-			_priorities[resource].append(resource + Constants.REQUEST)
+	for resource in GameResource.RESOURCES:
+		_priorities[resource] = _priorities.get(resource, [ ])
+		_priorities[resource].append("%s%s" % [GameResource.REQUEST, resource])
 
 
 

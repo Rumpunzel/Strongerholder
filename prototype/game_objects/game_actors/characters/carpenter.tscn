@@ -12,11 +12,11 @@ modulate = Color( 1, 0.501961, 0.501961, 1 )
 
 [node name="resources" type="Node" parent="utility_nodes/resource_locator" index="0"]
 script = ExtResource( 3 )
-search_for_resources = [ 1026, 1025 ]
+search_for_resources = [ "Wood", "WoodPlanks" ]
 
 [node name="woodcutters_hut" type="Node" parent="utility_nodes/resource_locator" index="1"]
 script = ExtResource( 3 )
-inventory_trigger = 1025
+inventory_trigger = "Wood"
 search_for_structures = [ 261 ]
 
 [node name="animation_tree" parent="." index="5"]

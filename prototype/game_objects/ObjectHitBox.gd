@@ -69,8 +69,8 @@ func die(sender: ObjectHitBox):
 
 
 
-func inventory_has_item(item: int) -> bool:
-	return _inventory.has(item)
+func inventory_has_item(item_type: String) -> bool:
+	return _inventory.has(item_type)
 
 
 func offer_item(item, receiver: ObjectHitBox):
