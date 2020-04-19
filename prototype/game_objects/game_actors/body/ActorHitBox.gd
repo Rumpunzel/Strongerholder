@@ -68,6 +68,8 @@ func parse_entering_hit_box(new_hit_box: ObjectHitBox) -> bool:
 func parse_exiting_hit_box(new_hit_box: ObjectHitBox):
 	.parse_exiting_hit_box(new_hit_box)
 	highlight_object()
+	if new_hit_box.owner == placing_this_building:
+		set_placing_this_building(null)
 
 
 
@@ -92,6 +94,11 @@ func _move_building(new_vector: RingVector):
 
 
 func set_placing_this_building(new_object):
-	placing_this_building = new_object
-	get_tree().current_scene.get_node("city_structures").add_child(placing_this_building)
-	_move_building(owner.ring_vector)
+	if new_object:
+		placing_this_building = new_object
+		get_tree().current_scene.get_node("city_structures").add_child(placing_this_building)
+		_move_building(owner.ring_vector)
+	else:
+		get_tree().current_scene.get_node("city_structures").remove_child(placing_this_building)
+		placing_this_building.queue_free()
+		placing_this_building = new_object
