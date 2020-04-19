@@ -1,4 +1,4 @@
-class_name CityLayout, "res://assets/icons/icon_village.svg"
+class_name CityLayout
 extends Resource
 
 
