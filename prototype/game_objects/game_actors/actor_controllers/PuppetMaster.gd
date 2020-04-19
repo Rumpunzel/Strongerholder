@@ -3,7 +3,7 @@ extends Node
 
 
 export(NodePath) var _hit_box_node
-export(NodePath) var _tool_belt_node
+export(NodePath) var _resource_locator_node
 export(NodePath) var _animation_tree_node
 
 
@@ -24,7 +24,7 @@ var _update_target: bool = false
 
 onready var _game_actor: GameActor = owner
 onready var _hit_box: ActorHitBox = get_node(_hit_box_node)
-onready var _tool_belt = get_node(_tool_belt_node)
+onready var _resource_locator = get_node(_resource_locator_node)
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
 
@@ -34,7 +34,7 @@ func _ready():
 	
 	_game_actor.connect("entered_segment", self, "_update_path_progress")
 	
-	_tool_belt.connect("new_object_of_interest", self, "set_object_of_interest")
+	_resource_locator.connect("new_object_of_interest", self, "set_object_of_interest")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

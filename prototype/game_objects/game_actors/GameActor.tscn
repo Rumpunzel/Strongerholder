@@ -59,7 +59,7 @@ collision_mask = 7168
 script = ExtResource( 25 )
 _inventory_node = NodePath("../utility_nodes/inventory")
 _puppet_master_node = NodePath("../utility_nodes/puppet_master")
-_tool_belt_node = NodePath("../utility_nodes/resource_locator")
+_resource_locator_node = NodePath("../utility_nodes/resource_locator")
 _animation_player_node = NodePath("../animation_player")
 _animation_tree_node = NodePath("../animation_tree")
 
@@ -85,7 +85,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
 [node name="puppet_master" type="Node" parent="utility_nodes"]
 script = ExtResource( 27 )
 _hit_box_node = NodePath("../../hit_box")
-_tool_belt_node = NodePath("../resource_locator")
+_resource_locator_node = NodePath("../resource_locator")
 _animation_tree_node = NodePath("../../animation_tree")
 
 [node name="inventory" type="Node" parent="utility_nodes"]
