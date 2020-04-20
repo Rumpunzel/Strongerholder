@@ -1,5 +1,5 @@
 class_name GameResource, "res://assets/icons/icon_resource.svg"
-extends KinematicBody
+extends GameObject
 
 
 const REQUEST = "Request_"

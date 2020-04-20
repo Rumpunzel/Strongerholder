@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://city_management/CityNavigator.gd"
 }, {
-"base": "StaticBody",
+"base": "GameObject",
 "class": "CityStructure",
 "language": "GDScript",
 "path": "res://game_objects/structures/CityStructure.gd"
@@ -69,7 +69,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/GameMesh.gd"
 }, {
-"base": "KinematicBody",
+"base": "StaticBody",
+"class": "GameObject",
+"language": "GDScript",
+"path": "res://game_objects/GameObject.gd"
+}, {
+"base": "GameObject",
 "class": "GameResource",
 "language": "GDScript",
 "path": "res://game_objects/resources/GameResource.gd"
@@ -182,6 +187,7 @@ _global_script_class_icons={
 "GameActor": "res://assets/icons/game_actors/icon_game_actor.svg",
 "GameAudioPlayer": "",
 "GameMesh": "",
+"GameObject": "res://assets/icons/icon_game_object.svg",
 "GameResource": "res://assets/icons/icon_resource.svg",
 "GameSprite": "",
 "Hill": "res://assets/icons/icon_hill.svg",
