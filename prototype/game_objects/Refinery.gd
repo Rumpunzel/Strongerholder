@@ -16,6 +16,9 @@ onready var _process_timer: Timer = Timer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# TODO: THIS IS A DUMB ASS FIX FOR EXPORTED ARRAYS BEING SHARED BETWEEN ALL INSTANCES OF CLASSES PLEASE DO NOT SHIP!
+	_inventory.requests.clear()
+	
 	for resource in _input_resources:
 		_inventory.requests.append(resource)
 	

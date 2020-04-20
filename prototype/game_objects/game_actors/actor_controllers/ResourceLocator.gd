@@ -78,13 +78,13 @@ func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox):
 
 
 
-
 func force_search(reset_target_type: bool = true, super_soft_reset: bool = false):
 	if not super_soft_reset or currently_looking_for.empty():
 		if reset_target_type:
 			currently_looking_for = { }
 		
 		set_object_of_interest(_next_priority(owner.ring_vector))
+
 
 
 
@@ -126,6 +126,7 @@ func _next_priority(actor_position: RingVector):
 			if targets_exists:
 				# TODO: check if the actors also has an appropriate tool
 				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities)
+			
 		else:
 			next_target = object_of_interest
 		

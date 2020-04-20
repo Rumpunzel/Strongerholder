@@ -129,7 +129,7 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 			# Check if the path is a viable candidate
 			if path_length >= 0.0:
 				var targets_array: Array = segments[segment]
-				#print(sources_to_exclude)
+				
 				# Return a target that satisfies the conditions as there are no conditions
 				if sources_to_exclude.empty():
 					target = targets_array.front()
