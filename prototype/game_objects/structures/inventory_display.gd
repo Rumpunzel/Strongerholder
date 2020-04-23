@@ -10,21 +10,20 @@ onready var _inventory: Inventory = get_node(_inventory_node)
 
 
 func _ready():
-	_inventory.connect("received_item", self, "update_display")
-	_inventory.connect("sent_item", self, "update_display")
-	
 	rect_position.y = _y_offset
+
+
+func _process(_delta):
 	update_display()
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func update_display(_new_item = null):
+func update_display():
 	var display_string: String = "%s:" % [owner.name]
 	var content: Dictionary = { }
 	
-	_inventory.contents.sort()
-	
-	for item in _inventory.contents:
+	for item in _inventory.get_children():
 		content[item.type] = content.get(item.type, 0) + 1
 	
 	for item in content.keys():

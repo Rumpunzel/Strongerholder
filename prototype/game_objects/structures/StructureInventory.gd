@@ -7,25 +7,29 @@ export var request_everything: bool = false
 
 
 
-func initialize():
+
+func _ready():
 	connect("received_item", self, "register_item")
-	connect("sent_item", self, "unregister_item")
-	
+
+
+
+func initialize():
 	.initialize()
+	var dic: Array = [ ]
+	
+	dic = requests.duplicate()
 	
 	if request_everything:
-		requests.clear()
+		dic.clear()
 		
 		for value in  GameResource.RESOURCES:
-			requests.append(value)
+			dic.append(value)
 	
-	for request in requests:
+	for request in dic:
 		RingMap.register_resource("%s%s" % [GameResource.REQUEST, request], owner)
 
 
-func register_item(new_item: GameResource):
-	RingMap.register_resource(new_item.type, owner)
 
 
-func unregister_item(new_item: GameResource):
-	RingMap.unregister_resource(new_item.type, owner)
+func register_item(item):
+	RingMap.register_resource(item.type, item)

@@ -24,7 +24,7 @@ type = 261
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -4 )
 mesh = SubResource( 2 )
 
-[node name="refinery" type="Node" parent="." index="4"]
+[node name="refinery" type="Spatial" parent="." index="4"]
 script = ExtResource( 2 )
 _inventory_node = NodePath("../inventory")
 _input_resources = [ "Wood" ]

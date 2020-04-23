@@ -1,38 +1,32 @@
 class_name Inventory, "res://assets/icons/icon_inventory.svg"
-extends Node
+extends Spatial
 
 
 signal received_item(item)
 signal sent_item(item)
 
 
-export(Array, PackedScene) var _starting_inventory: Array
-
-
-var contents: Array = [ ]
-
-
 
 
 func _ready():
 	owner.connect("activate", self, "initialize")
+	owner.connect("died", self, "drop_all_items")
 
 
 
 
 func initialize():
-	for item in _starting_inventory:
-		receive_item(item.instance(), null)
+	for item in get_children():
+		receive_item(item, null)
 
 
 func receive_item(item: GameResource, sender):
-	if item:
-		contents.append(item)
-		emit_signal("received_item", item)
-		
-		if sender:
-			pass
-			#print("%s gave %s: %s" % [sender.owner.name, owner.name, item.type])
+	item.pick_up_item(self)
+	emit_signal("received_item", item)
+	
+	if sender:
+		pass
+		#print("%s gave %s: %s" % [sender.owner.name, owner.name, item.type])
 
 
 func request_item(requested_item, receiver):
@@ -41,8 +35,8 @@ func request_item(requested_item, receiver):
 	else:
 		var item: GameResource = null
 		
-		for resource in contents:
-			if resource.type == requested_item:
+		for resource in get_children():
+			if resource is GameResource and resource.type == requested_item:
 				item = resource
 				break
 		
@@ -50,12 +44,21 @@ func request_item(requested_item, receiver):
 			_send_item(item, receiver)
 
 
+func drop_all_items():
+	while get_child_count() > 0:
+		drop_item(get_child(0))
+
+
+func drop_item(item: GameResource):
+	item.drop_item()
+
+
 
 func empty() -> bool:
-	return contents.empty()
+	return get_child_count() == 0
 
 func has(object_type: String) -> bool:
-	for item in contents:
+	for item in get_children():
 		if item.type == object_type:
 			return true
 	
@@ -65,12 +68,7 @@ func has(object_type: String) -> bool:
 
 
 func _send_item(item_to_send: GameResource, receiver):
-	if contents.has(item_to_send):
-		contents.erase(item_to_send)
+	if get_children().has(item_to_send):
+		item_to_send.deactivate_object()
 		receiver.receive_item(item_to_send, self)
 		emit_signal("sent_item", item_to_send)
-
-
-func _send_all_items(receiver):
-	for item in contents:
-		_send_item(item, receiver)

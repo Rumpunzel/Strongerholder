@@ -27,7 +27,7 @@ script = ExtResource( 7 )
 [node name="hit_box" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2 )
 collision_layer = 4096
-collision_mask = 7168
+collision_mask = 4096
 script = ExtResource( 3 )
 _inventory_node = NodePath("../inventory")
 _blocked_by = [ 256 ]
@@ -44,5 +44,5 @@ _hit_box_node = NodePath("../hit_box")
 _highlight_material = ExtResource( 4 )
 _placement_material = ExtResource( 8 )
 
-[node name="inventory" type="Node" parent="."]
+[node name="inventory" type="Spatial" parent="."]
 script = ExtResource( 5 )
