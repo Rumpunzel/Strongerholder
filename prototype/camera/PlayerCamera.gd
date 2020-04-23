@@ -27,6 +27,7 @@ func _ready():
 	rotation.x = deg2rad(_camera_angle)
 	
 	_ray_cast.enabled = true
+	_ray_cast.set_collision_mask_bit(2, true)
 	_ray_cast.cast_to.y = -50
 	
 	_listener.make_current()
@@ -72,3 +73,5 @@ func set_node_to_follow(new_node: Spatial):
 	
 	node_to_follow.add_child(_listener)
 	_listener.transform.origin = Vector3(0, _listener_off_ground, 0)
+	
+	transform.origin = Vector3(0, 0, node_to_follow.ring_vector.radius + _camera_distance).rotated(Vector3.UP, node_to_follow.ring_vector.rotation)

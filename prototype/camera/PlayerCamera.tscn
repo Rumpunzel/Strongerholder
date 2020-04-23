@@ -6,13 +6,14 @@
 
 [node name="camera" type="Camera"]
 environment = ExtResource( 2 )
-v_offset = 5.0
-projection = 1
+v_offset = 12.0
 current = true
-fov = 45.0
+fov = 5.0
 size = 20.0
+near = 175.5
 far = 8192.0
 script = ExtResource( 3 )
+_camera_distance = 200.0
 
 [node name="ui_layer" type="CanvasLayer" parent="."]
 layer = 100
