@@ -54,7 +54,7 @@ func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> A
 #	in sources_to_exclude, an array of types can be specified where the resources shall be delivered afterwards (in descending order of importance)
 #		this is only necessary when searching for resources
 #		if this is not done, then a STOCKPILE with wood may be returned as a valid target in a search for wood only for the wood to be immediately redelivered to said STOCKPILE
-func get_nearest(dictionary: Dictionary, type, ring_vector: RingVector, sources_to_exclude: Array = [ ]):
+func get_nearest(dictionary: Dictionary, type, ring_vector: RingVector, sources_to_exclude: Array = [ ], object_searching = null):
 	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
@@ -80,7 +80,7 @@ func get_nearest(dictionary: Dictionary, type, ring_vector: RingVector, sources_
 						search_vector = nearest_bridge.ring_vector
 				
 				# Search the current ring for a target which satisfies the conditions set
-				target = find_things_on_ring(search_through, ring, search_vector, sources_to_exclude)
+				target = find_things_on_ring(search_through, ring, search_vector, sources_to_exclude, object_searching)
 			
 			i += 1
 		
@@ -104,7 +104,7 @@ func get_nearest_bridge(ring_vector: RingVector, ring: int):
 
 
 # For information on the parameters, see 'get_nearest()'
-func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, sources_to_exclude: Array = [ ]):
+func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, sources_to_exclude: Array = [ ], object_searching = null):
 	var segments: Dictionary = search_through.get(ring, { })
 	var segments_in_ring: int = CityLayout.get_number_of_segments(ring)
 	
@@ -136,43 +136,61 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 				else:
 					# Check all potential targets in the current segment
 					for object in targets_array:
-						# Check if the current object is in the sources_to_exclude list
-						var excluded_source_index: int = sources_to_exclude.find(object.type)
-						
-						# If the current object is NOT explicitely in the sources_to_exclude list,
-						#	make sure that is not implicitely on there
-						#	this can only happend if we are searching for something the requests a resource
-						if excluded_source_index < 0:
-							for source in sources_to_exclude:
-								if source is String and source.begins_with("Request_") and _ring_map.resources.has(object, source):
-									excluded_source_index = sources_to_exclude.find(source)
-									break
-						
-						
-						# If the current object is in the sources_to_exclude list,
-						#	check if a concrete object exists which is higher on the priority list provided in sources_to_exclude
-						#	if that is the case, then the current object becomes a viable target
-						#	e.g. sources_to_exclude list is [WOODCUTTERS_HUT, WOOD_REQUEST] while we are looking for something to which to give WOOD
-						#		we have found a STOCKPILE with WOOD
-						#		we now check the sources_to_exclude list and as the STOCKPILE requests WOOD, it is on the list
-						#		now, we check if there exists a WOODCUTTERS_HUT
-						#		if it does, then the STOCKPILE becomes a valid target, as the GameActor would take the WOOD from the STOCKPILE and then deliver it to the WOODCUTTERS_HUT
-						#		if there is not such HUT, then the STOCKPILE is not a valid target
-						if excluded_source_index >= 0:
-							for i in range(excluded_source_index):
-								if _ring_map.structures.dictionary.has(sources_to_exclude[i]):
-									target = object
-									break
-						else:
-							target = object
-						
-						if target:
-							break
+						if weakref(object).get_ref() and not (object is GameResource and not object.active and object.called_dibs_by and not object.called_dibs_by == object_searching):
+							var object_owner = object.get_owner()
+							#print(object_owner.name)
+							#print(object.called_dibs_by)
+							if false and object_searching == object_owner:
+								target = object
+							elif not object_owner is GameActor:
+								target = is_viable_source(object, sources_to_exclude, object_owner)
+							
+							if target:
+								break
 		
 		j += 1
 	
 	return target
 
+
+func is_viable_source(object, sources_to_exclude, object_owner):
+	# Check if the current object is in the sources_to_exclude list
+	var excluded_source_index: int = sources_to_exclude.find(object.type)
+	
+	if excluded_source_index < 0 and object is GameResource and object_owner is GameObject:
+		excluded_source_index = sources_to_exclude.find(object_owner.type)
+	
+	# If the current object is NOT explicitely in the sources_to_exclude list,
+	#	make sure that is not implicitely on there
+	#	this can only happend if we are searching for something the requests a resource
+	if excluded_source_index < 0:
+		for source in sources_to_exclude:
+			if source is String and source.begins_with("Request_"):
+				var object_to_check = object
+				
+				if object is GameResource and object_owner is GameObject:
+					object_to_check = object_owner
+				
+				if _ring_map.resources.has(object_to_check, source):
+					excluded_source_index = sources_to_exclude.find(source)
+					break
+	
+	
+	# If the current object is in the sources_to_exclude list,
+	#	check if a concrete object exists which is higher on the priority list provided in sources_to_exclude
+	#	if that is the case, then the current object becomes a viable target
+	#	e.g. sources_to_exclude list is [WOODCUTTERS_HUT, WOOD_REQUEST] while we are looking for something to which to give WOOD
+	#		we have found a STOCKPILE with WOOD
+	#		we now check the sources_to_exclude list and as the STOCKPILE requests WOOD, it is on the list
+	#		now, we check if there exists a WOODCUTTERS_HUT
+	#		if it does, then the STOCKPILE becomes a valid target, as the GameActor would take the WOOD from the STOCKPILE and then deliver it to the WOODCUTTERS_HUT
+	#		if there is not such HUT, then the STOCKPILE is not a valid target
+	if excluded_source_index >= 0:
+		for i in range(excluded_source_index):
+			if _ring_map.structures.dictionary.has(sources_to_exclude[i]):
+				return object
+	else:
+		return object
 
 
 

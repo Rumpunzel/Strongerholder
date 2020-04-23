@@ -73,7 +73,17 @@ func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox):
 			
 			yield(_animation_player, "acted")
 			
-			own_hit_box.request_item(target_type, other_hit_box)
+			var other_object = other_hit_box.owner
+			
+			if other_object is GameResource:
+				if other_object.get_parent():
+					other_object.get_parent().remove_child(other_object)
+				
+				_inventory.add_child(other_object)
+				other_object.ring_vector = owner.ring_vector
+			else:
+				own_hit_box.request_item(target_type, other_hit_box)
+			
 			force_search()
 
 
@@ -125,7 +135,7 @@ func _next_priority(actor_position: RingVector):
 			
 			if targets_exists:
 				# TODO: check if the actors also has an appropriate tool
-				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities)
+				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities, owner)
 			
 		else:
 			next_target = object_of_interest
@@ -157,11 +167,17 @@ func _construct_priorites():
 func set_object_of_interest(new_object):
 	if not new_object == object_of_interest:
 		if object_of_interest:
+			if object_of_interest is GameResource and new_object is GameResource:
+				object_of_interest.called_dibs_by = null
+			
 			object_of_interest.disconnect("died", self, "force_search")
 		
 		object_of_interest = new_object
 		
 		if object_of_interest:
+			if object_of_interest is GameResource:
+				object_of_interest.called_dibs_by = owner
+			
 			object_of_interest.connect("died", self, "force_search")
 		
 		emit_signal("new_object_of_interest", object_of_interest)
