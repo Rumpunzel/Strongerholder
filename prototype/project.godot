@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/AnimationStateMachine.gd"
 }, {
+"base": "Reference",
+"class": "ArrayUtils",
+"language": "GDScript",
+"path": "res://addons/SIsilicon.3d.text/array_utils.gd"
+}, {
 "base": "Resource",
 "class": "CityLayout",
 "language": "GDScript",
@@ -98,6 +103,11 @@ _global_script_classes=[ {
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://game_objects/Inventory.gd"
+}, {
+"base": "Spatial",
+"class": "Label3D",
+"language": "GDScript",
+"path": "res://addons/SIsilicon.3d.text/label_3d.gd"
 }, {
 "base": "Area",
 "class": "ObjectHitBox",
@@ -182,6 +192,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ActorHitBox": "res://assets/icons/game_actors/icon_actor_hit_box.svg",
 "AnimationStateMachine": "",
+"ArrayUtils": "",
 "CityLayout": "",
 "CityNavigator": "",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
@@ -198,6 +209,7 @@ _global_script_class_icons={
 "Hill": "res://assets/icons/icon_hill.svg",
 "InputMaster": "",
 "Inventory": "res://assets/icons/icon_inventory.svg",
+"Label3D": "",
 "ObjectHitBox": "res://assets/icons/icon_hit_box.svg",
 "PlayerCamera": "",
 "PuppetMaster": "res://assets/icons/game_actors/icon_puppet_master.svg",
@@ -237,6 +249,10 @@ gdscript/warnings/unsafe_call_argument=true
 
 window/size/width=1920
 window/size/height=1080
+
+[editor_plugins]
+
+enabled=PoolStringArray( "QuickPluginManager", "SIsilicon.3d.text", "godot-quick-find", "todo" )
 
 [importer_defaults]
 
