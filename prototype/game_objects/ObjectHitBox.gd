@@ -23,7 +23,7 @@ var _overlapping_hit_boxes: Array = [ ]
 var _inactive_overlapping_hit_boxes: Array = [ ]
 
 
-onready var _inventory: Inventory = get_node(_inventory_node)
+onready var _inventory: Inventory = get_node_or_null(_inventory_node)
 
 onready var hit_points: float = hit_points_max
 
@@ -33,6 +33,7 @@ onready var hit_points: float = hit_points_max
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	owner.connect("activate", self, "initialize")
+	owner.connect("deactivate", self, "uninitialize")
 	
 	connect("area_entered", self, "entered")
 	connect("area_exited", self, "exited")
@@ -42,8 +43,13 @@ func _ready():
 
 func initialize():
 	set_alive(true)
-	
 	connect("died", owner, "object_died")
+
+func uninitialize():
+	set_alive(false)
+	
+	if "died" in owner.get_signal_list():
+		disconnect("died", owner, "object_died")
 
 
 func damage(damage_points: float, sender: ObjectHitBox) -> bool:
@@ -58,8 +64,9 @@ func damage(damage_points: float, sender: ObjectHitBox) -> bool:
 	return true
 
 
-func die(sender: ObjectHitBox):
-	_inventory._send_all_items(sender._inventory)
+func die(_sender: ObjectHitBox):
+	if _inventory:
+		_inventory.drop_all_items()
 	
 	set_alive(false)
 	
@@ -70,15 +77,20 @@ func die(sender: ObjectHitBox):
 
 
 func inventory_has_item(item_type: String) -> bool:
-	return _inventory.has(item_type)
+	if _inventory:
+		return _inventory.has(item_type)
+	else:
+		return false
 
 
 func offer_item(item, receiver: ObjectHitBox):
-	_inventory.request_item(item, receiver._inventory)
+	if _inventory:
+		_inventory.request_item(item, receiver._inventory)
 
 
 func request_item(item, sender: ObjectHitBox):
-	sender.offer_item(item, self)
+	if _inventory:
+		sender.offer_item(item, self)
 
 
 
@@ -103,7 +115,7 @@ func parse_entering_hit_box(new_hit_box: ObjectHitBox) -> bool:
 		add_hit_box_to_array(new_hit_box, _inactive_overlapping_hit_boxes)
 		new_hit_box.connect("activated", self, "parse_acitvating_hit_box", [new_hit_box])
 		new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
-		
+	
 	return false
 
 
@@ -159,6 +171,16 @@ func has_object(object) -> ObjectHitBox:
 		return object
 	
 	for hit_box in _overlapping_hit_boxes:
+		if hit_box.owner == object:
+			return hit_box
+	
+	return null
+
+func has_inactive_object(object) -> ObjectHitBox:
+	if _inactive_overlapping_hit_boxes.has(object):
+		return object
+	
+	for hit_box in _inactive_overlapping_hit_boxes:
 		if hit_box.owner == object:
 			return hit_box
 	

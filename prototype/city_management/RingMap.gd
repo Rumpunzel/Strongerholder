@@ -67,17 +67,17 @@ func update_structure(old_resource: int, new_resource: int, object):
 
 
 
-func register_resource(resource: String, object):
+func register_resource(resource: String, object: GameObject):
 	resources.register_in_dictionary(resource, object.ring_vector, object)
 	emit_signal("resources_changed")
 
 
-func unregister_resource(resource: String, object, emit_signal: bool = true):
+func unregister_resource(resource: String, object: GameObject, emit_signal: bool = true):
 	resources.unregister_in_dictionary(resource, object.ring_vector, object)
 	if emit_signal:
 		emit_signal("resources_changed")
 
 
-func update_resource(old_resource: String, new_resource: String, object):
+func update_resource(old_resource: String, new_resource: String, object: GameObject):
 	unregister_resource(old_resource, object, false)
 	register_resource(new_resource, object)

@@ -34,10 +34,10 @@ static func is_actor(index) -> bool:
 	return Actors.values().has(index)
 
 static func is_structure(index) -> bool:
-	return index > Structures.EVERYTHING and index < Structures.TREE and Structures.values().has(index)
+	return index is int and index > Structures.EVERYTHING and index < Structures.TREE and Structures.values().has(index)
 
 static func is_thing(index) -> bool:
-	return index >= Structures.TREE and Structures.values().has(index)
+	return index is int and index >= Structures.TREE and Structures.values().has(index)
 
 
 static func enum_name(enumerator, index: int) -> String:

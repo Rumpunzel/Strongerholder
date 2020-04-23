@@ -49,7 +49,7 @@ func open_menu(new_menu: RadiantUI):
 		yield(_animation_player, "acted")
 		
 		if placing_this_building:
-			placing_this_building.activate_structure()
+			placing_this_building.activate_object()
 			placing_this_building = null
 	else:
 		_animation_tree.travel("give")

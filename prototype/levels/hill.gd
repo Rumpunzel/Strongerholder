@@ -16,9 +16,6 @@ func _ready():
 	$city_structures.build_everything()
 	$flora.grow_flora()
 	
-	var new_camera: PlayerCamera = camera.instance()
-	add_child(new_camera)
-	
 	for i in range(CityLayout.get_number_of_segments(0)):
 		var new_character: GameActor
 		
@@ -30,7 +27,9 @@ func _ready():
 			new_character = woodsman.instance()
 		
 		add_child(new_character)
-		new_character._setup(RingVector.new(0, i, true), i == 0)
+		new_character._setup(RingVector.new(0, int(ceil(i / 2.0) * (-1 if i % 2 == 0 else 1)), true), i == 0)
 		
 		if i == 0:
+			var new_camera: PlayerCamera = camera.instance()
+			add_child(new_camera)
 			new_camera.set_node_to_follow(new_character)

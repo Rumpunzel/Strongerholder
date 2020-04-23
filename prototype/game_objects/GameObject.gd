@@ -2,10 +2,14 @@ class_name GameObject, "res://assets/icons/icon_game_object.svg"
 extends StaticBody
 
 
+signal activate
+signal deactivate
 signal died
 
 
 var ring_vector: RingVector = RingVector.new(0, 0) setget set_ring_vector, get_ring_vector
+var active: bool setget set_active, is_active
+var type setget set_type, get_type
 
 
 
@@ -15,9 +19,16 @@ func _ready():
 
 func _setup(new_ring_vector: RingVector):
 	set_ring_vector(new_ring_vector)
+	activate_object()
 
 
 
+
+func activate_object():
+	emit_signal("activate")
+
+func deactivate_object():
+	emit_signal("deactivate")
 
 func object_died():
 	emit_signal("died")
@@ -35,6 +46,13 @@ func set_ring_vector(new_vector: RingVector):
 	global_transform.origin = new_position
 	rotation.y = atan2(transform.origin.x, transform.origin.z)
 
+func set_active(new_status: bool):
+	$hit_box.active = new_status
+	active = new_status
+
+func set_type(new_type):
+	$hit_box.type = new_type
+	type = new_type
 
 
 
@@ -49,3 +67,10 @@ func get_ring_vector() -> RingVector:
 		ring_vector.rotation = rot
 	
 	return ring_vector
+
+func is_active() -> bool:
+	active = $hit_box.active
+	return active
+
+func get_type():
+	return $hit_box.type

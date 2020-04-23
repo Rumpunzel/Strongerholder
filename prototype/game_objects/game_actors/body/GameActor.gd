@@ -4,7 +4,9 @@ extends KinematicBody
 
 signal moved(direction)
 signal entered_segment(ring_vector)
+
 signal activate
+signal deactivate
 signal died
 
 
@@ -48,7 +50,7 @@ func _ready():
 func _setup(new_ring_vector: RingVector, player_controlled: bool = false):
 	set_ring_vector(new_ring_vector)
 	_puppet_master.set_player_controlled(player_controlled)
-	activate_actor()
+	activate_object()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -84,8 +86,11 @@ func _physics_process(delta):
 
 
 
-func activate_actor():
+func activate_object():
 	emit_signal("activate")
+
+func deactivate_object():
+	emit_signal("deactivate")
 
 
 func move_to(direction: Vector3, is_sprinting: bool = false):
