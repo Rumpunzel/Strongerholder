@@ -54,7 +54,7 @@ func get_shortest_path(start_vector: RingVector, target_vector: RingVector) -> A
 #	in sources_to_exclude, an array of types can be specified where the resources shall be delivered afterwards (in descending order of importance)
 #		this is only necessary when searching for resources
 #		if this is not done, then a STOCKPILE with wood may be returned as a valid target in a search for wood only for the wood to be immediately redelivered to said STOCKPILE
-func get_nearest(dictionary: Dictionary, type, ring_vector: RingVector, sources_to_exclude: Array = [ ], object_searching = null):
+func get_nearest(dictionary: Dictionary, type, ring_vector: RingVector, sources_to_exclude: Array = [ ], object_searching = null, valid_targets: Array = [ ]):
 	var search_through: Dictionary = dictionary.get(type, { })
 	
 	if search_through.empty():
@@ -80,7 +80,7 @@ func get_nearest(dictionary: Dictionary, type, ring_vector: RingVector, sources_
 						search_vector = nearest_bridge.ring_vector
 				
 				# Search the current ring for a target which satisfies the conditions set
-				target = find_things_on_ring(search_through, ring, search_vector, sources_to_exclude, object_searching)
+				target = find_things_on_ring(search_through, ring, search_vector, sources_to_exclude, object_searching, valid_targets)
 			
 			i += 1
 		
@@ -104,7 +104,7 @@ func get_nearest_bridge(ring_vector: RingVector, ring: int):
 
 
 # For information on the parameters, see 'get_nearest()'
-func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, sources_to_exclude: Array = [ ], object_searching = null):
+func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: RingVector, sources_to_exclude: Array = [ ], object_searching = null, valid_targets: Array = [ ]):
 	var segments: Dictionary = search_through.get(ring, { })
 	var segments_in_ring: int = CityLayout.get_number_of_segments(ring)
 	
@@ -138,11 +138,8 @@ func find_things_on_ring(search_through: Dictionary, ring: int, ring_vector: Rin
 					for object in targets_array:
 						if weakref(object).get_ref() and not (object is GameResource and not object.active and object.called_dibs_by and not object.called_dibs_by == object_searching):
 							var object_owner = object.get_owner()
-							#print(object_owner.name)
-							#print(object.called_dibs_by)
-							if false and object_searching == object_owner:
-								target = object
-							elif not object_owner is GameActor:
+							
+							if not object_owner is GameActor and (not object_owner is GameObject or valid_targets.has(object_owner.type)):
 								target = is_viable_source(object, sources_to_exclude, object_owner)
 							
 							if target:

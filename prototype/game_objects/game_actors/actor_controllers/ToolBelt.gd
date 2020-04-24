@@ -8,3 +8,12 @@ func has_tool_for_this(other_hit_box: ObjectHitBox):
 			return craft_tool
 	
 	return null
+
+
+func valid_targets() -> Array:
+	var has_tools_for: Array = [ ]
+	
+	for craft_tool in get_children():
+		has_tools_for += craft_tool.used_for
+	
+	return has_tools_for

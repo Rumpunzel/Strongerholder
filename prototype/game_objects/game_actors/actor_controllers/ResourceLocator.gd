@@ -116,7 +116,7 @@ func _next_priority(actor_position: RingVector):
 			var dictionary: Dictionary = { }
 			var targets_exists: bool = true
 			
-			# TODO: find out why the woodcutter's hut behaviour only works when building it first
+			
 			if target_type is String and target_type.begins_with("Request_"):
 				dictionary = RingMap.resources.dictionary
 				
@@ -134,8 +134,7 @@ func _next_priority(actor_position: RingVector):
 			
 			
 			if targets_exists:
-				# TODO: check if the actors also has an appropriate tool
-				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities, owner)
+				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities, owner, _tool_belt.valid_targets())
 			
 		else:
 			next_target = object_of_interest
@@ -166,18 +165,21 @@ func _construct_priorites():
 
 func set_object_of_interest(new_object):
 	if not new_object == object_of_interest:
-		if object_of_interest:
-			if object_of_interest is GameResource and new_object is GameResource:
-				object_of_interest.called_dibs_by = null
+		if not new_object is GameResource or not new_object.called_dibs_by or new_object.called_dibs_by == owner:
+			if weakref(object_of_interest).get_ref():
+				if object_of_interest is GameResource and new_object is GameResource:
+					object_of_interest.called_dibs_by = null
+				
+				object_of_interest.disconnect("died", self, "force_search")
 			
-			object_of_interest.disconnect("died", self, "force_search")
-		
-		object_of_interest = new_object
-		
-		if object_of_interest:
-			if object_of_interest is GameResource:
-				object_of_interest.called_dibs_by = owner
+			object_of_interest = new_object
 			
-			object_of_interest.connect("died", self, "force_search")
-		
-		emit_signal("new_object_of_interest", object_of_interest)
+			if object_of_interest:
+				if object_of_interest is GameResource:
+					object_of_interest.called_dibs_by = owner
+				
+				object_of_interest.connect("died", self, "force_search")
+			
+			emit_signal("new_object_of_interest", object_of_interest)
+		else:
+			force_search(false)

@@ -5,7 +5,7 @@ extends Resource
 func get_input(object_of_interest, hit_box: ActorHitBox, ring_vector: RingVector, current_segments: Array, path_progress: int) -> Array:
 	var commands: Array = [ ]
 	
-	if object_of_interest:
+	if weakref(object_of_interest).get_ref():
 		var hit_box_in_range = hit_box.has_object(object_of_interest)
 		
 		if not hit_box_in_range and object_of_interest is GameResource and hit_box.has_inactive_object(object_of_interest):
