@@ -41,7 +41,7 @@ func _process(delta):
 		if _stick_to_ground:
 			new_y = _ray_cast.get_collision_point().y
 		
-		var new_z: float = node_to_follow.ring_vector.radius + _camera_distance
+		var new_z: float = CityLayout.get_radius_minimum(node_to_follow.ring_vector.ring) + _camera_distance
 		
 		var new_origin: Vector3 = Vector3(0, new_y, new_z).rotated(Vector3.UP, node_to_follow.ring_vector.rotation)
 		
@@ -74,4 +74,4 @@ func set_node_to_follow(new_node: Spatial):
 	node_to_follow.add_child(_listener)
 	_listener.transform.origin = Vector3(0, _listener_off_ground, 0)
 	
-	transform.origin = Vector3(0, 0, node_to_follow.ring_vector.radius + _camera_distance).rotated(Vector3.UP, node_to_follow.ring_vector.rotation)
+	transform.origin = Vector3(0, 0, CityLayout.get_radius_minimum(node_to_follow.ring_vector.ring) + _camera_distance).rotated(Vector3.UP, node_to_follow.ring_vector.rotation)
