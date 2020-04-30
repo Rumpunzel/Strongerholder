@@ -96,9 +96,9 @@ func _move_building(new_vector: RingVector):
 func set_placing_this_building(new_object):
 	if new_object:
 		placing_this_building = new_object
-		get_tree().current_scene.get_node("city_structures").add_child(placing_this_building)
+		get_tree().current_scene.get_node("viewport_container/viewport/hill/city_structures").add_child(placing_this_building)
 		_move_building(owner.ring_vector)
 	else:
-		get_tree().current_scene.get_node("city_structures").remove_child(placing_this_building)
+		get_tree().current_scene.get_node("viewport_container/viewport/hill/city_structures").remove_child(placing_this_building)
 		placing_this_building.queue_free()
 		placing_this_building = new_object

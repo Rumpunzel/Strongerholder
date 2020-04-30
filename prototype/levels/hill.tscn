@@ -12,14 +12,35 @@
 [ext_resource path="res://game_objects/structures/buildings/base.tscn" type="PackedScene" id=10]
 [ext_resource path="res://game_objects/game_actors/characters/woodsman.tscn" type="PackedScene" id=11]
 
-[node name="hill" type="Position3D"]
+[node name="margin_container" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_bottom = -600
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="viewport_container" type="ViewportContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1680.0
+stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="viewport" type="Viewport" parent="viewport_container"]
+size = Vector2( 1920, 1680 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="hill" type="Position3D" parent="viewport_container/viewport"]
 script = ExtResource( 2 )
 camera = ExtResource( 1 )
 game_actor = ExtResource( 6 )
 woodsman = ExtResource( 11 )
 carpenter = ExtResource( 9 )
 
-[node name="directional_light" type="DirectionalLight" parent="."]
+[node name="directional_light" type="DirectionalLight" parent="viewport_container/viewport/hill"]
 transform = Transform( -0.406559, 0.776308, 0.481722, -0.717735, -0.597628, 0.357347, 0.565302, -0.200466, 0.800154, 86.5364, 159.337, 197.169 )
 light_color = Color( 0.878431, 0.643137, 0.396078, 1 )
 light_specular = 1.0
@@ -29,14 +50,14 @@ directional_shadow_blend_splits = true
 directional_shadow_depth_range = 1
 directional_shadow_max_distance = 8192.0
 
-[node name="plateaus" type="Spatial" parent="."]
+[node name="plateaus" type="Spatial" parent="viewport_container/viewport/hill"]
 script = ExtResource( 3 )
 
-[node name="city_structures" type="Spatial" parent="."]
+[node name="city_structures" type="Spatial" parent="viewport_container/viewport/hill"]
 script = ExtResource( 5 )
 base = ExtResource( 10 )
 bridge = ExtResource( 8 )
 
-[node name="flora" type="Spatial" parent="."]
+[node name="flora" type="Spatial" parent="viewport_container/viewport/hill"]
 script = ExtResource( 4 )
 tree = ExtResource( 7 )

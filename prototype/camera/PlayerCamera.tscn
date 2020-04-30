@@ -6,14 +6,21 @@
 
 [node name="camera" type="Camera"]
 environment = ExtResource( 2 )
-v_offset = 12.0
+v_offset = 1.0
 current = true
 fov = 5.0
 size = 20.0
-near = 175.5
+near = 388.0
 far = 8192.0
 script = ExtResource( 3 )
-_camera_distance = 200.0
+
+[node name="listener" type="Listener" parent="."]
+current = true
+
+[node name="ray_cast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -50, 0 )
+collision_mask = 5
 
 [node name="ui_layer" type="CanvasLayer" parent="."]
 layer = 100
@@ -21,6 +28,7 @@ layer = 100
 [node name="control" type="Control" parent="ui_layer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = -600.0
 theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

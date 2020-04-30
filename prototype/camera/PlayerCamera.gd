@@ -2,19 +2,20 @@ class_name PlayerCamera
 extends Camera
 
 
-export var _camera_distance: float = 15.0
-export var _camera_angle: float = -2.0
+export var _camera_distance: float = 420.0
+export var _camera_angle: float = 0.0
+export var _camera_speed:float = 3.0
 
 export var _stick_to_ground: bool = true
 export var _listener_off_ground: float = 1.0
 
-export var _camera_speed:float = 3.0
 
-var node_to_follow: Spatial = null setget set_node_to_follow
+var node_to_follow: Spatial = self setget set_node_to_follow
+var ray_cast: RayCast
 
 
-onready var _ray_cast: RayCast = RayCast.new()
-onready var _listener: Listener = Listener.new()
+onready var _ray_cast: RayCast = $ray_cast
+onready var _listener: Listener = $listener
 
 onready var _ui = $ui_layer/control/margin_container
 onready var _control_layer = $ui_layer/control
@@ -25,12 +26,6 @@ onready var _control_layer = $ui_layer/control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rotation.x = deg2rad(_camera_angle)
-	
-	_ray_cast.enabled = true
-	_ray_cast.set_collision_mask_bit(2, true)
-	_ray_cast.cast_to.y = -50
-	
-	_listener.make_current()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,11 +56,9 @@ func add_ui_element(new_element: Control, center_ui: bool = true):
 
 
 
-
 func set_node_to_follow(new_node: Spatial):
-	if node_to_follow:
-		node_to_follow.remove_child(_ray_cast)
-		node_to_follow.remove_child(_listener)
+	node_to_follow.remove_child(_ray_cast)
+	node_to_follow.remove_child(_listener)
 	
 	node_to_follow = new_node
 	node_to_follow.add_child(_ray_cast)
