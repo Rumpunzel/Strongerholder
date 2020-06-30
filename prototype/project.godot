@@ -252,7 +252,7 @@ window/size/height=1080
 
 [editor_plugins]
 
-enabled=PoolStringArray( "QuickPluginManager", "SIsilicon.3d.text", "godot-quick-find", "todo" )
+enabled=PoolStringArray( "QuickPluginManager", "SIsilicon.3d.text", "todo" )
 
 [importer_defaults]
 
