@@ -16,7 +16,7 @@ func _ready():
 	$city_structures.build_everything()
 	$flora.grow_flora()
 	
-	for i in range(CityLayout.get_number_of_segments(0)):
+	for i in range(5):#CityLayout.get_number_of_segments(0)):
 		var new_character: GameActor
 		
 		if i == 0:
