@@ -1,0 +1,23 @@
+[gd_resource type="Environment" load_steps=3 format=2]
+
+[ext_resource path="res://assets/AllSkyFree_Skyboxes/Epic_BlueSunset_EquiRect_flat.png" type="Texture" id=1]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 1 )
+
+[resource]
+background_mode = 2
+background_sky = SubResource( 1 )
+background_sky_custom_fov = 90.0
+fog_depth_enabled = false
+fog_height_enabled = true
+fog_height_min = 8.0
+fog_height_max = -32.0
+tonemap_mode = 2
+auto_exposure_enabled = true
+dof_blur_far_distance = 420.0
+dof_blur_far_transition = 144.0
+dof_blur_far_quality = 2
+dof_blur_near_distance = 364.0
+dof_blur_near_transition = 144.0
+dof_blur_near_quality = 2

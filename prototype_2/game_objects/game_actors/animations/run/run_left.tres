@@ -1,0 +1,36 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "run_left"
+length = 0.857143
+loop = true
+step = 0.142857
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.142857, 0.285714, 0.428571, 0.571429, 0.714286 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 28, 29, 30, 31, 32, 33 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("animation_player")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.285714, 0.714286 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "just_stepped"
+}, {
+"args": [  ],
+"method": "just_stepped"
+} ]
+}

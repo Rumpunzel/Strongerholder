@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=2]
+[ext_resource path="res://PlayerCamera.gd" type="Script" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$game_actor._setup(true)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[node name="test" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="ui_layer" type="CanvasLayer" parent="."]
+
+[node name="control" type="Control" parent="ui_layer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="margin_container" type="MarginContainer" parent="ui_layer/control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 400
+custom_constants/margin_top = 400
+custom_constants/margin_left = 400
+custom_constants/margin_bottom = 400
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texture_rect" type="TextureRect" parent="ui_layer/control/margin_container"]
+margin_left = 400.0
+margin_top = 400.0
+margin_right = 1520.0
+margin_bottom = 680.0
+texture = ExtResource( 2 )
+
+[node name="game_actor" parent="." instance=ExtResource( 1 )]
+
+[node name="camera" type="Camera2D" parent="game_actor"]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 1.0
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource( 3 )
+ui_layer = NodePath("../../ui_layer")
