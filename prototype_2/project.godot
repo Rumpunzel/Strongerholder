@@ -323,3 +323,7 @@ open_menu={
 [node]
 
 name_casing=2
+
+[rendering]
+
+quality/2d/use_pixel_snap=true
