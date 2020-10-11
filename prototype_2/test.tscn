@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/icon.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://game_objects/structures/things/tree.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game_objects/game_actors/characters/carpenter.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game_objects/game_actors/characters/woodsman.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -25,6 +26,9 @@ func _ready():
 #func _process(delta):
 #	pass
 "
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( 26.5, -61, -13, -61, -120, -61.5, -116.5, 63.5, -63.5, 112, 58.5, 30 )
 
 [node name="test" type="Node2D"]
 script = SubResource( 1 )
@@ -55,6 +59,19 @@ margin_top = 400.0
 margin_right = 1520.0
 margin_bottom = 680.0
 texture = ExtResource( 2 )
+
+[node name="canvas_modulate" type="CanvasModulate" parent="."]
+color = Color( 0.705882, 0.705882, 0.705882, 1 )
+
+[node name="light" type="Light2D" parent="."]
+texture = ExtResource( 7 )
+texture_scale = 0.5
+color = Color( 0.901961, 0.317647, 0, 1 )
+shadow_enabled = true
+
+[node name="light_occluder" type="LightOccluder2D" parent="."]
+position = Vector2( -24, 106 )
+occluder = SubResource( 2 )
 
 [node name="y_sort" type="YSort" parent="."]
 

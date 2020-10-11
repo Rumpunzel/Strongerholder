@@ -36,7 +36,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=2]
 radius = 16.0
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=3]
@@ -62,10 +62,10 @@ _animation_player_node = NodePath("../animation_player")
 _animation_tree_node = NodePath("../animation_tree")
 
 [node name="collision_shape" type="CollisionShape2D" parent="interaction_box"]
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [node name="sprite" type="Sprite" parent="."]
-position = Vector2( 0, -13 )
+position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -5 )
 vframes = 12
