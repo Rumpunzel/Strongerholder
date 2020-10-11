@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://game_objects/structures/inventory_display.gd" type="Script" id=2]
+
+[node name="inventory_display" type="PanelContainer"]
+margin_right = 110.0
+margin_bottom = 38.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 103.0
+margin_bottom = 31.0
+text = "Contents"
+valign = 1

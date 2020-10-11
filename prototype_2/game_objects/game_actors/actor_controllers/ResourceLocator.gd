@@ -34,8 +34,8 @@ func _ready():
 	_construct_priorites()
 	force_search()
 	
-	RingMap.connect("city_changed", self, "force_search")
-	RingMap.connect("resources_changed", self, "force_search", [false, true])
+	#RingMap.connect("city_changed", self, "force_search")
+	#RingMap.connect("resources_changed", self, "force_search", [false, true])
 
 
 
@@ -93,7 +93,7 @@ func force_search(reset_target_type: bool = true, super_soft_reset: bool = false
 		if reset_target_type:
 			currently_looking_for = { }
 		
-		set_object_of_interest(_next_priority(owner.ring_vector))
+		#set_object_of_interest(_next_priority(owner.ring_vector))
 
 
 
@@ -117,24 +117,24 @@ func _next_priority(actor_position: Vector2):
 			var targets_exists: bool = true
 			
 			
-			if target_type is String and target_type.begins_with("Request_"):
-				dictionary = RingMap.resources.dictionary
+#			if target_type is String and target_type.begins_with("Request_"):
+#				dictionary = RingMap.resources.dictionary
 				
-			elif GameResource.RESOURCES.has(target_type):
-				dictionary = RingMap.resources.dictionary
-				targets_exists = false
-				
-				for prio in target_priorities:
-					if RingMap.structures.dictionary.has(prio) or RingMap.resources.dictionary.has(prio):
-						targets_exists = true
-						break
-				
-			else:
-				dictionary = RingMap.structures.dictionary
+#			elif GameResource.RESOURCES.has(target_type):
+#				dictionary = RingMap.resources.dictionary
+#				targets_exists = false
+#
+#				for prio in target_priorities:
+#					if RingMap.structures.dictionary.has(prio) or RingMap.resources.dictionary.has(prio):
+#						targets_exists = true
+#						break
+#
+#			else:
+#				dictionary = RingMap.structures.dictionary
 			
 			
-			if targets_exists:
-				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities, owner, _tool_belt.valid_targets())
+#			if targets_exists:
+#				next_target = RingMap.city_navigator.get_nearest(dictionary, target_type, actor_position, target_priorities, owner, _tool_belt.valid_targets())
 			
 		else:
 			next_target = object_of_interest

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/meshes/debug_meshes/bridge.tres" type="CubeMesh" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 3, 1, 12.5 )
+
+[node name="bridge" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 0.999783, -0.0208203, 0, 0.0208203, 0.999783, 0, 0, 0 )
+
+[node name="collision_shape" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
+shape = SubResource( 1 )
+
+[node name="hit_box" parent="." index="1"]
+type = 258
+
+[node name="structure" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -13 )
+mesh = ExtResource( 2 )
+_highlight_material = null

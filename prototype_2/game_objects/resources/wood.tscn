@@ -1,11 +1,33 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://game_objects/resources/game_resource.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game_objects/resources/ResourceHitBox.gd" type="Script" id=1]
+[ext_resource path="res://game_objects/structures/buildings/collision_shape.gd" type="Script" id=2]
+[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=3]
+[ext_resource path="res://game_objects/resources/GameResource.gd" type="Script" id=4]
 
-[node name="wood" instance=ExtResource( 1 )]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6.5, 6.5 )
 
-[node name="hit_box" parent="." index="1"]
+[sub_resource type="CircleShape2D" id=2]
+
+[node name="wood" type="StaticBody2D"]
+collision_layer = 8
+script = ExtResource( 4 )
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="hit_box" type="Area2D" parent="."]
+collision_layer = 8192
+collision_mask = 6144
+script = ExtResource( 1 )
 type = "Wood"
 
-[node name="sprite" parent="." index="2"]
+[node name="collision_shape" type="CollisionShape2D" parent="hit_box"]
+shape = SubResource( 2 )
+
+[node name="sprite" type="Sprite" parent="."]
 modulate = Color( 0.690196, 0.388235, 0, 1 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )

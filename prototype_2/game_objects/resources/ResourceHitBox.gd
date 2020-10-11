@@ -31,8 +31,8 @@ func die(sender: ObjectHitBox):
 
 
 func register_item():
-	RingMap.register_resource(type, owner)
+	pass#RingMap.register_resource(type, owner)
 
 
 func unregister_item():
-	RingMap.unregister_resource(type, owner)
+	pass#RingMap.unregister_resource(type, owner)

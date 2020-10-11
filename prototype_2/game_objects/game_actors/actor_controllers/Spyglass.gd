@@ -1,5 +1,5 @@
 class_name Spyglass, "res://assets/icons/game_actors/icon_spyglass.svg"
-extends Node
+extends Area2D
 
 
 export(String) var inventory_trigger = "Empty"

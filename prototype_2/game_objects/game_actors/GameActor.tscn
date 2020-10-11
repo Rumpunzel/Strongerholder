@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=2]
@@ -28,17 +28,16 @@
 [ext_resource path="res://game_objects/game_actors/actor_controllers/PuppetMaster.gd" type="Script" id=26]
 [ext_resource path="res://game_objects/game_actors/body/ActorHitBox.gd" type="Script" id=27]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/ToolBelt.gd" type="Script" id=28]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/ResourceLocator.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/Inventory.gd" type="Script" id=30]
 [ext_resource path="res://game_objects/game_actors/animations/footstep_sounds.gd" type="Script" id=31]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/CraftTool.gd" type="Script" id=32]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=1]
 radius = 8.0
-height = 10.0
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 12.0
-height = 15.0
+[sub_resource type="CircleShape2D" id=4]
+radius = 16.0
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
@@ -58,13 +57,15 @@ collision_mask = 10
 script = ExtResource( 27 )
 _inventory_node = NodePath("../utility_nodes/inventory")
 _puppet_master_node = NodePath("../utility_nodes/puppet_master")
+_resource_locator_node = NodePath("../utility_nodes/resource_locator")
 _animation_player_node = NodePath("../animation_player")
 _animation_tree_node = NodePath("../animation_tree")
 
 [node name="collision_shape" type="CollisionShape2D" parent="interaction_box"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="sprite" type="Sprite" parent="."]
+position = Vector2( 0, -13 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -5 )
 vframes = 12
@@ -76,10 +77,18 @@ frame = 10
 [node name="puppet_master" type="Node" parent="utility_nodes"]
 script = ExtResource( 26 )
 _hit_box_node = NodePath("../../interaction_box")
+_resource_locator_node = NodePath("../resource_locator")
 _animation_tree_node = NodePath("../../animation_tree")
 
 [node name="inventory" type="Node2D" parent="utility_nodes"]
 script = ExtResource( 30 )
+
+[node name="resource_locator" type="Node" parent="utility_nodes"]
+script = ExtResource( 29 )
+_inventory_node = NodePath("../inventory")
+_tool_belt_node = NodePath("../tool_belt")
+_animation_player_node = NodePath("../../animation_player")
+_animation_tree_node = NodePath("../../animation_tree")
 
 [node name="tool_belt" type="AudioStreamPlayer2D" parent="utility_nodes"]
 script = ExtResource( 28 )
