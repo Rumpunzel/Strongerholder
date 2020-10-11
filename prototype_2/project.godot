@@ -124,7 +124,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/ResourceLocator.gd"
 }, {
-"base": "Area2D",
+"base": "RayCast2D",
 "class": "Spyglass",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/Spyglass.gd"
