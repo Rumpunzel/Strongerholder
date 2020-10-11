@@ -105,16 +105,16 @@ func exited(new_hit_box: ObjectHitBox):
 
 
 func parse_entering_hit_box(new_hit_box: ObjectHitBox) -> bool:
-	if new_hit_box.active:
-		if not _overlapping_hit_boxes.has(new_hit_box):
-			add_hit_box_to_array(new_hit_box, _overlapping_hit_boxes)
-			new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
-			
-			return true
-	elif not _inactive_overlapping_hit_boxes.has(new_hit_box):
-		add_hit_box_to_array(new_hit_box, _inactive_overlapping_hit_boxes)
-		new_hit_box.connect("activated", self, "parse_acitvating_hit_box", [new_hit_box])
-		new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
+#	if new_hit_box.active:
+#		if not _overlapping_hit_boxes.has(new_hit_box):
+#			add_hit_box_to_array(new_hit_box, _overlapping_hit_boxes)
+#			new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
+#
+#			return true
+#	elif not _inactive_overlapping_hit_boxes.has(new_hit_box):
+#		add_hit_box_to_array(new_hit_box, _inactive_overlapping_hit_boxes)
+#		new_hit_box.connect("activated", self, "parse_acitvating_hit_box", [new_hit_box])
+#		new_hit_box.connect("died", self, "parse_exiting_hit_box", [new_hit_box])
 	
 	return false
 

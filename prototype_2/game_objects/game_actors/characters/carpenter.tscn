@@ -18,6 +18,8 @@ modulate = Color( 1, 0.501961, 0.501961, 1 )
 
 [node name="resources" type="Area2D" parent="utility_nodes/resource_locator" index="0"]
 visible = false
+collision_layer = 0
+collision_mask = 8192
 script = ExtResource( 3 )
 search_for_resources = [ "WoodPlanks", "Wood" ]
 
@@ -26,6 +28,8 @@ shape = SubResource( 1 )
 
 [node name="woodcutters_hut" type="Area2D" parent="utility_nodes/resource_locator" index="1"]
 visible = false
+collision_layer = 0
+collision_mask = 4097
 script = ExtResource( 3 )
 inventory_trigger = "Wood"
 search_for_structures = [ 261 ]

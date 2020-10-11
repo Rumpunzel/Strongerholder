@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game_objects/structures/CityStructure.gd" type="Script" id=1]
 [ext_resource path="res://game_objects/structures/StructureInventory.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/structures/buildings/collision_shape.gd" type="Script" id=3]
 [ext_resource path="res://game_objects/structures/StructureHitBox.gd" type="Script" id=4]
+[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=5]
 
 [node name="base" type="StaticBody2D"]
 collision_layer = 4
@@ -24,7 +25,7 @@ _blocked_by = [ 256 ]
 [node name="collision_shape" type="CollisionShape2D" parent="hit_box"]
 
 [node name="structure" type="Sprite" parent="."]
-position = Vector2( 0, 32 )
+texture = ExtResource( 5 )
 
 [node name="inventory" type="Node2D" parent="."]
 script = ExtResource( 2 )
