@@ -12,7 +12,7 @@ var currently_highlighting: ObjectHitBox = null
 var placing_this_building = null setget set_placing_this_building
 
 
-#var type: int = Constants.Actors.NOTHING
+var type: int = Constants.Actors.NOTHING
 
 
 onready var _puppet_master = get_node(_puppet_master_node)
@@ -25,7 +25,7 @@ onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_no
 
 func initialize():
 	.initialize()
-	owner.connect("entered_segment", self, "_move_building")
+	#owner.connect("entered_segment", self, "_move_building")
 
 
 

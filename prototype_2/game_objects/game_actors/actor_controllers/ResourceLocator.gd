@@ -1,5 +1,5 @@
 class_name ResourceLocator, "res://assets/icons/game_actors/icon_resource_locator.svg"
-extends Node
+extends Node2D
 
 
 signal new_object_of_interest(object_of_interest)
@@ -32,6 +32,7 @@ onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_no
 
 func _ready():
 	_construct_priorites()
+	yield(get_tree(), "idle_frame")
 	force_search()
 	
 	#RingMap.connect("city_changed", self, "force_search")
@@ -80,7 +81,7 @@ func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox):
 					other_object.get_parent().remove_child(other_object)
 				
 				_inventory.add_child(other_object)
-				other_object.ring_vector = owner.ring_vector
+				other_object.global_position = owner.global_position
 			else:
 				own_hit_box.request_item(target_type, other_hit_box)
 			
@@ -93,20 +94,23 @@ func force_search(reset_target_type: bool = true, super_soft_reset: bool = false
 		if reset_target_type:
 			currently_looking_for = { }
 		
-		#set_object_of_interest(_next_priority(owner.ring_vector))
+		set_object_of_interest(_next_priority())
 
 
 
 
-func _next_priority(actor_position: Vector2):
+func _next_priority():
 	var next_target = null
 	var next_status: String = "Empty"
 	
-	for status in _priorities.keys():
-		if _inventory.has(status):
-			next_status = status
+	# Check for a target in range
+	for spyglass in get_children():
+		next_target = spyglass.search_for_target(_inventory)
+		
+		if next_target:
 			break
 	
+	# Then get the corresponding spyglass's priority list
 	var priority_list: Array = _priorities.get(next_status, [ ])
 	
 	
@@ -179,7 +183,7 @@ func set_object_of_interest(new_object):
 					object_of_interest.called_dibs_by = owner
 				
 				object_of_interest.connect("died", self, "force_search")
-			
+			print("new object of interest: %s" % [object_of_interest.name if object_of_interest else "nothing"])
 			emit_signal("new_object_of_interest", object_of_interest)
 		else:
 			force_search(false)

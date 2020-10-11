@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/Spyglass.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 256.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 256.0
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
@@ -10,16 +16,24 @@
 [node name="sprite" parent="." index="2"]
 modulate = Color( 1, 0.501961, 0.501961, 1 )
 
-[node name="resources" type="RayCast2D" parent="utility_nodes/resource_locator" index="0"]
+[node name="resources" type="Area2D" parent="utility_nodes/resource_locator" index="0"]
+visible = false
 collision_mask = 8192
 script = ExtResource( 3 )
 search_for_resources = [ "WoodPlanks", "Wood" ]
 
-[node name="woodcutters_hut" type="RayCast2D" parent="utility_nodes/resource_locator" index="1"]
+[node name="collision_shape" type="CollisionShape2D" parent="utility_nodes/resource_locator/resources" index="0"]
+shape = SubResource( 4 )
+
+[node name="woodcutters_hut" type="Area2D" parent="utility_nodes/resource_locator" index="1"]
+visible = false
 collision_mask = 4097
 script = ExtResource( 3 )
 inventory_trigger = "Wood"
 search_for_structures = [ 261 ]
+
+[node name="collision_shape" type="CollisionShape2D" parent="utility_nodes/resource_locator/woodcutters_hut" index="0"]
+shape = SubResource( 5 )
 
 [node name="animation_tree" parent="." index="5"]
 parameters/playback = SubResource( 3 )

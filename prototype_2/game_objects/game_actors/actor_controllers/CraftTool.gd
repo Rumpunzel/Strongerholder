@@ -1,5 +1,5 @@
 class_name CraftTool, "res://assets/icons/game_actors/icon_crafting_tool.svg"
-extends Node
+extends Node2D
 
 
 export(Array, Constants.Structures) var used_for: Array

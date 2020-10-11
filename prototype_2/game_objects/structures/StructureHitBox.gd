@@ -5,7 +5,8 @@ extends ObjectHitBox
 export(Constants.Structures) var type: int
 export(Array, Constants.Structures) var _blocked_by = [ ]
 
-
+func _ready():
+	initialize()
 
 func initialize():
 	.initialize()

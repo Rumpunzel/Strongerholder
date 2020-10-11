@@ -2,7 +2,7 @@ class_name Puppeteer
 extends Resource
 
 
-func get_input(object_of_interest, hit_box: ActorHitBox, position, current_segments: Array, path_progress: int) -> Array:
+func get_input(object_of_interest, hit_box: ActorHitBox, position: Vector2, current_path: PoolVector2Array) -> Array:
 	var commands: Array = [ ]
 	
 	if weakref(object_of_interest).get_ref():
@@ -16,17 +16,11 @@ func get_input(object_of_interest, hit_box: ActorHitBox, position, current_segme
 	
 	
 	var movement_vector: Vector2 = Vector2()
-	var next_path_segment = current_segments[path_progress] if path_progress < current_segments.size() else null
 	
-	if next_path_segment:
-		next_path_segment.modulo_ring_vector()
-		
-		#movement_vector = Vector2(next_path_segment.radius - ring_vector.radius, 0, rotation_change)
-		
-		#movement_vector.z *= next_path_segment.radius
-		
+	if not current_path.empty():
+		movement_vector = current_path[0] - position
 		#print("movement_vector: %s" % [movement_vector])
-	
+		
 	commands.append(MoveCommand.new(movement_vector))
 	
 	return commands

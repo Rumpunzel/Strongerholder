@@ -3,7 +3,7 @@ extends Puppeteer
 
 
 
-func get_input(_object_of_interest, hit_box: ActorHitBox, position, _current_segments: Array, _path_progress: int) -> Array:
+func get_input(_object_of_interest, hit_box: ActorHitBox, _position: Vector2, _current_path: PoolVector2Array) -> Array:
 	var commands: Array = [ ]
 	
 	if Input.is_action_pressed("open_menu"):

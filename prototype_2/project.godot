@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Constants.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "CraftTool",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/CraftTool.gd"
@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://PlayerCamera.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "PuppetMaster",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/PuppetMaster.gd"
@@ -119,12 +119,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/resources/ResourceHitBox.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "ResourceLocator",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/ResourceLocator.gd"
 }, {
-"base": "RayCast2D",
+"base": "Area2D",
 "class": "Spyglass",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/Spyglass.gd"

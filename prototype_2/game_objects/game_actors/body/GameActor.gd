@@ -3,7 +3,6 @@ extends KinematicBody2D
 
 
 signal moved(direction)
-signal entered_segment(ring_vector)
 
 signal activate
 signal deactivate
