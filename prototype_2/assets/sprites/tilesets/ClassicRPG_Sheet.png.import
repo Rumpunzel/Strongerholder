@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tileset.png-32d409dadc33924c1f61b16c6b13059c.stex"
+path="res://.import/ClassicRPG_Sheet.png-aa475a50a246315006edaa6a76347ac2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/tilesets/tileset.png"
-dest_files=[ "res://.import/tileset.png-32d409dadc33924c1f61b16c6b13059c.stex" ]
+source_file="res://assets/sprites/tilesets/ClassicRPG_Sheet.png"
+dest_files=[ "res://.import/ClassicRPG_Sheet.png-aa475a50a246315006edaa6a76347ac2.stex" ]
 
 [params]
 
