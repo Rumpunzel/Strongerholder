@@ -65,7 +65,7 @@ func _process_commands():
 func _update_current_path():
 	if pathfinding_target:
 		_current_path = get_tree().get_root().get_node("test/navigation").get_simple_path(global_position, pathfinding_target)
-		_current_path.remove(0)
+		#_current_path.remove(0)
 	else:
 		_current_path = PoolVector2Array()
 	
