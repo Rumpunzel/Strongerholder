@@ -17,16 +17,16 @@ func search_for_target(inventory: Inventory) -> GameObject:
 		return null
 	
 	var observable_bodies: Array = get_overlapping_bodies()
-	var shortest_distance: float = INF
+	var shortest_distance = INF
 	var closest_target: GameObject = null
 	
 	for overlapping_body in observable_bodies:
-		var distance_to_body: float = global_position.distance_to(overlapping_body.global_position)
+		var distance_to_body = get_tree().get_root().get_node("test/navigation").get_simple_path(global_position, overlapping_body.global_position).size()
 		
 		if distance_to_body < shortest_distance:
 			shortest_distance = distance_to_body
 			closest_target = overlapping_body
-	print(closest_target)
+	
 	return closest_target
 
 
