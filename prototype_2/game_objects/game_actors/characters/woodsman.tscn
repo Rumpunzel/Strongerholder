@@ -17,9 +17,9 @@ modulate = Color( 0.501961, 1, 0.501961, 1 )
 collision_layer = 0
 collision_mask = 8
 script = ExtResource( 2 )
-search_for_resources = [ "Wood" ]
+search_for_resources = [ "WOOD" ]
 
-[node name="collision_shape" type="CollisionShape2D" parent="utility_nodes/resource_locator/resources" index="0"]
+[node name="resources_shape" type="CollisionShape2D" parent="utility_nodes/resource_locator/resources" index="0"]
 shape = SubResource( 1 )
 
 [node name="axe" parent="utility_nodes/tool_belt" index="0"]

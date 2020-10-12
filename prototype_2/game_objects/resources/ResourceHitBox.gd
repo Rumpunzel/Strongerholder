@@ -3,10 +3,10 @@ extends ObjectHitBox
 
 
 export(String,
-		"Nothing",
-		"Wood",
-		"WoodPlanks",
-		"Stone") var type
+		"NOTHING",
+		"WOOD",
+		"WOOD_PLANKS",
+		"STONE") var type
 
 
 

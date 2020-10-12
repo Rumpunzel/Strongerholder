@@ -15,6 +15,7 @@ func _ready():
 
 func initialize():
 	.initialize()
+	
 	var dic: Array = [ ]
 	
 	dic = requests.duplicate()
@@ -25,8 +26,10 @@ func initialize():
 		for value in  GameResource.RESOURCES:
 			dic.append(value)
 	
-#	for request in dic:
-#		RingMap.register_resource("%s%s" % [GameResource.REQUEST, request], owner)
+	for request in dic:
+		owner.add_to_group("%s%s" % [GameResource.REQUEST, request])
+		
+		#RingMap.register_resource("%s%s" % [GameResource.REQUEST, request], owner)
 
 
 

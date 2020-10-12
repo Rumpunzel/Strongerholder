@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/structures/inventory_display.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game_objects/resources/wood.tscn" type="PackedScene" id=3]
 
 [node name="stockpile" instance=ExtResource( 1 )]
 
@@ -10,6 +11,8 @@ type = 260
 
 [node name="inventory" parent="." index="3"]
 request_everything = true
+
+[node name="wood" parent="inventory" index="0" instance=ExtResource( 3 )]
 
 [node name="inventory_display" parent="." index="4" instance=ExtResource( 2 )]
 margin_left = -75.9819

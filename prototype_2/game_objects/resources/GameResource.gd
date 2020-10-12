@@ -2,12 +2,12 @@ class_name GameResource, "res://assets/icons/icon_resource.svg"
 extends GameObject
 
 
-const REQUEST = "Request_"
+const REQUEST = "REQUEST_"
 
 const RESOURCES: Array = [
-	"Wood",
-	"WoodPlanks",
-	"Stone",
+	"WOOD",
+	"WOOD_PLANKS",
+	"STONE",
 ]
 
 

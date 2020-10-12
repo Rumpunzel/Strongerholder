@@ -60,7 +60,7 @@ _resource_locator_node = NodePath("../utility_nodes/resource_locator")
 _animation_player_node = NodePath("../animation_player")
 _animation_tree_node = NodePath("../animation_tree")
 
-[node name="collision_shape" type="CollisionShape2D" parent="interaction_box"]
+[node name="interaction_shape" type="CollisionShape2D" parent="interaction_box"]
 shape = SubResource( 2 )
 
 [node name="sprite" type="Sprite" parent="."]
@@ -83,6 +83,7 @@ _animation_tree_node = NodePath("../../animation_tree")
 script = ExtResource( 30 )
 
 [node name="resource_locator" type="Node2D" parent="utility_nodes"]
+modulate = Color( 1, 0, 1, 0.392157 )
 script = ExtResource( 29 )
 _inventory_node = NodePath("../inventory")
 _tool_belt_node = NodePath("../tool_belt")
@@ -98,7 +99,7 @@ used_for = [ 512 ]
 _tool_sounds = "res://assets/sounds/axe"
 
 [node name="footstep_sounds" type="AudioStreamPlayer2D" parent="utility_nodes"]
-volume_db = -6.0
+volume_db = -18.0
 script = ExtResource( 31 )
 _animation_player_node = NodePath("../../animation_player")
 _step_sounds = "res://assets/sounds/footsteps"
