@@ -1,17 +1,10 @@
-class_name PuppetMaster, "res://assets/icons/game_actors/icon_puppet_master.svg"
-extends Node2D
-
-
-export(NodePath) var _hit_box_node
-export(NodePath) var _resource_locator_node
-export(NodePath) var _animation_tree_node
+class_name PuppetMaster, "res://assets/icons/game_actors/icon_puppeteer.svg"
+extends InputMaster
 
 
 var pathfinding_target
 var object_of_interest = null setget set_object_of_interest
 
-
-var _puppeteer: Puppeteer
 
 var _current_path: PoolVector2Array = [ ]
 
@@ -19,57 +12,62 @@ var _update_pathfinding: bool = false
 var _update_target: bool = false
 
 
-onready var _game_actor: GameActor = owner
-onready var _hit_box: ActorHitBox = get_node(_hit_box_node)
-onready var _resource_locator = get_node(_resource_locator_node)
-onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
+
+func _init(new_state_machine: StateMachine).(new_state_machine):
+	pass
 
 
 func _ready():
-	_puppeteer = Puppeteer.new()
-	
-	_resource_locator.connect("new_object_of_interest", self, "set_object_of_interest")
+	pass#_resource_locator.connect("new_object_of_interest", self, "set_object_of_interest")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float):
+
+
+func process_commands():
 	if _update_pathfinding:
 		_update_current_path()
 		_update_pathfinding = false
 	
-	
-	if _animation_tree.can_act:
-		_process_commands()
-
-
-
-
-func _process_commands():
 	while not _current_path.empty() and global_position.distance_to(_current_path[0]) <= 1.0:
 		_current_path.remove(0)
 	
-	var commands: Array = _puppeteer.get_input(object_of_interest, _hit_box, global_position, _current_path)
+	.process_commands()
+
+
+
+func _get_input() -> Array:
+	var commands: Array = [ ]
 	
-	for command in commands:
-		var subject = _game_actor
+#	if weakref(object_of_interest).get_ref():
+#		var hit_box_in_range = hit_box.has_object(object_of_interest)
+#
+#		if not hit_box_in_range and object_of_interest is GameResource and hit_box.has_inactive_object(object_of_interest):
+#			hit_box_in_range = hit_box.has_object(object_of_interest.get_owner())
+#
+#		if hit_box_in_range:
+#			commands.append(InteractCommand.new(hit_box_in_range))
+	
+	
+	var movement_vector: Vector2 = Vector2()
+	
+	if not _current_path.empty():
+		movement_vector = _current_path[0] - global_position
+		#print("movement_vector: %s" % [movement_vector])
 		
-		if command is Puppeteer.InteractCommand or command is InputMaster.MenuCommand:
-			subject = _hit_box
-		
-		if command.execute(subject):
-			break
+	commands.append(MoveCommand.new(movement_vector))
+	
+	return commands
 
 
 
 func _update_current_path():
 	if pathfinding_target:
 		_current_path = get_tree().get_root().get_node("test/navigation").get_simple_path(global_position, pathfinding_target)
-		#_current_path.remove(0)
 	else:
 		_current_path = PoolVector2Array()
 	
-	print("\n%s:\ncurrent_path: %s\n" % [_game_actor.name, _current_path])
+	#print("\n%s:\ncurrent_path: %s\n" % [_game_actor.name, _current_path])
 
 
 
@@ -93,12 +91,3 @@ func set_object_of_interest(new_object, calculate_pathfinding: bool = true):
 			pathfinding_target = null
 		
 		_queue_update()
-
-
-func set_player_controlled(new_status: bool):
-	_puppeteer = InputMaster.new() if new_status else Puppeteer.new()
-
-
-
-func is_player_controlled():
-	return _puppeteer is InputMaster

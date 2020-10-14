@@ -74,15 +74,16 @@ func parse_exiting_hit_box(new_hit_box: ObjectHitBox):
 
 
 func highlight_object():
-	if _puppet_master.is_player_controlled():
-		if currently_highlighting:
-			currently_highlighting.set_highlighted(false)
-		
-		if not _overlapping_hit_boxes.empty():
-			currently_highlighting = _overlapping_hit_boxes.front()
-			currently_highlighting.set_highlighted(true)
-		else:
-			currently_highlighting = null
+	pass
+#	if _puppet_master.is_player_controlled():
+#		if currently_highlighting:
+#			currently_highlighting.set_highlighted(false)
+#
+#		if not _overlapping_hit_boxes.empty():
+#			currently_highlighting = _overlapping_hit_boxes.front()
+#			currently_highlighting.set_highlighted(true)
+#		else:
+#			currently_highlighting = null
 
 
 

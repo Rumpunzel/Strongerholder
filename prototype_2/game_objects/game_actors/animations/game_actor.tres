@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=35 format=2]
+[gd_resource type="AnimationNodeStateMachine" load_steps=30 format=2]
 
 [sub_resource type="AnimationNodeAnimation" id=1]
 animation = "attack_left"
@@ -125,24 +125,14 @@ blend_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=30]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=31]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=32]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=33]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=34]
 switch_mode = 2
 
 [resource]
@@ -156,6 +146,6 @@ states/idle_give/node = SubResource( 20 )
 states/idle_give/position = Vector2( 680, 456 )
 states/run/node = SubResource( 25 )
 states/run/position = Vector2( 873, 271 )
-transitions = [ "idle", "run", SubResource( 26 ), "run", "idle", SubResource( 27 ), "idle", "give", SubResource( 28 ), "idle", "attack", SubResource( 29 ), "attack", "idle", SubResource( 30 ), "run", "give", SubResource( 31 ), "run", "attack", SubResource( 32 ), "give", "idle_give", SubResource( 33 ), "idle_give", "idle", SubResource( 34 ) ]
+transitions = [ "idle", "attack", SubResource( 26 ), "attack", "idle", SubResource( 27 ), "give", "idle_give", SubResource( 28 ), "idle_give", "idle", SubResource( 29 ) ]
 start_node = "idle"
-graph_offset = Vector2( 79.8274, -21.301 )
+graph_offset = Vector2( -66.1726, -53.301 )

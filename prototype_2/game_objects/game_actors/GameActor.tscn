@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=2]
@@ -25,13 +25,16 @@
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=23]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/AnimationStateMachine.gd" type="Script" id=24]
 [ext_resource path="res://game_objects/game_actors/body/GameActor.gd" type="Script" id=25]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/PuppetMaster.gd" type="Script" id=26]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/Puppeteer.gd" type="Script" id=26]
 [ext_resource path="res://game_objects/game_actors/body/ActorHitBox.gd" type="Script" id=27]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/ToolBelt.gd" type="Script" id=28]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/ResourceLocator.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/Inventory.gd" type="Script" id=30]
 [ext_resource path="res://game_objects/game_actors/animations/footstep_sounds.gd" type="Script" id=31]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/CraftTool.gd" type="Script" id=32]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/StateMachine.gd" type="Script" id=33]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/ActorStateIdle.gd" type="Script" id=34]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/ActorStateRun.gd" type="Script" id=35]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
@@ -44,8 +47,6 @@ radius = 16.0
 [node name="game_actor" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 25 )
-_puppet_master_node = NodePath("utility_nodes/puppet_master")
-_animation_tree_node = NodePath("animation_tree")
 
 [node name="collision_shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -69,15 +70,23 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -5 )
 vframes = 12
 hframes = 9
-frame = 10
+frame = 50
+
+[node name="state_machine" type="Node2D" parent="."]
+script = ExtResource( 33 )
+_animation_tree_node = NodePath("../animation_tree")
+
+[node name="idle" type="Node" parent="state_machine"]
+script = ExtResource( 34 )
+
+[node name="run" type="Node" parent="state_machine"]
+script = ExtResource( 35 )
 
 [node name="utility_nodes" type="Position2D" parent="."]
 
 [node name="puppet_master" type="Node2D" parent="utility_nodes"]
 script = ExtResource( 26 )
-_hit_box_node = NodePath("../../interaction_box")
-_resource_locator_node = NodePath("../resource_locator")
-_animation_tree_node = NodePath("../../animation_tree")
+_state_machine_node = NodePath("../../state_machine")
 
 [node name="inventory" type="Node2D" parent="utility_nodes"]
 script = ExtResource( 30 )

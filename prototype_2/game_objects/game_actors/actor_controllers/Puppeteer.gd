@@ -1,63 +1,23 @@
-class_name Puppeteer
-extends Resource
+class_name Puppeteer, "res://assets/icons/game_actors/icon_puppet_master.svg"
+extends Node2D
 
 
-func get_input(object_of_interest, hit_box: ActorHitBox, position: Vector2, current_path: PoolVector2Array) -> Array:
-	var commands: Array = [ ]
-	
-	if weakref(object_of_interest).get_ref():
-		var hit_box_in_range = hit_box.has_object(object_of_interest)
-		
-		if not hit_box_in_range and object_of_interest is GameResource and hit_box.has_inactive_object(object_of_interest):
-			hit_box_in_range = hit_box.has_object(object_of_interest.get_owner())
-		
-		if hit_box_in_range:
-			commands.append(InteractCommand.new(hit_box_in_range))
-	
-	
-	var movement_vector: Vector2 = Vector2()
-	
-	if not current_path.empty():
-		movement_vector = current_path[0] - position
-		#print("movement_vector: %s" % [movement_vector])
-		
-	commands.append(MoveCommand.new(movement_vector))
-	
-	return commands
+export(NodePath) var _state_machine_node
+
+
+onready var _state_machine: StateMachine = get_node(_state_machine_node)
+
+onready var character_controller: InputMaster = PuppetMaster.new(_state_machine)
 
 
 
 
-class Command:
-	func execute(_actor) -> bool:
-		assert(false)
-		return false
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
 
 
 
-class MoveCommand extends Command:
-	var movement_vector: Vector2
-	var sprinting: bool
-	
-	func _init(new_movement_vector: Vector2, new_sprinting: bool = false):
-		movement_vector = new_movement_vector
-		sprinting = new_sprinting
-		
-	func execute(actor: GameActor) -> bool:
-		actor.move_to(movement_vector, sprinting)
-		return false
-
-
-
-class InteractCommand extends Command:
-	var hit_box: ObjectHitBox
-	
-	func _init(new_hit_box: ObjectHitBox):
-		hit_box = new_hit_box
-	
-	func execute(actor: ActorHitBox) -> bool:
-		if hit_box:
-			actor.interact_with(hit_box)
-			return true
-		else:
-			return false
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float):
+	character_controller.process_commands()

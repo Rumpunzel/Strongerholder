@@ -25,5 +25,5 @@ shape = SubResource( 1 )
 [node name="axe" parent="utility_nodes/tool_belt" index="0"]
 animation = "attack"
 
-[node name="animation_tree" parent="." index="5"]
+[node name="animation_tree" parent="." index="6"]
 parameters/playback = SubResource( 2 )
