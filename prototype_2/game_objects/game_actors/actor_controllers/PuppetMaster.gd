@@ -5,6 +5,10 @@ extends InputMaster
 var pathfinding_target
 var object_of_interest = null setget set_object_of_interest
 
+var task_master = null
+var task_target = null
+var task_location = null
+
 
 var _current_path: PoolVector2Array = [ ]
 
@@ -12,10 +16,10 @@ var _update_pathfinding: bool = false
 var _update_target: bool = false
 
 
+onready var _inventory: Inventory = $inventory
+onready var _tool_belt: ToolBelt = $tool_belt
 
 
-func _init(new_state_machine: StateMachine).(new_state_machine):
-	pass
 
 
 func _ready():
@@ -23,8 +27,13 @@ func _ready():
 
 
 
+func _process(_delta: float):
+	_keep_busy()
 
-func process_commands():
+
+
+
+func process_commands(state_machine: StateMachine):
 	if _update_pathfinding:
 		_update_current_path()
 		_update_pathfinding = false
@@ -32,7 +41,7 @@ func process_commands():
 	while not _current_path.empty() and global_position.distance_to(_current_path[0]) <= 1.0:
 		_current_path.remove(0)
 	
-	.process_commands()
+	.process_commands(state_machine)
 
 
 
@@ -54,10 +63,42 @@ func _get_input() -> Array:
 	if not _current_path.empty():
 		movement_vector = _current_path[0] - global_position
 		#print("movement_vector: %s" % [movement_vector])
+	else:
+		task_location = null
 		
 	commands.append(MoveCommand.new(movement_vector))
 	
 	return commands
+
+
+
+
+func _keep_busy():
+	# Having a valid pathfinding location has first priority and counts as being busy
+	if task_location:
+		return
+	
+	# Second priority is having a taskmaster whom to work for
+	if not task_master:
+		_search_task_master()
+	
+	if not task_target:
+		_search_task_target()
+
+
+
+func _search_task_master():
+	if not _inventory.empty():
+		pass
+	#elif _tool_belt.
+
+
+
+func _search_task_target():
+	if not task_master:
+		return
+	
+	
 
 
 

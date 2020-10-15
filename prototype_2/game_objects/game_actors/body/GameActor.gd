@@ -13,24 +13,22 @@ var velocity: Vector2 = Vector2()
 
 
 onready var _state_machine: StateMachine = $state_machine
-onready var _puppet_master = $utility_nodes/puppet_master
-
-onready var _character_controller: InputMaster = PuppetMaster.new(_state_machine)
+onready var _puppet_master: InputMaster = $puppet_master
 
 
 
 
 func _setup(player_controlled: bool = false):
-	_character_controller = InputMaster.new(_state_machine)
+	_puppet_master.set_script(InputMaster if player_controlled else PuppetMaster)
 	activate_object()
 
 
 func _process(_delta: float):
-	_character_controller.process_commands()
+	_puppet_master.process_commands(_state_machine)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(_delta):
+func _physics_process(_delta: float):
 	velocity = move_and_slide(velocity)
 	
 	if not velocity == Vector2():

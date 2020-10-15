@@ -2,17 +2,8 @@ class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
 extends Node2D
 
 
-var state_machine: StateMachine
 
-
-
-
-func _init(new_state_machine: StateMachine):
-	state_machine = new_state_machine
-
-
-
-func process_commands():
+func process_commands(state_machine: StateMachine):
 	#object_of_interest, null, global_position, _current_path
 	var commands: Array = _get_input()
 	

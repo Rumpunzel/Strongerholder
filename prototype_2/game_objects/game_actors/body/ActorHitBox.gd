@@ -15,7 +15,6 @@ var placing_this_building = null setget set_placing_this_building
 var type: int = Constants.Actors.NOTHING
 
 
-onready var _puppet_master = get_node(_puppet_master_node)
 onready var _resource_locator = get_node(_resource_locator_node)
 onready var _animation_player: AnimationPlayer = get_node(_animation_player_node)
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
