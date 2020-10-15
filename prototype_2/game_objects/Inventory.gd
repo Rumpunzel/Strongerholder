@@ -57,12 +57,22 @@ func drop_item(item: GameResource):
 func empty() -> bool:
 	return get_child_count() == 0
 
+
 func has(object_type: String) -> bool:
 	for item in get_children():
 		if item.type == object_type:
 			return true
 	
 	return false
+
+
+func get_contents() -> Array:
+	var contents: Array = [ ]
+	
+	for item in get_children():
+		contents.append(item.type)
+	
+	return contents
 
 
 

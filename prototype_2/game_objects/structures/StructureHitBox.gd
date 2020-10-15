@@ -11,10 +11,9 @@ export(Array, Constants.Structures) var _blocked_by = [ ]
 func initialize():
 	.initialize()
 	
-	add_to_group(Constants.enum_name(Constants.Structures, type))
+	owner.add_to_group(Constants.enum_name(Constants.Structures, type))
 	
 	#RingMap.connect("city_changed", self, "is_active")
-	#RingMap.register_structure(type, owner)
 
 
 

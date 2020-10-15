@@ -154,7 +154,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/structures/StructureInventory.gd"
 }, {
-"base": "GameAudioPlayer",
+"base": "Node2D",
 "class": "ToolBelt",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/ToolBelt.gd"

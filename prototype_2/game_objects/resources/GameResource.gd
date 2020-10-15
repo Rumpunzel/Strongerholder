@@ -2,15 +2,6 @@ class_name GameResource, "res://assets/icons/icon_resource.svg"
 extends GameObject
 
 
-const REQUEST = "REQUEST_"
-
-const RESOURCES: Array = [
-	"WOOD",
-	"WOOD_PLANKS",
-	"STONE",
-]
-
-
 export var weight: float
 
 

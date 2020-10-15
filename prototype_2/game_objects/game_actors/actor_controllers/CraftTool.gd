@@ -2,7 +2,7 @@ class_name CraftTool, "res://assets/icons/game_actors/icon_crafting_tool.svg"
 extends Node2D
 
 
-export(Array, Constants.Structures) var used_for: Array
+export(Array, Constants.Resources) var used_for: Array
 
 export var attack_value: float = 2.0
 export(String, "attack", "give") var animation

@@ -1,5 +1,6 @@
 class_name ToolBelt, "res://assets/icons/game_actors/icon_tool_belt.svg"
-extends GameAudioPlayer
+extends Node2D
+
 
 
 func has_tool_for_this(other_hit_box: ObjectHitBox):
@@ -10,10 +11,12 @@ func has_tool_for_this(other_hit_box: ObjectHitBox):
 	return null
 
 
-func valid_targets() -> Array:
+
+func get_valid_targets() -> Array:
 	var has_tools_for: Array = [ ]
 	
 	for craft_tool in get_children():
-		has_tools_for += craft_tool.used_for
+		for target in craft_tool.used_for:
+			has_tools_for.append(Constants.enum_name(Constants.Resources, target))
 	
 	return has_tools_for

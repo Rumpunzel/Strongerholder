@@ -23,16 +23,14 @@ func initialize():
 	if request_everything:
 		dic.clear()
 		
-		for value in  GameResource.RESOURCES:
+		for value in Constants.Resources.keys():
 			dic.append(value)
 	
 	for request in dic:
-		owner.add_to_group("%s%s" % [GameResource.REQUEST, request])
-		
-		#RingMap.register_resource("%s%s" % [GameResource.REQUEST, request], owner)
+		owner.add_to_group("%s%s" % [Constants.REQUEST, request])
 
 
 
 
 func register_item(item):
-	pass#RingMap.register_resource(item.type, item)
+	owner.add_to_group(item.type)

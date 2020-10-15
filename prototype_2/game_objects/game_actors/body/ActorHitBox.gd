@@ -15,7 +15,6 @@ var placing_this_building = null setget set_placing_this_building
 var type: int = Constants.Actors.NOTHING
 
 
-onready var _resource_locator = get_node(_resource_locator_node)
 onready var _animation_player: AnimationPlayer = get_node(_animation_player_node)
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
@@ -29,8 +28,8 @@ func initialize():
 
 
 
-func interact_with(other_hit_box: ObjectHitBox):
-	_resource_locator.interact_with(other_hit_box, self)
+#func interact_with(other_hit_box: ObjectHitBox):
+#	_resource_locator.interact_with(other_hit_box, self)
 
 
 

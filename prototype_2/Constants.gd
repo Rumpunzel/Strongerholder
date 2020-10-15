@@ -28,6 +28,16 @@ enum Structures {
 	TREE = 512,
 }
 
+enum Resources {
+	NOTHING = 1024,
+	WOOD,
+	WOOD_PLANKS,
+	STONE,
+}
+
+
+const REQUEST = "REQUEST_"
+
 
 
 static func is_actor(index) -> bool:

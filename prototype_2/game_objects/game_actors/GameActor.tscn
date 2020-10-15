@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=2]
@@ -28,7 +28,6 @@
 [ext_resource path="res://game_objects/game_actors/actor_controllers/PuppetMaster.gd" type="Script" id=26]
 [ext_resource path="res://game_objects/game_actors/body/ActorHitBox.gd" type="Script" id=27]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/ToolBelt.gd" type="Script" id=28]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/ResourceLocator.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/Inventory.gd" type="Script" id=30]
 [ext_resource path="res://game_objects/game_actors/animations/footstep_sounds.gd" type="Script" id=31]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/CraftTool.gd" type="Script" id=32]
@@ -51,18 +50,6 @@ script = ExtResource( 25 )
 [node name="collision_shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="interaction_box" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 15360
-script = ExtResource( 27 )
-_inventory_node = NodePath("../puppet_master/inventory")
-_resource_locator_node = NodePath("../utility_nodes/resource_locator")
-_animation_player_node = NodePath("../animation_player")
-_animation_tree_node = NodePath("../animation_tree")
-
-[node name="interaction_shape" type="CollisionShape2D" parent="interaction_box"]
-shape = SubResource( 2 )
-
 [node name="sprite" type="Sprite" parent="."]
 position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
@@ -84,26 +71,27 @@ script = ExtResource( 35 )
 [node name="puppet_master" type="Node2D" parent="."]
 script = ExtResource( 26 )
 
+[node name="interaction_box" type="Area2D" parent="puppet_master"]
+collision_layer = 2
+collision_mask = 15360
+script = ExtResource( 27 )
+_inventory_node = NodePath("../inventory")
+_animation_player_node = NodePath("../../animation_player")
+_animation_tree_node = NodePath("../../animation_tree")
+
+[node name="interaction_shape" type="CollisionShape2D" parent="puppet_master/interaction_box"]
+shape = SubResource( 2 )
+
 [node name="inventory" type="Node2D" parent="puppet_master"]
 script = ExtResource( 30 )
 
-[node name="tool_belt" type="AudioStreamPlayer2D" parent="puppet_master"]
+[node name="tool_belt" type="Node2D" parent="puppet_master"]
 script = ExtResource( 28 )
 
 [node name="axe" type="Node2D" parent="puppet_master/tool_belt"]
 script = ExtResource( 32 )
-used_for = [ 512 ]
+used_for = [ 1025 ]
 _tool_sounds = "res://assets/sounds/axe"
-
-[node name="utility_nodes" type="Position2D" parent="."]
-
-[node name="resource_locator" type="Node2D" parent="utility_nodes"]
-modulate = Color( 1, 0, 1, 0.392157 )
-script = ExtResource( 29 )
-_inventory_node = NodePath("../../puppet_master/inventory")
-_tool_belt_node = NodePath("../../puppet_master/tool_belt")
-_animation_player_node = NodePath("../../animation_player")
-_animation_tree_node = NodePath("../../animation_tree")
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 anims/attack_down = ExtResource( 6 )
