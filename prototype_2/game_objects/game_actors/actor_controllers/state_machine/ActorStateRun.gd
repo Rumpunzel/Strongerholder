@@ -15,22 +15,10 @@ var _movement_modifier: float = 1.0
 
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-
-
-func exit(next_state: String):
-	game_actor.velocity = Vector2()
+func exit(next_state: String, parameters: Array = [ ]):
+	_game_object.velocity = Vector2()
 	
-	.exit(next_state)
+	.exit(next_state, parameters)
 
 
 
@@ -41,7 +29,7 @@ func move_to(direction: Vector2, is_sprinting: bool):
 	
 	set_sprinting(is_sprinting)
 	
-	game_actor.velocity = direction.normalized() * move_speed * _movement_modifier
+	_game_object.velocity = direction.normalized() * move_speed * _movement_modifier
 	
 	_change_animation(RUN, direction)
 

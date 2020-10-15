@@ -22,10 +22,16 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "just_attacked"
+}, {
+"args": [  ],
+"method": "attack_finished"
+}, {
+"args": [  ],
+"method": "animation_finished"
 } ]
 }

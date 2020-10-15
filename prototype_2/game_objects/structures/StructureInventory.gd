@@ -10,11 +10,9 @@ export var request_everything: bool = false
 
 func _ready():
 	connect("received_item", self, "register_item")
-
-
-
-func initialize():
-	.initialize()
+	
+	for item in get_children():
+		receive_item(item, null)
 	
 	var dic: Array = [ ]
 	
@@ -33,4 +31,4 @@ func initialize():
 
 
 func register_item(item):
-	owner.add_to_group(item.type)
+	owner.add_to_group(Constants.enum_name(Constants.Resources, item.type))

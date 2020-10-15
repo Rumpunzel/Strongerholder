@@ -2,51 +2,20 @@ class_name GameObject, "res://assets/icons/icon_game_object.svg"
 extends StaticBody2D
 
 
-signal activate
-signal deactivate
 signal died
 
 
-var active: bool setget set_active, is_active
-var type setget set_type, get_type
+onready var _collision_shape: CollisionShape2D = $collision_shape
+onready var _state_machine: StateMachine = $state_machine
 
 
 
-
-func _ready():
-	pass
-
-func _setup():
-	activate_object()
+func damage(damage_points: float, sender) -> bool:
+	return _state_machine.damage(damage_points, sender)
 
 
-
-
-func activate_object():
-	emit_signal("activate")
-
-func deactivate_object():
-	emit_signal("deactivate")
-
-func object_died():
+func die():
+	visible = false
+	_collision_shape.call_deferred("set_disabled", true)
+	
 	emit_signal("died")
-
-
-
-
-func set_active(new_status: bool):
-	$hit_box.active = new_status
-	active = new_status
-
-func set_type(new_type):
-	$hit_box.type = new_type
-	type = new_type
-
-
-
-func is_active() -> bool:
-	active = $hit_box.active
-	return active
-
-func get_type():
-	return $hit_box.type

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=2]
@@ -16,22 +16,21 @@
 [ext_resource path="res://game_objects/game_actors/animations/run/run_up.tres" type="Animation" id=14]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_up.tres" type="Animation" id=15]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_left.tres" type="Animation" id=16]
-[ext_resource path="res://game_objects/game_actors/animations/idle_give/idle_give_down.tres" type="Animation" id=17]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/ActorStateAttack.gd" type="Script" id=17]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_left.tres" type="Animation" id=18]
-[ext_resource path="res://game_objects/game_actors/animations/idle_give/idle_give_left.tres" type="Animation" id=19]
-[ext_resource path="res://game_objects/game_actors/animations/idle_give/idle_give_right.tres" type="Animation" id=20]
-[ext_resource path="res://game_objects/game_actors/animations/idle_give/idle_give_up.tres" type="Animation" id=21]
+[ext_resource path="res://helpers/GameAudioPlayer.gd" type="Script" id=19]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/tools/CraftTool.tscn" type="PackedScene" id=20]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/ActorStateMachine.gd" type="Script" id=21]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=22]
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=23]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/AnimationStateMachine.gd" type="Script" id=24]
 [ext_resource path="res://game_objects/game_actors/body/GameActor.gd" type="Script" id=25]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/PuppetMaster.gd" type="Script" id=26]
-[ext_resource path="res://game_objects/game_actors/body/ActorHitBox.gd" type="Script" id=27]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/ActorStateGive.gd" type="Script" id=27]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/ToolBelt.gd" type="Script" id=28]
+[ext_resource path="res://game_objects/state_machine/StateDead.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/Inventory.gd" type="Script" id=30]
-[ext_resource path="res://game_objects/game_actors/animations/footstep_sounds.gd" type="Script" id=31]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/CraftTool.gd" type="Script" id=32]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/StateMachine.gd" type="Script" id=33]
+[ext_resource path="res://game_objects/state_machine/StateInactive.gd" type="Script" id=31]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/ActorStateIdle.gd" type="Script" id=34]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/ActorStateRun.gd" type="Script" id=35]
 
@@ -56,30 +55,14 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -5 )
 vframes = 12
 hframes = 9
-frame = 50
+frame = 55
 
-[node name="state_machine" type="Node2D" parent="."]
-script = ExtResource( 33 )
-_animation_tree_node = NodePath("../animation_tree")
-
-[node name="idle" type="Node" parent="state_machine"]
-script = ExtResource( 34 )
-
-[node name="run" type="Node" parent="state_machine"]
-script = ExtResource( 35 )
-
-[node name="puppet_master" type="Node2D" parent="."]
+[node name="puppet_master" type="Area2D" parent="."]
+collision_layer = 2048
+collision_mask = 15
 script = ExtResource( 26 )
 
-[node name="interaction_box" type="Area2D" parent="puppet_master"]
-collision_layer = 2
-collision_mask = 15360
-script = ExtResource( 27 )
-_inventory_node = NodePath("../inventory")
-_animation_player_node = NodePath("../../animation_player")
-_animation_tree_node = NodePath("../../animation_tree")
-
-[node name="interaction_shape" type="CollisionShape2D" parent="puppet_master/interaction_box"]
+[node name="interaction_shape" type="CollisionShape2D" parent="puppet_master"]
 shape = SubResource( 2 )
 
 [node name="inventory" type="Node2D" parent="puppet_master"]
@@ -88,10 +71,39 @@ script = ExtResource( 30 )
 [node name="tool_belt" type="Node2D" parent="puppet_master"]
 script = ExtResource( 28 )
 
-[node name="axe" type="Node2D" parent="puppet_master/tool_belt"]
-script = ExtResource( 32 )
-used_for = [ 1025 ]
-_tool_sounds = "res://assets/sounds/axe"
+[node name="axe" parent="puppet_master/tool_belt" instance=ExtResource( 20 )]
+
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource( 21 )
+_animation_tree_node = NodePath("../animation_tree")
+
+[node name="idle" type="Node" parent="state_machine"]
+script = ExtResource( 34 )
+
+[node name="run" type="Node" parent="state_machine"]
+script = ExtResource( 35 )
+
+[node name="give" type="Node" parent="state_machine"]
+script = ExtResource( 27 )
+
+[node name="attack" type="Node" parent="state_machine"]
+script = ExtResource( 17 )
+
+[node name="inactive" type="Node" parent="state_machine"]
+script = ExtResource( 31 )
+
+[node name="dead" type="Node" parent="state_machine"]
+script = ExtResource( 29 )
+
+[node name="animation_tree" type="AnimationTree" parent="."]
+tree_root = ExtResource( 2 )
+anim_player = NodePath("../animation_player")
+parameters/playback = SubResource( 3 )
+parameters/attack/blend_position = Vector2( 0, 0 )
+parameters/give/blend_position = Vector2( 0, 0 )
+parameters/idle/blend_position = Vector2( 0, 0 )
+parameters/run/blend_position = Vector2( 0, 0 )
+script = ExtResource( 24 )
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 anims/attack_down = ExtResource( 6 )
@@ -103,10 +115,6 @@ anims/give_left = ExtResource( 18 )
 anims/give_right = ExtResource( 13 )
 anims/give_up = ExtResource( 15 )
 anims/idle_down = ExtResource( 5 )
-anims/idle_give_down = ExtResource( 17 )
-anims/idle_give_left = ExtResource( 19 )
-anims/idle_give_right = ExtResource( 20 )
-anims/idle_give_up = ExtResource( 21 )
 anims/idle_left = ExtResource( 9 )
 anims/idle_right = ExtResource( 10 )
 anims/idle_up = ExtResource( 11 )
@@ -115,19 +123,8 @@ anims/run_left = ExtResource( 16 )
 anims/run_right = ExtResource( 22 )
 anims/run_up = ExtResource( 14 )
 script = ExtResource( 23 )
+_step_sounds = "res://assets/sounds/footsteps"
 
 [node name="footstep_sounds" type="AudioStreamPlayer2D" parent="animation_player"]
 volume_db = -18.0
-script = ExtResource( 31 )
-_step_sounds = "res://assets/sounds/footsteps"
-
-[node name="animation_tree" type="AnimationTree" parent="."]
-tree_root = ExtResource( 2 )
-anim_player = NodePath("../animation_player")
-parameters/playback = SubResource( 3 )
-parameters/attack/blend_position = Vector2( 0, 0 )
-parameters/give/blend_position = Vector2( 0, 0 )
-parameters/idle/blend_position = Vector2( 0, 0 )
-parameters/idle_give/blend_position = Vector2( 0, 0 )
-parameters/run/blend_position = Vector2( 0, 0 )
-script = ExtResource( 24 )
+script = ExtResource( 19 )

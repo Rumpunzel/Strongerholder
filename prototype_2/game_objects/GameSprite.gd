@@ -8,8 +8,8 @@ export(Material) var _highlight_material: Material
 
 
 
-func _ready():
-	get_node(_hit_box_node).connect("highlighted", self, "handle_highlighted")
+#func _ready():
+#	get_node(_hit_box_node).connect("highlighted", self, "handle_highlighted")
 
 
 

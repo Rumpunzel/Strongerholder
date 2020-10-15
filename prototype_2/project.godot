@@ -14,15 +14,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/body/ActorHitBox.gd"
 }, {
-"base": "Node",
+"base": "ObjectState",
 "class": "ActorState",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorState.gd"
 }, {
 "base": "ActorState",
+"class": "ActorStateAttack",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorStateAttack.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateGive",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorStateGive.gd"
+}, {
+"base": "ActorState",
 "class": "ActorStateIdle",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorStateIdle.gd"
+}, {
+"base": "StateMachine",
+"class": "ActorStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorStateMachine.gd"
 }, {
 "base": "ActorState",
 "class": "ActorStateRun",
@@ -44,7 +59,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Constants.gd"
 }, {
-"base": "Node2D",
+"base": "Area2D",
 "class": "CraftTool",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/CraftTool.gd"
@@ -79,7 +94,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/GameSprite.gd"
 }, {
-"base": "Node2D",
+"base": "Area2D",
 "class": "InputMaster",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/InputMaster.gd"
@@ -93,6 +108,11 @@ _global_script_classes=[ {
 "class": "ObjectHitBox",
 "language": "GDScript",
 "path": "res://game_objects/ObjectHitBox.gd"
+}, {
+"base": "Node",
+"class": "ObjectState",
+"language": "GDScript",
+"path": "res://game_objects/state_machine/ObjectState.gd"
 }, {
 "base": "Camera2D",
 "class": "PlayerCamera",
@@ -139,10 +159,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/Spyglass.gd"
 }, {
+"base": "ObjectState",
+"class": "StateDead",
+"language": "GDScript",
+"path": "res://game_objects/state_machine/StateDead.gd"
+}, {
+"base": "ObjectState",
+"class": "StateIdle",
+"language": "GDScript",
+"path": "res://game_objects/state_machine/StateIdle.gd"
+}, {
+"base": "ObjectState",
+"class": "StateInactive",
+"language": "GDScript",
+"path": "res://game_objects/state_machine/StateInactive.gd"
+}, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/state_machine/StateMachine.gd"
+"path": "res://game_objects/state_machine/StateMachine.gd"
 }, {
 "base": "ObjectHitBox",
 "class": "StructureHitBox",
@@ -162,7 +197,10 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ActorHitBox": "res://assets/icons/game_actors/icon_actor_hit_box.svg",
 "ActorState": "res://assets/icons/game_actors/states/icon_state.svg",
+"ActorStateAttack": "res://assets/icons/game_actors/states/icon_state_attack.svg",
+"ActorStateGive": "res://assets/icons/game_actors/states/icon_state_give.svg",
 "ActorStateIdle": "res://assets/icons/game_actors/states/icon_state_idle.svg",
+"ActorStateMachine": "res://assets/icons/game_actors/states/icon_actor_state_machine.svg",
 "ActorStateRun": "res://assets/icons/game_actors/states/icon_state_run.svg",
 "AnimationStateMachine": "",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
@@ -177,6 +215,7 @@ _global_script_class_icons={
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
 "Inventory": "res://assets/icons/icon_inventory.svg",
 "ObjectHitBox": "res://assets/icons/icon_hit_box.svg",
+"ObjectState": "res://assets/icons/game_actors/states/icon_state.svg",
 "PlayerCamera": "",
 "PuppetMaster": "res://assets/icons/game_actors/icon_puppeteer.svg",
 "RadiantContainer": "",
@@ -186,7 +225,10 @@ _global_script_class_icons={
 "ResourceHitBox": "",
 "ResourceLocator": "res://assets/icons/game_actors/icon_resource_locator.svg",
 "Spyglass": "res://assets/icons/game_actors/icon_spyglass.svg",
-"StateMachine": "res://assets/icons/game_actors/states/icon_state_machine.svg",
+"StateDead": "res://assets/icons/icon_state_dead.svg",
+"StateIdle": "res://assets/icons/game_actors/states/icon_state_idle.svg",
+"StateInactive": "",
+"StateMachine": "res://assets/icons/icon_state_machine.svg",
 "StructureHitBox": "res://assets/icons/structures/icon_structure_hit_box.svg",
 "StructureInventory": "res://assets/icons/structures/icon_structure_inventory.svg",
 "ToolBelt": "res://assets/icons/game_actors/icon_tool_belt.svg"
@@ -207,7 +249,7 @@ gdscript/warnings/unsafe_call_argument=true
 
 [display]
 
-window/size/width=1920
+window/size/width=1980
 window/size/height=1080
 
 [importer_defaults]
@@ -337,6 +379,7 @@ open_menu={
 2d_physics/layer_12="ActorAreas"
 2d_physics/layer_13="StructureAreas"
 2d_physics/layer_14="ResourcesAreas"
+2d_physics/layer_15="ToolAreas"
 
 [node]
 

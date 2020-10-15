@@ -1,4 +1,4 @@
-extends GameSprite
+extends Sprite
 
 
 export(Array, Texture) var _sprites

@@ -9,15 +9,9 @@ signal sent_item(item)
 
 
 func _ready():
-	owner.connect("activate", self, "initialize")
 	owner.connect("died", self, "drop_all_items")
 
 
-
-
-func initialize():
-	for item in get_children():
-		receive_item(item, null)
 
 
 func receive_item(item: GameResource, sender):
@@ -70,7 +64,7 @@ func get_contents() -> Array:
 	var contents: Array = [ ]
 	
 	for item in get_children():
-		contents.append(item.type)
+		contents.append(item)
 	
 	return contents
 

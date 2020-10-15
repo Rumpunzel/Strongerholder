@@ -4,14 +4,13 @@ extends KinematicBody2D
 
 signal moved(direction)
 
-signal activate
-signal deactivate
 signal died
 
 
 var velocity: Vector2 = Vector2()
 
 
+onready var _collision_shape: CollisionShape2D = $collision_shape
 onready var _state_machine: StateMachine = $state_machine
 onready var _puppet_master: InputMaster = $puppet_master
 
@@ -20,7 +19,6 @@ onready var _puppet_master: InputMaster = $puppet_master
 
 func _setup(player_controlled: bool = false):
 	_puppet_master.set_script(InputMaster if player_controlled else PuppetMaster)
-	activate_object()
 
 
 func _process(_delta: float):
@@ -37,11 +35,16 @@ func _physics_process(_delta: float):
 
 
 
-func activate_object():
-	emit_signal("activate")
+func damage(damage_points: float, sender) -> bool:
+	return _state_machine.damage(damage_points, sender)
 
-func deactivate_object():
-	emit_signal("deactivate")
+
+func die():
+	visible = false
+	_collision_shape.call_deferred("set_disabled", true)
+	set_process(false)
+	
+	emit_signal("died")
 
 
 func object_died():

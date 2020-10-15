@@ -1,5 +1,5 @@
 class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
-extends Node2D
+extends Area2D
 
 
 
@@ -67,6 +67,34 @@ class InteractCommand extends Command:
 			return true
 		else:
 			return false
+
+
+
+class GiveCommand extends Command:
+	var receiver: Object
+	var what_to_give: Object
+	
+	func _init(new_receiver: Object, new_what_to_give: Object):
+		receiver = new_receiver
+		what_to_give = new_what_to_give
+	
+	func execute(state_machine: StateMachine) -> bool:
+		state_machine.give_item_to(receiver, what_to_give)
+		return true
+
+
+
+class AttackCommand extends Command:
+	var target: Object
+	var weapon: CraftTool
+	
+	func _init(new_target: Object, new_weapon: CraftTool):
+		target = new_target
+		weapon = new_weapon
+	
+	func execute(state_machine: StateMachine) -> bool:
+		state_machine.attack(target, weapon)
+		return true
 
 
 

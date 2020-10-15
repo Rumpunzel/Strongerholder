@@ -1,5 +1,5 @@
 class_name CraftTool, "res://assets/icons/game_actors/icon_crafting_tool.svg"
-extends Node2D
+extends Area2D
 
 
 export(Array, Constants.Resources) var used_for: Array
@@ -11,21 +11,40 @@ export(String, "attack", "give") var animation
 export(String, DIR) var _tool_sounds: String
 
 
+onready var _hit_box: CollisionShape2D = $tool_shape
+
 onready var _sounds: Array = FileHelper.list_files_in_directory(_tool_sounds, false, ".wav")
+onready var _tool_audio: GameAudioPlayer = $tool_audio
+
+onready var _game_actor = get_parent().owner
 
 
 
-func check_for_interaction(other_hit_box: ObjectHitBox):
-	if used_for.has(other_hit_box.type):
-		return true
+
+func _ready():
+	connect("body_entered", self, "_hit_object")
+
+
+
+
+func start_attack():
+	_hit_box.disabled = false
+#	for object in get_overlapping_bodies():
+#		print(object.name)
+
+func end_attack():
+	_hit_box.disabled = true
+
+
+
+
+func _hit_object(other_object: Object):
+	if other_object == _game_actor:
+		return
 	
-	return false
+	other_object.damage(attack_value, _game_actor)
+	attack_effect()
 
 
-func interact_with(other_hit_box: ObjectHitBox, own_hit_box: ActorHitBox, tool_belt: ToolBelt):
-	other_hit_box.damage(attack_value, own_hit_box)
-	attack_effect(other_hit_box, own_hit_box, tool_belt)
-
-
-func attack_effect(_other_hit_box: ObjectHitBox, _own_hit_box: ActorHitBox, tool_belt: ToolBelt):
-	tool_belt.play_audio_from_array(_sounds)
+func attack_effect():
+	_tool_audio.play_audio_from_array(_sounds)

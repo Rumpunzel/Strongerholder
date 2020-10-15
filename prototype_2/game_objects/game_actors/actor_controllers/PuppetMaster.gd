@@ -2,12 +2,13 @@ class_name PuppetMaster, "res://assets/icons/game_actors/icon_puppeteer.svg"
 extends InputMaster
 
 
-var task_master = null
-var task_target = null
-var task_location = null
+const TASK_MASTER = "task_master"
+const TASK_TARGET = "task_target"
+const PURPOSE = "purpose"
+const TOOL = "tool"
 
 
-var _current_path: PoolVector2Array = [ ]
+var _current_plan: BasicPlan
 
 
 onready var _inventory: Inventory = $inventory
@@ -18,92 +19,82 @@ onready var _navigation: Navigation2D = get_tree().get_root().get_node("test/nav
 
 
 
-func _ready():
-	pass#_resource_locator.connect("new_object_of_interest", self, "set_object_of_interest")
-
-
-
 func _process(_delta: float):
-	_keep_busy()
+	if not (_current_plan and _current_plan.is_useful()):
+		var master_purpose: Dictionary = _search_task_master()
+		
+		var new_task_master: Object = master_purpose.get(TASK_MASTER)
+		var new_task_target: Object = master_purpose.get(TASK_TARGET)
+		var new_purpose = master_purpose.get(PURPOSE)
+		var new_tool: Object = master_purpose.get(TOOL)
+		
+		if not (new_task_master and new_purpose):
+			return
+		
+		if not new_task_target:
+			new_task_target = _search_task_target(new_task_master, new_purpose)
+		
+		if not new_task_target:
+			return
+		
+		new_plan(new_task_master, new_task_target, new_purpose, new_tool)
 
 
 
-
-func process_commands(state_machine: StateMachine):
-	while not _current_path.empty() and global_position.distance_to(_current_path[0]) <= 1.0:
-		_current_path.remove(0)
+func new_basic_plan(new_task_location: Vector2) :
+	var new_path = _navigation.get_simple_path(global_position, new_task_location)
+	print("\n%s:\ncurrent_path: %s\n" % [owner.name, new_path])
 	
-	.process_commands(state_machine)
+	_current_plan = BasicPlan.new(self, new_path)
+
+
+func new_plan(new_task_master: Object, new_task_target: Object, new_purpose: String, new_tool: Object):
+	var new_path = _navigation.get_simple_path(global_position, new_task_target.global_position)
+	print("\n%s:\ncurrent_path: %s\n" % [owner.name, new_path])
+	
+	_current_plan = Plan.new(self, new_path, new_task_master, new_task_target, new_purpose, new_tool)
+
 
 
 
 func _get_input() -> Array:
 	var commands: Array = [ ]
 	
-#	if weakref(object_of_interest).get_ref():
-#		var hit_box_in_range = hit_box.has_object(object_of_interest)
-#
-#		if not hit_box_in_range and object_of_interest is GameResource and hit_box.has_inactive_object(object_of_interest):
-#			hit_box_in_range = hit_box.has_object(object_of_interest.get_owner())
-#
-#		if hit_box_in_range:
-#			commands.append(InteractCommand.new(hit_box_in_range))
-	
-	
-	var movement_vector: Vector2 = Vector2()
-	
-	if not _current_path.empty():
-		movement_vector = _current_path[0] - global_position
-		#print("movement_vector: %s" % [movement_vector])
-	else:
-		task_location = null
+	if _current_plan:
+		var task_target: Object = _current_plan.task_target
 		
-	commands.append(MoveCommand.new(movement_vector))
+		if task_target and get_overlapping_bodies().has(task_target):
+			commands.append(_current_plan.next_command())
+		
+		commands.append(MoveCommand.new(_current_plan.next_step()))
 	
 	return commands
 
 
 
-
-func _keep_busy():
-	# Having a valid pathfinding location has first priority and counts as being busy
-	if task_location:
-		return
-	
-	# Second priority is having a taskmaster whom to work for
-	if not task_master:
-		_search_task_master()
-	
-	if task_master and not task_target:
-		_search_task_target()
-
-
-
-func _search_task_master():
-	var services: Array = [ ]
-	
-	services += _inventory.get_contents() + _tool_belt.get_valid_targets()
+func _search_task_master() -> Dictionary:
+	for item in _inventory.get_contents():
+		var item_type: String = Constants.enum_name(Constants.Resources, item.type)
+		var nearest_master: Object = _nearest_in_group("%s%s" % [Constants.REQUEST, item_type])
+		
+		if nearest_master:
+			return { TASK_MASTER: nearest_master, PURPOSE: item_type, TOOL: item }
 	
 	
-	for service in services:
-		task_master = _nearest_in_group("%s%s" % [Constants.REQUEST, service])
-
-
-
-func _search_task_target():
-	for group in task_master.get_groups():
-		if group.begins_with(Constants.REQUEST):
-			var request: String = group.trim_prefix(Constants.REQUEST)
+	for craft_tool in _tool_belt.get_tools():
+		for use in craft_tool.used_for:
+			var tool_type: String = Constants.enum_name(Constants.Resources, use)
+			var nearest_master: Object = _nearest_in_group("%s%s" % [Constants.REQUEST, tool_type])
 			
-			if _inventory.has(group):
-				task_target = task_master
-				break
-			elif _tool_belt.get_valid_targets().has(request):
-				task_target = _nearest_in_group(request, [task_master.type])
-				
-				if task_target:
-					_update_current_path()
-					break
+			if nearest_master:
+				return { TASK_MASTER: nearest_master, PURPOSE: tool_type, TOOL: craft_tool }
+	
+	return { }
+
+
+
+func _search_task_target(task_master: Object, purpose: String) -> Object:
+	return _nearest_in_group(purpose, [ task_master.type ])
 
 
 
@@ -142,30 +133,63 @@ func _nearest_in_group(group_name: String, groups_to_exclude: Array = [ ]) -> Ob
 
 
 
-func _update_current_path():
-	var target = null
+
+
+class BasicPlan:
 	
-	if task_location:
-		target = task_location
-	elif task_target:
-		target = task_target.global_position
+	var task_agent: PuppetMaster
+	var path: PoolVector2Array
 	
-	if target:
-		_current_path = _navigation.get_simple_path(global_position, target)
-	else:
-		_current_path = PoolVector2Array()
 	
-	print("\n%s:\ncurrent_path: %s\n" % [owner.name, _current_path])
+	func _init(new_task_agent: PuppetMaster, new_path: PoolVector2Array):
+		task_agent = new_task_agent
+		path = new_path
+	
+	
+	func next_step() -> Vector2:
+		while not path.empty() and task_agent.global_position.distance_to(path[0]) <= 1.0:
+			path.remove(0)
+		
+		var movement_vector: Vector2 = Vector2()
+		
+		if not path.empty():
+			movement_vector = path[0] - task_agent.global_position
+		
+		return movement_vector
+	
+	
+	func is_useful() -> bool:
+		return not path.empty()
 
 
 
-#func set_object_of_interest(new_object, calculate_pathfinding: bool = true):
-#	object_of_interest = new_object
-#
-#	if calculate_pathfinding:
-#		if object_of_interest:
-#			pathfinding_target = object_of_interest.global_position
-#		else:
-#			pathfinding_target = null
-#
-#		_queue_update()
+class Plan extends BasicPlan:
+	
+	var task_master: Object
+	var task_target: Object
+	
+	var purpose: String
+	var task_tool: Object
+	
+	
+	func _init(new_task_agent: PuppetMaster, new_path: PoolVector2Array, new_task_master: Object, new_task_target: Object, new_purpose: String, new_tool: Object).(new_task_agent, new_path):
+		task_master = new_task_master
+		task_target = new_task_target
+		
+		purpose = new_purpose
+		task_tool = new_tool
+	
+	
+	
+	func next_command() -> InputMaster.Command:
+		if task_target == task_master:
+			return InputMaster.GiveCommand.new(task_target, task_tool)
+		
+		match task_target:
+			_:
+				return InputMaster.AttackCommand.new(task_target, task_tool)
+	
+	
+	
+	func is_useful() -> bool:
+		return .is_useful() or (task_master and task_target)

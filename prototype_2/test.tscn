@@ -12,9 +12,9 @@
 script/source = "extends Node2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
+
+func _enter_tree():
+	randomize()
 
 
 # Called when the node enters the scene tree for the first time.
@@ -83,9 +83,7 @@ occluder = SubResource( 2 )
 
 [node name="camera" type="Camera2D" parent="y_sort/game_actor"]
 current = true
-zoom = Vector2( 0.5, 0.5 )
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
+zoom = Vector2( 0.517, 0.517 )
 smoothing_enabled = true
 smoothing_speed = 2.0
 drag_margin_left = 0.0

@@ -3,12 +3,8 @@ extends Node2D
 
 
 
-func has_tool_for_this(other_hit_box: ObjectHitBox):
-	for craft_tool in get_children():
-		if craft_tool.check_for_interaction(other_hit_box):
-			return craft_tool
-	
-	return null
+func get_tools() -> Array:
+	return get_children()
 
 
 
