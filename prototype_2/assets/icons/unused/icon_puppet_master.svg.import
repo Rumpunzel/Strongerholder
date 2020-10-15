@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_puppet_master.svg-f502fbfb3fdb5dd3c7f66ea036b33f79.stex"
+path="res://.import/icon_puppet_master.svg-7b70f14a9d5c04def7bef87404fa1d6b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/game_actors/icon_puppet_master.svg"
-dest_files=[ "res://.import/icon_puppet_master.svg-f502fbfb3fdb5dd3c7f66ea036b33f79.stex" ]
+source_file="res://assets/icons/unused/icon_puppet_master.svg"
+dest_files=[ "res://.import/icon_puppet_master.svg-7b70f14a9d5c04def7bef87404fa1d6b.stex" ]
 
 [params]
 

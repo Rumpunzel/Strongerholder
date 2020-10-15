@@ -104,11 +104,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/PuppetMaster.gd"
 }, {
-"base": "Node2D",
-"class": "Puppeteer",
-"language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/Puppeteer.gd"
-}, {
 "base": "CenterContainer",
 "class": "RadiantContainer",
 "language": "GDScript",
@@ -184,7 +179,6 @@ _global_script_class_icons={
 "ObjectHitBox": "res://assets/icons/icon_hit_box.svg",
 "PlayerCamera": "",
 "PuppetMaster": "res://assets/icons/game_actors/icon_puppeteer.svg",
-"Puppeteer": "res://assets/icons/game_actors/icon_puppet_master.svg",
 "RadiantContainer": "",
 "RadiantUI": "",
 "RadiantUIButton": "",

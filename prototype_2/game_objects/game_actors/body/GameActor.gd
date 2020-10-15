@@ -15,12 +15,18 @@ var velocity: Vector2 = Vector2()
 onready var _state_machine: StateMachine = $state_machine
 onready var _puppet_master = $utility_nodes/puppet_master
 
+onready var _character_controller: InputMaster = PuppetMaster.new(_state_machine)
+
 
 
 
 func _setup(player_controlled: bool = false):
-	_puppet_master.character_controller = InputMaster.new(_state_machine)
+	_character_controller = InputMaster.new(_state_machine)
 	activate_object()
+
+
+func _process(_delta: float):
+	_character_controller.process_commands()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
