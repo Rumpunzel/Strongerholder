@@ -20,16 +20,16 @@
 [ext_resource path="res://game_objects/game_actors/animations/give/give_left.tres" type="Animation" id=18]
 [ext_resource path="res://helpers/GameAudioPlayer.gd" type="Script" id=19]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/tools/CraftTool.tscn" type="PackedScene" id=20]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/ActorStateMachine.gd" type="Script" id=21]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/actor_state_machine.gd" type="Script" id=21]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=22]
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=23]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/AnimationStateMachine.gd" type="Script" id=24]
-[ext_resource path="res://game_objects/game_actors/body/GameActor.gd" type="Script" id=25]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/PuppetMaster.gd" type="Script" id=26]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/animation_state_machine.gd" type="Script" id=24]
+[ext_resource path="res://game_objects/game_actors/GameActor.gd" type="Script" id=25]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/puppet_master.gd" type="Script" id=26]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/give.gd" type="Script" id=27]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/ToolBelt.gd" type="Script" id=28]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/tool_belt.gd" type="Script" id=28]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/dead.gd" type="Script" id=29]
-[ext_resource path="res://game_objects/Inventory.gd" type="Script" id=30]
+[ext_resource path="res://game_objects/inventory.gd" type="Script" id=30]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/inactive.gd" type="Script" id=31]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/take.gd" type="Script" id=32]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/idle.gd" type="Script" id=34]
@@ -62,7 +62,7 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -5 )
 vframes = 12
 hframes = 9
-frame = 55
+frame = 72
 
 [node name="state_machine" type="Node" parent="."]
 script = ExtResource( 21 )
@@ -76,11 +76,11 @@ script = ExtResource( 35 )
 
 [node name="give" type="Node" parent="state_machine"]
 script = ExtResource( 27 )
-_inventory_node = NodePath("../../puppet_master/inventory")
+_puppet_master_node = NodePath("../../puppet_master")
 
 [node name="take" type="Node" parent="state_machine"]
 script = ExtResource( 32 )
-_inventory_node = NodePath("../../puppet_master/inventory")
+_puppet_master_node = NodePath("../../puppet_master")
 
 [node name="attack" type="Node" parent="state_machine"]
 script = ExtResource( 17 )

@@ -4,6 +4,7 @@ extends ObjectState
 
 const RUN = "run"
 const GIVE = "give"
+const TAKE = "take"
 const ATTACK = "attack"
 
 
@@ -14,6 +15,25 @@ var _animation_cancellable: bool = true
 func exit(next_state: String, parameter: Array = [ ]):
 	if _animation_cancellable and not name == next_state:
 		.exit(next_state, parameter)
+
+
+
+
+func move_to(direction: Vector2, _is_sprinting: bool):
+	exit(RUN)
+
+
+func give_item(item: GameResource):
+	exit(GIVE, [item])
+
+
+func take_item(item: GameResource):
+	exit(TAKE, [item])
+
+
+func attack(weapon: CraftTool):
+	exit(ATTACK, [weapon])
+
 
 
 
@@ -28,17 +48,6 @@ func action_finished(_animation: String):
 func animtion_finished(_animation: String):
 	_animation_cancellable = true
 
-
-func move_to(direction: Vector2, _is_sprinting: bool):
-	exit(RUN)
-
-
-func give_item(item: Node2D):
-	exit(GIVE, [item])
-
-
-func attack(weapon: CraftTool):
-	exit(ATTACK, [weapon])
 
 
 

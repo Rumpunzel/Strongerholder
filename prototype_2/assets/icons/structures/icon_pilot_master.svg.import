@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-9a25435582839ca3cd8bb514b597c2d9.stex"
+path="res://.import/icon_pilot_master.svg-f5c267daf7caabc17371829db274d430.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icon.png"
-dest_files=[ "res://.import/icon.png-9a25435582839ca3cd8bb514b597c2d9.stex" ]
+source_file="res://assets/icons/structures/icon_pilot_master.svg"
+dest_files=[ "res://.import/icon_pilot_master.svg-f5c267daf7caabc17371829db274d430.stex" ]
 
 [params]
 
@@ -23,7 +23,7 @@ flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false

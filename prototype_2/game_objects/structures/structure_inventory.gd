@@ -12,7 +12,7 @@ func _ready():
 	connect("received_item", self, "register_item")
 	
 	for item in get_children():
-		receive_item(item, null)
+		pick_up_item(item)
 	
 	var dic: Array = [ ]
 	

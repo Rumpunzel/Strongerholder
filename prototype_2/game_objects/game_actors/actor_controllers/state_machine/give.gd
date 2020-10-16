@@ -2,13 +2,13 @@ class_name ActorStateGive, "res://assets/icons/game_actors/states/icon_state_giv
 extends ActorState
 
 
-export(NodePath) var _inventory_node
+export(NodePath) var _puppet_master_node
 
 
-var _item: Node2D
+var _item: GameResource
 
 
-onready var _inventory: Inventory = get_node(_inventory_node)
+onready var _puppet_master: PuppetMaster = get_node(_puppet_master_node)
 
 
 
@@ -25,6 +25,6 @@ func animation_acted(_animation: String):
 	if not _item:
 		return
 	
-	_inventory.drop_item(_item)
+	_puppet_master.drop_item(_item)
 	
 	print(_item.name)

@@ -1,4 +1,4 @@
-class_name Refinery, "res://assets/icons/icon_refinery.svg"
+class_name Refinery, "res://assets/icons/structures/icon_refinery.svg"
 extends Inventory
 
 

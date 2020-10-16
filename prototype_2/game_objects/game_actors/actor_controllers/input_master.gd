@@ -25,7 +25,7 @@ func _get_input() -> Array:
 	var movement_vector: Vector2 = Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	var sprinting = Input.is_action_pressed("sprint")
 	
-	commands.append(MoveCommand.new(movement_vector, sprinting))
+	#commands.append(MoveCommand.new(movement_vector, sprinting))
 	
 	return commands
 
@@ -46,7 +46,7 @@ class MoveCommand extends Command:
 	func _init(new_movement_vector: Vector2, new_sprinting: bool = false):
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
-		
+	
 	func execute(state_machine: StateMachine):
 		state_machine.move_to(movement_vector, sprinting)
 
@@ -72,6 +72,17 @@ class GiveCommand extends Command:
 	
 	func execute(state_machine: StateMachine):
 		state_machine.give_item(what_to_give)
+
+
+
+class TakeCommand extends Command:
+	var what_to_take: Node2D
+	
+	func _init(new_what_to_take: Node2D):
+		what_to_take = new_what_to_take
+	
+	func execute(state_machine: StateMachine):
+		state_machine.take_item(what_to_take)
 
 
 

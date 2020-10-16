@@ -60,7 +60,7 @@ func is_active() -> bool:
 
 func _change_to(new_state: String, parameters: Array = [ ]):
 	history.append(current_state.name)
-	
+	print(new_state)
 	current_state = get_node(new_state)
 	_enter_state(parameters)
 

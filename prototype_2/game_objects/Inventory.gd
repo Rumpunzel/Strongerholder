@@ -14,13 +14,10 @@ func _ready():
 
 
 
-func receive_item(item: GameResource, sender):
+func pick_up_item(item: GameResource):
 	item.pick_up_item(self)
 	emit_signal("received_item", item)
-	
-	if sender:
-		pass
-		#print("%s gave %s: %s" % [sender.owner.name, owner.name, item.type])
+
 
 
 func request_item(requested_item, receiver):

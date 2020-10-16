@@ -28,18 +28,13 @@ func move_to(direction: Vector2, _is_sprinting: bool):
 	pass
 
 
-func give_item(item: Node2D):
+func give_item(item: GameResource):
+	pass
+
+
+func take_item(item: GameResource):
 	pass
 
 
 func attack(weapon: CraftTool):
 	pass
-
-
-
-func _toggle_active_state(object: Node, new_state: bool):
-	object.visible = new_state
-	object._collision_shape.call_deferred("set_disabled", not new_state)
-	
-	object.set_process(new_state)
-	object.set_physics_process(new_state)

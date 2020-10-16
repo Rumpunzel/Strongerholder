@@ -27,6 +27,10 @@ func give_item(item: Node2D):
 	current_state.give_item(item)
 
 
+func take_item(item: Node2D):
+	current_state.take_item(item)
+
+
 func attack(weapon: CraftTool):
 	current_state.attack(weapon)
 

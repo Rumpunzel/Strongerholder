@@ -22,12 +22,3 @@ func damage(_damage_points: float, _sender) -> float:
 
 func is_active() -> bool:
 	return false
-
-
-
-func _toggle_active_state(object: Node, new_state: bool):
-	object.visible = new_state
-	object._collision_shape.call_deferred("set_disabled", not new_state)
-	
-	object.set_process(new_state)
-	object.set_physics_process(new_state)

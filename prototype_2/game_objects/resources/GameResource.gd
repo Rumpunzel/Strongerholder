@@ -15,8 +15,13 @@ onready var _objects_layer = ServiceLocator.objects_layer
 
 
 
+func _ready():
+	add_to_group(Constants.enum_name(Constants.Resources, type))
+
+
+
+
 func drop_item():
-#	activate_object()
 	called_dibs_by = null
 	
 	var pos: Vector2 = get_parent().global_position
@@ -25,10 +30,13 @@ func drop_item():
 	_objects_layer.call_deferred("add_child", self)
 	
 	global_position = pos
+	
+	_state_machine.change_to(ObjectState.IDLE)
 
 
 func pick_up_item(new_inventory):
-#	deactivate_object()
+	_state_machine.change_to(ObjectState.INACTIVE)
+	
 	get_parent().remove_child(self)
 	new_inventory.add_child(self)
 

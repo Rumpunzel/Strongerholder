@@ -1,4 +1,4 @@
-class_name PuppetMaster, "res://assets/icons/game_actors/icon_puppeteer.svg"
+class_name PuppetMaster, "res://assets/icons/game_actors/icon_puppet_master.svg"
 extends InputMaster
 
 
@@ -56,6 +56,16 @@ func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose: Str
 
 
 
+func pick_up_item(item: GameResource):
+	if _in_range(item):
+		_inventory.pick_up_item(item)
+
+
+func drop_item(item: GameResource):
+	_inventory.drop_item(item)
+
+
+
 
 func _get_input() -> Array:
 	var commands: Array = [ ]
@@ -63,7 +73,7 @@ func _get_input() -> Array:
 	if _current_plan:
 		var task_target: Node2D = _current_plan.task_target
 		
-		if task_target and get_overlapping_bodies().has(task_target):
+		if task_target and _in_range(task_target):
 			commands.append(_current_plan.next_command())
 			return commands
 		
@@ -79,7 +89,7 @@ func _search_task_master() -> Dictionary:
 		var nearest_master: Node2D = _nearest_in_group("%s%s" % [Constants.REQUEST, item_type])
 		
 		if nearest_master:
-			return { TASK_MASTER: nearest_master, PURPOSE: item_type, TOOL: item }
+			return { TASK_MASTER: nearest_master, TASK_TARGET: nearest_master, PURPOSE: item_type, TOOL: item }
 	
 	
 	for craft_tool in _tool_belt.get_tools():
@@ -106,6 +116,9 @@ func _nearest_in_group(group_name: String, groups_to_exclude: Array = [ ]) -> No
 	
 	# Check that the potential target's type is actually requested
 	for object in group:
+		if not object.is_active():
+			continue
+		
 		var valid_object: bool = true
 		var object_groups: Array = object.get_groups()
 		
@@ -131,6 +144,12 @@ func _nearest_in_group(group_name: String, groups_to_exclude: Array = [ ]) -> No
 			nearest_object = object
 	
 	return nearest_object
+
+
+
+
+func _in_range(object: PhysicsBody2D):
+	return get_overlapping_bodies().has(object)
 
 
 
@@ -184,11 +203,13 @@ class Plan extends BasicPlan:
 	
 	func next_command() -> InputMaster.Command:
 		if task_target == task_master:
+			task_target = null
 			return InputMaster.GiveCommand.new(task_tool)
 		
-		match task_target:
-			_:
-				return InputMaster.AttackCommand.new(task_tool)
+		if Constants.enum_name(Constants.Resources, task_target.type) == purpose:
+			return InputMaster.TakeCommand.new(task_target)
+		
+		return InputMaster.AttackCommand.new(task_tool)
 	
 	
 	

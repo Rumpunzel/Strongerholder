@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_spyglass.svg-639d41ce2bb6d91d463dd4e34b0d32d2.stex"
+path="res://.import/icon_resource_locator.svg-505155fe6e77e6863b46e0748c8150f5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/game_actors/icon_spyglass.svg"
-dest_files=[ "res://.import/icon_spyglass.svg-639d41ce2bb6d91d463dd4e34b0d32d2.stex" ]
+source_file="res://assets/icons/unused/icon_resource_locator.svg"
+dest_files=[ "res://.import/icon_resource_locator.svg-505155fe6e77e6863b46e0748c8150f5.stex" ]
 
 [params]
 
