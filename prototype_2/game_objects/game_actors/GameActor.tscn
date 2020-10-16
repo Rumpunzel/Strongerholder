@@ -35,12 +35,6 @@
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/idle.gd" type="Script" id=34]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/run.gd" type="Script" id=35]
 
-
-
-
-
-
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 

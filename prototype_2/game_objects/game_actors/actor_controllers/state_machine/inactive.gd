@@ -24,17 +24,17 @@ func is_active() -> bool:
 	return false
 
 
-func move_to(direction: Vector2, _is_sprinting: bool):
+func move_to(_direction: Vector2, _is_sprinting: bool):
 	pass
 
 
-func give_item(item: GameResource):
+func give_item(_item: GameResource):
 	pass
 
 
-func take_item(item: GameResource):
+func take_item(_item: GameResource):
 	pass
 
 
-func attack(weapon: CraftTool):
+func attack(_weapon: CraftTool):
 	pass

@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/sprites/trees/tree7.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=7]
 [ext_resource path="res://game_objects/structures/things/random_sprite.gd" type="Script" id=8]
-[ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=9]
+[ext_resource path="res://game_objects/structures/Structure.tscn" type="PackedScene" id=9]
 [ext_resource path="res://game_objects/resources/wood.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -26,4 +26,7 @@ offset = Vector2( 0, -43.5 )
 script = ExtResource( 8 )
 _sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
 
-[node name="wood" parent="inventory" index="0" instance=ExtResource( 12 )]
+[node name="interaction_shape" parent="pilot_master" index="0"]
+disabled = true
+
+[node name="wood" parent="pilot_master/inventory" index="0" instance=ExtResource( 12 )]

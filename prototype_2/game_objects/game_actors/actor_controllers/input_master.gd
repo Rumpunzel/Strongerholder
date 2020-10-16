@@ -52,18 +52,6 @@ class MoveCommand extends Command:
 
 
 
-class InteractCommand extends Command:
-	var hit_box: ObjectHitBox
-	
-	func _init(new_hit_box: ObjectHitBox):
-		hit_box = new_hit_box
-	
-	func execute(state_machine: StateMachine):
-		if hit_box:
-			state_machine.interact_with(hit_box)
-
-
-
 class GiveCommand extends Command:
 	var what_to_give: Node2D
 	
