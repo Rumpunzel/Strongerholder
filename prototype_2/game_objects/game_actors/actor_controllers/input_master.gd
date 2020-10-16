@@ -25,7 +25,7 @@ func _get_input() -> Array:
 	var movement_vector: Vector2 = Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	var sprinting = Input.is_action_pressed("sprint")
 	
-	#commands.append(MoveCommand.new(movement_vector, sprinting))
+	commands.append(MoveCommand.new(movement_vector, sprinting))
 	
 	return commands
 

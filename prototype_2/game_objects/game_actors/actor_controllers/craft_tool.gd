@@ -29,8 +29,7 @@ func _ready():
 
 func start_attack():
 	_hit_box.disabled = false
-#	for object in get_overlapping_bodies():
-#		print(object.name)
+
 
 func end_attack():
 	_hit_box.disabled = true

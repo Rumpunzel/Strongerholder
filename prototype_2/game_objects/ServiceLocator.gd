@@ -3,7 +3,7 @@ extends Node
 
 var navigation: Navigation2D setget register_as_navigation
 var objects_layer: YSort setget register_as_objects_layer
-var work_queue setget register_as_work_queue
+var quarter_master: QuarterMaster setget register_as_quarter_master
 
 
 
@@ -38,13 +38,13 @@ func unregister_as_objects_layer(new_node: YSort):
 
 
 
-func register_as_work_queue(new_node):
+func register_as_quarter_master(new_node):
 	if new_node:
-		work_queue = new_node
+		quarter_master = new_node
 
 
-func unregister_as_work_queue(new_node):
-	if not (new_node and new_node == work_queue):
+func unregister_as_quarter_master(new_node):
+	if not (new_node and new_node == quarter_master):
 		return
 	
-	work_queue = null
+	quarter_master = null

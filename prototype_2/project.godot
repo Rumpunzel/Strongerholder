@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/state_machine/idle.gd"
 }, {
+"base": "YSort",
+"class": "ObjectsLayer",
+"language": "GDScript",
+"path": "res://game_objects/objects_layer.gd"
+}, {
 "base": "Area2D",
 "class": "PilotMaster",
 "language": "GDScript",
@@ -133,6 +138,11 @@ _global_script_classes=[ {
 "class": "PuppetMaster",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/puppet_master.gd"
+}, {
+"base": "Node",
+"class": "QuarterMaster",
+"language": "GDScript",
+"path": "res://game_objects/quarter_master.gd"
 }, {
 "base": "CenterContainer",
 "class": "RadiantContainer",
@@ -232,9 +242,11 @@ _global_script_class_icons={
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
 "Inventory": "res://assets/icons/icon_inventory.svg",
 "ObjectState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
+"ObjectsLayer": "res://assets/icons/icon_objects_layer.svg",
 "PilotMaster": "res://assets/icons/structures/icon_pilot_master.svg",
 "PlayerCamera": "",
 "PuppetMaster": "res://assets/icons/game_actors/icon_puppet_master.svg",
+"QuarterMaster": "res://assets/icons/icon_quarter_master.svg",
 "RadiantContainer": "",
 "RadiantUI": "",
 "RadiantUIButton": "",

@@ -7,6 +7,8 @@ export(Constants.Structures) var type: int
 
 onready var _pilot_master: PilotMaster = $pilot_master
 
+onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
+
 
 
 

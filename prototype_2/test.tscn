@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game_objects/quarter_master.gd" type="Script" id=2]
 [ext_resource path="res://player_camera.gd" type="Script" id=3]
 [ext_resource path="res://game_objects/structures/things/tree.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game_objects/objects_layer.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/game_actors/characters/woodsman.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
 [ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=8]
@@ -31,6 +33,7 @@ func _ready():
 script/source = "extends Navigation2D
 
 
+
 func _enter_tree():
 	ServiceLocator.register_as_navigation(self)
 
@@ -41,18 +44,6 @@ func _exit_tree():
 
 [sub_resource type="OccluderPolygon2D" id=3]
 polygon = PoolVector2Array( 26.5, -61, -13, -61, -120, -61.5, -116.5, 63.5, -63.5, 112, 58.5, 30 )
-
-[sub_resource type="GDScript" id=4]
-script/source = "extends YSort
-
-
-func _enter_tree():
-	ServiceLocator.register_as_objects_layer(self)
-
-
-func _exit_tree():
-	ServiceLocator.unregister_as_objects_layer(self)
-"
 
 [node name="test" type="Node2D"]
 script = SubResource( 1 )
@@ -89,6 +80,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="quarter_master" type="Node" parent="."]
+script = ExtResource( 2 )
+
 [node name="canvas_modulate" type="CanvasModulate" parent="."]
 color = Color( 0.705882, 0.705882, 0.705882, 1 )
 
@@ -103,7 +97,7 @@ position = Vector2( -24, 106 )
 occluder = SubResource( 3 )
 
 [node name="objects_layer" type="YSort" parent="."]
-script = SubResource( 4 )
+script = ExtResource( 5 )
 
 [node name="game_actor" parent="objects_layer" instance=ExtResource( 1 )]
 
