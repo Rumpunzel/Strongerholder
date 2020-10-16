@@ -35,17 +35,14 @@ func _physics_process(_delta: float):
 
 
 
+
 func damage(damage_points: float, sender) -> bool:
 	return _state_machine.damage(damage_points, sender)
 
 
 func die():
-	visible = false
-	_collision_shape.call_deferred("set_disabled", true)
-	set_process(false)
-	
 	emit_signal("died")
 
 
-func object_died():
-	emit_signal("died")
+func is_active() -> bool:
+	return _state_machine.is_active()

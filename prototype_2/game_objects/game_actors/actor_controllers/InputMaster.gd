@@ -8,8 +8,7 @@ func process_commands(state_machine: StateMachine):
 	var commands: Array = _get_input()
 	
 	for command in commands:
-		if command.execute(state_machine):
-			break
+		command.execute(state_machine)
 
 
 
@@ -35,9 +34,8 @@ func _get_input() -> Array:
 
 
 class Command:
-	func execute(_state_machine: StateMachine) -> bool:
+	func execute(_state_machine: StateMachine):
 		assert(false)
-		return false
 
 
 
@@ -49,9 +47,8 @@ class MoveCommand extends Command:
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 		
-	func execute(state_machine: StateMachine) -> bool:
+	func execute(state_machine: StateMachine):
 		state_machine.move_to(movement_vector, sprinting)
-		return false
 
 
 
@@ -61,44 +58,34 @@ class InteractCommand extends Command:
 	func _init(new_hit_box: ObjectHitBox):
 		hit_box = new_hit_box
 	
-	func execute(state_machine: StateMachine) -> bool:
+	func execute(state_machine: StateMachine):
 		if hit_box:
 			state_machine.interact_with(hit_box)
-			return true
-		else:
-			return false
 
 
 
 class GiveCommand extends Command:
-	var receiver: Object
-	var what_to_give: Object
+	var what_to_give: Node2D
 	
-	func _init(new_receiver: Object, new_what_to_give: Object):
-		receiver = new_receiver
+	func _init(new_what_to_give: Node2D):
 		what_to_give = new_what_to_give
 	
-	func execute(state_machine: StateMachine) -> bool:
-		state_machine.give_item_to(receiver, what_to_give)
-		return true
+	func execute(state_machine: StateMachine):
+		state_machine.give_item(what_to_give)
 
 
 
 class AttackCommand extends Command:
-	var target: Object
 	var weapon: CraftTool
 	
-	func _init(new_target: Object, new_weapon: CraftTool):
-		target = new_target
+	func _init(new_weapon: CraftTool):
 		weapon = new_weapon
 	
-	func execute(state_machine: StateMachine) -> bool:
-		state_machine.attack(target, weapon)
-		return true
+	func execute(state_machine: StateMachine):
+		state_machine.attack(weapon)
 
 
 
 class MenuCommand extends Command:
-	func execute(state_machine: StateMachine) -> bool:
+	func execute(state_machine: StateMachine):
 		state_machine.open_menu(RadiantUI.new(["Stockpile", "Woodcutters Hut"], state_machine))
-		return true

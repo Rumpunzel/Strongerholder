@@ -22,17 +22,27 @@ _global_script_classes=[ {
 "base": "ActorState",
 "class": "ActorStateAttack",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorStateAttack.gd"
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/attack.gd"
+}, {
+"base": "ActorStateInactive",
+"class": "ActorStateDead",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/dead.gd"
 }, {
 "base": "ActorState",
 "class": "ActorStateGive",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorStateGive.gd"
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/give.gd"
 }, {
 "base": "ActorState",
 "class": "ActorStateIdle",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorStateIdle.gd"
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/idle.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateInactive",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/inactive.gd"
 }, {
 "base": "StateMachine",
 "class": "ActorStateMachine",
@@ -42,7 +52,12 @@ _global_script_classes=[ {
 "base": "ActorState",
 "class": "ActorStateRun",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorStateRun.gd"
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/run.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateTake",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/take.gd"
 }, {
 "base": "AnimationTree",
 "class": "AnimationStateMachine",
@@ -112,7 +127,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "ObjectState",
 "language": "GDScript",
-"path": "res://game_objects/state_machine/ObjectState.gd"
+"path": "res://game_objects/state_machine/idle.gd"
 }, {
 "base": "Camera2D",
 "class": "PlayerCamera",
@@ -159,20 +174,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/Spyglass.gd"
 }, {
-"base": "ObjectState",
+"base": "StateInactive",
 "class": "StateDead",
 "language": "GDScript",
-"path": "res://game_objects/state_machine/StateDead.gd"
-}, {
-"base": "ObjectState",
-"class": "StateIdle",
-"language": "GDScript",
-"path": "res://game_objects/state_machine/StateIdle.gd"
+"path": "res://game_objects/state_machine/dead.gd"
 }, {
 "base": "ObjectState",
 "class": "StateInactive",
 "language": "GDScript",
-"path": "res://game_objects/state_machine/StateInactive.gd"
+"path": "res://game_objects/state_machine/inactive.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
@@ -196,12 +206,15 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ActorHitBox": "res://assets/icons/game_actors/icon_actor_hit_box.svg",
-"ActorState": "res://assets/icons/game_actors/states/icon_state.svg",
+"ActorState": "",
 "ActorStateAttack": "res://assets/icons/game_actors/states/icon_state_attack.svg",
+"ActorStateDead": "res://assets/icons/icon_state_dead.svg",
 "ActorStateGive": "res://assets/icons/game_actors/states/icon_state_give.svg",
 "ActorStateIdle": "res://assets/icons/game_actors/states/icon_state_idle.svg",
+"ActorStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "ActorStateMachine": "res://assets/icons/game_actors/states/icon_actor_state_machine.svg",
 "ActorStateRun": "res://assets/icons/game_actors/states/icon_state_run.svg",
+"ActorStateTake": "res://assets/icons/game_actors/states/icon_state_take.svg",
 "AnimationStateMachine": "",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
 "Constants": "",
@@ -215,7 +228,7 @@ _global_script_class_icons={
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
 "Inventory": "res://assets/icons/icon_inventory.svg",
 "ObjectHitBox": "res://assets/icons/icon_hit_box.svg",
-"ObjectState": "res://assets/icons/game_actors/states/icon_state.svg",
+"ObjectState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "PlayerCamera": "",
 "PuppetMaster": "res://assets/icons/game_actors/icon_puppeteer.svg",
 "RadiantContainer": "",
@@ -226,8 +239,7 @@ _global_script_class_icons={
 "ResourceLocator": "res://assets/icons/game_actors/icon_resource_locator.svg",
 "Spyglass": "res://assets/icons/game_actors/icon_spyglass.svg",
 "StateDead": "res://assets/icons/icon_state_dead.svg",
-"StateIdle": "res://assets/icons/game_actors/states/icon_state_idle.svg",
-"StateInactive": "",
+"StateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "StateMachine": "res://assets/icons/icon_state_machine.svg",
 "StructureHitBox": "res://assets/icons/structures/icon_structure_hit_box.svg",
 "StructureInventory": "res://assets/icons/structures/icon_structure_inventory.svg",
@@ -239,6 +251,10 @@ _global_script_class_icons={
 config/name="Prototype 2"
 run/main_scene="res://test.tscn"
 config/icon="res://assets/sprites/icon.png"
+
+[autoload]
+
+ServiceLocator="*res://game_objects/ServiceLocator.gd"
 
 [debug]
 

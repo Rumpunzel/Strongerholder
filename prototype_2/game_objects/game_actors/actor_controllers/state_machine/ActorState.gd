@@ -1,4 +1,4 @@
-class_name ActorState, "res://assets/icons/game_actors/states/icon_state.svg"
+class_name ActorState
 extends ObjectState
 
 
@@ -12,7 +12,7 @@ var _animation_cancellable: bool = true
 
 
 func exit(next_state: String, parameter: Array = [ ]):
-	if _animation_cancellable:
+	if _animation_cancellable and not name == next_state:
 		.exit(next_state, parameter)
 
 
@@ -33,12 +33,12 @@ func move_to(direction: Vector2, _is_sprinting: bool):
 	exit(RUN)
 
 
-func give_item_to(receiver: Object, item: Object):
-	exit(GIVE, [receiver, item])
+func give_item(item: Node2D):
+	exit(GIVE, [item])
 
 
-func attack(target: Object, weapon: CraftTool):
-	exit(ATTACK, [target, weapon])
+func attack(weapon: CraftTool):
+	exit(ATTACK, [weapon])
 
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/sprites/trees/tree2.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=2]
@@ -9,7 +9,9 @@
 [ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=7]
 [ext_resource path="res://game_objects/structures/things/random_sprite.gd" type="Script" id=8]
 [ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=9]
+[ext_resource path="res://game_objects/state_machine/idle.gd" type="Script" id=10]
 [ext_resource path="res://game_objects/resources/wood.tscn" type="PackedScene" id=12]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.0
@@ -27,3 +29,6 @@ script = ExtResource( 8 )
 _sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
 
 [node name="wood" parent="inventory" index="0" instance=ExtResource( 12 )]
+
+[node name="idle" parent="state_machine" index="0"]
+script = ExtResource( 10 )

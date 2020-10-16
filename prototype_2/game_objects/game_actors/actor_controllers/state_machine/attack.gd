@@ -2,15 +2,13 @@ class_name ActorStateAttack, "res://assets/icons/game_actors/states/icon_state_a
 extends ActorState
 
 
-var _target: Object
 var _weapon: CraftTool
 
 
 
 
 func enter(parameters: Array = [ ]):
-	_target = parameters[0]
-	_weapon = parameters[1]
+	_weapon = parameters[0]
 	
 	_animation_cancellable = false
 	

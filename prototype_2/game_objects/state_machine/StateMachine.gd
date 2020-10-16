@@ -53,6 +53,10 @@ func die(_sender):
 	change_to(ObjectState.DEAD)
 
 
+func is_active() -> bool:
+	return current_state.is_active()
+
+
 
 func _change_to(new_state: String, parameters: Array = [ ]):
 	history.append(current_state.name)

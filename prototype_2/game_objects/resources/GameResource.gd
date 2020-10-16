@@ -10,7 +10,7 @@ export var weight: float
 var called_dibs_by = null
 
 
-onready var resource_layer = get_tree().current_scene.get_node("y_sort")
+onready var _objects_layer = ServiceLocator.objects_layer
 
 
 
@@ -19,10 +19,10 @@ func drop_item():
 #	activate_object()
 	called_dibs_by = null
 	
-	var pos = get_parent().global_position
+	var pos: Vector2 = get_parent().global_position
 	
 	get_parent().remove_child(self)
-	resource_layer.call_deferred("add_child", self)
+	_objects_layer.call_deferred("add_child", self)
 	
 	global_position = pos
 

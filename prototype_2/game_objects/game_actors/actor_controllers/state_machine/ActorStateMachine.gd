@@ -23,12 +23,12 @@ func move_to(direction: Vector2, is_sprinting: bool = false):
 	current_state.move_to(direction, is_sprinting)
 
 
-func give_item_to(receiver: Object, item: Object):
-	current_state.give_item_to(receiver, item)
+func give_item(item: Node2D):
+	current_state.give_item(item)
 
 
-func attack(target: Object, weapon: CraftTool):
-	current_state.attack(target, weapon)
+func attack(weapon: CraftTool):
+	current_state.attack(weapon)
 
 
 

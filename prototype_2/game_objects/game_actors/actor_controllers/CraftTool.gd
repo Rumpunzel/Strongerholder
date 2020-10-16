@@ -38,7 +38,7 @@ func end_attack():
 
 
 
-func _hit_object(other_object: Object):
+func _hit_object(other_object: Node2D):
 	if other_object == _game_actor:
 		return
 	
