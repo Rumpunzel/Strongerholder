@@ -12,7 +12,7 @@ onready var _game_object = owner
 
 
 
-func enter(_parameter: Array = [ ]):
+func enter(_parameters: Array = [ ]):
 	pass
 
 

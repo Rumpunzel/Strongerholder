@@ -18,6 +18,7 @@ func _ready():
 
 
 func _physics_process(_delta):
+	# TODO: HACK WORKAROUND UNTIL GODOT FIXES AREA'S RECOGNIZING A BODY ACTIVATING INSIDE IT
 	position = Vector2()
 
 

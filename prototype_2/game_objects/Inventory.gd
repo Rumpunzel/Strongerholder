@@ -36,9 +36,4 @@ func has(object_type: String) -> bool:
 
 
 func get_contents() -> Array:
-	var contents: Array = [ ]
-	
-	for item in get_children():
-		contents.append(item)
-	
-	return contents
+	return get_children()

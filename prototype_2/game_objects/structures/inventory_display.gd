@@ -23,10 +23,10 @@ func update_display():
 	var display_string: String = "%s:" % [owner.name]
 	var content: Dictionary = { }
 	
-	for item in _inventory.get_children():
-		content[Constants.enum_name(Constants.Resources, item.type)] = content.get(item.type, 0) + 1
+	for item in _inventory.get_contents():
+		content[item.type] = content.get(item.type, 0) + 1
 	
 	for item in content.keys():
-		display_string += "  %s: %s" % [item, content[item]]
+		display_string += "  %s: %s" % [Constants.enum_name(Constants.Resources, item), content[item]]
 	
 	$label.text = display_string
