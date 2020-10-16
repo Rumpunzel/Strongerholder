@@ -210,6 +210,7 @@ class Plan extends BasicPlan:
 	func next_command() -> InputMaster.Command:
 		if task_target == task_master:
 			task_target = null
+			path = PoolVector2Array()
 			return InputMaster.GiveCommand.new(task_tool, task_master)
 		
 		if Constants.enum_name(Constants.Resources, task_target.type) == purpose:
