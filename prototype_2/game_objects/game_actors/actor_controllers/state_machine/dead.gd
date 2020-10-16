@@ -2,6 +2,7 @@ class_name ActorStateDead, "res://assets/icons/icon_state_dead.svg"
 extends ActorStateInactive
 
 
+
 func enter(parameters: Array = [ ]):
 	.enter(parameters)
 	

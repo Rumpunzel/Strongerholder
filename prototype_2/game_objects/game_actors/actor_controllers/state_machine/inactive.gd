@@ -28,7 +28,7 @@ func move_to(_direction: Vector2, _is_sprinting: bool):
 	pass
 
 
-func give_item(_item: GameResource):
+func give_item(_item: GameResource, _receiver: Node2D):
 	pass
 
 

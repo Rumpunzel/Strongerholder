@@ -25,6 +25,5 @@ func animation_acted(_animation: String):
 	if not _item:
 		return
 	
-	_puppet_master.pick_up_item(_item)
-	
-	print(_item.name)
+	if _puppet_master.pick_up_item(_item):
+		_item = null

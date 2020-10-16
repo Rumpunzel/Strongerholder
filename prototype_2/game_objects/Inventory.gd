@@ -3,13 +3,6 @@ extends Node2D
 
 
 signal received_item(item)
-signal sent_item(item)
-
-
-
-
-func _ready():
-	owner.connect("died", self, "drop_all_items")
 
 
 
@@ -20,28 +13,13 @@ func pick_up_item(item: GameResource):
 
 
 
-func request_item(requested_item, receiver):
-	if requested_item is GameResource:
-		_send_item(requested_item, receiver)
-	else:
-		var item: GameResource = null
-		
-		for resource in get_children():
-			if resource is GameResource and resource.type == requested_item:
-				item = resource
-				break
-		
-		if item:
-			_send_item(item, receiver)
-
-
-func drop_all_items():
+func drop_all_items(position_to_drop: Vector2):
 	while get_child_count() > 0:
-		drop_item(get_child(0))
+		drop_item(get_child(0), position_to_drop)
 
 
-func drop_item(item: GameResource):
-	item.drop_item()
+func drop_item(item: GameResource, position_to_drop: Vector2):
+	item.drop_item(position_to_drop)
 
 
 
@@ -64,12 +42,3 @@ func get_contents() -> Array:
 		contents.append(item)
 	
 	return contents
-
-
-
-
-func _send_item(item_to_send: GameResource, receiver):
-	if get_children().has(item_to_send):
-		item_to_send.deactivate_object()
-		receiver.receive_item(item_to_send, self)
-		emit_signal("sent_item", item_to_send)

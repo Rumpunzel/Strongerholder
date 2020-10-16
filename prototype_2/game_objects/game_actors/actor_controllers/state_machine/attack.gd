@@ -27,4 +27,6 @@ func action_finished(_animation: String):
 func animtion_finished(animation: String):
 	.animtion_finished(animation)
 	
+	_weapon = null
+	
 	exit(IDLE)

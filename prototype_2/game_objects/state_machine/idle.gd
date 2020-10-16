@@ -16,8 +16,11 @@ func enter(_parameter: Array = [ ]):
 	pass
 
 
-func exit(next_state: String, parameter: Array = [ ]):
-	_state_machine._change_to(next_state, parameter)
+func exit(next_state: String, parameters: Array = [ ]):
+	if name == next_state:
+		return
+	
+	_state_machine._change_to(next_state, parameters)
 
 
 
@@ -34,7 +37,7 @@ func is_active() -> bool:
 
 func _toggle_active_state(object: Node, new_state: bool):
 	object.visible = new_state
-	object._collision_shape.call_deferred("set_disabled", not new_state)
+	object._collision_shape.set_deferred("disabled", not new_state)
 	
 	object.set_process(new_state)
 	object.set_physics_process(new_state)

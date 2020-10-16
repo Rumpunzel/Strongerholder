@@ -53,20 +53,22 @@ class MoveCommand extends Command:
 
 
 class GiveCommand extends Command:
-	var what_to_give: Node2D
+	var what_to_give: GameResource
+	var whom_to_give_to: Node2D
 	
-	func _init(new_what_to_give: Node2D):
+	func _init(new_what_to_give: GameResource, new_whom_to_give_to: Node2D):
 		what_to_give = new_what_to_give
+		whom_to_give_to = new_whom_to_give_to
 	
 	func execute(state_machine: StateMachine):
-		state_machine.give_item(what_to_give)
+		state_machine.give_item(what_to_give, whom_to_give_to)
 
 
 
 class TakeCommand extends Command:
-	var what_to_take: Node2D
+	var what_to_take: GameResource
 	
-	func _init(new_what_to_take: Node2D):
+	func _init(new_what_to_take: GameResource):
 		what_to_take = new_what_to_take
 	
 	func execute(state_machine: StateMachine):

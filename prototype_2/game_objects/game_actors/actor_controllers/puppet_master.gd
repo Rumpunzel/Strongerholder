@@ -56,13 +56,19 @@ func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose: Str
 
 
 
-func pick_up_item(item: GameResource):
+func pick_up_item(item: GameResource) -> bool:
 	if _in_range(item):
 		_inventory.pick_up_item(item)
+		return true
+	
+	return false
 
 
-func drop_item(item: GameResource):
-	_inventory.drop_item(item)
+func drop_item(item: GameResource, position_to_drop: Vector2 = global_position):
+	_inventory.drop_item(item, position_to_drop)
+
+func drop_all_items(position_to_drop: Vector2 = global_position):
+	_inventory.drop_all_items(position_to_drop)
 
 
 
@@ -204,7 +210,7 @@ class Plan extends BasicPlan:
 	func next_command() -> InputMaster.Command:
 		if task_target == task_master:
 			task_target = null
-			return InputMaster.GiveCommand.new(task_tool)
+			return InputMaster.GiveCommand.new(task_tool, task_master)
 		
 		if Constants.enum_name(Constants.Resources, task_target.type) == purpose:
 			return InputMaster.TakeCommand.new(task_target)

@@ -23,11 +23,11 @@ func move_to(direction: Vector2, is_sprinting: bool = false):
 	current_state.move_to(direction, is_sprinting)
 
 
-func give_item(item: Node2D):
-	current_state.give_item(item)
+func give_item(item: GameResource, receiver: Node2D):
+	current_state.give_item(item, receiver)
 
 
-func take_item(item: Node2D):
+func take_item(item: GameResource):
 	current_state.take_item(item)
 
 

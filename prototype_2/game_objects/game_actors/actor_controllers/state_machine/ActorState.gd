@@ -13,7 +13,7 @@ var _animation_cancellable: bool = true
 
 
 func exit(next_state: String, parameter: Array = [ ]):
-	if _animation_cancellable and not name == next_state:
+	if _animation_cancellable:
 		.exit(next_state, parameter)
 
 
@@ -23,8 +23,8 @@ func move_to(direction: Vector2, _is_sprinting: bool):
 	exit(RUN)
 
 
-func give_item(item: GameResource):
-	exit(GIVE, [item])
+func give_item(item: GameResource, receiver: Node2D):
+	exit(GIVE, [item, receiver])
 
 
 func take_item(item: GameResource):

@@ -17,11 +17,18 @@ func _ready():
 #	pass
 
 
+func _physics_process(_delta):
+	position = Vector2()
+
 
 
 func pick_up_item(item: GameResource):
+	print("I FOUND THIS HERE: %s" % [item.name])
 	_inventory.pick_up_item(item)
 
 
-func drop_all_items():
-	_inventory.drop_all_items()
+func drop_item(item: GameResource, position_to_drop: Vector2 = global_position):
+	_inventory.drop_item(item, position_to_drop)
+
+func drop_all_items(position_to_drop: Vector2 = global_position):
+	_inventory.drop_all_items(position_to_drop)
