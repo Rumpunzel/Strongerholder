@@ -25,14 +25,14 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 func _process(_delta: float):
 	if not (_current_plan and _current_plan.is_useful()):
-		if _current_job:
-			_current_job.unassign_worker(self)
-			_current_job = null
-		
-		_current_plan = null
+		if _current_plan:
+			_current_plan = null
 		
 		if not _current_application:
 			_current_application = _quarter_master.apply_for_job(self, _inventory, _tool_belt)
+		elif _current_job:
+			_current_job.unassign_worker(self)
+			_current_job = null
 
 
 
@@ -167,7 +167,7 @@ class Plan extends BasicPlan:
 	
 	
 	func _targets_active() -> bool:
-		return task_master and task_target and task_tool and task_master.is_active() and task_target.is_active() and task_tool.is_active()
+		return task_master and task_target and task_master.is_active() and task_target.is_active()
 	
 	
 	func _to_string() -> String:

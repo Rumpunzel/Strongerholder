@@ -63,6 +63,9 @@ func _assign_job():
 		if item_in_pocket:
 			var resource_profile: ResourceSightings.ResourceProfile = _resource_sightings.resource_registered(item_in_pocket)
 			
+			if not resource_profile.position_open():
+				continue
+			
 			job.assign_worker(puppet_master, resource_profile)
 			puppet_master.new_plan(job.city_structure, job.city_structure, item_in_pocket.type, item_in_pocket, job)
 			
