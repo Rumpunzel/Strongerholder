@@ -5,3 +5,10 @@ extends ActorState
 
 func enter(_parameters: Array = [ ]):
 	_change_animation(IDLE)
+
+
+func move_to(direction: Vector2, _is_sprinting: bool):
+	if direction == Vector2():
+		return
+	
+	exit(RUN)

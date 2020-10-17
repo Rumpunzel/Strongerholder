@@ -9,7 +9,10 @@ func add_resource(structure, inventory: Inventory, maximum_workers) -> ResourceP
 	if new_profile:
 		return new_profile
 	
-	new_profile = ResourceProfile.new(structure, inventory, maximum_workers)
+	if inventory:
+		new_profile = ResourceProfile.new(structure, inventory, maximum_workers)
+	else:
+		new_profile = StandaloneResource.new(structure, maximum_workers)
 	
 	queue.append(new_profile)
 	queue.sort_custom(ResourceProfile, "sort_ascending")
@@ -51,18 +54,6 @@ func resource_registered(structure) -> ResourceProfile:
 
 
 
-func empty() -> bool:
-	if .empty():
-		return true
-	
-	for profile in queue:
-		if profile.posting_active():
-			return false
-	
-	return true
-
-
-
 
 
 class ResourceProfile:
@@ -87,8 +78,25 @@ class ResourceProfile:
 	
 	
 	func posting_active() -> bool:
-		return structure.is_active() and not maximum_workers or assigned_workers.size() < maximum_workers
+		return structure.is_active() and position_open()
+	
+	
+	func position_open() -> bool:
+		return not maximum_workers or assigned_workers.size() < maximum_workers
 	
 	
 	func _to_string() -> String:
 		return "\nStructure: %s\nCurrently Offering: %s\nWorkers Assigned: %s\n" % [structure.name, resources_on_offer(), ("%d/%d" % [assigned_workers.size(), maximum_workers]) if maximum_workers else "%d" % [assigned_workers.size()]]
+
+
+
+
+class StandaloneResource extends ResourceProfile:
+	
+	
+	func _init(new_structure, new_maximum_workers).(new_structure, null, new_maximum_workers):
+		pass
+	
+	
+	func resources_on_offer() -> Array:
+		return [structure]

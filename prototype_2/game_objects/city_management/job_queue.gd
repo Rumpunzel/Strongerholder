@@ -61,9 +61,7 @@ class JobPosting:
 	
 	
 	func assign_worker(puppet_master: Node2D, target_profile: ResourceSightings.ResourceProfile):
-		if target_profile:
-			target_profile.assigned_workers.append(puppet_master)
-		
+		target_profile.assigned_workers.append(puppet_master)
 		_assigned_workers[puppet_master] = target_profile
 	
 	
@@ -77,4 +75,4 @@ class JobPosting:
 	
 	
 	func _to_string() -> String:
-		return "\nWorking For: %s\nRequested Delivery: %s\nDeliver Until Capacity: %s\nWorkers Assigned: %s\n" % [city_structure.name, city_pilot_master.requests, request_until_capacity, ("%d/%d" % [_assigned_workers.size(), requested_workers]) if requested_workers else "%d" % [_assigned_workers.size()]]
+		return "\nWorking For: %s\nRequested Delivery: %s\nDeliver Until Capacity: %s\nWorkers Assigned: %s\n\nWorkers:\n%s\n" % [city_structure.name, city_pilot_master.requests, request_until_capacity, ("%d/%d" % [_assigned_workers.size(), requested_workers]) if requested_workers else "%d" % [_assigned_workers.size()], _assigned_workers]

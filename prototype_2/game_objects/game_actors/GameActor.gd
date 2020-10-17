@@ -46,3 +46,7 @@ func die():
 
 func is_active() -> bool:
 	return _state_machine.is_active()
+
+
+func enable_collision(new_status: bool):
+	_collision_shape.set_deferred("disabled", not new_status)

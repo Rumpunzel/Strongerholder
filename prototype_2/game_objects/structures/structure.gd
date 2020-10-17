@@ -18,5 +18,5 @@ func _ready():
 
 func die():
 	_pilot_master.drop_all_items()
-	print("%s died." % [name])
+	
 	.die()

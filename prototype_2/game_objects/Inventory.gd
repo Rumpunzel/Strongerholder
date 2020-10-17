@@ -7,7 +7,7 @@ signal received_item(item)
 
 
 
-func pick_up_item(item: GameResource):
+func pick_up_item(item: Node2D):
 	item.pick_up_item(self)
 	emit_signal("received_item", item)
 
@@ -18,7 +18,7 @@ func drop_all_items(position_to_drop: Vector2):
 		drop_item(get_child(0), position_to_drop)
 
 
-func drop_item(item: GameResource, position_to_drop: Vector2):
+func drop_item(item: Node2D, position_to_drop: Vector2):
 	item.drop_item(position_to_drop)
 
 

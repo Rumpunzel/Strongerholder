@@ -6,6 +6,8 @@ onready var _worker_queue: WorkerQueue = $worker_queue
 onready var _job_queue: JobQueue = $job_queue
 onready var _resource_sightings: ResourceSightings = $resource_sightings
 
+onready var _update_timer: Timer = $timer
+
 onready var _navigator: Navigator = ServiceLocator.navigator
 
 
@@ -14,13 +16,11 @@ onready var _navigator: Navigator = ServiceLocator.navigator
 func _enter_tree():
 	ServiceLocator.register_as_quarter_master(self)
 
+func _ready():
+	_update_timer.connect("timeout", self, "_assign_job")
+
 func _exit_tree():
 	ServiceLocator.unregister_as_quarter_master(self)
-
-
-
-func _process(_delta):
-	_assign_job()
 
 
 
@@ -54,7 +54,6 @@ func _assign_job():
 	
 	var worker_profile: WorkerQueue.WorkerProfile = _worker_queue.pop_front()
 	var job_queue: Array = _job_queue.queue
-	
 	var puppet_master = worker_profile.puppet_master
 	
 	
@@ -64,9 +63,9 @@ func _assign_job():
 		if item_in_pocket:
 			var resource_profile: ResourceSightings.ResourceProfile = _resource_sightings.resource_registered(item_in_pocket)
 			
-			puppet_master.new_plan(job.city_structure, job.city_structure, item_in_pocket.type, item_in_pocket, job)
 			job.assign_worker(puppet_master, resource_profile)
-			
+			puppet_master.new_plan(job.city_structure, job.city_structure, item_in_pocket.type, item_in_pocket, job)
+			print(job)
 			return
 	
 	
@@ -79,18 +78,18 @@ func _assign_job():
 			if nearest_resource:
 				var resource_profile: ResourceSightings.ResourceProfile = _resource_sightings.resource_registered(nearest_resource)
 				
-				puppet_master.new_plan(job.city_structure, nearest_resource, errand.use, errand.craft_tool, job)
 				job.assign_worker(puppet_master, resource_profile)
-				
+				puppet_master.new_plan(job.city_structure, nearest_resource, errand.use, errand.craft_tool, job)
+				print(job)
 				return
 			
 			
 			var new_quest: Quest = _find_job_target(puppet_master, errand.use, [job.city_structure.type])
 			
 			if new_quest.target:
-				puppet_master.new_plan(job.city_structure, new_quest.target, errand.use, errand.craft_tool, job)
 				job.assign_worker(puppet_master, new_quest.target_profile)
-				
+				puppet_master.new_plan(job.city_structure, new_quest.target, errand.use, errand.craft_tool, job)
+				print(job)
 				return
 	
 	

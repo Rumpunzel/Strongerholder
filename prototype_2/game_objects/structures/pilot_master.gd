@@ -29,7 +29,6 @@ func _physics_process(_delta):
 
 
 func pick_up_item(item: GameResource):
-	print("I FOUND THIS HERE: %s" % [item.name])
 	_inventory.pick_up_item(item)
 
 

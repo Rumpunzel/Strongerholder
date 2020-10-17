@@ -24,12 +24,15 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 func _process(_delta: float):
-	if not (_current_plan and _current_plan.is_useful() and not _current_application):
+	if not (_current_plan and _current_plan.is_useful()):
 		if _current_job:
 			_current_job.unassign_worker(self)
 			_current_job = null
 		
-		_current_application = _quarter_master.apply_for_job(self, _inventory, _tool_belt)
+		_current_plan = null
+		
+		if not _current_application:
+			_current_application = _quarter_master.apply_for_job(self, _inventory, _tool_belt)
 
 
 
@@ -80,6 +83,8 @@ func _get_input() -> Array:
 			return commands
 		
 		commands.append(MoveCommand.new(_current_plan.next_step()))
+	else:
+		commands.append(MoveCommand.new(Vector2()))
 	
 	
 	return commands
@@ -119,6 +124,10 @@ class BasicPlan:
 	
 	func is_useful() -> bool:
 		return path.size() > 1
+	
+	
+	func _to_string() -> String:
+		return "\nTask Agent: %s\nPath: %s\n" % [task_agent, path]
 
 
 
@@ -139,13 +148,12 @@ class Plan extends BasicPlan:
 		task_tool = new_tool
 	
 	
-	
 	func next_command() -> InputMaster.Command:
 		if task_target == task_master:
 			task_target = null
 			path = PoolVector2Array()
 			
-			return InputMaster.GiveCommand.new(task_tool, task_master)
+			return InputMaster.GiveCommand.new(task_tool, task_target)
 		
 		if task_target.type == purpose:
 			return InputMaster.TakeCommand.new(task_target)
@@ -157,5 +165,10 @@ class Plan extends BasicPlan:
 	func is_useful() -> bool:
 		return .is_useful() or _targets_active()
 	
+	
 	func _targets_active() -> bool:
-		return task_master and task_target and task_master.is_active() and task_target.is_active()
+		return task_master and task_target and task_tool and task_master.is_active() and task_target.is_active() and task_tool.is_active()
+	
+	
+	func _to_string() -> String:
+		return "%sTask Master: %s\nTask Target: %s\nPurpose: %s\nTask Tool: %s\n" % [._to_string(), task_master, task_target, purpose, task_tool]

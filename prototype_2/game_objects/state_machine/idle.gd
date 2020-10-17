@@ -8,6 +8,7 @@ const DEAD = "dead"
 
 
 onready var _state_machine = get_parent()
+# warning-ignore-all:unused_class_variable
 onready var _game_object = owner
 
 
@@ -34,7 +35,7 @@ func is_active() -> bool:
 
 func _toggle_active_state(object: Node, new_state: bool):
 	object.visible = new_state
-	object._collision_shape.set_deferred("disabled", not new_state)
+	object.enable_collision(new_state)
 	
 	object.set_process(new_state)
 	object.set_physics_process(new_state)

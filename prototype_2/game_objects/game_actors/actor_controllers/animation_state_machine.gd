@@ -2,9 +2,13 @@ class_name AnimationStateMachine
 extends AnimationTree
 
 
+# warning-ignore-all:unused_signal
 signal acted(anim_name)
+# warning-ignore-all:unused_signal
 signal action_finished(anim_name)
+# warning-ignore-all:unused_signal
 signal stepped(anim_name)
+# warning-ignore-all:unused_signal
 signal animation_finished(anim_name)
 
 

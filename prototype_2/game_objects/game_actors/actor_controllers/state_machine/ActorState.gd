@@ -20,7 +20,10 @@ func exit(next_state: String, parameter: Array = [ ]):
 
 
 func move_to(direction: Vector2, _is_sprinting: bool):
-	exit(RUN)
+	if direction == Vector2():
+		exit(IDLE)
+	else:
+		exit(RUN)
 
 
 func give_item(item: GameResource, receiver: Node2D):

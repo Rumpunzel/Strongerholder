@@ -65,7 +65,7 @@ func _change_to(new_state: String, parameters: Array = [ ]):
 	var old_state: String = current_state.name
 	
 	history.append(old_state)
-	
+	#print("%s entering %s" % [owner.name, new_state])
 	current_state = get_node(new_state)
 	_enter_state(parameters)
 	
