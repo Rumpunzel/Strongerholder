@@ -60,7 +60,7 @@ class JobPosting:
 		return city_structure.is_active() and not requested_workers or _assigned_workers.size() < requested_workers
 	
 	
-	func assign_worker(puppet_master: Node2D, target_profile: ResourceSightings.ResourceProfile = null):
+	func assign_worker(puppet_master: Node2D, target_profile: ResourceSightings.ResourceProfile):
 		if target_profile:
 			target_profile.assigned_workers.append(puppet_master)
 		

@@ -62,8 +62,10 @@ func _assign_job():
 		var item_in_pocket: GameResource = worker_profile.can_do_job_now(job.get_requests())
 		
 		if item_in_pocket:
+			var resource_profile: ResourceSightings.ResourceProfile = _resource_sightings.resource_registered(item_in_pocket)
+			
 			puppet_master.new_plan(job.city_structure, job.city_structure, item_in_pocket.type, item_in_pocket, job)
-			job.assign_worker(puppet_master)
+			job.assign_worker(puppet_master, resource_profile)
 			
 			return
 	
@@ -75,9 +77,11 @@ func _assign_job():
 			var nearest_resource = _navigator.nearest_in_group(puppet_master.global_position, errand.use, [job.city_structure.type])
 			
 			if nearest_resource:
+				var resource_profile: ResourceSightings.ResourceProfile = _resource_sightings.resource_registered(nearest_resource)
+				
 				puppet_master.new_plan(job.city_structure, nearest_resource, errand.use, errand.craft_tool, job)
-				job.assign_worker(puppet_master)
-				print(nearest_resource.name)
+				job.assign_worker(puppet_master, resource_profile)
+				
 				return
 			
 			

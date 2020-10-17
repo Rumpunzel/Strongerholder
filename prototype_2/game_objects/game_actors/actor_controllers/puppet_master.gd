@@ -81,6 +81,7 @@ func _get_input() -> Array:
 		
 		commands.append(MoveCommand.new(_current_plan.next_step()))
 	
+	
 	return commands
 
 
