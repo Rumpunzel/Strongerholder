@@ -28,8 +28,8 @@ func apply_for_job(puppet_master, inventory: Inventory, tool_belt: ToolBelt) -> 
 	return _worker_queue.add_worker(puppet_master, inventory, tool_belt)
 
 
-func post_job(city_structure, requested_resources: Array, how_many_workers, request_until_capacity: bool) -> JobQueue.JobPosting:
-	return _job_queue.add_job(city_structure, requested_resources, how_many_workers, request_until_capacity)
+func post_job(city_structure, city_pilot_master, how_many_workers, request_until_capacity: bool) -> JobQueue.JobPosting:
+	return _job_queue.add_job(city_structure, city_pilot_master, how_many_workers, request_until_capacity)
 
 
 
@@ -45,7 +45,7 @@ func _assign_job():
 	
 	
 	for job in job_queue:
-		var item_in_pocket: GameResource = worker_profile.can_do_job_now(job.requested_resources)
+		var item_in_pocket: GameResource = worker_profile.can_do_job_now(job.get_requests())
 		
 		if item_in_pocket:
 			puppet_master.new_plan(job.city_structure, job.city_structure, item_in_pocket.type, item_in_pocket, job)
@@ -55,7 +55,7 @@ func _assign_job():
 	
 	
 	for job in job_queue:
-		var errand: WorkerQueue.Errand = worker_profile.can_do_job_eventually(job.requested_resources)
+		var errand: WorkerQueue.Errand = worker_profile.can_do_job_eventually(job.get_requests())
 		
 		if errand:
 			var task_target: Node2D = _find_job_target(puppet_master.global_position, errand.use, [job.city_structure.type])

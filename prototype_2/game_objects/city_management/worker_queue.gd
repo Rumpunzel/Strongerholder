@@ -3,13 +3,13 @@ extends Queue
 
 
 
-func add_worker(puppet_master, invetory: Inventory, tool_belt: ToolBelt) -> WorkerProfile:
+func add_worker(puppet_master, inventory: Inventory, tool_belt: ToolBelt) -> WorkerProfile:
 	var new_profile: WorkerProfile = worker_registered(puppet_master)
 	
 	if new_profile:
 		return new_profile
 	
-	new_profile = WorkerProfile.new(puppet_master, invetory, tool_belt)
+	new_profile = WorkerProfile.new(puppet_master, inventory, tool_belt)
 	
 	queue.append(new_profile)
 	queue.sort_custom(WorkerProfile, "sort_ascending")
