@@ -25,10 +25,10 @@ func _ready():
 			dic.append(value)
 	
 	for request in dic:
-		owner.add_to_group("%s%s" % [Constants.REQUEST, request])
+		owner.owner.add_to_group("%s%s" % [Constants.REQUEST, request])
 
 
 
 
 func register_item(item):
-	owner.add_to_group(Constants.enum_name(Constants.Resources, item.type))
+	owner.owner.add_to_group(Constants.enum_name(Constants.Resources, item.type))

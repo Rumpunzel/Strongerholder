@@ -13,3 +13,5 @@ margin_top = -135.805
 margin_right = 54.9213
 margin_bottom = -97.8048
 _inventory_node = NodePath("../pilot_master/inventory")
+
+[editable path="pilot_master"]
