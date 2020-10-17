@@ -28,8 +28,8 @@ func apply_for_job(game_actor: PuppetMaster, inventory: Inventory, tool_belt: To
 	_worker_queue.add_worker(game_actor, inventory, tool_belt)
 
 
-func post_job(city_structure, requested_resources: Array):
-	_job_queue.add_job(city_structure, requested_resources)
+func post_job(city_structure, requested_resources: Array, how_many_workers = 1, request_until_capacity: bool = false):
+	_job_queue.add_job(city_structure, requested_resources, how_many_workers, request_until_capacity)
 
 
 

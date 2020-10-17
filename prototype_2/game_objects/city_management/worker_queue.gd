@@ -11,8 +11,9 @@ func add_worker(game_actor: PuppetMaster, invetory: Inventory, tool_belt: ToolBe
 	var new_profile: WorkerProfile = WorkerProfile.new(game_actor, invetory, tool_belt)
 	
 	_queue.append(new_profile)
-	
 	_queue.sort_custom(WorkerProfile, "sort_ascending")
+	
+	print(_queue)
 
 
 func requeue(worker_profile: WorkerProfile):

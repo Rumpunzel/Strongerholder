@@ -9,5 +9,7 @@
 [node name="sprite" parent="." index="1"]
 modulate = Color( 0.501961, 1, 0.501961, 1 )
 
-[node name="animation_tree" parent="." index="5"]
+[node name="animation_tree" parent="." index="4"]
 parameters/playback = SubResource( 1 )
+
+[editable path="puppet_master"]

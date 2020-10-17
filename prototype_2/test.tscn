@@ -116,15 +116,12 @@ ui_layer = NodePath("../../../ui_layer")
 
 [node name="woodsman" parent="objects_layer" instance=ExtResource( 6 )]
 position = Vector2( 56.5611, 29.217 )
-collision_mask = 5
 
 [node name="woodsman2" parent="objects_layer" instance=ExtResource( 6 )]
 position = Vector2( 29.5916, 46.8221 )
-collision_mask = 5
 
 [node name="woodsman3" parent="objects_layer" instance=ExtResource( 6 )]
 position = Vector2( 95.5171, 13.8593 )
-collision_mask = 5
 
 [node name="tree" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( 176, 176 )
