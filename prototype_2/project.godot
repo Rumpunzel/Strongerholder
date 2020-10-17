@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/animation_state_machine.gd"
 }, {
+"base": "PilotMaster",
+"class": "CityPilotMaster",
+"language": "GDScript",
+"path": "res://game_objects/structures/buildings/city_pilot_master.gd"
+}, {
 "base": "Structure",
 "class": "CityStructure",
 "language": "GDScript",
@@ -115,6 +120,16 @@ _global_script_classes=[ {
 "path": "res://game_objects/inventory.gd"
 }, {
 "base": "Node",
+"class": "JobPosting",
+"language": "GDScript",
+"path": "res://game_objects/city_management/job_posting.gd"
+}, {
+"base": "Node",
+"class": "JobQueue",
+"language": "GDScript",
+"path": "res://game_objects/city_management/job_queue.gd"
+}, {
+"base": "Node",
 "class": "ObjectState",
 "language": "GDScript",
 "path": "res://game_objects/state_machine/idle.gd"
@@ -127,7 +142,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "PilotMaster",
 "language": "GDScript",
-"path": "res://game_objects/structures/buildings/pilot_master.gd"
+"path": "res://game_objects/structures/pilot_master.gd"
 }, {
 "base": "Camera2D",
 "class": "PlayerCamera",
@@ -142,7 +157,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "QuarterMaster",
 "language": "GDScript",
-"path": "res://game_objects/quarter_master.gd"
+"path": "res://game_objects/city_management/quarter_master.gd"
 }, {
 "base": "CenterContainer",
 "class": "RadiantContainer",
@@ -218,6 +233,11 @@ _global_script_classes=[ {
 "class": "ToolBelt",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/tool_belt.gd"
+}, {
+"base": "Node",
+"class": "WorkerQueue",
+"language": "GDScript",
+"path": "res://game_objects/city_management/worker_queue.gd"
 } ]
 _global_script_class_icons={
 "ActorState": "",
@@ -230,6 +250,7 @@ _global_script_class_icons={
 "ActorStateRun": "res://assets/icons/game_actors/states/icon_state_run.svg",
 "ActorStateTake": "res://assets/icons/game_actors/states/icon_state_take.svg",
 "AnimationStateMachine": "",
+"CityPilotMaster": "res://assets/icons/structures/icon_city_pilot_master.svg",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
 "Constants": "",
 "CraftTool": "res://assets/icons/game_actors/icon_crafting_tool.svg",
@@ -241,6 +262,8 @@ _global_script_class_icons={
 "GameSprite": "",
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
 "Inventory": "res://assets/icons/icon_inventory.svg",
+"JobPosting": "res://assets/icons/icon_job_posting.svg",
+"JobQueue": "res://assets/icons/icon_job_queue.svg",
 "ObjectState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ObjectsLayer": "res://assets/icons/icon_objects_layer.svg",
 "PilotMaster": "res://assets/icons/structures/icon_pilot_master.svg",
@@ -261,7 +284,8 @@ _global_script_class_icons={
 "StateMachine": "res://assets/icons/icon_state_machine.svg",
 "Structure": "res://assets/icons/structures/icon_structure.svg",
 "StructureInventory": "res://assets/icons/structures/icon_structure_inventory.svg",
-"ToolBelt": "res://assets/icons/game_actors/icon_tool_belt.svg"
+"ToolBelt": "res://assets/icons/game_actors/icon_tool_belt.svg",
+"WorkerQueue": "res://assets/icons/icon_worker_queue.svg"
 }
 
 [application]

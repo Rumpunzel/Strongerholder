@@ -7,7 +7,8 @@
 [ext_resource path="res://game_objects/structures/structure_inventory.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/state_machine/StateMachine.gd" type="Script" id=6]
 [ext_resource path="res://game_objects/state_machine/dead.gd" type="Script" id=7]
-[ext_resource path="res://game_objects/structures/buildings/pilot_master.gd" type="Script" id=8]
+[ext_resource path="res://game_objects/structures/pilot_master.gd" type="Script" id=8]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 20 )

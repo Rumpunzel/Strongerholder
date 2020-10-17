@@ -10,9 +10,8 @@ func get_tools() -> Array:
 
 func get_valid_targets() -> Array:
 	var has_tools_for: Array = [ ]
-	
+
 	for craft_tool in get_children():
-		for target in craft_tool.used_for:
-			has_tools_for.append(Constants.enum_name(Constants.Resources, target))
-	
+		has_tools_for += craft_tool.used_for
+
 	return has_tools_for

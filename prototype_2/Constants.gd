@@ -49,6 +49,9 @@ static func is_structure(index) -> bool:
 static func is_thing(index) -> bool:
 	return index is int and index >= Structures.TREE and Structures.values().has(index)
 
+static func is_resource(index) -> bool:
+	return Resources.values().has(index)
+
 
 static func enum_name(enumerator, index: int) -> String:
 	return enumerator.keys()[enumerator.values().find(index)]

@@ -49,7 +49,7 @@ func new_basic_plan(new_task_location: Vector2) :
 	_current_plan = BasicPlan.new(self, new_path)
 
 
-func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose: String, new_tool: Node2D):
+func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose, new_tool: Node2D):
 	var new_path = _navigation.get_simple_path(global_position, new_task_target.global_position)
 	print("\n%s:\ncurrent_path: %s\n" % [owner.name, new_path])
 	
@@ -131,11 +131,11 @@ class Plan extends BasicPlan:
 	var task_master: Node2D
 	var task_target: Node2D
 	
-	var purpose: String
+	var purpose
 	var task_tool: Node2D
 	
 	
-	func _init(new_task_agent: PuppetMaster, new_path: PoolVector2Array, new_task_master: Node2D, new_task_target: Node2D, new_purpose: String, new_tool: Node2D).(new_task_agent, new_path):
+	func _init(new_task_agent: PuppetMaster, new_path: PoolVector2Array, new_task_master: Node2D, new_task_target: Node2D, new_purpose, new_tool: Node2D).(new_task_agent, new_path):
 		task_master = new_task_master
 		task_target = new_task_target
 		
@@ -148,9 +148,10 @@ class Plan extends BasicPlan:
 		if task_target == task_master:
 			task_target = null
 			path = PoolVector2Array()
+			
 			return InputMaster.GiveCommand.new(task_tool, task_master)
 		
-		if Constants.enum_name(Constants.Resources, task_target.type) == purpose:
+		if task_target.type == purpose:
 			return InputMaster.TakeCommand.new(task_target)
 		
 		return InputMaster.AttackCommand.new(task_tool)

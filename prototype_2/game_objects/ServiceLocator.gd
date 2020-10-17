@@ -3,7 +3,7 @@ extends Node
 
 var navigation: Navigation2D setget register_as_navigation
 var objects_layer: YSort setget register_as_objects_layer
-var quarter_master: QuarterMaster setget register_as_quarter_master
+var quarter_master setget register_as_quarter_master
 
 
 
