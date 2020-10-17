@@ -4,6 +4,7 @@ extends Node
 
 onready var _worker_queue: WorkerQueue = $worker_queue
 onready var _job_queue: JobQueue = $job_queue
+onready var _resource_sightings: ResourceSightings = $resource_sightings
 
 onready var _navigation: Navigation2D = ServiceLocator.navigation
 
@@ -30,6 +31,10 @@ func apply_for_job(puppet_master, inventory: Inventory, tool_belt: ToolBelt) -> 
 
 func post_job(city_structure, city_pilot_master, how_many_workers, request_until_capacity: bool) -> JobQueue.JobPosting:
 	return _job_queue.add_job(city_structure, city_pilot_master, how_many_workers, request_until_capacity)
+
+
+func register_resource(structure, inventory: Inventory, maximum_workers) -> ResourceSightings.ResourceProfile:
+	return _resource_sightings.add_resource(structure, inventory, maximum_workers)
 
 
 

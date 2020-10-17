@@ -12,9 +12,6 @@ var requests: Array = [ ]
 var _job_postings: Array = [ ]
 
 
-onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
-
-
 
 
 # Called when the node enters the scene tree for the first time.
