@@ -8,7 +8,10 @@ const PURPOSE = "purpose"
 const TOOL = "tool"
 
 
-var _current_plan: BasicPlan
+var _current_plan: BasicPlan = null
+var _current_job: JobQueue.JobPosting = null
+
+var _current_application: WorkerQueue.WorkerProfile = null
 
 
 onready var _inventory: Inventory = $inventory
@@ -21,9 +24,12 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 func _process(_delta: float):
-	if not (_current_plan and _current_plan.is_useful()):
-		_quarter_master.apply_for_job(self, _inventory, _tool_belt)
-		set_process(false)
+	if not (_current_plan and _current_plan.is_useful() and not _current_application):
+		if _current_job:
+			_current_job.assigned_workers -= 1
+			_current_job = null
+		
+		_current_application = _quarter_master.apply_for_job(self, _inventory, _tool_belt)
 
 
 
@@ -33,17 +39,16 @@ func new_basic_plan(new_task_location: Vector2) :
 	print("\n%s:\ncurrent_path: %s\n" % [owner.name, new_path])
 	
 	_current_plan = BasicPlan.new(self, new_path)
-	
-	set_process(true)
+	_current_application = null
 
 
-func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose, new_tool: Node2D):
+func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose, new_tool: Node2D, new_job: JobQueue.JobPosting):
 	var new_path = _navigation.get_simple_path(global_position, new_task_target.global_position)
 	print("\n%s:\ncurrent_path: %s\n" % [owner.name, new_path])
 	
+	_current_job = new_job
 	_current_plan = Plan.new(self, new_path, new_task_master, new_task_target, new_purpose, new_tool)
-	
-	set_process(true)
+	_current_application = null
 
 
 

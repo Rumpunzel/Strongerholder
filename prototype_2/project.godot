@@ -119,12 +119,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/inventory.gd"
 }, {
-"base": "Node",
-"class": "JobPosting",
-"language": "GDScript",
-"path": "res://game_objects/city_management/job_posting.gd"
-}, {
-"base": "Node",
+"base": "Queue",
 "class": "JobQueue",
 "language": "GDScript",
 "path": "res://game_objects/city_management/job_queue.gd"
@@ -158,6 +153,11 @@ _global_script_classes=[ {
 "class": "QuarterMaster",
 "language": "GDScript",
 "path": "res://game_objects/city_management/quarter_master.gd"
+}, {
+"base": "Node",
+"class": "Queue",
+"language": "GDScript",
+"path": "res://game_objects/city_management/queue.gd"
 }, {
 "base": "CenterContainer",
 "class": "RadiantContainer",
@@ -234,7 +234,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/tool_belt.gd"
 }, {
-"base": "Node",
+"base": "Queue",
 "class": "WorkerQueue",
 "language": "GDScript",
 "path": "res://game_objects/city_management/worker_queue.gd"
@@ -262,7 +262,6 @@ _global_script_class_icons={
 "GameSprite": "",
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
 "Inventory": "res://assets/icons/icon_inventory.svg",
-"JobPosting": "res://assets/icons/icon_job_posting.svg",
 "JobQueue": "res://assets/icons/icon_job_queue.svg",
 "ObjectState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ObjectsLayer": "res://assets/icons/icon_objects_layer.svg",
@@ -270,6 +269,7 @@ _global_script_class_icons={
 "PlayerCamera": "",
 "PuppetMaster": "res://assets/icons/game_actors/icon_puppet_master.svg",
 "QuarterMaster": "res://assets/icons/icon_quarter_master.svg",
+"Queue": "",
 "RadiantContainer": "",
 "RadiantUI": "",
 "RadiantUIButton": "",

@@ -1,44 +1,31 @@
 class_name WorkerQueue, "res://assets/icons/icon_worker_queue.svg"
-extends Node
-
-
-var _queue: Array = [ ]
+extends Queue
 
 
 
-
-func add_worker(puppet_master, invetory: Inventory, tool_belt: ToolBelt):
-	if worker_registered(puppet_master):
-		return
+func add_worker(puppet_master, invetory: Inventory, tool_belt: ToolBelt) -> WorkerProfile:
+	var new_profile: WorkerProfile = worker_registered(puppet_master)
 	
-	var new_profile: WorkerProfile = WorkerProfile.new(puppet_master, invetory, tool_belt)
+	if new_profile:
+		return new_profile
 	
-	_queue.append(new_profile)
-	_queue.sort_custom(WorkerProfile, "sort_ascending")
+	new_profile = WorkerProfile.new(puppet_master, invetory, tool_belt)
 	
-	print("WORKER APPLICATIONS\n%s\n" % [_queue])
+	queue.append(new_profile)
+	queue.sort_custom(WorkerProfile, "sort_ascending")
+	
+	#print("\nWORKER APPLICATIONS\n%s\n" % [queue])
+	
+	return new_profile
 
 
-func requeue(worker_profile: WorkerProfile):
-	_queue.append(worker_profile)
 
-
-
-func worker_registered(puppet_master) -> bool:
-	for profile in _queue:
+func worker_registered(puppet_master) -> WorkerProfile:
+	for profile in queue:
 		if profile.puppet_master == puppet_master:
-			return true
+			return profile
 	
-	return false
-
-
-
-func pop_front() -> Object:
-	return _queue.pop_front()
-
-
-func empty() -> bool:
-	return _queue.empty()
+	return null
 
 
 
