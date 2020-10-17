@@ -32,4 +32,4 @@ func set_assigned_workers(new_amount: int):
 
 
 func _to_string() -> String:
-	return "\nWorking For: %s\nRequested Delivery: %s\nDeliver Until Capacity: %s\nWorkers Assigned: %s\n" % [city_structure.owner.name, requested_resources, request_until_capacity, ("%d/%d" % [assigned_workers, requested_workers]) if requested_workers else "%d" % [assigned_workers]]
+	return "\nWorking For: %s\nRequested Delivery: %s\nDeliver Until Capacity: %s\nWorkers Assigned: %s\n" % [city_structure.name, requested_resources, request_until_capacity, ("%d/%d" % [assigned_workers, requested_workers]) if requested_workers else "%d" % [assigned_workers]]

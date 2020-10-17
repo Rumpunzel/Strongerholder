@@ -6,7 +6,7 @@ extends Node
 func add_job(city_structure, requested_resources: Array, requested_workers, request_until_capacity: bool):
 	insert_element(JobPosting.new(city_structure, requested_resources, requested_workers, request_until_capacity))
 	
-	#print("JOB POSTINGS\n%s\n" % [get_queue()])
+	print("JOB POSTINGS\n%s\n" % [get_queue()])
 
 
 

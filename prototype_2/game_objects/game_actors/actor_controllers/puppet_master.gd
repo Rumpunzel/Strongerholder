@@ -24,23 +24,7 @@ func _process(_delta: float):
 	if not (_current_plan and _current_plan.is_useful()):
 		_quarter_master.apply_for_job(self, _inventory, _tool_belt)
 		set_process(false)
-#		var master_purpose: Dictionary = _quarter_master.get_task(global_position, _inventory.get_contents(), _tool_belt.get_tools())
-#
-#		var new_task_master: Node2D = master_purpose.get(TASK_MASTER)
-#		var new_task_target: Node2D = master_purpose.get(TASK_TARGET)
-#		var new_purpose = master_purpose.get(PURPOSE)
-#		var new_tool: Node2D = master_purpose.get(TOOL)
-#
-#		if not (new_task_master and new_purpose):
-#			return
-#
-#		if not new_task_target:
-#			new_task_target = _quarter_master.search_task_target(global_position, new_task_master, new_purpose)
-#
-#		if not new_task_target:
-#			return
-#
-#		new_plan(new_task_master, new_task_target, new_purpose, new_tool)
+
 
 
 

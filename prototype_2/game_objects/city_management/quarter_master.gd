@@ -5,6 +5,8 @@ extends Node
 onready var _worker_queue: WorkerQueue = $worker_queue
 onready var _job_queue: JobQueue = $job_queue
 
+onready var _navigation: Navigation2D = ServiceLocator.navigation
+
 
 
 
@@ -47,7 +49,6 @@ func _assign_job():
 		
 		if item_in_pocket:
 			puppet_master.new_plan(job.city_structure, job.city_structure, item_in_pocket.type, item_in_pocket)
-			
 			job.assigned_workers += 1
 			
 			return
@@ -57,8 +58,9 @@ func _assign_job():
 		var errand: WorkerQueue.Errand = worker_profile.can_do_job_eventually(job.requested_resources)
 		
 		if errand:
-			puppet_master.new_plan(job.city_structure, null, errand.use, errand.craft_tool)
+			var task_target: Node2D = _navigation._nearest_in_group(puppet_master.global_position, errand.use, [ job.city_structure.type ])
 			
+			puppet_master.new_plan(job.city_structure, task_target, errand.use, errand.craft_tool)
 			job.assigned_workers += 1
 			
 			return

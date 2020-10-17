@@ -16,7 +16,7 @@ func add_worker(puppet_master, invetory: Inventory, tool_belt: ToolBelt):
 	_queue.append(new_profile)
 	_queue.sort_custom(WorkerProfile, "sort_ascending")
 	
-	#print("WORKER APPLICATIONS\n%s\n" % [_queue])
+	print("WORKER APPLICATIONS\n%s\n" % [_queue])
 
 
 func requeue(worker_profile: WorkerProfile):

@@ -20,10 +20,10 @@ func _ready():
 	if request_everything:
 		dic.clear()
 		
-		for value in Constants.Resources.keys():
+		for value in Constants.Resources.values():
 			dic.append(value)
 	
-	_quarter_master.post_job(self, dic, false, true)
+	_quarter_master.post_job(owner, dic, false, true)
 	
 #	for request in dic:
 #		owner.add_to_group("%s%s" % [Constants.REQUEST, request])
