@@ -292,7 +292,7 @@ _global_script_class_icons={
 
 config/name="Prototype 2"
 run/main_scene="res://test.tscn"
-config/icon="res://assets/sprites/icon.png"
+config/icon="res://assets/sprites/castle_icon_colour.png"
 
 [autoload]
 
