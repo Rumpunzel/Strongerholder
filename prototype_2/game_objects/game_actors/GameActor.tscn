@@ -36,10 +36,11 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=3]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
 [node name="game_actor" type="KinematicBody2D"]
 collision_layer = 2
+collision_mask = 5
 script = ExtResource( 25 )
 
 [node name="collision_shape" type="CollisionShape2D" parent="."]
@@ -87,7 +88,7 @@ script = ExtResource( 29 )
 [node name="animation_tree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )
 anim_player = NodePath("../animation_player")
-parameters/playback = SubResource( 3 )
+parameters/playback = SubResource( 2 )
 parameters/attack/blend_position = Vector2( 0, 0 )
 parameters/give/blend_position = Vector2( 0, 0 )
 parameters/idle/blend_position = Vector2( 0, 0 )
