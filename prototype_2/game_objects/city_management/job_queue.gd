@@ -61,16 +61,12 @@ class JobPosting:
 	
 	
 	func assign_worker(puppet_master: Node2D, target_profile: ResourceSightings.ResourceProfile):
-		target_profile.assigned_workers.append(puppet_master)
+		target_profile.assign_worker(puppet_master)
 		_assigned_workers[puppet_master] = target_profile
 	
 	
-	func unassign_worker(puppet_master):
-		var target_profile = _assigned_workers.get(puppet_master)
-		
-		if target_profile:
-			target_profile.assigned_workers.erase(puppet_master)
-		
+	func unassign_worker(puppet_master: Node2D):
+		_assigned_workers[puppet_master].unassign_worker(puppet_master)
 		_assigned_workers.erase(puppet_master)
 	
 	

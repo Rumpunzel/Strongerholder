@@ -65,7 +65,7 @@ func _assign_job():
 			
 			job.assign_worker(puppet_master, resource_profile)
 			puppet_master.new_plan(job.city_structure, job.city_structure, item_in_pocket.type, item_in_pocket, job)
-			print(job)
+			
 			return
 	
 	
@@ -78,9 +78,12 @@ func _assign_job():
 			if nearest_resource:
 				var resource_profile: ResourceSightings.ResourceProfile = _resource_sightings.resource_registered(nearest_resource)
 				
+				if not resource_profile.posting_active():
+					continue
+				
 				job.assign_worker(puppet_master, resource_profile)
 				puppet_master.new_plan(job.city_structure, nearest_resource, errand.use, errand.craft_tool, job)
-				print(job)
+				
 				return
 			
 			
@@ -89,7 +92,7 @@ func _assign_job():
 			if new_quest.target:
 				job.assign_worker(puppet_master, new_quest.target_profile)
 				puppet_master.new_plan(job.city_structure, new_quest.target, errand.use, errand.craft_tool, job)
-				print(job)
+				
 				return
 	
 	
@@ -113,7 +116,6 @@ func _find_job_target(puppet_master: Node2D, job_target_group, groups_to_exclude
 	for profile in array_of_profiles:
 		if profile.structure == target:
 			target_profile = profile
-			target_profile.assigned_workers.append(puppet_master)
 			break
 	
 	return Quest.new(target, target_profile)

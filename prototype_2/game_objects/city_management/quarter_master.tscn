@@ -18,5 +18,5 @@ script = ExtResource( 1 )
 script = ExtResource( 4 )
 
 [node name="timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.5
 autostart = true

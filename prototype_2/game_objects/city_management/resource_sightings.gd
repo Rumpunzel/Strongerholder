@@ -63,7 +63,7 @@ class ResourceProfile:
 	var inventory: Inventory
 	var maximum_workers
 	
-	var assigned_workers: Array = [ ]
+	var _assigned_workers: Array = [ ]
 	
 	
 	func _init(new_structure, new_inventory: Inventory, new_maximum_workers):
@@ -82,11 +82,20 @@ class ResourceProfile:
 	
 	
 	func position_open() -> bool:
-		return not maximum_workers or assigned_workers.size() < maximum_workers
+		return not maximum_workers or _assigned_workers.size() < maximum_workers
+	
+	
+	func assign_worker(puppet_master: Node2D):
+		assert(not maximum_workers or _assigned_workers.size() < maximum_workers)
+		_assigned_workers.append(puppet_master)
+	
+	
+	func unassign_worker(puppet_master: Node2D):
+		_assigned_workers.erase(puppet_master)
 	
 	
 	func _to_string() -> String:
-		return "\nStructure: %s\nCurrently Offering: %s\nWorkers Assigned: %s\n" % [structure.name, resources_on_offer(), ("%d/%d" % [assigned_workers.size(), maximum_workers]) if maximum_workers else "%d" % [assigned_workers.size()]]
+		return "\nStructure: %s\nCurrently Offering: %s\nWorkers Assigned: %s\n" % [structure.name, resources_on_offer(), ("%d/%d" % [_assigned_workers.size(), maximum_workers]) if maximum_workers else "%d" % [_assigned_workers.size()]]
 
 
 
