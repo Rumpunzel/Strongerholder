@@ -2,6 +2,9 @@ class_name StateMachine, "res://assets/icons/icon_state_machine.svg"
 extends Node
 
 
+signal state_changed(new_state, old_state)
+
+
 export var hit_points_max: float = 10.0
 export var indestructible: bool = false
 
@@ -59,10 +62,14 @@ func is_active() -> bool:
 
 
 func _change_to(new_state: String, parameters: Array = [ ]):
-	history.append(current_state.name)
+	var old_state: String = current_state.name
+	
+	history.append(old_state)
 	
 	current_state = get_node(new_state)
 	_enter_state(parameters)
+	
+	emit_signal("state_changed", current_state, old_state)
 
 
 func _enter_state(parameters: Array = [ ]):

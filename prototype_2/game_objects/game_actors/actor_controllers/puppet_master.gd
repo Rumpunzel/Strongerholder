@@ -15,30 +15,32 @@ onready var _inventory: Inventory = $inventory
 onready var _tool_belt: ToolBelt = $tool_belt
 
 onready var _navigation: Navigation2D = ServiceLocator.navigation
-onready var _quarter_master = ServiceLocator.quarter_master
+onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 
 
 func _process(_delta: float):
 	if not (_current_plan and _current_plan.is_useful()):
-		var master_purpose: Dictionary = _quarter_master.get_task(global_position, _inventory.get_contents(), _tool_belt.get_tools())
-		
-		var new_task_master: Node2D = master_purpose.get(TASK_MASTER)
-		var new_task_target: Node2D = master_purpose.get(TASK_TARGET)
-		var new_purpose = master_purpose.get(PURPOSE)
-		var new_tool: Node2D = master_purpose.get(TOOL)
-		
-		if not (new_task_master and new_purpose):
-			return
-		
-		if not new_task_target:
-			new_task_target = _quarter_master.search_task_target(global_position, new_task_master, new_purpose)
-		
-		if not new_task_target:
-			return
-		
-		new_plan(new_task_master, new_task_target, new_purpose, new_tool)
+		_quarter_master.apply_for_job(self, _inventory, _tool_belt)
+		set_process(false)
+#		var master_purpose: Dictionary = _quarter_master.get_task(global_position, _inventory.get_contents(), _tool_belt.get_tools())
+#
+#		var new_task_master: Node2D = master_purpose.get(TASK_MASTER)
+#		var new_task_target: Node2D = master_purpose.get(TASK_TARGET)
+#		var new_purpose = master_purpose.get(PURPOSE)
+#		var new_tool: Node2D = master_purpose.get(TOOL)
+#
+#		if not (new_task_master and new_purpose):
+#			return
+#
+#		if not new_task_target:
+#			new_task_target = _quarter_master.search_task_target(global_position, new_task_master, new_purpose)
+#
+#		if not new_task_target:
+#			return
+#
+#		new_plan(new_task_master, new_task_target, new_purpose, new_tool)
 
 
 
@@ -47,6 +49,8 @@ func new_basic_plan(new_task_location: Vector2) :
 	print("\n%s:\ncurrent_path: %s\n" % [owner.name, new_path])
 	
 	_current_plan = BasicPlan.new(self, new_path)
+	
+	set_process(true)
 
 
 func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose, new_tool: Node2D):
@@ -54,6 +58,8 @@ func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose, new
 	print("\n%s:\ncurrent_path: %s\n" % [owner.name, new_path])
 	
 	_current_plan = Plan.new(self, new_path, new_task_master, new_task_target, new_purpose, new_tool)
+	
+	set_process(true)
 
 
 

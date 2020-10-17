@@ -7,17 +7,29 @@ var _queue: Array = [ ]
 
 
 
-func add_worker(game_actor: PuppetMaster, invetory: Inventory, tool_belt: ToolBelt):
-	var new_profile: WorkerProfile = WorkerProfile.new(game_actor, invetory, tool_belt)
+func add_worker(puppet_master, invetory: Inventory, tool_belt: ToolBelt):
+	if worker_registered(puppet_master):
+		return
+	
+	var new_profile: WorkerProfile = WorkerProfile.new(puppet_master, invetory, tool_belt)
 	
 	_queue.append(new_profile)
 	_queue.sort_custom(WorkerProfile, "sort_ascending")
 	
-	print(_queue)
+	#print("WORKER APPLICATIONS\n%s\n" % [_queue])
 
 
 func requeue(worker_profile: WorkerProfile):
 	_queue.append(worker_profile)
+
+
+
+func worker_registered(puppet_master) -> bool:
+	for profile in _queue:
+		if profile.puppet_master == puppet_master:
+			return true
+	
+	return false
 
 
 
@@ -34,15 +46,15 @@ func empty() -> bool:
 
 class WorkerProfile:
 	
-	var game_actor: PuppetMaster
+	var puppet_master
 	
 	var inventory: Inventory
 	var tool_belt: ToolBelt
 	
 	
 	
-	func _init(new_game_actor: PuppetMaster, new_inventory: Inventory, new_tool_belt: ToolBelt):
-		game_actor = new_game_actor
+	func _init(new_puppet_master, new_inventory: Inventory, new_tool_belt: ToolBelt):
+		puppet_master = new_puppet_master
 		
 		inventory = new_inventory
 		tool_belt = new_tool_belt
@@ -60,7 +72,7 @@ class WorkerProfile:
 	
 	
 	func can_do_job_eventually(potential_jobs: Array) -> Errand:
-		var craft_tools: Array = tool_belt.get_valid_targets()
+		var craft_tools: Array = tool_belt.get_tools()
 		
 		for craft_tool in craft_tools:
 			for use in craft_tool.used_for:
@@ -80,10 +92,14 @@ class WorkerProfile:
 	
 	
 	func _get_inventory_contents() -> Array:
-		return inventory.get_content()
+		return inventory.get_contents()
 	
 	func _get_tool_uses() -> Array:
 		return tool_belt.get_valid_targets()
+	
+	
+	func _to_string() -> String:
+		return "\nWorker: %s\nCurrently Holding: %s\nAble To Obtain: %s\nFlexibility: %d\n" % [puppet_master.owner.name, _get_inventory_contents(), _get_tool_uses(), get_flexibility()]
 
 
 
