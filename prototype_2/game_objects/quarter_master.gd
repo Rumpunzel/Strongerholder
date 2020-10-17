@@ -6,7 +6,7 @@ var _worker_queue: Array = [ ]
 var _job_queue: Array = [ ]
 
 
-onready var _navigation: Navigation2D = ServiceLocator.navigation
+onready var _navigator: Navigator = ServiceLocator.navigator
 
 
 
@@ -75,7 +75,7 @@ func _nearest_in_group(global_position: Vector2, group_name: String, groups_to_e
 			continue
 		
 		# Check if the potential target is the nearest one
-		var simple_path: PoolVector2Array = _navigation.get_simple_path(global_position, object.global_position)
+		var simple_path: PoolVector2Array = _navigator.get_simple_path(global_position, object.global_position)
 		var distance_to_body: float = 0.0
 		var path_index: int = 0
 		

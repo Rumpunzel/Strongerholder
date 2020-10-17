@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
 [ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=8]
 [ext_resource path="res://test_tilemap.tres" type="TileSet" id=9]
+[ext_resource path="res://game_objects/navigator.gd" type="Script" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -29,64 +30,7 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="GDScript" id=2]
-script/source = "extends Navigation2D
-
-
-
-func _enter_tree():
-	ServiceLocator.register_as_navigation(self)
-
-
-func _exit_tree():
-	ServiceLocator.unregister_as_navigation(self)
-
-
-
-
-func _nearest_in_group(global_position: Vector2, group_name, groups_to_exclude: Array = [ ]) -> Node2D:
-	if Constants.is_structure(group_name) or Constants.is_thing(group_name):
-		group_name = Constants.enum_name(Constants.Structures, group_name)
-	elif Constants.is_resource(group_name):
-		group_name = Constants.enum_name(Constants.Resources, group_name)
-	
-	var group: Array = get_tree().get_nodes_in_group(group_name)
-	var nearest_object: Node2D = null
-	var shortest_distance: float = INF
-	
-	# Check that the potential target's type is actually requested
-	for object in group:
-		if not object.is_active():
-			continue
-		
-		var valid_object: bool = true
-		var object_groups: Array = object.get_groups()
-		
-		for ex_group in groups_to_exclude:
-			if object_groups.has(Constants.enum_name(Constants.Structures, ex_group)):
-				valid_object = false
-				break
-		
-		if not valid_object:
-			continue
-		
-		# Check if the potential target is the nearest one
-		var simple_path: PoolVector2Array = get_simple_path(global_position, object.global_position)
-		var distance_to_body: float = 0.0
-		var path_index: int = 0
-		
-		while path_index < simple_path.size() - 1:
-			distance_to_body += simple_path[path_index].distance_to(simple_path[path_index + 1])
-			path_index += 1
-		
-		if distance_to_body < shortest_distance:
-			shortest_distance = distance_to_body
-			nearest_object = object
-	
-	return nearest_object
-"
-
-[sub_resource type="OccluderPolygon2D" id=3]
+[sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( 26.5, -61, -13, -61, -120, -61.5, -116.5, 63.5, -63.5, 112, 58.5, 30 )
 
 [node name="test" type="Node2D"]
@@ -112,10 +56,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="navigation" type="Navigation2D" parent="."]
-script = SubResource( 2 )
+[node name="navigator" type="Navigation2D" parent="."]
+script = ExtResource( 10 )
 
-[node name="tile_map" type="TileMap" parent="navigation"]
+[node name="tile_map" type="TileMap" parent="navigator"]
 tile_set = ExtResource( 9 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -137,7 +81,7 @@ shadow_enabled = true
 
 [node name="light_occluder" type="LightOccluder2D" parent="."]
 position = Vector2( -24, 106 )
-occluder = SubResource( 3 )
+occluder = SubResource( 2 )
 
 [node name="objects_layer" type="YSort" parent="."]
 script = ExtResource( 5 )

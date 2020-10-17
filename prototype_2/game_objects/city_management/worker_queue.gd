@@ -3,7 +3,7 @@ extends Queue
 
 
 
-func add_worker(puppet_master, inventory: Inventory, tool_belt: ToolBelt) -> WorkerProfile:
+func add_worker(puppet_master: Node2D, inventory: Inventory, tool_belt: ToolBelt) -> WorkerProfile:
 	var new_profile: WorkerProfile = worker_registered(puppet_master)
 	
 	if new_profile:
@@ -20,7 +20,12 @@ func add_worker(puppet_master, inventory: Inventory, tool_belt: ToolBelt) -> Wor
 
 
 
-func worker_registered(puppet_master) -> WorkerProfile:
+func remove_worker(profile: WorkerProfile):
+	queue.erase(profile)
+
+
+
+func worker_registered(puppet_master: Node2D) -> WorkerProfile:
 	for profile in queue:
 		if profile.puppet_master == puppet_master:
 			return profile
@@ -33,14 +38,14 @@ func worker_registered(puppet_master) -> WorkerProfile:
 
 class WorkerProfile:
 	
-	var puppet_master
+	var puppet_master: Node2D
 	
 	var inventory: Inventory
 	var tool_belt: ToolBelt
 	
 	
 	
-	func _init(new_puppet_master, new_inventory: Inventory, new_tool_belt: ToolBelt):
+	func _init(new_puppet_master: Node2D, new_inventory: Inventory, new_tool_belt: ToolBelt):
 		puppet_master = new_puppet_master
 		
 		inventory = new_inventory

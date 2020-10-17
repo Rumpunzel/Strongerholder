@@ -14,6 +14,7 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	owner.connect("died", self, "unregister_resource")
 	connect("body_entered", self, "pick_up_item")
 	
 	register_resource()
@@ -41,3 +42,6 @@ func drop_all_items(position_to_drop: Vector2 = global_position):
 
 func register_resource(maximum_workers = 1):
 	_current_registration = _quarter_master.register_resource(owner, _inventory, maximum_workers)
+
+func unregister_resource():
+	_quarter_master.unregister_resource(_current_registration)

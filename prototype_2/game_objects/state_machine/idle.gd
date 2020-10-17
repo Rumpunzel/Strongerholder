@@ -17,9 +17,6 @@ func enter(_parameters: Array = [ ]):
 
 
 func exit(next_state: String, parameters: Array = [ ]):
-	if name == next_state:
-		return
-	
 	_state_machine._change_to(next_state, parameters)
 
 

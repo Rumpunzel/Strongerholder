@@ -31,7 +31,7 @@ func search_for_target(inventory: Inventory) -> GameObject:
 			# Check that the potential target's type is actually requested
 			if not (requester_group.empty() or requester_group.has(overlapping_body.get_owner())):
 				# Check if the potential target is the nearest one
-				var simple_path: PoolVector2Array = get_tree().get_root().get_node("test/navigation").get_simple_path(global_position, overlapping_body.global_position)
+				var simple_path: PoolVector2Array = get_tree().get_root().get_node("test/navigator").get_simple_path(global_position, overlapping_body.global_position)
 				var distance_to_body: float = 0.0
 				var path_index: int = 0
 				

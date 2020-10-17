@@ -1,25 +1,25 @@
 extends Node
 
 
-var navigation: Navigation2D setget register_as_navigation
+var navigator: Navigation2D setget register_as_navigator
 var objects_layer: YSort setget register_as_objects_layer
-var quarter_master setget register_as_quarter_master
+var quarter_master: Node setget register_as_quarter_master
 
 
 
 
-func register_as_navigation(new_node: Navigation2D):
+func register_as_navigator(new_node: Navigation2D):
 	if not new_node:
 		return
 	
-	navigation = new_node
+	navigator = new_node
 
 
-func unregister_as_navigation(new_node: Navigation2D):
-	if not (new_node and new_node == navigation):
+func unregister_as_navigator(new_node: Navigation2D):
+	if not (new_node and new_node == navigator):
 		return
 	
-	navigation = null
+	navigator = null
 
 
 
@@ -38,12 +38,12 @@ func unregister_as_objects_layer(new_node: YSort):
 
 
 
-func register_as_quarter_master(new_node):
+func register_as_quarter_master(new_node: Node):
 	if new_node:
 		quarter_master = new_node
 
 
-func unregister_as_quarter_master(new_node):
+func unregister_as_quarter_master(new_node: Node):
 	if not (new_node and new_node == quarter_master):
 		return
 	

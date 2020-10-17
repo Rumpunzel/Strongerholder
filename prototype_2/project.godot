@@ -124,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_management/job_queue.gd"
 }, {
+"base": "Navigation2D",
+"class": "Navigator",
+"language": "GDScript",
+"path": "res://game_objects/navigator.gd"
+}, {
 "base": "Node",
 "class": "ObjectState",
 "language": "GDScript",
@@ -187,7 +192,7 @@ _global_script_classes=[ {
 "base": "ObjectState",
 "class": "ResourceState",
 "language": "GDScript",
-"path": "res://game_objects/resources/state_machine/idle.gd"
+"path": "res://game_objects/resources/state_machine/ResourceState.gd"
 }, {
 "base": "ResourceStateInactive",
 "class": "ResourceStateDead",
@@ -229,11 +234,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/structures/structure.gd"
 }, {
-"base": "Inventory",
-"class": "StructureInventory",
-"language": "GDScript",
-"path": "res://game_objects/structures/structure_inventory.gd"
-}, {
 "base": "Node2D",
 "class": "ToolBelt",
 "language": "GDScript",
@@ -268,6 +268,7 @@ _global_script_class_icons={
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
 "Inventory": "res://assets/icons/icon_inventory.svg",
 "JobQueue": "res://assets/icons/icon_job_queue.svg",
+"Navigator": "res://assets/icons/icon_navigator.svg",
 "ObjectState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ObjectsLayer": "res://assets/icons/icon_objects_layer.svg",
 "PilotMaster": "res://assets/icons/structures/icon_pilot_master.svg",
@@ -289,7 +290,6 @@ _global_script_class_icons={
 "StateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "StateMachine": "res://assets/icons/icon_state_machine.svg",
 "Structure": "res://assets/icons/structures/icon_structure.svg",
-"StructureInventory": "res://assets/icons/structures/icon_structure_inventory.svg",
 "ToolBelt": "res://assets/icons/game_actors/icon_tool_belt.svg",
 "WorkerQueue": "res://assets/icons/icon_worker_queue.svg"
 }
