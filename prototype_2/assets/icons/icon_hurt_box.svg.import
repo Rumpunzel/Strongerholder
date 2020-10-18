@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-9a25435582839ca3cd8bb514b597c2d9.stex"
+path="res://.import/icon_hurt_box.svg-cf00785ea9c8dc6af459fe7b953f41a0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icon.png"
-dest_files=[ "res://.import/icon.png-9a25435582839ca3cd8bb514b597c2d9.stex" ]
+source_file="res://assets/icons/icon_hurt_box.svg"
+dest_files=[ "res://.import/icon_hurt_box.svg-cf00785ea9c8dc6af459fe7b953f41a0.stex" ]
 
 [params]
 

@@ -84,6 +84,8 @@ script = ExtResource( 29 )
 [node name="puppet_master" parent="." instance=ExtResource( 26 )]
 
 [node name="axe" parent="puppet_master/tool_belt" index="0" instance=ExtResource( 20 )]
+type = 0
+weight = 0.0
 
 [node name="animation_tree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )

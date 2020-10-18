@@ -7,8 +7,8 @@
 [ext_resource path="res://game_objects/resources/state_machine/inactive.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/resources/state_machine/dead.gd" type="Script" id=6]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6.5, 6.5 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.0
 
 [node name="GameResource" type="StaticBody2D"]
 collision_layer = 8

@@ -79,10 +79,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Constants.gd"
 }, {
-"base": "Area2D",
+"base": "GameResource",
 "class": "CraftTool",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/craft_tool.gd"
+"path": "res://game_objects/resources/craft_tool.gd"
 }, {
 "base": "Resource",
 "class": "FileHelper",
@@ -113,6 +113,11 @@ _global_script_classes=[ {
 "class": "GameSprite",
 "language": "GDScript",
 "path": "res://game_objects/game_sprite.gd"
+}, {
+"base": "Area2D",
+"class": "HurtBox",
+"language": "GDScript",
+"path": "res://game_objects/resources/hurt_box.gd"
 }, {
 "base": "Area2D",
 "class": "InputMaster",
@@ -244,6 +249,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/tool_belt.gd"
 }, {
+"base": "ResourceStateMachine",
+"class": "ToolStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/tools/tool_state_machine.gd"
+}, {
 "base": "Queue",
 "class": "WorkerQueue",
 "language": "GDScript",
@@ -271,6 +281,7 @@ _global_script_class_icons={
 "GameObject": "res://assets/icons/icon_game_object.svg",
 "GameResource": "res://assets/icons/icon_resource.svg",
 "GameSprite": "",
+"HurtBox": "res://assets/icons/icon_hurt_box.svg",
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
 "Inventory": "res://assets/icons/icon_inventory.svg",
 "JobQueue": "res://assets/icons/icon_job_queue.svg",
@@ -297,6 +308,7 @@ _global_script_class_icons={
 "StateMachine": "res://assets/icons/icon_state_machine.svg",
 "Structure": "res://assets/icons/structures/icon_structure.svg",
 "ToolBelt": "res://assets/icons/game_actors/icon_tool_belt.svg",
+"ToolStateMachine": "res://assets/icons/icon_tool_state_machine.svg",
 "WorkerQueue": "res://assets/icons/icon_worker_queue.svg"
 }
 
