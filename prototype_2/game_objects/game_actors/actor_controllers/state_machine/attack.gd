@@ -16,7 +16,7 @@ func enter(parameters: Array = [ ]):
 
 
 func animation_acted(_animation: String):
-	_weapon.start_attack(_game_object)
+	_weapon.start_attack()
 
 
 func action_finished(_animation: String):

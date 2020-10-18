@@ -15,7 +15,7 @@ onready var _game_actor: Node2D = owner
 
 
 
-func start_attack(_game_actor):
+func start_attack():
 	_hurt_box.start_attack(_game_actor, attack_value)
 
 

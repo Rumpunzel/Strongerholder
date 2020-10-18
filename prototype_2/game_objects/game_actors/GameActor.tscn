@@ -19,7 +19,7 @@
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/attack.gd" type="Script" id=17]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_left.tres" type="Animation" id=18]
 [ext_resource path="res://helpers/GameAudioPlayer.gd" type="Script" id=19]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/tools/CraftTool.tscn" type="PackedScene" id=20]
+[ext_resource path="res://game_objects/resources/tools/CraftTool.tscn" type="PackedScene" id=20]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/actor_state_machine.gd" type="Script" id=21]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=22]
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=23]
@@ -84,8 +84,6 @@ script = ExtResource( 29 )
 [node name="puppet_master" parent="." instance=ExtResource( 26 )]
 
 [node name="axe" parent="puppet_master/tool_belt" index="0" instance=ExtResource( 20 )]
-type = 0
-weight = 0.0
 
 [node name="animation_tree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )

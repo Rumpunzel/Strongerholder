@@ -2,21 +2,25 @@
 
 [ext_resource path="res://game_objects/resources/craft_tool.gd" type="Script" id=1]
 [ext_resource path="res://game_objects/resources/hurt_box.gd" type="Script" id=2]
-[ext_resource path="res://game_objects/resources/GameResource.tscn" type="PackedScene" id=3]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/tools/tool_state_machine.gd" type="Script" id=4]
+[ext_resource path="res://game_objects/resources/tools/tool_state_machine.gd" type="Script" id=3]
+[ext_resource path="res://game_objects/resources/GameResource.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 20.0
 
-[node name="CraftTool" instance=ExtResource( 3 )]
+[node name="CraftTool" instance=ExtResource( 4 )]
 script = ExtResource( 1 )
 used_for = [ 1025 ]
 animation = "attack"
 
 [node name="state_machine" parent="." index="2"]
-script = ExtResource( 4 )
+script = ExtResource( 3 )
+hit_points_max = 10.0
+indestructible = false
 
 [node name="hurt_box" type="Area2D" parent="." index="3"]
+collision_layer = 16384
+collision_mask = 5
 script = ExtResource( 2 )
 
 [node name="hurt_shape" type="CollisionShape2D" parent="hurt_box" index="0"]
