@@ -42,6 +42,7 @@ func new_basic_plan(new_task_location: Vector2) :
 	#print("\n%s:\ncurrent_path: %s\n" % [owner.name, new_path])
 	
 	_current_plan = BasicPlan.new(self, new_path)
+	_quarter_master.unapply_for_job(_current_application)
 	_current_application = null
 
 
@@ -51,6 +52,7 @@ func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose, new
 	
 	_current_job = new_job
 	_current_plan = Plan.new(self, new_path, new_task_master, new_task_target, new_purpose, new_tool)
+	_quarter_master.unapply_for_job(_current_application)
 	_current_application = null
 
 
