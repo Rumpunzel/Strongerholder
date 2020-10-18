@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game_objects/audio_handler.gd" type="Script" id=1]
+[ext_resource path="res://helpers/GameAudioPlayer.gd" type="Script" id=2]
+
+[node name="audio_handler" type="Node2D"]
+script = ExtResource( 1 )
+_state_machine_node = NodePath("../state_machine")
+_damage_sounds_directory = "res://assets/sounds/axe"
+
+[node name="damage_audio" type="AudioStreamPlayer2D" parent="."]
+volume_db = -6.0
+script = ExtResource( 2 )

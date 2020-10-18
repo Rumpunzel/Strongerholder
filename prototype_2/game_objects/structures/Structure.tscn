@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/sprites/icon.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/structures/structure.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://game_objects/structures/pilot_master.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game_objects/state_machine/StateMachine.gd" type="Script" id=6]
 [ext_resource path="res://game_objects/state_machine/dead.gd" type="Script" id=7]
+[ext_resource path="res://game_objects/audio_handler.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 20 )
@@ -35,5 +36,7 @@ script = ExtResource( 4 )
 
 [node name="dead" type="Node" parent="state_machine"]
 script = ExtResource( 7 )
+
+[node name="audio_handler" parent="." instance=ExtResource( 8 )]
 
 [editable path="pilot_master"]

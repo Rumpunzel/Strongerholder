@@ -3,6 +3,7 @@ extends Node
 
 
 signal state_changed(new_state, old_state)
+signal damaged(damage_points, sender)
 
 
 export var hit_points_max: float = 10.0
@@ -41,8 +42,11 @@ func back():
 
 
 func damage(damage_points: float, sender) -> bool:
-	hit_points -= current_state.damage(damage_points, sender)
+	var damage_taken: float = current_state.damage(damage_points, sender)
 	
+	hit_points -= damage_taken
+	
+	emit_signal("damaged", damage_taken, sender)
 	#print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
 	
 	if not indestructible and hit_points <= 0:

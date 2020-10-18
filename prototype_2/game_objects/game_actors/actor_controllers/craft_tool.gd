@@ -10,14 +10,7 @@ export var attack_value: float = 2.0
 export(String, "attack", "give") var animation
 
 
-export(String, DIR) var _tool_sounds: String
-
-
 onready var _hit_box: CollisionShape2D = $tool_shape
-
-onready var _sounds: Array = FileHelper.list_files_in_directory(_tool_sounds, false, ".wav")
-onready var _tool_audio: GameAudioPlayer = $tool_audio
-
 onready var _game_actor = get_parent().owner
 
 
@@ -45,8 +38,3 @@ func _hit_object(other_object: Node2D):
 		return
 	
 	other_object.damage(attack_value, _game_actor)
-	attack_effect()
-
-
-func attack_effect():
-	_tool_audio.play_audio_from_array(_sounds)

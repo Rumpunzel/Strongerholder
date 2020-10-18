@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/animation_state_machine.gd"
 }, {
+"base": "Node2D",
+"class": "AudioHandler",
+"language": "GDScript",
+"path": "res://game_objects/audio_handler.gd"
+}, {
 "base": "PilotMaster",
 "class": "CityPilotMaster",
 "language": "GDScript",
@@ -255,6 +260,7 @@ _global_script_class_icons={
 "ActorStateRun": "res://assets/icons/game_actors/states/icon_state_run.svg",
 "ActorStateTake": "res://assets/icons/game_actors/states/icon_state_take.svg",
 "AnimationStateMachine": "",
+"AudioHandler": "res://assets/icons/icon_audio_handler.svg",
 "CityPilotMaster": "res://assets/icons/structures/icon_city_pilot_master.svg",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
 "Constants": "",
