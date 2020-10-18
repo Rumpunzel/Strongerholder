@@ -13,7 +13,7 @@ func _exit_tree():
 
 
 
-func nearest_in_group(start_position: Vector2, group_name, groups_to_exclude: Array = [ ]) -> Node2D:
+func nearest_in_group(start_position: Vector2, group_name, groups_to_exclude: Array = [ ], objects_to_exclude: Array = [ ]) -> Node2D:
 	if Constants.is_structure(group_name) or Constants.is_thing(group_name):
 		group_name = Constants.enum_name(Constants.Structures, group_name)
 	elif Constants.is_resource(group_name):
@@ -21,17 +21,17 @@ func nearest_in_group(start_position: Vector2, group_name, groups_to_exclude: Ar
 	
 	var group: Array = get_tree().get_nodes_in_group(group_name)
 	
-	return nearest_from_array(start_position, group, groups_to_exclude)
+	return nearest_from_array(start_position, group, groups_to_exclude, objects_to_exclude)
 
 
 
-func nearest_from_array(start_position: Vector2, group: Array, groups_to_exclude: Array = [ ]):
+func nearest_from_array(start_position: Vector2, group: Array, groups_to_exclude: Array = [ ], objects_to_exclude: Array = [ ]):
 	var nearest_object: Node2D = null
 	var shortest_distance: float = INF
 	
 	# Check that the potential target's type is actually requested
 	for object in group:
-		if not object.is_active():
+		if not object.is_active() or objects_to_exclude.has(object):
 			continue
 		
 		var valid_object: bool = true

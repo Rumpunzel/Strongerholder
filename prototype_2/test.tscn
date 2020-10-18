@@ -108,6 +108,12 @@ position = Vector2( 56.5611, 29.217 )
 [node name="woodsman2" parent="objects_layer" instance=ExtResource( 6 )]
 position = Vector2( 20.0342, 31.8897 )
 
+[node name="woodsman3" parent="objects_layer" instance=ExtResource( 6 )]
+position = Vector2( -112.265, 203.833 )
+
+[node name="woodsman4" parent="objects_layer" instance=ExtResource( 6 )]
+position = Vector2( -194.227, -49.6277 )
+
 [node name="tree" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( -58.3064, 183.127 )
 
@@ -115,7 +121,31 @@ position = Vector2( -58.3064, 183.127 )
 position = Vector2( 48.156, 158.628 )
 
 [node name="tree3" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( 128.337, 106.955 )
+position = Vector2( 145.264, 96.7097 )
+
+[node name="tree4" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -168.778, 211.636 )
+
+[node name="tree5" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -246.732, 155.064 )
+
+[node name="tree6" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -224.905, 30.783 )
+
+[node name="tree7" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -152.742, -91.7158 )
+
+[node name="tree8" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( 20.0926, -138.934 )
+
+[node name="tree9" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( 172.437, -94.8339 )
+
+[node name="tree10" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( 250.836, -10.1984 )
+
+[node name="tree11" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( 299.39, 49.9374 )
 
 [node name="stockpile" parent="objects_layer" instance=ExtResource( 8 )]
 position = Vector2( -64, 48 )
