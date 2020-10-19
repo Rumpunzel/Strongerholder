@@ -1,13 +1,10 @@
 class_name CraftTool, "res://assets/icons/game_actors/icon_crafting_tool.svg"
-extends GameResource
+extends Spyglass
 
-
-# warning-ignore-all:unused_class_variable
-export(Array, Constants.Resources) var used_for: Array
 
 export var attack_value: float = 2.0
 # warning-ignore-all:unused_class_variable
-export(String, "attack", "give") var animation
+export(String, "none", "attack", "give") var animation
 
 
 onready var _hurt_box: HurtBox = $hurt_box
