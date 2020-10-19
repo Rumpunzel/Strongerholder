@@ -105,3 +105,7 @@ class Errand:
 	func _init(new_craft_tool: CraftTool, new_use):
 		craft_tool = new_craft_tool
 		use = new_use
+	
+	
+	func _to_string() -> String:
+		return "%s: %s" % [craft_tool.name, use]

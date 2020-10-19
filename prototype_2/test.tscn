@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/city_management/quarter_master.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=8]
 [ext_resource path="res://test_tilemap.tres" type="TileSet" id=9]
 [ext_resource path="res://game_objects/navigator.gd" type="Script" id=10]
+[ext_resource path="res://game_objects/game_actors/characters/carpenter.tscn" type="PackedScene" id=11]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -90,7 +91,7 @@ script = ExtResource( 5 )
 
 [node name="camera" type="Camera2D" parent="objects_layer/game_actor"]
 current = true
-zoom = Vector2( 0.517, 0.517 )
+zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
 smoothing_speed = 2.0
 drag_margin_left = 0.0
@@ -108,11 +109,11 @@ position = Vector2( 56.5611, 29.217 )
 [node name="woodsman2" parent="objects_layer" instance=ExtResource( 6 )]
 position = Vector2( 20.0342, 31.8897 )
 
-[node name="woodsman3" parent="objects_layer" instance=ExtResource( 6 )]
-position = Vector2( -112.265, 203.833 )
+[node name="carpenter" parent="objects_layer" instance=ExtResource( 11 )]
+position = Vector2( 43.4061, 2.37842 )
 
-[node name="woodsman4" parent="objects_layer" instance=ExtResource( 6 )]
-position = Vector2( -194.227, -49.6277 )
+[node name="carpenter2" parent="objects_layer" instance=ExtResource( 11 )]
+position = Vector2( 97.5151, 23.7842 )
 
 [node name="tree" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( -58.3064, 183.127 )

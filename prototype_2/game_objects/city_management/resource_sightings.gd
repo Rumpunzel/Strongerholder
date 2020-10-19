@@ -54,6 +54,20 @@ func resource_registered(structure) -> ResourceProfile:
 
 
 
+func resource_sighted(resource_type, get_exact_amount: bool = false) -> int:
+	var sightings: int = 0
+	
+	for resource in queue:
+		if resource.inventory and resource.inventory.has(resource_type):
+			sightings += 1
+			
+			if not get_exact_amount:
+				break
+	
+	return sightings
+
+
+
 
 
 class ResourceProfile:
@@ -101,7 +115,6 @@ class ResourceProfile:
 
 
 class StandaloneResource extends ResourceProfile:
-	
 	
 	func _init(new_structure, new_maximum_workers).(new_structure, null, new_maximum_workers):
 		pass

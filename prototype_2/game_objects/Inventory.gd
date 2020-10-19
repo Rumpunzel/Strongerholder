@@ -27,7 +27,7 @@ func empty() -> bool:
 	return get_child_count() == 0
 
 
-func has(object_type: String) -> bool:
+func has(object_type) -> bool:
 	for item in get_children():
 		if item.type == object_type:
 			return true

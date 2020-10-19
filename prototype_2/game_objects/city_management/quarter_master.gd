@@ -55,7 +55,12 @@ func _assign_job():
 	var application_queue: Array = _worker_queue.queue
 	
 	for job_posting in _job_queue.queue:
-		var job_requests: Array = job_posting.get_requests()
+		var raw_job_requests: Array = job_posting.get_requests()
+		var job_requests: Array = [ ]
+		
+		for request in raw_job_requests:
+			if _resource_sightings.resource_sighted(request) > 0:
+				job_requests.append(request)
 		
 		_assign_job_to_workers_carrying_the_resource(application_queue, job_posting, job_requests)
 		
