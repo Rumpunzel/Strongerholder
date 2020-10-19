@@ -11,13 +11,21 @@ export(String, "attack", "give") var animation
 
 
 onready var _hurt_box: HurtBox = $hurt_box
-onready var _game_actor: Node2D = owner
 
 
 
-func start_attack():
-	_hurt_box.start_attack(_game_actor, attack_value)
+func start_attack(game_actor: Node2D):
+	_state_machine.start_attack(game_actor)
 
 
 func end_attack():
+	_state_machine.end_attack()
+
+
+
+func _enable_hurtbox(game_actor: Node2D):
+	_hurt_box.start_attack(game_actor, attack_value)
+
+
+func _disable_hurtbox():
 	_hurt_box.end_attack()

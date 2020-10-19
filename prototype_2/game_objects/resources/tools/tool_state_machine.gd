@@ -3,8 +3,8 @@ extends ResourceStateMachine
 
 
 
-func start_attack():
-	current_state.start_attack()
+func start_attack(game_actor: Node2D):
+	current_state.start_attack(game_actor)
 
 
 func end_attack():

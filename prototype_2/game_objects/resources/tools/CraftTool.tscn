@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game_objects/resources/craft_tool.gd" type="Script" id=1]
 [ext_resource path="res://game_objects/resources/hurt_box.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/resources/tools/tool_state_machine.gd" type="Script" id=3]
 [ext_resource path="res://game_objects/resources/GameResource.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game_objects/resources/tools/state_machine/ToolState.gd" type="Script" id=5]
+[ext_resource path="res://game_objects/resources/tools/state_machine/inactive.gd" type="Script" id=6]
+[ext_resource path="res://game_objects/resources/tools/state_machine/dead.gd" type="Script" id=7]
+[ext_resource path="res://game_objects/resources/tools/state_machine/attack.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 20.0
@@ -15,8 +19,18 @@ animation = "attack"
 
 [node name="state_machine" parent="." index="2"]
 script = ExtResource( 3 )
-hit_points_max = 10.0
-indestructible = false
+
+[node name="inactive" parent="state_machine" index="0"]
+script = ExtResource( 6 )
+
+[node name="attack" type="Node" parent="state_machine" index="1"]
+script = ExtResource( 8 )
+
+[node name="idle" parent="state_machine" index="2"]
+script = ExtResource( 5 )
+
+[node name="dead" parent="state_machine" index="3"]
+script = ExtResource( 7 )
 
 [node name="hurt_box" type="Area2D" parent="." index="3"]
 collision_layer = 16384
