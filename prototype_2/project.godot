@@ -142,7 +142,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "ObjectState",
 "language": "GDScript",
-"path": "res://game_objects/state_machine/idle.gd"
+"path": "res://game_objects/state_machine/ObjectState.gd"
 }, {
 "base": "YSort",
 "class": "ObjectsLayer",
