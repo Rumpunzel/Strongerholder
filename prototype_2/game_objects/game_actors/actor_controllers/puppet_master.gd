@@ -24,7 +24,6 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 func _process(_delta: float):
-	print(_current_plan)
 	if not (_current_plan and _current_plan.is_useful()):
 		if _current_plan:
 			_current_plan = null
