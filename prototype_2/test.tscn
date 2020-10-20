@@ -7,10 +7,10 @@
 [ext_resource path="res://game_objects/objects_layer.gd" type="Script" id=5]
 [ext_resource path="res://game_objects/game_actors/characters/woodsman.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
-[ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=8]
 [ext_resource path="res://test_tilemap.tres" type="TileSet" id=9]
 [ext_resource path="res://game_objects/navigator.gd" type="Script" id=10]
 [ext_resource path="res://game_objects/game_actors/characters/carpenter.tscn" type="PackedScene" id=11]
+[ext_resource path="res://game_objects/structures/buildings/woodcutters_hut.tscn" type="PackedScene" id=12]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -148,5 +148,6 @@ position = Vector2( 250.836, -10.1984 )
 [node name="tree11" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( 299.39, 49.9374 )
 
-[node name="stockpile" parent="objects_layer" instance=ExtResource( 8 )]
-position = Vector2( -64, 48 )
+[node name="woodcuttters_hut" parent="objects_layer" instance=ExtResource( 12 )]
+position = Vector2( -1.5, 249.5 )
+collision_layer = 4

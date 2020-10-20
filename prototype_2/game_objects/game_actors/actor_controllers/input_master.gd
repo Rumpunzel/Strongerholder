@@ -75,6 +75,15 @@ class TakeCommand extends Command:
 		state_machine.take_item(what_to_take)
 
 
+class RequestCommand extends Command:
+	var request
+	
+	func _init(new_request):
+		request = new_request
+	
+	func execute(state_machine: StateMachine):
+		state_machine.request_item(request)
+
 
 class AttackCommand extends Command:
 	var weapon: CraftTool

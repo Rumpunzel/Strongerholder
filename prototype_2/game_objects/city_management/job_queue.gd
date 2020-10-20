@@ -7,6 +7,7 @@ func add_job(city_structure: Node2D, city_pilot_master: Node2D, requested_worker
 	var new_posting: JobPosting = JobPosting.new(city_structure, city_pilot_master, requested_workers, request_until_capacity)
 	
 	queue.append(new_posting)
+	queue.sort_custom(JobPosting, "sort_ascending")
 	
 	#print("\nJOB POSTINGS\n%s\n" % [queue])
 	
@@ -57,7 +58,7 @@ class JobPosting:
 	
 	
 	func posting_active() -> bool:
-		return city_structure.is_active() and not requested_workers or _assigned_workers.size() < requested_workers
+		return city_structure.is_active() and (not requested_workers or _assigned_workers.size() < requested_workers) and not city_pilot_master.requests_fulfilled()
 	
 	
 	func assign_worker(puppet_master: Node2D, target_profile: ResourceSightings.ResourceProfile):
@@ -68,6 +69,10 @@ class JobPosting:
 	func unassign_worker(puppet_master: Node2D):
 		_assigned_workers[puppet_master].unassign_worker(puppet_master)
 		_assigned_workers.erase(puppet_master)
+	
+	
+	static func sort_ascending(a: JobPosting, b: JobPosting) -> bool:
+		return a.get_requests().size() < b.get_requests().size()
 	
 	
 	func _to_string() -> String:

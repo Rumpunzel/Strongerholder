@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game_objects/structures/buildings/city_pilot_master.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/resources/wood.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -15,8 +14,9 @@ shape = SubResource( 1 )
 
 [node name="pilot_master" parent="." index="2"]
 collision_mask = 8
-script = ExtResource( 2 )
 _request_everything = true
+_fill_until_capacity = true
+_has_worker_limit = false
 
 [node name="wood" parent="pilot_master/inventory" index="0" instance=ExtResource( 3 )]
 

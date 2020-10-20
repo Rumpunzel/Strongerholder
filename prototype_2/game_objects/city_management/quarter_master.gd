@@ -55,6 +55,9 @@ func _assign_job():
 	var application_queue: Array = _worker_queue.queue
 	
 	for job_posting in _job_queue.queue:
+		if not job_posting.posting_active():
+			continue
+		
 		var raw_job_requests: Array = job_posting.get_requests()
 		var job_requests: Array = [ ]
 		
@@ -123,6 +126,9 @@ func _assign_job_to_workers_able_to_acquire_the_resource(application_queue: Arra
 	
 	while job_posting.posting_active() and not relevant_workers.empty():
 		for errand in relevant_workers.values():
+			if not job_posting.posting_active():
+				break
+			
 			var nearest_resource: Node2D = nearest_errands[errand.use]
 			
 			if nearest_resource:

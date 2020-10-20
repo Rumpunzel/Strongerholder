@@ -40,6 +40,9 @@ func back():
 		_enter_state()
 
 
+func request_item(request):
+	pass
+
 
 func damage(damage_points: float, sender) -> bool:
 	var damage_taken: float = current_state.damage(damage_points, sender)

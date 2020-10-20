@@ -160,6 +160,9 @@ class Plan extends BasicPlan:
 		if task_target.type == purpose:
 			return InputMaster.TakeCommand.new(task_target)
 		
+		if task_target is CityStructure:
+			return InputMaster.RequestCommand.new(purpose)
+		
 		return InputMaster.AttackCommand.new(task_tool)
 	
 	
