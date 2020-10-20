@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://game_objects/game_actors/GameActor.gd" type="Script" id=25]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/puppet_master.tscn" type="PackedScene" id=26]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/give.gd" type="Script" id=27]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/request.gd" type="Script" id=28]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/dead.gd" type="Script" id=29]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/inactive.gd" type="Script" id=31]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/take.gd" type="Script" id=32]
@@ -70,6 +71,9 @@ _puppet_master_node = NodePath("../../puppet_master")
 [node name="take" type="Node" parent="state_machine"]
 script = ExtResource( 32 )
 _puppet_master_node = NodePath("../../puppet_master")
+
+[node name="request" type="Node" parent="state_machine"]
+script = ExtResource( 28 )
 
 [node name="attack" type="Node" parent="state_machine"]
 script = ExtResource( 17 )

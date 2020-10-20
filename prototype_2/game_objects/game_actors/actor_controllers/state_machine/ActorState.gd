@@ -5,6 +5,7 @@ extends ObjectState
 const RUN = "run"
 const GIVE = "give"
 const TAKE = "take"
+const REQUEST = "request"
 const ATTACK = "attack"
 
 
@@ -32,8 +33,7 @@ func take_item(item: GameResource):
 
 
 func request_item(request, receiver: Node2D):
-	receiver.request_item(request, _game_object)
-	exit(IDLE)
+	exit(REQUEST, [request, receiver])
 
 
 func attack(weapon: CraftTool):

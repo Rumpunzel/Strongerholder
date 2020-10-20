@@ -45,6 +45,11 @@ _global_script_classes=[ {
 "path": "res://game_objects/game_actors/actor_controllers/state_machine/actor_state_machine.gd"
 }, {
 "base": "ActorState",
+"class": "ActorStateRequest",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/request.gd"
+}, {
+"base": "ActorState",
 "class": "ActorStateRun",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/state_machine/run.gd"
@@ -317,6 +322,7 @@ _global_script_class_icons={
 "ActorStateIdle": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ActorStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "ActorStateMachine": "res://assets/icons/game_actors/states/icon_actor_state_machine.svg",
+"ActorStateRequest": "res://assets/icons/game_actors/states/icon_state_request.svg",
 "ActorStateRun": "res://assets/icons/game_actors/states/icon_state_run.svg",
 "ActorStateTake": "res://assets/icons/game_actors/states/icon_state_take.svg",
 "AnimationStateMachine": "",
