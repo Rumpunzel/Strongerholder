@@ -1,17 +1,15 @@
 class_name PilotMaster, "res://assets/icons/structures/icon_pilot_master.svg"
-extends Area2D
-
-
-export(NodePath) var _state_machine_node
+extends InputMaster
 
 
 var _current_registration: ResourceSightings.ResourceProfile = null
+
+var _desired_items: Array = [ ]
 
 
 onready var _inventories: Array
 onready var _main_inventory: Inventory = $inventory
 
-onready var _state_machine: StateMachine = get_node(_state_machine_node)
 onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
@@ -24,7 +22,7 @@ func _ready():
 			_inventories.append(child)
 	
 	owner.connect("died", self, "unregister_resource")
-	connect("body_entered", _state_machine, "take_item")
+	connect("body_entered", self, "take_item")
 	
 	register_resource()
 
@@ -35,6 +33,11 @@ func _physics_process(_delta):
 	# TODO: HACK WORKAROUND UNTIL GODOT FIXES AREA'S RECOGNIZING A BODY ACTIVATING INSIDE IT
 	position = Vector2()
 
+
+
+
+func take_item(item_to_take: Node2D):
+	_desired_items.append(item_to_take)
 
 
 func pick_up_item(item: GameResource):
@@ -55,3 +58,16 @@ func register_resource(maximum_workers = 1):
 
 func unregister_resource():
 	_quarter_master.unregister_resource(_current_registration)
+
+
+
+func _get_input() -> Array:
+	var commands: Array = [ ]
+	
+	while not _desired_items.empty():
+		var item: Node2D = _desired_items.pop_front()
+		
+		if _in_range(item):
+			commands.append(TakeCommand.new(item))
+	
+	return commands

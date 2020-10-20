@@ -2,9 +2,6 @@ class_name Refinery, "res://assets/icons/structures/icon_refinery.svg"
 extends Inventory
 
 
-export(NodePath) var _inventory_node
-
-
 export(Array, Constants.Resources) var input_resources
 
 
@@ -12,7 +9,6 @@ export(Array, PackedScene) var _output_resources
 export var _process_time: float = 2.0
 
 
-onready var _inventory: Inventory = get_node(_inventory_node)
 onready var _process_timer: Timer = Timer.new()
 
 
@@ -20,7 +16,6 @@ onready var _process_timer: Timer = Timer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_inventory.connect("received_item", self, "_check_item_viability")
 	connect("received_item", self, "_check_item_numbers")
 	
 	_process_timer.wait_time = _process_time
@@ -30,14 +25,6 @@ func _ready():
 	_process_timer.connect("timeout", self, "_send_prodcut")
 
 
-
-
-func _check_item_viability(new_item: Node2D):
-	if not _process_timer.is_stopped():
-		return
-	
-	if input_resources.has(new_item.type):
-		_inventory.drop_item(new_item, global_position)
 
 
 func _check_item_numbers(_new_item: Node2D = null):

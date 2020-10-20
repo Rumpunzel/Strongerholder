@@ -24,7 +24,6 @@ position = Vector2( 0, -12 )
 texture = ExtResource( 1 )
 
 [node name="pilot_master" parent="." instance=ExtResource( 5 )]
-_state_machine_node = NodePath("../state_machine")
 
 [node name="state_machine" type="Node" parent="."]
 script = ExtResource( 6 )

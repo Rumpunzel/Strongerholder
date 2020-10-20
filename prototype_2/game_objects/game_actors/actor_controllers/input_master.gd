@@ -31,6 +31,11 @@ func _get_input() -> Array:
 
 
 
+func _in_range(object: PhysicsBody2D):
+	return get_overlapping_bodies().has(object)
+
+
+
 
 
 class Command:

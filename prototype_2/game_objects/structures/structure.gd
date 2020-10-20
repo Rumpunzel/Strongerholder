@@ -14,6 +14,10 @@ func _ready():
 	add_to_group(Constants.enum_name(Constants.Structures, type))
 
 
+func _process(_delta: float):
+	_pilot_master.process_commands(_state_machine)
+
+
 
 
 func die():
