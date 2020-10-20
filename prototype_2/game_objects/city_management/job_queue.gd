@@ -35,7 +35,6 @@ func empty() -> bool:
 
 
 class JobPosting:
-	
 	var city_structure: Node2D
 	
 	var city_pilot_master: Node2D
@@ -56,7 +55,6 @@ class JobPosting:
 	func get_requests() -> Array:
 		return city_pilot_master.requests
 	
-	
 	func posting_active() -> bool:
 		return city_structure.is_active() and (not requested_workers or _assigned_workers.size() < requested_workers) and not city_pilot_master.requests_fulfilled()
 	
@@ -64,7 +62,6 @@ class JobPosting:
 	func assign_worker(puppet_master: Node2D, target_profile: ResourceSightings.ResourceProfile):
 		target_profile.assign_worker(puppet_master)
 		_assigned_workers[puppet_master] = target_profile
-	
 	
 	func unassign_worker(puppet_master: Node2D):
 		_assigned_workers[puppet_master].unassign_worker(puppet_master)

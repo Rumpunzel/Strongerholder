@@ -63,6 +63,6 @@ func _send_prodcut():
 		var new_item: GameResource = item.instance()
 		
 		add_child(new_item)
-		drop_item(new_item, global_position)
+		owner._state_machine.give_item(new_item, owner)
 	
 	_check_item_numbers()

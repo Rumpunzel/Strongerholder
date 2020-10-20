@@ -31,6 +31,10 @@ func take_item(item: GameResource):
 	current_state.take_item(item)
 
 
+func request_item(request, receiver: Node2D):
+	current_state.request_item(request, receiver)
+
+
 func attack(weapon: CraftTool):
 	current_state.attack(weapon)
 

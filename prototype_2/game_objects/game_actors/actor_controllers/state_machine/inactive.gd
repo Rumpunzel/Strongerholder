@@ -36,5 +36,9 @@ func take_item(_item: GameResource):
 	pass
 
 
+func request_item(_request: Node2D, _receiver: Node2D):
+	pass
+
+
 func attack(_weapon: CraftTool):
 	pass

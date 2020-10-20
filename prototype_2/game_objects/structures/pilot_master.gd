@@ -29,13 +29,6 @@ func _ready():
 
 
 
-func _physics_process(_delta):
-	# TODO: HACK WORKAROUND UNTIL GODOT FIXES AREA'S RECOGNIZING A BODY ACTIVATING INSIDE IT
-	position = Vector2()
-
-
-
-
 func take_item(item_to_take: Node2D):
 	_desired_items.append(item_to_take)
 
@@ -53,11 +46,20 @@ func drop_all_items(position_to_drop: Vector2 = global_position):
 	_main_inventory.drop_all_items(position_to_drop)
 
 
+func has_item(resource_type) -> Node2D:
+	return _main_inventory.has(resource_type)
+
+
 func register_resource(maximum_workers = 1):
 	_current_registration = _quarter_master.register_resource(owner, _main_inventory, maximum_workers)
 
 func unregister_resource():
 	_quarter_master.unregister_resource(_current_registration)
+
+
+func check_area_for_item(item: GameResource):
+	# TODO: HACK WORKAROUND UNTIL GODOT FIXES AREA'S RECOGNIZING A BODY ACTIVATING INSIDE IT
+	position = Vector2()
 
 
 

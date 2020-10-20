@@ -71,7 +71,6 @@ func resource_sighted(resource_type, get_exact_amount: bool = false) -> int:
 
 
 class ResourceProfile:
-	
 	var structure
 	
 	var inventory: Inventory
@@ -94,7 +93,6 @@ class ResourceProfile:
 	func posting_active() -> bool:
 		return structure.is_active() and position_open()
 	
-	
 	func position_open() -> bool:
 		return not maximum_workers or _assigned_workers.size() < maximum_workers
 	
@@ -102,7 +100,6 @@ class ResourceProfile:
 	func assign_worker(puppet_master: Node2D):
 		assert(not maximum_workers or _assigned_workers.size() < maximum_workers)
 		_assigned_workers.append(puppet_master)
-	
 	
 	func unassign_worker(puppet_master: Node2D):
 		_assigned_workers.erase(puppet_master)
@@ -115,10 +112,8 @@ class ResourceProfile:
 
 
 class StandaloneResource extends ResourceProfile:
-	
 	func _init(new_structure, new_maximum_workers).(new_structure, null, new_maximum_workers):
 		pass
-	
 	
 	func resources_on_offer() -> Array:
 		return [structure]

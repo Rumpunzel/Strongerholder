@@ -31,6 +31,11 @@ func take_item(item: GameResource):
 	exit(TAKE, [item])
 
 
+func request_item(request, receiver: Node2D):
+	receiver.request_item(request, _game_object)
+	exit(IDLE)
+
+
 func attack(weapon: CraftTool):
 	exit(ATTACK, [weapon])
 

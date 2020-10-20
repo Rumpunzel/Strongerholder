@@ -19,6 +19,9 @@ func _process(_delta: float):
 
 
 
+func check_area_for_item(item: GameResource):
+	_pilot_master.check_area_for_item(item)
+
 
 func die():
 	_pilot_master.drop_all_items()

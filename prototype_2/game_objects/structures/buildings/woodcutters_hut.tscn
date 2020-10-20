@@ -11,7 +11,7 @@ type = 261
 [node name="structure" parent="." index="1"]
 modulate = Color( 1, 0, 0, 1 )
 
-[node name="pilot_master" parent="." index="2"]
+[node name="pilot_master" parent="." index="3"]
 collision_mask = 8
 _requests = [ 1025 ]
 

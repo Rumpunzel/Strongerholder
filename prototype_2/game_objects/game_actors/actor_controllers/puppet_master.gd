@@ -96,7 +96,6 @@ func _get_input() -> Array:
 
 
 class BasicPlan:
-	
 	var task_agent: PuppetMaster
 	var path: PoolVector2Array
 	
@@ -128,7 +127,6 @@ class BasicPlan:
 
 
 class Plan extends BasicPlan:
-	
 	var task_master: Node2D
 	var task_target: Node2D
 	
@@ -149,21 +147,24 @@ class Plan extends BasicPlan:
 			task_target = null
 			path = PoolVector2Array()
 			
-			return InputMaster.GiveCommand.new(task_tool, task_target)
+			return InputMaster.GiveCommand.new(task_tool, task_master)
 		
 		if task_target.type == purpose:
 			return InputMaster.TakeCommand.new(task_target)
 		
 		if task_target is CityStructure:
-			return InputMaster.RequestCommand.new(purpose)
+			var target_to_ask: Node2D = task_target
+			
+			task_target = null
+			path = PoolVector2Array()
+			
+			return InputMaster.RequestCommand.new(purpose, target_to_ask)
 		
 		return InputMaster.AttackCommand.new(task_tool)
 	
 	
-	
 	func is_useful() -> bool:
 		return _targets_active()
-	
 	
 	func _targets_active() -> bool:
 		return task_master and task_target and task_master.is_active() and task_target.is_active()

@@ -37,12 +37,10 @@ func worker_registered(puppet_master: Node2D) -> WorkerProfile:
 
 
 class WorkerProfile:
-	
 	var puppet_master: Node2D
 	
 	var inventory: Inventory
 	var tool_belt: ToolBelt
-	
 	
 	
 	func _init(new_puppet_master: Node2D, new_inventory: Inventory, new_tool_belt: ToolBelt):
@@ -50,7 +48,6 @@ class WorkerProfile:
 		
 		inventory = new_inventory
 		tool_belt = new_tool_belt
-	
 	
 	
 	func can_do_job_now(potential_jobs: Array) -> GameResource:
@@ -61,7 +58,6 @@ class WorkerProfile:
 				return item
 		
 		return null
-	
 	
 	func can_do_job_eventually(potential_jobs: Array) -> Errand:
 		var craft_tools: Array = tool_belt.get_tools()
@@ -74,13 +70,11 @@ class WorkerProfile:
 		return null
 	
 	
-	
 	func get_flexibility() -> int:
 		return _get_inventory_contents().size() + _get_tool_uses().size()
 	
 	static func sort_ascending(a: WorkerProfile, b: WorkerProfile) -> bool:
 		return a.get_flexibility() < b.get_flexibility()
-	
 	
 	
 	func _get_inventory_contents() -> Array:
@@ -97,15 +91,12 @@ class WorkerProfile:
 
 
 class Errand:
-	
 	var craft_tool: CraftTool
 	var use
-	
 	
 	func _init(new_craft_tool: CraftTool, new_use):
 		craft_tool = new_craft_tool
 		use = new_use
-	
 	
 	func _to_string() -> String:
 		return "%s: %s" % [craft_tool.name, use]

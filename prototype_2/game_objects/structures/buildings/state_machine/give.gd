@@ -26,5 +26,8 @@ func enter(parameters: Array = [ ]):
 	else:
 		_pilot_master.drop_item(_item)
 	
+	if _receiver is Structure:
+		_receiver.check_area_for_item(_item)
+	
 	_item = null
 	_receiver = null

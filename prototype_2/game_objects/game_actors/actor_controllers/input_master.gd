@@ -82,12 +82,14 @@ class TakeCommand extends Command:
 
 class RequestCommand extends Command:
 	var request
+	var whom_to_ask: Node2D
 	
-	func _init(new_request):
+	func _init(new_request, new_whom_to_ask: Node2D):
 		request = new_request
+		whom_to_ask = new_whom_to_ask
 	
 	func execute(state_machine: StateMachine):
-		state_machine.request_item(request)
+		state_machine.request_item(request, whom_to_ask)
 
 
 class AttackCommand extends Command:
