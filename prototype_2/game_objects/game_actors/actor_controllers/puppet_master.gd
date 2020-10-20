@@ -24,6 +24,7 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 func _process(_delta: float):
+	print(_current_plan)
 	if not (_current_plan and _current_plan.is_useful()):
 		if _current_plan:
 			_current_plan = null
@@ -162,7 +163,7 @@ class Plan extends BasicPlan:
 	
 	
 	func is_useful() -> bool:
-		return .is_useful() or _targets_active()
+		return _targets_active()
 	
 	
 	func _targets_active() -> bool:
@@ -170,4 +171,4 @@ class Plan extends BasicPlan:
 	
 	
 	func _to_string() -> String:
-		return "%sTask Master: %s\nTask Target: %s\nPurpose: %s\nTask Tool: %s\n" % [._to_string(), task_master, task_target, purpose, task_tool]
+		return "%sTask Master: %s\nTask Target: %s\nPurpose: %s\nTask Tool: %s\n" % [._to_string(), task_master.name if task_master else "NULL", task_target.name if task_target else "NULL", purpose, task_tool.name if task_tool else "NULL"]

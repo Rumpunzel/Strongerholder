@@ -114,6 +114,7 @@ position = Vector2( 43.4061, 2.37842 )
 
 [node name="carpenter2" parent="objects_layer" instance=ExtResource( 11 )]
 position = Vector2( 97.5151, 23.7842 )
+collision_mask = 5
 
 [node name="tree" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( -58.3064, 183.127 )
@@ -150,4 +151,3 @@ position = Vector2( 299.39, 49.9374 )
 
 [node name="woodcuttters_hut" parent="objects_layer" instance=ExtResource( 12 )]
 position = Vector2( 128, 160 )
-collision_layer = 4

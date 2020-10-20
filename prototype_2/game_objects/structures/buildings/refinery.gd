@@ -27,6 +27,13 @@ func _ready():
 
 
 
+func pick_up_item(item: Node2D):
+	item.unregister_resource()
+	
+	.pick_up_item(item)
+
+
+
 func _check_item_numbers(_new_item: Node2D = null):
 	var content: Dictionary = { }
 	
