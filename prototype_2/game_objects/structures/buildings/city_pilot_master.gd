@@ -40,7 +40,7 @@ func requests_fulfilled() -> bool:
 		return false
 	
 	var requests_check: Array = requests.duplicate()
-	var inventory_contents: Array = _inventory.get_contents()
+	var inventory_contents: Array = _main_inventory.get_contents()
 	
 	for item in inventory_contents:
 		requests_check.erase(item.type)

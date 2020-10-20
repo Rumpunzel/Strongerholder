@@ -12,6 +12,9 @@ onready var _state_machine = get_parent()
 onready var _game_object = owner
 
 
+var _animation_cancellable: bool = true
+
+
 
 func enter(_parameters: Array = [ ]):
 	pass

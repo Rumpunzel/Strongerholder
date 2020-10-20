@@ -149,5 +149,5 @@ position = Vector2( 250.836, -10.1984 )
 position = Vector2( 299.39, 49.9374 )
 
 [node name="woodcuttters_hut" parent="objects_layer" instance=ExtResource( 12 )]
-position = Vector2( -1.5, 249.5 )
+position = Vector2( 128, 160 )
 collision_layer = 4

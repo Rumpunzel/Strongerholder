@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/structures/buildings/refinery.gd" type="Script" id=2]
+[ext_resource path="res://game_objects/resources/wood_planks.tscn" type="PackedScene" id=5]
 
 [node name="woodcuttters_hut" instance=ExtResource( 1 )]
 type = 261
@@ -13,7 +14,16 @@ modulate = Color( 1, 0, 0, 1 )
 collision_mask = 8
 _requests = [ 1025 ]
 
-[node name="refinery" type="Node2D" parent="pilot_master" index="2"]
+[node name="refinery" type="Node2D" parent="pilot_master" index="1"]
 script = ExtResource( 2 )
+_inventory_node = NodePath("../inventory")
+input_resources = [ 1025 ]
+_output_resources = [ ExtResource( 5 ), ExtResource( 5 ) ]
+
+[node name="give" parent="state_machine" index="1"]
+_pilot_master_node = NodePath("../../pilot_master")
+
+[node name="take" parent="state_machine" index="2"]
+_pilot_master_node = NodePath("../../pilot_master")
 
 [editable path="pilot_master"]

@@ -9,7 +9,6 @@ signal received_item(item)
 
 func pick_up_item(item: Node2D):
 	item.pick_up_item(self)
-	emit_signal("received_item", item)
 
 
 
@@ -27,13 +26,19 @@ func empty() -> bool:
 	return get_child_count() == 0
 
 
-func has(object_type) -> bool:
+func has(object_type) -> Node2D:
 	for item in get_children():
 		if item.type == object_type:
-			return true
+			return item
 	
-	return false
+	return null
 
 
 func get_contents() -> Array:
 	return get_children()
+
+
+
+func _add_item(item: Node2D):
+	add_child(item)
+	emit_signal("received_item", item)

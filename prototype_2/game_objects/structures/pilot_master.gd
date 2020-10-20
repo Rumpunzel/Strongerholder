@@ -2,11 +2,16 @@ class_name PilotMaster, "res://assets/icons/structures/icon_pilot_master.svg"
 extends Area2D
 
 
+export(NodePath) var _state_machine_node
+
+
 var _current_registration: ResourceSightings.ResourceProfile = null
 
 
-onready var _inventory: Inventory = $inventory
+onready var _inventories: Array
+onready var _main_inventory: Inventory = $inventory
 
+onready var _state_machine: StateMachine = get_node(_state_machine_node)
 onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
@@ -14,8 +19,12 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	for child in get_children():
+		if child is Inventory:
+			_inventories.append(child)
+	
 	owner.connect("died", self, "unregister_resource")
-	connect("body_entered", self, "pick_up_item")
+	connect("body_entered", _state_machine, "take_item")
 	
 	register_resource()
 
@@ -29,18 +38,20 @@ func _physics_process(_delta):
 
 
 func pick_up_item(item: GameResource):
-	_inventory.pick_up_item(item)
+	for inventory in _inventories:
+		if not inventory is Refinery or inventory.input_resources.has(item.type):
+			inventory.pick_up_item(item)
 
 
 func drop_item(item: GameResource, position_to_drop: Vector2 = global_position):
-	_inventory.drop_item(item, position_to_drop)
+	_main_inventory.drop_item(item, position_to_drop)
 
 func drop_all_items(position_to_drop: Vector2 = global_position):
-	_inventory.drop_all_items(position_to_drop)
+	_main_inventory.drop_all_items(position_to_drop)
 
 
 func register_resource(maximum_workers = 1):
-	_current_registration = _quarter_master.register_resource(owner, _inventory, maximum_workers)
+	_current_registration = _quarter_master.register_resource(owner, _main_inventory, maximum_workers)
 
 func unregister_resource():
 	_quarter_master.unregister_resource(_current_registration)

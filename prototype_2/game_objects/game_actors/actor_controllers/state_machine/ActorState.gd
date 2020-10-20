@@ -8,9 +8,6 @@ const TAKE = "take"
 const ATTACK = "attack"
 
 
-var _animation_cancellable: bool = true
-
-
 
 func exit(next_state: String, parameter: Array = [ ]):
 	if _animation_cancellable:
