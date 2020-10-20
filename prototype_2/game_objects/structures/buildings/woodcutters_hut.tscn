@@ -20,12 +20,6 @@ script = ExtResource( 2 )
 input_resources = [ 1025 ]
 _output_resources = [ ExtResource( 5 ), ExtResource( 5 ) ]
 
-[node name="give" parent="state_machine" index="1"]
-_pilot_master_node = NodePath("../../pilot_master")
-
-[node name="take" parent="state_machine" index="2"]
-_pilot_master_node = NodePath("../../pilot_master")
-
 [node name="inventory_display2" parent="." index="6" instance=ExtResource( 3 )]
 margin_left = -54.8007
 margin_top = -2.47487
