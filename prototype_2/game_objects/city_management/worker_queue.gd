@@ -59,15 +59,16 @@ class WorkerProfile:
 		
 		return null
 	
-	func can_do_job_eventually(potential_jobs: Array) -> Errand:
+	func can_do_job_eventually(potential_jobs: Array) -> Array:
 		var craft_tools: Array = tool_belt.get_tools()
+		var usable_tools: Array = [ ]
 		
 		for craft_tool in craft_tools:
 			for use in craft_tool.used_for:
 				if potential_jobs.has(use):
-					return Errand.new(craft_tool, use)
+					usable_tools.append(Errand.new(craft_tool, use))
 		
-		return null
+		return usable_tools
 	
 	
 	func get_flexibility() -> int:
@@ -91,10 +92,11 @@ class WorkerProfile:
 
 
 class Errand:
-	var craft_tool: CraftTool
+	var craft_tool: Spyglass
 	var use
 	
-	func _init(new_craft_tool: CraftTool, new_use):
+	func _init(new_craft_tool: Spyglass, new_use):
+		assert(new_craft_tool)
 		craft_tool = new_craft_tool
 		use = new_use
 	

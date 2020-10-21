@@ -14,10 +14,7 @@
 [node name="CityStructure" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
-[node name="pilot_master" parent="." index="2"]
-script = ExtResource( 4 )
-
-[node name="state_machine" parent="." index="3"]
+[node name="state_machine" parent="." index="2"]
 script = ExtResource( 5 )
 
 [node name="idle" parent="state_machine" index="0"]
@@ -36,6 +33,9 @@ script = ExtResource( 7 )
 
 [node name="dead" parent="state_machine" index="4"]
 script = ExtResource( 8 )
+
+[node name="pilot_master" parent="." index="3"]
+script = ExtResource( 4 )
 
 [node name="inventory_display" parent="." index="5" instance=ExtResource( 2 )]
 margin_left = -55.0787

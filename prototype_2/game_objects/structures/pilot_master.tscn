@@ -4,7 +4,7 @@
 [ext_resource path="res://game_objects/inventory.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 50.0
+radius = 32.0
 
 [node name="pilot_master" type="Area2D"]
 collision_layer = 4096

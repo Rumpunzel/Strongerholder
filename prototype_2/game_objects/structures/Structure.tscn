@@ -10,7 +10,7 @@
 [ext_resource path="res://game_objects/audio_handler.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 20 )
+extents = Vector2( 32, 16 )
 
 [node name="Structure" type="StaticBody2D"]
 collision_layer = 4
@@ -20,7 +20,7 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="structure" type="Sprite" parent="."]
-position = Vector2( 0, -12 )
+position = Vector2( 0, -16 )
 texture = ExtResource( 1 )
 
 [node name="state_machine" type="Node" parent="."]

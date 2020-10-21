@@ -12,12 +12,18 @@ type = 260
 [node name="collision_shape" parent="." index="0"]
 shape = SubResource( 1 )
 
-[node name="pilot_master" parent="." index="2"]
+[node name="structure" parent="." index="1"]
+position = Vector2( 0, -12 )
+
+[node name="pilot_master" parent="." index="3"]
 collision_mask = 8
 _request_everything = true
 _fill_until_capacity = true
 _has_worker_limit = false
 
 [node name="wood" parent="pilot_master/inventory" index="0" instance=ExtResource( 3 )]
+
+[node name="inventory_display" parent="." index="5"]
+_y_offset = -150.0
 
 [editable path="pilot_master"]

@@ -56,21 +56,19 @@ func _assign_job():
 	
 	for job_posting in _job_queue.queue:
 		if not job_posting.posting_active():
+			if not _worker_queue.empty():
+				print(_worker_queue)
+				print(job_posting)
 			continue
 		
-		var raw_job_requests: Array = job_posting.get_requests()
-		var job_requests: Array = [ ]
-		
-		for request in raw_job_requests:
-			if _resource_sightings.resource_sighted(request) > 0:
-				job_requests.append(request)
+		var job_requests: Array = job_posting.get_requests()
 		
 		_assign_job_to_workers_carrying_the_resource(application_queue, job_posting, job_requests)
 		
 		if not job_posting.posting_active():
 			continue
 		
-		_assign_job_to_workers_able_to_acquire_the_resource(application_queue, job_posting, job_requests)
+		_assign_job_to_workers_able_to_acquire_the_resource2(application_queue, job_posting, job_requests)
 
 
 
@@ -103,65 +101,145 @@ func _assign_job_to_workers_carrying_the_resource(application_queue: Array, job_
 
 
 
-func _assign_job_to_workers_able_to_acquire_the_resource(application_queue: Array, job_posting: JobQueue.JobPosting, job_requests: Array):
-	var relevant_workers: Dictionary = { }
+func _assign_job_to_workers_able_to_acquire_the_resource2(application_queue: Array, job_posting: JobQueue.JobPosting, job_requests: Array):
+	# To cache nearby resources
+	var nearest_resources: Dictionary = { }
 	
-	# Then check for any workers able to acquire the desired resources
-	for worker_profile in application_queue:
-		var errand: WorkerQueue.Errand = worker_profile.can_do_job_eventually(job_requests)
-		
-		if errand:
-			relevant_workers[worker_profile] = errand
-	
-	
-	var nearest_errands: Dictionary = { }
-	
-	for errand in relevant_workers.values():
-		if nearest_errands.get(errand):
+	for resource in job_requests:
+		if nearest_resources.get(resource):
 			continue
 		
-		nearest_errands[errand.use] = _navigator.nearest_in_group(job_posting.city_structure.global_position, errand.use, [job_posting.city_structure.type])
+		nearest_resources[resource] = _navigator.nearest_in_group(job_posting.city_structure.global_position, resource, [job_posting.city_structure.type])
 	
-	var assigned_errands: Array = [ ]
 	
-	while job_posting.posting_active() and not relevant_workers.empty():
-		for errand in relevant_workers.values():
-			if not job_posting.posting_active():
-				break
+	var inactive_resources: Array = [ ]
+	
+	# Work until the job posting is filled or all options have been tried
+	#while job_posting.posting_active() and not relevant_workers.empty():
+	for worker_profile in application_queue:
+		if not job_posting.posting_active():
+			break
+		
+		var worker_errands: Array = worker_profile.can_do_job_eventually(job_requests)
+		
+		if worker_errands.empty():
+			continue
+		
+		for errand in worker_errands:
+			print(Constants.enum_name(Constants.Resources, errand.use))
+			var nearest_resource: Node2D = nearest_resources[errand.use]
+			var job_assigned: bool = false
 			
-			var nearest_resource: Node2D = nearest_errands[errand.use]
-			
-			if nearest_resource:
-				var nearest_worker: WorkerQueue.WorkerProfile = _find_nearest_worker(nearest_resource.global_position, relevant_workers.keys())
-				var nearest_errand: WorkerQueue.Errand = relevant_workers[nearest_worker]
-				
-				relevant_workers.erase(nearest_worker)
-				
-				var puppet_master: Node2D = nearest_worker.puppet_master
+			# If the resource is found on the map
+			while nearest_resource:
 				var resource_profile: ResourceSightings.ResourceProfile = _resource_sightings.resource_registered(nearest_resource)
 				
 				if not resource_profile.posting_active():
+					inactive_resources.append(nearest_resource)
+					nearest_resources[errand.use] = _navigator.nearest_in_group(job_posting.city_structure.global_position, errand.use, [job_posting.city_structure.type], inactive_resources)
+					
 					continue
 				
-				assigned_errands.append(nearest_resource)
+				var puppet_master: Node2D = worker_profile.puppet_master
+				
 				job_posting.assign_worker(puppet_master, resource_profile)
-				puppet_master.new_plan(job_posting.city_structure, nearest_resource, nearest_errand.use, nearest_errand.craft_tool, job_posting)
-			else:
-				var nearest_worker: WorkerQueue.WorkerProfile = _find_nearest_worker(job_posting.city_structure.global_position, relevant_workers.keys())
-				var puppet_master: Node2D = nearest_worker.puppet_master
-				var nearest_errand: WorkerQueue.Errand = relevant_workers[nearest_worker]
-				var new_quest: Quest = _find_job_target(puppet_master, nearest_errand.use, [job_posting.city_structure.type])
+				puppet_master.new_plan(job_posting.city_structure, nearest_resource, errand.use, errand.craft_tool, job_posting)
+				job_assigned = true
 				
-				relevant_workers.erase(nearest_worker)
-				
-				if not new_quest.target:
-					continue
-				
-				assigned_errands.append(nearest_resource)
-				job_posting.assign_worker(puppet_master, new_quest.target_profile)
-				puppet_master.new_plan(job_posting.city_structure, new_quest.target, nearest_errand.use, nearest_errand.craft_tool, job_posting)
+				break
 			
-			nearest_errands[errand.use] = _navigator.nearest_in_group(job_posting.city_structure.global_position, errand.use, [job_posting.city_structure.type], assigned_errands)
+			if job_assigned:
+				nearest_resources[errand.use] = _navigator.nearest_in_group(job_posting.city_structure.global_position, errand.use, [job_posting.city_structure.type], inactive_resources)
+				break
+			
+			# Else if there is not resource lying on the map
+			#	but I could be gathered from structures
+			var puppet_master: Node2D = worker_profile.puppet_master
+			var target_structure: ResourceHolder = _find_job_target(puppet_master, errand.use, [job_posting.city_structure.type])
+			
+			if target_structure.target:
+				job_posting.assign_worker(puppet_master, target_structure.target_profile)
+				puppet_master.new_plan(job_posting.city_structure, target_structure.target, errand.use, errand.craft_tool, job_posting)
+				
+				nearest_resources[errand.use] = _navigator.nearest_in_group(job_posting.city_structure.global_position, errand.use, [job_posting.city_structure.type], inactive_resources)
+				
+				break
+
+
+#func _assign_job_to_workers_able_to_acquire_the_resource(application_queue: Array, job_posting: JobQueue.JobPosting, job_requests: Array):
+#	# To gather all the workers able to gather the resource
+#	var errand_keys_priorities: Array = [ ]
+#	var relevant_workers: Dictionary = { }
+#
+#	# Gather all the workers able to gather the resource and what they would use to gather it
+#	for worker_profile in application_queue:
+#		var errands: Array = worker_profile.can_do_job_eventually(job_requests)
+#
+#		for errand in errands:
+#			if not errand_keys_priorities.has(errand.use):
+#				errand_keys_priorities.append(errand.use)
+#
+#			relevant_workers[errand.use] = relevant_workers.get(errand.use, [ ])
+#			relevant_workers[errand.use].append({ worker_profile: errand })
+#
+#
+#	# To cache nearby resources
+#	var nearest_errands: Dictionary = { }
+#
+#	for errand in errand_keys_priorities:
+#		if nearest_errands.get(errand):
+#			continue
+#
+#		nearest_errands[errand] = _navigator.nearest_in_group(job_posting.city_structure.global_position, errand, [job_posting.city_structure.type])
+#
+#
+#	# To keep track of all the resources assigned this frame
+#	#	without this, workers looking for a type of a resource
+#	#	which had already been assigned this frame, would not be assigned one
+#	#	but the next one
+#	var assigned_errands: Array = [ ]
+#
+#	# Work until the job posting is filled or all options have been tried
+#	#while job_posting.posting_active() and not relevant_workers.empty():
+#	while not errand_keys_priorities.empty():
+#		if not job_posting.posting_active():
+#			break
+#
+#		var errand = errand_keys_priorities.pop_front()
+#		var nearest_resource: Node2D = nearest_errands[errand]
+#
+#		if nearest_resource:
+#			var nearest_worker: WorkerQueue.WorkerProfile = _find_nearest_worker(nearest_resource.global_position, relevant_workers[errand].keys())
+#			var closest_errand: WorkerQueue.Errand = relevant_workers[errand][nearest_worker]
+#
+#			relevant_workers[errand].erase(nearest_worker)
+#
+#			var puppet_master: Node2D = nearest_worker.puppet_master
+#			var resource_profile: ResourceSightings.ResourceProfile = _resource_sightings.resource_registered(nearest_resource)
+#
+#			if not resource_profile.posting_active():
+#				continue
+#
+#			assigned_errands.append(nearest_resource)
+#			job_posting.assign_worker(puppet_master, resource_profile)
+#			puppet_master.new_plan(job_posting.city_structure, nearest_resource, closest_errand.use, closest_errand.craft_tool, job_posting)
+#		else:
+#			var nearest_worker: WorkerQueue.WorkerProfile = _find_nearest_worker(job_posting.city_structure.global_position, relevant_workers[errand].keys())
+#			var puppet_master: Node2D = nearest_worker.puppet_master
+#			var closest_errand: WorkerQueue.Errand = relevant_workers[errand][nearest_worker]
+#
+#			var new_quest: Quest = _find_job_target(puppet_master, closest_errand.use, [job_posting.city_structure.type])
+#
+#			relevant_workers[errand].erase(nearest_worker)
+#
+#			if not new_quest.target:
+#				continue
+#
+#			assigned_errands.append(nearest_resource)
+#			job_posting.assign_worker(puppet_master, new_quest.target_profile)
+#			puppet_master.new_plan(job_posting.city_structure, new_quest.target, closest_errand.use, closest_errand.craft_tool, job_posting)
+#
+#		nearest_errands[errand] = _navigator.nearest_in_group(job_posting.city_structure.global_position, errand, [job_posting.city_structure.type], assigned_errands)
 
 
 
@@ -172,12 +250,12 @@ func _find_nearest_worker(start_position: Vector2, workers_to_check: Array) -> W
 		actor_dictionary[profile.puppet_master.owner] = profile
 	
 	var nearest_actor: Node2D = _navigator.nearest_from_array(start_position, actor_dictionary.keys())
-	
+	assert(nearest_actor)
 	return actor_dictionary[nearest_actor]
 
 
 
-func _find_job_target(puppet_master: Node2D, job_target_group, groups_to_exclude: Array = [ ]) -> Quest:
+func _find_job_target(puppet_master: Node2D, job_target_group, groups_to_exclude: Array = [ ]) -> ResourceHolder:
 	var target: Node2D = null
 	var target_profile: ResourceSightings.ResourceProfile = null
 	
@@ -186,7 +264,8 @@ func _find_job_target(puppet_master: Node2D, job_target_group, groups_to_exclude
 	
 	
 	for profile in array_of_profiles:
-		array_to_search.append(profile.structure)
+		if profile.position_open():
+			array_to_search.append(profile.structure)
 	
 	target = _navigator.nearest_from_array(puppet_master.global_position, array_to_search, groups_to_exclude)
 	
@@ -195,14 +274,13 @@ func _find_job_target(puppet_master: Node2D, job_target_group, groups_to_exclude
 			target_profile = profile
 			break
 	
-	return Quest.new(target, target_profile)
+	return ResourceHolder.new(target, target_profile)
 
 
 
 
 
-class Quest:
-	
+class ResourceHolder:
 	var target: Node2D
 	var target_profile: ResourceSightings.ResourceProfile
 	

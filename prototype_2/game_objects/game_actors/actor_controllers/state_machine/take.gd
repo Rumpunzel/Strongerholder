@@ -27,3 +27,9 @@ func animation_acted(_animation: String):
 	
 	if _puppet_master.pick_up_item(_item):
 		_item = null
+
+
+func animtion_finished(animation: String):
+	.animtion_finished(animation)
+	
+	exit(IDLE)

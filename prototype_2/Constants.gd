@@ -33,6 +33,8 @@ enum Resources {
 	WOOD,
 	WOOD_PLANKS,
 	STONE,
+	SPYGLASS = 2048,
+	AXE,
 }
 
 

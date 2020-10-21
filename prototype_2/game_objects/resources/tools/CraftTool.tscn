@@ -10,10 +10,8 @@ radius = 20.0
 
 [node name="CraftTool" instance=ExtResource( 3 )]
 script = ExtResource( 1 )
-
-[node name="state_machine" parent="." index="2"]
-hit_points_max = 10.0
-indestructible = false
+type = 2049
+animation = "attack"
 
 [node name="attack" type="Node" parent="state_machine" index="1"]
 script = ExtResource( 8 )

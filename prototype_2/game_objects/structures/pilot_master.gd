@@ -57,7 +57,7 @@ func unregister_resource():
 	_quarter_master.unregister_resource(_current_registration)
 
 
-func check_area_for_item(item: GameResource):
+func check_area_for_item(_item: GameResource):
 	# TODO: HACK WORKAROUND UNTIL GODOT FIXES AREA'S RECOGNIZING A BODY ACTIVATING INSIDE IT
 	position = Vector2()
 

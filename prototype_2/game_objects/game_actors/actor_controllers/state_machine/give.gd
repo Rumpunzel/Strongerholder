@@ -37,3 +37,9 @@ func animation_acted(_animation: String):
 	
 	_item = null
 	_receiver = null
+
+
+func animtion_finished(animation: String):
+	.animtion_finished(animation)
+	
+	exit(IDLE)

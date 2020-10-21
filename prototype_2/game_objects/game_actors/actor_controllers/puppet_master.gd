@@ -28,11 +28,11 @@ func _process(_delta: float):
 		if _current_plan:
 			_current_plan = null
 		
-		if not _current_application:
-			_current_application = _quarter_master.apply_for_job(self, _inventory, _tool_belt)
-		elif _current_job:
+		if _current_job:
 			_current_job.unassign_worker(self)
 			_current_job = null
+		elif not _current_application:
+			_current_application = _quarter_master.apply_for_job(self, _inventory, _tool_belt)
 
 
 
@@ -118,7 +118,7 @@ class BasicPlan:
 	
 	
 	func is_useful() -> bool:
-		return path.size() > 1
+		return not path.empty()
 	
 	
 	func _to_string() -> String:
@@ -143,31 +143,33 @@ class Plan extends BasicPlan:
 	
 	
 	func next_command() -> InputMaster.Command:
-		if task_target == task_master:
-			task_target = null
-			path = PoolVector2Array()
-			
-			return InputMaster.GiveCommand.new(task_tool, task_master)
+		var target_interact_with: Node2D = task_target
 		
-		if task_target.type == purpose:
-			return InputMaster.TakeCommand.new(task_target)
+		if target_interact_with == task_master:
+			_invalidate_plan()
+			return InputMaster.GiveCommand.new(task_tool, target_interact_with)
 		
-		if task_target is CityStructure:
-			var target_to_ask: Node2D = task_target
-			
-			task_target = null
-			path = PoolVector2Array()
-			
-			return InputMaster.RequestCommand.new(purpose, target_to_ask)
+		if target_interact_with.type == purpose:
+			_invalidate_plan()
+			return InputMaster.TakeCommand.new(target_interact_with)
+		
+		if target_interact_with is CityStructure:
+			_invalidate_plan()
+			return InputMaster.RequestCommand.new(purpose, target_interact_with)
 		
 		return InputMaster.AttackCommand.new(task_tool)
 	
 	
 	func is_useful() -> bool:
-		return _targets_active()
+		return .is_useful() and _targets_active()
+	
 	
 	func _targets_active() -> bool:
 		return task_master and task_target and task_master.is_active() and task_target.is_active()
+	
+	func _invalidate_plan():
+		task_target = null
+		path = PoolVector2Array()
 	
 	
 	func _to_string() -> String:

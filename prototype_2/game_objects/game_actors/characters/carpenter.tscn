@@ -8,8 +8,16 @@
 [node name="carpenter" instance=ExtResource( 1 )]
 
 [node name="sprite" parent="." index="1"]
-modulate = Color( 1, 0.501961, 0.501961, 1 )
-frame = 50
+modulate = Color( 1, 0.262745, 0.262745, 1 )
+
+[node name="state_machine" parent="." index="2"]
+_animation_tree_node = NodePath("../../carpenter/animation_tree")
+
+[node name="give" parent="state_machine" index="2"]
+_puppet_master_node = NodePath("../../../carpenter/puppet_master")
+
+[node name="take" parent="state_machine" index="3"]
+_puppet_master_node = NodePath("../../../carpenter/puppet_master")
 
 [node name="spyglass" parent="puppet_master/tool_belt" index="0" instance=ExtResource( 2 )]
 used_for = [ 1026 ]

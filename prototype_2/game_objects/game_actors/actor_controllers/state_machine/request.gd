@@ -22,3 +22,9 @@ func animation_acted(_animation: String):
 	
 	_request = null
 	_receiver = null
+
+
+func animtion_finished(animation: String):
+	.animtion_finished(animation)
+	
+	exit(IDLE)
