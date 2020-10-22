@@ -14,10 +14,7 @@ var _current_job: JobMachine = null
 var _applied: bool = false
 
 
-onready var _navigator: Navigator = ServiceLocator.navigator
 onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
-
-
 
 
 

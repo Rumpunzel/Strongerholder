@@ -69,6 +69,16 @@ func get_inventory_contents() -> Array:
 	return contents
 
 
+func how_many_of_item(item_type) -> int:
+	var item_count: int = 0
+	
+	for item in get_inventory_contents():
+		if item.type == item_type:
+			item_count += 1
+	
+	return item_count
+
+
 
 
 func _get_input() -> Array:

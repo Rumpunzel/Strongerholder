@@ -98,3 +98,6 @@ class StandaloneResource extends ResourceProfile:
 	
 	func resources_on_offer() -> Array:
 		return [structure]
+	
+	func position_open() -> bool:
+		return structure.position_open()

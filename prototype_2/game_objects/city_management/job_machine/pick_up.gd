@@ -10,7 +10,7 @@ var _delivery_target: PilotMaster = null
 
 func _process(_delta: float):
 	if not _item.is_active():
-		if _delivery_target and employee.get_inventory_contents().has(_item):
+		if _delivery_target:
 			exit(DELIVER, [_item, _delivery_target.owner])
 		else:
 			exit(IDLE)

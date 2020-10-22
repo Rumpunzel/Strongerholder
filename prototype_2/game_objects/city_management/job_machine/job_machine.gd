@@ -21,8 +21,6 @@ func _setup(new_employer: Node2D, new_employee: Node2D, new_dedicated_tool: Spyg
 		state.employee = employee
 		
 		state.dedicated_tool = dedicated_tool
-	
-	current_state.activate(true)
 
 
 
@@ -38,8 +36,8 @@ func current_target() -> Node2D:
 
 
 
-func activate():
-	current_state.activate()
+func activate(first_time: bool = false):
+	current_state.activate(first_time)
 
 func deactivate():
 	current_state.deactivate()

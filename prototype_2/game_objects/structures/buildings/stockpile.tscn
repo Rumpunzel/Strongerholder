@@ -17,9 +17,6 @@ position = Vector2( 0, -12 )
 
 [node name="pilot_master" parent="." index="3"]
 collision_mask = 8
-_request_everything = true
-_fill_until_capacity = true
-_has_worker_limit = false
 
 [node name="wood" parent="pilot_master/inventory" index="0" instance=ExtResource( 3 )]
 

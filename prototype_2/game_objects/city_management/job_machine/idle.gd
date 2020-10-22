@@ -28,5 +28,13 @@ func _process(_delta: float):
 		var nearest_structure: Structure = _get_nearest_structure_holding_item_of_type(use)
 		
 		if nearest_structure:
-			exit(GATHER, [use, nearest_structure, employer])
+			var state: String = GATHER
+			
+			if nearest_structure is CityStructure:
+				if nearest_structure.can_be_gathered(use):
+					state = RETRIEVE
+				else:
+					continue
+			
+			exit(state, [use, nearest_structure, employer])
 			return

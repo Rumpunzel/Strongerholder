@@ -25,16 +25,23 @@ func _process(_delta: float):
 
 func enter(parameters: Array = [ ]):
 	_item_type = parameters[0]
+	
 	_structure_to_retrieve_from = parameters[1]
+	_structure_to_retrieve_from.assign_gatherer(employee, _item_type)
+	
 	_delivery_target = parameters[2]
 	
 	.enter([_structure_to_retrieve_from.global_position])
 
 
 func exit(next_state: String, parameters: Array = [ ]):
-	_item_type = null
+	_structure_to_retrieve_from.unassign_gatherer(employee, _item_type)
 	_structure_to_retrieve_from = null
+	
+	_item_type = null
 	_delivery_target = null
+	
+	_requested_item = false
 	
 	.exit(next_state, parameters)
 
