@@ -8,6 +8,13 @@ var _path: PoolVector2Array = [ ]
 
 
 
+func _process(_delta: float):
+	if _path.empty():
+		exit(IDLE)
+
+
+
+
 func enter(parameters: Array = [ ]):
 	_pathing_target = parameters[0]
 	

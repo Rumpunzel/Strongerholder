@@ -13,14 +13,24 @@ const OPERATE = "operate"
 const INACTIVE = "inactive"
 
 
+# warning-ignore-all:unused_class_variable
 var game_actor: GameActor = null
+# warning-ignore-all:unused_class_variable
 var employer: CityStructure = null
 
+# warning-ignore-all:unused_class_variable
 var dedicated_tool: Spyglass = null
 
 
 onready var _job_machine = get_parent()
 onready var _navigator: Navigator = ServiceLocator.navigator
+
+
+
+
+func _ready():
+	set_process(false)
+
 
 
 
@@ -35,6 +45,7 @@ func exit(next_state: String, parameters: Array = [ ]):
 
 
 
+
 func next_step() -> Vector2:
 	return Vector2()
 
@@ -44,7 +55,7 @@ func next_command() -> InputMaster.Command:
 
 
 
-func activate(first_time: bool = false):
+func activate(_first_time: bool = false):
 	pass
 
 func deactivate():
