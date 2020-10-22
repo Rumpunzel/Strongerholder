@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://game_objects/structures/Structure.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/structures/inventory_display.tscn" type="PackedScene" id=2]
@@ -10,12 +10,15 @@
 [ext_resource path="res://game_objects/structures/buildings/state_machine/dead.gd" type="Script" id=8]
 [ext_resource path="res://game_objects/structures/buildings/state_machine/give.gd" type="Script" id=9]
 [ext_resource path="res://game_objects/structures/buildings/state_machine/take.gd" type="Script" id=10]
+[ext_resource path="res://game_objects/structures/buildings/custodian.gd" type="Script" id=11]
 
 [node name="CityStructure" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
 [node name="state_machine" parent="." index="2"]
 script = ExtResource( 5 )
+hit_points_max = null
+indestructible = null
 
 [node name="idle" parent="state_machine" index="0"]
 script = ExtResource( 6 )
@@ -36,6 +39,9 @@ script = ExtResource( 8 )
 
 [node name="pilot_master" parent="." index="3"]
 script = ExtResource( 4 )
+
+[node name="custodian" type="Node2D" parent="pilot_master" index="1"]
+script = ExtResource( 11 )
 
 [node name="inventory_display" parent="." index="5" instance=ExtResource( 2 )]
 margin_left = -55.0787

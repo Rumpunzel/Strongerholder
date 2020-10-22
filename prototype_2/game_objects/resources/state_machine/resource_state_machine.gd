@@ -1,5 +1,5 @@
 class_name ResourceStateMachine, "res://assets/icons/icon_resource_state_machine.svg"
-extends StateMachine
+extends ObjectStateMachine
 
 
 

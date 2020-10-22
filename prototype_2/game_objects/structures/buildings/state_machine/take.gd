@@ -5,7 +5,7 @@ extends CityStructureState
 export(NodePath) var _pilot_master_node
 
 
-var _item: GameResource
+var _item: GameResource = null
 
 
 onready var _pilot_master: CityPilotMaster = get_node(_pilot_master_node)

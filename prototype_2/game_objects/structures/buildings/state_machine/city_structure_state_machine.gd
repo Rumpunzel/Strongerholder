@@ -1,5 +1,5 @@
 class_name CityStructureStateMachine, "res://assets/icons/structures/icon_city_structure_state_machine.svg"
-extends StateMachine
+extends ObjectStateMachine
 
 
 

@@ -1,10 +1,5 @@
 class_name ToolBelt, "res://assets/icons/game_actors/icon_tool_belt.svg"
-extends Node2D
-
-
-
-func get_tools() -> Array:
-	return get_children()
+extends Inventory
 
 
 

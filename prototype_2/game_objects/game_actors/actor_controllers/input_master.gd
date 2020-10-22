@@ -2,13 +2,56 @@ class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
 extends Area2D
 
 
+onready var _inventories: Array
+onready var _main_inventory: Inventory = $inventory
 
-func process_commands(state_machine: StateMachine):
+
+
+
+func _ready():
+	for child in get_children():
+		if child is Inventory:
+			_inventories.append(child)
+
+
+
+
+func process_commands(state_machine: ObjectStateMachine):
 	#object_of_interest, null, global_position, _current_path
 	var commands: Array = _get_input()
 	
 	for command in commands:
 		command.execute(state_machine)
+
+
+
+func pick_up_item(item: GameResource) -> bool:
+	for inventory in _inventories:
+		if _in_range(item) and (not inventory is Refinery or inventory.input_resources.has(item.type)):
+			inventory.pick_up_item(item)
+			return true
+	
+	return false
+
+
+func drop_item(item: GameResource, position_to_drop: Vector2 = global_position):
+	_main_inventory.drop_item(item, position_to_drop)
+
+func drop_all_items(position_to_drop: Vector2 = global_position):
+	_main_inventory.drop_all_items(position_to_drop)
+
+
+func has_item(resource_type) -> Node2D:
+	return _main_inventory.has(resource_type)
+
+func get_inventory_contents() -> Array:
+	var contents: Array = [ ]
+	
+	for inventory in _inventories:
+		contents += inventory.get_contents()
+	
+	return contents
+
 
 
 
@@ -31,7 +74,7 @@ func _get_input() -> Array:
 
 
 
-func _in_range(object: PhysicsBody2D):
+func _in_range(object: PhysicsBody2D) -> bool:
 	return get_overlapping_bodies().has(object)
 
 
@@ -39,8 +82,8 @@ func _in_range(object: PhysicsBody2D):
 
 
 class Command:
-	func execute(_state_machine: StateMachine):
-		assert(false)
+	func execute(_state_machine: ObjectStateMachine):
+		pass
 
 
 
@@ -52,7 +95,7 @@ class MoveCommand extends Command:
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 	
-	func execute(state_machine: StateMachine):
+	func execute(state_machine: ObjectStateMachine):
 		state_machine.move_to(movement_vector, sprinting)
 
 
@@ -65,7 +108,7 @@ class GiveCommand extends Command:
 		what_to_give = new_what_to_give
 		whom_to_give_to = new_whom_to_give_to
 	
-	func execute(state_machine: StateMachine):
+	func execute(state_machine: ObjectStateMachine):
 		state_machine.give_item(what_to_give, whom_to_give_to)
 
 
@@ -76,7 +119,7 @@ class TakeCommand extends Command:
 	func _init(new_what_to_take: GameResource):
 		what_to_take = new_what_to_take
 	
-	func execute(state_machine: StateMachine):
+	func execute(state_machine: ObjectStateMachine):
 		state_machine.take_item(what_to_take)
 
 
@@ -88,7 +131,7 @@ class RequestCommand extends Command:
 		request = new_request
 		whom_to_ask = new_whom_to_ask
 	
-	func execute(state_machine: StateMachine):
+	func execute(state_machine: ObjectStateMachine):
 		state_machine.request_item(request, whom_to_ask)
 
 
@@ -98,11 +141,11 @@ class AttackCommand extends Command:
 	func _init(new_weapon: CraftTool):
 		weapon = new_weapon
 	
-	func execute(state_machine: StateMachine):
+	func execute(state_machine: ObjectStateMachine):
 		state_machine.attack(weapon)
 
 
 
 class MenuCommand extends Command:
-	func execute(state_machine: StateMachine):
+	func execute(state_machine: ObjectStateMachine):
 		state_machine.open_menu(RadiantUI.new(["Stockpile", "Woodcutters Hut"], state_machine))

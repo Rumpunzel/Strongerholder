@@ -15,7 +15,7 @@ onready var _damage_audio: GameAudioPlayer = $damage_audio
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var state_machine: StateMachine
+	var state_machine: ObjectStateMachine
 	
 	if not _state_machine_node:
 		return

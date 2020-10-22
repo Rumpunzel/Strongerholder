@@ -3,7 +3,9 @@ extends ActorState
 
 
 
-func enter(_parameters: Array = [ ]):
+func enter(parameters: Array = [ ]):
+	.enter(parameters)
+	
 	_change_animation(IDLE)
 
 

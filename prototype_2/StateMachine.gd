@@ -1,21 +1,13 @@
-class_name StateMachine, "res://assets/icons/icon_state_machine.svg"
+class_name StateMachine
 extends Node
 
 
 signal state_changed(new_state, old_state)
-signal damaged(damage_points, sender)
 
 
-export var hit_points_max: float = 10.0
-export var indestructible: bool = false
-
-
-var current_state: ObjectState = null
+var current_state = null
 
 var history: Array = [ ]
-
-
-onready var hit_points: float = hit_points_max
 
 
 
@@ -40,24 +32,6 @@ func back():
 		_enter_state()
 
 
-func damage(damage_points: float, sender) -> bool:
-	var damage_taken: float = current_state.damage(damage_points, sender)
-	
-	hit_points -= damage_taken
-	
-	emit_signal("damaged", damage_taken, sender)
-	#print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
-	
-	if not indestructible and hit_points <= 0:
-		die(sender)
-		return false
-	
-	return true
-
-
-func die(_sender):
-	change_to(ObjectState.DEAD)
-
 
 func is_active() -> bool:
 	return current_state.is_active()
@@ -77,3 +51,4 @@ func _change_to(new_state: String, parameters: Array = [ ]):
 
 func _enter_state(parameters: Array = [ ]):
 	current_state.enter(parameters)
+

@@ -3,13 +3,13 @@ extends Queue
 
 
 
-func add_worker(puppet_master: Node2D, inventory: Inventory, tool_belt: ToolBelt) -> WorkerProfile:
+func add_worker(puppet_master: Node2D, inventories: Array) -> WorkerProfile:
 	var new_profile: WorkerProfile = worker_registered(puppet_master)
 	
 	if new_profile:
 		return new_profile
 	
-	new_profile = WorkerProfile.new(puppet_master, inventory, tool_belt)
+	new_profile = WorkerProfile.new(puppet_master, inventories)
 	
 	queue.append(new_profile)
 	queue.sort_custom(WorkerProfile, "sort_ascending")
@@ -38,55 +38,47 @@ func worker_registered(puppet_master: Node2D) -> WorkerProfile:
 
 class WorkerProfile:
 	var puppet_master: Node2D
-	
-	var inventory: Inventory
-	var tool_belt: ToolBelt
+	var inventories: Array
 	
 	
-	func _init(new_puppet_master: Node2D, new_inventory: Inventory, new_tool_belt: ToolBelt):
+	func _init(new_puppet_master: Node2D, new_inventories: Array):
 		puppet_master = new_puppet_master
-		
-		inventory = new_inventory
-		tool_belt = new_tool_belt
+		inventories = new_inventories
 	
 	
-	func can_do_job_now(potential_jobs: Array) -> GameResource:
+	func can_do_job(potential_jobs: Array) -> Array:
 		var items: Array = _get_inventory_contents()
+		var usable_items: Array = [ ]
 		
 		for item in items:
 			if potential_jobs.has(item.type):
-				return item
+				usable_items.append(item)
+			elif item is CraftTool:
+				for use in item.used_for:
+					if potential_jobs.has(use):
+						usable_items.append(Errand.new(item, use))
 		
-		return null
-	
-	func can_do_job_eventually(potential_jobs: Array) -> Array:
-		var craft_tools: Array = tool_belt.get_tools()
-		var usable_tools: Array = [ ]
-		
-		for craft_tool in craft_tools:
-			for use in craft_tool.used_for:
-				if potential_jobs.has(use):
-					usable_tools.append(Errand.new(craft_tool, use))
-		
-		return usable_tools
+		return usable_items
 	
 	
 	func get_flexibility() -> int:
-		return _get_inventory_contents().size() + _get_tool_uses().size()
+		return _get_inventory_contents().size()
 	
 	static func sort_ascending(a: WorkerProfile, b: WorkerProfile) -> bool:
 		return a.get_flexibility() < b.get_flexibility()
 	
 	
 	func _get_inventory_contents() -> Array:
-		return inventory.get_contents()
-	
-	func _get_tool_uses() -> Array:
-		return tool_belt.get_valid_targets()
+		var contents: Array = [ ]
+		
+		for inventory in inventories:
+			contents += inventory.get_contents()
+		
+		return contents
 	
 	
 	func _to_string() -> String:
-		return "\nWorker: %s\nCurrently Holding: %s\nAble To Obtain: %s\nFlexibility: %d\n" % [puppet_master.owner.name, _get_inventory_contents(), _get_tool_uses(), get_flexibility()]
+		return "\nWorker: %s\nCurrently Holding: %s\nFlexibility: %d\n" % [puppet_master.owner.name, _get_inventory_contents(), get_flexibility()]
 
 
 

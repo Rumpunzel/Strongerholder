@@ -9,7 +9,7 @@ Essential resources such as wood and plant-based food are in infinite supply on 
 ### Wood
 
 - is gathered from trees
-- trees from from sapling which spawn near other trees
+- trees grow from from saplings which spawn from other trees
 
 
 

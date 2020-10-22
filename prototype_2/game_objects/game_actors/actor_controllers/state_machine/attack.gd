@@ -8,6 +8,8 @@ var _weapon: CraftTool
 
 
 func enter(parameters: Array = [ ]):
+	.enter(parameters)
+	
 	_weapon = parameters[0]
 	
 	_animation_cancellable = false

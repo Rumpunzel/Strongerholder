@@ -12,7 +12,7 @@ var velocity: Vector2 = Vector2()
 
 onready var _collision_shape: CollisionShape2D = $collision_shape
 onready var _puppet_master: InputMaster = $puppet_master
-onready var _state_machine: StateMachine = $state_machine
+onready var _state_machine: ObjectStateMachine = $state_machine
 
 
 

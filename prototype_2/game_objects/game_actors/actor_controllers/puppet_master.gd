@@ -14,9 +14,6 @@ var _current_job: JobQueue.JobPosting = null
 var _current_application: WorkerQueue.WorkerProfile = null
 
 
-onready var _inventory: Inventory = $inventory
-onready var _tool_belt: ToolBelt = $tool_belt
-
 onready var _navigator: Navigator = ServiceLocator.navigator
 onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
@@ -24,15 +21,18 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 func _process(_delta: float):
-	if not (_current_plan and _current_plan.is_useful()):
-		if _current_plan:
-			_current_plan = null
+	if not _current_job and not _current_application:
+		_current_application = _quarter_master.apply_for_job(self, _inventories)
 		
-		if _current_job:
-			_current_job.unassign_worker(self)
-			_current_job = null
-		elif not _current_application:
-			_current_application = _quarter_master.apply_for_job(self, _inventory, _tool_belt)
+#	if not (_current_plan and _current_plan.is_useful()):
+#		if _current_plan:
+#			_current_plan = null
+#
+#		if _current_job:
+#			_current_job.unassign_worker(self)
+#			_current_job = null
+#		elif not _current_application:
+#
 
 
 
@@ -54,22 +54,6 @@ func new_plan(new_task_master: Node2D, new_task_target: Node2D, new_purpose, new
 	_current_plan = Plan.new(self, new_path, new_task_master, new_task_target, new_purpose, new_tool)
 	_quarter_master.unapply_for_job(_current_application)
 	_current_application = null
-
-
-
-func pick_up_item(item: GameResource) -> bool:
-	if _in_range(item):
-		_inventory.pick_up_item(item)
-		return true
-	
-	return false
-
-
-func drop_item(item: GameResource, position_to_drop: Vector2 = global_position):
-	_inventory.drop_item(item, position_to_drop)
-
-func drop_all_items(position_to_drop: Vector2 = global_position):
-	_inventory.drop_all_items(position_to_drop)
 
 
 

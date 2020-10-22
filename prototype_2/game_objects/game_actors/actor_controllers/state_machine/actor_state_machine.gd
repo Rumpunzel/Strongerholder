@@ -1,5 +1,5 @@
 class_name ActorStateMachine, "res://assets/icons/game_actors/states/icon_actor_state_machine.svg"
-extends StateMachine
+extends ObjectStateMachine
 
 
 export (NodePath) var _animation_tree_node

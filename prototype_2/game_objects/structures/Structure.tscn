@@ -5,7 +5,7 @@
 [ext_resource path="res://game_objects/state_machine/ObjectState.gd" type="Script" id=3]
 [ext_resource path="res://game_objects/state_machine/inactive.gd" type="Script" id=4]
 [ext_resource path="res://game_objects/structures/pilot_master.tscn" type="PackedScene" id=5]
-[ext_resource path="res://game_objects/state_machine/StateMachine.gd" type="Script" id=6]
+[ext_resource path="res://game_objects/state_machine/ObjectStateMachine.gd" type="Script" id=6]
 [ext_resource path="res://game_objects/state_machine/dead.gd" type="Script" id=7]
 [ext_resource path="res://game_objects/audio_handler.tscn" type="PackedScene" id=8]
 

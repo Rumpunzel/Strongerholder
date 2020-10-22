@@ -25,15 +25,15 @@ func _exit_tree():
 
 
 
-func apply_for_job(puppet_master: Node2D, inventory: Inventory, tool_belt: ToolBelt) -> WorkerQueue.WorkerProfile:
-	return _worker_queue.add_worker(puppet_master, inventory, tool_belt)
+func apply_for_job(puppet_master: Node2D, inventories: Array) -> WorkerQueue.WorkerProfile:
+	return _worker_queue.add_worker(puppet_master, inventories)
 
 func unapply_for_job(profile: WorkerQueue.WorkerProfile):
 	return _worker_queue.remove_worker(profile)
 
 
-func post_job(city_structure: Node2D, city_pilot_master: Node2D, how_many_workers, request_until_capacity: bool) -> JobQueue.JobPosting:
-	return _job_queue.add_job(city_structure, city_pilot_master, how_many_workers, request_until_capacity)
+func post_job(city_structure: Node2D, city_pilot_master: Node2D) -> JobQueue.JobPosting:
+	return _job_queue.add_job(city_structure, city_pilot_master)
 
 func unpost_job(posting: JobQueue.JobPosting):
 	return _job_queue.remove_job(posting)
@@ -63,12 +63,12 @@ func _assign_job():
 		
 		var job_requests: Array = job_posting.get_requests()
 		
-		_assign_job_to_workers_carrying_the_resource(application_queue, job_posting, job_requests)
-		
-		if not job_posting.posting_active():
-			continue
-		
-		_assign_job_to_workers_able_to_acquire_the_resource2(application_queue, job_posting, job_requests)
+#		_assign_job_to_workers_carrying_the_resource(application_queue, job_posting, job_requests)
+#
+#		if not job_posting.posting_active():
+#			continue
+#
+#		_assign_job_to_workers_able_to_acquire_the_resource2(application_queue, job_posting, job_requests)
 
 
 

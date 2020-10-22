@@ -5,8 +5,8 @@ extends ActorState
 export(NodePath) var _puppet_master_node
 
 
-var _item: GameResource
-var _receiver: Node2D
+var _item: GameResource = null
+var _receiver: Node2D = null
 
 
 onready var _puppet_master: PuppetMaster = get_node(_puppet_master_node)
@@ -14,6 +14,8 @@ onready var _puppet_master: PuppetMaster = get_node(_puppet_master_node)
 
 
 func enter(parameters: Array = [ ]):
+	.enter(parameters)
+	
 	_item = parameters[0]
 	_receiver = parameters[1]
 	
