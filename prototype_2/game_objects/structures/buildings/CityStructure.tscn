@@ -17,8 +17,6 @@ script = ExtResource( 3 )
 
 [node name="state_machine" parent="." index="2"]
 script = ExtResource( 5 )
-hit_points_max = null
-indestructible = null
 
 [node name="idle" parent="state_machine" index="0"]
 script = ExtResource( 6 )

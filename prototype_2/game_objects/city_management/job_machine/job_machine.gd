@@ -10,21 +10,17 @@ var dedicated_tool: Spyglass
 
 
 
-func _pre_setup(new_employer: Node2D, new_dedicated_tool: Spyglass):
+func _setup(new_employer: Node2D, new_employee: Node2D, new_dedicated_tool: Spyglass):
 	employer = new_employer
+	employee = new_employee
 	
 	dedicated_tool = new_dedicated_tool
 	
 	for state in get_children():
 		state.employer = employer
+		state.employee = employee
+		
 		state.dedicated_tool = dedicated_tool
-
-
-func _setup(new_employee: Node2D):
-	employee = new_employee
-	
-	for state in get_children():
-		state.game_actor = employee
 	
 	current_state.activate(true)
 
@@ -34,10 +30,16 @@ func _setup(new_employee: Node2D):
 func next_step() -> Vector2:
 	return current_state.next_step()
 
+func next_command() -> InputMaster.Command:
+	return current_state.next_command()
+
+func current_target() -> Node2D:
+	return current_state.current_target()
+
 
 
 func activate():
 	current_state.activate()
 
-func dectivate():
+func deactivate():
 	current_state.deactivate()

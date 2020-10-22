@@ -52,5 +52,10 @@ func set_blend_positions(new_direction: Vector2):
 
 
 
+func get_current_animation() -> String:
+	return _state_machine.get_current_node()
+
+
+
 func _transfer_signal(signal_name: String):
 	emit_signal(signal_name, _state_machine.get_current_node())

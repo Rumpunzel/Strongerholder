@@ -13,5 +13,20 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(_delta: float):
+	for use in dedicated_tool.delivers:
+		pass
+	
+	for use in dedicated_tool.gathers:
+		var nearest_resource: GameResource = _get_nearest_item_of_type(use)
+		
+		if nearest_resource:
+			exit(PICK_UP, [nearest_resource, employer])
+			return
+		
+		
+		var nearest_structure: Structure = _get_nearest_structure_holding_item_of_type(use)
+		
+		if nearest_structure:
+			exit(GATHER, [use, nearest_structure, employer])
+			return

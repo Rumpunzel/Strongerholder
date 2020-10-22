@@ -14,9 +14,9 @@ const INACTIVE = "inactive"
 
 
 # warning-ignore-all:unused_class_variable
-var game_actor: GameActor = null
+var employee: PuppetMaster = null
 # warning-ignore-all:unused_class_variable
-var employer: CityStructure = null
+var employer: PilotMaster = null
 
 # warning-ignore-all:unused_class_variable
 var dedicated_tool: Spyglass = null
@@ -24,6 +24,7 @@ var dedicated_tool: Spyglass = null
 
 onready var _job_machine = get_parent()
 onready var _navigator: Navigator = ServiceLocator.navigator
+onready var _quarter_master = ServiceLocator.quarter_master
 
 
 
@@ -54,6 +55,10 @@ func next_command() -> InputMaster.Command:
 	return InputMaster.Command.new()
 
 
+func current_target() -> Node2D:
+	return null
+
+
 
 func activate(_first_time: bool = false):
 	pass
@@ -67,5 +72,8 @@ func is_active() -> bool:
 
 
 
-func _get_nearest_item_of_type(item_type) -> Node2D:
-	return _navigator.nearest_in_group(game_actor.global_position, item_type)
+func _get_nearest_item_of_type(item_type) -> GameResource:
+	return _quarter_master.inquire_for_resource(employee, item_type, true)
+
+func _get_nearest_structure_holding_item_of_type(item_type) -> Structure:
+	return _quarter_master.inquire_for_resource(employee, item_type, false, [employer.owner.type])

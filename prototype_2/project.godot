@@ -209,10 +209,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_management/job_machine/just_started.gd"
 }, {
-"base": "JobState",
+"base": "Reference",
 "class": "JobStateMoveTo",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/move_tp.gd"
+"path": "res://game_objects/city_management/job_machine/move_to.gd"
 }, {
 "base": "JobStateMoveTo",
 "class": "JobStatePickUp",
@@ -415,7 +415,7 @@ _global_script_class_icons={
 "JobStateIdle": "",
 "JobStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "JobStateJustStarted": "res://assets/icons/game_actors/states/icon_state_just_started.svg",
-"JobStateMoveTo": "res://assets/icons/game_actors/states/icon_state_move_to.svg",
+"JobStateMoveTo": "",
 "JobStatePickUp": "res://assets/icons/game_actors/states/icon_state_pick_up.svg",
 "JobStateRetrieve": "res://assets/icons/game_actors/states/icon_state_retrieve.svg",
 "Navigator": "res://assets/icons/icon_navigator.svg",

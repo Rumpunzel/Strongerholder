@@ -54,6 +54,9 @@ static func is_thing(index) -> bool:
 static func is_resource(index) -> bool:
 	return Resources.values().has(index)
 
+static func is_craft_tool(index) -> bool:
+	return Resources.values().has(index) and index >= Resources.SPYGLASS
+
 
 static func enum_name(enumerator, index: int) -> String:
 	return enumerator.keys()[enumerator.values().find(index)]

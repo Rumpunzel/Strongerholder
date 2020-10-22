@@ -2,7 +2,7 @@ class_name CityPilotMaster, "res://assets/icons/structures/icon_city_pilot_maste
 extends PilotMaster
 
 
-export(Array, Constants.Resources) var _requests: Array = [ ]
+export(PackedScene) var _available_job
 
 
 var requests: Array = [ ]
@@ -18,11 +18,17 @@ onready var _custodian: Custodian = $custodian
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	requests = _requests.duplicate()
-	
 	_post_job()
 
 
+
+
+func employ_worker(puppet_master: Node2D):
+	var new_job: JobMachine = _available_job.instance()
+	
+	puppet_master.assign_job(new_job)
+	
+	new_job._setup(self, puppet_master, _custodian.get_available_tool())
 
 
 func requests_fulfilled() -> bool:
@@ -40,4 +46,4 @@ func requests_fulfilled() -> bool:
 
 
 func _post_job():
-	_job_postings.append(_quarter_master.post_job(owner, self))
+	_job_postings.append(_quarter_master.post_job(self, _custodian.get_contents().size()))

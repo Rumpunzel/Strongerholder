@@ -5,9 +5,29 @@ extends StaticBody2D
 signal died
 
 
+export var _maximum_operators: int = 1
+
+
+var _assigned_workers: Array = [ ]
+
+
 onready var _collision_shape: CollisionShape2D = $collision_shape
 onready var _state_machine: ObjectStateMachine = $state_machine
 
+
+
+
+func assign_worker(puppet_master: Node2D):
+	assert(_assigned_workers.size() < _maximum_operators)
+	_assigned_workers.append(puppet_master)
+
+
+func unassign_worker(puppet_master: Node2D):
+	_assigned_workers.erase(puppet_master)
+
+
+func position_open() -> bool:
+	return _assigned_workers.size() < _maximum_operators
 
 
 

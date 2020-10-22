@@ -3,8 +3,8 @@ extends Queue
 
 
 
-func add_job(city_structure: Node2D, city_pilot_master: Node2D) -> JobPosting:
-	var new_posting: JobPosting = JobPosting.new(city_structure, city_pilot_master)
+func add_job(city_pilot_master: Node2D, workers_required: int) -> JobPosting:
+	var new_posting: JobPosting = JobPosting.new(city_pilot_master, workers_required)
 	
 	queue.append(new_posting)
 	queue.sort_custom(JobPosting, "sort_ascending")
@@ -20,51 +20,26 @@ func remove_job(posting: JobPosting):
 
 
 
-func empty() -> bool:
-	if .empty():
-		return true
-	
-	for posting in queue:
-		if posting.posting_active():
-			return false
-	
-	return true
-
-
-
 
 
 class JobPosting:
-	var city_structure: Node2D
 	var city_pilot_master: Node2D
+	var workers_required: int
 	
-	var _assigned_workers: Dictionary = { }
 	
-	
-	func _init(new_city_structure: Node2D, new_city_pilot_master: Node2D):
-		city_structure = new_city_structure
+	func _init(new_city_pilot_master: Node2D, new_workers_required: int):
 		city_pilot_master = new_city_pilot_master
+		workers_required = new_workers_required
 	
 	
-	func get_requests() -> Array:
-		return city_pilot_master.requests
+	func assign_worker(puppet_master: Node2D):
+		workers_required += 1
+		city_pilot_master.employ_worker(puppet_master)
+	
 	
 	func posting_active() -> bool:
-		return city_structure.is_active() and not city_pilot_master.requests_fulfilled()
-	
-	
-	func assign_worker(puppet_master: Node2D, target_profile: ResourceSightings.ResourceProfile):
-		target_profile.assign_worker(puppet_master)
-		_assigned_workers[puppet_master] = target_profile
-	
-	func unassign_worker(puppet_master: Node2D):
-		_assigned_workers[puppet_master].unassign_worker(puppet_master)
-		_assigned_workers.erase(puppet_master)
-	
-	
-	static func sort_ascending(a: JobPosting, b: JobPosting) -> bool:
-		return a.get_requests().size() < b.get_requests().size()
+		return workers_required > 0
 	
 	
 	func _to_string() -> String:
-		return "\nWorking For: %s\nRequested Delivery: %s\n\nWorkers:\n%s\n" % [city_structure.name, city_pilot_master.requests, _assigned_workers]
+		return "\nWorking For: %s\nWorkers Required: %d\n" % [city_pilot_master.owner.name, workers_required]

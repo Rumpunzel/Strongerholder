@@ -41,10 +41,14 @@ func attack(weapon: CraftTool):
 
 
 func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()):
-	_animation_tree.travel(new_animation)
-	
-	if not new_direction == Vector2():
-		_animation_tree.blend_positions = new_direction
+	if _animation_tree.get_current_animation() == new_animation:
+		_animation_acted(new_animation)
+		_animation_finished(new_animation)
+	else:
+		_animation_tree.travel(new_animation)
+		
+		if not new_direction == Vector2():
+			_animation_tree.blend_positions = new_direction
 
 
 

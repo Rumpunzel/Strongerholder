@@ -10,6 +10,10 @@ func requeue(object: Object):
 	queue.append(object)
 
 
+func front() -> Object:
+	return queue.front()
+
+
 func pop_front() -> Object:
 	return queue.pop_front()
 

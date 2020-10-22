@@ -17,8 +17,12 @@ func drop_all_items(position_to_drop: Vector2):
 		drop_item(get_child(0), position_to_drop)
 
 
-func drop_item(item: Node2D, position_to_drop: Vector2):
-	item.drop_item(position_to_drop)
+func drop_item(item: Node2D, position_to_drop: Vector2) -> bool:
+	if get_children().has(item):
+		item.drop_item(position_to_drop)
+		return true
+	
+	return false
 
 
 

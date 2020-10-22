@@ -28,11 +28,11 @@ func remove_resource(profile: ResourceProfile):
 
 
 
-func get_offering(target_resource) -> Array:
+func get_offering(target_resource, only_stand_alone: bool) -> Array:
 	var return_array: Array = [ ]
 	
 	for profile in queue:
-		if not profile.posting_active():
+		if (only_stand_alone and not profile is StandaloneResource) or not profile.posting_active():
 			continue
 		
 		var stock: Array = profile.resources_on_offer()

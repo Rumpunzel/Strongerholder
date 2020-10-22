@@ -4,7 +4,7 @@ extends JobStateMoveTo
 
 var _item_type = null
 var _structure_to_retrieve_from: CityStructure = null
-var _delivery_target: CityStructure = null
+var _delivery_target: PilotMaster = null
 
 var _requested_item: bool = false
 
@@ -13,12 +13,12 @@ var _requested_item: bool = false
 
 func _process(_delta: float):
 	if _requested_item:
-		var nearest_item: Node2D = _get_nearest_item_of_type(_item_type)
+		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
 		if nearest_item:
 			exit(PICK_UP, [nearest_item, _delivery_target])
-		else:
-			exit(IDLE)
+#		else:
+#			exit(IDLE)
 
 
 
@@ -45,3 +45,7 @@ func next_command() -> InputMaster.Command:
 	_requested_item = true
 	
 	return InputMaster.RequestCommand.new(_item_type, _structure_to_retrieve_from)
+
+
+func current_target() -> Node2D:
+	return _structure_to_retrieve_from

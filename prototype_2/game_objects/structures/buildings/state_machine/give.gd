@@ -16,8 +16,7 @@ onready var _pilot_master: CityPilotMaster = get_node(_pilot_master_node)
 func enter(parameters: Array = [ ]):
 	_item = parameters[0]
 	_receiver = parameters[1]
-	
-	
+	assert(_item)
 	if not _item:
 		return
 	

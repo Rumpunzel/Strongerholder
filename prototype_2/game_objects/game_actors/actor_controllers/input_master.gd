@@ -2,7 +2,10 @@ class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
 extends Area2D
 
 
-onready var _inventories: Array
+var _inventories: Array = [ ]
+var _reversed_inventories: Array = [ ]
+
+
 onready var _main_inventory: Inventory = $inventory
 
 
@@ -12,6 +15,9 @@ func _ready():
 	for child in get_children():
 		if child is Inventory:
 			_inventories.append(child)
+	
+	_reversed_inventories = _inventories.duplicate()
+	_reversed_inventories.invert()
 
 
 
@@ -27,7 +33,7 @@ func process_commands(state_machine: ObjectStateMachine):
 
 func pick_up_item(item: GameResource) -> bool:
 	for inventory in _inventories:
-		if _in_range(item) and (not inventory is Refinery or inventory.input_resources.has(item.type)):
+		if _in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass)):
 			inventory.pick_up_item(item)
 			return true
 	
@@ -35,19 +41,29 @@ func pick_up_item(item: GameResource) -> bool:
 
 
 func drop_item(item: GameResource, position_to_drop: Vector2 = global_position):
-	_main_inventory.drop_item(item, position_to_drop)
+	for inventory in _reversed_inventories:
+		if inventory.drop_item(item, position_to_drop):
+			break
 
 func drop_all_items(position_to_drop: Vector2 = global_position):
-	_main_inventory.drop_all_items(position_to_drop)
+	for inventory in _reversed_inventories:
+		inventory.drop_all_items(position_to_drop)
 
 
 func has_item(resource_type) -> Node2D:
-	return _main_inventory.has(resource_type)
+	for inventory in _reversed_inventories:
+		var item: Node2D = inventory.has(resource_type)
+		
+		if item:
+			return item
+	
+	return null
+
 
 func get_inventory_contents() -> Array:
 	var contents: Array = [ ]
 	
-	for inventory in _inventories:
+	for inventory in _reversed_inventories:
 		contents += inventory.get_contents()
 	
 	return contents
