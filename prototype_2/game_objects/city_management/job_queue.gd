@@ -33,7 +33,7 @@ class JobPosting:
 	
 	
 	func assign_worker(puppet_master: Node2D):
-		workers_required += 1
+		workers_required -= 1
 		city_pilot_master.employ_worker(puppet_master)
 	
 	

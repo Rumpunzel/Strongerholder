@@ -5,10 +5,7 @@ extends PilotMaster
 export(PackedScene) var _available_job
 
 
-var requests: Array = [ ]
-
-
-var _job_postings: Array = [ ]
+var _job_posting: JobQueue.JobPosting = null
 
 
 onready var _custodian: Custodian = $custodian
@@ -29,21 +26,14 @@ func employ_worker(puppet_master: Node2D):
 	puppet_master.assign_job(new_job)
 	
 	new_job._setup(self, puppet_master, _custodian.get_available_tool())
-
-
-func requests_fulfilled() -> bool:
-	var requests_check: Array = requests.duplicate()
-	var inventory_contents: Array = get_inventory_contents()
 	
-	for item in inventory_contents:
-		requests_check.erase(item.type)
-		
-		if requests_check.empty():
-			return true
-	
-	return false
+	if not _custodian.still_has_tools():
+		_unpost_job()
 
 
 
 func _post_job():
-	_job_postings.append(_quarter_master.post_job(self, _custodian.get_contents().size()))
+	_job_posting = _quarter_master.post_job(self, _custodian.get_contents().size())
+
+func _unpost_job():
+	_quarter_master.unpost_job(_job_posting)

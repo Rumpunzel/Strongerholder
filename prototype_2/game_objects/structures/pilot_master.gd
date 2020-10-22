@@ -26,8 +26,8 @@ func take_item(item_to_take: Node2D):
 	_desired_items.append(item_to_take)
 
 
-func register_resource(maximum_workers = 1):
-	_current_registration = _quarter_master.register_resource(owner, _main_inventory, maximum_workers)
+func register_resource():
+	_current_registration = _quarter_master.register_resource(owner, self)
 
 func unregister_resource():
 	_quarter_master.unregister_resource(_current_registration)

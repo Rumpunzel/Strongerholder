@@ -14,3 +14,11 @@ func get_available_tool() -> Spyglass:
 			return craft_tool
 	
 	return null
+
+
+func still_has_tools() -> bool:
+	for craft_tool in get_children():
+		if not distributed_tools.has(craft_tool):
+			return true
+	
+	return false

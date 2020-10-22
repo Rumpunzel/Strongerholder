@@ -37,7 +37,7 @@ func pick_up_item(new_inventory):
 
 
 func register_resource(maximum_workers = 1):
-	_current_registration = _quarter_master.register_resource(self, null, maximum_workers)
+	_current_registration = _quarter_master.register_resource(self, null)
 
 func unregister_resource():
 	_quarter_master.unregister_resource(_current_registration)

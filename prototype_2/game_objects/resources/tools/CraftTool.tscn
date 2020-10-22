@@ -17,6 +17,8 @@ animation = "attack"
 script = ExtResource( 8 )
 
 [node name="hurt_box" type="Area2D" parent="." index="3"]
+collision_layer = 2048
+collision_mask = 4
 script = ExtResource( 2 )
 
 [node name="hurt_shape" type="CollisionShape2D" parent="hurt_box" index="0"]

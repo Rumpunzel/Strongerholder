@@ -595,6 +595,7 @@ open_menu={
 2d_physics/layer_2="GameActors"
 2d_physics/layer_3="Structures"
 2d_physics/layer_4="Resources"
+2d_physics/layer_5="CityStructures"
 2d_physics/layer_11="WorldAreas"
 2d_physics/layer_12="ActorAreas"
 2d_physics/layer_13="StructureAreas"

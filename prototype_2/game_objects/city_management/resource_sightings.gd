@@ -3,16 +3,16 @@ extends Queue
 
 
 
-func add_resource(structure, inventory: Inventory, maximum_workers) -> ResourceProfile:
+func add_resource(structure: GameObject, pilot_master: Node2D) -> ResourceProfile:
 	var new_profile: ResourceProfile = resource_registered(structure)
 	
 	if new_profile:
 		return new_profile
 	
-	if inventory:
-		new_profile = ResourceProfile.new(structure, inventory, maximum_workers)
+	if pilot_master:
+		new_profile = ResourceProfile.new(structure, pilot_master)
 	else:
-		new_profile = StandaloneResource.new(structure, maximum_workers)
+		new_profile = StandaloneResource.new(structure)
 	
 	queue.append(new_profile)
 	queue.sort_custom(ResourceProfile, "sort_ascending")
@@ -58,7 +58,7 @@ func resource_sighted(resource_type, get_exact_amount: bool = false) -> int:
 	var sightings: int = 0
 	
 	for resource in queue:
-		if resource.inventory and resource.inventory.has(resource_type):
+		if resource.inventory and resource.inventory.resources_on_offer().has(resource_type):
 			sightings += 1
 			
 			if not get_exact_amount:
@@ -71,48 +71,29 @@ func resource_sighted(resource_type, get_exact_amount: bool = false) -> int:
 
 
 class ResourceProfile:
-	var structure
-	
-	var inventory: Inventory
-	var maximum_workers
-	
-	var _assigned_workers: Array = [ ]
+	var structure: GameObject
+	var pilot_master: Node2D
 	
 	
-	func _init(new_structure, new_inventory: Inventory, new_maximum_workers):
+	func _init(new_structure, new_pilot_master: Node2D):
 		structure = new_structure
-		
-		inventory = new_inventory
-		maximum_workers = new_maximum_workers
+		pilot_master = new_pilot_master
 	
 	
 	func resources_on_offer() -> Array:
-		return inventory.get_contents()
+		return pilot_master.get_inventory_contents()
 	
 	
 	func posting_active() -> bool:
 		return structure.is_active() and position_open()
 	
 	func position_open() -> bool:
-		return not maximum_workers or _assigned_workers.size() < maximum_workers
-	
-	
-	func assign_worker(puppet_master: Node2D):
-		assert(not maximum_workers or _assigned_workers.size() < maximum_workers)
-		_assigned_workers.append(puppet_master)
-	
-	func unassign_worker(puppet_master: Node2D):
-		_assigned_workers.erase(puppet_master)
-	
-	
-	func _to_string() -> String:
-		return "\nStructure: %s\nCurrently Offering: %s\nWorkers Assigned: %s\n" % [structure.name, resources_on_offer(), ("%d/%d" % [_assigned_workers.size(), maximum_workers]) if maximum_workers else "%d" % [_assigned_workers.size()]]
-
+		return structure.position_open()
 
 
 
 class StandaloneResource extends ResourceProfile:
-	func _init(new_structure, new_maximum_workers).(new_structure, null, new_maximum_workers):
+	func _init(new_structure).(new_structure, null):
 		pass
 	
 	func resources_on_offer() -> Array:
