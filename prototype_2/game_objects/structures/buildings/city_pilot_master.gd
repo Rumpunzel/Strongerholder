@@ -2,7 +2,11 @@ class_name CityPilotMaster, "res://assets/icons/structures/icon_city_pilot_maste
 extends PilotMaster
 
 
+const STORAGE = "STORAGE"
+
+
 export(PackedScene) var _available_job
+export var _storage: bool = false
 
 
 var _job_posting: JobQueue.JobPosting = null
@@ -16,6 +20,9 @@ onready var _custodian: Custodian = $custodian
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if _storage:
+		owner.add_to_group(STORAGE)
+	
 	if needs_workers():
 		_post_job()
 

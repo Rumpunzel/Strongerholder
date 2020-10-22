@@ -75,5 +75,5 @@ func is_active() -> bool:
 func _get_nearest_item_of_type(item_type) -> GameResource:
 	return _quarter_master.inquire_for_resource(employee, item_type, true)
 
-func _get_nearest_structure_holding_item_of_type(item_type) -> Structure:
-	return _quarter_master.inquire_for_resource(employee, item_type, false, [employer.owner.type])
+func _get_nearest_structure_holding_item_of_type(item_type, groups_to_exclude: Array) -> Structure:
+	return _quarter_master.inquire_for_resource(employee, item_type, false, groups_to_exclude)

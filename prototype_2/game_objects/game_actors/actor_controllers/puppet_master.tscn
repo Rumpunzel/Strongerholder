@@ -5,7 +5,7 @@
 [ext_resource path="res://game_objects/game_actors/actor_controllers/tool_belt.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 20.0
+radius = 16.0
 
 [node name="puppet_master" type="Area2D"]
 collision_layer = 2048
