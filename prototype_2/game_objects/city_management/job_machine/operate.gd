@@ -15,12 +15,10 @@ func _process(_delta: float):
 
 
 func enter(parameters: Array = [ ]):
-	assert(parameters.size() == 2)
+	assert(parameters.size() == 1)
 	
 	_structure_to_operate = parameters[0]
 	_structure_to_operate.assign_worker(employee)
-	
-	_job_items = parameters[1]
 	
 	.enter([_structure_to_operate.global_position])
 

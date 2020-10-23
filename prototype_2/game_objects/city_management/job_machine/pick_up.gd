@@ -10,12 +10,9 @@ var _delivery_target: PilotMaster = null
 
 func _process(_delta: float):
 	if not _item.is_active():
-		print(_delivery_target)
 		if _delivery_target:
-			_job_items.append(_item)
-			
-			exit(IDLE, [_job_items, _delivery_target])
-			#exit(DELIVER, [_job_items, _delivery_target])
+			exit(IDLE, [_delivery_target])
+			#exit(DELIVER, [_delivery_target])
 		else:
 			exit(IDLE)
 
@@ -23,13 +20,12 @@ func _process(_delta: float):
 
 
 func enter(parameters: Array = [ ]):
-	assert(parameters.size() == 3)
+	assert(parameters.size() == 2)
 	
 	_item = parameters[0]
 	_item.assign_worker(employee)
 	
 	_delivery_target = parameters[1]
-	_job_items = parameters[2]
 	
 	.enter([_item.global_position])
 

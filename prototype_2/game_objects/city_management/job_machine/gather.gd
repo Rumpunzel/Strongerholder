@@ -14,13 +14,13 @@ func _process(_delta: float):
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
 		if nearest_item:
-			exit(PICK_UP, [nearest_item, _delivery_target, _job_items])
+			exit(PICK_UP, [nearest_item, _delivery_target])
 
 
 
 
 func enter(parameters: Array = [ ]):
-	assert(parameters.size() == 4)
+	assert(parameters.size() == 3)
 	
 	_item_type = parameters[0]
 	
@@ -28,7 +28,6 @@ func enter(parameters: Array = [ ]):
 	_structure_to_gather_from.assign_worker(employee)
 	
 	_delivery_target = parameters[2]
-	_job_items = parameters[3]
 	
 	.enter([_structure_to_gather_from.global_position])
 
