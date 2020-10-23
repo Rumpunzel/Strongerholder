@@ -25,6 +25,10 @@ func take_item(item: GameResource):
 	exit(TAKE, [item])
 
 
-func operate():
+func operate() -> bool:
 	if pilot_master.can_be_operated():
 		pilot_master.refine_resource()
+		
+		return true
+	
+	return false

@@ -31,5 +31,5 @@ func take_item(_item: GameResource):
 	pass
 
 
-func operate():
-	pass
+func operate() -> bool:
+	return false

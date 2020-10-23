@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/structures/buildings/CityStructure.gd"
 }, {
+"base": "AudioHandler",
+"class": "CityStructureAudioHandler",
+"language": "GDScript",
+"path": "res://game_objects/structures/city_structure_audio_handler.gd"
+}, {
 "base": "CityStructureState",
 "class": "CityStructureInactive",
 "language": "GDScript",
@@ -400,6 +405,7 @@ _global_script_class_icons={
 "AudioHandler": "res://assets/icons/icon_audio_handler.svg",
 "CityPilotMaster": "res://assets/icons/structures/icon_city_pilot_master.svg",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
+"CityStructureAudioHandler": "",
 "CityStructureInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "CityStructureState": "",
 "CityStructureStateDead": "res://assets/icons/icon_state_dead.svg",

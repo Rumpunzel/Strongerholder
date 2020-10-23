@@ -2,6 +2,9 @@ class_name CityStructureStateMachine, "res://assets/icons/structures/icon_city_s
 extends ObjectStateMachine
 
 
+signal operated
+
+
 export(NodePath) var _pilot_master_node
 
 
@@ -26,4 +29,5 @@ func take_item(item: GameResource):
 
 
 func operate():
-	current_state.operate()
+	if current_state.operate():
+		emit_signal("operated")

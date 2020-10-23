@@ -8,6 +8,6 @@ script = ExtResource( 1 )
 _state_machine_node = NodePath("../state_machine")
 _damage_sounds_directory = "res://assets/sounds/axe"
 
-[node name="damage_audio" type="AudioStreamPlayer2D" parent="."]
+[node name="interaction_audio" type="AudioStreamPlayer2D" parent="."]
 volume_db = -6.0
 script = ExtResource( 2 )

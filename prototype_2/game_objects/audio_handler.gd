@@ -8,7 +8,8 @@ export(String, DIR) var _damage_sounds_directory: String
 
 
 onready var _damage_sounds: Array = FileHelper.list_files_in_directory(_damage_sounds_directory, false, ".wav")
-onready var _damage_audio: GameAudioPlayer = $damage_audio
+
+onready var _interaction_audio: GameAudioPlayer = $interaction_audio
 
 
 
@@ -22,11 +23,15 @@ func _ready():
 	
 	state_machine = get_node(_state_machine_node)
 	
+	_connect_signals(state_machine)
+
+
+
+
+func _connect_signals(state_machine: StateMachine):
 	state_machine.connect("damaged", self, "_play_damage_audio")
-
-
 
 
 func _play_damage_audio(damage_taken: float, _sender):
 	if damage_taken > 0:
-		_damage_audio.play_audio_from_array(_damage_sounds)
+		_interaction_audio.play_audio_from_array(_damage_sounds)
