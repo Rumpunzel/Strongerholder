@@ -66,6 +66,21 @@ func can_be_gathered(gathering_resource) -> bool:
 
 
 
+func can_be_operated() -> bool:
+	for inventory in _inventories:
+		if inventory is Refinery and inventory.check_item_numbers():
+			return true
+	
+	return false
+
+
+func refine_resource():
+	for inventory in _inventories:
+		if inventory is Refinery:
+			inventory.refine_prodcut()
+
+
+
 func _post_job():
 	_job_posting = _quarter_master.post_job(self)
 

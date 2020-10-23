@@ -6,23 +6,6 @@ export(Array, Constants.Resources) var input_resources
 
 
 export(Array, PackedScene) var _output_resources
-export var _process_time: float = 2.0
-
-
-onready var _process_timer: Timer = Timer.new()
-
-
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	connect("received_item", self, "_check_item_numbers")
-	
-	_process_timer.wait_time = _process_time
-	_process_timer.one_shot = true
-	get_parent().call_deferred("add_child", _process_timer)
-	_process_timer.name = "%s_process_timer" % [name]
-	_process_timer.connect("timeout", self, "_send_prodcut")
 
 
 
@@ -34,7 +17,7 @@ func pick_up_item(item: Node2D):
 
 
 
-func _check_item_numbers(_new_item: Node2D = null):
+func check_item_numbers() -> bool:
 	var content: Dictionary = { }
 	
 	for item in get_contents():
@@ -42,19 +25,16 @@ func _check_item_numbers(_new_item: Node2D = null):
 	
 	for item in input_resources:
 		if not content.get(item, 0) >= input_resources.count(item):
-			return
+			return false
 	
-	_process_items()
+	return true
 
 
-func _process_items():
-	_process_timer.start()
 
-
-func _send_prodcut():
+func refine_prodcut():
 	for item in input_resources:
 		for resource in get_children():
-			if resource is GameResource and resource.type == item:
+			if resource.type == item:
 				remove_child(resource)
 				resource.queue_free()
 				break
@@ -64,5 +44,3 @@ func _send_prodcut():
 		
 		add_child(new_item)
 		owner._state_machine.give_item(new_item, owner)
-	
-	_check_item_numbers()

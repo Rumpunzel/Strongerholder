@@ -110,11 +110,6 @@ _global_script_classes=[ {
 "path": "res://game_objects/structures/buildings/state_machine/city_structure_state_machine.gd"
 }, {
 "base": "CityStructureState",
-"class": "CityStructureStateOperating",
-"language": "GDScript",
-"path": "res://game_objects/structures/buildings/state_machine/operating.gd"
-}, {
-"base": "CityStructureState",
 "class": "CityStructureStateTake",
 "language": "GDScript",
 "path": "res://game_objects/structures/buildings/state_machine/take.gd"
@@ -249,7 +244,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/state_machine/ObjectState.gd"
 }, {
-"base": "Reference",
+"base": "StateMachine",
 "class": "ObjectStateMachine",
 "language": "GDScript",
 "path": "res://game_objects/state_machine/ObjectStateMachine.gd"
@@ -410,7 +405,6 @@ _global_script_class_icons={
 "CityStructureStateDead": "res://assets/icons/icon_state_dead.svg",
 "CityStructureStateGive": "res://assets/icons/game_actors/states/icon_state_give.svg",
 "CityStructureStateMachine": "res://assets/icons/structures/icon_city_structure_state_machine.svg",
-"CityStructureStateOperating": "res://assets/icons/game_actors/states/icon_state_operating.svg",
 "CityStructureStateTake": "res://assets/icons/game_actors/states/icon_state_take.svg",
 "Constants": "",
 "CraftTool": "res://assets/icons/game_actors/icon_crafting_tool.svg",
@@ -438,7 +432,7 @@ _global_script_class_icons={
 "JobStateRetrieve": "res://assets/icons/game_actors/states/icon_state_retrieve.svg",
 "Navigator": "res://assets/icons/icon_navigator.svg",
 "ObjectState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
-"ObjectStateMachine": "",
+"ObjectStateMachine": "res://assets/icons/icon_state_machine.svg",
 "ObjectsLayer": "res://assets/icons/icon_objects_layer.svg",
 "PilotMaster": "res://assets/icons/structures/icon_pilot_master.svg",
 "PlayerCamera": "",

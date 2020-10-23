@@ -50,9 +50,9 @@ func drop_all_items(position_to_drop: Vector2 = global_position):
 		inventory.drop_all_items(position_to_drop)
 
 
-func has_item(resource_type) -> Node2D:
+func has_item(resource_type) -> GameResource:
 	for inventory in _reversed_inventories:
-		var item: Node2D = inventory.has(resource_type)
+		var item: GameResource = inventory.has(resource_type)
 		
 		if item:
 			return item
@@ -77,6 +77,11 @@ func how_many_of_item(item_type) -> int:
 			item_count += 1
 	
 	return item_count
+
+
+func interact_with(structure: Node2D):
+	if _in_range(structure):
+		structure.operate()
 
 
 
@@ -169,6 +174,16 @@ class AttackCommand extends Command:
 	
 	func execute(state_machine: ObjectStateMachine):
 		state_machine.attack(weapon)
+
+
+class InteractCommand extends Command:
+	var structure: Node2D
+	
+	func _init(new_structure: Node2D):
+		structure = new_structure
+	
+	func execute(state_machine: ObjectStateMachine):
+		state_machine.operate(structure)
 
 
 

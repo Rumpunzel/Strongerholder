@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/sprites/tattered-banner.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Sprite
+
+
+const _COLOR_ARRAY: Array = [\"ee4035\", \"f37736\", \"fdf498\", \"7bc043\", \"0392cf\"]
+
+
+var target: Node2D
+
+
+onready var _random_color: Color = _COLOR_ARRAY[randi() % _COLOR_ARRAY.size()]
+
+
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	modulate = _random_color
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float):
+	update()
+
+
+func _draw():
+	draw_line(Vector2(), (target.global_position - global_position) * 10, _random_color, 50.0)
+"
+
+[node name="flag" type="Sprite"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
+offset = Vector2( 210, -240 )
+script = SubResource( 1 )
+
+[node name="node_2d" type="Node2D" parent="."]

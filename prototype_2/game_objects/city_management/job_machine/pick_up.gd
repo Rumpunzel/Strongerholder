@@ -9,8 +9,10 @@ var _delivery_target: PilotMaster = null
 
 
 func _process(_delta: float):
+	yield(get_tree(), "idle_frame")
+	
 	if not _item.is_active():
-		if _delivery_target:
+		if _delivery_target and _item.worker_assigned(employee):
 			exit(DELIVER, [_item, _delivery_target.owner])
 		else:
 			exit(IDLE)
@@ -24,7 +26,7 @@ func enter(parameters: Array = [ ]):
 	
 	_delivery_target = parameters[1]
 	
-	.enter([_delivery_target.global_position if _delivery_target else employee.global_position])
+	.enter([_item.global_position])
 
 
 func exit(next_state: String, parameters: Array = [ ]):

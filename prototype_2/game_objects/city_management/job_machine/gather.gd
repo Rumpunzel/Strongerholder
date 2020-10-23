@@ -10,6 +10,8 @@ var _delivery_target: PilotMaster = null
 
 
 func _process(_delta: float):
+	yield(get_tree(), "idle_frame")
+	
 	if not _structure_to_gather_from.is_active():
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		

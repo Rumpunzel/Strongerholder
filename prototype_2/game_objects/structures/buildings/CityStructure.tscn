@@ -18,13 +18,13 @@ script = ExtResource( 3 )
 
 [node name="state_machine" parent="." index="2"]
 script = ExtResource( 5 )
+_pilot_master_node = NodePath("../pilot_master")
 
 [node name="idle" parent="state_machine" index="0"]
 script = ExtResource( 6 )
 
 [node name="give" type="Node" parent="state_machine" index="1"]
 script = ExtResource( 9 )
-_pilot_master_node = NodePath("../../pilot_master")
 
 [node name="take" type="Node" parent="state_machine" index="2"]
 script = ExtResource( 10 )

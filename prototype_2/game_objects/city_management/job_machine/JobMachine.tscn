@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://game_objects/city_management/job_machine/job_machine.gd" type="Script" id=1]
 [ext_resource path="res://game_objects/city_management/job_machine/operate.gd" type="Script" id=2]
@@ -10,9 +10,11 @@
 [ext_resource path="res://game_objects/city_management/job_machine/deliver.gd" type="Script" id=8]
 [ext_resource path="res://game_objects/city_management/job_machine/gather.gd" type="Script" id=9]
 [ext_resource path="res://game_objects/city_management/job_machine/idle.gd" type="Script" id=10]
+[ext_resource path="res://flag.tscn" type="PackedScene" id=11]
 
 [node name="job_machine" type="Node"]
 script = ExtResource( 1 )
+_debug_flag_scene = ExtResource( 11 )
 
 [node name="inactive" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -35,8 +37,8 @@ script = ExtResource( 8 )
 [node name="gather" type="Node" parent="."]
 script = ExtResource( 9 )
 
-[node name="move_to" type="Node" parent="."]
-script = ExtResource( 6 )
-
 [node name="operate" type="Node" parent="."]
 script = ExtResource( 2 )
+
+[node name="move_to" type="Node" parent="."]
+script = ExtResource( 6 )

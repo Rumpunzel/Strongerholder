@@ -2,6 +2,20 @@ class_name CityStructureStateMachine, "res://assets/icons/structures/icon_city_s
 extends ObjectStateMachine
 
 
+export(NodePath) var _pilot_master_node
+
+
+onready var _pilot_master: CityPilotMaster = get_node(_pilot_master_node)
+
+
+
+
+func _ready():
+	for state in get_children():
+		state.pilot_master = _pilot_master
+
+
+
 
 func give_item(item: GameResource, receiver: Node2D):
 	current_state.give_item(item, receiver)
@@ -9,3 +23,7 @@ func give_item(item: GameResource, receiver: Node2D):
 
 func take_item(item: GameResource):
 	current_state.take_item(item)
+
+
+func operate():
+	current_state.operate()

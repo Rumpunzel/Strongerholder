@@ -30,6 +30,10 @@ func position_open() -> bool:
 	return _assigned_workers.size() < _maximum_operators
 
 
+func worker_assigned(puppet_master: Node2D) -> bool:
+	return _assigned_workers.has(puppet_master) 
+
+
 
 func damage(damage_points: float, sender) -> bool:
 	return _state_machine.damage(damage_points, sender)

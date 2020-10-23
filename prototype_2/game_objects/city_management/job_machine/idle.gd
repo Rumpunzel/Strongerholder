@@ -6,6 +6,13 @@ extends JobState
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
+	yield(get_tree(), "idle_frame")
+	
+	if employer.can_be_operated() and employer.owner.position_open():
+		exit(OPERATE, [employer.owner])
+		return
+	
+	
 	var nearest_storage: Node2D = _navigator.nearest_in_group(employer.global_position, CityPilotMaster.STORAGE)
 	
 	if nearest_storage:

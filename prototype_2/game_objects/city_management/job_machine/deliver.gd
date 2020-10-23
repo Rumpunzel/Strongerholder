@@ -9,6 +9,8 @@ var _delivery_target: Structure = null
 
 
 func _process(_delta: float):
+	yield(get_tree(), "idle_frame")
+	
 	if not employee.get_inventory_contents().has(_item):
 		exit(IDLE)
 

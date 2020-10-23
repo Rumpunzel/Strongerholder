@@ -2,10 +2,16 @@ class_name JobMachine, "res://assets/icons/icon_job_machine.svg"
 extends StateMachine
 
 
+export(PackedScene) var _debug_flag_scene
+
+
 var employer: Node2D
 var employee: Node2D
 
 var dedicated_tool: Spyglass
+
+
+var _flag: Sprite
 
 
 
@@ -21,6 +27,22 @@ func _setup(new_employer: Node2D, new_employee: Node2D, new_dedicated_tool: Spyg
 		state.employee = employee
 		
 		state.dedicated_tool = dedicated_tool
+	
+	_flag = _debug_flag_scene.instance()
+	get_tree().current_scene.add_child(_flag)
+	_flag.target = employee
+
+
+func _process(_delta):
+	yield(get_tree(), "idle_frame")
+	
+	var target: Node2D = current_target()
+	
+	if target:
+		_flag.visible = true
+		_flag.global_position = target.global_position
+	else:
+		_flag.visible = false
 
 
 

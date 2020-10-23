@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_state_operating.svg-6e5dd79f76d58a9ca27a1702564d5cff.stex"
+path="res://.import/tattered-banner.png-d39b28df565aed74fa960f732baa7d29.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/game_actors/states/icon_state_operating.svg"
-dest_files=[ "res://.import/icon_state_operating.svg-6e5dd79f76d58a9ca27a1702564d5cff.stex" ]
+source_file="res://assets/sprites/tattered-banner.png"
+dest_files=[ "res://.import/tattered-banner.png-d39b28df565aed74fa960f732baa7d29.stex" ]
 
 [params]
 

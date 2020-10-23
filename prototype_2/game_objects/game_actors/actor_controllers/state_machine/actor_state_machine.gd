@@ -39,6 +39,10 @@ func attack(weapon: CraftTool):
 	current_state.attack(weapon)
 
 
+func operate(structure: Node2D):
+	current_state.operate(structure)
+
+
 
 func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()):
 	if _animation_tree.get_current_animation() == new_animation:

@@ -4,7 +4,9 @@ extends ObjectState
 
 const GIVE = "give"
 const TAKE = "take"
-const OPERATING = "operating"
+
+
+var pilot_master: CityPilotMaster
 
 
 
@@ -24,4 +26,5 @@ func take_item(item: GameResource):
 
 
 func operate():
-	exit(OPERATING)
+	if pilot_master.can_be_operated():
+		pilot_master.refine_resource()

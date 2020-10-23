@@ -13,12 +13,12 @@ var _requested_item: bool = false
 
 func _process(_delta: float):
 	if _requested_item:
+		yield(get_tree(), "idle_frame")
+		
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
 		if nearest_item:
 			exit(PICK_UP, [nearest_item, _delivery_target])
-#		else:
-#			exit(IDLE)
 
 
 

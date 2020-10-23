@@ -13,6 +13,13 @@ func can_be_gathered(gathering_resource) -> bool:
 	return _pilot_master.can_be_gathered(gathering_resource)
 
 
+func operate():
+	_state_machine.operate()
+
+func can_be_operated() -> bool:
+	return _pilot_master.can_be_operated()
+
+
 func request_item(request, receiver: Node2D):
 	var requested_item: Node2D = _pilot_master.has_item(request)
 	

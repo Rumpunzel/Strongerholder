@@ -2,16 +2,37 @@ class_name ActorStateOperate, "res://assets/icons/game_actors/states/icon_state_
 extends ActorState
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export(NodePath) var _puppet_master_node
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var _structure: Structure = null
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+onready var _puppet_master: PuppetMaster = get_node(_puppet_master_node)
+
+
+
+func enter(parameters: Array = [ ]):
+	.enter(parameters)
+	
+	_structure = parameters[0]
+	
+	_animation_cancellable = false
+	
+	_change_animation(ATTACK)
+
+
+
+func animation_acted(_animation: String):
+	if not _structure:
+		return
+	
+	_puppet_master.interact_with(_structure)
+	
+	_structure = null
+
+
+func animtion_finished(animation: String):
+	.animtion_finished(animation)
+	
+	exit(IDLE)

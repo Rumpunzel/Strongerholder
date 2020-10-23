@@ -2,13 +2,7 @@ class_name CityStructureStateTake, "res://assets/icons/game_actors/states/icon_s
 extends CityStructureState
 
 
-export(NodePath) var _pilot_master_node
-
-
 var _item: GameResource = null
-
-
-onready var _pilot_master: CityPilotMaster = get_node(_pilot_master_node)
 
 
 
@@ -19,5 +13,5 @@ func enter(parameters: Array = [ ]):
 	if not _item:
 		return
 	
-	if _pilot_master.pick_up_item(_item):
+	if pilot_master.pick_up_item(_item):
 		_item = null
