@@ -39,7 +39,7 @@ radius = 8.0
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=3]
 script/source = "extends Label
 
 
@@ -56,7 +56,7 @@ func _process(_delta):
 	text = \"%s\" % [_state_machine.current_state.name]
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Label
 
 
@@ -173,7 +173,7 @@ text = "IDLE"
 align = 1
 valign = 1
 uppercase = true
-script = SubResource( 4 )
+script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -192,7 +192,7 @@ text = "Unassigned"
 align = 1
 valign = 1
 uppercase = true
-script = SubResource( 3 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

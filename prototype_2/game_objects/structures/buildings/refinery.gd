@@ -7,6 +7,11 @@ export(Array, Constants.Resources) var input_resources
 
 export(Array, PackedScene) var _output_resources
 
+export var _production_steps: int = 2
+
+
+var _steps_done: int = 0
+
 
 
 
@@ -32,6 +37,14 @@ func check_item_numbers() -> bool:
 
 
 func refine_prodcut():
+	_steps_done += 1
+	
+	if _steps_done < _production_steps:
+		return
+	
+	_steps_done = 0
+	
+	
 	for item in input_resources:
 		for resource in get_children():
 			if resource.type == item:

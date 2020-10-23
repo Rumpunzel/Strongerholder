@@ -123,6 +123,27 @@ position = Vector2( 144, 96 )
 [node name="tree4" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( 240, 144 )
 
+[node name="tree5" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( 288, 32 )
+
+[node name="tree6" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( 208, -64 )
+
+[node name="tree7" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -48, -128 )
+
+[node name="tree8" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -176, -48 )
+
+[node name="tree9" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( 96, -112 )
+
+[node name="tree10" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -240, 128 )
+
+[node name="tree11" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -192, 256 )
+
 [node name="woodcuttters_hut" parent="objects_layer" instance=ExtResource( 12 )]
 position = Vector2( 128, 160 )
 
