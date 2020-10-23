@@ -13,10 +13,11 @@ var _requested_item: bool = false
 
 func _process(_delta: float):
 	if _requested_item:
+		yield(get_tree(), "idle_frame")
+		
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
 		if nearest_item:
-			print("FROM RETRIEVE")
 			exit(PICK_UP, [nearest_item, _delivery_target, _job_items])
 		elif _structure_to_retrieve_from._pilot_master.how_many_of_item(_item_type) == 0:
 			exit(IDLE, [_job_items, _delivery_target])

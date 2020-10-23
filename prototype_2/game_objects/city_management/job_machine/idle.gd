@@ -4,28 +4,29 @@ extends JobState
 
 var _delivery_target: PilotMaster = null
 
-var _update_time: float = 0.2
-var _timed_passed: float = 0.0
+var _update_time: int = 20
+var _timed_passed: int = 0
 
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float):
-	_timed_passed += delta
+func _process(_delta: float):
+	_timed_passed += 1
 	
 	if _timed_passed < _update_time:
 		return
 	
-	_timed_passed = 0.0
+	_timed_passed = 0
 	
 	
 	yield(get_tree(), "idle_frame")
 	
+	_job_items = employee._main_inventory.get_contents()
+	
 	if employee.carry_weight_left() <= 0:
 		exit(DELIVER, [_job_items, _delivery_target])
 		return
-	
 	
 	var nearest_storage: Node2D = _navigator.nearest_in_group(employer.global_position, CityPilotMaster.STORAGE)
 	
@@ -61,17 +62,19 @@ func _process(delta: float):
 
 func enter(parameters: Array = [ ]):
 	assert(parameters.size() == 0 or parameters.size() == 2)
-	
+	print(parameters)
 	if parameters.empty():
 		_job_items = [ ]
 		_delivery_target = null
 	else:
+		# TODO: this is just a dirty fix
 		_job_items = parameters[0]
 		_delivery_target = parameters[1]
-		print(get_parent().history.back())
-		print(_job_items)
+		assert(_delivery_target)
 	
-	_timed_passed = 0.0
+	_job_items = employee._main_inventory.get_contents()
+	assert(_job_items.size() == employee._main_inventory.get_contents().size())
+	_timed_passed = 0
 	
 	.enter(parameters)
 
@@ -87,7 +90,6 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 	var nearest_resource: GameResource = _get_nearest_item_of_type(use)
 	
 	if nearest_resource:
-		print("FROM IDLE")
 		exit(PICK_UP, [nearest_resource, delivery_target, [ ]])
 		return true
 	

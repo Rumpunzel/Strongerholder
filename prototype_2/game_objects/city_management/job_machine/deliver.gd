@@ -8,7 +8,7 @@ var _target_structure: Structure = null
 
 
 func _process(_delta: float):
-	if not employee.get_inventory_contents().has(_job_items.front()):
+	if not _job_items.empty() and not employee.get_inventory_contents().has(_job_items.front()):
 		var item: GameResource = _job_items.pop_front()
 		
 		item.unassign_worker(employee)

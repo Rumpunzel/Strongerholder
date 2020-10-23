@@ -87,7 +87,7 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -5 )
 vframes = 12
 hframes = 9
-frame = 50
+frame = 72
 
 [node name="state_machine" type="Node" parent="."]
 script = ExtResource( 21 )

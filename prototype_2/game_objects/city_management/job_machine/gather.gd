@@ -14,7 +14,6 @@ func _process(_delta: float):
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
 		if nearest_item:
-			print("FROM GATHER")
 			exit(PICK_UP, [nearest_item, _delivery_target, _job_items])
 
 

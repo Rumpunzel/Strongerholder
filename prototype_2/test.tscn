@@ -105,6 +105,12 @@ ui_layer = NodePath("../../../ui_layer")
 [node name="game_actor" parent="objects_layer" instance=ExtResource( 1 )]
 position = Vector2( 48, 16 )
 
+[node name="game_actor2" parent="objects_layer" instance=ExtResource( 1 )]
+position = Vector2( 16, 80 )
+
+[node name="game_actor3" parent="objects_layer" instance=ExtResource( 1 )]
+position = Vector2( -48, 16 )
+
 [node name="tree" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( -64, 176 )
 
