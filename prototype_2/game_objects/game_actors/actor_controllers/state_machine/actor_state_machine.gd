@@ -50,9 +50,9 @@ func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()
 		_animation_finished(new_animation)
 	else:
 		_animation_tree.travel(new_animation)
-		
-		if not new_direction == Vector2():
-			_animation_tree.blend_positions = new_direction
+	
+	if not new_direction == Vector2():
+		_animation_tree.blend_positions = Vector2(new_direction.x * 0.9, new_direction.y)
 
 
 
