@@ -3,13 +3,12 @@ extends JobState
 
 
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
 	yield(get_tree(), "idle_frame")
 	
 	if employer.can_be_operated() and employer.owner.position_open():
-		exit(OPERATE, [employer.owner])
+		exit(OPERATE, [employer.owner, _job_items])
 		return
 	
 	
@@ -20,10 +19,28 @@ func _process(_delta: float):
 			if _construct_new_plan(use, nearest_storage._pilot_master):
 				return
 	
+	
 	for use in dedicated_tool.gathers:
 		if _construct_new_plan(use, employer):
 			return
+	
+	
+	if not _job_items.empty():
+		exit(DELIVER, [_job_items, employer.owner])
+		return
 
+
+
+
+func enter(parameters: Array = [ ]):
+	assert(parameters.size() <= 1)
+	
+	if parameters.empty():
+		_job_items = [ ]
+	else:
+		_job_items = parameters[0]
+	
+	.enter(parameters)
 
 
 
@@ -31,7 +48,7 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 	var nearest_resource: GameResource = _get_nearest_item_of_type(use)
 	
 	if nearest_resource:
-		exit(PICK_UP, [nearest_resource, delivery_target])
+		exit(PICK_UP, [nearest_resource, delivery_target, _job_items])
 		return true
 	
 	
@@ -46,7 +63,7 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 			else:
 				return false
 		
-		exit(state, [use, nearest_structure, delivery_target])
+		exit(state, [use, nearest_structure, delivery_target, _job_items])
 		return true
 	
 	return false

@@ -23,10 +23,14 @@ input_resources = [ 1025 ]
 _output_resources = [ ExtResource( 5 ), ExtResource( 5 ) ]
 
 [node name="axe" parent="pilot_master/custodian" index="0" instance=ExtResource( 4 )]
+collision_layer = 8
+weight = 10.0
 gathers = [ 1025 ]
 delivers = [ 1026 ]
 
 [node name="axe2" parent="pilot_master/custodian" index="1" instance=ExtResource( 4 )]
+collision_layer = 8
+weight = 10.0
 gathers = [ 1025 ]
 delivers = [ 1026 ]
 

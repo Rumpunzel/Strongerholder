@@ -27,6 +27,9 @@ onready var _navigator: Navigator = ServiceLocator.navigator
 onready var _quarter_master = ServiceLocator.quarter_master
 
 
+var _job_items: Array = [ ]
+
+
 
 
 func _ready():
@@ -36,11 +39,20 @@ func _ready():
 
 
 func enter(_parameters: Array = [ ]):
+	for item in _job_items:
+		item.assign_worker(employee)
+	
 	set_process(true)
 
 
 func exit(next_state: String, parameters: Array = [ ]):
 	set_process(false)
+	
+	for item in _job_items:
+		if weakref(item).get_ref():
+			item.unassign_worker(employee)
+	
+	_job_items = [ ]
 	
 	_job_machine._change_to(next_state, parameters)
 

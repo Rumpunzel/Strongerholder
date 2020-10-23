@@ -79,6 +79,10 @@ func how_many_of_item(item_type) -> int:
 	return item_count
 
 
+func carry_weight_left() -> float:
+	return _main_inventory.capacity_left()
+
+
 func interact_with(structure: Node2D):
 	if _in_range(structure):
 		structure.operate()

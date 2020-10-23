@@ -18,18 +18,21 @@ func _process(_delta: float):
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
 		if nearest_item:
-			exit(PICK_UP, [nearest_item, _delivery_target])
+			exit(PICK_UP, [nearest_item, _delivery_target, _job_items])
 
 
 
 
 func enter(parameters: Array = [ ]):
+	assert(parameters.size() == 4)
+	
 	_item_type = parameters[0]
 	
 	_structure_to_retrieve_from = parameters[1]
 	_structure_to_retrieve_from.assign_gatherer(employee, _item_type)
 	
 	_delivery_target = parameters[2]
+	_job_items = parameters[3]
 	
 	.enter([_structure_to_retrieve_from.global_position])
 

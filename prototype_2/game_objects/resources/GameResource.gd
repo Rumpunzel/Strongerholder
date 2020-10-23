@@ -5,7 +5,7 @@ extends GameObject
 export(Constants.Resources) var type
 
 # warning-ignore-all:unused_class_variable
-export var weight: float
+export var weight: float = 10.0
 
 
 var _current_registration: ResourceSightings.ResourceProfile = null

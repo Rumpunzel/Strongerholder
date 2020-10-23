@@ -10,6 +10,7 @@
 [node name="Spyglass" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 type = 2048
+weight = 0.0
 
 [node name="state_machine" parent="." index="2"]
 script = ExtResource( 4 )

@@ -13,7 +13,9 @@ func _process(_delta: float):
 	
 	if not _item.is_active():
 		if _delivery_target and _item.worker_assigned(employee):
-			exit(DELIVER, [_item, _delivery_target.owner])
+			_job_items.append(_item)
+			
+			exit(DELIVER, [_job_items, _delivery_target.owner])
 		else:
 			exit(IDLE)
 
@@ -21,17 +23,19 @@ func _process(_delta: float):
 
 
 func enter(parameters: Array = [ ]):
+	assert(parameters.size() == 3)
+	
 	_item = parameters[0]
 	_item.assign_worker(employee)
 	
 	_delivery_target = parameters[1]
+	_job_items = parameters[2]
 	
 	.enter([_item.global_position])
 
 
 func exit(next_state: String, parameters: Array = [ ]):
 	_item.unassign_worker(employee)
-	
 	_item = null
 	
 	_delivery_target = null

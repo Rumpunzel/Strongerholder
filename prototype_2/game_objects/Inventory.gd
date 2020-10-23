@@ -5,6 +5,9 @@ extends Node2D
 signal received_item(item)
 
 
+export var capacity: float = 10.0
+
+
 
 
 func pick_up_item(item: Node2D):
@@ -40,6 +43,15 @@ func has(object_type) -> Node2D:
 
 func get_contents() -> Array:
 	return get_children()
+
+
+func capacity_left() -> float:
+	var carry_weight: float = 0.0
+	
+	for item in get_contents():
+		carry_weight += item.weight
+	
+	return capacity - carry_weight
 
 
 
