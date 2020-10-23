@@ -9,13 +9,13 @@ var _delivery_target: PilotMaster = null
 
 
 func _process(_delta: float):
-	yield(get_tree(), "idle_frame")
-	
+	print("processing for some reason")
 	if not _item.is_active():
 		if _delivery_target and _item.worker_assigned(employee):
 			_job_items.append(_item)
-			
-			exit(DELIVER, [_job_items, _delivery_target.owner])
+			print(_delivery_target.owner.name)
+			exit(IDLE, [_job_items, _delivery_target])
+			#exit(DELIVER, [_job_items, _delivery_target])
 		else:
 			exit(IDLE)
 
@@ -24,7 +24,7 @@ func _process(_delta: float):
 
 func enter(parameters: Array = [ ]):
 	assert(parameters.size() == 3)
-	
+	print("ENTERING HERE FOR SOME REASON")
 	_item = parameters[0]
 	_item.assign_worker(employee)
 	

@@ -8,8 +8,6 @@ var _structure_to_operate: CityStructure = null
 
 
 func _process(_delta: float):
-	yield(get_tree(), "idle_frame")
-	
 	if not _structure_to_operate.can_be_operated():
 		exit(IDLE)
 
