@@ -50,8 +50,10 @@ func _process(_delta: float):
 			if _construct_new_plan(use, employer):
 				return
 	
-#	exit(DELIVER, [_delivery_target])
-#	return
+	
+	if employee.carry_weight_left() < 10:
+		exit(DELIVER, [_delivery_target])
+		return
 
 
 
