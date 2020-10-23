@@ -45,6 +45,11 @@ _global_script_classes=[ {
 "path": "res://game_objects/game_actors/actor_controllers/state_machine/actor_state_machine.gd"
 }, {
 "base": "ActorState",
+"class": "ActorStateOperate",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/operate.gd"
+}, {
+"base": "ActorState",
 "class": "ActorStateRequest",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/state_machine/request.gd"
@@ -103,6 +108,11 @@ _global_script_classes=[ {
 "class": "CityStructureStateMachine",
 "language": "GDScript",
 "path": "res://game_objects/structures/buildings/state_machine/city_structure_state_machine.gd"
+}, {
+"base": "CityStructureState",
+"class": "CityStructureStateOperating",
+"language": "GDScript",
+"path": "res://game_objects/structures/buildings/state_machine/operating.gd"
 }, {
 "base": "CityStructureState",
 "class": "CityStructureStateTake",
@@ -209,10 +219,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_management/job_machine/just_started.gd"
 }, {
-"base": "Reference",
+"base": "JobState",
 "class": "JobStateMoveTo",
 "language": "GDScript",
 "path": "res://game_objects/city_management/job_machine/move_to.gd"
+}, {
+"base": "JobStateMoveTo",
+"class": "JobStateOperate",
+"language": "GDScript",
+"path": "res://game_objects/city_management/job_machine/operate.gd"
 }, {
 "base": "JobStateMoveTo",
 "class": "JobStatePickUp",
@@ -382,6 +397,7 @@ _global_script_class_icons={
 "ActorStateIdle": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ActorStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "ActorStateMachine": "res://assets/icons/game_actors/states/icon_actor_state_machine.svg",
+"ActorStateOperate": "res://assets/icons/game_actors/states/icon_state_operate.svg",
 "ActorStateRequest": "res://assets/icons/game_actors/states/icon_state_request.svg",
 "ActorStateRun": "res://assets/icons/game_actors/states/icon_state_run.svg",
 "ActorStateTake": "res://assets/icons/game_actors/states/icon_state_take.svg",
@@ -394,6 +410,7 @@ _global_script_class_icons={
 "CityStructureStateDead": "res://assets/icons/icon_state_dead.svg",
 "CityStructureStateGive": "res://assets/icons/game_actors/states/icon_state_give.svg",
 "CityStructureStateMachine": "res://assets/icons/structures/icon_city_structure_state_machine.svg",
+"CityStructureStateOperating": "res://assets/icons/game_actors/states/icon_state_operating.svg",
 "CityStructureStateTake": "res://assets/icons/game_actors/states/icon_state_take.svg",
 "Constants": "",
 "CraftTool": "res://assets/icons/game_actors/icon_crafting_tool.svg",
@@ -415,7 +432,8 @@ _global_script_class_icons={
 "JobStateIdle": "",
 "JobStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "JobStateJustStarted": "res://assets/icons/game_actors/states/icon_state_just_started.svg",
-"JobStateMoveTo": "",
+"JobStateMoveTo": "res://assets/icons/game_actors/states/icon_state_move_to.svg",
+"JobStateOperate": "res://assets/icons/game_actors/states/icon_state_operate.svg",
 "JobStatePickUp": "res://assets/icons/game_actors/states/icon_state_pick_up.svg",
 "JobStateRetrieve": "res://assets/icons/game_actors/states/icon_state_retrieve.svg",
 "Navigator": "res://assets/icons/icon_navigator.svg",

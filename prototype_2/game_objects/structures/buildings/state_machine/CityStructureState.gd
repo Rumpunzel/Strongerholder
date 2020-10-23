@@ -4,6 +4,7 @@ extends ObjectState
 
 const GIVE = "give"
 const TAKE = "take"
+const OPERATING = "operating"
 
 
 
@@ -20,3 +21,7 @@ func give_item(item: GameResource, receiver: Node2D):
 
 func take_item(item: GameResource):
 	exit(TAKE, [item])
+
+
+func operate():
+	exit(OPERATING)

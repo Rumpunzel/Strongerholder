@@ -7,6 +7,7 @@ const GIVE = "give"
 const TAKE = "take"
 const REQUEST = "request"
 const ATTACK = "attack"
+const OPERATE = "operate"
 
 
 
@@ -38,6 +39,10 @@ func request_item(request, receiver: Node2D):
 
 func attack(weapon: CraftTool):
 	exit(ATTACK, [weapon])
+
+
+func operate(structure: Structure):
+	exit(OPERATE, [structure])
 
 
 

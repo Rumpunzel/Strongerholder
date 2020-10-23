@@ -27,6 +27,9 @@ func is_active() -> bool:
 func give_item(_item: GameResource, _receiver: Node2D):
 	pass
 
-
 func take_item(_item: GameResource):
+	pass
+
+
+func operate():
 	pass

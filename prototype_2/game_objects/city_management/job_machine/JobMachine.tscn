@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://game_objects/city_management/job_machine/job_machine.gd" type="Script" id=1]
-[ext_resource path="res://game_objects/city_management/job_machine/JobState.gd" type="Script" id=2]
+[ext_resource path="res://game_objects/city_management/job_machine/operate.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/city_management/job_machine/just_started.gd" type="Script" id=3]
 [ext_resource path="res://game_objects/city_management/job_machine/inactive.gd" type="Script" id=4]
 [ext_resource path="res://game_objects/city_management/job_machine/retrieve.gd" type="Script" id=5]
