@@ -4,7 +4,7 @@
 
 [node name="wood_planks" instance=ExtResource( 1 )]
 type = 1026
-weight = 5.0
+how_many_can_be_carried = 2
 
 [node name="sprite" parent="." index="1"]
 modulate = Color( 0, 0.0117647, 0.870588, 1 )

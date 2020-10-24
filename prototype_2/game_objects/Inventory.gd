@@ -5,7 +5,7 @@ extends Node2D
 signal received_item(item)
 
 
-export var capacity: float = 10.0
+export var _carry_weight_multipler: float = 1.0
 
 
 
@@ -46,12 +46,13 @@ func get_contents() -> Array:
 
 
 func capacity_left() -> float:
-	var carry_weight: float = 0.0
+	var carry_weight: float = _carry_weight_multipler
 	
 	for item in get_contents():
-		carry_weight += item.weight
+		if not item.how_many_can_be_carried == 0.0:
+			carry_weight -= 1.0 / float(item.how_many_can_be_carried)
 	
-	return capacity - carry_weight
+	return carry_weight
 
 
 

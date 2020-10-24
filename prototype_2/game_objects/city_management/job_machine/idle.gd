@@ -22,7 +22,7 @@ func _process(_delta: float):
 	
 	yield(get_tree(), "idle_frame")
 	
-	if employee.carry_weight_left() <= 0:
+	if employee.carry_weight_left() <= 0.0:
 		exit(DELIVER, [_delivery_target])
 		return
 	
@@ -42,7 +42,7 @@ func _process(_delta: float):
 		return
 	
 	
-	if employee.carry_weight_left() > 0:
+	if employee.carry_weight_left() > 0.0:
 		for use in dedicated_tool.gathers:
 			if not _job_items().empty() and not use == _job_items().front().type:
 				continue
@@ -51,7 +51,7 @@ func _process(_delta: float):
 				return
 	
 	
-	if employee.carry_weight_left() < 10:
+	if not _job_items().empty():
 		exit(DELIVER, [_delivery_target])
 		return
 
