@@ -10,8 +10,7 @@ var _timed_passed: int = 0
 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float):
+func _check_for_exit_conditions():
 	_timed_passed += 1
 	
 	if _timed_passed < _update_time:

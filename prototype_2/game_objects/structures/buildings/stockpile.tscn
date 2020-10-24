@@ -22,6 +22,7 @@ _storage = true
 [node name="wood" parent="pilot_master/inventory" index="0" instance=ExtResource( 3 )]
 
 [node name="inventory_display" parent="." index="5"]
+visible = false
 _y_offset = -150.0
 
 [editable path="pilot_master"]
