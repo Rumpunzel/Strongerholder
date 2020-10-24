@@ -7,8 +7,8 @@ var _structure_to_operate: CityStructure = null
 
 
 
-func _process(_delta: float):
-	if not _structure_to_operate.can_be_operated():
+func _check_for_exit_conditions():
+	if not _structure_to_operate.can_be_operated() or not _structure_to_operate.position_open():
 		exit(IDLE)
 
 

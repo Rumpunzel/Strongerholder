@@ -11,7 +11,7 @@ var _requested_item: bool = false
 
 
 
-func _process(_delta: float):
+func _check_for_exit_conditions():
 	if _requested_item:
 		yield(get_tree(), "idle_frame")
 		

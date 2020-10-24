@@ -7,11 +7,12 @@ var _target_structure: Structure = null
 
 
 
-func _process(_delta: float):
-	if not _job_items().empty() and not employee.get_inventory_contents().has(_job_items().front()):
-		var item: GameResource = _job_items().pop_front()
+func _check_for_exit_conditions():
+	if not _job_items().empty():
+		var item: GameResource = _job_items().front()
 		
-		item.unassign_worker(employee)
+		if not employee.get_inventory_contents().has(item):
+			item.unassign_worker(employee)
 	
 	if _job_items().empty():
 		exit(IDLE)
@@ -38,7 +39,12 @@ func exit(next_state: String, parameters: Array = [ ]):
 
 
 func next_command() -> InputMaster.Command:
-	return InputMaster.GiveCommand.new(_job_items().front(), _target_structure)
+	if not _job_items().empty():
+		var item: GameResource = _job_items().front()
+		
+		return InputMaster.GiveCommand.new(item, _target_structure)
+	
+	return InputMaster.Command.new()
 
 
 func current_target() -> Node2D:

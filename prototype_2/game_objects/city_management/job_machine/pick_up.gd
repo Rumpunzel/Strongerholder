@@ -8,7 +8,7 @@ var _delivery_target: PilotMaster = null
 
 
 
-func _process(_delta: float):
+func _check_for_exit_conditions():
 	if not _item.is_active():
 		if _delivery_target:
 			exit(IDLE, [_delivery_target])

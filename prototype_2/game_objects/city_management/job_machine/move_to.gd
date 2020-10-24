@@ -8,9 +8,9 @@ var _path: PoolVector2Array = [ ]
 
 
 
-#func _process(_delta: float):
-#	if _path.empty():
-#		exit(IDLE)
+func _check_for_exit_conditions():
+	if _path.empty():
+		exit(IDLE)
 
 
 

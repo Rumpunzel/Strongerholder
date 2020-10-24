@@ -33,6 +33,10 @@ func _ready():
 	set_process(false)
 
 
+func _process(_delta: float):
+	_check_for_exit_conditions()
+
+
 
 
 func enter(_parameters: Array = [ ]):
@@ -77,6 +81,10 @@ func deactivate():
 func is_active() -> bool:
 	return true
 
+
+
+func _check_for_exit_conditions():
+	pass
 
 
 func _job_items() -> Array:
