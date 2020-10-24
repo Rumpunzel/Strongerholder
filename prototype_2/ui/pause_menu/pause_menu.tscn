@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/pause_menu/pause_menu.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/ui_title_font.tres" type="DynamicFont" id=3]
+
+[node name="pause_menu" type="Popup"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+popup_exclusive = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background_tint" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu_layout" type="VBoxContainer" parent="menu"]
+margin_left = 872.0
+margin_top = 424.0
+margin_right = 1048.0
+margin_bottom = 656.0
+custom_constants/separation = 20
+
+[node name="title" type="Label" parent="menu/menu_layout"]
+margin_right = 176.0
+margin_bottom = 32.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "Game Paused"
+
+[node name="menu_buttons" type="VBoxContainer" parent="menu/menu_layout"]
+margin_left = 34.0
+margin_top = 52.0
+margin_right = 142.0
+margin_bottom = 232.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_constants/separation = 20
+
+[node name="continue" type="Button" parent="menu/menu_layout/menu_buttons"]
+margin_right = 108.0
+margin_bottom = 30.0
+text = "Continue"
+
+[node name="save" type="Button" parent="menu/menu_layout/menu_buttons"]
+margin_top = 50.0
+margin_right = 108.0
+margin_bottom = 80.0
+text = "Save"
+
+[node name="load" type="Button" parent="menu/menu_layout/menu_buttons"]
+margin_top = 100.0
+margin_right = 108.0
+margin_bottom = 130.0
+text = "Load"
+
+[node name="quit" type="Button" parent="menu/menu_layout/menu_buttons"]
+margin_top = 150.0
+margin_right = 108.0
+margin_bottom = 180.0
+text = "Quit"
+[connection signal="pressed" from="menu/menu_layout/menu_buttons/continue" to="." method="_unpause_game"]
+[connection signal="pressed" from="menu/menu_layout/menu_buttons/quit" to="." method="_quit_game"]

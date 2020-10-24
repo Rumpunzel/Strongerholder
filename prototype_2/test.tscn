@@ -2,9 +2,9 @@
 
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/city_management/quarter_master.tscn" type="PackedScene" id=2]
-[ext_resource path="res://player_camera.gd" type="Script" id=3]
 [ext_resource path="res://game_objects/structures/things/tree.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game_objects/objects_layer.gd" type="Script" id=5]
+[ext_resource path="res://ui/pause_menu/pause_menu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
 [ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=8]
 [ext_resource path="res://test_tilemap.tres" type="TileSet" id=9]
@@ -36,25 +36,9 @@ polygon = PoolVector2Array( 26.5, -61, -13, -61, -120, -61.5, -116.5, 63.5, -63.
 [node name="test" type="Node2D"]
 script = SubResource( 1 )
 
-[node name="ui_layer" type="CanvasLayer" parent="."]
+[node name="gui_layer" type="CanvasLayer" parent="."]
 
-[node name="control" type="Control" parent="ui_layer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="margin_container" type="MarginContainer" parent="ui_layer/control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_right = 400
-custom_constants/margin_top = 400
-custom_constants/margin_left = 400
-custom_constants/margin_bottom = 400
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="pause_menu" parent="gui_layer" instance=ExtResource( 6 )]
 
 [node name="navigator" type="Navigation2D" parent="."]
 script = ExtResource( 10 )
@@ -99,8 +83,6 @@ drag_margin_right = 0.0
 drag_margin_bottom = 0.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
-script = ExtResource( 3 )
-ui_layer = NodePath("../../../ui_layer")
 
 [node name="game_actor" parent="objects_layer" instance=ExtResource( 1 )]
 position = Vector2( 48, 16 )
