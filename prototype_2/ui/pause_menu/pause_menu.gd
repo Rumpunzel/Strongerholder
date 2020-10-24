@@ -26,10 +26,11 @@ func _unpause_game():
 
 
 func _save_game():
-	var nodes_to_save: Array = get_tree().get_nodes_in_group(GameObject.PERSISTENT)
-	
-	for node in nodes_to_save:
-		pass
+	pass
+
+
+func _load_game():
+	pass
 
 
 func _quit_game():

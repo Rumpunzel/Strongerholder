@@ -16,7 +16,6 @@ onready var _state_machine: ObjectStateMachine = $state_machine
 
 
 
-
 func _setup(player_controlled: bool = false):
 	_puppet_master.set_script(InputMaster if player_controlled else PuppetMaster)
 

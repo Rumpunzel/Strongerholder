@@ -14,9 +14,12 @@ var history: Array = [ ]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Set the initial state to the first child node
-	current_state = get_child(0)
+	if not current_state:
+		# Set the initial state to the first child node
+		current_state = get_child(0)
+	
 	yield(get_tree(), "idle_frame")
+	
 	_enter_state()
 
 

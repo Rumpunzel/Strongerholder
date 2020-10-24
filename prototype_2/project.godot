@@ -269,11 +269,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/structures/pilot_master.gd"
 }, {
-"base": "Camera2D",
-"class": "PlayerCamera",
-"language": "GDScript",
-"path": "res://player_camera.gd"
-}, {
 "base": "InputMaster",
 "class": "PuppetMaster",
 "language": "GDScript",
@@ -333,6 +328,11 @@ _global_script_classes=[ {
 "class": "ResourceStateMachine",
 "language": "GDScript",
 "path": "res://game_objects/resources/state_machine/resource_state_machine.gd"
+}, {
+"base": "Reference",
+"class": "SaverLoader",
+"language": "GDScript",
+"path": "res://saver_loader/saver_loader.gd"
 }, {
 "base": "GameResource",
 "class": "Spyglass",
@@ -447,7 +447,6 @@ _global_script_class_icons={
 "ObjectsLayer": "res://assets/icons/icon_objects_layer.svg",
 "PauseMenu": "res://assets/icons/gui/icon_pause_menu.svg",
 "PilotMaster": "res://assets/icons/structures/icon_pilot_master.svg",
-"PlayerCamera": "",
 "PuppetMaster": "res://assets/icons/game_actors/icon_puppet_master.svg",
 "QuarterMaster": "res://assets/icons/icon_quarter_master.svg",
 "Queue": "",
@@ -460,6 +459,7 @@ _global_script_class_icons={
 "ResourceStateDead": "res://assets/icons/icon_state_dead.svg",
 "ResourceStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "ResourceStateMachine": "res://assets/icons/icon_resource_state_machine.svg",
+"SaverLoader": "",
 "Spyglass": "res://assets/icons/icon_spyglass.svg",
 "StateDead": "res://assets/icons/icon_state_dead.svg",
 "StateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
@@ -479,6 +479,7 @@ _global_script_class_icons={
 config/name="Prototype 2"
 run/main_scene="res://test.tscn"
 config/icon="res://assets/sprites/castle_icon_colour.png"
+config/version="0.0.1"
 
 [autoload]
 

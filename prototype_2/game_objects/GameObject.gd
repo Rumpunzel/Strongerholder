@@ -16,7 +16,6 @@ onready var _state_machine: ObjectStateMachine = $state_machine
 
 
 
-
 func assign_worker(puppet_master: Node2D):
 	assert(_assigned_workers.size() < _maximum_operators)
 	_assigned_workers.append(puppet_master)
