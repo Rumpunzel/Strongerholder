@@ -2,6 +2,9 @@ class_name JobStateMoveTo, "res://assets/icons/game_actors/states/icon_state_mov
 extends JobState
 
 
+const PERSIST_OBJ_PROPERTIES_2 := ["_pathing_target", "_path"]
+
+
 var _pathing_target: Vector2 = Vector2()
 var _path: PoolVector2Array = [ ]
 

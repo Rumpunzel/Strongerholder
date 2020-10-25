@@ -2,14 +2,18 @@ class_name CityStructureStateGive, "res://assets/icons/game_actors/states/icon_s
 extends CityStructureState
 
 
+const PERSIST_OBJ_PROPERTIES_3 := ["_item", "_receiver"]
+
+
 var _item: GameResource = null
 var _receiver: Node2D = null
 
 
 
 func enter(parameters: Array = [ ]):
-	_item = parameters[0]
-	_receiver = parameters[1]
+	if not parameters.empty():
+		_item = parameters[0]
+		_receiver = parameters[1]
 	
 	if _receiver:
 		pilot_master.drop_item(_item, _receiver.global_position)

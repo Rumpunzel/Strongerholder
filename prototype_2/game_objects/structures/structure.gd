@@ -2,6 +2,11 @@ class_name Structure, "res://assets/icons/structures/icon_structure.svg"
 extends GameObject
 
 
+const SCENE := "res://game_objects/structures/Structure.tscn"
+
+const PERSIST_PROPERTIES_2 := ["type"]
+
+
 export(Constants.Structures) var type: int
 
 
@@ -11,6 +16,8 @@ onready var _pilot_master: PilotMaster = $pilot_master
 
 
 func _ready():
+	#yield(SaveHandler, "game_load_finished")
+	
 	add_to_group(Constants.enum_name(Constants.Structures, type))
 
 

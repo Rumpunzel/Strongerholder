@@ -2,13 +2,15 @@ class_name GameResource, "res://assets/icons/icon_resource.svg"
 extends GameObject
 
 
+const SCENE := "res://game_objects/resources/GameResource.tscn"
+
+const PERSIST_PROPERTIES_2 := ["type", "how_many_can_be_carried"]
+
+
 export(Constants.Resources) var type
 
 # warning-ignore-all:unused_class_variable
 export(int, 10) var how_many_can_be_carried: int = 1
-
-
-var _current_registration: ResourceSightings.ResourceProfile = null
 
 
 onready var _objects_layer = ServiceLocator.objects_layer
@@ -37,7 +39,7 @@ func pick_up_item(new_inventory):
 
 
 func register_resource():
-	_current_registration = _quarter_master.register_resource(self, null)
+	 _quarter_master.register_resource(self)
 
 func unregister_resource():
-	_quarter_master.unregister_resource(_current_registration)
+	_quarter_master.unregister_resource(self)

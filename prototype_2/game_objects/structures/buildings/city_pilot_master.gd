@@ -2,6 +2,10 @@ class_name CityPilotMaster, "res://assets/icons/structures/icon_city_pilot_maste
 extends PilotMaster
 
 
+const PERSIST_PROPERTIES_2 := ["_available_job", "_storage"]
+const PERSIST_OBJ_PROPERTIES_4 := ["_city_structure", "_custodian", "_assigned_gatherers"]
+
+
 const STORAGE = "STORAGE"
 
 
@@ -9,19 +13,26 @@ export(PackedScene) var _available_job
 export var _storage: bool = false
 
 
-var _job_posting: JobQueue.JobPosting = null
+var _city_structure: CityStructure = null
+var _custodian: Custodian = null
+
 var _assigned_gatherers: Dictionary = { }
-
-
-onready var _custodian: Custodian = $custodian
 
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#yield(SaveHandler, "game_load_finished")
+	
+	if not _city_structure:
+		_city_structure = owner
+	
+	if not _custodian:
+		_custodian = $custodian
+	
 	if _storage:
-		owner.add_to_group(STORAGE)
+		_city_structure.add_to_group(STORAGE)
 	
 	if needs_workers():
 		_post_job()
@@ -82,7 +93,7 @@ func refine_resource():
 
 
 func _post_job():
-	_job_posting = _quarter_master.post_job(self)
+	_quarter_master.post_job(self)
 
 func _unpost_job():
-	_quarter_master.unpost_job(_job_posting)
+	_quarter_master.unpost_job(self)

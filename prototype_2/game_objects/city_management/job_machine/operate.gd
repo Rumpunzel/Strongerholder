@@ -2,6 +2,9 @@ class_name JobStateOperate, "res://assets/icons/game_actors/states/icon_state_op
 extends JobStateMoveTo
 
 
+const PERSIST_OBJ_PROPERTIES_3 := ["_structure_to_operate"]
+
+
 var _structure_to_operate: CityStructure = null
 
 
@@ -15,10 +18,11 @@ func _check_for_exit_conditions():
 
 
 func enter(parameters: Array = [ ]):
-	assert(parameters.size() == 1)
-	
-	_structure_to_operate = parameters[0]
-	_structure_to_operate.assign_worker(employee)
+	if not parameters.empty():
+		assert(parameters.size() == 1)
+		
+		_structure_to_operate = parameters[0]
+		_structure_to_operate.assign_worker(employee)
 	
 	.enter([_structure_to_operate.global_position])
 

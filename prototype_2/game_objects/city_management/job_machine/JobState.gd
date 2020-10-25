@@ -2,6 +2,12 @@ class_name JobState, "res://assets/icons/game_actors/states/icon_state_idle.svg"
 extends Node
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+
+const PERSIST_PROPERTIES := ["name"]
+const PERSIST_OBJ_PROPERTIES := ["employee", "employer", "dedicated_tool"]
+
+
 const JUST_STARTED = "just_started"
 const IDLE = "idle"
 const DELIVER = "deliver"

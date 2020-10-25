@@ -2,16 +2,27 @@ class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
 extends Area2D
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+
+const PERSIST_PROPERTIES := ["name"]
+const PERSIST_OBJ_PROPERTIES := ["_main_inventory"]
+
+
 var _inventories: Array = [ ]
 var _reversed_inventories: Array = [ ]
 
 
-onready var _main_inventory: Inventory = $inventory
+onready var _main_inventory: Inventory = null
 
 
 
 
 func _ready():
+	#yield(SaveHandler, "game_load_finished")
+	
+	if not _main_inventory:
+		_main_inventory = $inventory
+	
 	for child in get_children():
 		if child is Inventory:
 			_inventories.append(child)

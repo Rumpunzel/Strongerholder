@@ -2,6 +2,9 @@ class_name CityStructureState
 extends ObjectState
 
 
+const PERSIST_OBJ_PROPERTIES_2 := ["pilot_master"]
+
+
 const GIVE = "give"
 const TAKE = "take"
 

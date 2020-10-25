@@ -6,7 +6,6 @@
 
 [node name="pause_menu" type="Popup"]
 pause_mode = 2
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -38,7 +37,6 @@ margin_left = 872.0
 margin_top = 424.0
 margin_right = 1048.0
 margin_bottom = 656.0
-custom_constants/separation = 20
 
 [node name="title" type="Label" parent="menu/menu_layout"]
 margin_right = 176.0
@@ -54,7 +52,6 @@ margin_right = 142.0
 margin_bottom = 232.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
-custom_constants/separation = 20
 
 [node name="continue" type="Button" parent="menu/menu_layout/menu_buttons"]
 margin_right = 108.0

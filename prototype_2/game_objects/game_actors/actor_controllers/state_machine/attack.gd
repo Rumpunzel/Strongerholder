@@ -2,15 +2,19 @@ class_name ActorStateAttack, "res://assets/icons/game_actors/states/icon_state_a
 extends ActorState
 
 
+const PERSIST_OBJ_PROPERTIES_2 := ["_weapon"]
+
+
 var _weapon: CraftTool
 
 
 
 
 func enter(parameters: Array = [ ]):
-	.enter(parameters)
-	
-	_weapon = parameters[0]
+	if not parameters.empty():
+		.enter(parameters)
+		
+		_weapon = parameters[0]
 	
 	_animation_cancellable = false
 	

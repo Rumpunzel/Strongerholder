@@ -2,6 +2,9 @@ class_name Custodian, "res://assets/icons/structures/icon_custodian.svg"
 extends ToolBelt
 
 
+const PERSIST_OBJ_PROPERTIES := ["distributed_tools"]
+
+
 var distributed_tools: Array = [ ]
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/sprites/trees/tree2.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=2]
@@ -9,12 +9,14 @@
 [ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=7]
 [ext_resource path="res://game_objects/structures/things/random_sprite.gd" type="Script" id=8]
 [ext_resource path="res://game_objects/structures/Structure.tscn" type="PackedScene" id=9]
+[ext_resource path="res://game_objects/structures/things/tree.gd" type="Script" id=10]
 [ext_resource path="res://game_objects/resources/wood.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.0
 
 [node name="tree" instance=ExtResource( 9 )]
+script = ExtResource( 10 )
 type = 512
 
 [node name="collision_shape" parent="." index="0"]

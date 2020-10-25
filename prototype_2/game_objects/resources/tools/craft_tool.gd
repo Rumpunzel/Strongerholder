@@ -2,6 +2,11 @@ class_name CraftTool, "res://assets/icons/game_actors/icon_crafting_tool.svg"
 extends Spyglass
 
 
+const SCENE_OVERRIDE_2 := "res://game_objects/resources/tools/CraftTool.tscn"
+
+const PERSIST_PROPERTIES_4 := ["attack_value", "animation"]
+
+
 export var attack_value: float = 2.0
 # warning-ignore-all:unused_class_variable
 export(String, "none", "attack", "give") var animation

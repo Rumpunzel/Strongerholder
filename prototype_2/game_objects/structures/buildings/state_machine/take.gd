@@ -2,12 +2,16 @@ class_name CityStructureStateTake, "res://assets/icons/game_actors/states/icon_s
 extends CityStructureState
 
 
+const PERSIST_OBJ_PROPERTIES_3 := ["_item"]
+
+
 var _item: GameResource = null
 
 
 
 func enter(parameters: Array = [ ]):
-	_item = parameters[0]
+	if not parameters.empty():
+		_item = parameters[0]
 	
 	
 	if not _item:

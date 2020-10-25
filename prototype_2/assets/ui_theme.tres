@@ -15,3 +15,4 @@ Button/styles/focus = null
 Button/styles/hover = null
 Button/styles/normal = null
 Button/styles/pressed = null
+VBoxContainer/constants/separation = 20

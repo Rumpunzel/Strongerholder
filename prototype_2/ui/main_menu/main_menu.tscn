@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/fonts/ui_title_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=2]
+[ext_resource path="res://ui/main_menu/main_menu.gd" type="Script" id=3]
+
+[node name="main_menu" type="CenterContainer"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu_layout" type="VBoxContainer" parent="."]
+margin_left = 848.0
+margin_top = 444.0
+margin_right = 1072.0
+margin_bottom = 636.0
+custom_constants/separation = 30
+
+[node name="title" type="Label" parent="menu_layout"]
+margin_right = 224.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 1 )
+text = "Strongerholder"
+
+[node name="menu_buttons" type="VBoxContainer" parent="menu_layout"]
+margin_left = 52.0
+margin_top = 62.0
+margin_right = 172.0
+margin_bottom = 192.0
+size_flags_horizontal = 4
+
+[node name="new_game" type="Button" parent="menu_layout/menu_buttons"]
+margin_right = 120.0
+margin_bottom = 30.0
+text = "New Game"
+
+[node name="load" type="Button" parent="menu_layout/menu_buttons"]
+margin_top = 50.0
+margin_right = 120.0
+margin_bottom = 80.0
+text = "Load Game"
+
+[node name="quit" type="Button" parent="menu_layout/menu_buttons"]
+margin_top = 100.0
+margin_right = 120.0
+margin_bottom = 130.0
+text = "Quit"
+[connection signal="pressed" from="menu_layout/menu_buttons/new_game" to="." method="_new_game"]
+[connection signal="pressed" from="menu_layout/menu_buttons/load" to="." method="_load_game"]
+[connection signal="pressed" from="menu_layout/menu_buttons/quit" to="." method="_quit_game"]

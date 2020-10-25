@@ -2,6 +2,9 @@ class_name JobStatePickUp, "res://assets/icons/game_actors/states/icon_state_pic
 extends JobStateMoveTo
 
 
+const PERSIST_OBJ_PROPERTIES_3 := ["_item", "_delivery_target"]
+
+
 var _item: GameResource = null
 var _delivery_target: PilotMaster = null
 
@@ -20,12 +23,13 @@ func _check_for_exit_conditions():
 
 
 func enter(parameters: Array = [ ]):
-	assert(parameters.size() == 2)
-	
-	_item = parameters[0]
-	_item.assign_worker(employee)
-	
-	_delivery_target = parameters[1]
+	if not parameters.empty():
+		assert(parameters.size() == 2)
+		
+		_item = parameters[0]
+		_item.assign_worker(employee)
+		
+		_delivery_target = parameters[1]
 	
 	.enter([_item.global_position])
 

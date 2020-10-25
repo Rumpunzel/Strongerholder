@@ -26,11 +26,19 @@ func _unpause_game():
 
 
 func _save_game():
-	pass
+	SaveHandler.save_game("user://savegame.save")
+	
+	yield(SaveHandler, "game_save_finished")
+	
+	print("Game saved to %s" % "user://savegame.save")
 
 
 func _load_game():
-	pass
+	SaveHandler.load_game("user://savegame.save")
+	
+	yield(SaveHandler, "game_load_finished")
+	
+	print("Game loaded from %s" % "user://savegame.save")
 
 
 func _quit_game():

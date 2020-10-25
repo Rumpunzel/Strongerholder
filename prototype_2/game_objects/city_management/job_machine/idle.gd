@@ -2,6 +2,9 @@ class_name JobStateIdle
 extends JobState
 
 
+const PERSIST_OBJ_PROPERTIES_3 := ["_delivery_target"]
+
+
 var _delivery_target: PilotMaster = null
 
 var _update_time: int = 20
@@ -59,6 +62,7 @@ func _check_for_exit_conditions():
 
 func enter(parameters: Array = [ ]):
 	assert(parameters.size() <= 1)
+	
 	if parameters.empty():
 		_delivery_target = null
 	else:
@@ -85,7 +89,7 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 		return true
 	
 	
-	var nearest_structure: Structure = _get_nearest_structure_holding_item_of_type(use, [delivery_target.owner.type])
+	var nearest_structure: Structure = _get_nearest_structure_holding_item_of_type(use, [delivery_target.get_parent().type])
 	
 	if nearest_structure:
 		var state: String = GATHER

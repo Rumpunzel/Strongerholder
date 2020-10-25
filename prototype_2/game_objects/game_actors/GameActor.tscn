@@ -53,7 +53,8 @@ onready var _state_machine: StateMachine = get_node(_state_machine_node)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	text = \"%s\" % [_state_machine.current_state.name]
+	if _state_machine.current_state:
+		text = \"%s\" % [_state_machine.current_state.name]
 "
 
 [sub_resource type="GDScript" id=4]
@@ -70,7 +71,7 @@ onready var _puppet_master: PuppetMaster = get_node(_puppet_master_node)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if _puppet_master is PuppetMaster:
+	if _puppet_master is PuppetMaster and _puppet_master._current_job and _puppet_master._current_job.current_state:
 		text = \"%s\" % [_puppet_master._current_job.current_state.name if _puppet_master._current_job else \"unassigned\"]
 "
 

@@ -2,6 +2,9 @@ class_name JobStateDeliver, "res://assets/icons/game_actors/states/icon_state_de
 extends JobStateMoveTo
 
 
+const PERSIST_OBJ_PROPERTIES_3 := ["_delivery_target", "_target_structure"]
+
+
 var _delivery_target: PilotMaster = null
 var _target_structure: Structure = null
 
@@ -21,10 +24,11 @@ func _check_for_exit_conditions():
 
 
 func enter(parameters: Array = [ ]):
-	assert(parameters.size() == 1)
-	
-	_delivery_target = parameters[0]
-	_target_structure = _delivery_target.owner
+	if not parameters.empty():
+		assert(parameters.size() == 1)
+		
+		_delivery_target = parameters[0]
+		_target_structure = _delivery_target.owner
 	
 	.enter([_delivery_target.global_position])
 

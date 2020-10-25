@@ -2,6 +2,12 @@ class_name GameObject, "res://assets/icons/icon_game_object.svg"
 extends StaticBody2D
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+
+const PERSIST_PROPERTIES := ["name", "position", "_maximum_operators"]
+const PERSIST_OBJ_PROPERTIES := ["_assigned_workers"]
+
+
 signal died
 
 

@@ -2,6 +2,11 @@ class_name Inventory, "res://assets/icons/icon_inventory.svg"
 extends Node2D
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+
+const PERSIST_PROPERTIES := ["name", "_carry_weight_multipler"]
+
+
 signal received_item(item)
 
 

@@ -2,6 +2,9 @@ class_name ActorStateMachine, "res://assets/icons/game_actors/states/icon_actor_
 extends ObjectStateMachine
 
 
+const PERSIST_PROPERTIES_3 := ["_animation_tree_node"]
+
+
 export (NodePath) var _animation_tree_node
 
 

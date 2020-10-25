@@ -2,6 +2,9 @@ class_name ActorStateRun, "res://assets/icons/game_actors/states/icon_state_run.
 extends ActorState
 
 
+const PERSIST_PROPERTIES_2 := ["move_speed", "sprint_modifier"]
+
+
 export var move_speed: float = 64.0
 export var sprint_modifier: float = 2.0
 

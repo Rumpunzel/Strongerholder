@@ -28,7 +28,8 @@ func _process(_delta: float):
 
 
 func _draw():
-	draw_line(Vector2(), (target.global_position - global_position) * 10, _random_color, 50.0)
+	if target:
+		draw_line(Vector2(), (target.global_position - global_position) * 10, _random_color, 50.0)
 "
 
 [node name="flag" type="Sprite"]
@@ -36,5 +37,3 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 1 )
 offset = Vector2( 210, -240 )
 script = SubResource( 1 )
-
-[node name="node_2d" type="Node2D" parent="."]

@@ -2,16 +2,20 @@ class_name ActorStateRequest, "res://assets/icons/game_actors/states/icon_state_
 extends ActorState
 
 
+const PERSIST_OBJ_PROPERTIES_2 := ["_request", "_receiver"]
+
+
 var _request
 var _receiver: Node2D
 
 
 
 func enter(parameters: Array = [ ]):
-	.enter(parameters)
-	
-	_request = parameters[0]
-	_receiver = parameters[1]
+	if not parameters.empty():
+		.enter(parameters)
+		
+		_request = parameters[0]
+		_receiver = parameters[1]
 	
 	_animation_cancellable = false
 	

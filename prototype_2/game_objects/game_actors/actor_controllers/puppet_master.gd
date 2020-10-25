@@ -2,10 +2,10 @@ class_name PuppetMaster, "res://assets/icons/game_actors/icon_puppet_master.svg"
 extends InputMaster
 
 
-const TASK_MASTER = "task_master"
-const TASK_TARGET = "task_target"
-const PURPOSE = "purpose"
-const TOOL = "tool"
+const SCENE := "res://game_objects/game_actors/actor_controllers/puppet_master.tscn"
+
+const PERSIST_PROPERTIES_2 := ["_applied"]
+const PERSIST_OBJ_PROPERTIES_2 := ["_jobs", "_current_job", "_quarter_master"]
 
 
 var _jobs: Array = [ ]

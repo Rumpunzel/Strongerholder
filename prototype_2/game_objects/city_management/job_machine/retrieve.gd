@@ -2,6 +2,9 @@ class_name JobStateRetrieve, "res://assets/icons/game_actors/states/icon_state_r
 extends JobStateMoveTo
 
 
+const PERSIST_OBJ_PROPERTIES_3 := ["_item_type", "_structure_to_retrieve_from", "_delivery_target", "_requested_item"]
+
+
 var _item_type = null
 var _structure_to_retrieve_from: CityStructure = null
 var _delivery_target: PilotMaster = null
@@ -26,14 +29,15 @@ func _check_for_exit_conditions():
 
 
 func enter(parameters: Array = [ ]):
-	assert(parameters.size() == 3)
-	
-	_item_type = parameters[0]
-	
-	_structure_to_retrieve_from = parameters[1]
-	_structure_to_retrieve_from.assign_gatherer(employee, _item_type)
-	
-	_delivery_target = parameters[2]
+	if not parameters.empty():
+		assert(parameters.size() == 3)
+		
+		_item_type = parameters[0]
+		
+		_structure_to_retrieve_from = parameters[1]
+		_structure_to_retrieve_from.assign_gatherer(employee, _item_type)
+		
+		_delivery_target = parameters[2]
 	
 	.enter([_structure_to_retrieve_from.global_position])
 

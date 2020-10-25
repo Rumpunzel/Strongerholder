@@ -2,6 +2,13 @@ class_name GameActor, "res://assets/icons/game_actors/icon_game_actor.svg"
 extends KinematicBody2D
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const SCENE := "res://game_objects/game_actors/GameActor.tscn"
+
+const PERSIST_PROPERTIES := ["name", "position"]
+const PERSIST_OBJ_PROPERTIES := ["_puppet_master"]
+
+
 signal moved(direction)
 
 signal died
@@ -10,9 +17,21 @@ signal died
 var velocity: Vector2 = Vector2()
 
 
+var _puppet_master: InputMaster = null
+
+
 onready var _collision_shape: CollisionShape2D = $collision_shape
-onready var _puppet_master: InputMaster = $puppet_master
 onready var _state_machine: ObjectStateMachine = $state_machine
+
+
+
+
+func _ready():
+	#yield(SaveHandler, "game_load_finished")
+	
+	if not _puppet_master:
+		_puppet_master = $puppet_master
+
 
 
 
@@ -21,7 +40,8 @@ func _setup(player_controlled: bool = false):
 
 
 func _process(_delta: float):
-	_puppet_master.process_commands(_state_machine)
+	if _puppet_master:
+		_puppet_master.process_commands(_state_machine)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

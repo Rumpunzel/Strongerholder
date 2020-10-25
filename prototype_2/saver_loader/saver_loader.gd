@@ -73,12 +73,14 @@ var properties_arrays := [
 	"PERSIST_PROPERTIES",
 	"PERSIST_PROPERTIES_2",
 	"PERSIST_PROPERTIES_3",
+	"PERSIST_PROPERTIES_4",
 	]
 
 var obj_properties_arrays := [
 	"PERSIST_OBJ_PROPERTIES",
 	"PERSIST_OBJ_PROPERTIES_2",
 	"PERSIST_OBJ_PROPERTIES_3",
+	"PERSIST_OBJ_PROPERTIES_4",
 	]
 
 var object_tag := "@!~`#" # persisted strings must not start with this
@@ -118,12 +120,12 @@ var _log := ""
 # *************************** PUBLIC FUNCTIONS ********************************
 
 static func make_object_or_scene(script: Script) -> Object:
-	if not "SCENE" in script and not "SCENE_OVERRIDE" in script:
+	if not "SCENE" in script and not "SCENE_OVERRIDE" in script and not "SCENE_OVERRIDE_2" in script:
 		return script.new()
 	
 	# It's a scene if the script or an extended script has member "SCENE" or
 	# "SCENE_OVERRIDE". We create the scene and return the root node.
-	var scene_path: String = script.SCENE_OVERRIDE if "SCENE_OVERRIDE" in script else script.SCENE
+	var scene_path: String = script.SCENE_OVERRIDE_2 if "SCENE_OVERRIDE_2" in script else (script.SCENE_OVERRIDE if "SCENE_OVERRIDE" in script else script.SCENE)
 	var pkd_scene: PackedScene = load(scene_path)
 	var root_node: Node = pkd_scene.instance()
 	
@@ -435,6 +437,7 @@ func _build_tree() -> void:
 		if node.PERSIST_AS_PROCEDURAL_OBJECT:
 			var parent_save_id: int = serialized_node[2]
 			var parent: Node = _objects[parent_save_id]
+			
 			parent.add_child(node)
 
 func _set_current_scene() -> void:

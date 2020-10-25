@@ -2,6 +2,9 @@ class_name Refinery, "res://assets/icons/structures/icon_refinery.svg"
 extends Inventory
 
 
+const PERSIST_PROPERTIES_2 := ["input_resources", "_output_resources", "_production_steps", "_steps_done"]
+
+
 export(Array, Constants.Resources) var input_resources
 
 
@@ -49,6 +52,7 @@ func refine_prodcut():
 		for resource in get_children():
 			if resource.type == item:
 				remove_child(resource)
+				get_parent()._quarter_master.unregister_resource(resource)
 				resource.queue_free()
 				break
 	

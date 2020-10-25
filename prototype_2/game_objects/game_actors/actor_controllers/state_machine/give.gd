@@ -2,6 +2,10 @@ class_name ActorStateGive, "res://assets/icons/game_actors/states/icon_state_giv
 extends ActorState
 
 
+const PERSIST_PROPERTIES_2 := ["_puppet_master_node"]
+const PERSIST_OBJ_PROPERTIES_2 := ["_item", "_receiver"]
+
+
 export(NodePath) var _puppet_master_node
 
 
@@ -14,10 +18,11 @@ onready var _puppet_master: PuppetMaster = get_node(_puppet_master_node)
 
 
 func enter(parameters: Array = [ ]):
-	.enter(parameters)
-	
-	_item = parameters[0]
-	_receiver = parameters[1]
+	if not parameters.empty():
+		.enter(parameters)
+		
+		_item = parameters[0]
+		_receiver = parameters[1]
 	
 	_animation_cancellable = false
 	
