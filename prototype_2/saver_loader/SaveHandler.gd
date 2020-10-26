@@ -19,7 +19,7 @@ const _FINISHED_LOADING_TEXT: String = "Press Any Key To Continue"
 var _saver_loader: SaverLoader = SaverLoader.new()
 
 
-onready var _background: ColorRect = $popup/color_rect
+onready var _background: ColorRect = $popup/background
 onready var _progress_text: Label = $popup/center_container/title_divider/load_info/progress
 onready var _progress_bar: ProgressBar = $popup/center_container/title_divider/load_info/progress_bar
 
