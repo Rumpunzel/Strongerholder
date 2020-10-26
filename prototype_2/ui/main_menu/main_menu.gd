@@ -9,7 +9,7 @@ func _new_game():
 	var load_process = get_tree().change_scene_to(load("res://test.tscn"))
 	
 	if load_process == OK:
-		SaveHandler.starting_new_game()
+		SaveHandler.starting_new_game(true)
 	else:
 		assert(false)
 
@@ -17,14 +17,9 @@ func _new_game():
 func _load_game():
 	get_tree().paused = true
 	
-	var load_process = get_tree().change_scene_to(load("res://test.tscn"))
-	
-	if load_process == OK:
-		SaveHandler.load_game("user://savegame.save")
+	SaveHandler.load_game("user://savegame.save")
 		
-		print("Game loaded from %s" % "user://savegame.save")
-	else:
-		assert(false)
+	print("Game loaded from %s" % "user://savegame.save")
 
 
 func _quit_game():

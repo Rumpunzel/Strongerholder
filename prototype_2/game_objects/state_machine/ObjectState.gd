@@ -21,6 +21,7 @@ var _animation_cancellable: bool = true
 
 
 
+
 func _ready():
 	if not _state_machine:
 		_state_machine = get_parent()
@@ -36,6 +37,7 @@ func enter(_parameters: Array = [ ]):
 
 func exit(next_state: String, parameters: Array = [ ]):
 	_state_machine._change_to(next_state, parameters)
+
 
 
 

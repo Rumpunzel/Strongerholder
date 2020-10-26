@@ -6,7 +6,8 @@ extends ToolStateInactive
 func enter(parameters: Array = [ ]):
 	.enter(parameters)
 	
-	_game_object._enable_hurtbox(parameters[0])
+	if not parameters.empty():
+		_game_object._enable_hurtbox(parameters[0])
 
 
 func exit(next_state: String, parameters: Array = [ ]):

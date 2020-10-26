@@ -46,7 +46,6 @@ func operate(structure: Structure):
 
 
 
-
 func animation_acted(_animation: String):
 	pass
 

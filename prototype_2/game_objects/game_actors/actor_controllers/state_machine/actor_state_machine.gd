@@ -11,6 +11,11 @@ const PERSIST_OBJ_PROPERTIES := ["current_state", "hit_points_max", "indestructi
 export (NodePath) var _animation_tree_node
 
 
+var _checked_animation: bool = false
+var _update_time: int = 20
+var _timed_passed: int = 0
+
+
 onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
 
 
@@ -21,6 +26,25 @@ func _ready():
 	_animation_tree.connect("acted", self, "_animation_acted")
 	_animation_tree.connect("action_finished", self, "_action_finished")
 	_animation_tree.connect("animation_finished", self, "_animation_finished")
+
+
+func _process(_delta: float):
+	if _checked_animation:
+		return
+	
+	_timed_passed += 1
+	
+	if _timed_passed < _update_time:
+		return
+	
+	_timed_passed = 0
+	
+	var current_animation: String = _animation_tree.get_current_animation()
+	
+	if not current_state._animation_cancellable and not (current_animation == ActorState.ATTACK or current_animation == ActorState.GIVE):
+		current_state.animtion_finished(current_animation)
+	
+	_checked_animation = true
 
 
 
@@ -48,6 +72,12 @@ func attack(weapon: CraftTool):
 func operate(structure: Node2D):
 	current_state.operate(structure)
 
+
+
+func _change_to(new_state: String, parameters: Array = [ ]):
+	._change_to(new_state, parameters)
+	
+	_timed_passed = 0
 
 
 func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()):

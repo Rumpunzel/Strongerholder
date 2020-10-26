@@ -24,9 +24,9 @@ func _ready():
 
 
 func enter(parameters: Array = [ ]):
+	.enter(parameters)
+	
 	if not parameters.empty():
-		.enter(parameters)
-		
 		_structure = parameters[0]
 	
 	_animation_cancellable = false

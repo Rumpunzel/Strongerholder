@@ -29,7 +29,7 @@ func _ready():
 		
 		state.dedicated_tool = dedicated_tool
 	
-	if not _flag:
+	if not _flag and _debug_flag_scene:
 		_flag = _debug_flag_scene.instance()
 	
 	get_tree().current_scene.add_child(_flag)

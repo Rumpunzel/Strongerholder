@@ -11,9 +11,9 @@ var _receiver: Node2D
 
 
 func enter(parameters: Array = [ ]):
+	.enter(parameters)
+	
 	if not parameters.empty():
-		.enter(parameters)
-		
 		_request = parameters[0]
 		_receiver = parameters[1]
 	

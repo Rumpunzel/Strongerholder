@@ -11,14 +11,15 @@ var _weapon: CraftTool
 
 
 func enter(parameters: Array = [ ]):
+	.enter(parameters)
+	
 	if not parameters.empty():
-		.enter(parameters)
-		
 		_weapon = parameters[0]
 	
 	_animation_cancellable = false
 	
 	_change_animation(ATTACK)
+
 
 
 func animation_acted(_animation: String):

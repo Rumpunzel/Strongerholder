@@ -25,9 +25,9 @@ func _ready():
 
 
 func enter(parameters: Array = [ ]):
+	.enter(parameters)
+	
 	if not parameters.empty():
-		.enter(parameters)
-		
 		_item = parameters[0]
 		_receiver = parameters[1]
 	
