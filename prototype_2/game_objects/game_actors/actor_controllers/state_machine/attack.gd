@@ -15,7 +15,7 @@ func enter(parameters: Array = [ ]):
 	
 	if not parameters.empty():
 		_weapon = parameters[0]
-	
+	assert(_weapon)
 	_animation_cancellable = false
 	
 	_change_animation(ATTACK)

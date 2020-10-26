@@ -80,7 +80,7 @@ func load_game(path: String) -> void:
 	save_file.open(path, File.READ)
 	emit_signal("game_load_started")
 	
-	get_tree().change_scene_to(MENU_SCENE)
+	get_tree().change_scene_to(MAIN_SCENE)
 	
 	_saver_loader.load_game(save_file, get_tree())
 	
