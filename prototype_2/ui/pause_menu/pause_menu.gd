@@ -2,16 +2,21 @@ class_name PauseMenu, "res://assets/icons/gui/icon_pause_menu.svg"
 extends Popup
 
 
+const _BACK_TO_MENU_QUESTION: String = "Go Back To The Main Menu?"
+const _QUIT_GAME_QUESTION: String = "Quit The Game?"
+
+
 var _busy: bool = false
 
 
+onready var _menu: CenterContainer = $split_container/menu
 onready var _version: Label = $split_container/margin_container/version
 
 
 
 
 func _ready():
-	_version.text = "version %s%s" % [ProjectSettings.get("application/config/version"), MainMenu._VERSION_POSTFIX]
+	_version.text = MainMenu.get_version()
 
 
 func _process(_delta: float):
@@ -38,28 +43,46 @@ func _unpause_game():
 func _save_game():
 	if not _busy:
 		_busy = true
-		SaveHandler.save_game("user://savegame.save")
+		SaveHandler.save_game(SaveHandler.SAVE_LOCATION)
 		
 		yield(SaveHandler, "game_save_finished")
 		
 		_busy = false
-		print("Game saved to %s" % "user://savegame.save")
+		print("Game saved to %s" % SaveHandler.SAVE_LOCATION)
 
 
 func _load_game():
 	if not _busy:
 		hide()
 		
-		SaveHandler.load_game("user://savegame.save")
+		SaveHandler.load_game(SaveHandler.SAVE_LOCATION)
 		
-		print("Game loaded from %s" % "user://savegame.save")
+		print("Game loaded from %s" % SaveHandler.SAVE_LOCATION)
 
 
 func _back_to_main_menu():
 	if not _busy:
-		get_tree().change_scene_to(load("res://ui/main_menu/main_menu.tscn"))
+		var dialog: ConfirmationDialog = ConfirmationDialog.new()
+		
+		dialog.dialog_text = _BACK_TO_MENU_QUESTION
+		dialog.window_title = ""
+		
+		dialog.get_cancel().connect("pressed", dialog, "queue_free")
+		dialog.connect("confirmed", get_tree(), "change_scene_to", [SaveHandler.MENU_SCENE])
+		
+		_menu.add_child(dialog)
+		dialog.popup_centered()
 
 
 func _quit_game():
 	if not _busy:
-		get_tree().quit()
+		var dialog: ConfirmationDialog = ConfirmationDialog.new()
+		
+		dialog.dialog_text = _QUIT_GAME_QUESTION
+		dialog.window_title = ""
+		
+		dialog.get_cancel().connect("pressed", dialog, "queue_free")
+		dialog.connect("confirmed", get_tree(), "quit")
+		
+		_menu.add_child(dialog)
+		dialog.popup_centered()

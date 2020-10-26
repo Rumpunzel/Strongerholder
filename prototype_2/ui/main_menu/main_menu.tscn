@@ -39,9 +39,9 @@ __meta__ = {
 
 [node name="menu_layout" type="VBoxContainer" parent="split_container/center_container"]
 margin_left = 736.0
-margin_top = 390.0
+margin_top = 387.0
 margin_right = 1184.0
-margin_bottom = 614.0
+margin_bottom = 617.0
 custom_constants/separation = 30
 
 [node name="title" type="Label" parent="split_container/center_container/menu_layout"]
@@ -51,27 +51,27 @@ custom_fonts/font = ExtResource( 1 )
 text = "Strongerholder"
 
 [node name="menu_buttons" type="VBoxContainer" parent="split_container/center_container/menu_layout"]
-margin_left = 164.0
+margin_left = 162.0
 margin_top = 94.0
-margin_right = 284.0
-margin_bottom = 224.0
+margin_right = 286.0
+margin_bottom = 230.0
 size_flags_horizontal = 4
 
 [node name="new_game" type="Button" parent="split_container/center_container/menu_layout/menu_buttons"]
-margin_right = 120.0
-margin_bottom = 30.0
+margin_right = 124.0
+margin_bottom = 32.0
 text = "New Game"
 
 [node name="load" type="Button" parent="split_container/center_container/menu_layout/menu_buttons"]
-margin_top = 50.0
-margin_right = 120.0
-margin_bottom = 80.0
+margin_top = 52.0
+margin_right = 124.0
+margin_bottom = 84.0
 text = "Load Game"
 
 [node name="quit" type="Button" parent="split_container/center_container/menu_layout/menu_buttons"]
-margin_top = 100.0
-margin_right = 120.0
-margin_bottom = 130.0
+margin_top = 104.0
+margin_right = 124.0
+margin_bottom = 136.0
 text = "Quit"
 
 [node name="margin_container" type="MarginContainer" parent="split_container"]

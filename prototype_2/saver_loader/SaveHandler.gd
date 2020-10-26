@@ -7,6 +7,15 @@ signal game_load_started()
 signal game_load_finished()
 
 
+const MENU_SCENE: PackedScene = preload("res://ui/main_menu/main_menu.tscn")
+const MAIN_SCENE: PackedScene = preload("res://test.tscn")
+
+const SAVE_LOCATION: String = "user://savegame.save"
+
+const _LOADING_TEXT: String = "Loading..."
+const _FINISHED_LOADING_TEXT: String = "Press Any Key To Continue"
+
+
 var _saver_loader: SaverLoader = SaverLoader.new()
 
 
@@ -22,7 +31,7 @@ onready var _tween: Tween = $tween
 func _ready():
 	set_process(false)
 	
-	_saver_loader.connect("finished", _progress_text, "set_text", ["Press Any Key To Continue"])
+	_saver_loader.connect("finished", _progress_text, "set_text", [_FINISHED_LOADING_TEXT])
 	
 	$popup/center_container/title_divider/title.text = ProjectSettings.get("application/config/name")
 
@@ -32,16 +41,16 @@ func _process(_delta: float):
 		_progress_bar.value = _saver_loader.progress
 		
 		if _progress_bar.value >= 99:
-			_progress_text.text = "Press Any Key To Continue"
+			_progress_text.text = _FINISHED_LOADING_TEXT
 			_progress_bar.value = 100
 			
 			set_process(false)
 		else:
-			_progress_text.text = "Loading..."
+			_progress_text.text = _LOADING_TEXT
 
 
 func _unhandled_input(event: InputEvent):
-	if $popup.visible and _progress_text.text == "Press Any Key To Continue":
+	if $popup.visible and _progress_text.text == _FINISHED_LOADING_TEXT:
 		if event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
 			$popup.hide()
 			emit_signal("game_load_finished")
@@ -55,6 +64,7 @@ func save_game(path: String) -> void:
 	
 	save_file.open(path, File.WRITE)
 	emit_signal("game_save_started")
+	
 	_saver_loader.save_game(save_file, get_tree())
 	
 	yield(_saver_loader, "finished")
@@ -70,7 +80,7 @@ func load_game(path: String) -> void:
 	save_file.open(path, File.READ)
 	emit_signal("game_load_started")
 	
-	get_tree().change_scene_to(load("res://test.tscn"))
+	get_tree().change_scene_to(MENU_SCENE)
 	
 	_saver_loader.load_game(save_file, get_tree())
 	
@@ -80,7 +90,7 @@ func load_game(path: String) -> void:
 
 func starting_new_game(new_game: bool = false):
 	if new_game:
-		_progress_text.text = "Press Any Key To Continue"
+		_progress_text.text = _FINISHED_LOADING_TEXT
 		_progress_bar.value = 100
 	else:
 		set_process(true)
