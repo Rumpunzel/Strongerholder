@@ -20,21 +20,30 @@ onready var _tween: Tween = $tween
 
 
 func _ready():
+	set_process(false)
+	
 	_saver_loader.connect("finished", _progress_text, "set_text", ["Press Any Key To Continue"])
 
 
+func _process(_delta: float):
+	if $popup.visible:
+		_progress_bar.value = _saver_loader.progress
+		
+		if _progress_bar.value >= 99:
+			_progress_text.text = "Press Any Key To Continue"
+			_progress_bar.value = 100
+			
+			set_process(false)
+		else:
+			_progress_text.text = "Loading..."
 
 
 func _unhandled_input(event: InputEvent):
-	if event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
-		if $popup.visible:
+	if $popup.visible and _progress_text.text == "Press Any Key To Continue":
+		if event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
 			$popup.hide()
 			emit_signal("game_load_finished")
 			get_tree().paused = false
-			
-			_background.color = Color.black
-			_progress_text.text = "Loading..."
-			_progress_bar.value = 0
 
 
 
@@ -64,9 +73,6 @@ func load_game(path: String) -> void:
 	_saver_loader.load_game(save_file, get_tree())
 	
 	yield(_saver_loader, "finished")
-	
-	_progress_text.text = "Press Any Key To Continue"
-	_progress_bar.value = 100
 
 
 
@@ -74,6 +80,8 @@ func starting_new_game(new_game: bool = false):
 	if new_game:
 		_progress_text.text = "Press Any Key To Continue"
 		_progress_bar.value = 100
+	else:
+		set_process(true)
 	
 	$popup.show()
 	

@@ -67,7 +67,7 @@ var progress := 0 # read-only! (for an external progress bar)
 
 # project settings
 var use_thread := true # true allows prog bar to work; false helps debugging
-var progress_multiplier := 95 # so prog bar doesn't sit for a while at 100%
+var progress_multiplier := 100 # so prog bar doesn't sit for a while at 100%
 
 var properties_arrays := [
 	"PERSIST_PROPERTIES",
