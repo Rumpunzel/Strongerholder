@@ -18,8 +18,6 @@ onready var _main_inventory: Inventory = null
 
 
 func _ready():
-	#yield(SaveHandler, "game_load_finished")
-	
 	if not _main_inventory:
 		_main_inventory = $inventory
 	

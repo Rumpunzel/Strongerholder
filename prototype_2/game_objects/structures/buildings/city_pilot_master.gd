@@ -23,8 +23,6 @@ var _assigned_gatherers: Dictionary = { }
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#yield(SaveHandler, "game_load_finished")
-	
 	if not _city_structure:
 		_city_structure = owner
 	

@@ -14,9 +14,6 @@ var history: Array = [ ]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#yield(SaveHandler, "game_load_finished")
-	if current_state:
-		print(current_state.name)
 	if not current_state:
 		# Set the initial state to the first child node
 		current_state = get_child(0)

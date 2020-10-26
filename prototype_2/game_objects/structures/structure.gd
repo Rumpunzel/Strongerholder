@@ -18,8 +18,6 @@ onready var _pilot_master: PilotMaster = $pilot_master
 
 
 func _ready():
-	#yield(SaveHandler, "game_load_finished")
-	
 	add_to_group(Constants.enum_name(Constants.Structures, type))
 
 
