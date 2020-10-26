@@ -6,6 +6,7 @@
 
 [node name="pause_menu" type="Popup"]
 pause_mode = 2
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -41,9 +42,9 @@ __meta__ = {
 
 [node name="menu_layout" type="VBoxContainer" parent="split_container/menu"]
 margin_left = 784.0
-margin_top = 340.0
+margin_top = 335.0
 margin_right = 1136.0
-margin_bottom = 664.0
+margin_bottom = 669.0
 custom_constants/separation = 30
 
 [node name="title" type="Label" parent="split_container/menu/menu_layout"]
@@ -54,41 +55,41 @@ custom_fonts/font = ExtResource( 3 )
 text = "Game Paused"
 
 [node name="menu_buttons" type="VBoxContainer" parent="split_container/menu/menu_layout"]
-margin_left = 104.0
+margin_left = 114.0
 margin_top = 94.0
-margin_right = 248.0
-margin_bottom = 324.0
+margin_right = 238.0
+margin_bottom = 334.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
 [node name="continue" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
-margin_right = 144.0
-margin_bottom = 30.0
-text = " Continue "
+margin_right = 124.0
+margin_bottom = 32.0
+text = "Continue"
 
 [node name="save" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
-margin_top = 50.0
-margin_right = 144.0
-margin_bottom = 80.0
-text = " Save "
+margin_top = 52.0
+margin_right = 124.0
+margin_bottom = 84.0
+text = "Save"
 
 [node name="load" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
-margin_top = 100.0
-margin_right = 144.0
-margin_bottom = 130.0
-text = " Load "
+margin_top = 104.0
+margin_right = 124.0
+margin_bottom = 136.0
+text = "Load"
 
 [node name="back_to_menu" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
-margin_top = 150.0
-margin_right = 144.0
-margin_bottom = 180.0
-text = " Main Menu "
+margin_top = 156.0
+margin_right = 124.0
+margin_bottom = 188.0
+text = "Main Menu"
 
 [node name="quit" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
-margin_top = 200.0
-margin_right = 144.0
-margin_bottom = 230.0
-text = " Quit "
+margin_top = 208.0
+margin_right = 124.0
+margin_bottom = 240.0
+text = "Quit"
 
 [node name="margin_container" type="MarginContainer" parent="split_container"]
 margin_top = 1024.0
