@@ -234,7 +234,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_management/job_machine/retrieve.gd"
 }, {
-"base": "CenterContainer",
+"base": "Control",
 "class": "MainMenu",
 "language": "GDScript",
 "path": "res://ui/main_menu/main_menu.gd"

@@ -1,5 +1,20 @@
 class_name MainMenu
-extends CenterContainer
+extends Control
+
+
+const _VERSION_POSTFIX: String = " alpha"
+
+
+onready var _title: Label = $split_container/center_container/menu_layout/title
+onready var _version: Label = $split_container/margin_container/version
+
+
+
+
+func _ready():
+	_title.text = ProjectSettings.get("application/config/name")
+	_version.text = "version %s%s" % [ProjectSettings.get("application/config/version"), _VERSION_POSTFIX]
+
 
 
 

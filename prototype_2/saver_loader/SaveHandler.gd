@@ -11,8 +11,8 @@ var _saver_loader: SaverLoader = SaverLoader.new()
 
 
 onready var _background: ColorRect = $popup/color_rect
-onready var _progress_text: Label = $popup/center_container/load_info/progress
-onready var _progress_bar: ProgressBar = $popup/center_container/load_info/progress_bar
+onready var _progress_text: Label = $popup/center_container/title_divider/load_info/progress
+onready var _progress_bar: ProgressBar = $popup/center_container/title_divider/load_info/progress_bar
 
 onready var _tween: Tween = $tween
 
@@ -23,6 +23,8 @@ func _ready():
 	set_process(false)
 	
 	_saver_loader.connect("finished", _progress_text, "set_text", ["Press Any Key To Continue"])
+	
+	$popup/center_container/title_divider/title.text = ProjectSettings.get("application/config/name")
 
 
 func _process(_delta: float):
