@@ -2,7 +2,10 @@ class_name ActorStateMachine, "res://assets/icons/game_actors/states/icon_actor_
 extends ObjectStateMachine
 
 
-const PERSIST_PROPERTIES_3 := ["_animation_tree_node"]
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
+
+const PERSIST_PROPERTIES := ["name", "history"]
+const PERSIST_OBJ_PROPERTIES := ["current_state", "hit_points_max", "indestructible", "hit_points"]
 
 
 export (NodePath) var _animation_tree_node

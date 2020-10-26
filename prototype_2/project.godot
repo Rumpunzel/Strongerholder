@@ -109,7 +109,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/structures/buildings/state_machine/give.gd"
 }, {
-"base": "ObjectStateMachine",
+"base": "StructureStateMachine",
 "class": "CityStructureStateMachine",
 "language": "GDScript",
 "path": "res://game_objects/structures/buildings/state_machine/city_structure_state_machine.gd"
@@ -158,11 +158,6 @@ _global_script_classes=[ {
 "class": "GameResource",
 "language": "GDScript",
 "path": "res://game_objects/resources/GameResource.gd"
-}, {
-"base": "GameResource",
-"class": "GameResourceWood",
-"language": "GDScript",
-"path": "res://game_objects/resources/wood.gd"
 }, {
 "base": "Sprite",
 "class": "GameSprite",
@@ -304,7 +299,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/structures/buildings/refinery.gd"
 }, {
-"base": "ObjectState",
+"base": "Node",
 "class": "ResourceState",
 "language": "GDScript",
 "path": "res://game_objects/resources/state_machine/ResourceState.gd"
@@ -353,6 +348,11 @@ _global_script_classes=[ {
 "class": "Structure",
 "language": "GDScript",
 "path": "res://game_objects/structures/structure.gd"
+}, {
+"base": "ObjectStateMachine",
+"class": "StructureStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/structures/structure_state_machine.gd"
 }, {
 "base": "Inventory",
 "class": "ToolBelt",
@@ -415,7 +415,6 @@ _global_script_class_icons={
 "GameAudioPlayer": "",
 "GameObject": "res://assets/icons/icon_game_object.svg",
 "GameResource": "res://assets/icons/icon_resource.svg",
-"GameResourceWood": "res://assets/gui/resource_icons/icon_wood.svg",
 "GameSprite": "",
 "HurtBox": "res://assets/icons/icon_hurt_box.svg",
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
@@ -444,7 +443,7 @@ _global_script_class_icons={
 "RadiantUI": "",
 "RadiantUIButton": "",
 "Refinery": "res://assets/icons/structures/icon_refinery.svg",
-"ResourceState": "",
+"ResourceState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ResourceStateDead": "res://assets/icons/icon_state_dead.svg",
 "ResourceStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "ResourceStateMachine": "res://assets/icons/icon_resource_state_machine.svg",
@@ -454,6 +453,7 @@ _global_script_class_icons={
 "StateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "StateMachine": "",
 "Structure": "res://assets/icons/structures/icon_structure.svg",
+"StructureStateMachine": "",
 "ToolBelt": "res://assets/icons/game_actors/icon_tool_belt.svg",
 "ToolState": "",
 "ToolStateAttack": "res://assets/icons/game_actors/states/icon_state_attack.svg",

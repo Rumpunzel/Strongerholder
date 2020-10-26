@@ -1,8 +1,8 @@
 class_name CityStructureStateMachine, "res://assets/icons/structures/icon_city_structure_state_machine.svg"
-extends ObjectStateMachine
+extends StructureStateMachine
 
 
-const PERSIST_PROPERTIES_3 := ["_pilot_master_node"]
+const PERSIST_PROPERTIES_2 := ["_pilot_master_node"]
 
 
 signal operated

@@ -2,8 +2,6 @@ class_name PilotMaster, "res://assets/icons/structures/icon_pilot_master.svg"
 extends InputMaster
 
 
-const SCENE := "res://game_objects/structures/pilot_master.tscn"
-
 const PERSIST_OBJ_PROPERTIES_3 := ["_desired_items"]
 
 

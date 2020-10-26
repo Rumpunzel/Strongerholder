@@ -2,9 +2,10 @@ class_name JobMachine, "res://assets/icons/icon_job_machine.svg"
 extends StateMachine
 
 
-const SCENE := "res://game_objects/city_management/job_machine/JobMachine.tscn"
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employee", "dedicated_tool"]
+const PERSIST_PROPERTIES := ["name", "history"]
+const PERSIST_OBJ_PROPERTIES := ["current_state", "employer", "employee", "dedicated_tool", "_debug_flag_scene", "_flag"]
 
 
 export(PackedScene) var _debug_flag_scene
@@ -28,8 +29,9 @@ func _ready():
 		
 		state.dedicated_tool = dedicated_tool
 	
+	if not _flag:
+		_flag = _debug_flag_scene.instance()
 	
-	_flag = _debug_flag_scene.instance()
 	get_tree().current_scene.add_child(_flag)
 
 

@@ -2,7 +2,7 @@ class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
 extends Area2D
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 const PERSIST_PROPERTIES := ["name"]
 const PERSIST_OBJ_PROPERTIES := ["_main_inventory"]

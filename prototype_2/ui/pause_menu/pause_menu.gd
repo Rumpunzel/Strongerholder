@@ -34,11 +34,17 @@ func _save_game():
 
 
 func _load_game():
+	hide()
+	
 	SaveHandler.load_game("user://savegame.save")
 	
 	yield(SaveHandler, "game_load_finished")
 	
 	print("Game loaded from %s" % "user://savegame.save")
+
+
+func _back_to_main_menu():
+	get_tree().change_scene_to(load("res://ui/main_menu/main_menu.tscn"))
 
 
 func _quit_game():

@@ -103,43 +103,25 @@ script = ExtResource( 11 )
 position = Vector2( 48, 16 )
 
 [node name="game_actor2" parent="objects_layer" instance=ExtResource( 1 )]
-position = Vector2( 16, 80 )
+position = Vector2( 16, 64 )
 
 [node name="game_actor3" parent="objects_layer" instance=ExtResource( 1 )]
 position = Vector2( -48, 16 )
 
 [node name="tree" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( -64, 176 )
+position = Vector2( 0, 224 )
 
 [node name="tree2" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( 48, 160 )
+position = Vector2( -192, 0 )
 
 [node name="tree3" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( 144, 96 )
+position = Vector2( -208, 112 )
 
 [node name="tree4" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( 240, 144 )
-
-[node name="tree5" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( 288, 32 )
 
-[node name="tree6" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( 208, -64 )
-
-[node name="tree7" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( -48, -128 )
-
-[node name="tree8" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( -176, -48 )
-
-[node name="tree9" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( 96, -112 )
-
-[node name="tree10" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( -240, 128 )
-
-[node name="tree11" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( -192, 256 )
+[node name="tree5" parent="objects_layer" instance=ExtResource( 4 )]
+position = Vector2( -144, 224 )
 
 [node name="woodcuttters_hut" parent="objects_layer" instance=ExtResource( 12 )]
 position = Vector2( 128, 160 )

@@ -62,7 +62,9 @@ func needs_workers() -> bool:
 
 func assign_gatherer(puppet_master: Node2D, gathering_resource):
 	_assigned_gatherers[gathering_resource] = _assigned_gatherers.get(gathering_resource, [ ])
-	_assigned_gatherers[gathering_resource].append(puppet_master)
+	
+	if not _assigned_gatherers[gathering_resource].has(puppet_master):
+		_assigned_gatherers[gathering_resource].append(puppet_master)
 	assert(_assigned_gatherers[gathering_resource].size() <= how_many_of_item(gathering_resource))
 
 

@@ -2,7 +2,7 @@ class_name ObjectState, "res://assets/icons/game_actors/states/icon_state_idle.s
 extends Node
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 const PERSIST_PROPERTIES := ["name", "_animation_cancellable"]
 const PERSIST_OBJ_PROPERTIES := ["_state_machine", "_game_object"]

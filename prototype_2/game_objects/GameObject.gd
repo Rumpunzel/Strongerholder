@@ -2,12 +2,6 @@ class_name GameObject, "res://assets/icons/icon_game_object.svg"
 extends StaticBody2D
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-
-const PERSIST_PROPERTIES := ["name", "position", "_maximum_operators"]
-const PERSIST_OBJ_PROPERTIES := ["_assigned_workers"]
-
-
 signal died
 
 
@@ -23,8 +17,9 @@ onready var _state_machine: ObjectStateMachine = $state_machine
 
 
 func assign_worker(puppet_master: Node2D):
-	assert(_assigned_workers.size() < _maximum_operators)
-	_assigned_workers.append(puppet_master)
+	if not _assigned_workers.has(puppet_master):
+		_assigned_workers.append(puppet_master)
+	assert(_assigned_workers.size() <= _maximum_operators)
 
 
 func unassign_worker(puppet_master: Node2D):

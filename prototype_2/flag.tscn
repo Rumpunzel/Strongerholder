@@ -6,6 +6,13 @@
 script/source = "extends Sprite
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const SCENE := \"res://flag.tscn\"
+
+const PERSIST_PROPERTIES := [\"name\", \"position\", \"_random_color\"]
+const PERSIST_OBJ_PROPERTIES := [\"target\"]
+
+
 const _COLOR_ARRAY: Array = [\"ee4035\", \"f37736\", \"fdf498\", \"7bc043\", \"0392cf\"]
 
 

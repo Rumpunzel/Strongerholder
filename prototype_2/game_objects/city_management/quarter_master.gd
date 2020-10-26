@@ -2,7 +2,7 @@ class_name QuarterMaster, "res://assets/icons/icon_quarter_master.svg"
 extends Node
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 const PERSIST_PROPERTIES := ["name"]
 const PERSIST_OBJ_PROPERTIES := ["_worker_queue", "_job_queue", "_resource_sightings"]

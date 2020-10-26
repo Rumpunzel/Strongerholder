@@ -2,9 +2,11 @@ class_name GameResource, "res://assets/icons/icon_resource.svg"
 extends GameObject
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 const SCENE := "res://game_objects/resources/GameResource.tscn"
 
-const PERSIST_PROPERTIES_2 := ["type", "how_many_can_be_carried"]
+const PERSIST_PROPERTIES := ["name", "position", "_maximum_operators", "type", "how_many_can_be_carried"]
+const PERSIST_OBJ_PROPERTIES := ["_assigned_workers"]
 
 
 export(Constants.Resources) var type

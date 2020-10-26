@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/structures/buildings/refinery.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/structures/inventory_display.tscn" type="PackedScene" id=3]
-[ext_resource path="res://game_objects/resources/tools/CraftTool.tscn" type="PackedScene" id=4]
-[ext_resource path="res://game_objects/resources/wood_planks.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game_objects/resources/tools/axe.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game_objects/city_management/job_machine/JobMachine.tscn" type="PackedScene" id=6]
 [ext_resource path="res://game_objects/structures/buildings/woodcutters_hut.gd" type="Script" id=7]
 
@@ -22,15 +21,10 @@ _available_job = ExtResource( 6 )
 [node name="refinery" type="Node2D" parent="pilot_master" index="1"]
 script = ExtResource( 2 )
 input_resources = [ 1025 ]
-_output_resources = [ ExtResource( 5 ), ExtResource( 5 ) ]
+_output_resources = [ 1026, 1026 ]
 
-[node name="axe" parent="pilot_master/custodian" index="0" instance=ExtResource( 4 )]
-gathers = [ 1025 ]
-delivers = [ 1026 ]
-
-[node name="axe2" parent="pilot_master/custodian" index="1" instance=ExtResource( 4 )]
-gathers = [ 1025 ]
-delivers = [ 1026 ]
+[node name="custodian" parent="pilot_master" index="2"]
+_starting_items = [ ExtResource( 4 ), ExtResource( 4 ) ]
 
 [node name="audio_handler" parent="." index="4"]
 _operate_sounds_directory = "res://assets/sounds/woodsaw"
@@ -42,5 +36,3 @@ margin_right = 55.1993
 margin_bottom = 35.5251
 _inventory_node = NodePath("../pilot_master/refinery")
 _y_offset = 32.0
-
-[editable path="pilot_master"]

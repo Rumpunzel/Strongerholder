@@ -35,6 +35,8 @@ func save_game(path: String) -> void:
 
 
 func load_game(path: String) -> void:
+	starting_new_game()
+	
 	var save_file := File.new()
 	
 	save_file.open(path, File.READ)
@@ -42,8 +44,6 @@ func load_game(path: String) -> void:
 	_saver_loader.load_game(save_file, get_tree())
 	
 	yield(_saver_loader, "finished")
-	
-	starting_new_game()
 
 
 

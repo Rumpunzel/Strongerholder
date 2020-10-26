@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=2]
@@ -25,17 +25,22 @@
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=23]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/animation_state_machine.gd" type="Script" id=24]
 [ext_resource path="res://game_objects/game_actors/GameActor.gd" type="Script" id=25]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/puppet_master.tscn" type="PackedScene" id=26]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/puppet_master.gd" type="Script" id=26]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/give.gd" type="Script" id=27]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/request.gd" type="Script" id=28]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/dead.gd" type="Script" id=29]
+[ext_resource path="res://game_objects/inventory.gd" type="Script" id=30]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/inactive.gd" type="Script" id=31]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/take.gd" type="Script" id=32]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/tool_belt.gd" type="Script" id=33]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/idle.gd" type="Script" id=34]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/run.gd" type="Script" id=35]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 16.0
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
@@ -124,8 +129,19 @@ script = ExtResource( 31 )
 [node name="dead" type="Node" parent="state_machine"]
 script = ExtResource( 29 )
 
-[node name="puppet_master" parent="." instance=ExtResource( 26 )]
+[node name="puppet_master" type="Area2D" parent="."]
+collision_layer = 2048
 collision_mask = 31
+script = ExtResource( 26 )
+
+[node name="interaction_shape" type="CollisionShape2D" parent="puppet_master"]
+shape = SubResource( 5 )
+
+[node name="tool_belt" type="Node2D" parent="puppet_master"]
+script = ExtResource( 33 )
+
+[node name="inventory" type="Node2D" parent="puppet_master"]
+script = ExtResource( 30 )
 
 [node name="animation_tree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )
@@ -198,5 +214,3 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 _puppet_master_node = NodePath("../puppet_master")
-
-[editable path="puppet_master"]

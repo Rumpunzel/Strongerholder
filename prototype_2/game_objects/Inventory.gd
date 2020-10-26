@@ -2,7 +2,7 @@ class_name Inventory, "res://assets/icons/icon_inventory.svg"
 extends Node2D
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 const PERSIST_PROPERTIES := ["name", "_carry_weight_multipler"]
 
@@ -10,7 +10,19 @@ const PERSIST_PROPERTIES := ["name", "_carry_weight_multipler"]
 signal received_item(item)
 
 
+export(Array, PackedScene) var _starting_items
+
 export var _carry_weight_multipler: float = 1.0
+
+
+
+
+func _ready():
+	if get_contents().empty():
+		for item in _starting_items:
+			var new_item: GameResource = item.instance()
+			
+			add_child(new_item)
 
 
 

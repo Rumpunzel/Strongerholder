@@ -3,16 +3,23 @@ extends ActorState
 
 
 const PERSIST_PROPERTIES_2 := ["_puppet_master_node"]
-const PERSIST_OBJ_PROPERTIES_2 := ["_item"]
+const PERSIST_OBJ_PROPERTIES_2 := ["_puppet_master", "_item"]
 
 
 export(NodePath) var _puppet_master_node
 
 
+var _puppet_master: InputMaster = null
+
 var _item: GameResource = null
 
 
-onready var _puppet_master: PuppetMaster = get_node(_puppet_master_node)
+
+
+func _ready():
+	if not _puppet_master:
+		_puppet_master = get_node(_puppet_master_node)
+
 
 
 

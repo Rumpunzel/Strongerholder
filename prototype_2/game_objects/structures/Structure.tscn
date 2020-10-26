@@ -1,16 +1,20 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/sprites/icon.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/structures/structure.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/state_machine/ObjectState.gd" type="Script" id=3]
 [ext_resource path="res://game_objects/state_machine/inactive.gd" type="Script" id=4]
-[ext_resource path="res://game_objects/structures/pilot_master.tscn" type="PackedScene" id=5]
-[ext_resource path="res://game_objects/state_machine/ObjectStateMachine.gd" type="Script" id=6]
+[ext_resource path="res://game_objects/inventory.gd" type="Script" id=5]
+[ext_resource path="res://game_objects/structures/structure_state_machine.gd" type="Script" id=6]
 [ext_resource path="res://game_objects/state_machine/dead.gd" type="Script" id=7]
 [ext_resource path="res://game_objects/audio_handler.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_objects/structures/pilot_master.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 16 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 32.0
 
 [node name="Structure" type="StaticBody2D"]
 collision_layer = 4
@@ -35,8 +39,15 @@ script = ExtResource( 4 )
 [node name="dead" type="Node" parent="state_machine"]
 script = ExtResource( 7 )
 
-[node name="pilot_master" parent="." instance=ExtResource( 5 )]
+[node name="pilot_master" type="Area2D" parent="."]
+collision_layer = 4096
+collision_mask = 0
+script = ExtResource( 9 )
+
+[node name="interaction_shape" type="CollisionShape2D" parent="pilot_master"]
+shape = SubResource( 2 )
+
+[node name="inventory" type="Node2D" parent="pilot_master"]
+script = ExtResource( 5 )
 
 [node name="audio_handler" parent="." instance=ExtResource( 8 )]
-
-[editable path="pilot_master"]
