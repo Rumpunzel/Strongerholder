@@ -52,6 +52,8 @@ func _process(_delta: float):
 func _unhandled_input(event: InputEvent):
 	if $popup.visible and _progress_text.text == _FINISHED_LOADING_TEXT:
 		if event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
+			get_tree().set_input_as_handled()
+			
 			$popup.hide()
 			emit_signal("game_load_finished")
 			get_tree().paused = false

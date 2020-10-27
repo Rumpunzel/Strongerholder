@@ -66,7 +66,7 @@ func is_active() -> bool:
 
 
 func _toggle_active_state(object: Node, new_state: bool):
-	object.visible = new_state
+	object.appear(new_state)
 	object.enable_collision(new_state)
 	
 	object.set_process(new_state)

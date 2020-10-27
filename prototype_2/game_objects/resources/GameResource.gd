@@ -40,6 +40,11 @@ func pick_up_item(new_inventory):
 
 
 
+func appear(new_status: bool):
+	visible = new_status
+
+
+
 func register_resource():
 	 _quarter_master.register_resource(self)
 
