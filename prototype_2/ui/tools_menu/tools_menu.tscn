@@ -7,7 +7,6 @@
 [ext_resource path="res://ui/RadiantUI/RadiantUIButton.gd" type="Script" id=8]
 
 [node name="tools_menu" type="Popup"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

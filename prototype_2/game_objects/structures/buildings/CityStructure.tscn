@@ -21,10 +21,9 @@ script = ExtResource( 3 )
 [node name="collision_shape" parent="." index="0"]
 position = Vector2( 0, -6 )
 
-[node name="structure" parent="." index="1"]
-position = Vector2( 0, 0 )
+[node name="sprite" parent="." index="1"]
 texture = ExtResource( 13 )
-offset = Vector2( 0, -22 )
+offset = Vector2( 0, -6 )
 
 [node name="state_machine" parent="." index="2"]
 script = ExtResource( 5 )

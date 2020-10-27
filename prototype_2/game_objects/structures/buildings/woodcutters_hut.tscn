@@ -18,9 +18,9 @@ type = 261
 [node name="collision_shape" parent="." index="0"]
 shape = SubResource( 1 )
 
-[node name="structure" parent="." index="1"]
+[node name="sprite" parent="." index="1"]
 texture = ExtResource( 5 )
-offset = Vector2( 0, -28 )
+offset = Vector2( 0, -12 )
 
 [node name="pilot_master" parent="." index="3"]
 collision_mask = 8

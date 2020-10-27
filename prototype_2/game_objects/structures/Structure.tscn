@@ -23,7 +23,7 @@ script = ExtResource( 2 )
 [node name="collision_shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="structure" type="Sprite" parent="."]
+[node name="sprite" type="Sprite" parent="."]
 position = Vector2( 0, -16 )
 texture = ExtResource( 1 )
 

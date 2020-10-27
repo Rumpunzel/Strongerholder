@@ -153,8 +153,8 @@ position = Vector2( 288, 32 )
 [node name="tree5" parent="objects_layer" instance=ExtResource( 4 )]
 position = Vector2( -144, 224 )
 
-[node name="woodcuttters_hut" parent="objects_layer" instance=ExtResource( 12 )]
-position = Vector2( 128, 160 )
-
 [node name="stockpile" parent="objects_layer" instance=ExtResource( 8 )]
-position = Vector2( -64, 80 )
+position = Vector2( -64, 64 )
+
+[node name="woodcuttters_hut" parent="objects_layer" instance=ExtResource( 12 )]
+position = Vector2( 112, 160 )

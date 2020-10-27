@@ -19,12 +19,11 @@ radius = 6.0
 [node name="collision_shape" parent="." index="0"]
 shape = SubResource( 1 )
 
-[node name="structure" parent="." index="1"]
-position = Vector2( 0, 6 )
+[node name="sprite" parent="." index="1"]
 texture = ExtResource( 3 )
-offset = Vector2( 0, -43.5 )
+offset = Vector2( 0, -26 )
 script = ExtResource( 8 )
-_sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
+_sprites = [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
 
 [node name="interaction_shape" parent="pilot_master" index="0"]
 disabled = true

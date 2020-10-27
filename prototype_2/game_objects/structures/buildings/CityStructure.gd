@@ -25,3 +25,12 @@ func request_item(request, receiver: Node2D):
 	
 	if requested_item:
 		_state_machine.give_item(requested_item, receiver)
+
+
+
+func _get_copy_of_collision_shape() -> CollisionShape2D:
+	return $collision_shape.duplicate() as CollisionShape2D
+
+
+func _get_copy_sprite() -> Sprite:
+	return $sprite.duplicate() as Sprite
