@@ -94,16 +94,12 @@ text = "Quit"
 margin_top = 1024.0
 margin_right = 1920.0
 margin_bottom = 1080.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 16
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 16
 
 [node name="version" type="Label" parent="split_container/margin_container"]
-margin_left = 20.0
-margin_top = 16.0
+margin_left = 16.0
+margin_top = 14.0
 margin_right = 1900.0
-margin_bottom = 40.0
+margin_bottom = 38.0
 text = "version 0.0.1"
 
 [node name="tween" type="Tween" parent="."]

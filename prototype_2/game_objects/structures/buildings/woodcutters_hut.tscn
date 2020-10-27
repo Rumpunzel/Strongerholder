@@ -37,10 +37,16 @@ _starting_items = [ ExtResource( 4 ), ExtResource( 4 ) ]
 [node name="audio_handler" parent="." index="4"]
 _operate_sounds_directory = "res://assets/sounds/woodsaw"
 
+[node name="inventory_display" parent="." index="5"]
+margin_left = -54.4841
+margin_top = 16.4135
+margin_right = 55.5159
+margin_bottom = 54.4137
+
 [node name="inventory_display2" parent="." index="6" instance=ExtResource( 3 )]
-margin_left = -54.8007
-margin_top = -2.47487
-margin_right = 55.1993
-margin_bottom = 35.5251
+margin_left = -53.6115
+margin_top = 52.5259
+margin_right = 56.3885
+margin_bottom = 90.5259
 _inventory_node = NodePath("../pilot_master/refinery")
 _y_offset = 32.0

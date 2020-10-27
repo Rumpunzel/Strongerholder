@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/city_management/quarter_master.gd" type="Script" id=2]
@@ -12,7 +12,8 @@
 [ext_resource path="res://game_objects/navigator.gd" type="Script" id=10]
 [ext_resource path="res://player_camera.gd" type="Script" id=11]
 [ext_resource path="res://game_objects/structures/buildings/woodcutters_hut.tscn" type="PackedScene" id=12]
-[ext_resource path="res://ui/tools_menu/tools_menu.tscn" type="PackedScene" id=13]
+[ext_resource path="res://ui/build_menu/build_menu.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=14]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -38,8 +39,13 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+#func _process(_delta: float):
+#	var tools_menu: ToolsMenu = $gui_layer/tools_menu
+#
+#	if tools_menu.visible:
+#		var player: GameActor = $objects_layer/player
+#
+#		tools_menu.rect_position = player.get_global_transform_with_canvas().origin - tools_menu.rect_size / 2.0
 "
 
 [sub_resource type="OccluderPolygon2D" id=2]
@@ -54,7 +60,29 @@ script = SubResource( 1 )
 
 [node name="pause_menu" parent="gui_layer" instance=ExtResource( 6 )]
 
-[node name="tools_menu" parent="gui_layer" instance=ExtResource( 13 )]
+[node name="build_menu" parent="gui_layer" instance=ExtResource( 13 )]
+
+[node name="margin_container" type="MarginContainer" parent="gui_layer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -216.0
+margin_top = -60.0
+theme = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="gui_layer/margin_container"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 196.0
+margin_bottom = 40.0
+text = "PLACEHOLDER ART"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="navigator" type="Navigation2D" parent="."]
 script = ExtResource( 10 )
@@ -93,7 +121,6 @@ script = ExtResource( 5 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
-smoothing_speed = 2.0
 drag_margin_left = 0.0
 drag_margin_top = 0.0
 drag_margin_right = 0.0

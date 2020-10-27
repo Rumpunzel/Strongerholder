@@ -1,5 +1,5 @@
-class_name RadiantUI
 extends RadiantContainer
+class_name RadiantUI
 
 
 signal button_pressed(text)
@@ -49,6 +49,10 @@ func _ready():
 	
 	if _menu_buttons.empty():
 		_menu_buttons = get_children()
+		
+		for button in _menu_buttons:
+			if not "_button_pressed" in button.get_signal_list():
+				button.connect("pressed", self, "_button_pressed", [button])
 
 
 
@@ -109,6 +113,7 @@ func display(parent):
 
 
 func _button_pressed(button: RadiantUIButton):
+	print(button)
 	if button.text == EXIT_BUTTON:
 		close()
 	elif not button == center_button and button.menu_buttons.empty():
@@ -136,6 +141,10 @@ func _button_pressed(button: RadiantUIButton):
 
 
 func _animate_in_buttons():
+	for button in get_children():
+		button.modulate.a = 0
+	
+	
 	tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
 	for button in get_children():

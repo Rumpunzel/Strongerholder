@@ -28,7 +28,7 @@ func enter(parameters: Array = [ ]):
 		assert(parameters.size() == 1)
 		
 		_delivery_target = parameters[0]
-		_target_structure = _delivery_target.owner
+		_target_structure = _delivery_target.get_parent()
 	
 	.enter([_delivery_target.global_position])
 
