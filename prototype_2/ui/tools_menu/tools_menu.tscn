@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://ui/RadiantUI/RadiantUI.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/tools/hammer.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/tools/knife.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/tools/axe.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=5]
+[ext_resource path="res://assets/sprites/tools/bucket.png" type="Texture" id=6]
+[ext_resource path="res://ui/tools_menu/tools_menu.gd" type="Script" id=7]
+
+[node name="tools_menu" type="Popup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -150.0
+margin_right = 150.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 300, 300 )
+script = ExtResource( 7 )
+
+[node name="radiant_container" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 5 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="build" type="Button" parent="radiant_container"]
+margin_left = 96.0
+margin_top = 131.0
+margin_right = 204.0
+margin_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Build"
+icon = ExtResource( 2 )
+
+[node name="axe" type="Button" parent="radiant_container"]
+margin_left = 105.0
+margin_top = 131.0
+margin_right = 195.0
+margin_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Axe"
+icon = ExtResource( 4 )
+
+[node name="inventory" type="Button" parent="radiant_container"]
+margin_left = 69.0
+margin_top = 131.0
+margin_right = 231.0
+margin_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Inventory"
+icon = ExtResource( 6 )
+
+[node name="sword" type="Button" parent="radiant_container"]
+margin_left = 95.0
+margin_top = 132.0
+margin_right = 205.0
+margin_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sword"
+icon = ExtResource( 3 )

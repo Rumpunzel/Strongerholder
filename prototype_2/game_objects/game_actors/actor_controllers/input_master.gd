@@ -200,6 +200,6 @@ class InteractCommand extends Command:
 
 
 
-class MenuCommand extends Command:
-	func execute(state_machine: ObjectStateMachine):
-		state_machine.open_menu(RadiantUI.new(["Stockpile", "Woodcutters Hut"], state_machine))
+#class MenuCommand extends Command:
+#	func execute(state_machine: ObjectStateMachine):
+#		state_machine.open_menu(RadiantUI.new(["Stockpile", "Woodcutters Hut"], state_machine))

@@ -27,15 +27,15 @@ func update_children():
 	
 	for i in children.size():
 		var child = children[i]
-		var child_angle = (ceil(i / 2.0) * (1 if i % 2 == 0 else -1)) if _be_a_retard else i
-		
-		child_angle = (child_angle / float(children.size())) * deg2rad(_container_angle)
+		var child_number = (ceil(i / 2.0) * (1 if i % 2 == 0 else -1)) if _be_a_retard else i
+		var child_ratio: float = float(child_number) / float(children.size())
+		var child_angle = child_ratio * deg2rad(_container_angle)
 		
 		child.rect_position = Vector2(0, -circle_radius).rotated(child_angle)
 		
 		if _center_children:
 			child.rect_position -= child.rect_size / 2.0
-			child.rect_pivot_offset = child.rect_size / 2.0
+			child.rect_pivot_offset = Vector2(child.rect_size.x * (1.0 - 2.0 * abs(child_ratio - 0.25)), child.rect_size.y * (1.0 - 2.0 * abs(child_ratio - 0.5)))
 
 
 

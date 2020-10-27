@@ -22,8 +22,10 @@ func _ready():
 	_version.text = MainMenu.get_version()
 
 
-func _process(_delta: float):
-	if not _busy and Input.is_action_just_pressed("pause_game"):
+func _unhandled_input(event: InputEvent):
+	if not _busy and event.is_action_released("pause_game"):
+		get_tree().set_input_as_handled()
+		
 		if get_tree().paused:
 			_unpause_game()
 		else:

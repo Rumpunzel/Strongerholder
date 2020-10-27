@@ -383,6 +383,11 @@ _global_script_classes=[ {
 "class": "ToolStateMachine",
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/state_machine/tool_state_machine.gd"
+}, {
+"base": "Popup",
+"class": "ToolsMenu",
+"language": "GDScript",
+"path": "res://ui/tools_menu/tools_menu.gd"
 } ]
 _global_script_class_icons={
 "ActorState": "",
@@ -459,7 +464,8 @@ _global_script_class_icons={
 "ToolStateAttack": "res://assets/icons/game_actors/states/icon_state_attack.svg",
 "ToolStateDead": "res://assets/icons/icon_state_dead.svg",
 "ToolStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
-"ToolStateMachine": "res://assets/icons/icon_tool_state_machine.svg"
+"ToolStateMachine": "res://assets/icons/icon_tool_state_machine.svg",
+"ToolsMenu": ""
 }
 
 [application]
