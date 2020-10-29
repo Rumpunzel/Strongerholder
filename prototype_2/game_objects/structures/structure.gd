@@ -32,6 +32,8 @@ func _ready():
 	
 	
 	add_to_group(Constants.enum_name(Constants.Structures, type))
+	
+	$audio_handler.connect_signals(_state_machine)
 
 
 func _process(_delta: float):
@@ -71,8 +73,6 @@ func _initliase_state_machine():
 	_state_machine.name = "state_machine"
 	_state_machine._pilot_master = _pilot_master
 	add_child(_state_machine)
-	
-	$audio_handler.connect_signals(_state_machine)
 
 
 func _initliase_starting_items():

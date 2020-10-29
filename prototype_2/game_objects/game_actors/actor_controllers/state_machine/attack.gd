@@ -5,7 +5,7 @@ extends ActorState
 const PERSIST_OBJ_PROPERTIES_2 := ["_weapon"]
 
 
-var _weapon: CraftTool
+var _weapon: CraftTool = null
 
 
 

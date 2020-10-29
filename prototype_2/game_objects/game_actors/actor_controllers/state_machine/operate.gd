@@ -8,14 +8,16 @@ const PERSIST_OBJ_PROPERTIES_2 := ["_puppet_master", "_structure"]
 
 var _structure: Structure = null
 
-
-onready var _puppet_master: InputMaster = get_parent()._puppet_master
+var _puppet_master: InputMaster = null
 
 
 
 
 func _ready():
 	name = OPERATE
+	
+	if not _puppet_master:
+		_puppet_master = get_parent()._puppet_master
 
 
 
