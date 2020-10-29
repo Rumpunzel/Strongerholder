@@ -4,6 +4,8 @@ extends ActorState
 
 const PERSIST_OBJ_PROPERTIES_2 := ["_item", "_receiver", "_puppet_master"]
 
+const _DROP_OFFSET: Vector2 = Vector2(0, -1)
+
 
 var _item: GameResource = null
 var _receiver: Node2D = null
@@ -40,7 +42,7 @@ func animation_acted(_animation: String):
 		return
 	
 	if _receiver:
-		_puppet_master.drop_item(_item, _receiver.global_position)
+		_puppet_master.drop_item(_item, _receiver.global_position + _DROP_OFFSET)
 	else:
 		_puppet_master.drop_item(_item)
 	

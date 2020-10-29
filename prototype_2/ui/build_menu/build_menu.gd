@@ -27,13 +27,7 @@ func _gui_input(event: InputEvent):
 		elif event.is_action_pressed("place_building_cancel"):
 			get_tree().set_input_as_handled()
 			
-			_current_dummy.queue_free()
-			_current_dummy = null
-			
-			_current_blueprint = null
-			
-			_current_structure.queue_free()
-			_current_structure = null
+			_delete_blue_print()
 
 
 
@@ -53,8 +47,23 @@ func place_building(structure: PackedScene):
 
 
 func _open_build_menu():
+	_delete_blue_print()
+	
 	_popup.show()
 
 
 func _close():
 	_popup.hide()
+
+
+
+func _delete_blue_print():
+	if _current_dummy:
+		_current_dummy.queue_free()
+		_current_dummy = null
+	
+	_current_blueprint = null
+	
+	if _current_structure:
+		_current_structure.queue_free()
+		_current_structure = null

@@ -30,7 +30,6 @@ __meta__ = {
 }
 
 [node name="popup" type="Popup" parent="."]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -57,10 +56,10 @@ __meta__ = {
 }
 
 [node name="panel_container" type="PanelContainer" parent="popup/center_container"]
-margin_left = 4.0
-margin_top = 23.0
-margin_right = 302.0
-margin_bottom = 300.0
+margin_left = 141.0
+margin_top = 134.0
+margin_right = 157.0
+margin_bottom = 142.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
