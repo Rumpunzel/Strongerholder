@@ -7,9 +7,8 @@
 [node name="axe" instance=ExtResource( 2 )]
 collision_layer = 8
 script = ExtResource( 3 )
-type = 0
-how_many_can_be_carried = 1
-animation = ""
+gathers = [ 1025 ]
+delivers = [ 1026 ]
 
 [node name="sprite" parent="." index="1"]
 scale = Vector2( 1, 1 )
