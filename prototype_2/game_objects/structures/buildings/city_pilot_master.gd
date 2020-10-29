@@ -44,6 +44,12 @@ func _process(_delta: float):
 
 
 func employ_worker(puppet_master: Node2D):
+	var available_tool: Spyglass = _custodian.get_available_tool()
+	
+	if not available_tool:
+		_unpost_job()
+		return
+	
 	var new_job = _available_job.new()
 	new_job.name = "job"
 	
@@ -52,11 +58,11 @@ func employ_worker(puppet_master: Node2D):
 	if not needs_workers():
 		_unpost_job()
 	
-	new_job._setup(self, puppet_master, _custodian.get_available_tool())
+	new_job._setup(self, puppet_master)
 	
 	yield(get_tree(), "idle_frame")
 	
-	new_job.activate(true)
+	new_job.activate(true, available_tool.type)
 
 
 func needs_workers() -> bool:

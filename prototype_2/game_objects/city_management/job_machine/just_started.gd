@@ -10,5 +10,8 @@ func _ready():
 
 
 
-func enter(_parameters: Array = [ ]):
-	.exit(RETRIEVE, [dedicated_tool.type, employer.get_parent(), null])
+func enter(parameters: Array = [ ]):
+	if not parameters.empty():
+		assert(parameters.size() == 1)
+	
+	.exit(RETRIEVE, [parameters[0], employer.get_parent(), null])

@@ -3,7 +3,7 @@ extends Inventory
 
 
 const PERSIST_PROPERTIES_2 := ["_production_steps", "_steps_done"]
-const PERSIST_OBJ_PROPERTIES := ["input_resources", "_output_resources"]
+const PERSIST_OBJ_PROPERTIES_2 := ["input_resources", "_output_resources"]
 
 
 const _RESOURCE_SCENES = {

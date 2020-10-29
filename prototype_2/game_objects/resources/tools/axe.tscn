@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/sprites/tools/axe.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/resources/tools/CraftTool.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game_objects/resources/tools/axe.gd" type="Script" id=3]
 
 [node name="axe" instance=ExtResource( 2 )]
 collision_layer = 8
-gathers = [ 1025 ]
-delivers = [ 1026 ]
+script = ExtResource( 3 )
+type = 0
+how_many_can_be_carried = 1
+animation = ""
 
 [node name="sprite" parent="." index="1"]
 scale = Vector2( 1, 1 )

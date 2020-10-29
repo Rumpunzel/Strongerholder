@@ -5,6 +5,7 @@ extends Node2D
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
 const PERSIST_PROPERTIES := ["name", "_first_time"]
+const PERSIST_OBJ_PROPERTIES := ["_starting_items"]
 
 
 signal received_item(item)

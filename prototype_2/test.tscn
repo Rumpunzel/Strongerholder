@@ -100,9 +100,9 @@ script = SubResource( 1 )
 
 [node name="resource_ui" parent="gui_layer" instance=ExtResource( 3 )]
 
-[node name="pause_menu" parent="gui_layer" instance=ExtResource( 6 )]
-
 [node name="build_menu" parent="gui_layer" instance=ExtResource( 13 )]
+
+[node name="pause_menu" parent="gui_layer" instance=ExtResource( 6 )]
 
 [node name="margin_container" type="MarginContainer" parent="gui_layer"]
 anchor_left = 1.0

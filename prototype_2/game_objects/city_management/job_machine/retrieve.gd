@@ -27,6 +27,9 @@ func _check_for_exit_conditions():
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
 		if nearest_item:
+			if not dedicated_tool and nearest_item is Spyglass:
+				get_parent().dedicated_tool = nearest_item
+			
 			exit(PICK_UP, [nearest_item, _delivery_target])
 		elif _structure_to_retrieve_from._pilot_master.how_many_of_item(_item_type) == 0:
 			exit(IDLE, [_delivery_target])

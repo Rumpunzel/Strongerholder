@@ -6,7 +6,7 @@ const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 const SCENE := "res://game_objects/game_actors/actor_controllers/puppet_master.tscn"
 
 const PERSIST_PROPERTIES := ["name", "_first_time"]
-const PERSIST_OBJ_PROPERTIES := ["_main_inventory"]
+const PERSIST_OBJ_PROPERTIES := ["_inventories", "_reversed_inventories", "_main_inventory"]
 
 
 var _first_time: bool = true
@@ -24,10 +24,9 @@ func _ready():
 		_first_time = false
 		
 		_initialise_inventories()
-	
-	
-	_reversed_inventories = _inventories.duplicate()
-	_reversed_inventories.invert()
+		
+		_reversed_inventories = _inventories.duplicate()
+		_reversed_inventories.invert()
 
 
 
