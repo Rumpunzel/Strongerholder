@@ -73,7 +73,7 @@ func enter(parameters: Array = [ ]):
 		_delivery_target = null
 	else:
 		_delivery_target = parameters[0]
-		assert(_delivery_target)
+		#assert(_delivery_target)
 	
 	_timed_passed = 0
 	

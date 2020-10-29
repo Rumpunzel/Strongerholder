@@ -49,8 +49,9 @@ func enter(parameters: Array = [ ]):
 
 
 func exit(next_state: String, parameters: Array = [ ]):
-	_structure_to_retrieve_from.unassign_gatherer(employee, _item_type)
-	_structure_to_retrieve_from = null
+	if _structure_to_retrieve_from:
+		_structure_to_retrieve_from.unassign_gatherer(employee, _item_type)
+		_structure_to_retrieve_from = null
 	
 	_item_type = null
 	_delivery_target = null

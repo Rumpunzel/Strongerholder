@@ -10,6 +10,9 @@ extents = Vector2( 32, 16 )
 [node name="Structure" type="StaticBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
+_maximum_operators = null
+type = null
+_starting_items = null
 
 [node name="collision_shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

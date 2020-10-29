@@ -11,4 +11,4 @@ func _ready():
 
 
 func enter(_parameters: Array = [ ]):
-	.enter([dedicated_tool.type, employer.get_parent(), null])
+	.exit(RETRIEVE, [dedicated_tool.type, employer.get_parent(), null])

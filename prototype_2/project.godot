@@ -179,10 +179,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/input_master.gd"
 }, {
-"base": "Node2D",
+"base": "Reference",
 "class": "Inventory",
 "language": "GDScript",
-"path": "res://game_objects/inventory.gd"
+"path": "res://game_objects/Inventory.gd"
 }, {
 "base": "StateMachine",
 "class": "JobMachine",
@@ -434,7 +434,7 @@ _global_script_class_icons={
 "GameSprite": "",
 "HurtBox": "res://assets/icons/icon_hurt_box.svg",
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
-"Inventory": "res://assets/icons/icon_inventory.svg",
+"Inventory": "",
 "JobMachine": "res://assets/icons/icon_job_machine.svg",
 "JobState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "JobStateDeliver": "res://assets/icons/game_actors/states/icon_state_deliver.svg",

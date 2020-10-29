@@ -14,6 +14,7 @@ signal died
 export var _maximum_operators: int = 1
 
 
+# warning-ignore-all:unused_class_variable
 var _first_time: bool = true
 var _state_machine
 

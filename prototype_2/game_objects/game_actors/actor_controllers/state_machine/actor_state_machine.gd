@@ -12,6 +12,7 @@ var _checked_animation: bool = false
 var _update_time: int = 20
 var _timed_passed: int = 0
 
+# warning-ignore-all:unused_class_variable
 var _puppet_master: InputMaster
 
 var _animation_tree: AnimationStateMachine

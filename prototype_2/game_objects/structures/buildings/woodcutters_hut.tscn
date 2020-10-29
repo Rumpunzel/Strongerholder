@@ -11,6 +11,7 @@ extents = Vector2( 30, 8 )
 
 [node name="woodcuttters_hut" instance=ExtResource( 1 )]
 script = ExtResource( 7 )
+_maximum_operators = 1
 type = 261
 _starting_items = [ ExtResource( 2 ), ExtResource( 2 ) ]
 _available_job = ExtResource( 3 )

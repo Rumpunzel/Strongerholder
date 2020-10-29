@@ -45,8 +45,7 @@ func _ready():
 	
 	if not _flag and _debug_flag_scene:
 		_flag = _debug_flag_scene.instance()
-	
-	get_tree().current_scene.add_child(_flag)
+		get_tree().current_scene.add_child(_flag)
 
 
 func _setup(new_employer: Node2D, new_employee: Node2D, new_dedicated_tool: Spyglass):
