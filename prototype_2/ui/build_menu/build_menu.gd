@@ -4,7 +4,7 @@ extends Control
 
 var _current_dummy: PlacementDummy = null
 var _current_blueprint: PackedScene = null
-var _current_structure: CityStructure = null
+var _current_structure: Structure = null
 
 
 onready var _objects_layer: ObjectsLayer = ServiceLocator.objects_layer
@@ -18,10 +18,11 @@ func _gui_input(event: InputEvent):
 		if event.is_action_pressed("place_building"):
 			get_tree().set_input_as_handled()
 			
-			_objects_layer.add_child(_current_structure)
-			_current_structure.global_position = _current_dummy.global_position
-			
-			_current_structure = _current_blueprint.instance()
+			if _current_dummy.place_free():
+				_objects_layer.add_child(_current_structure)
+				_current_structure.global_position = _current_dummy.global_position
+				
+				_current_structure = _current_blueprint.instance()
 			
 		elif event.is_action_pressed("place_building_cancel"):
 			get_tree().set_input_as_handled()

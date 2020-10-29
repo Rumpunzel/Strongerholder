@@ -14,6 +14,12 @@ var _requested_item: bool = false
 
 
 
+func _ready():
+	name = RETRIEVE
+
+
+
+
 func _check_for_exit_conditions():
 	if _requested_item:
 		yield(get_tree(), "idle_frame")

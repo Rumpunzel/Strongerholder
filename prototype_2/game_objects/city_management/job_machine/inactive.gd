@@ -3,6 +3,13 @@ extends JobState
 
 
 
+
+func _ready():
+	name = INACTIVE
+
+
+
+
 func activate(first_time: bool = false):
 	if first_time:
 		exit(JUST_STARTED)

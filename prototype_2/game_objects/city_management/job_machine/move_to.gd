@@ -11,6 +11,12 @@ var _path: PoolVector2Array = [ ]
 
 
 
+func _ready():
+	name = MOVE_TO
+
+
+
+
 func _check_for_exit_conditions():
 	if _path.empty():
 		exit(IDLE)

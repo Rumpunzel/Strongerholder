@@ -2,24 +2,22 @@ class_name ActorStateGive, "res://assets/icons/game_actors/states/icon_state_giv
 extends ActorState
 
 
-const PERSIST_PROPERTIES_2 := ["_puppet_master_node"]
-const PERSIST_OBJ_PROPERTIES_2 := ["_puppet_master", "_item", "_receiver"]
+const PERSIST_OBJ_PROPERTIES_2 := ["_item", "_receiver", "_puppet_master"]
 
-
-export(NodePath) var _puppet_master_node
-
-
-var _puppet_master: InputMaster = null
 
 var _item: GameResource = null
 var _receiver: Node2D = null
+
+var _puppet_master: InputMaster = null
 
 
 
 
 func _ready():
+	name = GIVE
+	
 	if not _puppet_master:
-		_puppet_master = get_node(_puppet_master_node)
+		_puppet_master = get_parent()._puppet_master
 
 
 

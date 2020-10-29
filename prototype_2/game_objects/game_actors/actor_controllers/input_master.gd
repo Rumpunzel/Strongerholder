@@ -2,28 +2,29 @@ class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
 extends Area2D
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const SCENE := "res://game_objects/game_actors/actor_controllers/puppet_master.tscn"
 
-const PERSIST_PROPERTIES := ["name"]
+const PERSIST_PROPERTIES := ["name", "_first_time"]
 const PERSIST_OBJ_PROPERTIES := ["_main_inventory"]
 
+
+var _first_time: bool = true
 
 var _inventories: Array = [ ]
 var _reversed_inventories: Array = [ ]
 
-
-onready var _main_inventory: Inventory = null
+var _main_inventory: Inventory
 
 
 
 
 func _ready():
-	if not _main_inventory:
-		_main_inventory = $inventory
+	if _first_time:
+		_first_time = false
+		
+		_initialise_inventories()
 	
-	for child in get_children():
-		if child is Inventory:
-			_inventories.append(child)
 	
 	_reversed_inventories = _inventories.duplicate()
 	_reversed_inventories.invert()
@@ -31,9 +32,9 @@ func _ready():
 
 
 
-func process_commands(state_machine: ObjectStateMachine):
+func process_commands(state_machine: ObjectStateMachine, player_controlled: bool = false):
 	#object_of_interest, null, global_position, _current_path
-	var commands: Array = _get_input()
+	var commands: Array = _get_input(player_controlled)
 	
 	for command in commands:
 		command.execute(state_machine)
@@ -99,7 +100,7 @@ func interact_with(structure: Node2D):
 
 
 
-func _get_input() -> Array:
+func _get_input(_player_controlled: bool) -> Array:
 	var commands: Array = [ ]
 	
 #	if Input.is_action_pressed("open_menu"):
@@ -120,6 +121,13 @@ func _get_input() -> Array:
 
 func _in_range(object: PhysicsBody2D) -> bool:
 	return get_overlapping_bodies().has(object)
+
+
+func _initialise_inventories():
+	_main_inventory = Inventory.new()
+	_main_inventory.name = "inventory"
+	add_child(_main_inventory)
+	_inventories.append(_main_inventory)
 
 
 

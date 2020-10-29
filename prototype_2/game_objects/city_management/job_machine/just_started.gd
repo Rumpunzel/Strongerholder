@@ -3,5 +3,12 @@ extends JobStateRetrieve
 
 
 
+
+func _ready():
+	name = JUST_STARTED
+
+
+
+
 func enter(_parameters: Array = [ ]):
-	.enter([dedicated_tool.type, employer.owner, null])
+	.enter([dedicated_tool.type, employer.get_parent(), null])

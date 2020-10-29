@@ -2,11 +2,7 @@ class_name GameResource, "res://assets/icons/icon_resource.svg"
 extends GameObject
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-const SCENE := "res://game_objects/resources/GameResource.tscn"
-
-const PERSIST_PROPERTIES := ["name", "position", "_maximum_operators", "type", "how_many_can_be_carried"]
-const PERSIST_OBJ_PROPERTIES := ["_assigned_workers"]
+const PERSIST_PROPERTIES_2 := ["type", "how_many_can_be_carried"]
 
 
 export(Constants.Resources) var type
@@ -22,6 +18,12 @@ onready var _quarter_master = ServiceLocator.quarter_master
 
 
 func _ready():
+	if _first_time:
+		_first_time = false
+		
+		_initliase_state_machine()
+	
+	
 	add_to_group(Constants.enum_name(Constants.Resources, type))
 	
 	connect("died", self, "unregister_resource")
@@ -50,3 +52,10 @@ func register_resource():
 
 func unregister_resource():
 	_quarter_master.unregister_resource(self)
+
+
+
+func _initliase_state_machine():
+	_state_machine = ResourceStateMachine.new()
+	_state_machine.name = "state_machine"
+	add_child(_state_machine)

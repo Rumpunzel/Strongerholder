@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=2]
@@ -16,67 +16,45 @@
 [ext_resource path="res://game_objects/game_actors/animations/run/run_up.tres" type="Animation" id=14]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_up.tres" type="Animation" id=15]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_left.tres" type="Animation" id=16]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/attack.gd" type="Script" id=17]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_left.tres" type="Animation" id=18]
 [ext_resource path="res://helpers/GameAudioPlayer.gd" type="Script" id=19]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/operate.gd" type="Script" id=20]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/actor_state_machine.gd" type="Script" id=21]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=22]
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=23]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/animation_state_machine.gd" type="Script" id=24]
 [ext_resource path="res://game_objects/game_actors/GameActor.gd" type="Script" id=25]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/puppet_master.gd" type="Script" id=26]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/give.gd" type="Script" id=27]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/request.gd" type="Script" id=28]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/dead.gd" type="Script" id=29]
-[ext_resource path="res://game_objects/inventory.gd" type="Script" id=30]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/inactive.gd" type="Script" id=31]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/take.gd" type="Script" id=32]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/tool_belt.gd" type="Script" id=33]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/idle.gd" type="Script" id=34]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/state_machine/run.gd" type="Script" id=35]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 16.0
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=3]
+[sub_resource type="GDScript" id=3]
+script/source = "extends Label
+
+
+var _state_machine: StateMachine
+
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if _state_machine and _state_machine.current_state:
+		text = \"%s\" % [_state_machine.current_state.name]
+"
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends Label
 
 
-export(NodePath) var _state_machine_node
-
-
-onready var _state_machine: StateMachine = get_node(_state_machine_node)
+onready var _puppet_master: PuppetMaster
 
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if _state_machine.current_state:
-		text = \"%s\" % [_state_machine.current_state.name]
-"
-
-[sub_resource type="GDScript" id=5]
-script/source = "extends Label
-
-
-export(NodePath) var _puppet_master_node
-
-
-onready var _puppet_master: PuppetMaster = get_node(_puppet_master_node)
-
-
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if _puppet_master is PuppetMaster and _puppet_master._current_job and _puppet_master._current_job.current_state:
+	if _puppet_master and _puppet_master is PuppetMaster and _puppet_master._current_job and _puppet_master._current_job.current_state:
 		text = \"%s\" % [_puppet_master._current_job.current_state.name if _puppet_master._current_job else \"unassigned\"]
 "
 
@@ -95,58 +73,10 @@ vframes = 12
 hframes = 9
 frame = 72
 
-[node name="state_machine" type="Node" parent="."]
-script = ExtResource( 21 )
-_animation_tree_node = NodePath("../animation_tree")
-
-[node name="idle" type="Node" parent="state_machine"]
-script = ExtResource( 34 )
-
-[node name="run" type="Node" parent="state_machine"]
-script = ExtResource( 35 )
-
-[node name="give" type="Node" parent="state_machine"]
-script = ExtResource( 27 )
-_puppet_master_node = NodePath("../../puppet_master")
-
-[node name="take" type="Node" parent="state_machine"]
-script = ExtResource( 32 )
-_puppet_master_node = NodePath("../../puppet_master")
-
-[node name="request" type="Node" parent="state_machine"]
-script = ExtResource( 28 )
-
-[node name="attack" type="Node" parent="state_machine"]
-script = ExtResource( 17 )
-
-[node name="operate" type="Node" parent="state_machine"]
-script = ExtResource( 20 )
-_puppet_master_node = NodePath("../../puppet_master")
-
-[node name="inactive" type="Node" parent="state_machine"]
-script = ExtResource( 31 )
-
-[node name="dead" type="Node" parent="state_machine"]
-script = ExtResource( 29 )
-
-[node name="puppet_master" type="Area2D" parent="."]
-collision_layer = 2048
-collision_mask = 31
-script = ExtResource( 26 )
-
-[node name="interaction_shape" type="CollisionShape2D" parent="puppet_master"]
-shape = SubResource( 2 )
-
-[node name="tool_belt" type="Node2D" parent="puppet_master"]
-script = ExtResource( 33 )
-
-[node name="inventory" type="Node2D" parent="puppet_master"]
-script = ExtResource( 30 )
-
 [node name="animation_tree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )
 anim_player = NodePath("../animation_player")
-parameters/playback = SubResource( 3 )
+parameters/playback = SubResource( 2 )
 parameters/attack/blend_position = Vector2( 0, 0 )
 parameters/give/blend_position = Vector2( 0, 0 )
 parameters/idle/blend_position = Vector2( 0, 0 )
@@ -177,7 +107,7 @@ _step_sounds = "res://assets/sounds/footsteps"
 volume_db = -18.0
 script = ExtResource( 19 )
 
-[node name="label" type="Label" parent="."]
+[node name="state_label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -190,13 +120,12 @@ text = "IDLE"
 align = 1
 valign = 1
 uppercase = true
-script = SubResource( 4 )
+script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-_state_machine_node = NodePath("../state_machine")
 
-[node name="label2" type="Label" parent="."]
+[node name="job_label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -209,8 +138,7 @@ text = "Unassigned"
 align = 1
 valign = 1
 uppercase = true
-script = SubResource( 5 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-_puppet_master_node = NodePath("../puppet_master")

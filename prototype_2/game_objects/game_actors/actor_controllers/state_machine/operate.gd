@@ -6,19 +6,16 @@ const PERSIST_PROPERTIES_2 := ["_puppet_master_node"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_puppet_master", "_structure"]
 
 
-export(NodePath) var _puppet_master_node
-
-
-var _puppet_master: InputMaster = null
-
 var _structure: Structure = null
+
+
+onready var _puppet_master: InputMaster = get_parent()._puppet_master
 
 
 
 
 func _ready():
-	if not _puppet_master:
-		_puppet_master = get_node(_puppet_master_node)
+	name = OPERATE
 
 
 

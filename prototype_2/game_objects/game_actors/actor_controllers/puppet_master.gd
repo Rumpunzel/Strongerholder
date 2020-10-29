@@ -7,7 +7,7 @@ const PERSIST_OBJ_PROPERTIES_2 := ["_jobs", "_current_job"]
 
 
 var _jobs: Array = [ ]
-var _current_job: JobMachine = null
+var _current_job = null
 
 var _applied: bool = false
 
@@ -17,18 +17,11 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 
-func _process(_delta: float):
-	if not _current_job and not _applied:
-		_quarter_master.apply_for_job(self)
-		_applied = true
-
-
-
-
-func assign_job(new_job: JobMachine):
+func assign_job(new_job):
 	if _current_job:
 		_current_job.deactive()
 	
+	_applied = false
 	_current_job = new_job
 	_jobs.push_front(_current_job)
 	
@@ -37,7 +30,10 @@ func assign_job(new_job: JobMachine):
 
 
 
-func _get_input() -> Array:
+func _get_input(player_controlled: bool) -> Array:
+	if player_controlled:
+		return ._get_input(player_controlled)
+	
 	var commands: Array = [ ]
 	
 	if _current_job:
@@ -49,7 +45,21 @@ func _get_input() -> Array:
 		
 		commands.append(MoveCommand.new(_current_job.next_step()))
 	else:
+		if not _applied:
+			_quarter_master.apply_for_job(self)
+			_applied = true
+		
 		commands.append(MoveCommand.new(Vector2()))
 	
 	
 	return commands
+
+
+
+func _initialise_inventories():
+	var new_tool_belt: ToolBelt = ToolBelt.new()
+	new_tool_belt.name = "tool_belt"
+	add_child(new_tool_belt)
+	_inventories.append(new_tool_belt)
+	
+	._initialise_inventories()

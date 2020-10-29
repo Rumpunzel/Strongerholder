@@ -8,12 +8,21 @@ const PERSIST_PROPERTIES_2 := ["_pilot_master_node"]
 signal operated
 
 
-export(NodePath) var _pilot_master_node
+var _pilot_master
 
 
-onready var _pilot_master: CityPilotMaster = get_node(_pilot_master_node)
 
-
+func _setup_states(state_classes: Array = [ ]):
+	if state_classes.empty():
+		state_classes = [
+			CityStructureState,
+			CityStructureStateGive, 
+			CityStructureStateTake,
+			CityStructureInactive,
+			CityStructureStateDead,
+		]
+	
+	._setup_states(state_classes)
 
 
 func _ready():

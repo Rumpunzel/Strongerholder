@@ -40,7 +40,7 @@ func _process(_delta: float):
 	if $popup.visible:
 		_progress_bar.value = _saver_loader.progress
 		
-		if _progress_bar.value >= 99:
+		if _progress_bar.value >= 100:
 			_progress_text.text = _FINISHED_LOADING_TEXT
 			_progress_bar.value = 100
 			

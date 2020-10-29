@@ -10,6 +10,13 @@ var _receiver: Node2D = null
 
 
 
+
+func _ready():
+	name = GIVE
+
+
+
+
 func enter(parameters: Array = [ ]):
 	if not parameters.empty():
 		_item = parameters[0]
@@ -20,8 +27,10 @@ func enter(parameters: Array = [ ]):
 	else:
 		pilot_master.drop_item(_item)
 	
-	if _receiver is Structure:
+	if _receiver.get_class() == "Structure":
 		_receiver.check_area_for_item(_item)
 	
 	_item = null
 	_receiver = null
+	
+	exit(IDLE)

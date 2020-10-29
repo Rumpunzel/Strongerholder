@@ -9,6 +9,13 @@ var _item: GameResource = null
 
 
 
+
+func _ready():
+	name = TAKE
+
+
+
+
 func enter(parameters: Array = [ ]):
 	if not parameters.empty():
 		_item = parameters[0]
@@ -19,3 +26,5 @@ func enter(parameters: Array = [ ]):
 	
 	if pilot_master.pick_up_item(_item):
 		_item = null
+	
+	exit(IDLE)

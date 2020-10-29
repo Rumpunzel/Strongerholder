@@ -2,6 +2,9 @@ class_name ObjectStateMachine, "res://assets/icons/icon_state_machine.svg"
 extends StateMachine
 
 
+const PERSIST_OBJ_PROPERTIES_2 := ["hit_points_max", "indestructible", "hit_points"]
+
+
 signal damaged(damage_points, sender)
 
 

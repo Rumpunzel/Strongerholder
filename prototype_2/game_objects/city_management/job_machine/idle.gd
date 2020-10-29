@@ -13,6 +13,12 @@ var _timed_passed: int = 0
 
 
 
+func _ready():
+	name = IDLE
+
+
+
+
 func _check_for_exit_conditions():
 	_timed_passed += 1
 	
@@ -39,8 +45,8 @@ func _check_for_exit_conditions():
 				return
 	
 	
-	if employer.can_be_operated() and employer.owner.position_open():
-		exit(OPERATE, [employer.owner])
+	if employer.can_be_operated() and employer.get_parent().position_open():
+		exit(OPERATE, [employer.get_parent()])
 		return
 	
 	

@@ -1,17 +1,13 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://game_objects/game_actors/GameActor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/city_management/quarter_master.gd" type="Script" id=2]
 [ext_resource path="res://ui/city_ui/resource_ui.tscn" type="PackedScene" id=3]
-[ext_resource path="res://game_objects/structures/things/tree.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game_objects/objects_layer.gd" type="Script" id=5]
 [ext_resource path="res://ui/pause_menu/pause_menu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
-[ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=8]
 [ext_resource path="res://test_tilemap.tres" type="TileSet" id=9]
 [ext_resource path="res://game_objects/navigator.gd" type="Script" id=10]
 [ext_resource path="res://player_camera.gd" type="Script" id=11]
-[ext_resource path="res://game_objects/structures/buildings/woodcutters_hut.tscn" type="PackedScene" id=12]
 [ext_resource path="res://ui/build_menu/build_menu.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/ui_theme.tres" type="Theme" id=14]
 
@@ -22,7 +18,18 @@ script/source = "extends Node2D
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 const SCENE := \"res://test.tscn\"
 
-const PERSIST_PROPERTIES := [\"name\"]
+const PERSIST_PROPERTIES := [\"name\", \"_first_time\"]
+const PERSIST_OBJ_PROPERTIES := [\"_starting_items\"]
+
+
+var _starting_items: Dictionary = {
+	preload(\"res://game_objects/resources/wood_plank.tscn\"): 12,
+}
+
+var _first_time: bool = true
+
+
+onready var _objects_layer = ServiceLocator.objects_layer
 
 
 
@@ -35,7 +42,42 @@ func _enter_tree():
 func _ready():
 	yield(SaveHandler, \"game_load_finished\")
 	
-	$objects_layer/player._setup(true)
+	if not _first_time:
+		return
+	
+	_first_time = false
+	
+	for i in range(5):
+		var player: GameActor = preload(\"res://game_objects/game_actors/GameActor.tscn\").instance()
+		
+		_objects_layer.add_child(player)
+		player.global_position.x = i * 32
+		
+		if i == 0:
+			player.player_controlled = true
+
+
+func _process(_delta: float):
+	if not _first_time:
+		return
+	
+	_first_time = false
+	
+	var storage_buildings: Array = get_tree().get_nodes_in_group(CityPilotMaster.STORAGE)
+	
+	if storage_buildings.empty():
+		return
+	
+	var nearest_storage: CityStructure = storage_buildings.front()
+	
+	for resource in _starting_items.keys():
+		for _i in range(_starting_items[resource]):
+			var new_resource: GameResource = resource.instance()
+			
+			add_child(new_resource)
+			new_resource.drop_item(nearest_storage.global_position)
+	
+	nearest_storage._pilot_master.check_area_for_item()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -112,12 +154,7 @@ shadow_enabled = true
 position = Vector2( -24, 106 )
 occluder = SubResource( 2 )
 
-[node name="objects_layer" type="YSort" parent="."]
-script = ExtResource( 5 )
-
-[node name="player" parent="objects_layer" instance=ExtResource( 1 )]
-
-[node name="camera" type="Camera2D" parent="objects_layer/player"]
+[node name="camera" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
@@ -129,32 +166,5 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource( 11 )
 
-[node name="game_actor" parent="objects_layer" instance=ExtResource( 1 )]
-position = Vector2( 48, 16 )
-
-[node name="game_actor2" parent="objects_layer" instance=ExtResource( 1 )]
-position = Vector2( 16, 64 )
-
-[node name="game_actor3" parent="objects_layer" instance=ExtResource( 1 )]
-position = Vector2( -48, 16 )
-
-[node name="tree" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( 0, 224 )
-
-[node name="tree2" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( -192, 0 )
-
-[node name="tree3" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( -208, 112 )
-
-[node name="tree4" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( 288, 32 )
-
-[node name="tree5" parent="objects_layer" instance=ExtResource( 4 )]
-position = Vector2( -144, 224 )
-
-[node name="stockpile" parent="objects_layer" instance=ExtResource( 8 )]
-position = Vector2( -64, 64 )
-
-[node name="woodcuttters_hut" parent="objects_layer" instance=ExtResource( 12 )]
-position = Vector2( 112, 160 )
+[node name="objects_layer" type="YSort" parent="."]
+script = ExtResource( 5 )

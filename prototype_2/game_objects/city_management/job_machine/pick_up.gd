@@ -11,6 +11,12 @@ var _delivery_target: PilotMaster = null
 
 
 
+func _ready():
+	name = PICK_UP
+
+
+
+
 func _check_for_exit_conditions():
 	if not _item.is_active():
 		if _delivery_target:

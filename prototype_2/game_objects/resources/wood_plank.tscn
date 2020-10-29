@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game_objects/resources/wood_plank.gd" type="Script" id=1]
+[ext_resource path="res://assets/gui/resource_icons/icon_wood_planks.png" type="Texture" id=2]
+[ext_resource path="res://game_objects/resources/GameResource.tscn" type="PackedScene" id=3]
+
+[node name="wood_plank" instance=ExtResource( 3 )]
+script = ExtResource( 1 )
+type = 1026
+how_many_can_be_carried = 2
+
+[node name="sprite" parent="." index="1"]
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 2 )

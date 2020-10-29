@@ -309,7 +309,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/structures/buildings/refinery.gd"
 }, {
-"base": "Node",
+"base": "ObjectState",
 "class": "ResourceState",
 "language": "GDScript",
 "path": "res://game_objects/resources/state_machine/ResourceState.gd"

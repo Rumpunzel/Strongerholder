@@ -2,10 +2,18 @@ class_name ResourceStateMachine, "res://assets/icons/icon_resource_state_machine
 extends ObjectStateMachine
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "history"]
-const PERSIST_OBJ_PROPERTIES := ["current_state", "hit_points_max", "indestructible", "hit_points"]
+
+func _setup_states(state_classes: Array = [ ]):
+	if state_classes.empty():
+		state_classes = [
+			ResourceStateInactive,
+			ResourceState,
+			ResourceStateDead,
+		]
+	
+	._setup_states(state_classes)
+
 
 
 

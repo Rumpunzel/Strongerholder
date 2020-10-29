@@ -2,6 +2,12 @@ class_name StateMachine
 extends Node
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+
+const PERSIST_PROPERTIES := ["name", "history", "_first_time"]
+const PERSIST_OBJ_PROPERTIES := ["current_state"]
+
+
 signal state_changed(new_state, old_state)
 
 
@@ -10,17 +16,14 @@ var current_state = null
 var history: Array = [ ]
 
 
+var _first_time: bool = true
+
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not current_state:
-		# Set the initial state to the first child node
-		current_state = get_child(0)
-	
-	yield(get_tree(), "idle_frame")
-	
-	_enter_state()
+	_setup_states()
 
 
 
@@ -54,4 +57,22 @@ func _change_to(new_state: String, parameters: Array = [ ]):
 
 func _enter_state(parameters: Array = [ ]):
 	current_state.enter(parameters)
+
+
+
+func _setup_states(state_classes: Array = [ ]):
+	if _first_time:
+		_first_time = false
+		
+		for state in state_classes:
+			var new_state = state.new()
+			add_child(new_state)
+	
+	if not current_state:
+		# Set the initial state to the first child node
+		current_state = get_child(0)
+	assert(current_state)
+	yield(get_tree(), "idle_frame")
+	
+	_enter_state()
 

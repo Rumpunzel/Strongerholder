@@ -10,6 +10,13 @@ var _target_structure: Structure = null
 
 
 
+
+func _ready():
+	name = DELIVER
+
+
+
+
 func _check_for_exit_conditions():
 	if not _job_items().empty():
 		var item: GameResource = _job_items().front()

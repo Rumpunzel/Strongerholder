@@ -10,6 +10,13 @@ var _receiver: Node2D
 
 
 
+
+func _ready():
+	name = REQUEST
+
+
+
+
 func enter(parameters: Array = [ ]):
 	.enter(parameters)
 	

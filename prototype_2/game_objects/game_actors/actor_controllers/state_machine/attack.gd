@@ -10,6 +10,12 @@ var _weapon: CraftTool
 
 
 
+func _ready():
+	name = ATTACK
+
+
+
+
 func enter(parameters: Array = [ ]):
 	.enter(parameters)
 	

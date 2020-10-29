@@ -2,27 +2,43 @@ class_name ActorStateMachine, "res://assets/icons/game_actors/states/icon_actor_
 extends ObjectStateMachine
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
-
-const PERSIST_PROPERTIES := ["name", "history"]
-const PERSIST_OBJ_PROPERTIES := ["current_state", "hit_points_max", "indestructible", "hit_points"]
+const PERSIST_PROPERTIES_2 := ["animation_tree_node"]
 
 
-export (NodePath) var _animation_tree_node
+var animation_tree_node: String
 
 
 var _checked_animation: bool = false
 var _update_time: int = 20
 var _timed_passed: int = 0
 
+var _puppet_master: InputMaster
 
-onready var _animation_tree: AnimationStateMachine = get_node(_animation_tree_node)
+var _animation_tree: AnimationStateMachine
 
 
 
 
-# Called when the node enters the scene tree for the first time.
+func _setup_states(state_classes: Array = [ ]):
+	if state_classes.empty():
+		state_classes = [
+			ActorStateIdle,
+			ActorStateRun, 
+			ActorStateGive,
+			ActorStateTake,
+			ActorStateRequest,
+			ActorStateAttack,
+			ActorStateOperate,
+			ActorStateInactive,
+			ActorStateDead,
+		]
+	
+	._setup_states(state_classes)
+
+
 func _ready():
+	_animation_tree = get_node(animation_tree_node)
+	
 	_animation_tree.connect("acted", self, "_animation_acted")
 	_animation_tree.connect("action_finished", self, "_action_finished")
 	_animation_tree.connect("animation_finished", self, "_animation_finished")
@@ -102,4 +118,3 @@ func _action_finished(animation: String):
 
 func _animation_finished(animation: String):
 	current_state.animtion_finished(animation)
-

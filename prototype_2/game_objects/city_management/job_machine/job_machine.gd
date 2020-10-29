@@ -2,13 +2,10 @@ class_name JobMachine, "res://assets/icons/icon_job_machine.svg"
 extends StateMachine
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-
-const PERSIST_PROPERTIES := ["name", "history"]
-const PERSIST_OBJ_PROPERTIES := ["current_state", "employer", "employee", "dedicated_tool", "_debug_flag_scene", "_flag"]
+const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employee", "dedicated_tool", "_debug_flag_scene", "_flag"]
 
 
-export(PackedScene) var _debug_flag_scene
+const _debug_flag_scene = preload("res://flag.tscn")
 
 
 var employer: Node2D
@@ -20,6 +17,23 @@ var dedicated_tool: Spyglass
 var _flag: Sprite
 
 
+
+
+func _setup_states(state_classes: Array = [ ]):
+	if state_classes.empty():
+		state_classes = [
+			JobStateInactive,
+			JobStateJustStarted, 
+			JobStateIdle,
+			JobStateRetrieve,
+			JobStatePickUp,
+			JobStateDeliver,
+			JobStateGather,
+			JobStateOperate,
+			JobStateMoveTo,
+		]
+	
+	._setup_states(state_classes)
 
 
 func _ready():
