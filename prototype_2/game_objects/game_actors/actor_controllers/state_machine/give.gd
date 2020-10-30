@@ -48,9 +48,6 @@ func animation_acted(_animation: String):
 	
 	if _receiver is Structure:
 		_receiver.check_area_for_item(_item)
-	
-	_item = null
-	_receiver = null
 
 
 func animtion_finished(animation: String):

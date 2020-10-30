@@ -39,8 +39,6 @@ func animation_acted(_animation: String):
 		return
 	
 	_puppet_master.interact_with(_structure)
-	
-	_structure = null
 
 
 func animtion_finished(animation: String):

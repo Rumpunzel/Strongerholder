@@ -34,8 +34,6 @@ func animation_acted(_animation: String):
 
 func action_finished(_animation: String):
 	_weapon.end_attack()
-	
-	_weapon = null
 
 
 func animtion_finished(animation: String):

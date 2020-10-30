@@ -30,7 +30,7 @@ func enter(parameters: Array = [ ]):
 	else:
 		pilot_master.drop_item(_item)
 	
-	if _receiver.get_class() == "Structure":
+	if _receiver.has_method("check_area_for_item"):
 		_receiver.check_area_for_item(_item)
 	
 	_item = null

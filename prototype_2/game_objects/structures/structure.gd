@@ -2,8 +2,6 @@ class_name Structure, "res://assets/icons/structures/icon_structure.svg"
 extends GameObject
 
 
-const SCENE := "res://game_objects/structures/Structure.tscn"
-
 const PERSIST_PROPERTIES_2 := ["type"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
 
@@ -69,7 +67,7 @@ func _initliase_pilot_master():
 
 
 func _initliase_state_machine():
-	_state_machine = CityStructureStateMachine.new()
+	_state_machine = StructureStateMachine.new()
 	_state_machine.name = "state_machine"
 	_state_machine._pilot_master = _pilot_master
 	add_child(_state_machine)

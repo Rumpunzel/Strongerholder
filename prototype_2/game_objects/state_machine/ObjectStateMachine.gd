@@ -2,17 +2,26 @@ class_name ObjectStateMachine, "res://assets/icons/icon_state_machine.svg"
 extends StateMachine
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["hit_points_max", "indestructible", "hit_points"]
+const PERSIST_PROPERTIES_2 := ["hit_points_max", "indestructible", "hit_points"]
 
 
 signal damaged(damage_points, sender)
 
 
-export var hit_points_max: float = 10.0
-export var indestructible: bool = false
+var hit_points_max: float = 10.0
+var indestructible: bool = false
+
+var hit_points: float
 
 
-onready var hit_points: float = hit_points_max
+
+
+func _setup_states(state_classes: Array = [ ]):
+	if _first_time:
+		hit_points = hit_points_max
+	
+	._setup_states(state_classes)
+
 
 
 

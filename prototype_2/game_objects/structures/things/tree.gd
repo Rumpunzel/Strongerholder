@@ -1,4 +1,4 @@
 extends Structure
 
 
-const SCENE_OVERRIDE := "res://game_objects/structures/things/tree.tscn"
+const SCENE := "res://game_objects/structures/things/tree.tscn"

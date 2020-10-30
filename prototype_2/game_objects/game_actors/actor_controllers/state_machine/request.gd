@@ -32,9 +32,6 @@ func enter(parameters: Array = [ ]):
 
 func animation_acted(_animation: String):
 	_receiver.request_item(_request, _game_object)
-	
-	_request = null
-	_receiver = null
 
 
 func animtion_finished(animation: String):
