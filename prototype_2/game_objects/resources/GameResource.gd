@@ -8,7 +8,7 @@ const PERSIST_PROPERTIES_2 := ["type", "how_many_can_be_carried"]
 export(Constants.Resources) var type
 
 # warning-ignore-all:unused_class_variable
-export(int, 10) var how_many_can_be_carried: int = 1
+export(int, 100) var how_many_can_be_carried: int = 1
 
 
 onready var _objects_layer = ServiceLocator.objects_layer

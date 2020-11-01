@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game_objects/resources/GameResource.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/sprites/trees/tree5.png" type="Texture" id=2]
+[ext_resource path="res://game_objects/resources/wood_log.gd" type="Script" id=3]
+
+[node name="wood_log" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="sprite" parent="." index="1"]
+texture = ExtResource( 2 )

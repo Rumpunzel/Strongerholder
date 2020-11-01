@@ -14,7 +14,7 @@ export(Constants.Structures) var type: int
 export(Array, PackedScene) var _starting_items
 
 
-var _pilot_master: PilotMaster
+var _pilot_master
 
 
 

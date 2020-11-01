@@ -19,22 +19,24 @@ enum Actors {
 enum Structures {
 	NOTHING = 0,
 	EVERYTHING = 256,
-	BASE,
-	BRIDGE,
-	FOUNDATION,
 	STOCKPILE,
 	WOODCUTTERS_HUT,
+	LUMBER_MILL,
+	MARKET,
+	TENT,
 	
 	TREE = 512,
 }
 
 enum Resources {
 	NOTHING = 1024,
-	WOOD,
+	WOOD_LOG,
+	LUMBER,
 	WOOD_PLANKS,
 	STONE,
 	SPYGLASS = 2048,
 	AXE,
+	SAW,
 }
 
 

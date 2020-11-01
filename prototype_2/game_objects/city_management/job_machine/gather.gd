@@ -24,6 +24,8 @@ func _check_for_exit_conditions():
 		
 		if nearest_item:
 			exit(PICK_UP, [nearest_item, _delivery_target])
+		else:
+			exit(IDLE, [_delivery_target])
 
 
 

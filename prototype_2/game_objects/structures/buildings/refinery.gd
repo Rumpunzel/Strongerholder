@@ -7,7 +7,7 @@ const PERSIST_OBJ_PROPERTIES_2 := ["input_resources", "_output_resources"]
 
 
 const _RESOURCE_SCENES = {
-	Constants.Resources.WOOD: "res://game_objects/resources/wood.tscn",
+	Constants.Resources.LUMBER: "res://game_objects/resources/lumber.tscn",
 	Constants.Resources.WOOD_PLANKS: "res://game_objects/resources/wood_plank.tscn",
 	Constants.Resources.STONE: null,
 	Constants.Resources.SPYGLASS: null,

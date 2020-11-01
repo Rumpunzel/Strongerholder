@@ -3,26 +3,26 @@
 [ext_resource path="res://game_objects/structures/buildings/CityStructure.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/resources/tools/axe.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_objects/city_management/job_machine/job_machine.gd" type="Script" id=3]
-[ext_resource path="res://assets/sprites/structures/medievalStructure_21.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/structures/medievalStructure_16.png" type="Texture" id=4]
 [ext_resource path="res://game_objects/structures/buildings/woodcutters_hut.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30, 8 )
+extents = Vector2( 22, 8 )
 
 [node name="woodcuttters_hut" instance=ExtResource( 1 )]
 script = ExtResource( 7 )
-_maximum_operators = 2
-type = 261
-_starting_items = [ ExtResource( 2 ), ExtResource( 2 ) ]
+type = 258
+_starting_items = [ ExtResource( 2 ) ]
 _available_job = ExtResource( 3 )
 input_resources = [ 1025 ]
-_output_resources = [ 1026, 1026 ]
+_output_resources = [ 1026, 1026, 1026 ]
+_production_steps = 4
 
 [node name="collision_shape" parent="." index="0"]
 shape = SubResource( 1 )
 
 [node name="sprite" parent="." index="1"]
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 offset = Vector2( 0, -12 )
 
 [node name="audio_handler" parent="." index="2"]

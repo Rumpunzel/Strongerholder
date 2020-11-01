@@ -5,7 +5,6 @@
 [ext_resource path="res://game_objects/resources/tools/axe.gd" type="Script" id=3]
 
 [node name="axe" instance=ExtResource( 2 )]
-collision_layer = 8
 script = ExtResource( 3 )
 gathers = [ 1025 ]
 delivers = [ 1026 ]

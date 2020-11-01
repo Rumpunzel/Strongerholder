@@ -10,7 +10,7 @@
 [ext_resource path="res://game_objects/structures/things/random_sprite.gd" type="Script" id=8]
 [ext_resource path="res://game_objects/structures/Structure.tscn" type="PackedScene" id=9]
 [ext_resource path="res://game_objects/structures/things/tree.gd" type="Script" id=10]
-[ext_resource path="res://game_objects/resources/wood.tscn" type="PackedScene" id=12]
+[ext_resource path="res://game_objects/resources/wood_log.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.0
@@ -18,7 +18,7 @@ radius = 6.0
 [node name="tree" instance=ExtResource( 9 )]
 script = ExtResource( 10 )
 type = 512
-_starting_items = [ ExtResource( 12 ) ]
+_starting_items = [ ExtResource( 11 ) ]
 
 [node name="collision_shape" parent="." index="0"]
 shape = SubResource( 1 )

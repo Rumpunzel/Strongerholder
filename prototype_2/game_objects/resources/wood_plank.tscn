@@ -7,7 +7,7 @@
 [node name="wood_plank" instance=ExtResource( 3 )]
 script = ExtResource( 1 )
 type = 1026
-how_many_can_be_carried = 2
+how_many_can_be_carried = 12
 
 [node name="sprite" parent="." index="1"]
 scale = Vector2( 0.05, 0.05 )
