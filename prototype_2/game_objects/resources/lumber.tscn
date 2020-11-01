@@ -6,7 +6,7 @@
 
 [node name="wood_log" instance=ExtResource( 3 )]
 script = ExtResource( 1 )
-type = 1025
+type = 1026
 how_many_can_be_carried = 3
 
 [node name="sprite" parent="." index="1"]

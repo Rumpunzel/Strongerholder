@@ -24,3 +24,6 @@ shape = SubResource( 1 )
 [node name="sprite" parent="." index="1"]
 texture = ExtResource( 2 )
 offset = Vector2( 0, -12 )
+
+[node name="audio_handler" parent="." index="2"]
+_operate_sounds_directory = "res://assets/sounds/woodsaw"
