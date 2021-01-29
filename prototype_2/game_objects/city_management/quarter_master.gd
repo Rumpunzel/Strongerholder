@@ -8,9 +8,14 @@ const PERSIST_PROPERTIES := ["name"]
 const PERSIST_OBJ_PROPERTIES := ["_worker_queue", "_job_queue", "_resource_sightings"]
 
 
-onready var _worker_queue: Array = [ ]
-onready var _job_queue: Array = [ ]
-onready var _resource_sightings: Array = [ ]
+var _worker_queue: Array = [ ]
+var _job_queue: Array = [ ]
+
+var _resource_sightings: Array = [ ]
+
+
+var storage_buildings: Dictionary = { }
+
 
 onready var _navigator: Navigator = ServiceLocator.navigator
 
@@ -30,24 +35,39 @@ func _exit_tree():
 
 
 func apply_for_job(puppet_master: Node2D):
-	return _worker_queue.append(puppet_master)
+	_worker_queue.append(puppet_master)
 
 func unapply_for_job(puppet_master: Node2D):
-	return _worker_queue.erase(puppet_master)
+	_worker_queue.erase(puppet_master)
 
 
 func post_job(city_pilot_master: Node2D):
-	return _job_queue.append(city_pilot_master)
+	_job_queue.append(city_pilot_master)
 
 func unpost_job(posting: Node2D):
-	return _job_queue.erase(posting)
+	_job_queue.erase(posting)
+
+
+
+func register_storage(storage: StaticBody2D, resource):
+	storage_buildings[resource] = storage_buildings.get(resource, [ ]) + [ storage ]
+
+func unregister_storage(storage: StaticBody2D,resource):
+	storage_buildings.get(resource, [ ]).erase(storage)
+
+
+func nearest_storage(grid_position: Vector2, resource) -> Node2D:
+	var storages: Array = storage_buildings.get(resource, [ ])
+	
+	return _navigator.nearest_from_array(grid_position, storages)
+
 
 
 func register_resource(structure: Node2D):
-	return _resource_sightings.append(structure)
-	
+	_resource_sightings.append(structure)
+
 func unregister_resource(structure: Node2D):
-	return _resource_sightings.erase(structure)
+	_resource_sightings.erase(structure)
 
 
 func inquire_for_resource(puppet_master: Node2D, resource_type, only_active_resources: bool, groups_to_exclude: Array = [ ]) -> Node2D:

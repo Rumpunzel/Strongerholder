@@ -37,17 +37,16 @@ func _check_for_exit_conditions():
 		exit(DELIVER, [_delivery_target])
 		return
 	
-	# Check if there is a storate building nearby
-	var nearest_storage: Node2D = _navigator.nearest_in_group(employer.global_position, CityPilotMaster.STORAGE)
 	
-	if nearest_storage:
-		# Check for all the resources I deliver with my tools
-		for use in dedicated_tool.delivers:
-			if not (_job_items().empty() or use == _job_items().front().type):
-				continue
-			
-			if _construct_new_plan(use, nearest_storage._pilot_master):
-				return
+	# Check for available storage fo all the resources I deliver with my tools
+	for use in dedicated_tool.delivers:
+		var nearest_storage: Node2D = _quarter_master.nearest_storage(employer.global_position, use)
+		
+		if not nearest_storage or not (_job_items().empty() or use == _job_items().front().type):
+			continue
+		
+		if _construct_new_plan(use, nearest_storage._pilot_master):
+			return
 	
 	
 	# Check if the employer can be operated and do so if possible

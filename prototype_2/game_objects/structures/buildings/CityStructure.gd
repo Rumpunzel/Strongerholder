@@ -3,10 +3,14 @@ extends Structure
 
 
 export(GDScript) var _available_job
-export var _storage: bool = false
 
-export(Array, Constants.Resources) var input_resources
-export(Array, Constants.Resources) var _output_resources
+# Defines what types of resources can be stored in this building
+export(Array, Constants.Resources) var storage_resources = [ ]
+
+# Defines behaviour of the refinery for this structure
+#	if this structure is not supposed to refine anything, leave it empty
+export(Array, Constants.Resources) var input_resources = [ ]
+export(Array, Constants.Resources) var _output_resources = [ ]
 
 export var _production_steps: int = 2
 
@@ -40,7 +44,7 @@ func request_item(request, receiver: Node2D):
 func _initliase_pilot_master():
 	_pilot_master = load("res://game_objects/structures/buildings/city_pilot_master.tscn").instance()
 	_pilot_master._available_job = _available_job
-	_pilot_master._storage = _storage
+	_pilot_master._storage_resources = storage_resources
 	
 	add_child(_pilot_master)
 	

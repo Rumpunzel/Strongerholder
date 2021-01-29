@@ -10,7 +10,7 @@ extents = Vector2( 24, 8 )
 [node name="stockpile" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 type = 257
-_storage = true
+storage_resources = [ 1025, 1026, 1027, 1028 ]
 
 [node name="collision_shape" parent="." index="0"]
 shape = SubResource( 1 )

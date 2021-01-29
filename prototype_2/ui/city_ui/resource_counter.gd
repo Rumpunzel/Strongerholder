@@ -11,6 +11,9 @@ const RESOURCE_ICONS: Dictionary = {
 export(Constants.Resources) var _resource_to_count
 
 
+onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
+
+
 
 
 func _ready():
@@ -20,7 +23,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
 	var counted_amount: int = 0
-	var storage_units: Array = get_tree().get_nodes_in_group(CityPilotMaster.STORAGE)
+	var storage_units: Array = _quarter_master.storage_buildings.get(_resource_to_count, [ ])
 	
 	for unit in storage_units:
 		counted_amount += unit._pilot_master.how_many_of_item(_resource_to_count).size()

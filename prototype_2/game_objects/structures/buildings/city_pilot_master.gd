@@ -6,11 +6,9 @@ const PERSIST_PROPERTIES_2 := ["_available_job", "_storage", "_posted_job"]
 const PERSIST_OBJ_PROPERTIES_4 := ["_city_structure", "_custodian", "_assigned_gatherers"]
 
 
-const STORAGE = "STORAGE"
-
-
 var _available_job
-var _storage: bool
+
+var _storage_resources: Array = [ ]
 
 var _city_structure: CityStructure = null
 var _custodian: Custodian = null
@@ -27,8 +25,9 @@ func _ready():
 	if not _city_structure:
 		_city_structure = get_parent()
 	
-	if _storage:
-		_city_structure.add_to_group(STORAGE)
+	for resource in _storage_resources:
+		_quarter_master.register_storage(_city_structure, resource)
+
 
 
 func _process(_delta: float):
