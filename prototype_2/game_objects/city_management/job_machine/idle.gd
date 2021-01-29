@@ -30,13 +30,18 @@ func _check_for_exit_conditions():
 	
 	yield(get_tree(), "idle_frame")
 	
+	# Check if I can carry anything more
+	#	 if I cannot, deliver to _delviery_target
 	if employee.carry_weight_left() <= 0.0:
+		print("Returning with delivery to: %s" % _delivery_target.get_parent().name)
 		exit(DELIVER, [_delivery_target])
 		return
 	
+	# Check if there is a storate building nearby
 	var nearest_storage: Node2D = _navigator.nearest_in_group(employer.global_position, CityPilotMaster.STORAGE)
 	
 	if nearest_storage:
+		# Check for all the resources I deliver with my tools
 		for use in dedicated_tool.delivers:
 			if not (_job_items().empty() or use == _job_items().front().type):
 				continue
@@ -45,13 +50,16 @@ func _check_for_exit_conditions():
 				return
 	
 	
+	# Check if the employer can be operated and do so if possible
 	if employer.can_be_operated() and employer.get_parent().position_open():
+		print("Operating: %s" % employer.get_parent().name)
 		exit(OPERATE, [employer.get_parent()])
-		print("oping")
 		return
 	
 	
+	# Check if I carrying something
 	if employee.carry_weight_left() > 0.0:
+		# Check if there is anything more of what I am currently supposed to be gathering to be had
 		for use in dedicated_tool.gathers:
 			if not (_job_items().empty() or use == _job_items().front().type):
 				continue
@@ -60,7 +68,9 @@ func _check_for_exit_conditions():
 				return
 	
 	
+	# Otherwise, simply return with a delivery to _delivery_target
 	if not _job_items().empty():
+		print("Returning due to default with delivery to: %s" % _delivery_target.get_parent().name)
 		exit(DELIVER, [_delivery_target])
 		return
 
@@ -90,7 +100,7 @@ func exit(next_state: String, parameters: Array = [ ]):
 
 func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 	var nearest_resource: GameResource = _get_nearest_item_of_type(use)
-	
+	print("Constructing new plan")
 	if nearest_resource:
 		exit(PICK_UP, [nearest_resource, delivery_target])
 		return true
