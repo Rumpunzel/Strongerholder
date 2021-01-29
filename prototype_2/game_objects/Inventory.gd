@@ -19,7 +19,7 @@ export(Array, PackedScene) var _starting_items
 
 
 
-func _ready():
+func _ready() -> void:
 	if not _first_time:
 		return
 	
@@ -33,15 +33,15 @@ func _ready():
 
 
 
-func pick_up_item(item: Node2D):
+func pick_up_item(item: Node2D) -> void:
 	item.pick_up_item(self)
 
-func transfer_item(item: Node2D):
+func transfer_item(item: Node2D) -> void:
 	item.transfer_item(self)
 
 
 
-func drop_all_items(position_to_drop: Vector2):
+func drop_all_items(position_to_drop: Vector2) -> void:
 	while get_child_count() > 0:
 		drop_item(get_child(0), position_to_drop)
 
@@ -82,6 +82,6 @@ func capacity_left() -> float:
 
 
 
-func _add_item(item: Node2D):
+func _add_item(item: Node2D) -> void:
 	add_child(item)
 	emit_signal("received_item", item)

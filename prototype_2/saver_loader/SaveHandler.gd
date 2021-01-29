@@ -28,7 +28,7 @@ onready var _tween: Tween = $tween
 
 
 
-func _ready():
+func _ready() -> void:
 	set_process(false)
 	
 	_saver_loader.connect("finished", _progress_text, "set_text", [_FINISHED_LOADING_TEXT])
@@ -36,7 +36,7 @@ func _ready():
 	$popup/center_container/title_divider/title.text = ProjectSettings.get("application/config/name")
 
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	if $popup.visible:
 		_progress_bar.value = _saver_loader.progress
 		
@@ -49,7 +49,7 @@ func _process(_delta: float):
 			_progress_text.text = _LOADING_TEXT
 
 
-func _unhandled_input(event: InputEvent):
+func _unhandled_input(event: InputEvent) -> void:
 	if $popup.visible and _progress_text.text == _FINISHED_LOADING_TEXT:
 		if not event.is_pressed() and event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
 			get_tree().set_input_as_handled()
@@ -90,7 +90,7 @@ func load_game(path: String) -> void:
 
 
 
-func starting_new_game(new_game: bool = false):
+func starting_new_game(new_game: bool = false) -> void:
 	if new_game:
 		_progress_text.text = _FINISHED_LOADING_TEXT
 		_progress_bar.value = 100

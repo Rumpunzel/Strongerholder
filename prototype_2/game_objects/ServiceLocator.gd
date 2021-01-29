@@ -8,14 +8,14 @@ var quarter_master: Node setget register_as_quarter_master
 
 
 
-func register_as_navigator(new_node: Navigation2D):
+func register_as_navigator(new_node: Navigation2D) -> void:
 	if not new_node:
 		return
 	
 	navigator = new_node
 
 
-func unregister_as_navigator(new_node: Navigation2D):
+func unregister_as_navigator(new_node: Navigation2D) -> void:
 	if not (new_node and new_node == navigator):
 		return
 	
@@ -23,14 +23,14 @@ func unregister_as_navigator(new_node: Navigation2D):
 
 
 
-func register_as_objects_layer(new_node: YSort):
+func register_as_objects_layer(new_node: YSort) -> void:
 	if not new_node:
 		return
 	
 	objects_layer = new_node
 
 
-func unregister_as_objects_layer(new_node: YSort):
+func unregister_as_objects_layer(new_node: YSort) -> void:
 	if not (new_node and new_node == objects_layer):
 		return
 	
@@ -38,12 +38,12 @@ func unregister_as_objects_layer(new_node: YSort):
 
 
 
-func register_as_quarter_master(new_node: Node):
+func register_as_quarter_master(new_node: Node) -> void:
 	if new_node:
 		quarter_master = new_node
 
 
-func unregister_as_quarter_master(new_node: Node):
+func unregister_as_quarter_master(new_node: Node) -> void:
 	if not (new_node and new_node == quarter_master):
 		return
 	

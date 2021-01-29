@@ -11,20 +11,20 @@ var _path: PoolVector2Array = [ ]
 
 
 
-func _ready():
+func _ready() -> void:
 	name = MOVE_TO
 
 
 
 
-func _check_for_exit_conditions():
+func _check_for_exit_conditions() -> void:
 	if _path.empty():
 		exit(IDLE)
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	_pathing_target = parameters[0]
 	
 	_calculate_path(employee.global_position, _pathing_target)
@@ -32,7 +32,7 @@ func enter(parameters: Array = [ ]):
 	.enter(parameters)
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_pathing_target = Vector2()
 	_path = [ ]
 	
@@ -54,5 +54,5 @@ func next_step() -> Vector2:
 
 
 
-func _calculate_path(start: Vector2, end: Vector2):
+func _calculate_path(start: Vector2, end: Vector2) -> void:
 	_path = _navigator.get_simple_path(start, end)

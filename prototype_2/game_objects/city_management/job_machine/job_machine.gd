@@ -19,7 +19,7 @@ var _flag: Sprite
 
 
 
-func _setup_states(state_classes: Array = [ ]):
+func _setup_states(state_classes: Array = [ ]) -> void:
 	if state_classes.empty():
 		state_classes = [
 			JobStateInactive,
@@ -36,8 +36,8 @@ func _setup_states(state_classes: Array = [ ]):
 	._setup_states(state_classes)
 
 
-func _ready():
-#	for state in get_children():
+func _ready() -> void:
+#	for state in get_children() -> void:
 #		state.employer = employer
 #		state.employee = employee
 	
@@ -46,7 +46,7 @@ func _ready():
 		get_tree().current_scene.add_child(_flag)
 
 
-func _setup(new_employer: Node2D, new_employee: Node2D):
+func _setup(new_employer: Node2D, new_employee: Node2D) -> void:
 	employer = new_employer
 	employee = new_employee
 	
@@ -57,7 +57,7 @@ func _setup(new_employer: Node2D, new_employee: Node2D):
 	_flag.target = employee
 
 
-func _process(_delta):
+func _process(_delta) -> void:
 	yield(get_tree(), "idle_frame")
 	
 	var target: Node2D = current_target()
@@ -91,21 +91,21 @@ func current_target() -> Node2D:
 
 
 
-func activate(first_time: bool = false, tool_type = null):
+func activate(first_time: bool = false, tool_type = null) -> void:
 	if not current_state:
-		return null
+		return
 	
 	current_state.activate(first_time, tool_type)
 
-func deactivate():
+func deactivate() -> void:
 	if not current_state:
-		return null
+		return
 	
 	current_state.deactivate()
 
 
 
-func set_dedicated_tool(new_tool: Spyglass):
+func set_dedicated_tool(new_tool: Spyglass) -> void:
 	dedicated_tool = new_tool
 	assert(dedicated_tool)
 	

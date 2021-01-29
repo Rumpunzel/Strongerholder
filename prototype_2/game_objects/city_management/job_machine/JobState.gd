@@ -35,24 +35,24 @@ onready var _quarter_master = ServiceLocator.quarter_master
 
 
 
-func _ready():
+func _ready() -> void:
 	set_process(false)
 
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	_check_for_exit_conditions()
 
 
 
 
-func enter(_parameters: Array = [ ]):
+func enter(_parameters: Array = [ ]) -> void:
 	for item in _job_items():
 		item.assign_worker(employee)
 	
 	set_process(true)
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	set_process(false)
 	
 	for item in _job_items():
@@ -77,10 +77,10 @@ func current_target() -> Node2D:
 
 
 
-func activate(_first_time: bool = false, _tool_type = null):
+func activate(_first_time: bool = false, _tool_type = null) -> void:
 	pass
 
-func deactivate():
+func deactivate() -> void:
 	exit(INACTIVE)
 
 
@@ -89,7 +89,7 @@ func is_active() -> bool:
 
 
 
-func _check_for_exit_conditions():
+func _check_for_exit_conditions() -> void:
 	pass
 
 

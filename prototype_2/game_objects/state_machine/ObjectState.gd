@@ -22,7 +22,7 @@ var _animation_cancellable: bool = true
 
 
 
-func _ready():
+func _ready() -> void:
 	if not _state_machine:
 		_state_machine = get_parent()
 	
@@ -31,11 +31,11 @@ func _ready():
 
 
 
-func enter(_parameters: Array = [ ]):
+func enter(_parameters: Array = [ ]) -> void:
 	pass
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_state_machine._change_to(next_state, parameters)
 
 
@@ -51,7 +51,7 @@ func is_active() -> bool:
 
 
 
-func _toggle_active_state(object: Node, new_state: bool):
+func _toggle_active_state(object: Node, new_state: bool) -> void:
 	object.visible = new_state
 	object.enable_collision(new_state)
 	

@@ -20,7 +20,7 @@ var _animation_tree: AnimationStateMachine
 
 
 
-func _setup_states(state_classes: Array = [ ]):
+func _setup_states(state_classes: Array = [ ]) -> void:
 	if state_classes.empty():
 		state_classes = [
 			ActorStateIdle,
@@ -37,7 +37,7 @@ func _setup_states(state_classes: Array = [ ]):
 	._setup_states(state_classes)
 
 
-func _ready():
+func _ready() -> void:
 	_animation_tree = get_node(animation_tree_node)
 	
 	_animation_tree.connect("acted", self, "_animation_acted")
@@ -45,7 +45,7 @@ func _ready():
 	_animation_tree.connect("animation_finished", self, "_animation_finished")
 
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	if _checked_animation:
 		return
 	
@@ -66,42 +66,42 @@ func _process(_delta: float):
 
 
 
-func move_to(direction: Vector2, is_sprinting: bool = false):
+func move_to(direction: Vector2, is_sprinting: bool = false) -> void:
 	current_state.move_to(direction, is_sprinting)
 
 
-func give_item(item: GameResource, receiver: Node2D):
+func give_item(item: GameResource, receiver: Node2D) -> void:
 	current_state.give_item(item, receiver)
 
 
-func take_item(item: GameResource):
+func take_item(item: GameResource) -> void:
 	current_state.take_item(item)
 
 
-func request_item(request, receiver: Node2D):
+func request_item(request, receiver: Node2D) -> void:
 	current_state.request_item(request, receiver)
 
 
-func transfer_item(item, receiver: Node2D):
+func transfer_item(item, receiver: Node2D) -> void:
 	current_state.transfer_item(item, receiver)
 
 
-func attack(weapon: CraftTool):
+func attack(weapon: CraftTool) -> void:
 	current_state.attack(weapon)
 
 
-func operate(structure: Node2D):
+func operate(structure: Node2D) -> void:
 	current_state.operate(structure)
 
 
 
-func _change_to(new_state: String, parameters: Array = [ ]):
+func _change_to(new_state: String, parameters: Array = [ ]) -> void:
 	._change_to(new_state, parameters)
 	
 	_timed_passed = 0
 
 
-func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()):
+func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()) -> void:
 	if _animation_tree.get_current_animation() == new_animation:
 		_animation_acted(new_animation)
 		_animation_finished(new_animation)
@@ -113,13 +113,13 @@ func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()
 
 
 
-func _animation_acted(animation: String):
+func _animation_acted(animation: String) -> void:
 	current_state.animation_acted(animation)
 
 
-func _action_finished(animation: String):
+func _action_finished(animation: String) -> void:
 	current_state.action_finished(animation)
 
 
-func _animation_finished(animation: String):
+func _animation_finished(animation: String) -> void:
 	current_state.animtion_finished(animation)

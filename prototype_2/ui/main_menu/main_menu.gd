@@ -11,7 +11,7 @@ onready var _version: Label = $split_container/margin_container/version
 
 
 
-func _ready():
+func _ready() -> void:
 	_title.text = get_game_title()
 	_version.text = get_version()
 
@@ -26,7 +26,7 @@ static func get_version() -> String:
 
 
 
-func _new_game():
+func _new_game() -> void:
 	get_tree().paused = true
 	
 	get_tree().change_scene_to(SaveHandler.MAIN_SCENE)
@@ -34,7 +34,7 @@ func _new_game():
 	SaveHandler.starting_new_game(true)
 
 
-func _load_game():
+func _load_game() -> void:
 	get_tree().paused = true
 	
 	SaveHandler.load_game(SaveHandler.SAVE_LOCATION)
@@ -42,5 +42,5 @@ func _load_game():
 	print("Game loaded from %s" % SaveHandler.SAVE_LOCATION)
 
 
-func _quit_game():
+func _quit_game() -> void:
 	get_tree().quit()

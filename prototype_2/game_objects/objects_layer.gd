@@ -9,9 +9,9 @@ const PERSIST_PROPERTIES := ["name"]
 
 
 
-func _enter_tree():
+func _enter_tree() -> void:
 	ServiceLocator.register_as_objects_layer(self)
 
 
-func _exit_tree():
+func _exit_tree() -> void:
 	ServiceLocator.unregister_as_objects_layer(self)

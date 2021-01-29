@@ -18,3 +18,7 @@ shape = SubResource( 1 )
 [node name="sprite" parent="." index="1"]
 texture = ExtResource( 4 )
 offset = Vector2( 0, -12 )
+
+[node name="audio_handler" parent="." index="2"]
+_volume_modifer = null
+_operate_sounds_directory = null

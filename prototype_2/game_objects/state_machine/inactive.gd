@@ -3,13 +3,13 @@ extends ObjectState
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
 	_toggle_active_state(_game_object, false)
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_toggle_active_state(_game_object, true)
 	
 	.exit(next_state, parameters)

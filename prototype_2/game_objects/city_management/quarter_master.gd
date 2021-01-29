@@ -22,37 +22,37 @@ onready var _navigator: Navigator = ServiceLocator.navigator
 
 
 
-func _enter_tree():
+func _enter_tree() -> void:
 	ServiceLocator.register_as_quarter_master(self)
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	_assign_job()
 
-func _exit_tree():
+func _exit_tree() -> void:
 	ServiceLocator.unregister_as_quarter_master(self)
 
 
 
 
-func apply_for_job(puppet_master: Node2D):
+func apply_for_job(puppet_master: Node2D) -> void:
 	_worker_queue.append(puppet_master)
 
-func unapply_for_job(puppet_master: Node2D):
+func unapply_for_job(puppet_master: Node2D) -> void:
 	_worker_queue.erase(puppet_master)
 
 
-func post_job(city_pilot_master: Node2D):
+func post_job(city_pilot_master: Node2D) -> void:
 	_job_queue.append(city_pilot_master)
 
-func unpost_job(posting: Node2D):
+func unpost_job(posting: Node2D) -> void:
 	_job_queue.erase(posting)
 
 
 
-func register_storage(storage: StaticBody2D, resource):
+func register_storage(storage: StaticBody2D, resource) -> void:
 	storage_buildings[resource] = storage_buildings.get(resource, [ ]) + [ storage ]
 
-func unregister_storage(storage: StaticBody2D,resource):
+func unregister_storage(storage: StaticBody2D,resource) -> void:
 	storage_buildings.get(resource, [ ]).erase(storage)
 
 
@@ -63,10 +63,10 @@ func nearest_storage(grid_position: Vector2, resource) -> Node2D:
 
 
 
-func register_resource(structure: Node2D):
+func register_resource(structure: Node2D) -> void:
 	_resource_sightings.append(structure)
 
-func unregister_resource(structure: Node2D):
+func unregister_resource(structure: Node2D) -> void:
 	_resource_sightings.erase(structure)
 
 
@@ -76,7 +76,7 @@ func inquire_for_resource(puppet_master: Node2D, resource_type, only_active_reso
 
 
 
-func _assign_job():
+func _assign_job() -> void:
 	if _worker_queue.empty() or _job_queue.empty() or _resource_sightings.empty():
 		return
 	

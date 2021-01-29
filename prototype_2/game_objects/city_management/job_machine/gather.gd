@@ -12,13 +12,13 @@ var _delivery_target: PilotMaster = null
 
 
 
-func _ready():
+func _ready() -> void:
 	name = GATHER
 
 
 
 
-func _check_for_exit_conditions():
+func _check_for_exit_conditions() -> void:
 	if not _structure_to_gather_from.is_active():
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
@@ -30,7 +30,7 @@ func _check_for_exit_conditions():
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		assert(parameters.size() == 3)
 		
@@ -44,7 +44,7 @@ func enter(parameters: Array = [ ]):
 	.enter([_structure_to_gather_from.global_position])
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_item_type = null
 	
 	_structure_to_gather_from.unassign_worker(employee)

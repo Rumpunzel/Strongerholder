@@ -4,25 +4,25 @@ extends ToolStateInactive
 
 
 
-func _ready():
+func _ready() -> void:
 	name = ATTACK
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
 	if not parameters.empty():
 		_game_object._enable_hurtbox(parameters[0])
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_game_object._disable_hurtbox()
 	
 	.exit(next_state, parameters)
 
 
 
-func end_attack():
+func end_attack() -> void:
 	exit(INACTIVE)

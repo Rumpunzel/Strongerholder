@@ -14,20 +14,20 @@ var _requested_item: bool = false
 
 
 
-func _ready():
+func _ready() -> void:
 	name = RETRIEVE
 
 
 
 
-func _check_for_exit_conditions():
+func _check_for_exit_conditions() -> void:
 	if employee.carry_weight_left() <= 0.01 or _structure_to_retrieve_from._pilot_master.how_many_of_item(_item_type).empty():
 		exit(IDLE, [_delivery_target])
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		assert(parameters.size() == 3)
 		
@@ -41,7 +41,7 @@ func enter(parameters: Array = [ ]):
 	.enter([_structure_to_retrieve_from.global_position])
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	if _structure_to_retrieve_from:
 		_structure_to_retrieve_from.unassign_gatherer(employee, _item_type)
 		_structure_to_retrieve_from = null

@@ -12,7 +12,7 @@ var _puppet_master: InputMaster = null
 
 
 
-func _ready():
+func _ready() -> void:
 	name = TAKE
 	
 	if not _puppet_master:
@@ -21,7 +21,7 @@ func _ready():
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
 	if not parameters.empty():
@@ -33,7 +33,7 @@ func enter(parameters: Array = [ ]):
 
 
 
-func animation_acted(_animation: String):
+func animation_acted(_animation: String) -> void:
 	if not _item:
 		return
 	
@@ -41,7 +41,7 @@ func animation_acted(_animation: String):
 		_item = null
 
 
-func animtion_finished(animation: String):
+func animtion_finished(animation: String) -> void:
 	.animtion_finished(animation)
 	
 	exit(IDLE)

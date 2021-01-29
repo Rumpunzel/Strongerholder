@@ -10,20 +10,20 @@ var _structure_to_operate: CityStructure = null
 
 
 
-func _ready():
+func _ready() -> void:
 	name = OPERATE
 
 
 
 
-func _check_for_exit_conditions():
+func _check_for_exit_conditions() -> void:
 	if not _structure_to_operate.can_be_operated():
 		exit(IDLE)
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		assert(parameters.size() == 1)
 		
@@ -33,7 +33,7 @@ func enter(parameters: Array = [ ]):
 	.enter([_structure_to_operate.global_position])
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_structure_to_operate.unassign_worker(employee)
 	_structure_to_operate = null
 	

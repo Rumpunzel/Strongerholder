@@ -35,6 +35,6 @@ static func list_files_in_directory(directory_path: String, recursive: bool = fa
 	return files
 
 
-static func delete_file(file_path: String):
+static func delete_file(file_path: String) -> void:
 	var directory: Directory = Directory.new()
 	directory.remove(file_path)

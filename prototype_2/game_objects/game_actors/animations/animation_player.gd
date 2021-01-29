@@ -15,19 +15,19 @@ onready var _footstep_sounds = $footstep_sounds
 
 
 
-func just_attacked():
+func just_attacked() -> void:
 	emit_signal("acted")
 
-func attack_finished():
+func attack_finished() -> void:
 	emit_signal("action_finished")
 
-func just_given():
+func just_given() -> void:
 	emit_signal("acted")
 
-func just_stepped():
+func just_stepped() -> void:
 	_footstep_sounds.play_audio_from_array(_sounds)
 	
 	emit_signal("stepped")
 
-func animation_finished():
+func animation_finished() -> void:
 	emit_signal("animation_finished")

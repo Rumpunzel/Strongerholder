@@ -11,13 +11,13 @@ var _delivery_target: PilotMaster = null
 
 
 
-func _ready():
+func _ready() -> void:
 	name = PICK_UP
 
 
 
 
-func _check_for_exit_conditions():
+func _check_for_exit_conditions() -> void:
 	if not _item.is_active():
 		if _delivery_target:
 			exit(IDLE, [_delivery_target])
@@ -27,7 +27,7 @@ func _check_for_exit_conditions():
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		assert(parameters.size() == 2)
 		
@@ -39,7 +39,7 @@ func enter(parameters: Array = [ ]):
 	.enter([_item.global_position])
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_item = null
 	
 	_delivery_target = null

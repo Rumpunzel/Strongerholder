@@ -21,7 +21,7 @@ var _posted_job: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	if not _city_structure:
 		_city_structure = get_parent()
 	
@@ -30,7 +30,7 @@ func _ready():
 
 
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	if _posted_job:
 		return
 	
@@ -42,7 +42,7 @@ func _process(_delta: float):
 
 
 
-func employ_worker(puppet_master: Node2D):
+func employ_worker(puppet_master: Node2D) -> void:
 	var available_tool: Spyglass = _custodian.get_available_tool()
 	
 	if not available_tool:
@@ -70,7 +70,7 @@ func needs_workers() -> bool:
 
 
 
-func assign_gatherer(puppet_master: Node2D, gathering_resource):
+func assign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
 	_assigned_gatherers[gathering_resource] = _assigned_gatherers.get(gathering_resource, [ ])
 	
 	if not _assigned_gatherers[gathering_resource].has(puppet_master):
@@ -78,7 +78,7 @@ func assign_gatherer(puppet_master: Node2D, gathering_resource):
 	assert(_assigned_gatherers[gathering_resource].size() <= how_many_of_item(gathering_resource).size())
 
 
-func unassign_gatherer(puppet_master: Node2D, gathering_resource):
+func unassign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
 	_assigned_gatherers[gathering_resource].erase(puppet_master)
 
 
@@ -102,21 +102,21 @@ func can_be_operated() -> bool:
 	return false
 
 
-func refine_resource():
+func refine_resource() -> void:
 	for inventory in _inventories:
 		if inventory is Refinery:
 			inventory.refine_prodcut()
 
 
 
-func _post_job():
+func _post_job() -> void:
 	_quarter_master.post_job(self)
 
-func _unpost_job():
+func _unpost_job() -> void:
 	_quarter_master.unpost_job(self)
 
 
-func _initialise_inventories():
+func _initialise_inventories() -> void:
 	var new_refinery: Refinery = Refinery.new()
 	new_refinery.name = "refinery"
 	add_child(new_refinery)
@@ -130,7 +130,7 @@ func _initialise_inventories():
 	._initialise_inventories()
 
 
-func _initialise_refineries(input_resources: Array, _output_resources: Array, _production_steps: int):
+func _initialise_refineries(input_resources: Array, _output_resources: Array, _production_steps: int) -> void:
 	for inventory in _inventories:
 		if inventory is Refinery:
 			inventory.input_resources = input_resources

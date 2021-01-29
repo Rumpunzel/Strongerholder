@@ -4,19 +4,19 @@ extends JobState
 
 
 
-func _ready():
+func _ready() -> void:
 	name = INACTIVE
 
 
 
 
-func activate(first_time: bool = false, tool_type = null):
+func activate(first_time: bool = false, tool_type = null) -> void:
 	if first_time:
 		exit(JUST_STARTED, [tool_type])
 	else:
 		exit(IDLE)
 
-func deactivate():
+func deactivate() -> void:
 	pass
 
 

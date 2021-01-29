@@ -31,7 +31,7 @@ onready var _collision_shape: CollisionShape2D = $collision_shape
 
 
 
-func _ready():
+func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
@@ -49,13 +49,13 @@ func _ready():
 	$employer_label._puppet_master = _puppet_master
 
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	if _puppet_master and _state_machine:
 		_puppet_master.process_commands(_state_machine, player_controlled)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(_delta: float):
+func _physics_process(_delta: float) -> void:
 	velocity = move_and_slide(velocity)
 	
 	if not velocity == Vector2():
@@ -64,7 +64,7 @@ func _physics_process(_delta: float):
 
 
 
-func transfer_item(item: GameResource):
+func transfer_item(item: GameResource) -> void:
 	_puppet_master.transfer_item(item)
 
 
@@ -73,7 +73,7 @@ func damage(damage_points: float, sender) -> bool:
 	return _state_machine.damage(damage_points, sender)
 
 
-func die():
+func die() -> void:
 	emit_signal("died")
 
 
@@ -81,5 +81,5 @@ func is_active() -> bool:
 	return _state_machine.is_active()
 
 
-func enable_collision(new_status: bool):
+func enable_collision(new_status: bool) -> void:
 	_collision_shape.set_deferred("disabled", not new_status)

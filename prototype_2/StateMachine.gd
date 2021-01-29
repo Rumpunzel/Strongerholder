@@ -22,17 +22,17 @@ var _first_time: bool = true
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	_setup_states()
 
 
 
 
-func change_to(new_state: String, parameters: Array = [ ]):
+func change_to(new_state: String, parameters: Array = [ ]) -> void:
 	current_state.exit(new_state, parameters)
 
 
-func back():
+func back() -> void:
 	if history.size() > 0:
 		current_state = get_node(history.pop_back())
 		_enter_state()
@@ -44,7 +44,7 @@ func is_active() -> bool:
 
 
 
-func _change_to(new_state: String, parameters: Array = [ ]):
+func _change_to(new_state: String, parameters: Array = [ ]) -> void:
 	var old_state: String = current_state.name
 	
 	history.append(old_state)
@@ -55,12 +55,12 @@ func _change_to(new_state: String, parameters: Array = [ ]):
 	emit_signal("state_changed", current_state, old_state)
 
 
-func _enter_state(parameters: Array = [ ]):
+func _enter_state(parameters: Array = [ ]) -> void:
 	current_state.enter(parameters)
 
 
 
-func _setup_states(state_classes: Array = [ ]):
+func _setup_states(state_classes: Array = [ ]) -> void:
 	if _first_time:
 		_first_time = false
 		

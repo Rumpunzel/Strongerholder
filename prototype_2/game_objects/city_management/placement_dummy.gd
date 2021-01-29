@@ -10,7 +10,7 @@ const GRID_SIZE: float = 16.0
 
 
 
-func _init(new_collision_shape: CollisionShape2D, new_sprite: Sprite):
+func _init(new_collision_shape: CollisionShape2D, new_sprite: Sprite) -> void:
 	add_child(new_collision_shape)
 	add_child(new_sprite)
 	
@@ -23,7 +23,7 @@ func _init(new_collision_shape: CollisionShape2D, new_sprite: Sprite):
 		set_collision_mask_bit(i, true)
 
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	modulate = PLACEMENT_COLOR if place_free() else OBSTRUCTED_COLOR
 	modulate.a = 0.75
 	

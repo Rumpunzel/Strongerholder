@@ -18,11 +18,11 @@ onready var _tween: Tween = $tween
 
 
 
-func _ready():
+func _ready() -> void:
 	_version.text = MainMenu.get_version()
 
 
-func _unhandled_input(event: InputEvent):
+func _unhandled_input(event: InputEvent) -> void:
 	if not _busy and event.is_action_released("pause_game"):
 		get_tree().set_input_as_handled()
 		
@@ -34,7 +34,7 @@ func _unhandled_input(event: InputEvent):
 
 
 
-func _pause_game():
+func _pause_game() -> void:
 	get_tree().paused = true
 	
 	show()
@@ -42,7 +42,7 @@ func _pause_game():
 	_tween.interpolate_property(_background, "color:a", 0.0, 200.0 / 256.0, 0.1, Tween.TRANS_LINEAR)
 	_tween.start()
 
-func _unpause_game():
+func _unpause_game() -> void:
 	_tween.interpolate_property(_background, "color:a", 200.0 / 256.0, 0.0, 0.1, Tween.TRANS_LINEAR)
 	_tween.start()
 	
@@ -53,7 +53,7 @@ func _unpause_game():
 	hide()
 
 
-func _save_game():
+func _save_game() -> void:
 	if not _busy:
 		_busy = true
 		SaveHandler.save_game(SaveHandler.SAVE_LOCATION)
@@ -64,7 +64,7 @@ func _save_game():
 		print("Game saved to %s" % SaveHandler.SAVE_LOCATION)
 
 
-func _load_game():
+func _load_game() -> void:
 	if not _busy:
 		hide()
 		
@@ -73,7 +73,7 @@ func _load_game():
 		print("Game loaded from %s" % SaveHandler.SAVE_LOCATION)
 
 
-func _back_to_main_menu():
+func _back_to_main_menu() -> void:
 	if not _busy:
 		var dialog: ConfirmationDialog = ConfirmationDialog.new()
 		
@@ -87,7 +87,7 @@ func _back_to_main_menu():
 		dialog.popup_centered()
 
 
-func _quit_game():
+func _quit_game() -> void:
 	if not _busy:
 		var dialog: ConfirmationDialog = ConfirmationDialog.new()
 		

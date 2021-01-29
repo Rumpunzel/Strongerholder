@@ -14,25 +14,25 @@ onready var _hurt_box: HurtBox = $hurt_box
 
 
 
-func start_attack(game_actor: Node2D):
+func start_attack(game_actor: Node2D) -> void:
 	_state_machine.start_attack(game_actor)
 
 
-func end_attack():
+func end_attack() -> void:
 	_state_machine.end_attack()
 
 
 
-func _enable_hurtbox(game_actor: Node2D):
+func _enable_hurtbox(game_actor: Node2D) -> void:
 	_hurt_box.start_attack(game_actor, attack_value)
 
 
-func _disable_hurtbox():
+func _disable_hurtbox() -> void:
 	_hurt_box.end_attack()
 
 
 
-func _initliase_state_machine():
+func _initliase_state_machine() -> void:
 	_state_machine = ToolStateMachine.new()
 	_state_machine.name = "state_machine"
 	add_child(_state_machine)

@@ -9,5 +9,5 @@ onready var _sounds: Array = FileHelper.list_files_in_directory(_step_sounds, fa
 
 
 
-func play_step_sound():
+func play_step_sound() -> void:
 	play_audio_from_array(_sounds)

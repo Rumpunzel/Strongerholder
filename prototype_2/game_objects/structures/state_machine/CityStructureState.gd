@@ -14,24 +14,24 @@ var pilot_master
 
 
 
-func _ready():
+func _ready() -> void:
 	name = IDLE
 
 
 
 
-func exit(next_state: String, parameter: Array = [ ]):
+func exit(next_state: String, parameter: Array = [ ]) -> void:
 	if _animation_cancellable:
 		.exit(next_state, parameter)
 
 
 
 
-func give_item(item: GameResource, receiver: Node2D):
+func give_item(item: GameResource, receiver: Node2D) -> void:
 	exit(GIVE, [item, receiver])
 
 
-func take_item(item: GameResource):
+func take_item(item: GameResource) -> void:
 	exit(TAKE, [item])
 
 

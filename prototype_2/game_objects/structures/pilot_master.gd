@@ -14,7 +14,7 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	get_parent().connect("died", self, "unregister_resource")
 	connect("body_entered", self, "take_item")
 	
@@ -23,14 +23,14 @@ func _ready():
 
 
 
-func take_item(item_to_take: Node2D):
+func take_item(item_to_take: Node2D) -> void:
 	_desired_items.append(item_to_take)
 
 
-func register_resource():
+func register_resource() -> void:
 	_quarter_master.register_resource(get_parent())
 
-func unregister_resource():
+func unregister_resource() -> void:
 	_quarter_master.unregister_resource(get_parent())
 
 

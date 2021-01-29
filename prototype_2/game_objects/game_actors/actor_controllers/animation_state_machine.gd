@@ -24,12 +24,12 @@ onready var _state_machine: AnimationNodeStateMachinePlayback = get("parameters/
 
 
 
-func _init():
+func _init() -> void:
 	set_blend_positions(Vector2(0, 1))
 	active = true
 
 
-func _ready():
+func _ready() -> void:
 	_animation_player.connect("acted", self, "_transfer_signal", ["acted"])
 	_animation_player.connect("stepped", self, "_transfer_signal", ["stepped"])
 	
@@ -39,12 +39,12 @@ func _ready():
 
 
 
-func travel(new_animation: String):
+func travel(new_animation: String) -> void:
 	_state_machine.travel(new_animation)
 
 
 
-func set_blend_positions(new_direction: Vector2):
+func set_blend_positions(new_direction: Vector2) -> void:
 	blend_positions = new_direction
 	
 	for animation in ANIMATIONS:
@@ -57,5 +57,5 @@ func get_current_animation() -> String:
 
 
 
-func _transfer_signal(signal_name: String):
+func _transfer_signal(signal_name: String) -> void:
 	emit_signal(signal_name, _state_machine.get_current_node())

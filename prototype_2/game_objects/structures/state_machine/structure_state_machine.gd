@@ -12,7 +12,7 @@ var _pilot_master
 
 
 
-func _setup_states(state_classes: Array = [ ]):
+func _setup_states(state_classes: Array = [ ]) -> void:
 	if state_classes.empty():
 		state_classes = [
 			CityStructureState,
@@ -25,21 +25,21 @@ func _setup_states(state_classes: Array = [ ]):
 	._setup_states(state_classes)
 
 
-func _ready():
+func _ready() -> void:
 	for state in get_children():
 		state.pilot_master = _pilot_master
 
 
 
 
-func give_item(item: GameResource, receiver: Node2D):
+func give_item(item: GameResource, receiver: Node2D) -> void:
 	current_state.give_item(item, receiver)
 
 
-func take_item(item: GameResource):
+func take_item(item: GameResource) -> void:
 	current_state.take_item(item)
 
 
-func operate():
+func operate() -> void:
 	if current_state.operate():
 		emit_signal("operated")

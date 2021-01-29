@@ -7,7 +7,7 @@ var menu_buttons: Array = [ ]
 
 
 
-func _init(new_name, new_buttons: Array = [ ], new_icon: Texture = null):
+func _init(new_name, new_buttons: Array = [ ], new_icon: Texture = null) -> void:
 #	if new_name is int:
 #		new_name = Constants.enum_name(Constants.Structures, new_name).capitalize()
 	
@@ -21,5 +21,5 @@ func _init(new_name, new_buttons: Array = [ ], new_icon: Texture = null):
 
 
 
-func _pressed():
+func _pressed() -> void:
 	get_tree().set_input_as_handled()

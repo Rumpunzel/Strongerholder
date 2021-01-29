@@ -4,19 +4,19 @@ extends ActorState
 
 
 
-func _ready():
+func _ready() -> void:
 	name = IDLE
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
 	_change_animation(IDLE)
 
 
-func move_to(direction: Vector2, _is_sprinting: bool):
+func move_to(direction: Vector2, _is_sprinting: bool) -> void:
 	if direction == Vector2():
 		return
 	

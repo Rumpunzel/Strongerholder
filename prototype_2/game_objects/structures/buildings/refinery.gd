@@ -24,7 +24,7 @@ var _steps_done: int = 0
 
 
 
-func pick_up_item(item: Node2D):
+func pick_up_item(item: Node2D) -> void:
 	item.unregister_resource()
 	
 	.pick_up_item(item)
@@ -48,7 +48,7 @@ func check_item_numbers() -> bool:
 
 
 
-func refine_prodcut():
+func refine_prodcut() -> void:
 	_steps_done += 1
 	
 	if _steps_done < _production_steps:

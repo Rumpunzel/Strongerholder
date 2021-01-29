@@ -10,13 +10,13 @@ var _item: GameResource = null
 
 
 
-func _ready():
+func _ready() -> void:
 	name = TAKE
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		_item = parameters[0]
 	

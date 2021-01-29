@@ -11,20 +11,20 @@ var _target_structure: Structure = null
 
 
 
-func _ready():
+func _ready() -> void:
 	name = DELIVER
 
 
 
 
-func _check_for_exit_conditions():
+func _check_for_exit_conditions() -> void:
 	if _job_items().empty():
 		exit(IDLE)
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		assert(parameters.size() == 1 and parameters[0])
 		
@@ -34,7 +34,7 @@ func enter(parameters: Array = [ ]):
 	.enter([_delivery_target.global_position])
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_delivery_target = null
 	_target_structure = null
 	

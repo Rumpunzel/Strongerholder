@@ -18,7 +18,7 @@
 #
 # SaverLoader can persist specified data (which may include nested objects) and
 # rebuild procedurally generated node trees and references on load. It can
-# persist four kinds of objects (in addition to built-in types):
+# persist four kinds of objects (in addition to built-in types) -> void:
 #    1. Non-procedural Nodes
 #    2. Procedural Nodes (including base nodes of scenes)
 #    3. Procedural References
@@ -147,7 +147,7 @@ static func free_procedural_nodes(node: Node, is_root := true) -> void:
 		if "PERSIST_AS_PROCEDURAL_OBJECT" in child:
 			free_procedural_nodes(child, false)
 
-func project_init():
+func project_init() -> void:
 	# Ignore; required for I, Voyager compatibility
 	pass
 
@@ -273,7 +273,7 @@ func _log_nodes(node: Node) -> void:
 
 # ********************* VIRTUAL & PRIVATE FUNCTIONS ***************************
 
-func _clear():
+func _clear() -> void:
 	_sfile_n_objects = 0
 	_sfile_serialized_nodes.clear()
 	_sfile_serialized_references.clear()
@@ -448,7 +448,7 @@ func _set_current_scene() -> void:
 
 # Serialize/deserialize functions
 
-func _serialize_node(node: Node):
+func _serialize_node(node: Node) -> void:
 	var serialized_node := []
 	var save_id: int = _ids[node]
 	

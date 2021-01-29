@@ -3,11 +3,11 @@ extends Navigation2D
 
 
 
-func _enter_tree():
+func _enter_tree() -> void:
 	ServiceLocator.register_as_navigator(self)
 
 
-func _exit_tree():
+func _exit_tree() -> void:
 	ServiceLocator.unregister_as_navigator(self)
 
 
@@ -25,7 +25,7 @@ func nearest_in_group(start_position: Vector2, group_name, groups_to_exclude: Ar
 
 
 
-func nearest_from_array(start_position: Vector2, group: Array, groups_to_exclude: Array = [ ], objects_to_exclude: Array = [ ]):
+func nearest_from_array(start_position: Vector2, group: Array, groups_to_exclude: Array = [ ], objects_to_exclude: Array = [ ]) -> Node2D:
 	var nearest_object: Node2D = null
 	var shortest_distance: float = INF
 	

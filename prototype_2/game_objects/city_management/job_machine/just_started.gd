@@ -4,13 +4,13 @@ extends JobStateRetrieve
 
 
 
-func _ready():
+func _ready() -> void:
 	name = JUST_STARTED
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		assert(parameters.size() == 1)
 	

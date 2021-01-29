@@ -13,13 +13,13 @@ var _timed_passed: int = 0
 
 
 
-func _ready():
+func _ready() -> void:
 	name = IDLE
 
 
 
 
-func _check_for_exit_conditions():
+func _check_for_exit_conditions() -> void:
 	_timed_passed += 1
 	
 	if _timed_passed < _update_time:
@@ -76,7 +76,7 @@ func _check_for_exit_conditions():
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	assert(parameters.size() <= 1)
 	
 	if parameters.empty():
@@ -90,7 +90,7 @@ func enter(parameters: Array = [ ]):
 	.enter(parameters)
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_delivery_target = null
 	
 	.exit(next_state, parameters)

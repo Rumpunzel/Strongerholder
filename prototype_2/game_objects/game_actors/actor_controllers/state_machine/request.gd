@@ -13,7 +13,7 @@ var _puppet_master: InputMaster = null
 
 
 
-func _ready():
+func _ready() -> void:
 	name = REQUEST
 	
 	if not _puppet_master:
@@ -22,7 +22,7 @@ func _ready():
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
 	if not parameters.empty():
@@ -35,12 +35,12 @@ func enter(parameters: Array = [ ]):
 
 
 
-func animation_acted(_animation: String):
+func animation_acted(_animation: String) -> void:
 	if _puppet_master.carry_weight_left() > 0.01 and _puppet_master.in_range(_receiver):
 		_receiver.request_item(_request, _game_object)
 
 
-func animtion_finished(animation: String):
+func animtion_finished(animation: String) -> void:
 	.animtion_finished(animation)
 	
 	exit(IDLE)

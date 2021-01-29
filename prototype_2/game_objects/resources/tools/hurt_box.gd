@@ -11,26 +11,26 @@ onready var _hurt_shape: CollisionShape2D = $hurt_shape
 
 
 
-func _ready():
+func _ready() -> void:
 	connect("body_entered", self, "_hit_object")
 
 
 
 
-func start_attack(_game_actor: Node2D, attack_value: float):
+func start_attack(_game_actor: Node2D, attack_value: float) -> void:
 	_damage_source = _game_actor
 	_attack_value = attack_value
 	_hurt_shape.disabled = false
 
 
-func end_attack():
+func end_attack() -> void:
 	_damage_source = null
 	_attack_value = 0.0
 	_hurt_shape.disabled = true
 
 
 
-func _hit_object(other_object: Node2D):
+func _hit_object(other_object: Node2D) -> void:
 	if other_object == _damage_source:
 		return
 	

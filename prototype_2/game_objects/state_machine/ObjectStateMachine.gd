@@ -16,7 +16,7 @@ var hit_points: float
 
 
 
-func _setup_states(state_classes: Array = [ ]):
+func _setup_states(state_classes: Array = [ ]) -> void:
 	if _first_time:
 		hit_points = hit_points_max
 	
@@ -40,5 +40,5 @@ func damage(damage_points: float, sender) -> bool:
 	return true
 
 
-func die(_sender):
+func die(_sender) -> void:
 	change_to(ObjectState.DEAD)

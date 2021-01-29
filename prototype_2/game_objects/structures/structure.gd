@@ -19,7 +19,7 @@ var _pilot_master
 
 
 
-func _ready():
+func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
@@ -34,18 +34,18 @@ func _ready():
 	$audio_handler.connect_signals(_state_machine)
 
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	if _pilot_master and _state_machine:
 		_pilot_master.process_commands(_state_machine)
 
 
 
 
-func transfer_item(item: GameResource):
+func transfer_item(item: GameResource) -> void:
 	_pilot_master.transfer_item(item)
 
 
-func die():
+func die() -> void:
 	_pilot_master.drop_all_items()
 	
 	.die()
@@ -61,19 +61,19 @@ func _get_copy_sprite() -> Sprite:
 
 
 
-func _initliase_pilot_master():
+func _initliase_pilot_master() -> void:
 	_pilot_master = _PILOT_MASTER_SCENE.instance()
 	add_child(_pilot_master)
 
 
-func _initliase_state_machine():
+func _initliase_state_machine() -> void:
 	_state_machine = StructureStateMachine.new()
 	_state_machine.name = "state_machine"
 	_state_machine._pilot_master = _pilot_master
 	add_child(_state_machine)
 
 
-func _initliase_starting_items():
+func _initliase_starting_items() -> void:
 	for item in _starting_items:
 		var new_item: Node2D = item.instance()
 		

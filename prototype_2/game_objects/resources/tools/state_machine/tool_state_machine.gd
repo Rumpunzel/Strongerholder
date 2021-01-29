@@ -3,7 +3,7 @@ extends ResourceStateMachine
 
 
 
-func _setup_states(state_classes: Array = [ ]):
+func _setup_states(state_classes: Array = [ ]) -> void:
 	if state_classes.empty():
 		state_classes = [
 			ToolStateInactive,
@@ -17,9 +17,9 @@ func _setup_states(state_classes: Array = [ ]):
 
 
 
-func start_attack(game_actor: Node2D):
+func start_attack(game_actor: Node2D) -> void:
 	current_state.start_attack(game_actor)
 
 
-func end_attack():
+func end_attack() -> void:
 	current_state.end_attack()

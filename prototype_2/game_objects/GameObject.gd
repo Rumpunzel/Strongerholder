@@ -26,13 +26,13 @@ onready var _collision_shape: CollisionShape2D = $collision_shape
 
 
 
-func assign_worker(puppet_master: Node2D):
+func assign_worker(puppet_master: Node2D) -> void:
 	if not _assigned_workers.has(puppet_master):
 		_assigned_workers.append(puppet_master)
 	assert(_assigned_workers.size() <= _maximum_operators)
 
 
-func unassign_worker(puppet_master: Node2D):
+func unassign_worker(puppet_master: Node2D) -> void:
 	_assigned_workers.erase(puppet_master)
 
 
@@ -49,7 +49,7 @@ func damage(damage_points: float, sender) -> bool:
 	return _state_machine.damage(damage_points, sender)
 
 
-func die():
+func die() -> void:
 	emit_signal("died")
 
 
@@ -58,5 +58,5 @@ func is_active() -> bool:
 	return _state_machine.is_active()
 
 
-func enable_collision(new_status: bool):
+func enable_collision(new_status: bool) -> void:
 	_collision_shape.set_deferred("disabled", not new_status)

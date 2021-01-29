@@ -19,7 +19,7 @@ var _main_inventory
 
 
 
-func _ready():
+func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
@@ -31,7 +31,7 @@ func _ready():
 
 
 
-func process_commands(state_machine: ObjectStateMachine, player_controlled: bool = false):
+func process_commands(state_machine: ObjectStateMachine, player_controlled: bool = false) -> void:
 	#object_of_interest, null, global_position, _current_path
 	var commands: Array = _get_input(player_controlled)
 	
@@ -49,12 +49,12 @@ func pick_up_item(item: GameResource) -> bool:
 	return false
 
 
-func drop_item(item: GameResource, position_to_drop: Vector2 = global_position):
+func drop_item(item: GameResource, position_to_drop: Vector2 = global_position) -> void:
 	for inventory in _reversed_inventories:
 		if inventory.drop_item(item, position_to_drop):
 			break
 
-func drop_all_items(position_to_drop: Vector2 = global_position):
+func drop_all_items(position_to_drop: Vector2 = global_position) -> void:
 	for inventory in _reversed_inventories:
 		inventory.drop_all_items(position_to_drop)
 
@@ -105,7 +105,7 @@ func in_range(object: PhysicsBody2D) -> bool:
 	return get_overlapping_bodies().has(object)
 
 
-func interact_with(structure: Node2D):
+func interact_with(structure: Node2D) -> void:
 	if in_range(structure):
 		structure.operate()
 
@@ -115,10 +115,10 @@ func interact_with(structure: Node2D):
 func _get_input(_player_controlled: bool) -> Array:
 	var commands: Array = [ ]
 	
-#	if Input.is_action_pressed("open_menu"):
+#	if Input.is_action_pressed("open_menu") -> void:
 #		commands.append(MenuCommand.new())
 	
-#	if Input.is_action_pressed("interact"):
+#	if Input.is_action_pressed("interact") -> void:
 #		commands.append(InteractCommand.new(hit_box.currently_highlighting))
 #		#get_tree().set_input_as_handled()
 	
@@ -132,7 +132,7 @@ func _get_input(_player_controlled: bool) -> Array:
 
 
 
-func _initialise_inventories():
+func _initialise_inventories() -> void:
 	_main_inventory = Inventory.new()
 	_main_inventory.name = "inventory"
 	add_child(_main_inventory)
@@ -143,7 +143,7 @@ func _initialise_inventories():
 
 
 class Command:
-	func execute(_state_machine: ObjectStateMachine):
+	func execute(_state_machine: ObjectStateMachine) -> void:
 		pass
 
 
@@ -152,11 +152,11 @@ class MoveCommand extends Command:
 	var movement_vector: Vector2
 	var sprinting: bool
 	
-	func _init(new_movement_vector: Vector2, new_sprinting: bool = false):
+	func _init(new_movement_vector: Vector2, new_sprinting: bool = false) -> void:
 		movement_vector = new_movement_vector
 		sprinting = new_sprinting
 	
-	func execute(state_machine: ObjectStateMachine):
+	func execute(state_machine: ObjectStateMachine) -> void:
 		state_machine.move_to(movement_vector, sprinting)
 
 
@@ -165,21 +165,21 @@ class GiveCommand extends Command:
 	var what_to_give: GameResource
 	var whom_to_give_to: Node2D
 	
-	func _init(new_what_to_give: GameResource, new_whom_to_give_to: Node2D):
+	func _init(new_what_to_give: GameResource, new_whom_to_give_to: Node2D) -> void:
 		what_to_give = new_what_to_give
 		whom_to_give_to = new_whom_to_give_to
 	
-	func execute(state_machine: ObjectStateMachine):
+	func execute(state_machine: ObjectStateMachine) -> void:
 		state_machine.give_item(what_to_give, whom_to_give_to)
 
 
 class TakeCommand extends Command:
 	var what_to_take: GameResource
 	
-	func _init(new_what_to_take: GameResource):
+	func _init(new_what_to_take: GameResource) -> void:
 		what_to_take = new_what_to_take
 	
-	func execute(state_machine: ObjectStateMachine):
+	func execute(state_machine: ObjectStateMachine) -> void:
 		state_machine.take_item(what_to_take)
 
 
@@ -187,11 +187,11 @@ class RequestCommand extends Command:
 	var request
 	var whom_to_ask: Node2D
 	
-	func _init(new_request, new_whom_to_ask: Node2D):
+	func _init(new_request, new_whom_to_ask: Node2D) -> void:
 		request = new_request
 		whom_to_ask = new_whom_to_ask
 	
-	func execute(state_machine: ObjectStateMachine):
+	func execute(state_machine: ObjectStateMachine) -> void:
 		state_machine.request_item(request, whom_to_ask)
 
 
@@ -199,24 +199,24 @@ class RequestCommand extends Command:
 class AttackCommand extends Command:
 	var weapon: CraftTool
 	
-	func _init(new_weapon: CraftTool):
+	func _init(new_weapon: CraftTool) -> void:
 		weapon = new_weapon
 	
-	func execute(state_machine: ObjectStateMachine):
+	func execute(state_machine: ObjectStateMachine) -> void:
 		state_machine.attack(weapon)
 
 
 class InteractCommand extends Command:
 	var structure: Node2D
 	
-	func _init(new_structure: Node2D):
+	func _init(new_structure: Node2D) -> void:
 		structure = new_structure
 	
-	func execute(state_machine: ObjectStateMachine):
+	func execute(state_machine: ObjectStateMachine) -> void:
 		state_machine.operate(structure)
 
 
 
 #class MenuCommand extends Command:
-#	func execute(state_machine: ObjectStateMachine):
+#	func execute(state_machine: ObjectStateMachine) -> void:
 #		state_machine.open_menu(RadiantUI.new(["Stockpile", "Woodcutters Hut"], state_machine))

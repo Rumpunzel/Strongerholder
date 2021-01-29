@@ -18,20 +18,20 @@ var _movement_modifier: float = 1.0
 
 
 
-func _ready():
+func _ready() -> void:
 	name = RUN
 
 
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_game_object.velocity = Vector2()
 	
 	.exit(next_state, parameters)
 
 
 
-func move_to(direction: Vector2, is_sprinting: bool):
+func move_to(direction: Vector2, is_sprinting: bool) -> void:
 	if direction == Vector2():
 		exit(IDLE)
 		return
@@ -45,6 +45,6 @@ func move_to(direction: Vector2, is_sprinting: bool):
 
 
 
-func set_sprinting(new_status: bool):
+func set_sprinting(new_status: bool) -> void:
 	sprinting = new_status
 	_movement_modifier = sprint_modifier if sprinting else 1.0

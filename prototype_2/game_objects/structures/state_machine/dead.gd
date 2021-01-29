@@ -4,18 +4,18 @@ extends CityStructureInactive
 
 
 
-func _ready():
+func _ready() -> void:
 	name = DEAD
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
 	_game_object.die()
 
 
-func exit(_next_state: String, _parameters: Array = [ ]):
+func exit(_next_state: String, _parameters: Array = [ ]) -> void:
 	pass
 

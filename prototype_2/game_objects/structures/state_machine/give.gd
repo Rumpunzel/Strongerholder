@@ -11,13 +11,13 @@ var _receiver: Node2D = null
 
 
 
-func _ready():
+func _ready() -> void:
 	name = GIVE
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		_item = parameters[0]
 		_receiver = parameters[1]

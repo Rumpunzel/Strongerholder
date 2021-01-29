@@ -9,12 +9,12 @@ onready var _operate_sounds: Array = FileHelper.list_files_in_directory(_operate
 
 
 
-func connect_signals(state_machine: StateMachine):
+func connect_signals(state_machine: StateMachine) -> void:
 	.connect_signals(state_machine)
 	
 	state_machine.connect("operated", self, "_play_operate_audio")
 
 
 
-func _play_operate_audio():
+func _play_operate_audio() -> void:
 	_interaction_audio.play_audio_from_array(_operate_sounds)

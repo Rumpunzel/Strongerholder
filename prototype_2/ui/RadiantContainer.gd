@@ -13,19 +13,19 @@ var circle_center: Control setget , get_circle_center
 
 
 
-func _ready():
-	for child in .get_children():
+func _ready() -> void:
+	for child in .get_children() -> void:
 		if not child == circle_center:
 			.remove_child(child)
 			add_child(child)
 
 
 
-func update_children():
+func update_children() -> void:
 	var children = get_children()
 	var circle_radius = min(rect_size.x, rect_size.y) * 0.5
 	
-	for i in children.size():
+	for i in children.size() -> void:
 		var child = children[i]
 		var child_number = (ceil(i / 2.0) * (1 if i % 2 == 0 else -1)) if _be_a_retard else i
 		var child_ratio: float = float(child_number) / float(children.size())
@@ -39,7 +39,7 @@ func update_children():
 
 
 
-func add_child(node: Node, _legible_unique_name: bool = false):
+func add_child(node: Node, _legible_unique_name: bool = false) -> void:
 	get_circle_center().add_child(node)
 
 
@@ -51,16 +51,16 @@ func get_child_count() -> int:
 	return get_circle_center().get_child_count()
 
 
-func remove_child(node: Node):
+func remove_child(node: Node) -> void:
 	get_circle_center().remove_child(node)
 
 
 
-func add_actual_child(node: Node):
+func add_actual_child(node: Node) -> void:
 	.add_child(node)
 
 
-func remove_actual_child(node: Node):
+func remove_actual_child(node: Node) -> void:
 	.remove_child(node)
 
 

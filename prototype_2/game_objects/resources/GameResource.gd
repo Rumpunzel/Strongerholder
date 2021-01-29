@@ -17,7 +17,7 @@ onready var _quarter_master = ServiceLocator.quarter_master
 
 
 
-func _ready():
+func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
@@ -33,33 +33,33 @@ func _ready():
 
 
 
-func drop_item(position_to_drop: Vector2):
+func drop_item(position_to_drop: Vector2) -> void:
 	_state_machine.drop_item(_objects_layer, position_to_drop)
 
 
-func pick_up_item(new_inventory):
+func pick_up_item(new_inventory) -> void:
 	_state_machine.pick_up_item(new_inventory)
 
 
-func transfer_item(new_inventory):
+func transfer_item(new_inventory) -> void:
 	_state_machine.transfer_item(new_inventory)
 
 
 
-func appear(new_status: bool):
+func appear(new_status: bool) -> void:
 	visible = new_status
 
 
 
-func register_resource():
+func register_resource() -> void:
 	 _quarter_master.register_resource(self)
 
-func unregister_resource():
+func unregister_resource() -> void:
 	_quarter_master.unregister_resource(self)
 
 
 
-func _initliase_state_machine():
+func _initliase_state_machine() -> void:
 	_state_machine = ResourceStateMachine.new()
 	_state_machine.name = "state_machine"
 	add_child(_state_machine)

@@ -16,12 +16,12 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 
-func _ready():
+func _ready() -> void:
 	$icon.texture = load(RESOURCE_ICONS[_resource_to_count])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	var counted_amount: int = 0
 	var storage_units: Array = _quarter_master.storage_buildings.get(_resource_to_count, [ ])
 	

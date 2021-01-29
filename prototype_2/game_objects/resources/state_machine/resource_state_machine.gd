@@ -4,7 +4,7 @@ extends ObjectStateMachine
 
 
 
-func _setup_states(state_classes: Array = [ ]):
+func _setup_states(state_classes: Array = [ ]) -> void:
 	if state_classes.empty():
 		state_classes = [
 			ResourceStateInactive,
@@ -17,13 +17,13 @@ func _setup_states(state_classes: Array = [ ]):
 
 
 
-func drop_item(objects_layer: YSort, position_to_drop: Vector2):
+func drop_item(objects_layer: YSort, position_to_drop: Vector2) -> void:
 	current_state.drop_item(objects_layer, position_to_drop)
 
 
-func pick_up_item(new_invetory: Inventory):
+func pick_up_item(new_invetory: Inventory) -> void:
 	current_state.pick_up_item(new_invetory)
 
 
-func transfer_item(new_inventory):
+func transfer_item(new_inventory) -> void:
 	current_state.transfer_item(new_inventory)

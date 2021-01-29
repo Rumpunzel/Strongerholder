@@ -4,19 +4,19 @@ extends CityStructureState
 
 
 
-func _ready():
+func _ready() -> void:
 	name = INACTIVE
 
 
 
 
-func enter(parameters: Array = [ ]):
+func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
 	_toggle_active_state(_game_object, false)
 
 
-func exit(next_state: String, parameters: Array = [ ]):
+func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_toggle_active_state(_game_object, true)
 	
 	.exit(next_state, parameters)
@@ -31,10 +31,10 @@ func is_active() -> bool:
 	return false
 
 
-func give_item(_item: GameResource, _receiver: Node2D):
+func give_item(_item: GameResource, _receiver: Node2D) -> void:
 	pass
 
-func take_item(_item: GameResource):
+func take_item(_item: GameResource) -> void:
 	pass
 
 

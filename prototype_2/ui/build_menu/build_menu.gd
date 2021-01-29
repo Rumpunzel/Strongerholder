@@ -13,7 +13,7 @@ onready var _popup: Popup = $popup
 
 
 
-func _gui_input(event: InputEvent):
+func _gui_input(event: InputEvent) -> void:
 	if _current_dummy:
 		if event.is_action_pressed("place_building"):
 			get_tree().set_input_as_handled()
@@ -32,7 +32,7 @@ func _gui_input(event: InputEvent):
 
 
 
-func place_building(structure: PackedScene):
+func place_building(structure: PackedScene) -> void:
 	_close()
 	
 	_current_blueprint = structure
@@ -46,18 +46,18 @@ func place_building(structure: PackedScene):
 
 
 
-func _open_build_menu():
+func _open_build_menu() -> void:
 	_delete_blue_print()
 	
 	_popup.show()
 
 
-func _close():
+func _close() -> void:
 	_popup.hide()
 
 
 
-func _delete_blue_print():
+func _delete_blue_print() -> void:
 	if _current_dummy:
 		_current_dummy.queue_free()
 		_current_dummy = null

@@ -17,7 +17,7 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 
-func assign_job(new_job):
+func assign_job(new_job) -> void:
 	if _current_job:
 		_current_job.deactive()
 	
@@ -56,7 +56,7 @@ func _get_input(player_controlled: bool) -> Array:
 
 
 
-func _initialise_inventories():
+func _initialise_inventories() -> void:
 	var new_tool_belt: ToolBelt = ToolBelt.new()
 	new_tool_belt.name = "tool_belt"
 	add_child(new_tool_belt)
