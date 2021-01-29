@@ -32,7 +32,7 @@ func _check_for_exit_conditions():
 	
 	# Check if I can carry anything more
 	#	 if I cannot, deliver to _delviery_target
-	if employee.carry_weight_left() <= 0.0:
+	if employee.carry_weight_left() <= 0.01:
 		#print("Returning with delivery to: %s" % _delivery_target.get_parent().name)
 		exit(DELIVER, [_delivery_target])
 		return

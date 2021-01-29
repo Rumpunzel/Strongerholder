@@ -2,17 +2,22 @@ class_name ActorStateRequest, "res://assets/icons/game_actors/states/icon_state_
 extends ActorState
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["_request", "_receiver"]
+const PERSIST_OBJ_PROPERTIES_2 := ["_request", "_receiver", "_puppet_master"]
 
 
 var _request
 var _receiver: Node2D
+
+var _puppet_master: InputMaster = null
 
 
 
 
 func _ready():
 	name = REQUEST
+	
+	if not _puppet_master:
+		_puppet_master = get_parent()._puppet_master
 
 
 
@@ -31,7 +36,8 @@ func enter(parameters: Array = [ ]):
 
 
 func animation_acted(_animation: String):
-	_receiver.request_item(_request, _game_object)
+	if _puppet_master.carry_weight_left() > 0.01:
+		_receiver.request_item(_request, _game_object)
 
 
 func animtion_finished(animation: String):
