@@ -3,6 +3,13 @@ extends ActorState
 
 
 
+
+func _ready():
+	name = IDLE
+
+
+
+
 func enter(parameters: Array = [ ]):
 	.enter(parameters)
 	

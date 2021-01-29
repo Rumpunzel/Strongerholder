@@ -9,7 +9,14 @@ const GIVE = "give"
 const TAKE = "take"
 
 
-var pilot_master: CityPilotMaster
+var pilot_master
+
+
+
+
+func _ready():
+	name = IDLE
+
 
 
 

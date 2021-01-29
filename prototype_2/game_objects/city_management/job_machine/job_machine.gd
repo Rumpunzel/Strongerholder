@@ -2,19 +2,16 @@ class_name JobMachine, "res://assets/icons/icon_job_machine.svg"
 extends StateMachine
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-
-const PERSIST_PROPERTIES := ["name", "history"]
-const PERSIST_OBJ_PROPERTIES := ["current_state", "employer", "employee", "dedicated_tool", "_debug_flag_scene", "_flag"]
+const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employee", "dedicated_tool", "_debug_flag_scene", "_flag"]
 
 
-export(PackedScene) var _debug_flag_scene
+const _debug_flag_scene = preload("res://flag.tscn")
 
 
 var employer: Node2D
 var employee: Node2D
 
-var dedicated_tool: Spyglass
+var dedicated_tool: Spyglass setget set_dedicated_tool
 
 
 var _flag: Sprite
@@ -22,30 +19,40 @@ var _flag: Sprite
 
 
 
+func _setup_states(state_classes: Array = [ ]):
+	if state_classes.empty():
+		state_classes = [
+			JobStateInactive,
+			JobStateJustStarted, 
+			JobStateIdle,
+			JobStateRetrieve,
+			JobStatePickUp,
+			JobStateDeliver,
+			JobStateGather,
+			JobStateOperate,
+			JobStateMoveTo,
+		]
+	
+	._setup_states(state_classes)
+
+
 func _ready():
-	for state in get_children():
-		state.employer = employer
-		state.employee = employee
-		
-		state.dedicated_tool = dedicated_tool
+#	for state in get_children():
+#		state.employer = employer
+#		state.employee = employee
 	
 	if not _flag and _debug_flag_scene:
 		_flag = _debug_flag_scene.instance()
-	
-	get_tree().current_scene.add_child(_flag)
+		get_tree().current_scene.add_child(_flag)
 
 
-func _setup(new_employer: Node2D, new_employee: Node2D, new_dedicated_tool: Spyglass):
+func _setup(new_employer: Node2D, new_employee: Node2D):
 	employer = new_employer
 	employee = new_employee
-	
-	dedicated_tool = new_dedicated_tool
 	
 	for state in get_children():
 		state.employer = employer
 		state.employee = employee
-		
-		state.dedicated_tool = dedicated_tool
 	
 	_flag.target = employee
 
@@ -84,14 +91,23 @@ func current_target() -> Node2D:
 
 
 
-func activate(first_time: bool = false):
+func activate(first_time: bool = false, tool_type = null):
 	if not current_state:
 		return null
 	
-	current_state.activate(first_time)
+	current_state.activate(first_time, tool_type)
 
 func deactivate():
 	if not current_state:
 		return null
 	
 	current_state.deactivate()
+
+
+
+func set_dedicated_tool(new_tool: Spyglass):
+	dedicated_tool = new_tool
+	assert(dedicated_tool)
+	
+	for state in get_children():
+		state.dedicated_tool = dedicated_tool

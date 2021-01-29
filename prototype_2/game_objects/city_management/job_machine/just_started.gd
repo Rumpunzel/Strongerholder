@@ -3,5 +3,15 @@ extends JobStateRetrieve
 
 
 
-func enter(_parameters: Array = [ ]):
-	.enter([dedicated_tool.type, employer.owner, null])
+
+func _ready():
+	name = JUST_STARTED
+
+
+
+
+func enter(parameters: Array = [ ]):
+	if not parameters.empty():
+		assert(parameters.size() == 1)
+	
+	.exit(RETRIEVE, [parameters[0], employer.get_parent(), null])

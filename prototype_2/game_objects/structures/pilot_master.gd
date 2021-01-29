@@ -15,7 +15,7 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#owner.connect("died", self, "unregister_resource")
+	get_parent().connect("died", self, "unregister_resource")
 	connect("body_entered", self, "take_item")
 	
 	register_resource()
@@ -28,19 +28,14 @@ func take_item(item_to_take: Node2D):
 
 
 func register_resource():
-	_quarter_master.register_resource(owner)
+	_quarter_master.register_resource(get_parent())
 
 func unregister_resource():
-	_quarter_master.unregister_resource(owner)
-
-
-func check_area_for_item(_item: GameResource):
-	# TODO: HACK WORKAROUND UNTIL GODOT FIXES AREA'S RECOGNIZING A BODY ACTIVATING INSIDE IT
-	position = Vector2()
+	_quarter_master.unregister_resource(get_parent())
 
 
 
-func _get_input() -> Array:
+func _get_input(_player_controlled: bool) -> Array:
 	var commands: Array = [ ]
 	
 	while not _desired_items.empty():

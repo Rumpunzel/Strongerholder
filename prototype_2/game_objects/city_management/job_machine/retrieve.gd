@@ -14,16 +14,15 @@ var _requested_item: bool = false
 
 
 
+func _ready():
+	name = RETRIEVE
+
+
+
+
 func _check_for_exit_conditions():
-	if _requested_item:
-		yield(get_tree(), "idle_frame")
-		
-		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
-		
-		if nearest_item:
-			exit(PICK_UP, [nearest_item, _delivery_target])
-		elif _structure_to_retrieve_from._pilot_master.how_many_of_item(_item_type) == 0:
-			exit(IDLE, [_delivery_target])
+	if employee.carry_weight_left() <= 0.01 or _structure_to_retrieve_from._pilot_master.how_many_of_item(_item_type).empty():
+		exit(IDLE, [_delivery_target])
 
 
 
@@ -43,8 +42,9 @@ func enter(parameters: Array = [ ]):
 
 
 func exit(next_state: String, parameters: Array = [ ]):
-	_structure_to_retrieve_from.unassign_gatherer(employee, _item_type)
-	_structure_to_retrieve_from = null
+	if _structure_to_retrieve_from:
+		_structure_to_retrieve_from.unassign_gatherer(employee, _item_type)
+		_structure_to_retrieve_from = null
 	
 	_item_type = null
 	_delivery_target = null

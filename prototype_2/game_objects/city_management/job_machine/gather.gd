@@ -12,12 +12,20 @@ var _delivery_target: PilotMaster = null
 
 
 
+func _ready():
+	name = GATHER
+
+
+
+
 func _check_for_exit_conditions():
 	if not _structure_to_gather_from.is_active():
 		var nearest_item: GameResource = _get_nearest_item_of_type(_item_type)
 		
 		if nearest_item:
 			exit(PICK_UP, [nearest_item, _delivery_target])
+		else:
+			exit(IDLE, [_delivery_target])
 
 
 

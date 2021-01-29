@@ -1,22 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://game_objects/game_actors/actor_controllers/puppet_master.gd" type="Script" id=1]
-[ext_resource path="res://game_objects/inventory.gd" type="Script" id=3]
-[ext_resource path="res://game_objects/game_actors/actor_controllers/tool_belt.gd" type="Script" id=4]
+[ext_resource path="res://game_objects/game_actors/actor_controllers/puppet_master.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0
 
 [node name="puppet_master" type="Area2D"]
 collision_layer = 2048
-collision_mask = 15
-script = ExtResource( 1 )
+collision_mask = 31
+script = ExtResource( 3 )
 
 [node name="interaction_shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-
-[node name="tool_belt" type="Node2D" parent="."]
-script = ExtResource( 4 )
-
-[node name="inventory" type="Node2D" parent="."]
-script = ExtResource( 3 )

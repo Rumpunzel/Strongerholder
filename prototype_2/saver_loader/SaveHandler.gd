@@ -40,7 +40,7 @@ func _process(_delta: float):
 	if $popup.visible:
 		_progress_bar.value = _saver_loader.progress
 		
-		if _progress_bar.value >= 99:
+		if _progress_bar.value >= 100:
 			_progress_text.text = _FINISHED_LOADING_TEXT
 			_progress_bar.value = 100
 			
@@ -51,7 +51,7 @@ func _process(_delta: float):
 
 func _unhandled_input(event: InputEvent):
 	if $popup.visible and _progress_text.text == _FINISHED_LOADING_TEXT:
-		if event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
+		if not event.is_pressed() and event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
 			get_tree().set_input_as_handled()
 			
 			$popup.hide()

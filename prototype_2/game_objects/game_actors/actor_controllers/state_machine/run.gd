@@ -18,6 +18,12 @@ var _movement_modifier: float = 1.0
 
 
 
+func _ready():
+	name = RUN
+
+
+
+
 func exit(next_state: String, parameters: Array = [ ]):
 	_game_object.velocity = Vector2()
 	

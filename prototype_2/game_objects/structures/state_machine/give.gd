@@ -10,18 +10,24 @@ var _receiver: Node2D = null
 
 
 
+
+func _ready():
+	name = GIVE
+
+
+
+
 func enter(parameters: Array = [ ]):
 	if not parameters.empty():
 		_item = parameters[0]
 		_receiver = parameters[1]
 	
 	if _receiver:
-		pilot_master.drop_item(_item, _receiver.global_position)
+		_receiver.transfer_item(_item)
 	else:
 		pilot_master.drop_item(_item)
 	
-	if _receiver is Structure:
-		_receiver.check_area_for_item(_item)
-	
 	_item = null
 	_receiver = null
+	
+	exit(IDLE)

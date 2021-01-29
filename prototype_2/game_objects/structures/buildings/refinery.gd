@@ -3,25 +3,21 @@ extends Inventory
 
 
 const PERSIST_PROPERTIES_2 := ["_production_steps", "_steps_done"]
-const PERSIST_OBJ_PROPERTIES := ["input_resources", "_output_resources"]
+const PERSIST_OBJ_PROPERTIES_2 := ["input_resources", "_output_resources"]
 
 
 const _RESOURCE_SCENES = {
-	Constants.Resources.WOOD: "res://game_objects/resources/wood.tscn",
-	Constants.Resources.WOOD_PLANKS: "res://game_objects/resources/wood_planks.tscn",
+	Constants.Resources.LUMBER: "res://game_objects/resources/lumber.tscn",
+	Constants.Resources.WOOD_PLANKS: "res://game_objects/resources/wood_plank.tscn",
 	Constants.Resources.STONE: null,
 	Constants.Resources.SPYGLASS: null,
 	Constants.Resources.AXE: "res://game_objects/resources/tools/axe.tscn",
 }
 
 
-export(Array, Constants.Resources) var input_resources
-
-
-export(Array, Constants.Resources) var _output_resources
-
-export var _production_steps: int = 2
-
+var input_resources: Array
+var _output_resources: Array
+var _production_steps: int
 
 var _steps_done: int = 0
 
@@ -36,6 +32,9 @@ func pick_up_item(item: Node2D):
 
 
 func check_item_numbers() -> bool:
+	if input_resources.empty():
+		return false
+	
 	var content: Dictionary = { }
 	
 	for item in get_contents():
@@ -67,7 +66,7 @@ func refine_prodcut():
 				break
 	
 	for item in _output_resources:
-		var new_item: GameResource = load(_RESOURCE_SCENES[item]).instance()
+		var new_item: Node2D = load(_RESOURCE_SCENES[item]).instance()
 		
 		add_child(new_item)
-		owner._state_machine.give_item(new_item, owner)
+		get_parent().get_parent().transfer_item(new_item)

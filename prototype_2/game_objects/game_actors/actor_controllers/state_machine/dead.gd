@@ -3,6 +3,13 @@ extends ActorStateInactive
 
 
 
+
+func _ready():
+	name = DEAD
+
+
+
+
 func enter(parameters: Array = [ ]):
 	.enter(parameters)
 	

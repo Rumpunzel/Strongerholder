@@ -111,8 +111,8 @@ var _current_scene: Node
 var _tag_size: int
 
 # progress & logging
-var _prog_serialized := 0
-var _prog_deserialized := 0
+var _prog_serialized := 1
+var _prog_deserialized := 1
 var _log_count := 0
 var _log_count_by_class := {}
 var _log := ""
@@ -156,7 +156,7 @@ func save_game(save_file: File, tree: SceneTree) -> void: # Assumes save_file al
 	_root = _tree.get_root()
 	_current_scene = _tree.get_current_scene()
 	progress = 0
-	_prog_serialized = 0
+	_prog_serialized = 1
 	
 	if use_thread:
 		_thread = Thread.new()
@@ -170,7 +170,7 @@ func load_game(save_file: File, tree: SceneTree) -> void:
 	_root = _tree.get_root()
 	_tag_size = object_tag.length()
 	progress = 0
-	_prog_deserialized = 0
+	_prog_deserialized = 1
 	
 	yield(_tree, "idle_frame")
 	

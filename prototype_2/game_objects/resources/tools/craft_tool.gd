@@ -2,8 +2,6 @@ class_name CraftTool, "res://assets/icons/game_actors/icon_crafting_tool.svg"
 extends Spyglass
 
 
-const SCENE_OVERRIDE_2 := "res://game_objects/resources/tools/CraftTool.tscn"
-
 const PERSIST_PROPERTIES_4 := ["attack_value", "animation"]
 
 
@@ -31,3 +29,10 @@ func _enable_hurtbox(game_actor: Node2D):
 
 func _disable_hurtbox():
 	_hurt_box.end_attack()
+
+
+
+func _initliase_state_machine():
+	_state_machine = ToolStateMachine.new()
+	_state_machine.name = "state_machine"
+	add_child(_state_machine)

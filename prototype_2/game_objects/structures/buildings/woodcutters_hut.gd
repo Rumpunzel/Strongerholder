@@ -1,4 +1,4 @@
 extends CityStructure
 
 
-const SCENE_OVERRIDE := "res://game_objects/structures/buildings/woodcutters_hut.tscn"
+const SCENE := "res://game_objects/structures/buildings/woodcutters_hut.tscn"

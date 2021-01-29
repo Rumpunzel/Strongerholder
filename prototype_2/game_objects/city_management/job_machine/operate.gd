@@ -10,8 +10,14 @@ var _structure_to_operate: CityStructure = null
 
 
 
+func _ready():
+	name = OPERATE
+
+
+
+
 func _check_for_exit_conditions():
-	if not _structure_to_operate.can_be_operated() or not _structure_to_operate.position_open():
+	if not _structure_to_operate.can_be_operated():
 		exit(IDLE)
 
 

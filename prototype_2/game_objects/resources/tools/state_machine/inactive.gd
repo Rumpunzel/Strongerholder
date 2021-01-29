@@ -3,6 +3,13 @@ extends ToolState
 
 
 
+
+func _ready():
+	name = INACTIVE
+
+
+
+
 func enter(parameters: Array = [ ]):
 	.enter(parameters)
 	

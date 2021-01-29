@@ -2,38 +2,38 @@ class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
 extends Area2D
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const SCENE := "res://game_objects/game_actors/actor_controllers/puppet_master.tscn"
 
-const PERSIST_PROPERTIES := ["name"]
-const PERSIST_OBJ_PROPERTIES := ["_main_inventory"]
+const PERSIST_PROPERTIES := ["name", "_first_time"]
+const PERSIST_OBJ_PROPERTIES := ["_inventories", "_reversed_inventories", "_main_inventory"]
 
+
+var _first_time: bool = true
 
 var _inventories: Array = [ ]
 var _reversed_inventories: Array = [ ]
 
-
-onready var _main_inventory: Inventory = null
+var _main_inventory
 
 
 
 
 func _ready():
-	if not _main_inventory:
-		_main_inventory = $inventory
-	
-	for child in get_children():
-		if child is Inventory:
-			_inventories.append(child)
-	
-	_reversed_inventories = _inventories.duplicate()
-	_reversed_inventories.invert()
+	if _first_time:
+		_first_time = false
+		
+		_initialise_inventories()
+		
+		_reversed_inventories = _inventories.duplicate()
+		_reversed_inventories.invert()
 
 
 
 
-func process_commands(state_machine: ObjectStateMachine):
+func process_commands(state_machine: ObjectStateMachine, player_controlled: bool = false):
 	#object_of_interest, null, global_position, _current_path
-	var commands: Array = _get_input()
+	var commands: Array = _get_input(player_controlled)
 	
 	for command in commands:
 		command.execute(state_machine)
@@ -59,6 +59,15 @@ func drop_all_items(position_to_drop: Vector2 = global_position):
 		inventory.drop_all_items(position_to_drop)
 
 
+func transfer_item(item: GameResource) -> bool:
+	for inventory in _inventories:
+		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass):
+			inventory.transfer_item(item)
+			return true
+	
+	return false
+
+
 func has_item(resource_type) -> GameResource:
 	for inventory in _reversed_inventories:
 		var item: GameResource = inventory.has(resource_type)
@@ -78,12 +87,12 @@ func get_inventory_contents() -> Array:
 	return contents
 
 
-func how_many_of_item(item_type) -> int:
-	var item_count: int = 0
+func how_many_of_item(item_type) -> Array:
+	var item_count: Array = [ ]
 	
 	for item in get_inventory_contents():
 		if item.type == item_type:
-			item_count += 1
+			item_count.append(item)
 	
 	return item_count
 
@@ -99,7 +108,7 @@ func interact_with(structure: Node2D):
 
 
 
-func _get_input() -> Array:
+func _get_input(_player_controlled: bool) -> Array:
 	var commands: Array = [ ]
 	
 #	if Input.is_action_pressed("open_menu"):
@@ -120,6 +129,13 @@ func _get_input() -> Array:
 
 func _in_range(object: PhysicsBody2D) -> bool:
 	return get_overlapping_bodies().has(object)
+
+
+func _initialise_inventories():
+	_main_inventory = Inventory.new()
+	_main_inventory.name = "inventory"
+	add_child(_main_inventory)
+	_inventories.append(_main_inventory)
 
 
 
@@ -156,7 +172,6 @@ class GiveCommand extends Command:
 		state_machine.give_item(what_to_give, whom_to_give_to)
 
 
-
 class TakeCommand extends Command:
 	var what_to_take: GameResource
 	
@@ -177,6 +192,7 @@ class RequestCommand extends Command:
 	
 	func execute(state_machine: ObjectStateMachine):
 		state_machine.request_item(request, whom_to_ask)
+
 
 
 class AttackCommand extends Command:

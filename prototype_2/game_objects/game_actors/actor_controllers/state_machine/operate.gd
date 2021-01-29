@@ -6,19 +6,18 @@ const PERSIST_PROPERTIES_2 := ["_puppet_master_node"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_puppet_master", "_structure"]
 
 
-export(NodePath) var _puppet_master_node
-
+var _structure: Structure = null
 
 var _puppet_master: InputMaster = null
-
-var _structure: Structure = null
 
 
 
 
 func _ready():
+	name = OPERATE
+	
 	if not _puppet_master:
-		_puppet_master = get_node(_puppet_master_node)
+		_puppet_master = get_parent()._puppet_master
 
 
 
@@ -40,8 +39,6 @@ func animation_acted(_animation: String):
 		return
 	
 	_puppet_master.interact_with(_structure)
-	
-	_structure = null
 
 
 func animtion_finished(animation: String):

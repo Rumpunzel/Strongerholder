@@ -2,7 +2,7 @@ extends HBoxContainer
 
 
 const RESOURCE_ICONS: Dictionary = {
-	Constants.Resources.WOOD: "res://assets/gui/resource_icons/icon_wood.png",
+	Constants.Resources.LUMBER: "res://assets/gui/resource_icons/icon_wood.png",
 	Constants.Resources.WOOD_PLANKS: "res://assets/gui/resource_icons/icon_wood_planks.png",
 	Constants.Resources.STONE: "res://assets/gui/resource_icons/icon_stone.png",
 }
@@ -23,6 +23,6 @@ func _process(_delta: float):
 	var storage_units: Array = get_tree().get_nodes_in_group(CityPilotMaster.STORAGE)
 	
 	for unit in storage_units:
-		counted_amount += unit._pilot_master.how_many_of_item(_resource_to_count)
+		counted_amount += unit._pilot_master.how_many_of_item(_resource_to_count).size()
 	
 	$amount.text = "%d" % counted_amount

@@ -2,33 +2,42 @@ class_name Inventory, "res://assets/icons/icon_inventory.svg"
 extends Node2D
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "_carry_weight_multipler"]
+const PERSIST_PROPERTIES := ["name", "_first_time"]
+const PERSIST_OBJ_PROPERTIES := ["_starting_items"]
 
 
 signal received_item(item)
 
 
-export(Array, PackedScene) var _starting_items
+var _first_time: bool = true
 
-export var _carry_weight_multipler: float = 1.0
+
+export(Array, PackedScene) var _starting_items
 
 
 
 
 func _ready():
-	if get_contents().empty():
-		for item in _starting_items:
-			var new_item: GameResource = item.instance()
-			
-			add_child(new_item)
+	if not _first_time:
+		return
+	
+	_first_time = false
+	
+	for item in _starting_items:
+		var new_item: Node2D = item.instance()
+		
+		add_child(new_item)
 
 
 
 
 func pick_up_item(item: Node2D):
 	item.pick_up_item(self)
+
+func transfer_item(item: Node2D):
+	item.transfer_item(self)
 
 
 
@@ -63,10 +72,10 @@ func get_contents() -> Array:
 
 
 func capacity_left() -> float:
-	var carry_weight: float = _carry_weight_multipler
+	var carry_weight: float = 1.0
 	
 	for item in get_contents():
-		if not item.how_many_can_be_carried == 0.0:
+		if not item.how_many_can_be_carried == 0:
 			carry_weight -= 1.0 / float(item.how_many_can_be_carried)
 	
 	return carry_weight

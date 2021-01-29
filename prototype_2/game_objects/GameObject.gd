@@ -2,17 +2,27 @@ class_name GameObject, "res://assets/icons/icon_game_object.svg"
 extends StaticBody2D
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+
+const PERSIST_PROPERTIES := ["name", "position", "_maximum_operators", "_first_time"]
+const PERSIST_OBJ_PROPERTIES := ["_assigned_workers", "_state_machine"]
+
+
 signal died
 
 
 export var _maximum_operators: int = 1
 
 
+# warning-ignore-all:unused_class_variable
+var _first_time: bool = true
+var _state_machine
+
 var _assigned_workers: Array = [ ]
 
 
 onready var _collision_shape: CollisionShape2D = $collision_shape
-onready var _state_machine: ObjectStateMachine = $state_machine
+
 
 
 

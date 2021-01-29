@@ -77,7 +77,7 @@ func current_target() -> Node2D:
 
 
 
-func activate(_first_time: bool = false):
+func activate(_first_time: bool = false, _tool_type = null):
 	pass
 
 func deactivate():

@@ -3,9 +3,16 @@ extends JobState
 
 
 
-func activate(first_time: bool = false):
+
+func _ready():
+	name = INACTIVE
+
+
+
+
+func activate(first_time: bool = false, tool_type = null):
 	if first_time:
-		exit(JUST_STARTED)
+		exit(JUST_STARTED, [tool_type])
 	else:
 		exit(IDLE)
 
