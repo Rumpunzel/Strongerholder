@@ -112,7 +112,7 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 		var state: String = GATHER
 		
 		if nearest_structure is CityStructure:
-			if nearest_structure.can_be_gathered(use):
+			if nearest_structure == employer.get_parent() or nearest_structure.can_be_gathered(use):
 				state = RETRIEVE
 			else:
 				return false
