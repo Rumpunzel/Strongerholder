@@ -79,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/build_menu/build_menu.gd"
 }, {
+"base": "Position2D",
+"class": "BuildingPoint",
+"language": "GDScript",
+"path": "res://game_objects/structures/BuildingPoint.gd"
+}, {
 "base": "PilotMaster",
 "class": "CityPilotMaster",
 "language": "GDScript",
@@ -409,6 +414,7 @@ _global_script_class_icons={
 "AnimationStateMachine": "",
 "AudioHandler": "res://assets/icons/icon_audio_handler.svg",
 "BuildMenu": "",
+"BuildingPoint": "",
 "CityPilotMaster": "res://assets/icons/structures/icon_city_pilot_master.svg",
 "CityStructure": "res://assets/icons/structures/icon_city_structure.svg",
 "CityStructureAudioHandler": "",

@@ -2,9 +2,9 @@ class_name BuildMenu
 extends Control
 
 
-var _current_dummy: PlacementDummy = null
+var _current_dummies: Array = [ ]
 var _current_blueprint: PackedScene = null
-var _current_structure: Structure = null
+var _current_structure: BuildingPoint = null
 
 
 onready var _objects_layer: ObjectsLayer = ServiceLocator.objects_layer
@@ -14,20 +14,26 @@ onready var _popup: Popup = $popup
 
 
 func _gui_input(event: InputEvent) -> void:
-	if _current_dummy:
-		if event.is_action_pressed("place_building"):
-			get_tree().set_input_as_handled()
+	if _current_dummies.empty():
+		return
+	
+	if event.is_action_pressed("place_building"):
+		get_tree().set_input_as_handled()
+		
+		var place_free: bool = true
+		
+		for dummy in _current_dummies:
+			place_free = place_free and dummy.place_free()
+		
+		if place_free:
+			_objects_layer.add_child(_current_structure)
+			_current_structure.global_position = _current_dummies.front().global_position
 			
-			if _current_dummy.place_free():
-				_objects_layer.add_child(_current_structure)
-				_current_structure.global_position = _current_dummy.global_position
-				
-				_current_structure = _current_blueprint.instance()
-			
-		elif event.is_action_pressed("place_building_cancel"):
-			get_tree().set_input_as_handled()
-			
-			_delete_blue_print()
+			_current_structure = _current_blueprint.instance()
+	elif event.is_action_pressed("place_building_cancel"):
+		get_tree().set_input_as_handled()
+		
+		_delete_blue_print()
 
 
 
@@ -38,11 +44,20 @@ func place_building(structure: PackedScene) -> void:
 	_current_blueprint = structure
 	_current_structure = _current_blueprint.instance()
 	
-	var new_collision_shape: CollisionShape2D = _current_structure._get_copy_of_collision_shape()
-	var new_sprite: Sprite = _current_structure._get_copy_sprite()
+	var new_collision_shapes: Array = [ ]
+	var new_sprites: Array = [ ]
+	var new_structures: Array = _current_structure.get_children()
 	
-	_current_dummy = PlacementDummy.new(new_collision_shape, new_sprite)
-	_objects_layer.add_child(_current_dummy)
+	_current_dummies = [ ]
+	
+	for i in range(new_structures.size()):
+		new_collision_shapes.append(new_structures[i]._get_copy_of_collision_shape())
+		new_sprites.append(new_structures[i]._get_copy_sprite())
+		
+		var new_dummy: PlacementDummy = PlacementDummy.new(new_collision_shapes[i], new_structures[i].position, new_sprites[i], new_structures[i].position)
+		
+		_current_dummies.append(new_dummy)
+		_objects_layer.add_child(new_dummy)
 
 
 
@@ -58,9 +73,10 @@ func _close() -> void:
 
 
 func _delete_blue_print() -> void:
-	if _current_dummy:
-		_current_dummy.queue_free()
-		_current_dummy = null
+	for dummy in _current_dummies:
+		dummy.queue_free()
+	
+	_current_dummies = [ ]
 	
 	_current_blueprint = null
 	

@@ -10,9 +10,12 @@ const GRID_SIZE: float = 16.0
 
 
 
-func _init(new_collision_shape: CollisionShape2D, new_sprite: Sprite) -> void:
+func _init(new_collision_shape: CollisionShape2D, shape_offset: Vector2, new_sprite: Sprite, sprite_offset: Vector2) -> void:
 	add_child(new_collision_shape)
 	add_child(new_sprite)
+	
+	new_collision_shape.position += shape_offset
+	new_sprite.position += sprite_offset
 	
 	modulate = PLACEMENT_COLOR
 	modulate.a = 0.75
