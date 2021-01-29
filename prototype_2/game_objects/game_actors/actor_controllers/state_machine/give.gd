@@ -40,7 +40,8 @@ func animation_acted(_animation: String):
 		return
 	
 	if _receiver:
-		_receiver.transfer_item(_item)
+		if _puppet_master.in_range(_receiver.get_parent()):
+			_receiver.transfer_item(_item)
 	else:
 		_puppet_master.drop_item(_item)
 

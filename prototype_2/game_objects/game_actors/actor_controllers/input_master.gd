@@ -42,7 +42,7 @@ func process_commands(state_machine: ObjectStateMachine, player_controlled: bool
 
 func pick_up_item(item: GameResource) -> bool:
 	for inventory in _inventories:
-		if _in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass)):
+		if in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass)):
 			inventory.pick_up_item(item)
 			return true
 	
@@ -101,8 +101,12 @@ func carry_weight_left() -> float:
 	return _main_inventory.capacity_left()
 
 
+func in_range(object: PhysicsBody2D) -> bool:
+	return get_overlapping_bodies().has(object)
+
+
 func interact_with(structure: Node2D):
-	if _in_range(structure):
+	if in_range(structure):
 		structure.operate()
 
 
@@ -126,9 +130,6 @@ func _get_input(_player_controlled: bool) -> Array:
 	return commands
 
 
-
-func _in_range(object: PhysicsBody2D) -> bool:
-	return get_overlapping_bodies().has(object)
 
 
 func _initialise_inventories():

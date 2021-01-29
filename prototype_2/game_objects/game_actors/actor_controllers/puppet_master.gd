@@ -39,7 +39,7 @@ func _get_input(player_controlled: bool) -> Array:
 	if _current_job:
 		var task_target: Node2D = _current_job.current_target()
 		
-		if task_target and _in_range(task_target):
+		if task_target and in_range(task_target):
 			commands.append(_current_job.next_command())
 			return commands
 		

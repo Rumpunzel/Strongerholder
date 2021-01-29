@@ -36,7 +36,7 @@ func enter(parameters: Array = [ ]):
 
 
 func animation_acted(_animation: String):
-	if _puppet_master.carry_weight_left() > 0.01:
+	if _puppet_master.carry_weight_left() > 0.01 and _puppet_master.in_range(_receiver):
 		_receiver.request_item(_request, _game_object)
 
 

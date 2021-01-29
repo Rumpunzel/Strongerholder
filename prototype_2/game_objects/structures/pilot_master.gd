@@ -41,7 +41,7 @@ func _get_input(_player_controlled: bool) -> Array:
 	while not _desired_items.empty():
 		var item: Node2D = _desired_items.pop_front()
 		
-		if _in_range(item):
+		if in_range(item):
 			commands.append(TakeCommand.new(item))
 	
 	return commands
