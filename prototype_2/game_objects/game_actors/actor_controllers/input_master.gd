@@ -87,12 +87,12 @@ func get_inventory_contents() -> Array:
 	return contents
 
 
-func how_many_of_item(item_type) -> int:
-	var item_count: int = 0
+func how_many_of_item(item_type) -> Array:
+	var item_count: Array = [ ]
 	
 	for item in get_inventory_contents():
 		if item.type == item_type:
-			item_count += 1
+			item_count.append(item)
 	
 	return item_count
 

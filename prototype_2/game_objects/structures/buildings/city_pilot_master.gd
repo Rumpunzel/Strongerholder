@@ -76,7 +76,7 @@ func assign_gatherer(puppet_master: Node2D, gathering_resource):
 	
 	if not _assigned_gatherers[gathering_resource].has(puppet_master):
 		_assigned_gatherers[gathering_resource].append(puppet_master)
-	assert(_assigned_gatherers[gathering_resource].size() <= how_many_of_item(gathering_resource))
+	assert(_assigned_gatherers[gathering_resource].size() <= how_many_of_item(gathering_resource).size())
 
 
 func unassign_gatherer(puppet_master: Node2D, gathering_resource):
@@ -84,9 +84,11 @@ func unassign_gatherer(puppet_master: Node2D, gathering_resource):
 
 
 func can_be_gathered(gathering_resource) -> bool:
-	var worker_array: Array = _assigned_gatherers.get(gathering_resource, [ ])
+	var assigned_workers: int = _assigned_gatherers.get(gathering_resource, [ ]).size()
+	var available_items: Array = how_many_of_item(gathering_resource)
+	var effective_workers: int = 0 if available_items.empty() else assigned_workers * available_items.front().how_many_can_be_carried
 	
-	return worker_array.size() < how_many_of_item(gathering_resource)
+	return effective_workers < available_items.size()
 
 
 

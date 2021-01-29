@@ -31,7 +31,7 @@ func _check_for_exit_conditions():
 				get_parent().dedicated_tool = nearest_item
 			
 			exit(PICK_UP, [nearest_item, _delivery_target])
-		elif _structure_to_retrieve_from._pilot_master.how_many_of_item(_item_type) == 0:
+		elif _structure_to_retrieve_from._pilot_master.how_many_of_item(_item_type).empty():
 			exit(IDLE, [_delivery_target])
 
 
