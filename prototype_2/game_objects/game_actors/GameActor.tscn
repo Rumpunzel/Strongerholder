@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=2]
@@ -47,7 +47,7 @@ func _process(_delta):
 script/source = "extends Label
 
 
-onready var _puppet_master: PuppetMaster
+var _puppet_master: PuppetMaster
 
 
 
@@ -56,6 +56,21 @@ onready var _puppet_master: PuppetMaster
 func _process(_delta):
 	if _puppet_master and _puppet_master is PuppetMaster and _puppet_master._current_job and _puppet_master._current_job.current_state:
 		text = \"%s\" % [_puppet_master._current_job.current_state.name if _puppet_master._current_job else \"unassigned\"]
+"
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Label
+
+
+var _puppet_master: PuppetMaster
+
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if _puppet_master and _puppet_master is PuppetMaster and _puppet_master._current_job:
+		text = \"%s\" % [_puppet_master._current_job.employer.get_parent().name if _puppet_master._current_job else \"unemployed\"]
 "
 
 [node name="game_actor" type="KinematicBody2D"]
@@ -122,7 +137,7 @@ valign = 1
 uppercase = true
 script = SubResource( 3 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="job_label" type="Label" parent="."]
@@ -130,15 +145,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -42.5142
-margin_top = -55.1495
-margin_right = 42.4858
-margin_bottom = -41.1495
+margin_left = -42.514
+margin_top = -55.0
+margin_right = 42.486
+margin_bottom = -41.0
 text = "Unassigned"
 align = 1
 valign = 1
 uppercase = true
 script = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="employer_label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -44.5
+margin_top = -70.0
+margin_right = 44.5
+margin_bottom = -56.0
+text = "Unemployed"
+align = 1
+valign = 1
+uppercase = true
+script = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

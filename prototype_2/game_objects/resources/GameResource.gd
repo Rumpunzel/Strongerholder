@@ -41,6 +41,10 @@ func pick_up_item(new_inventory):
 	_state_machine.pick_up_item(new_inventory)
 
 
+func transfer_item(new_inventory):
+	_state_machine.transfer_item(new_inventory)
+
+
 
 func appear(new_status: bool):
 	visible = new_status

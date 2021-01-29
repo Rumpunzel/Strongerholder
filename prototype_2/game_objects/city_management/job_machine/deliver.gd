@@ -18,12 +18,6 @@ func _ready():
 
 
 func _check_for_exit_conditions():
-	if not _job_items().empty():
-		var item: GameResource = _job_items().front()
-		
-		if not employee.get_inventory_contents().has(item):
-			item.unassign_worker(employee)
-	
 	if _job_items().empty():
 		exit(IDLE)
 
@@ -32,7 +26,7 @@ func _check_for_exit_conditions():
 
 func enter(parameters: Array = [ ]):
 	if not parameters.empty():
-		assert(parameters.size() == 1)
+		assert(parameters.size() == 1 and parameters[0])
 		
 		_delivery_target = parameters[0]
 		_target_structure = _delivery_target.get_parent()
@@ -53,7 +47,9 @@ func next_command() -> InputMaster.Command:
 	if not _job_items().empty():
 		var item: GameResource = _job_items().front()
 		
-		return InputMaster.GiveCommand.new(item, _target_structure)
+		item.unassign_worker(employee)
+		
+		return InputMaster.GiveCommand.new(item, _delivery_target)
 	
 	return InputMaster.Command.new()
 

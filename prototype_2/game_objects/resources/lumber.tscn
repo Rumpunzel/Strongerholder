@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/gui/resource_icons/icon_wood.png" type="Texture" id=2]
 [ext_resource path="res://game_objects/resources/GameResource.tscn" type="PackedScene" id=3]
 
-[node name="wood_log" instance=ExtResource( 3 )]
+[node name="lumber" instance=ExtResource( 3 )]
 script = ExtResource( 1 )
 type = 1026
 how_many_can_be_carried = 3

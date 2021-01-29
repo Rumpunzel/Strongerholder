@@ -38,21 +38,22 @@ func _check_for_exit_conditions():
 	
 	if nearest_storage:
 		for use in dedicated_tool.delivers:
-			if not _job_items().empty() and not use == _job_items().front().type:
+			if not (_job_items().empty() or use == _job_items().front().type):
 				continue
-				
+			
 			if _construct_new_plan(use, nearest_storage._pilot_master):
 				return
 	
 	
 	if employer.can_be_operated() and employer.get_parent().position_open():
 		exit(OPERATE, [employer.get_parent()])
+		print("oping")
 		return
 	
 	
 	if employee.carry_weight_left() > 0.0:
 		for use in dedicated_tool.gathers:
-			if not _job_items().empty() and not use == _job_items().front().type:
+			if not (_job_items().empty() or use == _job_items().front().type):
 				continue
 			
 			if _construct_new_plan(use, employer):

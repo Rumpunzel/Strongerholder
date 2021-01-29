@@ -107,6 +107,7 @@ func deactivate():
 
 func set_dedicated_tool(new_tool: Spyglass):
 	dedicated_tool = new_tool
+	assert(dedicated_tool)
 	
 	for state in get_children():
 		state.dedicated_tool = dedicated_tool

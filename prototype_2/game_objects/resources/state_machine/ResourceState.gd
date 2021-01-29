@@ -28,6 +28,11 @@ func pick_up_item(new_inventory: Inventory):
 	new_inventory.call_deferred("_add_item", _game_object)
 
 
+func transfer_item(new_inventory: Inventory):
+	_game_object.get_parent().remove_child(_game_object)
+	new_inventory.call_deferred("_add_item", _game_object)
+
+
 
 func _toggle_active_state(object: Node, new_state: bool):
 	object.appear(new_state)

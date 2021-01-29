@@ -21,7 +21,6 @@ func _check_for_exit_conditions():
 	if not _item.is_active():
 		if _delivery_target:
 			exit(IDLE, [_delivery_target])
-			#exit(DELIVER, [_delivery_target])
 		else:
 			exit(IDLE)
 
@@ -41,7 +40,6 @@ func enter(parameters: Array = [ ]):
 
 
 func exit(next_state: String, parameters: Array = [ ]):
-	_item.unassign_worker(employee)
 	_item = null
 	
 	_delivery_target = null

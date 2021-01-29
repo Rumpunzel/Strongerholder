@@ -5,9 +5,6 @@ extends CityStructureState
 const PERSIST_OBJ_PROPERTIES_3 := ["_item", "_receiver"]
 
 
-const _DROP_OFFSET: Vector2 = Vector2(0, -1)
-
-
 var _item: GameResource = null
 var _receiver: Node2D = null
 
@@ -26,12 +23,9 @@ func enter(parameters: Array = [ ]):
 		_receiver = parameters[1]
 	
 	if _receiver:
-		pilot_master.drop_item(_item, _receiver.global_position + _DROP_OFFSET)
+		_receiver.transfer_item(_item)
 	else:
 		pilot_master.drop_item(_item)
-	
-	if _receiver.has_method("check_area_for_item"):
-		_receiver.check_area_for_item(_item)
 	
 	_item = null
 	_receiver = null

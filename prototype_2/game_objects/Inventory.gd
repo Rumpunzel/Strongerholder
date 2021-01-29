@@ -36,6 +36,9 @@ func _ready():
 func pick_up_item(item: Node2D):
 	item.pick_up_item(self)
 
+func transfer_item(item: Node2D):
+	item.transfer_item(self)
+
 
 
 func drop_all_items(position_to_drop: Vector2):

@@ -82,6 +82,10 @@ func request_item(request, receiver: Node2D):
 	current_state.request_item(request, receiver)
 
 
+func transfer_item(item, receiver: Node2D):
+	current_state.transfer_item(item, receiver)
+
+
 func attack(weapon: CraftTool):
 	current_state.attack(weapon)
 

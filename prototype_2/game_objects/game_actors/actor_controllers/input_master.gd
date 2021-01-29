@@ -14,7 +14,7 @@ var _first_time: bool = true
 var _inventories: Array = [ ]
 var _reversed_inventories: Array = [ ]
 
-var _main_inventory: Inventory
+var _main_inventory
 
 
 
@@ -57,6 +57,15 @@ func drop_item(item: GameResource, position_to_drop: Vector2 = global_position):
 func drop_all_items(position_to_drop: Vector2 = global_position):
 	for inventory in _reversed_inventories:
 		inventory.drop_all_items(position_to_drop)
+
+
+func transfer_item(item: GameResource) -> bool:
+	for inventory in _inventories:
+		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass):
+			inventory.transfer_item(item)
+			return true
+	
+	return false
 
 
 func has_item(resource_type) -> GameResource:
@@ -163,7 +172,6 @@ class GiveCommand extends Command:
 		state_machine.give_item(what_to_give, whom_to_give_to)
 
 
-
 class TakeCommand extends Command:
 	var what_to_take: GameResource
 	
@@ -184,6 +192,7 @@ class RequestCommand extends Command:
 	
 	func execute(state_machine: ObjectStateMachine):
 		state_machine.request_item(request, whom_to_ask)
+
 
 
 class AttackCommand extends Command:

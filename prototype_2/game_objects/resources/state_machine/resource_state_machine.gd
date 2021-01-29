@@ -23,3 +23,7 @@ func drop_item(objects_layer: YSort, position_to_drop: Vector2):
 
 func pick_up_item(new_invetory: Inventory):
 	current_state.pick_up_item(new_invetory)
+
+
+func transfer_item(new_inventory):
+	current_state.transfer_item(new_inventory)

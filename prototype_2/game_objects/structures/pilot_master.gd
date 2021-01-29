@@ -34,11 +34,6 @@ func unregister_resource():
 	_quarter_master.unregister_resource(get_parent())
 
 
-func check_area_for_item(_item: GameResource = null):
-	# TODO: HACK WORKAROUND UNTIL GODOT FIXES AREA'S RECOGNIZING A BODY ACTIVATING INSIDE IT
-	position = Vector2()
-
-
 
 func _get_input(_player_controlled: bool) -> Array:
 	var commands: Array = [ ]

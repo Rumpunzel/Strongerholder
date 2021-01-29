@@ -62,6 +62,7 @@ func employ_worker(puppet_master: Node2D):
 	
 	yield(get_tree(), "idle_frame")
 	
+	new_job.dedicated_tool = available_tool
 	new_job.activate(true, available_tool.type)
 
 

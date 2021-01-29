@@ -41,8 +41,8 @@ func _process(_delta: float):
 
 
 
-func check_area_for_item(item: GameResource):
-	_pilot_master.check_area_for_item(item)
+func transfer_item(item: GameResource):
+	_pilot_master.transfer_item(item)
 
 
 func die():
@@ -79,6 +79,4 @@ func _initliase_starting_items():
 		
 		add_child(new_item)
 		yield(get_tree(), "idle_frame")
-		new_item.drop_item(global_position)
-	
-	_pilot_master.check_area_for_item()
+		_pilot_master.transfer_item(new_item)

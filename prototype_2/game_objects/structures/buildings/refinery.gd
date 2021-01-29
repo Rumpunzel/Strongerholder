@@ -69,4 +69,4 @@ func refine_prodcut():
 		var new_item: Node2D = load(_RESOURCE_SCENES[item]).instance()
 		
 		add_child(new_item)
-		get_parent().get_parent()._state_machine.give_item(new_item, get_parent().get_parent())
+		get_parent().get_parent().transfer_item(new_item)

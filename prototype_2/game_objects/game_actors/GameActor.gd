@@ -18,7 +18,7 @@ signal died
 
 
 var velocity: Vector2 = Vector2()
-var player_controlled: bool = false setget set_player_controlled
+var player_controlled: bool = false
 
 
 var _first_time: bool = true
@@ -46,6 +46,7 @@ func _ready():
 	
 	$state_label._state_machine = _state_machine
 	$job_label._puppet_master = _puppet_master
+	$employer_label._puppet_master = _puppet_master
 
 
 func _process(_delta: float):
@@ -63,6 +64,10 @@ func _physics_process(_delta: float):
 
 
 
+func transfer_item(item: GameResource):
+	_puppet_master.transfer_item(item)
+
+
 
 func damage(damage_points: float, sender) -> bool:
 	return _state_machine.damage(damage_points, sender)
@@ -78,8 +83,3 @@ func is_active() -> bool:
 
 func enable_collision(new_status: bool):
 	_collision_shape.set_deferred("disabled", not new_status)
-
-
-
-func set_player_controlled(new_status: bool):
-	player_controlled = new_status
