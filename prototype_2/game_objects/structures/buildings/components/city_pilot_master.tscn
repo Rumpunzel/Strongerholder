@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game_objects/structures/pilot_master.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game_objects/structures/buildings/components/city_pilot_master.gd" type="Script" id=2]
+
+
+[node name="CityPilotMaster" instance=ExtResource( 1 )]
+script = ExtResource( 2 )

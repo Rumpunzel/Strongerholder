@@ -4,7 +4,7 @@
 [ext_resource path="res://ui/pause_menu/pause_menu.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/ui_main_menu_title_font.tres" type="DynamicFont" id=3]
 
-[node name="pause_menu" type="Popup"]
+[node name="PauseMenu" type="Popup"]
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,7 +15,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.784314 )
@@ -23,14 +23,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="split_container" type="VBoxContainer" parent="."]
+[node name="SplitContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="menu" type="CenterContainer" parent="split_container"]
+[node name="Menu" type="CenterContainer" parent="SplitContainer"]
 margin_right = 1920.0
 margin_bottom = 1004.0
 size_flags_horizontal = 3
@@ -39,21 +39,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="menu_layout" type="VBoxContainer" parent="split_container/menu"]
+[node name="MenuLayout" type="VBoxContainer" parent="SplitContainer/Menu"]
 margin_left = 784.0
 margin_top = 335.0
 margin_right = 1136.0
 margin_bottom = 669.0
 custom_constants/separation = 30
 
-[node name="title" type="Label" parent="split_container/menu/menu_layout"]
+[node name="Title" type="Label" parent="SplitContainer/Menu/MenuLayout"]
 margin_right = 352.0
 margin_bottom = 64.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 3 )
 text = "Game Paused"
 
-[node name="menu_buttons" type="VBoxContainer" parent="split_container/menu/menu_layout"]
+[node name="MenuButtons" type="VBoxContainer" parent="SplitContainer/Menu/MenuLayout"]
 margin_left = 114.0
 margin_top = 94.0
 margin_right = 238.0
@@ -61,50 +61,50 @@ margin_bottom = 334.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="continue" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
+[node name="Continue" type="Button" parent="SplitContainer/Menu/MenuLayout/MenuButtons"]
 margin_right = 124.0
 margin_bottom = 32.0
 text = "Continue"
 
-[node name="save" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
+[node name="Save" type="Button" parent="SplitContainer/Menu/MenuLayout/MenuButtons"]
 margin_top = 52.0
 margin_right = 124.0
 margin_bottom = 84.0
 text = "Save"
 
-[node name="load" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
+[node name="Load" type="Button" parent="SplitContainer/Menu/MenuLayout/MenuButtons"]
 margin_top = 104.0
 margin_right = 124.0
 margin_bottom = 136.0
 text = "Load"
 
-[node name="back_to_menu" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
+[node name="BackToMenu" type="Button" parent="SplitContainer/Menu/MenuLayout/MenuButtons"]
 margin_top = 156.0
 margin_right = 124.0
 margin_bottom = 188.0
 text = "Main Menu"
 
-[node name="quit" type="Button" parent="split_container/menu/menu_layout/menu_buttons"]
+[node name="Quit" type="Button" parent="SplitContainer/Menu/MenuLayout/MenuButtons"]
 margin_top = 208.0
 margin_right = 124.0
 margin_bottom = 240.0
 text = "Quit"
 
-[node name="margin_container" type="MarginContainer" parent="split_container"]
+[node name="MarginContainer" type="MarginContainer" parent="SplitContainer"]
 margin_top = 1024.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 
-[node name="version" type="Label" parent="split_container/margin_container"]
+[node name="Version" type="Label" parent="SplitContainer/MarginContainer"]
 margin_left = 16.0
-margin_top = 14.0
+margin_top = 16.0
 margin_right = 1900.0
-margin_bottom = 38.0
+margin_bottom = 40.0
 text = "version 0.0.1"
 
-[node name="tween" type="Tween" parent="."]
-[connection signal="pressed" from="split_container/menu/menu_layout/menu_buttons/continue" to="." method="_unpause_game"]
-[connection signal="pressed" from="split_container/menu/menu_layout/menu_buttons/save" to="." method="_save_game"]
-[connection signal="pressed" from="split_container/menu/menu_layout/menu_buttons/load" to="." method="_load_game"]
-[connection signal="pressed" from="split_container/menu/menu_layout/menu_buttons/back_to_menu" to="." method="_back_to_main_menu"]
-[connection signal="pressed" from="split_container/menu/menu_layout/menu_buttons/quit" to="." method="_quit_game"]
+[node name="Tween" type="Tween" parent="."]
+[connection signal="pressed" from="SplitContainer/Menu/MenuLayout/MenuButtons/Continue" to="." method="_unpause_game"]
+[connection signal="pressed" from="SplitContainer/Menu/MenuLayout/MenuButtons/Save" to="." method="_save_game"]
+[connection signal="pressed" from="SplitContainer/Menu/MenuLayout/MenuButtons/Load" to="." method="_load_game"]
+[connection signal="pressed" from="SplitContainer/Menu/MenuLayout/MenuButtons/BackToMenu" to="." method="_back_to_main_menu"]
+[connection signal="pressed" from="SplitContainer/Menu/MenuLayout/MenuButtons/Quit" to="." method="_quit_game"]

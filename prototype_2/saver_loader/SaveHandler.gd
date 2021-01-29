@@ -19,11 +19,11 @@ const _FINISHED_LOADING_TEXT: String = "Press Any Key To Continue"
 var _saver_loader: SaverLoader = SaverLoader.new()
 
 
-onready var _background: ColorRect = $popup/background
-onready var _progress_text: Label = $popup/center_container/title_divider/load_info/progress
-onready var _progress_bar: ProgressBar = $popup/center_container/title_divider/load_info/progress_bar
+onready var _background: ColorRect = $Popup/Background
+onready var _progress_text: Label = $Popup/CenterContainer/TitleDivider/LoadInfo/Progress
+onready var _progress_bar: ProgressBar = $Popup/CenterContainer/TitleDivider/LoadInfo/ProgressBar
 
-onready var _tween: Tween = $tween
+onready var _tween: Tween = $Tween
 
 
 
@@ -33,11 +33,11 @@ func _ready() -> void:
 	
 	_saver_loader.connect("finished", _progress_text, "set_text", [_FINISHED_LOADING_TEXT])
 	
-	$popup/center_container/title_divider/title.text = ProjectSettings.get("application/config/name")
+	$Popup/CenterContainer/TitleDivider/Title.text = ProjectSettings.get("application/config/name")
 
 
 func _process(_delta: float) -> void:
-	if $popup.visible:
+	if $Popup.visible:
 		_progress_bar.value = _saver_loader.progress
 		
 		if _progress_bar.value >= 100:
@@ -50,11 +50,11 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if $popup.visible and _progress_text.text == _FINISHED_LOADING_TEXT:
+	if $Popup.visible and _progress_text.text == _FINISHED_LOADING_TEXT:
 		if not event.is_pressed() and event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
 			get_tree().set_input_as_handled()
 			
-			$popup.hide()
+			$Popup.hide()
 			emit_signal("game_load_finished")
 			get_tree().paused = false
 
@@ -97,7 +97,7 @@ func starting_new_game(new_game: bool = false) -> void:
 	else:
 		set_process(true)
 	
-	$popup.show()
+	$Popup.show()
 	
 	_tween.interpolate_property(_background, "color", Color.black, Color("c8000000"), 1.0, Tween.TRANS_ELASTIC)
 	_tween.start()

@@ -21,7 +21,7 @@ var _state_machine
 var _assigned_workers: Array = [ ]
 
 
-onready var _collision_shape: CollisionShape2D = $collision_shape
+onready var _collision_shape: CollisionShape2D = $CollisionShape
 
 
 

@@ -73,24 +73,24 @@ func _process(_delta):
 		text = \"%s\" % [_puppet_master._current_job.employer.get_parent().name if _puppet_master._current_job else \"unemployed\"]
 "
 
-[node name="game_actor" type="KinematicBody2D"]
+[node name="GameActor" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 25 )
 
-[node name="collision_shape" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -5 )
 vframes = 12
 hframes = 9
-frame = 72
+frame = 50
 
-[node name="animation_tree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 2 )
-anim_player = NodePath("../animation_player")
+anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 2 )
 parameters/attack/blend_position = Vector2( 0, 0 )
 parameters/give/blend_position = Vector2( 0, 0 )
@@ -98,7 +98,7 @@ parameters/idle/blend_position = Vector2( 0, 0 )
 parameters/run/blend_position = Vector2( 0, 0 )
 script = ExtResource( 24 )
 
-[node name="animation_player" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack_down = ExtResource( 6 )
 anims/attack_left = ExtResource( 3 )
 anims/attack_right = ExtResource( 4 )
@@ -118,11 +118,11 @@ anims/run_up = ExtResource( 14 )
 script = ExtResource( 23 )
 _step_sounds = "res://assets/sounds/footsteps"
 
-[node name="footstep_sounds" type="AudioStreamPlayer2D" parent="animation_player"]
+[node name="FootstepSounds" type="AudioStreamPlayer2D" parent="AnimationPlayer"]
 volume_db = -18.0
 script = ExtResource( 19 )
 
-[node name="state_label" type="Label" parent="."]
+[node name="StateLabel" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -140,7 +140,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="job_label" type="Label" parent="."]
+[node name="JobLabel" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -158,7 +158,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="employer_label" type="Label" parent="."]
+[node name="EmployerLabel" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0

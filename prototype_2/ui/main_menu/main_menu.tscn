@@ -5,7 +5,7 @@
 [ext_resource path="res://ui/main_menu/main_menu.gd" type="Script" id=3]
 [ext_resource path="res://assets/gui/glorious_main_menu.jpg" type="Texture" id=4]
 
-[node name="main_menu" type="Control"]
+[node name="MainMenu" type="Control"]
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,7 +15,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
@@ -24,11 +24,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="split_container" type="VBoxContainer" parent="."]
+[node name="SplitContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="center_container" type="CenterContainer" parent="split_container"]
+[node name="CenterContainer" type="CenterContainer" parent="SplitContainer"]
 margin_right = 1920.0
 margin_bottom = 1004.0
 size_flags_horizontal = 3
@@ -37,44 +37,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="menu_layout" type="VBoxContainer" parent="split_container/center_container"]
+[node name="MenuLayout" type="VBoxContainer" parent="SplitContainer/CenterContainer"]
 margin_left = 736.0
 margin_top = 387.0
 margin_right = 1184.0
 margin_bottom = 617.0
 custom_constants/separation = 30
 
-[node name="title" type="Label" parent="split_container/center_container/menu_layout"]
+[node name="Title" type="Label" parent="SplitContainer/CenterContainer/MenuLayout"]
 margin_right = 448.0
 margin_bottom = 64.0
 custom_fonts/font = ExtResource( 1 )
 text = "Strongerholder"
 
-[node name="menu_buttons" type="VBoxContainer" parent="split_container/center_container/menu_layout"]
+[node name="MenuButtons" type="VBoxContainer" parent="SplitContainer/CenterContainer/MenuLayout"]
 margin_left = 162.0
 margin_top = 94.0
 margin_right = 286.0
 margin_bottom = 230.0
 size_flags_horizontal = 4
 
-[node name="new_game" type="Button" parent="split_container/center_container/menu_layout/menu_buttons"]
+[node name="NewGame" type="Button" parent="SplitContainer/CenterContainer/MenuLayout/MenuButtons"]
 margin_right = 124.0
 margin_bottom = 32.0
 text = "New Game"
 
-[node name="load" type="Button" parent="split_container/center_container/menu_layout/menu_buttons"]
+[node name="Load" type="Button" parent="SplitContainer/CenterContainer/MenuLayout/MenuButtons"]
 margin_top = 52.0
 margin_right = 124.0
 margin_bottom = 84.0
 text = "Load Game"
 
-[node name="quit" type="Button" parent="split_container/center_container/menu_layout/menu_buttons"]
+[node name="Quit" type="Button" parent="SplitContainer/CenterContainer/MenuLayout/MenuButtons"]
 margin_top = 104.0
 margin_right = 124.0
 margin_bottom = 136.0
 text = "Quit"
 
-[node name="margin_container" type="MarginContainer" parent="split_container"]
+[node name="MarginContainer" type="MarginContainer" parent="SplitContainer"]
 margin_top = 1024.0
 margin_right = 1920.0
 margin_bottom = 1080.0
@@ -83,7 +83,7 @@ custom_constants/margin_top = 16
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 16
 
-[node name="version" type="Label" parent="split_container/margin_container"]
+[node name="Version" type="Label" parent="SplitContainer/MarginContainer"]
 margin_left = 20.0
 margin_top = 16.0
 margin_right = 1900.0
@@ -92,6 +92,6 @@ text = "version 0.0.1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="split_container/center_container/menu_layout/menu_buttons/new_game" to="." method="_new_game"]
-[connection signal="pressed" from="split_container/center_container/menu_layout/menu_buttons/load" to="." method="_load_game"]
-[connection signal="pressed" from="split_container/center_container/menu_layout/menu_buttons/quit" to="." method="_quit_game"]
+[connection signal="pressed" from="SplitContainer/CenterContainer/MenuLayout/MenuButtons/NewGame" to="." method="_new_game"]
+[connection signal="pressed" from="SplitContainer/CenterContainer/MenuLayout/MenuButtons/Load" to="." method="_load_game"]
+[connection signal="pressed" from="SplitContainer/CenterContainer/MenuLayout/MenuButtons/Quit" to="." method="_quit_game"]

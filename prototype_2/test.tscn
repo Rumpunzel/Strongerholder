@@ -93,18 +93,18 @@ func _process(_delta: float):
 [sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( 26.5, -61, -13, -61, -120, -61.5, -116.5, 63.5, -63.5, 112, 58.5, 30 )
 
-[node name="test" type="Node2D"]
+[node name="Test" type="Node2D"]
 script = SubResource( 1 )
 
-[node name="gui_layer" type="CanvasLayer" parent="."]
+[node name="GUILayer" type="CanvasLayer" parent="."]
 
-[node name="resource_ui" parent="gui_layer" instance=ExtResource( 3 )]
+[node name="ResourceUI" parent="GUILayer" instance=ExtResource( 3 )]
 
-[node name="build_menu" parent="gui_layer" instance=ExtResource( 13 )]
+[node name="BuildMenu" parent="GUILayer" instance=ExtResource( 13 )]
 
-[node name="pause_menu" parent="gui_layer" instance=ExtResource( 6 )]
+[node name="PauseMenu" parent="GUILayer" instance=ExtResource( 6 )]
 
-[node name="margin_container" type="MarginContainer" parent="gui_layer"]
+[node name="MarginContainer" type="MarginContainer" parent="GUILayer"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -116,7 +116,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="label" type="Label" parent="gui_layer/margin_container"]
+[node name="Label" type="Label" parent="GUILayer/MarginContainer"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 196.0
@@ -126,10 +126,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="navigator" type="Navigation2D" parent="."]
+[node name="Navigator" type="Navigation2D" parent="."]
 script = ExtResource( 10 )
 
-[node name="tile_map" type="TileMap" parent="navigator"]
+[node name="TileMap" type="TileMap" parent="Navigator"]
 tile_set = ExtResource( 9 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -138,23 +138,23 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="quarter_master" type="Node" parent="."]
+[node name="QuarterMaster" type="Node" parent="."]
 script = ExtResource( 2 )
 
-[node name="canvas_modulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.705882, 0.705882, 0.705882, 1 )
 
-[node name="light" type="Light2D" parent="."]
+[node name="Light" type="Light2D" parent="."]
 texture = ExtResource( 7 )
 texture_scale = 0.5
 color = Color( 0.901961, 0.317647, 0, 1 )
 shadow_enabled = true
 
-[node name="light_occluder" type="LightOccluder2D" parent="."]
+[node name="LightOccluder" type="LightOccluder2D" parent="."]
 position = Vector2( -24, 106 )
 occluder = SubResource( 2 )
 
-[node name="camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.5, 0.5 )
 smoothing_enabled = true
@@ -166,5 +166,5 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource( 11 )
 
-[node name="objects_layer" type="YSort" parent="."]
+[node name="ObjectsLayer" type="YSort" parent="."]
 script = ExtResource( 5 )

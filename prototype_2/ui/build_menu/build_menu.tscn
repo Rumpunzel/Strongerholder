@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/sprites/tools/hammer.png" type="Texture" id=1]
 [ext_resource path="res://assets/ui_theme.tres" type="Theme" id=2]
@@ -6,16 +6,18 @@
 [ext_resource path="res://assets/sprites/structures/medievalStructure_21.png" type="Texture" id=4]
 [ext_resource path="res://ui/build_menu/build_menu.gd" type="Script" id=5]
 [ext_resource path="res://ui/build_menu/build_menu_button.gd" type="Script" id=6]
-[ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game_objects/structures/buildings/woodcutters_hut.tscn" type="PackedScene" id=8]
-[ext_resource path="res://game_objects/structures/things/tree.tscn" type="PackedScene" id=9]
+[ext_resource path="res://game_objects/structures/buildings/WoodcuttersHut.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game_objects/structures/buildings/House.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_objects/structures/things/Tree.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=10]
-[ext_resource path="res://game_objects/structures/LumberMill.tscn" type="PackedScene" id=11]
+[ext_resource path="res://game_objects/structures/buildings/LumberMill.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/sprites/structures/medievalStructure_16.png" type="Texture" id=12]
 [ext_resource path="res://assets/sprites/structures/medievalStructure_22.png" type="Texture" id=13]
 [ext_resource path="res://assets/sprites/structures/medievalStructure_19.png" type="Texture" id=14]
+[ext_resource path="res://game_objects/structures/buildings/Stockpile.tscn" type="PackedScene" id=15]
+[ext_resource path="res://game_objects/structures/buildings/Market.tscn" type="PackedScene" id=16]
 
-[node name="build_menu" type="Control"]
+[node name="BuildMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
@@ -24,7 +26,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="open_build_menu" type="Button" parent="."]
+[node name="OpenBuildMenu" type="Button" parent="."]
 margin_right = 109.0
 margin_bottom = 35.0
 text = "Build Menu"
@@ -33,7 +35,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="popup" type="Popup" parent="."]
+[node name="Popup" type="Popup" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -46,7 +48,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="center_container" type="CenterContainer" parent="popup"]
+[node name="CenterContainer" type="CenterContainer" parent="Popup"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -59,7 +61,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="panel_container" type="PanelContainer" parent="popup/center_container"]
+[node name="PanelContainer" type="PanelContainer" parent="Popup/CenterContainer"]
 margin_left = 141.0
 margin_top = 248.0
 margin_right = 157.0
@@ -68,17 +70,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="v_box_container" type="VBoxContainer" parent="popup/center_container/panel_container"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/CenterContainer/PanelContainer"]
 margin_left = 8.0
 margin_top = 4.0
 margin_right = 290.0
 margin_bottom = 501.0
 
-[node name="grid_container" type="GridContainer" parent="popup/center_container/panel_container/v_box_container"]
+[node name="GridContainer" type="GridContainer" parent="Popup/CenterContainer/PanelContainer/VBoxContainer"]
 margin_right = 282.0
 margin_bottom = 445.0
 
-[node name="tree" type="Button" parent="popup/center_container/panel_container/v_box_container/grid_container"]
+[node name="Tree" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 margin_right = 282.0
 margin_bottom = 65.0
 text = "Tree"
@@ -86,16 +88,16 @@ icon = ExtResource( 10 )
 script = ExtResource( 6 )
 _building_to_place = ExtResource( 9 )
 
-[node name="woodcutters_hut" type="Button" parent="popup/center_container/panel_container/v_box_container/grid_container"]
+[node name="WoodcuttersHut" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 margin_top = 69.0
 margin_right = 282.0
 margin_bottom = 141.0
 text = "Woodcutter's Hut"
 icon = ExtResource( 12 )
 script = ExtResource( 6 )
-_building_to_place = ExtResource( 8 )
+_building_to_place = ExtResource( 7 )
 
-[node name="lumber_mill" type="Button" parent="popup/center_container/panel_container/v_box_container/grid_container"]
+[node name="LumberMill" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 margin_top = 145.0
 margin_right = 282.0
 margin_bottom = 217.0
@@ -104,25 +106,25 @@ icon = ExtResource( 4 )
 script = ExtResource( 6 )
 _building_to_place = ExtResource( 11 )
 
-[node name="stockpile" type="Button" parent="popup/center_container/panel_container/v_box_container/grid_container"]
+[node name="Stockpile" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 margin_top = 221.0
 margin_right = 282.0
 margin_bottom = 293.0
 text = "Stockpile"
 icon = ExtResource( 14 )
 script = ExtResource( 6 )
-_building_to_place = ExtResource( 7 )
+_building_to_place = ExtResource( 15 )
 
-[node name="market" type="Button" parent="popup/center_container/panel_container/v_box_container/grid_container"]
+[node name="Market" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 margin_top = 297.0
 margin_right = 282.0
 margin_bottom = 369.0
 text = "Market"
 icon = ExtResource( 13 )
 script = ExtResource( 6 )
-_building_to_place = ExtResource( 8 )
+_building_to_place = ExtResource( 16 )
 
-[node name="house" type="Button" parent="popup/center_container/panel_container/v_box_container/grid_container"]
+[node name="House" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 margin_top = 373.0
 margin_right = 282.0
 margin_bottom = 445.0
@@ -131,10 +133,10 @@ icon = ExtResource( 3 )
 script = ExtResource( 6 )
 _building_to_place = ExtResource( 8 )
 
-[node name="close" type="Button" parent="popup/center_container/panel_container/v_box_container"]
+[node name="Close" type="Button" parent="Popup/CenterContainer/PanelContainer/VBoxContainer"]
 margin_top = 465.0
 margin_right = 282.0
 margin_bottom = 497.0
 text = "Close"
-[connection signal="pressed" from="open_build_menu" to="." method="_open_build_menu"]
-[connection signal="pressed" from="popup/center_container/panel_container/v_box_container/close" to="." method="_close"]
+[connection signal="pressed" from="OpenBuildMenu" to="." method="_open_build_menu"]
+[connection signal="pressed" from="Popup/CenterContainer/PanelContainer/VBoxContainer/Close" to="." method="_close"]

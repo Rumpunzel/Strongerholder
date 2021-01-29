@@ -31,7 +31,7 @@ func _ready() -> void:
 	
 	add_to_group(Constants.enum_name(Constants.Structures, type))
 	
-	$audio_handler.connect_signals(_state_machine)
+	$AudioHandler.connect_signals(_state_machine)
 
 
 func _process(_delta: float) -> void:
@@ -53,11 +53,11 @@ func die() -> void:
 
 
 func _get_copy_of_collision_shape() -> CollisionShape2D:
-	return $collision_shape.duplicate() as CollisionShape2D
+	return $CollisionShape.duplicate() as CollisionShape2D
 
 
 func _get_copy_sprite() -> Sprite:
-	return $sprite.duplicate() as Sprite
+	return $Sprite.duplicate() as Sprite
 
 
 
@@ -68,7 +68,7 @@ func _initliase_pilot_master() -> void:
 
 func _initliase_state_machine() -> void:
 	_state_machine = StructureStateMachine.new()
-	_state_machine.name = "state_machine"
+	_state_machine.name = "StateMachine"
 	_state_machine._pilot_master = _pilot_master
 	add_child(_state_machine)
 

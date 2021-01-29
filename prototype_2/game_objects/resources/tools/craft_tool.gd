@@ -10,7 +10,7 @@ export var attack_value: float = 2.0
 export(String, "none", "attack", "give") var animation
 
 
-onready var _hurt_box: HurtBox = $hurt_box
+onready var _hurt_box: HurtBox = $HurtBox
 
 
 

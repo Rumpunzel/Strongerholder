@@ -1,0 +1,31 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://game_objects/structures/things/building_blocks/tree.gd" type="Script" id=1]
+[ext_resource path="res://game_objects/structures/Structure.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game_objects/resources/wood_log.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game_objects/structures/things/components/random_sprite.gd" type="Script" id=4]
+[ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/trees/tree7.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/trees/tree2.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/trees/tree4.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/trees/tree5.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/trees/tree1.png" type="Texture" id=11]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.0
+
+[node name="Tree" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+type = 512
+_starting_items = [ ExtResource( 3 ) ]
+
+[node name="CollisionShape" parent="." index="0"]
+position = Vector2( 0, -4 )
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 11 )
+offset = Vector2( 0, -26 )
+script = ExtResource( 4 )
+_sprites = [ ExtResource( 11 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 5 ), ExtResource( 6 ) ]

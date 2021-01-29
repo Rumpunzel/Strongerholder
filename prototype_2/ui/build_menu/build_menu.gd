@@ -8,7 +8,7 @@ var _current_structure: BuildingPoint = null
 
 
 onready var _objects_layer: ObjectsLayer = ServiceLocator.objects_layer
-onready var _popup: Popup = $popup
+onready var _popup: Popup = $Popup
 
 
 

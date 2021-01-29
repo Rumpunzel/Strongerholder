@@ -6,7 +6,7 @@ var _damage_source: Node2D = null
 var _attack_value: float = 0.0
 
 
-onready var _hurt_shape: CollisionShape2D = $hurt_shape
+onready var _hurt_shape: CollisionShape2D = $HurtShape
 
 
 

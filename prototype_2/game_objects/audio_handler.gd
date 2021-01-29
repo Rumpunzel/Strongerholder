@@ -9,7 +9,7 @@ export var _volume_modifer: float = 0.0
 
 onready var _damage_sounds: Array = FileHelper.list_files_in_directory(_damage_sounds_directory, false, ".wav")
 
-onready var _interaction_audio: GameAudioPlayer = $interaction_audio
+onready var _interaction_audio: GameAudioPlayer = $InteractionAudio
 
 
 

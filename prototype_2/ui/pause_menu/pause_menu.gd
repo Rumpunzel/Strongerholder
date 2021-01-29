@@ -9,11 +9,11 @@ const _QUIT_GAME_QUESTION: String = "Quit The Game?"
 var _busy: bool = false
 
 
-onready var _background: ColorRect = $background
-onready var _menu: CenterContainer = $split_container/menu
-onready var _version: Label = $split_container/margin_container/version
+onready var _background: ColorRect = $Background
+onready var _menu: CenterContainer = $SplitContainer/Menu
+onready var _version: Label = $SplitContainer/MarginContainer/Version
 
-onready var _tween: Tween = $tween
+onready var _tween: Tween = $Tween
 
 
 

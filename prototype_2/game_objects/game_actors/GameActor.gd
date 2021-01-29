@@ -26,7 +26,7 @@ var _puppet_master: InputMaster
 var _state_machine: ActorStateMachine
 
 
-onready var _collision_shape: CollisionShape2D = $collision_shape
+onready var _collision_shape: CollisionShape2D = $CollisionShape
 
 
 
@@ -39,14 +39,14 @@ func _ready() -> void:
 		add_child(_puppet_master)
 		
 		_state_machine = ActorStateMachine.new()
-		_state_machine.name = "state_machine"
+		_state_machine.name = "StateMachine"
 		_state_machine._puppet_master = _puppet_master
-		_state_machine.animation_tree_node = "../%s" % "animation_tree"
+		_state_machine.animation_tree_node = "../%s" % "AnimationTree"
 		add_child(_state_machine)
 	
-	$state_label._state_machine = _state_machine
-	$job_label._puppet_master = _puppet_master
-	$employer_label._puppet_master = _puppet_master
+	$StateLabel._state_machine = _state_machine
+	$JobLabel._puppet_master = _puppet_master
+	$EmployerLabel._puppet_master = _puppet_master
 
 
 func _process(_delta: float) -> void:

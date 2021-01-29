@@ -5,8 +5,8 @@ extends Control
 const VERSION_POSTFIX: String = " alpha"
 
 
-onready var _title: Label = $split_container/center_container/menu_layout/title
-onready var _version: Label = $split_container/margin_container/version
+onready var _title: Label = $SplitContainer/CenterContainer/MenuLayout/Title
+onready var _version: Label = $SplitContainer/MarginContainer/Version
 
 
 

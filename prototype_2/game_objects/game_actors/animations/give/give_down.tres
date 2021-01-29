@@ -4,7 +4,7 @@
 resource_name = "give_down"
 length = 0.9
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -16,7 +16,7 @@ tracks/0/keys = {
 "values": [ 81, 82, 83, 84, 85, 86, 87, 88, 89 ]
 }
 tracks/1/type = "method"
-tracks/1/path = NodePath("animation_player")
+tracks/1/path = NodePath("AnimationPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false

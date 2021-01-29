@@ -17,7 +17,7 @@ onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
 
 
 func _ready() -> void:
-	$icon.texture = load(RESOURCE_ICONS[_resource_to_count])
+	$Icon.texture = load(RESOURCE_ICONS[_resource_to_count])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,4 +28,4 @@ func _process(_delta: float) -> void:
 	for unit in storage_units:
 		counted_amount += unit._pilot_master.how_many_of_item(_resource_to_count).size()
 	
-	$amount.text = "%d" % counted_amount
+	$Amount.text = "%d" % counted_amount

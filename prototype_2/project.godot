@@ -87,12 +87,12 @@ _global_script_classes=[ {
 "base": "PilotMaster",
 "class": "CityPilotMaster",
 "language": "GDScript",
-"path": "res://game_objects/structures/buildings/city_pilot_master.gd"
+"path": "res://game_objects/structures/buildings/components/city_pilot_master.gd"
 }, {
 "base": "Structure",
 "class": "CityStructure",
 "language": "GDScript",
-"path": "res://game_objects/structures/buildings/CityStructure.gd"
+"path": "res://game_objects/structures/buildings/components/CityStructure.gd"
 }, {
 "base": "AudioHandler",
 "class": "CityStructureAudioHandler",
@@ -137,7 +137,7 @@ _global_script_classes=[ {
 "base": "ToolBelt",
 "class": "Custodian",
 "language": "GDScript",
-"path": "res://game_objects/structures/buildings/custodian.gd"
+"path": "res://game_objects/structures/buildings/components/custodian.gd"
 }, {
 "base": "Resource",
 "class": "FileHelper",
@@ -307,7 +307,7 @@ _global_script_classes=[ {
 "base": "Inventory",
 "class": "Refinery",
 "language": "GDScript",
-"path": "res://game_objects/structures/buildings/refinery.gd"
+"path": "res://game_objects/structures/buildings/components/refinery.gd"
 }, {
 "base": "ObjectState",
 "class": "ResourceState",
@@ -654,7 +654,7 @@ place_building_cancel={
 
 [node]
 
-name_casing=2
+name_num_separator=2
 
 [rendering]
 
