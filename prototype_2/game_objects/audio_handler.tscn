@@ -5,7 +5,6 @@
 
 [node name="audio_handler" type="Node2D"]
 script = ExtResource( 1 )
-_state_machine_node = NodePath("../state_machine")
 _damage_sounds_directory = "res://assets/sounds/axe"
 
 [node name="interaction_audio" type="AudioStreamPlayer2D" parent="."]

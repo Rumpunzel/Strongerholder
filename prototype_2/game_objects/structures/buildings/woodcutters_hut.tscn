@@ -26,4 +26,5 @@ texture = ExtResource( 4 )
 offset = Vector2( 0, -12 )
 
 [node name="audio_handler" parent="." index="2"]
+_volume_modifer = -6.0
 _operate_sounds_directory = "res://assets/sounds/axe"

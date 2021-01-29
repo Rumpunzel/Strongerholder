@@ -4,11 +4,18 @@ extends Node2D
 
 export(String, DIR) var _damage_sounds_directory: String
 
+export var _volume_modifer: float = 0.0
+
 
 onready var _damage_sounds: Array = FileHelper.list_files_in_directory(_damage_sounds_directory, false, ".wav")
 
 onready var _interaction_audio: GameAudioPlayer = $interaction_audio
 
+
+
+
+func _ready():
+	_interaction_audio.volume_db += _volume_modifer
 
 
 
