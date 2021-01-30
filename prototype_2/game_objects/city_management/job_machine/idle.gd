@@ -7,9 +7,6 @@ const PERSIST_OBJ_PROPERTIES_2 := ["_delivery_target"]
 
 var _delivery_target: PilotMaster = null
 
-var _update_time: int = 20
-var _timed_passed: int = 0
-
 
 
 
@@ -20,19 +17,14 @@ func _ready() -> void:
 
 
 func _check_for_exit_conditions() -> void:
-	_timed_passed += 1
-	
-	if _timed_passed < _update_time:
-		return
-	
-	_timed_passed = 0
-	
-	
 	#yield(get_tree(), "idle_frame")
+	
+	var job_items: Array = _job_items()
+	var job_item: GameObject = job_items.front() if not job_items.empty() else null
 	
 	# Check if I can carry anything more
 	#	 if I cannot, deliver to _delviery_target
-	if employee.carry_weight_left() <= 0.01:
+	if _delivery_target and employee.carry_weight_left() <= 0.01:
 		#print("Returning with delivery to: %s" % _delivery_target.get_parent().name)
 		exit(DELIVER, [_delivery_target])
 		return
@@ -42,7 +34,7 @@ func _check_for_exit_conditions() -> void:
 	for use in dedicated_tool.delivers:
 		var nearest_storage: Node2D = _quarter_master.nearest_storage(employer.global_position, use)
 		
-		if not nearest_storage or not (_job_items().empty() or use == _job_items().front().type):
+		if not nearest_storage or not (job_items.empty() or use == job_items.front().type):
 			continue
 		
 		if _construct_new_plan(use, nearest_storage._pilot_master):
@@ -50,28 +42,28 @@ func _check_for_exit_conditions() -> void:
 	
 	
 	# Check if the employer can be operated and do so if possible
-	if employer.can_be_operated() and employer.get_parent().position_open():
+	if employer.can_be_operated() and employer.get_parent().position_open(employee):
 		#print("Operating: %s" % employer.get_parent().name)
 		exit(OPERATE, [employer.get_parent()])
 		return
 	
 	
-	# Check if I carrying something
-	if employee.carry_weight_left() > 0.0:
-		# Check if there is anything more of what I am currently supposed to be gathering to be had
-		for use in dedicated_tool.gathers:
-			if not (_job_items().empty() or use == _job_items().front().type):
-				continue
-			
-			if _construct_new_plan(use, employer):
-				return
+	# Check if there is anything more of what I am currently supposed to be gathering to be had
+	for use in dedicated_tool.gathers:
+		if not (job_items.empty() or use == job_item.type):
+			continue
+		
+		if _construct_new_plan(use, employer):
+			return
 	
 	
 	# Otherwise, simply return with a delivery to _delivery_target
-	if not _job_items().empty():
+	if _delivery_target and not job_items.empty():
 		#print("Returning due to default with delivery to: %s" % _delivery_target.get_parent().name)
 		exit(DELIVER, [_delivery_target])
 		return
+	else:
+		pass
 
 
 
