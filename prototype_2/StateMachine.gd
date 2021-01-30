@@ -8,6 +8,9 @@ const PERSIST_PROPERTIES := ["name", "history", "_first_time"]
 const PERSIST_OBJ_PROPERTIES := ["current_state"]
 
 
+const MAXIMUM_HISTORY_LENGTH: int = 32
+
+
 signal state_changed(new_state, old_state)
 
 
@@ -34,7 +37,7 @@ func change_to(new_state: String, parameters: Array = [ ]) -> void:
 
 func back() -> void:
 	if history.size() > 0:
-		current_state = get_node(history.pop_back())
+		current_state = get_node(history.pop_front())
 		_enter_state()
 
 
@@ -47,7 +50,10 @@ func is_active() -> bool:
 func _change_to(new_state: String, parameters: Array = [ ]) -> void:
 	var old_state: String = current_state.name
 	
-	history.append(old_state)
+	while history.size() >= MAXIMUM_HISTORY_LENGTH:
+		history.pop_back()
+	
+	history.push_front(old_state)
 	#print("%s entering %s" % [owner.name, new_state])
 	current_state = get_node(new_state)
 	_enter_state(parameters)
