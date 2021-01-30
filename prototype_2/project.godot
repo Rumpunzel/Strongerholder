@@ -320,6 +320,11 @@ _global_script_classes=[ {
 "path": "res://game_objects/resources/state_machine/dead.gd"
 }, {
 "base": "ResourceState",
+"class": "ResourceStateIdle",
+"language": "GDScript",
+"path": "res://game_objects/resources/state_machine/idle.gd"
+}, {
+"base": "ResourceState",
 "class": "ResourceStateInactive",
 "language": "GDScript",
 "path": "res://game_objects/resources/state_machine/inactive.gd"
@@ -462,6 +467,7 @@ _global_script_class_icons={
 "Refinery": "res://assets/icons/structures/icon_refinery.svg",
 "ResourceState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ResourceStateDead": "res://assets/icons/icon_state_dead.svg",
+"ResourceStateIdle": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ResourceStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "ResourceStateMachine": "res://assets/icons/icon_resource_state_machine.svg",
 "SaverLoader": "",
@@ -503,6 +509,7 @@ gdscript/warnings/unsafe_call_argument=true
 
 window/size/width=1920
 window/size/height=1080
+window/size/resizable=false
 
 [importer_defaults]
 

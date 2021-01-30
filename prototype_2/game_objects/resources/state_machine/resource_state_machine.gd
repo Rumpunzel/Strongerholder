@@ -8,7 +8,7 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 	if state_classes.empty():
 		state_classes = [
 			ResourceStateInactive,
-			ResourceState,
+			ResourceStateIdle,
 			ResourceStateDead,
 		]
 	

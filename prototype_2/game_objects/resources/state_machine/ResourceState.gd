@@ -3,11 +3,6 @@ extends ObjectState
 
 
 
-func _ready() -> void:
-	name = IDLE
-
-
-
 
 func drop_item(objects_layer: YSort, position_to_drop: Vector2) -> void:
 	if _game_object.get_parent():
