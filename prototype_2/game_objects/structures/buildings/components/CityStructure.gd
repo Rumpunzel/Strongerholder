@@ -2,6 +2,9 @@ class_name CityStructure, "res://assets/icons/structures/icon_city_structure.svg
 extends Structure
 
 
+const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "_output_resources", "_production_steps", "_available_job"]
+
+
 export(GDScript) var _available_job
 
 # Defines what types of resources can be stored in this building
@@ -13,6 +16,7 @@ export(Array, Constants.Resources) var input_resources = [ ]
 export(Array, Constants.Resources) var _output_resources = [ ]
 
 export var _production_steps: int = 2
+
 
 
 
@@ -38,6 +42,7 @@ func request_item(request, receiver: Node2D) -> void:
 	
 	if requested_item:
 		_state_machine.give_item(requested_item, receiver)
+
 
 
 
