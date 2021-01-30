@@ -78,5 +78,5 @@ func _initliase_starting_items() -> void:
 		var new_item: Node2D = item.instance()
 		
 		add_child(new_item)
-		#yield(get_tree(), "idle_frame")
+		new_item.appear(false)
 		_pilot_master.transfer_item(new_item)
