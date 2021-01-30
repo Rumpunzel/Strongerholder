@@ -38,12 +38,13 @@ func _get_input(player_controlled: bool) -> Array:
 	
 	if _current_job:
 		var task_target: Node2D = _current_job.current_target()
+		var next_step: Vector2 = _current_job.next_step()
 		
 		if task_target and in_range(task_target):
 			commands.append(_current_job.next_command())
 			return commands
 		
-		commands.append(MoveCommand.new(_current_job.next_step()))
+		commands.append(MoveCommand.new(next_step))
 	else:
 		if not _applied:
 			_quarter_master.apply_for_job(self)

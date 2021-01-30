@@ -9,8 +9,6 @@ var animation_tree_node: String
 
 
 var _checked_animation: bool = false
-var _update_time: int = 20
-var _timed_passed: int = 0
 
 # warning-ignore-all:unused_class_variable
 var _puppet_master: InputMaster
@@ -48,13 +46,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if _checked_animation:
 		return
-	
-	_timed_passed += 1
-	
-	if _timed_passed < _update_time:
-		return
-	
-	_timed_passed = 0
 	
 	var current_animation: String = _animation_tree.get_current_animation()
 	
@@ -94,11 +85,6 @@ func operate(structure: Node2D) -> void:
 	current_state.operate(structure)
 
 
-
-func _change_to(new_state: String, parameters: Array = [ ]) -> void:
-	._change_to(new_state, parameters)
-	
-	_timed_passed = 0
 
 
 func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()) -> void:

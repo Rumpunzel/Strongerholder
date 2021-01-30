@@ -25,5 +25,5 @@ func drop_item(_objects_layer: YSort, _position_to_drop: Vector2) -> void:
 	pass
 
 
-func transer_item(_new_inventory: Inventory) -> void:
+func transfer_item(_new_inventory: Inventory) -> void:
 	pass

@@ -88,7 +88,7 @@ var object_tag := "@!~`#" # persisted strings must not start with this
 # debug printing/logging
 var debug_log_persist_nodes := true
 var debug_log_all_nodes := false
-var debug_print_stray_nodes := false
+var debug_print_stray_nodes := true
 var debug_print_tree := false
 
 # **************************** PRIVATE VARS ***********************************

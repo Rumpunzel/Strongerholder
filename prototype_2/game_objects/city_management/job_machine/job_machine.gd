@@ -2,7 +2,8 @@ class_name JobMachine, "res://assets/icons/icon_job_machine.svg"
 extends StateMachine
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employee", "dedicated_tool", "_debug_flag_scene", "_flag"]
+const PERSIST_PROPERTIES_2 := ["_debug_flag_scene"]
+const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employee", "dedicated_tool", "_flag"]
 
 
 const _debug_flag_scene = preload("res://flag.tscn")
@@ -37,7 +38,7 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 
 
 func _ready() -> void:
-#	for state in get_children() -> void:
+#	for state in get_children():
 #		state.employer = employer
 #		state.employee = employee
 	
@@ -72,35 +73,20 @@ func _process(_delta) -> void:
 
 
 func next_step() -> Vector2:
-	if not current_state:
-		return Vector2()
-	
 	return current_state.next_step()
 
 func next_command() -> InputMaster.Command:
-	if not current_state:
-		return InputMaster.Command.new()
-	
 	return current_state.next_command()
 
 func current_target() -> Node2D:
-	if not current_state:
-		return null
-	
 	return current_state.current_target()
 
 
 
 func activate(first_time: bool = false, tool_type = null) -> void:
-	if not current_state:
-		return
-	
 	current_state.activate(first_time, tool_type)
 
 func deactivate() -> void:
-	if not current_state:
-		return
-	
 	current_state.deactivate()
 
 

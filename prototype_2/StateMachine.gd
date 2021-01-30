@@ -74,10 +74,12 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 			var new_state = state.new()
 			add_child(new_state)
 	
+	# Set the initial state to the first child node
 	if not current_state:
-		# Set the initial state to the first child node
 		current_state = get_child(0)
+	
 	assert(current_state)
+	
 	yield(get_tree(), "idle_frame")
 	
 	_enter_state()
