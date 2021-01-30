@@ -10,4 +10,4 @@
 
 [node name="Stockpile" parent="." index="1" instance=ExtResource( 2 )]
 position = Vector2( 56, 0 )
-storage_resources = [ 1025, 1026 ]
+storage_resources = [ 1026, 1027 ]

@@ -3,7 +3,7 @@ extends GameObject
 
 
 const PERSIST_PROPERTIES_2 := ["type"]
-const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
+const PERSIST_OBJ_PROPERTIES_2 := ["_starting_items", "_pilot_master"]
 
 
 const _PILOT_MASTER_SCENE: PackedScene = preload("res://game_objects/structures/pilot_master.tscn")
