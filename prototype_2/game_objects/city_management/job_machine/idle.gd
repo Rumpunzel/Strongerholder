@@ -17,6 +17,13 @@ func _ready() -> void:
 
 
 func _check_for_exit_conditions() -> void:
+	_timed_passed += 1
+	
+	if _timed_passed < _update_time:
+		return
+	
+	_timed_passed = 0
+	
 	#yield(get_tree(), "idle_frame")
 	
 	var job_items: Array = _job_items()
@@ -104,7 +111,7 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 		var state: String = GATHER
 		
 		if nearest_structure is CityStructure:
-			if nearest_structure == employer.get_parent() or nearest_structure.can_be_gathered(use):
+			if nearest_structure.can_be_gathered(use, employee, nearest_structure == employer.get_parent()):
 				state = RETRIEVE
 			else:
 				return false

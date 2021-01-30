@@ -26,8 +26,8 @@ func assign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
 func unassign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
 	_pilot_master.unassign_gatherer(puppet_master, gathering_resource)
 
-func can_be_gathered(gathering_resource) -> bool:
-	return _pilot_master.can_be_gathered(gathering_resource)
+func can_be_gathered(gathering_resource, puppet_master: Node2D, is_employee: bool = false) -> bool:
+	return _pilot_master.can_be_gathered(gathering_resource, puppet_master, is_employee)
 
 
 func operate() -> void:

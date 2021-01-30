@@ -2,7 +2,7 @@ class_name CityPilotMaster, "res://assets/icons/structures/icon_city_pilot_maste
 extends PilotMaster
 
 
-const PERSIST_PROPERTIES_2 := ["_available_job", "_storage", "_posted_job"]
+const PERSIST_PROPERTIES_2 := ["_available_job", "_storage_resources", "_posted_job"]
 const PERSIST_OBJ_PROPERTIES_4 := ["_city_structure", "_custodian", "_assigned_gatherers"]
 
 
@@ -82,13 +82,17 @@ func unassign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
 	_assigned_gatherers[gathering_resource].erase(puppet_master)
 
 
-func can_be_gathered(gathering_resource) -> bool:
-	if not _storage_resources.has(gathering_resource):
+func can_be_gathered(gathering_resource, puppet_master: Node2D, is_employee: bool) -> bool:
+	if not (is_employee or _storage_resources.has(gathering_resource)):
 		return false
 	
-	var assigned_workers: int = _assigned_gatherers.get(gathering_resource, [ ]).size()
+	var assigned_workers: Array = _assigned_gatherers.get(gathering_resource, [ ])
+	
+	if assigned_workers.has(puppet_master):
+		return true
+	
 	var available_items: Array = how_many_of_item(gathering_resource)
-	var effective_workers: int = 0 if available_items.empty() else assigned_workers * available_items.front().how_many_can_be_carried
+	var effective_workers: int = 0 if available_items.empty() else assigned_workers.size() * available_items.front().how_many_can_be_carried
 	
 	return effective_workers < available_items.size()
 
