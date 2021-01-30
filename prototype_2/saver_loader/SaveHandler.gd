@@ -49,11 +49,11 @@ func _process(_delta: float) -> void:
 			_progress_text.text = _LOADING_TEXT
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if $Popup.visible and _progress_text.text == _FINISHED_LOADING_TEXT:
-		if not event.is_pressed() and event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
-			get_tree().set_input_as_handled()
-			
+func _input(event: InputEvent) -> void:
+	if $Popup.visible:
+		get_tree().set_input_as_handled()
+		
+		if _progress_text.text == _FINISHED_LOADING_TEXT and not event.is_pressed() and (event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton):
 			$Popup.hide()
 			emit_signal("game_load_finished")
 			get_tree().paused = false
