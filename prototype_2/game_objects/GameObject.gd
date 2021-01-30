@@ -36,8 +36,8 @@ func unassign_worker(puppet_master: Node2D) -> void:
 	_assigned_workers.erase(puppet_master)
 
 
-func position_open() -> bool:
-	return _assigned_workers.size() < _maximum_operators
+func position_open(puppet_master: Node2D) -> bool:
+	return worker_assigned(puppet_master) or _assigned_workers.size() < _maximum_operators
 
 
 func worker_assigned(puppet_master: Node2D) -> bool:

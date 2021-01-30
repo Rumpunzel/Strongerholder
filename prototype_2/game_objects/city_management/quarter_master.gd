@@ -5,7 +5,7 @@ extends Node
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 const PERSIST_PROPERTIES := ["name"]
-const PERSIST_OBJ_PROPERTIES := ["_worker_queue", "_job_queue", "_resource_sightings"]
+const PERSIST_OBJ_PROPERTIES := ["_worker_queue", "_job_queue", "_resource_sightings", "storage_buildings"]
 
 
 var _worker_queue: Array = [ ]
@@ -91,7 +91,7 @@ func _find_job_target(puppet_master: Node2D, job_target_group, only_active_resou
 	var array_to_search: Array = [ ]
 	
 	for resource in _resource_sightings:
-		if not resource or (only_active_resources and not resource is GameResource) or not (resource.is_active() and resource.position_open()):
+		if not resource or (only_active_resources and not resource is GameResource) or not (resource.is_active() and resource.position_open(puppet_master)):
 			continue
 		
 		var items: Array
@@ -103,7 +103,7 @@ func _find_job_target(puppet_master: Node2D, job_target_group, only_active_resou
 		
 		
 		for item in items:
-			if item.type == job_target_group and item.position_open():
+			if item.type == job_target_group and item.position_open(puppet_master):
 				array_to_search.append(resource)
 	
 	
