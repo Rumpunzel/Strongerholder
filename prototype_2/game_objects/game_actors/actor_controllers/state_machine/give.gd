@@ -35,7 +35,7 @@ func animation_acted(_animation: String) -> void:
 		return
 	
 	if _receiver:
-		if puppet_master.in_range(_receiver.get_parent()):
+		if puppet_master.in_range(_receiver.game_object):
 			_receiver.transfer_item(_item)
 	else:
 		puppet_master.drop_item(_item)

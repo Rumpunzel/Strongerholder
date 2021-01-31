@@ -2,19 +2,15 @@ class_name CityPilotMaster, "res://assets/icons/structures/icon_city_pilot_maste
 extends PilotMaster
 
 
-const PERSIST_PROPERTIES_2 := ["_available_job", "_storage_resources", "_posted_job"]
-const PERSIST_OBJ_PROPERTIES_4 := ["_city_structure", "_custodian", "_assigned_gatherers"]
+const PERSIST_PROPERTIES_2 := ["available_job", "storage_resources", "_posted_job"]
+const PERSIST_OBJ_PROPERTIES_4 := ["_custodian", "_assigned_gatherers"]
 
 
-var _available_job
+var available_job
+var storage_resources: Array = [ ]
 
-var _storage_resources: Array = [ ]
-
-var _city_structure: CityStructure = null
 var _custodian: Custodian = null
-
 var _assigned_gatherers: Dictionary = { }
-
 var _posted_job: bool = false
 
 
@@ -22,11 +18,8 @@ var _posted_job: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not _city_structure:
-		_city_structure = get_parent()
-	
-	for resource in _storage_resources:
-		_quarter_master.register_storage(_city_structure, resource)
+	for resource in storage_resources:
+		_quarter_master.register_storage(game_object, resource)
 
 
 
@@ -49,7 +42,7 @@ func employ_worker(puppet_master: Node2D) -> void:
 		_unpost_job()
 		return
 	
-	var new_job = _available_job.new()
+	var new_job = available_job.new()
 	new_job.name = "job"
 	
 	puppet_master.assign_job(new_job)
@@ -57,7 +50,7 @@ func employ_worker(puppet_master: Node2D) -> void:
 	if not needs_workers():
 		_unpost_job()
 	
-	new_job._setup(self, _city_structure, puppet_master)
+	new_job._setup(self, game_object, puppet_master)
 	
 	yield(get_tree(), "idle_frame")
 	
@@ -83,7 +76,7 @@ func unassign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
 
 
 func can_be_gathered(gathering_resource, puppet_master: Node2D, is_employee: bool) -> bool:
-	if not (is_employee or _storage_resources.has(gathering_resource)):
+	if not (is_employee or storage_resources.has(gathering_resource)):
 		return false
 	
 	var assigned_workers: Array = _assigned_gatherers.get(gathering_resource, [ ])
@@ -134,9 +127,10 @@ func _initialise_inventories() -> void:
 	._initialise_inventories()
 
 
-func _initialise_refineries(input_resources: Array, _output_resources: Array, _production_steps: int) -> void:
+func _initialise_refineries(input_resources: Array, output_resources: Array, production_steps: int) -> void:
 	for inventory in _inventories:
 		if inventory is Refinery:
+			inventory.game_object = self
 			inventory.input_resources = input_resources
-			inventory._output_resources = _output_resources
-			inventory._production_steps = _production_steps
+			inventory.output_resources = output_resources
+			inventory.production_steps = production_steps

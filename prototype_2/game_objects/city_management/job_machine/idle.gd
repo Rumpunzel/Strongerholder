@@ -102,7 +102,7 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 		return true
 	
 	
-	var nearest_structure: Structure = _get_nearest_structure_holding_item_of_type(use, [delivery_target.get_parent().type])
+	var nearest_structure: Structure = _get_nearest_structure_holding_item_of_type(use, [delivery_target.game_object.type])
 	
 	if nearest_structure:
 		var state: String = GATHER

@@ -63,7 +63,9 @@ func _get_copy_sprite() -> Sprite:
 
 func _initialise_pilot_master() -> void:
 	_pilot_master = _PilotMasterScene.instance()
+	_pilot_master.game_object = self
 	add_child(_pilot_master)
+	connect("died", _pilot_master, "unregister_resource")
 
 
 func _initialise_state_machine() -> void:

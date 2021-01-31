@@ -29,7 +29,7 @@ func enter(parameters: Array = [ ]) -> void:
 		assert(parameters.size() == 1 and parameters[0])
 		
 		_delivery_target = parameters[0]
-		_target_structure = _delivery_target.get_parent()
+		_target_structure = _delivery_target.game_object
 	
 	.enter([_delivery_target.global_position])
 
