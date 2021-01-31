@@ -6,7 +6,7 @@ const PERSIST_PROPERTIES_2 := ["_debug_flag_scene"]
 const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employee", "dedicated_tool", "_flag"]
 
 
-const _debug_flag_scene = preload("res://flag.tscn")
+const _DebugFlagScene = preload("res://flag.tscn")
 
 
 var employer: Node2D
@@ -42,8 +42,8 @@ func _ready() -> void:
 #		state.employer = employer
 #		state.employee = employee
 	
-	if not _flag and _debug_flag_scene:
-		_flag = _debug_flag_scene.instance()
+	if not _flag and _DebugFlagScene:
+		_flag = _DebugFlagScene.instance()
 		get_tree().current_scene.add_child(_flag)
 
 

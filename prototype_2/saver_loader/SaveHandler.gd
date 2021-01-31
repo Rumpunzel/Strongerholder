@@ -7,8 +7,7 @@ signal game_load_started()
 signal game_load_finished()
 
 
-const MENU_SCENE: PackedScene = preload("res://ui/main_menu/main_menu.tscn")
-const MAIN_SCENE: PackedScene = preload("res://test.tscn")
+const MainScene: PackedScene = preload("res://test.tscn")
 
 const SAVE_LOCATION: String = "user://savegame.save"
 
@@ -82,7 +81,7 @@ func load_game(path: String) -> void:
 	save_file.open(path, File.READ)
 	emit_signal("game_load_started")
 	
-	get_tree().change_scene_to(MAIN_SCENE)
+	get_tree().change_scene_to(MainScene)
 	
 	_saver_loader.load_game(save_file, get_tree())
 	
