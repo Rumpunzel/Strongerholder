@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-const SCENE := "res://game_objects/game_actors/GameActor.tscn"
+const SCENE := "res://game_objects/game_actors/game_actor.tscn"
 
 const PERSIST_PROPERTIES := ["name", "position", "player_controlled", "_first_time"]
 const PERSIST_OBJ_PROPERTIES := ["_puppet_master", "_state_machine"]

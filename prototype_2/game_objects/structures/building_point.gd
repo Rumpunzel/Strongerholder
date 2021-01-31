@@ -3,7 +3,7 @@ extends Position2D
 
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-const SCENE := "res://game_objects/structures/BuildingPoint.tscn"
+const SCENE := "res://game_objects/structures/building_point.tscn"
 
 const PERSIST_PROPERTIES := ["name", "position"]
 
