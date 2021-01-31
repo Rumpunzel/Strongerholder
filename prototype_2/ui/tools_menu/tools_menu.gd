@@ -11,13 +11,13 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not visible and event.is_action_released("open_menu") -> void:
+	if not visible and event.is_action_released("open_menu"):
 		get_tree().set_input_as_handled()
 		
 		_radiant_container._animate_in_buttons()
 		
 		show()
-	elif visible and event.is_action_released("ui_cancel") -> void:
+	elif visible and event.is_action_released("ui_cancel"):
 		get_tree().set_input_as_handled()
 		
 		_radiant_container.close()

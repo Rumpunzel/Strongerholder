@@ -42,16 +42,16 @@ func _ready() -> void:
 	
 	center_button.grab_focus()
 	
-	if not "_button_pressed" in center_button.get_signal_list() -> void:
+	if not "_button_pressed" in center_button.get_signal_list():
 		center_button.connect("pressed", self, "_button_pressed", [center_button])
 	
 	place_buttons(_menu_buttons)
 	
-	if _menu_buttons.empty() -> void:
+	if _menu_buttons.empty():
 		_menu_buttons = get_children()
 		
 		for button in _menu_buttons:
-			if not "_button_pressed" in button.get_signal_list() -> void:
+			if not "_button_pressed" in button.get_signal_list():
 				button.connect("pressed", self, "_button_pressed", [button])
 
 
@@ -70,7 +70,7 @@ func place_buttons(new_buttons: Array) -> void:
 		new_button.modulate.a = 0
 		add_child(new_button)
 		
-		if not "_button_pressed" in new_button.get_signal_list() -> void:
+		if not "_button_pressed" in new_button.get_signal_list():
 			new_button.connect("pressed", self, "_button_pressed", [new_button])
 	
 	update_children()
@@ -102,7 +102,7 @@ func close(time: float = 0.3, pressed_button = null) -> void:
 	
 	emit_signal("closed")
 	
-	for i in buttons.size() -> void:
+	for i in buttons.size():
 		buttons[i].rect_position = previous_button_position[i]
 
 
@@ -116,7 +116,7 @@ func _button_pressed(button: RadiantUIButton) -> void:
 	print(button)
 	if button.text == EXIT_BUTTON:
 		close()
-	elif not button == center_button and button.menu_buttons.empty() -> void:
+	elif not button == center_button and button.menu_buttons.empty():
 		var new_scene = FileHelper.list_files_in_directory(BUILDINGS_DIRECTORY, true, ".tscn", true).get(button.text.replace(" ", "_").to_lower())
 		var new_structure
 		
@@ -128,7 +128,7 @@ func _button_pressed(button: RadiantUIButton) -> void:
 		
 		close(0.5, button)
 	else:
-		for child in get_children() -> void:
+		for child in get_children():
 			remove_child(child)
 			child.queue_free()
 		
@@ -141,13 +141,13 @@ func _button_pressed(button: RadiantUIButton) -> void:
 
 
 func _animate_in_buttons() -> void:
-	for button in get_children() -> void:
+	for button in get_children():
 		button.modulate.a = 0
 	
 	
 	tween.interpolate_property(center_button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
-	for button in get_children() -> void:
+	for button in get_children():
 		tween.interpolate_property(button, "rect_position", Vector2(), button.rect_position, 0.4, Tween.TRANS_BACK,Tween.EASE_OUT)
 		tween.interpolate_property(button, "modulate:a", 0.0, 1.0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	
@@ -159,7 +159,7 @@ func _animate_in_buttons() -> void:
 
 
 func set_center_button(new_button: String) -> void:
-	if _menu_layers.has(new_button) -> void:
+	if _menu_layers.has(new_button):
 		if new_button == MENU_BUTTON:
 			_menu_layers.remove(0)
 		else:

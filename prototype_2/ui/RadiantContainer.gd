@@ -14,7 +14,7 @@ var circle_center: Control setget , get_circle_center
 
 
 func _ready() -> void:
-	for child in .get_children() -> void:
+	for child in .get_children():
 		if not child == circle_center:
 			.remove_child(child)
 			add_child(child)
@@ -25,7 +25,7 @@ func update_children() -> void:
 	var children = get_children()
 	var circle_radius = min(rect_size.x, rect_size.y) * 0.5
 	
-	for i in children.size() -> void:
+	for i in children.size():
 		var child = children[i]
 		var child_number = (ceil(i / 2.0) * (1 if i % 2 == 0 else -1)) if _be_a_retard else i
 		var child_ratio: float = float(child_number) / float(children.size())
