@@ -7,7 +7,7 @@ script/source = "extends Sprite
 
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-const SCENE := \"res://flag.tscn\"
+const SCENE := \"res://city_management/job_machine/flag.tscn\"
 
 const PERSIST_PROPERTIES := [\"name\", \"position\", \"_random_color\"]
 const PERSIST_OBJ_PROPERTIES := [\"target\"]
