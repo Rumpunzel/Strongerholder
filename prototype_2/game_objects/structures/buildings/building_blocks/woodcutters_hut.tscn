@@ -2,10 +2,11 @@
 
 [ext_resource path="res://game_objects/city_management/job_machine/job_machine.gd" type="Script" id=1]
 [ext_resource path="res://game_objects/structures/buildings/building_blocks/woodcutters_hut.gd" type="Script" id=2]
-[ext_resource path="res://game_objects/structures/buildings/components/CityStructure.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game_objects/structures/buildings/components/city_structure.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game_objects/resources/tools/axe.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/sprites/structures/medievalStructure_16.png" type="Texture" id=5]
 [ext_resource path="res://game_objects/structures/city_structure_audio_handler.gd" type="Script" id=6]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 22, 12 )

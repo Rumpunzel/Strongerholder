@@ -81,7 +81,7 @@ func _back_to_main_menu() -> void:
 		dialog.window_title = ""
 		
 		dialog.get_cancel().connect("pressed", dialog, "queue_free")
-		dialog.connect("confirmed", get_tree(), "change_scene_to", [SaveHandler.MENU_SCENE])
+		dialog.connect("confirmed", get_tree(), "change_scene_to", [SaveHandler.MenuScene])
 		
 		_menu.add_child(dialog)
 		dialog.popup_centered()

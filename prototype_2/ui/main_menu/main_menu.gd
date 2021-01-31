@@ -29,7 +29,7 @@ static func get_version() -> String:
 func _new_game() -> void:
 	get_tree().paused = true
 	
-	get_tree().change_scene_to(SaveHandler.MAIN_SCENE)
+	get_tree().change_scene_to(SaveHandler.MainScene)
 	
 	SaveHandler.starting_new_game(true)
 

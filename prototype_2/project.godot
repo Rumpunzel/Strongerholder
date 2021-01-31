@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "ObjectState",
 "class": "ActorState",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/state_machine/ActorState.gd"
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/actor_state.gd"
 }, {
 "base": "ActorState",
 "class": "ActorStateAttack",
@@ -82,7 +82,7 @@ _global_script_classes=[ {
 "base": "Position2D",
 "class": "BuildingPoint",
 "language": "GDScript",
-"path": "res://game_objects/structures/BuildingPoint.gd"
+"path": "res://game_objects/structures/building_point.gd"
 }, {
 "base": "PilotMaster",
 "class": "CityPilotMaster",
@@ -92,7 +92,7 @@ _global_script_classes=[ {
 "base": "Structure",
 "class": "CityStructure",
 "language": "GDScript",
-"path": "res://game_objects/structures/buildings/components/CityStructure.gd"
+"path": "res://game_objects/structures/buildings/components/city_structure.gd"
 }, {
 "base": "AudioHandler",
 "class": "CityStructureAudioHandler",
@@ -107,7 +107,7 @@ _global_script_classes=[ {
 "base": "ObjectState",
 "class": "CityStructureState",
 "language": "GDScript",
-"path": "res://game_objects/structures/state_machine/CityStructureState.gd"
+"path": "res://game_objects/structures/state_machine/city_structure_state.gd"
 }, {
 "base": "CityStructureInactive",
 "class": "CityStructureStateDead",
@@ -147,7 +147,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "GameActor",
 "language": "GDScript",
-"path": "res://game_objects/game_actors/GameActor.gd"
+"path": "res://game_objects/game_actors/game_actor.gd"
 }, {
 "base": "AudioStreamPlayer2D",
 "class": "GameAudioPlayer",
@@ -157,12 +157,12 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "GameObject",
 "language": "GDScript",
-"path": "res://game_objects/GameObject.gd"
+"path": "res://game_objects/game_object.gd"
 }, {
 "base": "GameObject",
 "class": "GameResource",
 "language": "GDScript",
-"path": "res://game_objects/resources/GameResource.gd"
+"path": "res://game_objects/resources/game_resource.gd"
 }, {
 "base": "Sprite",
 "class": "GameSprite",
@@ -187,7 +187,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Inventory",
 "language": "GDScript",
-"path": "res://game_objects/Inventory.gd"
+"path": "res://game_objects/inventory.gd"
 }, {
 "base": "StateMachine",
 "class": "JobMachine",
@@ -197,7 +197,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "JobState",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/JobState.gd"
+"path": "res://game_objects/city_management/job_machine/job_state.gd"
 }, {
 "base": "JobStateMoveTo",
 "class": "JobStateDeliver",
@@ -257,12 +257,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "ObjectState",
 "language": "GDScript",
-"path": "res://game_objects/state_machine/ObjectState.gd"
+"path": "res://game_objects/state_machine/object_state.gd"
 }, {
 "base": "StateMachine",
 "class": "ObjectStateMachine",
 "language": "GDScript",
-"path": "res://game_objects/state_machine/ObjectStateMachine.gd"
+"path": "res://game_objects/state_machine/object_state_machine.gd"
 }, {
 "base": "YSort",
 "class": "ObjectsLayer",
@@ -317,7 +317,7 @@ _global_script_classes=[ {
 "base": "ObjectState",
 "class": "ResourceState",
 "language": "GDScript",
-"path": "res://game_objects/resources/state_machine/ResourceState.gd"
+"path": "res://game_objects/resources/state_machine/resource_state.gd"
 }, {
 "base": "ResourceStateInactive",
 "class": "ResourceStateDead",
@@ -382,7 +382,7 @@ _global_script_classes=[ {
 "base": "ResourceState",
 "class": "ToolState",
 "language": "GDScript",
-"path": "res://game_objects/resources/tools/state_machine/ToolState.gd"
+"path": "res://game_objects/resources/tools/state_machine/tool_state.gd"
 }, {
 "base": "ToolStateInactive",
 "class": "ToolStateAttack",
@@ -501,8 +501,8 @@ config/version="0.0.1"
 
 [autoload]
 
-SaveHandler="*res://saver_loader/SaveHandler.tscn"
-ServiceLocator="*res://game_objects/ServiceLocator.gd"
+SaveHandler="*res://saver_loader/save_handler.tscn"
+ServiceLocator="*res://game_objects/service_locator.gd"
 
 [debug]
 

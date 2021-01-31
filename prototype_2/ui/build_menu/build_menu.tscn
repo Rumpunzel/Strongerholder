@@ -6,16 +6,22 @@
 [ext_resource path="res://assets/sprites/structures/medievalStructure_21.png" type="Texture" id=4]
 [ext_resource path="res://ui/build_menu/build_menu.gd" type="Script" id=5]
 [ext_resource path="res://ui/build_menu/build_menu_button.gd" type="Script" id=6]
-[ext_resource path="res://game_objects/structures/buildings/WoodcuttersHut.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game_objects/structures/buildings/House.tscn" type="PackedScene" id=8]
-[ext_resource path="res://game_objects/structures/things/Tree.tscn" type="PackedScene" id=9]
+[ext_resource path="res://game_objects/structures/buildings/woodcutters_hut.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game_objects/structures/buildings/house.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_objects/structures/things/tree.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=10]
-[ext_resource path="res://game_objects/structures/buildings/LumberMill.tscn" type="PackedScene" id=11]
+[ext_resource path="res://game_objects/structures/buildings/lumber_mill.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/sprites/structures/medievalStructure_16.png" type="Texture" id=12]
 [ext_resource path="res://assets/sprites/structures/medievalStructure_22.png" type="Texture" id=13]
 [ext_resource path="res://assets/sprites/structures/medievalStructure_19.png" type="Texture" id=14]
-[ext_resource path="res://game_objects/structures/buildings/Stockpile.tscn" type="PackedScene" id=15]
-[ext_resource path="res://game_objects/structures/buildings/Market.tscn" type="PackedScene" id=16]
+[ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=15]
+[ext_resource path="res://game_objects/structures/buildings/market.tscn" type="PackedScene" id=16]
+
+
+
+
+
+
 
 [node name="BuildMenu" type="Control"]
 anchor_right = 1.0

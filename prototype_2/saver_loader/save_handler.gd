@@ -7,6 +7,7 @@ signal game_load_started()
 signal game_load_finished()
 
 
+const MenuScene: PackedScene = preload("res://ui/main_menu/main_menu.tscn")
 const MainScene: PackedScene = preload("res://test.tscn")
 
 const SAVE_LOCATION: String = "user://savegame.save"

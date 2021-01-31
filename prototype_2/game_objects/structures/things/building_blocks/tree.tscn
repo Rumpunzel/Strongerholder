@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://game_objects/structures/things/building_blocks/tree.gd" type="Script" id=1]
-[ext_resource path="res://game_objects/structures/Structure.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game_objects/structures/structure.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_objects/resources/wood_log.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game_objects/structures/things/components/random_sprite.gd" type="Script" id=4]
 [ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=5]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/sprites/trees/tree3.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/trees/tree5.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/trees/tree1.png" type="Texture" id=11]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0

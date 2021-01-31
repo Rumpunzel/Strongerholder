@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://game_objects/resources/tools/Spyglass.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game_objects/resources/tools/spyglass.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/tools/saw.png" type="Texture" id=2]
 [ext_resource path="res://game_objects/resources/tools/saw.gd" type="Script" id=3]
+
 
 [node name="Saw" instance=ExtResource( 1 )]
 script = ExtResource( 3 )

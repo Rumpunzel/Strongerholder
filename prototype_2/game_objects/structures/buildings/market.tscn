@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://game_objects/structures/BuildingPoint.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game_objects/structures/building_point.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/structures/buildings/building_blocks/market.tscn" type="PackedScene" id=2]
 
 [node name="Market" instance=ExtResource( 1 )]

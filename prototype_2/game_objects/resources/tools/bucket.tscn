@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/sprites/tools/bucket.png" type="Texture" id=1]
-[ext_resource path="res://game_objects/resources/tools/Spyglass.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game_objects/resources/tools/spyglass.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_objects/resources/tools/bucket.gd" type="Script" id=3]
+
 
 [node name="Bucket" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
