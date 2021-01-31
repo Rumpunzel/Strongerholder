@@ -1,2 +1,6 @@
 
 prototype/.import/
+prototype_2/.import/
+*.translation
+prototype/export_presets.cfg
+prototype_2/export_presets.cfg
