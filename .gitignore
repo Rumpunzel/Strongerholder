@@ -1,6 +1,12 @@
 
 prototype/.import/
 prototype_2/.import/
+prototype/bin/
+prototype/build/
+prototype/lib/
+prototype_2/bin/
+prototype_2/build/
+prototype_2/lib/
 *.translation
 prototype/export_presets.cfg
 prototype_2/export_presets.cfg
