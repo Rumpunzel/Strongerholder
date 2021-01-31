@@ -3,6 +3,7 @@ extends ObjectStateMachine
 
 
 const PERSIST_PROPERTIES_3 := ["animation_tree_node"]
+const PERSIST_OBJ_PROPERTIES_3 := ["puppet_master"]
 
 
 var animation_tree_node: String

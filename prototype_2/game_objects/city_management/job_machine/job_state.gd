@@ -5,7 +5,7 @@ extends Node
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
 const PERSIST_PROPERTIES := ["name"]
-const PERSIST_OBJ_PROPERTIES := ["employee", "employer", "employer_structure", "dedicated_tool"]
+const PERSIST_OBJ_PROPERTIES := ["job_machine", "employee", "employer", "employer_structure", "dedicated_tool"]
 
 
 const JUST_STARTED = "just_started"

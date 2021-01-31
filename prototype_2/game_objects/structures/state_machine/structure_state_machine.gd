@@ -2,7 +2,7 @@ class_name StructureStateMachine, "res://assets/icons/structures/icon_city_struc
 extends ObjectStateMachine
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_pilot_master"]
+const PERSIST_OBJ_PROPERTIES_3 := ["pilot_master"]
 
 
 signal operated

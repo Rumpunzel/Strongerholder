@@ -362,7 +362,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://StateMachine.gd"
+"path": "res://state_machine.gd"
 }, {
 "base": "GameObject",
 "class": "Structure",
