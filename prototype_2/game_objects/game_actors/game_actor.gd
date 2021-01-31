@@ -40,7 +40,8 @@ func _ready() -> void:
 		
 		_state_machine = ActorStateMachine.new()
 		_state_machine.name = "StateMachine"
-		_state_machine._puppet_master = _puppet_master
+		_state_machine.game_object = self
+		_state_machine.puppet_master = _puppet_master
 		_state_machine.animation_tree_node = "../%s" % "AnimationTree"
 		add_child(_state_machine)
 	

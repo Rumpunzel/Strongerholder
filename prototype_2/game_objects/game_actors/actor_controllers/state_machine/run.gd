@@ -2,7 +2,7 @@ class_name ActorStateRun, "res://assets/icons/game_actors/states/icon_state_run.
 extends ActorState
 
 
-const PERSIST_PROPERTIES_2 := ["move_speed", "sprint_modifier"]
+const PERSIST_PROPERTIES_3 := ["move_speed", "sprint_modifier"]
 
 
 export var move_speed: float = 64.0
@@ -25,7 +25,7 @@ func _ready() -> void:
 
 
 func exit(next_state: String, parameters: Array = [ ]) -> void:
-	_game_object.velocity = Vector2()
+	game_object.velocity = Vector2()
 	
 	.exit(next_state, parameters)
 
@@ -38,7 +38,7 @@ func move_to(direction: Vector2, is_sprinting: bool) -> void:
 	
 	set_sprinting(is_sprinting)
 	
-	_game_object.velocity = direction.normalized() * move_speed * _movement_modifier
+	game_object.velocity = direction.normalized() * move_speed * _movement_modifier
 	
 	_change_animation(RUN, direction)
 

@@ -7,11 +7,11 @@ const PERSIST_PROPERTIES_3 := ["animation_tree_node"]
 
 var animation_tree_node: String
 
+# warning-ignore-all:unused_class_variable
+var puppet_master: InputMaster
+
 
 var _checked_animation: bool = false
-
-# warning-ignore-all:unused_class_variable
-var _puppet_master: InputMaster
 
 var _animation_tree: AnimationStateMachine
 
@@ -33,6 +33,9 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 		]
 	
 	._setup_states(state_classes)
+	
+	for state in get_children():
+		state.puppet_master = puppet_master
 
 
 func _ready() -> void:

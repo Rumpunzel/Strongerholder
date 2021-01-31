@@ -5,7 +5,7 @@ extends Node
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
 const PERSIST_PROPERTIES := ["name"]
-const PERSIST_OBJ_PROPERTIES := ["employee", "employer", "dedicated_tool"]
+const PERSIST_OBJ_PROPERTIES := ["employee", "employer", "employer_structure", "dedicated_tool"]
 
 
 const JUST_STARTED = "just_started"
@@ -19,10 +19,12 @@ const OPERATE = "operate"
 const INACTIVE = "inactive"
 
 
+var job_machine = null
 # warning-ignore-all:unused_class_variable
 var employee: PuppetMaster = null
 # warning-ignore-all:unused_class_variable
 var employer: PilotMaster = null
+var employer_structure: CityStructure = null
 
 # warning-ignore-all:unused_class_variable
 var dedicated_tool: Spyglass = null
@@ -31,7 +33,6 @@ var _update_time: int = 20
 var _timed_passed: int = 0
 
 
-onready var _job_machine = get_parent()
 onready var _navigator: Navigator = ServiceLocator.navigator
 onready var _quarter_master = ServiceLocator.quarter_master
 
@@ -69,7 +70,7 @@ func exit(next_state: String, parameters: Array = [ ]) -> void:
 		if weakref(item).get_ref():
 			item.unassign_worker(employee)
 	
-	_job_machine._change_to(next_state, parameters)
+	job_machine._change_to(next_state, parameters)
 
 
 

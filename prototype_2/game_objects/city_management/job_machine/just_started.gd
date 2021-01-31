@@ -14,4 +14,4 @@ func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
 		assert(parameters.size() == 1)
 	
-	.exit(RETRIEVE, [parameters[0], employer.get_parent(), null])
+	.exit(RETRIEVE, [parameters[0], employer_structure, null])

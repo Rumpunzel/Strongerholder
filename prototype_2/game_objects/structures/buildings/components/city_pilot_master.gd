@@ -57,7 +57,7 @@ func employ_worker(puppet_master: Node2D) -> void:
 	if not needs_workers():
 		_unpost_job()
 	
-	new_job._setup(self, puppet_master)
+	new_job._setup(self, _city_structure, puppet_master)
 	
 	yield(get_tree(), "idle_frame")
 	

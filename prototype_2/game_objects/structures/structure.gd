@@ -23,10 +23,10 @@ func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
-		_initliase_pilot_master()
-		_initliase_state_machine()
+		_initialise_pilot_master()
+		_initialise_state_machine()
 		
-		_initliase_starting_items()
+		_initialise_starting_items()
 	
 	
 	add_to_group(Constants.enum_name(Constants.Structures, type))
@@ -61,19 +61,21 @@ func _get_copy_sprite() -> Sprite:
 
 
 
-func _initliase_pilot_master() -> void:
+func _initialise_pilot_master() -> void:
 	_pilot_master = _PilotMasterScene.instance()
 	add_child(_pilot_master)
 
 
-func _initliase_state_machine() -> void:
+func _initialise_state_machine() -> void:
 	_state_machine = StructureStateMachine.new()
 	_state_machine.name = "StateMachine"
-	_state_machine._pilot_master = _pilot_master
+	_state_machine.game_object = self
+	_state_machine.pilot_master = _pilot_master
+	
 	add_child(_state_machine)
 
 
-func _initliase_starting_items() -> void:
+func _initialise_starting_items() -> void:
 	for item in _starting_items:
 		var new_item: Node2D = item.instance()
 		

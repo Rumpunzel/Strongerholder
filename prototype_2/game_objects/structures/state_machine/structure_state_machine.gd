@@ -2,13 +2,13 @@ class_name StructureStateMachine, "res://assets/icons/structures/icon_city_struc
 extends ObjectStateMachine
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
+const PERSIST_OBJ_PROPERTIES_3 := ["_pilot_master"]
 
 
 signal operated
 
 
-var _pilot_master
+var pilot_master: InputMaster = null
 
 
 
@@ -23,11 +23,9 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 		]
 	
 	._setup_states(state_classes)
-
-
-func _ready() -> void:
+	
 	for state in get_children():
-		state.pilot_master = _pilot_master
+		state.pilot_master = pilot_master
 
 
 

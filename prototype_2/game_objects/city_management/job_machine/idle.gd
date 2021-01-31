@@ -32,7 +32,6 @@ func _check_for_exit_conditions() -> void:
 	# Check if I can carry anything more
 	#	 if I cannot, deliver to _delviery_target
 	if _delivery_target and employee.carry_weight_left() <= 0.01:
-		#print("Returning with delivery to: %s" % _delivery_target.get_parent().name)
 		exit(DELIVER, [_delivery_target])
 		return
 	
@@ -49,9 +48,8 @@ func _check_for_exit_conditions() -> void:
 	
 	
 	# Check if the employer can be operated and do so if possible
-	if employer.can_be_operated() and employer.get_parent().position_open(employee):
-		#print("Operating: %s" % employer.get_parent().name)
-		exit(OPERATE, [employer.get_parent()])
+	if employer.can_be_operated() and employer_structure.position_open(employee):
+		exit(OPERATE, [employer_structure])
 		return
 	
 	
@@ -66,7 +64,6 @@ func _check_for_exit_conditions() -> void:
 	
 	# Otherwise, simply return with a delivery to _delivery_target
 	if _delivery_target and not job_items.empty():
-		#print("Returning due to default with delivery to: %s" % _delivery_target.get_parent().name)
 		exit(DELIVER, [_delivery_target])
 		return
 	else:
@@ -111,7 +108,7 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 		var state: String = GATHER
 		
 		if nearest_structure is CityStructure:
-			if nearest_structure.can_be_gathered(use, employee, nearest_structure == employer.get_parent()):
+			if nearest_structure.can_be_gathered(use, employee, nearest_structure == employer_structure):
 				state = RETRIEVE
 			else:
 				return false

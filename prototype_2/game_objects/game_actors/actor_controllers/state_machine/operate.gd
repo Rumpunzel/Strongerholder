@@ -2,22 +2,16 @@ class_name ActorStateOperate, "res://assets/icons/game_actors/states/icon_state_
 extends ActorState
 
 
-const PERSIST_PROPERTIES_2 := ["_puppet_master_node"]
-const PERSIST_OBJ_PROPERTIES_2 := ["_puppet_master", "_structure"]
+const PERSIST_OBJ_PROPERTIES_3 := ["_structure"]
 
 
 var _structure: Structure = null
-
-var _puppet_master: InputMaster = null
 
 
 
 
 func _ready() -> void:
 	name = OPERATE
-	
-	if not _puppet_master:
-		_puppet_master = get_parent()._puppet_master
 
 
 
@@ -38,7 +32,7 @@ func animation_acted(_animation: String) -> void:
 	if not _structure:
 		return
 	
-	_puppet_master.interact_with(_structure)
+	puppet_master.interact_with(_structure)
 
 
 func animtion_finished(animation: String) -> void:

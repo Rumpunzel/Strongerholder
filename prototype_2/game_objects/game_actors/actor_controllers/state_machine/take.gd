@@ -2,21 +2,16 @@ class_name ActorStateTake, "res://assets/icons/game_actors/states/icon_state_tak
 extends ActorState
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["_puppet_master", "_item"]
+const PERSIST_OBJ_PROPERTIES_3 := ["_item"]
 
 
 var _item: GameResource = null
-
-var _puppet_master: InputMaster = null
 
 
 
 
 func _ready() -> void:
 	name = TAKE
-	
-	if not _puppet_master:
-		_puppet_master = get_parent()._puppet_master
 
 
 
@@ -37,7 +32,7 @@ func animation_acted(_animation: String) -> void:
 	if not _item:
 		return
 	
-	if _puppet_master.pick_up_item(_item):
+	if puppet_master.pick_up_item(_item):
 		_item = null
 
 

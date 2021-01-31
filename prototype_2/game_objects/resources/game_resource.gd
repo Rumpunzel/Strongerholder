@@ -21,7 +21,7 @@ func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
-		_initliase_state_machine()
+		_initialise_state_machine()
 	
 	
 	add_to_group(Constants.enum_name(Constants.Resources, type))
@@ -59,7 +59,9 @@ func unregister_resource() -> void:
 
 
 
-func _initliase_state_machine() -> void:
+func _initialise_state_machine() -> void:
 	_state_machine = ResourceStateMachine.new()
 	_state_machine.name = "state_machine"
+	_state_machine.game_object = self
+	
 	add_child(_state_machine)

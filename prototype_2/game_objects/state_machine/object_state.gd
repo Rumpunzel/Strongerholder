@@ -5,7 +5,7 @@ extends Node
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
 const PERSIST_PROPERTIES := ["name", "_animation_cancellable"]
-const PERSIST_OBJ_PROPERTIES := ["_state_machine", "_game_object"]
+const PERSIST_OBJ_PROPERTIES := ["state_machine", "game_object"]
 
 
 const IDLE = "idle"
@@ -13,30 +13,22 @@ const INACTIVE = "inactive"
 const DEAD = "dead"
 
 
-var _state_machine = null
+var state_machine = null
 # warning-ignore-all:unused_class_variable
-var _game_object = null
+var game_object = null
+
 
 var _animation_cancellable: bool = true
 
 
 
-
-func _ready() -> void:
-	if not _state_machine:
-		_state_machine = get_parent()
-	
-	if not _game_object:
-		_game_object = _state_machine.get_parent()
-
-
-
 func enter(_parameters: Array = [ ]) -> void:
+	assert(game_object)
 	pass
 
 
 func exit(next_state: String, parameters: Array = [ ]) -> void:
-	_state_machine._change_to(next_state, parameters)
+	state_machine._change_to(next_state, parameters)
 
 
 

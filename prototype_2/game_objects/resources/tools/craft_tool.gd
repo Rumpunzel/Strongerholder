@@ -32,7 +32,9 @@ func _disable_hurtbox() -> void:
 
 
 
-func _initliase_state_machine() -> void:
+func _initialise_state_machine() -> void:
 	_state_machine = ToolStateMachine.new()
 	_state_machine.name = "state_machine"
+	_state_machine.game_object = self
+	
 	add_child(_state_machine)

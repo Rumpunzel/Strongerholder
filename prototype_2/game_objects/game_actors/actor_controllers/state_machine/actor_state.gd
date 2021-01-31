@@ -2,12 +2,19 @@ class_name ActorState
 extends ObjectState
 
 
+const PERSIST_OBJ_PROPERTIES_2 := ["puppet_master"]
+
+
 const RUN = "run"
 const GIVE = "give"
 const TAKE = "take"
 const REQUEST = "request"
 const ATTACK = "attack"
 const OPERATE = "operate"
+
+
+# warning-ignore-all:unused_class_variable
+var puppet_master: InputMaster = null
 
 
 
@@ -61,4 +68,4 @@ func animtion_finished(_animation: String) -> void:
 
 
 func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()) -> void:
-	_state_machine._change_animation(new_animation, new_direction)
+	state_machine._change_animation(new_animation, new_direction)

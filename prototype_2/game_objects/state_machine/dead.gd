@@ -5,7 +5,7 @@ extends StateInactive
 func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
-	_game_object.die()
+	game_object.die()
 
 
 func exit(_next_state: String, _parameters: Array = [ ]) -> void:

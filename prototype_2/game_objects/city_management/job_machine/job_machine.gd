@@ -3,13 +3,14 @@ extends StateMachine
 
 
 const PERSIST_PROPERTIES_2 := ["_debug_flag_scene"]
-const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employee", "dedicated_tool", "_flag"]
+const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employer_structure", "employee", "dedicated_tool", "_flag"]
 
 
 const _DebugFlagScene = preload("res://flag.tscn")
 
 
 var employer: Node2D
+var employer_structure: Node2D
 var employee: Node2D
 
 var dedicated_tool: Spyglass setget set_dedicated_tool
@@ -47,12 +48,15 @@ func _ready() -> void:
 		get_tree().current_scene.add_child(_flag)
 
 
-func _setup(new_employer: Node2D, new_employee: Node2D) -> void:
+func _setup(new_employer: Node2D, new_employer_structure: Node2D, new_employee: Node2D) -> void:
 	employer = new_employer
+	employer_structure = new_employer_structure
 	employee = new_employee
 	
 	for state in get_children():
+		state.job_machine = self
 		state.employer = employer
+		state.employer_structure = employer_structure
 		state.employee = employee
 	
 	_flag.target = employee

@@ -46,7 +46,7 @@ func request_item(request, receiver: Node2D) -> void:
 
 
 
-func _initliase_pilot_master() -> void:
+func _initialise_pilot_master() -> void:
 	_pilot_master = load("res://game_objects/structures/buildings/components/city_pilot_master.tscn").instance()
 	_pilot_master._available_job = _available_job
 	_pilot_master._storage_resources = storage_resources

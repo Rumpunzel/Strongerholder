@@ -3,10 +3,13 @@ extends StateMachine
 
 
 const PERSIST_PROPERTIES_2 := ["hit_points_max", "indestructible", "hit_points"]
+const PERSIST_OBJ_PROPERTIES_2 := ["game_object"]
 
 
 signal damaged(damage_points, sender)
 
+
+var game_object: Node2D = null
 
 var hit_points_max: float = 10.0
 var indestructible: bool = false
@@ -21,6 +24,10 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 		hit_points = hit_points_max
 	
 	._setup_states(state_classes)
+	
+	for state in get_children():
+		state.state_machine = self
+		state.game_object = game_object
 
 
 
