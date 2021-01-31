@@ -21,7 +21,7 @@ func _ready() -> void:
 
 
 func _check_for_exit_conditions() -> void:
-	if employee.carry_weight_left() <= 0.01 or _structure_to_retrieve_from._pilot_master.how_many_of_item(_item_type).empty():
+	if employee.carry_weight_left() <= 0.01 or _structure_to_retrieve_from.has_how_many_of_item(_item_type).empty():
 		exit(IDLE, [_delivery_target])
 
 

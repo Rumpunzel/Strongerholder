@@ -78,7 +78,10 @@ func has_item(resource_type) -> GameResource:
 	return null
 
 
-func get_inventory_contents() -> Array:
+func get_inventory_contents(only_main_inventory: bool = false) -> Array:
+	if only_main_inventory:
+		return _main_inventory.get_contents()
+	
 	var contents: Array = [ ]
 	
 	for inventory in _reversed_inventories:

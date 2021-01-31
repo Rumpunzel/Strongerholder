@@ -105,7 +105,7 @@ func _check_for_exit_conditions() -> void:
 
 
 func _job_items() -> Array:
-	return employee._main_inventory.get_contents()
+	return employee.get_inventory_contents(true)
 
 
 func _get_nearest_item_of_type(item_type) -> GameResource:
