@@ -1,5 +1,5 @@
 class_name PauseMenu, "res://assets/icons/gui/icon_pause_menu.svg"
-extends Popup
+extends Menu
 
 
 const _BACK_TO_MENU_QUESTION: String = "Go Back To The Main Menu?"
@@ -9,9 +9,11 @@ const _QUIT_GAME_QUESTION: String = "Quit The Game?"
 var _busy: bool = false
 
 
+onready var _main_node: Main = get_tree().current_scene as Main
+
 onready var _background: ColorRect = $Background
 onready var _menu: CenterContainer = $SplitContainer/Menu
-onready var _version: Label = $SplitContainer/MarginContainer/Version
+onready var _version: Label = $MarginContainer/Version
 
 onready var _tween: Tween = $Tween
 
@@ -19,11 +21,11 @@ onready var _tween: Tween = $Tween
 
 
 func _ready() -> void:
-	_version.text = MainMenu.get_version()
+	_version.text = Main.get_version()
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not _busy and event.is_action_released("pause_game"):
+	if _listening_to_inputs() and event.is_action_released("pause_game"):
 		get_tree().set_input_as_handled()
 		
 		if get_tree().paused:
@@ -34,6 +36,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 
+func _listening_to_inputs() -> bool:
+	return not _busy and _main_node.is_in_game()
+
+
 func _pause_game() -> void:
 	get_tree().paused = true
 	
@@ -41,6 +47,7 @@ func _pause_game() -> void:
 	
 	_tween.interpolate_property(_background, "color:a", 0.0, 200.0 / 256.0, 0.1, Tween.TRANS_LINEAR)
 	_tween.start()
+
 
 func _unpause_game() -> void:
 	_tween.interpolate_property(_background, "color:a", 200.0 / 256.0, 0.0, 0.1, Tween.TRANS_LINEAR)
@@ -53,24 +60,22 @@ func _unpause_game() -> void:
 	hide()
 
 
+
 func _save_game() -> void:
 	if not _busy:
 		_busy = true
-		SaveHandler.save_game(SaveHandler.SAVE_LOCATION)
+		_main_node.save_game()
 		
-		yield(SaveHandler, "game_save_finished")
+		yield(_main_node, "game_save_finished")
 		
 		_busy = false
-		print("Game saved to %s" % SaveHandler.SAVE_LOCATION)
 
 
 func _load_game() -> void:
 	if not _busy:
 		hide()
 		
-		SaveHandler.load_game(SaveHandler.SAVE_LOCATION)
-		
-		print("Game loaded from %s" % SaveHandler.SAVE_LOCATION)
+		_main_node.load_game()
 
 
 func _back_to_main_menu() -> void:
@@ -81,7 +86,7 @@ func _back_to_main_menu() -> void:
 		dialog.window_title = ""
 		
 		dialog.get_cancel().connect("pressed", dialog, "queue_free")
-		dialog.connect("confirmed", get_tree(), "change_scene_to", [SaveHandler.MenuScene])
+		dialog.connect("confirmed", _main_node, "open_main_menu")
 		
 		_menu.add_child(dialog)
 		dialog.popup_centered()

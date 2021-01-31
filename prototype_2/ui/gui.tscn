@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://ui/main_menu/main_menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/pause_menu/pause_menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/gui.gd" type="Script" id=3]
+[ext_resource path="res://ui/loading_gui/loading_gui.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/game_gui/game_gui.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=6]
+
+[node name="GUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 6 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameGUI" parent="." instance=ExtResource( 5 )]
+
+[node name="PauseMenu" parent="." instance=ExtResource( 2 )]
+
+[node name="LoadingGUI" parent="." instance=ExtResource( 4 )]
+
+[node name="MainMenu" parent="." instance=ExtResource( 1 )]
+[connection signal="game_load_finished" from="LoadingGUI" to="." method="_input_after_load"]
+[connection signal="load_game" from="MainMenu" to="." method="_load_game"]
+[connection signal="new_game" from="MainMenu" to="." method="_start_new_game"]
+[connection signal="quit_game" from="MainMenu" to="." method="_quit_game"]

@@ -6,14 +6,20 @@ var _current_dummies: Array = [ ]
 var _current_blueprint: PackedScene = null
 var _current_structure: BuildingPoint = null
 
+var _objects_layer: ObjectsLayer = null setget set_objects_layer
 
-onready var _objects_layer: ObjectsLayer = ServiceLocator.objects_layer
+
 onready var _popup: Popup = $Popup
 
 
 
 
-func _gui_input(event: InputEvent) -> void:
+func _ready() -> void:
+	ServiceLocator.connect("objects_layer_changed", self, "set_objects_layer")
+
+
+
+func _unhandled_input(event: InputEvent) -> void:
 	if _current_dummies.empty():
 		return
 	
@@ -58,6 +64,11 @@ func place_building(structure: PackedScene) -> void:
 		
 		_current_dummies.append(new_dummy)
 		_objects_layer.add_child(new_dummy)
+
+
+
+func set_objects_layer(new_objects_layer: ObjectsLayer):
+	_objects_layer = new_objects_layer
 
 
 

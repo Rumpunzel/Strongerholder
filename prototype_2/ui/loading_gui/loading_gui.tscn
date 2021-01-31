@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/loading_gui/loading_gui.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/ui_main_menu_title_font.tres" type="DynamicFont" id=3]
+
+[node name="LoadingGUI" type="Popup"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+popup_exclusive = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleDivider" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 720.0
+margin_top = 477.0
+margin_right = 1200.0
+margin_bottom = 603.0
+custom_constants/separation = 30
+
+[node name="Title" type="Label" parent="CenterContainer/TitleDivider"]
+margin_right = 480.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+text = "Strongherholder"
+align = 1
+
+[node name="LoadInfo" type="VBoxContainer" parent="CenterContainer/TitleDivider"]
+margin_top = 94.0
+margin_right = 480.0
+margin_bottom = 162.0
+
+[node name="Progress" type="Label" parent="CenterContainer/TitleDivider/LoadInfo"]
+margin_right = 480.0
+margin_bottom = 24.0
+text = "Loading..."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="CenterContainer/TitleDivider/LoadInfo"]
+margin_top = 44.0
+margin_right = 480.0
+margin_bottom = 68.0
+mouse_filter = 2
+
+[node name="Tween" type="Tween" parent="."]

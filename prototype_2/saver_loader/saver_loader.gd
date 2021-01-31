@@ -52,8 +52,8 @@
 #       same object. The old (pre-load) object will still be there in the non-
 #       persist reference after load.
 
-class_name SaverLoader
-extends Reference
+#class_name SaverLoader
+extends Node
 
 const DPRINT := false # true for debug print
 

@@ -1,19 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/fonts/ui_main_menu_title_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=2]
 [ext_resource path="res://ui/main_menu/main_menu.gd" type="Script" id=3]
 [ext_resource path="res://assets/gui/glorious_main_menu.jpg" type="Texture" id=4]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Popup"]
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 2 )
+popup_exclusive = true
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -31,6 +27,7 @@ anchor_bottom = 1.0
 [node name="CenterContainer" type="CenterContainer" parent="SplitContainer"]
 margin_right = 1920.0
 margin_bottom = 1004.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -39,9 +36,9 @@ __meta__ = {
 
 [node name="MenuLayout" type="VBoxContainer" parent="SplitContainer/CenterContainer"]
 margin_left = 736.0
-margin_top = 387.0
+margin_top = 421.0
 margin_right = 1184.0
-margin_bottom = 617.0
+margin_bottom = 583.0
 custom_constants/separation = 30
 
 [node name="Title" type="Label" parent="SplitContainer/CenterContainer/MenuLayout"]
@@ -78,6 +75,7 @@ text = "Quit"
 margin_top = 1024.0
 margin_right = 1920.0
 margin_bottom = 1080.0
+mouse_filter = 2
 custom_constants/margin_right = 20
 custom_constants/margin_top = 16
 custom_constants/margin_left = 20
@@ -85,13 +83,15 @@ custom_constants/margin_bottom = 16
 
 [node name="Version" type="Label" parent="SplitContainer/MarginContainer"]
 margin_left = 20.0
-margin_top = 16.0
+margin_top = 21.0
 margin_right = 1900.0
-margin_bottom = 40.0
+margin_bottom = 35.0
 text = "version 0.0.1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="pressed" from="SplitContainer/CenterContainer/MenuLayout/MenuButtons/NewGame" to="." method="_new_game"]
 [connection signal="pressed" from="SplitContainer/CenterContainer/MenuLayout/MenuButtons/Load" to="." method="_load_game"]
 [connection signal="pressed" from="SplitContainer/CenterContainer/MenuLayout/MenuButtons/Quit" to="." method="_quit_game"]

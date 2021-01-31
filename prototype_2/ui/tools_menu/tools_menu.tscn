@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://ui/RadiantUI/RadiantUI.gd" type="Script" id=1]
+[ext_resource path="res://ui/radiant_ui/RadiantUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/tools/hammer.png" type="Texture" id=2]
 [ext_resource path="res://assets/ui_theme.tres" type="Theme" id=5]
 [ext_resource path="res://ui/tools_menu/tools_menu.gd" type="Script" id=7]
-[ext_resource path="res://ui/RadiantUI/RadiantUIButton.gd" type="Script" id=8]
+[ext_resource path="res://ui/radiant_ui/RadiantUIButton.gd" type="Script" id=8]
+
 
 [node name="tools_menu" type="Popup"]
 anchor_left = 0.5

@@ -127,7 +127,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Constants",
 "language": "GDScript",
-"path": "res://Constants.gd"
+"path": "res://constants.gd"
 }, {
 "base": "Spyglass",
 "class": "CraftTool",
@@ -143,6 +143,11 @@ _global_script_classes=[ {
 "class": "FileHelper",
 "language": "GDScript",
 "path": "res://helpers/FileHelper.gd"
+}, {
+"base": "Control",
+"class": "GUI",
+"language": "GDScript",
+"path": "res://ui/gui.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "GameActor",
@@ -168,6 +173,11 @@ _global_script_classes=[ {
 "class": "GameSprite",
 "language": "GDScript",
 "path": "res://game_objects/game_sprite.gd"
+}, {
+"base": "Node2D",
+"class": "GameWorld",
+"language": "GDScript",
+"path": "res://game_world.gd"
 }, {
 "base": "",
 "class": "GitAPI",
@@ -244,10 +254,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_management/job_machine/retrieve.gd"
 }, {
-"base": "Control",
+"base": "Popup",
+"class": "LoadingGUI",
+"language": "GDScript",
+"path": "res://ui/loading_gui/loading_gui.gd"
+}, {
+"base": "Node",
+"class": "Main",
+"language": "GDScript",
+"path": "res://main.gd"
+}, {
+"base": "Menu",
 "class": "MainMenu",
 "language": "GDScript",
 "path": "res://ui/main_menu/main_menu.gd"
+}, {
+"base": "Popup",
+"class": "Menu",
+"language": "GDScript",
+"path": "res://ui/menu.gd"
 }, {
 "base": "Navigation2D",
 "class": "Navigator",
@@ -269,7 +294,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/objects_layer.gd"
 }, {
-"base": "Popup",
+"base": "Menu",
 "class": "PauseMenu",
 "language": "GDScript",
 "path": "res://ui/pause_menu/pause_menu.gd"
@@ -297,17 +322,17 @@ _global_script_classes=[ {
 "base": "CenterContainer",
 "class": "RadiantContainer",
 "language": "GDScript",
-"path": "res://ui/RadiantContainer.gd"
+"path": "res://ui/radiant_container.gd"
 }, {
 "base": "RadiantContainer",
 "class": "RadiantUI",
 "language": "GDScript",
-"path": "res://ui/RadiantUI/RadiantUI.gd"
+"path": "res://ui/radiant_ui/RadiantUI.gd"
 }, {
 "base": "Button",
 "class": "RadiantUIButton",
 "language": "GDScript",
-"path": "res://ui/RadiantUI/RadiantUIButton.gd"
+"path": "res://ui/radiant_ui/RadiantUIButton.gd"
 }, {
 "base": "Inventory",
 "class": "Refinery",
@@ -338,11 +363,6 @@ _global_script_classes=[ {
 "class": "ResourceStateMachine",
 "language": "GDScript",
 "path": "res://game_objects/resources/state_machine/resource_state_machine.gd"
-}, {
-"base": "Reference",
-"class": "SaverLoader",
-"language": "GDScript",
-"path": "res://saver_loader/saver_loader.gd"
 }, {
 "base": "GameResource",
 "class": "Spyglass",
@@ -408,6 +428,11 @@ _global_script_classes=[ {
 "class": "ToolsMenu",
 "language": "GDScript",
 "path": "res://ui/tools_menu/tools_menu.gd"
+}, {
+"base": "Node",
+"class": "WorldScene",
+"language": "GDScript",
+"path": "res://world_scene.gd"
 } ]
 _global_script_class_icons={
 "ActorState": "",
@@ -437,11 +462,13 @@ _global_script_class_icons={
 "CraftTool": "res://assets/icons/game_actors/icon_crafting_tool.svg",
 "Custodian": "res://assets/icons/structures/icon_custodian.svg",
 "FileHelper": "",
+"GUI": "",
 "GameActor": "res://assets/icons/game_actors/icon_game_actor.svg",
 "GameAudioPlayer": "",
 "GameObject": "res://assets/icons/icon_game_object.svg",
 "GameResource": "res://assets/icons/icon_resource.svg",
 "GameSprite": "",
+"GameWorld": "",
 "GitAPI": "",
 "HurtBox": "res://assets/icons/icon_hurt_box.svg",
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
@@ -457,7 +484,10 @@ _global_script_class_icons={
 "JobStateOperate": "res://assets/icons/game_actors/states/icon_state_operate.svg",
 "JobStatePickUp": "res://assets/icons/game_actors/states/icon_state_pick_up.svg",
 "JobStateRetrieve": "res://assets/icons/game_actors/states/icon_state_retrieve.svg",
+"LoadingGUI": "",
+"Main": "",
 "MainMenu": "",
+"Menu": "",
 "Navigator": "res://assets/icons/icon_navigator.svg",
 "ObjectState": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ObjectStateMachine": "res://assets/icons/icon_state_machine.svg",
@@ -476,7 +506,6 @@ _global_script_class_icons={
 "ResourceStateIdle": "res://assets/icons/game_actors/states/icon_state_idle.svg",
 "ResourceStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "ResourceStateMachine": "res://assets/icons/icon_resource_state_machine.svg",
-"SaverLoader": "",
 "Spyglass": "res://assets/icons/icon_spyglass.svg",
 "StateDead": "res://assets/icons/icon_state_dead.svg",
 "StateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
@@ -489,20 +518,21 @@ _global_script_class_icons={
 "ToolStateDead": "res://assets/icons/icon_state_dead.svg",
 "ToolStateInactive": "res://assets/icons/game_actors/states/icon_state.svg",
 "ToolStateMachine": "res://assets/icons/icon_tool_state_machine.svg",
-"ToolsMenu": ""
+"ToolsMenu": "",
+"WorldScene": ""
 }
 
 [application]
 
 config/name="Prototype 2"
-run/main_scene="res://ui/main_menu/main_menu.tscn"
+run/main_scene="res://main.tscn"
 config/icon="res://assets/sprites/castle_icon_colour.png"
 config/version="0.0.1"
 
 [autoload]
 
-SaveHandler="*res://saver_loader/save_handler.tscn"
 ServiceLocator="*res://game_objects/service_locator.gd"
+SaverLoader="*res://saver_loader/saver_loader.gd"
 
 [debug]
 
