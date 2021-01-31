@@ -72,7 +72,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "AudioHandler",
 "language": "GDScript",
-"path": "res://game_objects/audio_handler.gd"
+"path": "res://game_objects/components/audio_handler.gd"
 }, {
 "base": "Control",
 "class": "BuildMenu",
@@ -142,7 +142,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "FileHelper",
 "language": "GDScript",
-"path": "res://helpers/FileHelper.gd"
+"path": "res://helpers/file_helper.gd"
 }, {
 "base": "Control",
 "class": "GUI",
@@ -157,7 +157,7 @@ _global_script_classes=[ {
 "base": "AudioStreamPlayer2D",
 "class": "GameAudioPlayer",
 "language": "GDScript",
-"path": "res://helpers/GameAudioPlayer.gd"
+"path": "res://helpers/game_audio_player.gd"
 }, {
 "base": "StaticBody2D",
 "class": "GameObject",
@@ -177,12 +177,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "GameWorld",
 "language": "GDScript",
-"path": "res://game_world.gd"
-}, {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://git_api.gdns"
+"path": "res://game_world/game_world.gd"
 }, {
 "base": "Area2D",
 "class": "HurtBox",
@@ -197,62 +192,62 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Inventory",
 "language": "GDScript",
-"path": "res://game_objects/inventory.gd"
+"path": "res://game_objects/components/inventory.gd"
 }, {
 "base": "StateMachine",
 "class": "JobMachine",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/job_machine.gd"
+"path": "res://city_management/job_machine/job_machine.gd"
 }, {
 "base": "Node",
 "class": "JobState",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/job_state.gd"
+"path": "res://city_management/job_machine/job_state.gd"
 }, {
 "base": "JobStateMoveTo",
 "class": "JobStateDeliver",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/deliver.gd"
+"path": "res://city_management/job_machine/deliver.gd"
 }, {
 "base": "JobStateMoveTo",
 "class": "JobStateGather",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/gather.gd"
+"path": "res://city_management/job_machine/gather.gd"
 }, {
 "base": "JobState",
 "class": "JobStateIdle",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/idle.gd"
+"path": "res://city_management/job_machine/idle.gd"
 }, {
 "base": "JobState",
 "class": "JobStateInactive",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/inactive.gd"
+"path": "res://city_management/job_machine/inactive.gd"
 }, {
 "base": "JobStateRetrieve",
 "class": "JobStateJustStarted",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/just_started.gd"
+"path": "res://city_management/job_machine/just_started.gd"
 }, {
 "base": "JobState",
 "class": "JobStateMoveTo",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/move_to.gd"
+"path": "res://city_management/job_machine/move_to.gd"
 }, {
 "base": "JobStateMoveTo",
 "class": "JobStateOperate",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/operate.gd"
+"path": "res://city_management/job_machine/operate.gd"
 }, {
 "base": "JobStateMoveTo",
 "class": "JobStatePickUp",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/pick_up.gd"
+"path": "res://city_management/job_machine/pick_up.gd"
 }, {
 "base": "JobStateMoveTo",
 "class": "JobStateRetrieve",
 "language": "GDScript",
-"path": "res://game_objects/city_management/job_machine/retrieve.gd"
+"path": "res://city_management/job_machine/retrieve.gd"
 }, {
 "base": "Popup",
 "class": "LoadingGUI",
@@ -277,7 +272,7 @@ _global_script_classes=[ {
 "base": "Navigation2D",
 "class": "Navigator",
 "language": "GDScript",
-"path": "res://game_objects/navigator.gd"
+"path": "res://city_management/navigator.gd"
 }, {
 "base": "Node",
 "class": "ObjectState",
@@ -292,7 +287,7 @@ _global_script_classes=[ {
 "base": "YSort",
 "class": "ObjectsLayer",
 "language": "GDScript",
-"path": "res://game_objects/objects_layer.gd"
+"path": "res://city_management/objects_layer.gd"
 }, {
 "base": "Menu",
 "class": "PauseMenu",
@@ -307,7 +302,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "PlacementDummy",
 "language": "GDScript",
-"path": "res://game_objects/city_management/placement_dummy.gd"
+"path": "res://city_management/placement_dummy.gd"
 }, {
 "base": "InputMaster",
 "class": "PuppetMaster",
@@ -317,7 +312,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "QuarterMaster",
 "language": "GDScript",
-"path": "res://game_objects/city_management/quarter_master.gd"
+"path": "res://city_management/quarter_master.gd"
 }, {
 "base": "CenterContainer",
 "class": "RadiantContainer",
@@ -382,7 +377,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://state_machine.gd"
+"path": "res://game_objects/components/state_machine.gd"
 }, {
 "base": "GameObject",
 "class": "Structure",
@@ -432,7 +427,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "WorldScene",
 "language": "GDScript",
-"path": "res://world_scene.gd"
+"path": "res://game_world/world_scenes/world_scene.gd"
 } ]
 _global_script_class_icons={
 "ActorState": "",
@@ -469,7 +464,6 @@ _global_script_class_icons={
 "GameResource": "res://assets/icons/icon_resource.svg",
 "GameSprite": "",
 "GameWorld": "",
-"GitAPI": "",
 "HurtBox": "res://assets/icons/icon_hurt_box.svg",
 "InputMaster": "res://assets/icons/game_actors/icon_input_master.svg",
 "Inventory": "res://assets/icons/icon_inventory.svg",
@@ -529,9 +523,13 @@ run/main_scene="res://main.tscn"
 config/icon="res://assets/sprites/castle_icon_colour.png"
 config/version="0.0.1"
 
+[audio]
+
+default_bus_layout="res://assets/sounds/default_bus_layout.tres"
+
 [autoload]
 
-ServiceLocator="*res://game_objects/service_locator.gd"
+ServiceLocator="*res://city_management/service_locator.gd"
 SaverLoader="*res://saver_loader/saver_loader.gd"
 
 [debug]
@@ -549,7 +547,7 @@ window/size/resizable=false
 
 [gdnative]
 
-singletons=[ "res://git_api.gdnlib" ]
+singletons=[  ]
 
 [importer_defaults]
 

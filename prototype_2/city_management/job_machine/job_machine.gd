@@ -6,7 +6,7 @@ const PERSIST_PROPERTIES_2 := ["_debug_flag_scene"]
 const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employer_structure", "employee", "dedicated_tool", "_flag"]
 
 
-const _DebugFlagScene = preload("res://flag.tscn")
+const _DebugFlagScene = preload("res://city_management/job_machine/flag.tscn")
 
 
 var employer: Node2D

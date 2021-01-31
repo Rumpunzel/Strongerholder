@@ -13,7 +13,7 @@
 [ext_resource path="res://game_objects/game_actors/animations/idle/idle_up.tres" type="Animation" id=11]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_up.tres" type="Animation" id=12]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=13]
-[ext_resource path="res://helpers/GameAudioPlayer.gd" type="Script" id=14]
+[ext_resource path="res://helpers/game_audio_player.gd" type="Script" id=14]
 [ext_resource path="res://game_objects/game_actors/animations/animation_player.gd" type="Script" id=15]
 [ext_resource path="res://game_objects/game_actors/actor_controllers/animation_state_machine.gd" type="Script" id=16]
 [ext_resource path="res://game_objects/game_actors/game_actor.gd" type="Script" id=17]
@@ -22,6 +22,7 @@
 [ext_resource path="res://game_objects/game_actors/animations/run/run_left.tres" type="Animation" id=20]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_left.tres" type="Animation" id=21]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=22]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
