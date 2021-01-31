@@ -33,7 +33,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		if place_free:
 			_objects_layer.add_child(_current_structure)
-			_current_structure.global_position = _current_dummies.front().global_position
+			_current_structure.global_position = _current_dummies.front().get_building_position()
 			
 			_current_structure = _current_blueprint.instance()
 	elif event.is_action_pressed("place_building_cancel"):

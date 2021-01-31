@@ -5,8 +5,8 @@ extends Popup
 signal game_load_finished
 
 
-const _LOADING_TEXT: String = "Loading..."
-const _FINISHED_LOADING_TEXT: String = "Press Any Key To Continue"
+const LOADING_TEXT: String = "Loading..."
+const FINISHED_LOADING_TEXT: String = "Press Any Key To Continue"
 
 
 onready var _background: ColorRect = $Background
@@ -22,7 +22,7 @@ onready var _tween: Tween = $Tween
 func _ready() -> void:
 	set_process(false)
 	
-	SaverLoader.connect("finished", _progress_text, "set_text", [ _FINISHED_LOADING_TEXT ])
+	SaverLoader.connect("finished", _progress_text, "set_text", [ FINISHED_LOADING_TEXT ])
 	
 	_title.text = ProjectSettings.get("application/config/name")
 
@@ -32,12 +32,12 @@ func _process(_delta: float) -> void:
 		_progress_bar.value = SaverLoader.progress
 		
 		if _progress_bar.value >= 100:
-			_progress_text.text = _FINISHED_LOADING_TEXT
+			_progress_text.text = FINISHED_LOADING_TEXT
 			_progress_bar.value = 100
 			
 			set_process(false)
 		else:
-			_progress_text.text = _LOADING_TEXT
+			_progress_text.text = LOADING_TEXT
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -54,7 +54,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func loading_game(new_game: bool = false) -> void:
 	if new_game:
-		_progress_text.text = _FINISHED_LOADING_TEXT
+		_progress_text.text = FINISHED_LOADING_TEXT
 		_progress_bar.value = 100
 	else:
 		set_process(true)
@@ -66,7 +66,7 @@ func loading_game(new_game: bool = false) -> void:
 
 
 func _check_input(event: InputEvent) -> void:
-	if _progress_text.text == _FINISHED_LOADING_TEXT and _any_key_released(event):
+	if _progress_text.text == FINISHED_LOADING_TEXT and _any_key_released(event):
 		hide()
 		emit_signal("game_load_finished")
 		get_tree().paused = false

@@ -6,7 +6,7 @@ const PERSIST_PROPERTIES_2 := ["production_steps", "steps_done"]
 const PERSIST_OBJ_PROPERTIES_2 := ["game_object", "input_resources", "output_resources"]
 
 
-const _RESOURCE_SCENES = {
+const RESOURCE_SCENES = {
 	Constants.Resources.LUMBER: "res://game_objects/resources/lumber.tscn",
 	Constants.Resources.WOOD_PLANKS: "res://game_objects/resources/wood_plank.tscn",
 	Constants.Resources.STONE: null,
@@ -71,7 +71,7 @@ func refine_prodcut() -> void:
 				break
 	
 	for item in output_resources:
-		var new_item: Node2D = load(_RESOURCE_SCENES[item]).instance()
+		var new_item: Node2D = load(RESOURCE_SCENES[item]).instance()
 		
 		add_child(new_item)
 		new_item.appear(false)

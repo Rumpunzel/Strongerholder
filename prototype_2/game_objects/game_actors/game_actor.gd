@@ -9,7 +9,7 @@ const PERSIST_PROPERTIES := ["name", "position", "player_controlled", "_first_ti
 const PERSIST_OBJ_PROPERTIES := ["_puppet_master", "_state_machine"]
 
 
-const _PuppetMasterScene: PackedScene = preload("res://game_objects/game_actors/actor_controllers/puppet_master.tscn")
+const PuppetMasterScene: PackedScene = preload("res://game_objects/game_actors/actor_controllers/puppet_master.tscn")
 
 
 signal moved(direction)
@@ -35,7 +35,7 @@ func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
-		_puppet_master = _PuppetMasterScene.instance()
+		_puppet_master = PuppetMasterScene.instance()
 		add_child(_puppet_master)
 		
 		_state_machine = ActorStateMachine.new()

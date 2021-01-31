@@ -6,7 +6,7 @@ const PERSIST_PROPERTIES_2 := ["type", "_starting_items"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
 
 
-const _PilotMasterScene: PackedScene = preload("res://game_objects/structures/pilot_master.tscn")
+const PilotMasterScene: PackedScene = preload("res://game_objects/structures/pilot_master.tscn")
 
 
 export(Constants.Structures) var type: int
@@ -62,7 +62,7 @@ func _get_copy_sprite() -> Sprite:
 
 
 func _initialise_pilot_master() -> void:
-	_pilot_master = _PilotMasterScene.instance()
+	_pilot_master = PilotMasterScene.instance()
 	_pilot_master.game_object = self
 	add_child(_pilot_master)
 	connect("died", _pilot_master, "unregister_resource")

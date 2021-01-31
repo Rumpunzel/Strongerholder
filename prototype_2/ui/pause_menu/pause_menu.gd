@@ -2,8 +2,8 @@ class_name PauseMenu, "res://assets/icons/gui/icon_pause_menu.svg"
 extends Menu
 
 
-const _BACK_TO_MENU_QUESTION: String = "Go Back To The Main Menu?"
-const _QUIT_GAME_QUESTION: String = "Quit The Game?"
+const BACK_TO_MENU_QUESTION: String = "Go Back To The Main Menu?"
+const QUIT_GAME_QUESTION: String = "Quit The Game?"
 
 
 var _busy: bool = false
@@ -82,7 +82,7 @@ func _back_to_main_menu() -> void:
 	if not _busy:
 		var dialog: ConfirmationDialog = ConfirmationDialog.new()
 		
-		dialog.dialog_text = _BACK_TO_MENU_QUESTION
+		dialog.dialog_text = BACK_TO_MENU_QUESTION
 		dialog.window_title = ""
 		
 		dialog.get_cancel().connect("pressed", dialog, "queue_free")
@@ -96,7 +96,7 @@ func _quit_game() -> void:
 	if not _busy:
 		var dialog: ConfirmationDialog = ConfirmationDialog.new()
 		
-		dialog.dialog_text = _QUIT_GAME_QUESTION
+		dialog.dialog_text = QUIT_GAME_QUESTION
 		dialog.window_title = ""
 		
 		dialog.get_cancel().connect("pressed", dialog, "queue_free")

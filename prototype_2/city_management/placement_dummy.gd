@@ -6,6 +6,7 @@ const PLACEMENT_COLOR: Color = Color.white# Color("#1E90FF")
 const OBSTRUCTED_COLOR: Color = Color.red #Color("#800000")
 
 const GRID_SIZE: float = 16.0
+const SLIGHT_OFFSET: Vector2 = Vector2(0, -0.01)
 
 
 
@@ -32,10 +33,13 @@ func _process(_delta: float) -> void:
 	
 	var mouse_position: Vector2 = get_global_mouse_position()
 	
-	global_position = Vector2(stepify(mouse_position.x, GRID_SIZE), stepify(mouse_position.y, GRID_SIZE))
+	global_position = Vector2(stepify(mouse_position.x, GRID_SIZE), stepify(mouse_position.y, GRID_SIZE)) + SLIGHT_OFFSET
 
 
 
 
 func place_free() -> bool:
 	return get_overlapping_bodies().empty()
+
+func get_building_position() -> Vector2:
+	return global_position - SLIGHT_OFFSET
