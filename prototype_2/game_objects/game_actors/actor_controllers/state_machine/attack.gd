@@ -36,7 +36,7 @@ func action_finished(_animation: String) -> void:
 	_weapon.end_attack()
 
 
-func animtion_finished(animation: String) -> void:
-	.animtion_finished(animation)
+func animation_finished(animation: String) -> void:
+	.animation_finished(animation)
 	
 	exit(IDLE)

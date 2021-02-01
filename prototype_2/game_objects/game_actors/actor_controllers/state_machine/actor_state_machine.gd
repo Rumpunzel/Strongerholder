@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 	var current_animation: String = _animation_tree.get_current_animation()
 	
 	if not current_state._animation_cancellable and not (current_animation == ActorState.ATTACK or current_animation == ActorState.GIVE):
-		current_state.animtion_finished(current_animation)
+		current_state.animation_finished(current_animation)
 	
 	_checked_animation = true
 
@@ -112,4 +112,4 @@ func _action_finished(animation: String) -> void:
 
 
 func _animation_finished(animation: String) -> void:
-	current_state.animtion_finished(animation)
+	current_state.animation_finished(animation)

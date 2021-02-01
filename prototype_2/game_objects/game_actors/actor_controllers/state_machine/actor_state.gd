@@ -61,7 +61,7 @@ func action_finished(_animation: String) -> void:
 	pass
 
 
-func animtion_finished(_animation: String) -> void:
+func animation_finished(_animation: String) -> void:
 	_animation_cancellable = true
 
 

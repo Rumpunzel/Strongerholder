@@ -17,15 +17,6 @@ func _ready() -> void:
 
 
 func _check_for_exit_conditions() -> void:
-	_timed_passed += 1
-	
-	if _timed_passed < _update_time:
-		return
-	
-	_timed_passed = 0
-	
-	#yield(get_tree(), "idle_frame")
-	
 	var job_items: Array = _job_items()
 	var job_item: GameObject = job_items.front() if not job_items.empty() else null
 	
@@ -80,8 +71,6 @@ func enter(parameters: Array = [ ]) -> void:
 	else:
 		_delivery_target = parameters[0]
 		#assert(_delivery_target)
-	
-	_timed_passed = 0
 	
 	.enter(parameters)
 

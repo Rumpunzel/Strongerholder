@@ -32,7 +32,6 @@ func _ready() -> void:
 
 
 func process_commands(state_machine: ObjectStateMachine, player_controlled: bool = false) -> void:
-	#object_of_interest, null, global_position, _current_path
 	var commands: Array = _get_input(player_controlled)
 	
 	for command in commands:

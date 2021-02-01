@@ -41,7 +41,7 @@ func animation_acted(_animation: String) -> void:
 		puppet_master.drop_item(_item)
 
 
-func animtion_finished(animation: String) -> void:
-	.animtion_finished(animation)
+func animation_finished(animation: String) -> void:
+	.animation_finished(animation)
 	
 	exit(IDLE)

@@ -29,8 +29,8 @@ var employer_structure: CityStructure = null
 # warning-ignore-all:unused_class_variable
 var dedicated_tool: Spyglass = null
 
-var _update_time: int = 20
-var _timed_passed: int = 0
+var _update_time: float = 1.0
+var _timed_passed: float = 0.0
 
 
 onready var _navigator: Navigator = ServiceLocator.navigator
@@ -43,13 +43,13 @@ func _ready() -> void:
 	set_process(false)
 
 
-func _process(_delta: float) -> void:
-#	_timed_passed += 1
-#
-#	if _timed_passed < _update_time:
-#		return
-#
-#	_timed_passed = 0
+func _process(delta: float) -> void:
+	_timed_passed += delta
+
+	if _timed_passed < _update_time:
+		return
+
+	_timed_passed = 0.0
 	
 	_check_for_exit_conditions()
 
@@ -65,6 +65,8 @@ func enter(_parameters: Array = [ ]) -> void:
 
 func exit(next_state: String, parameters: Array = [ ]) -> void:
 	set_process(false)
+	
+	_timed_passed = 0.0
 	
 	for item in _job_items():
 		if weakref(item).get_ref():

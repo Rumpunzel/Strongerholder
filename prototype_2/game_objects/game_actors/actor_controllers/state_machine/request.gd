@@ -35,7 +35,7 @@ func animation_acted(_animation: String) -> void:
 		_receiver.request_item(_request, game_object)
 
 
-func animtion_finished(animation: String) -> void:
-	.animtion_finished(animation)
+func animation_finished(animation: String) -> void:
+	.animation_finished(animation)
 	
 	exit(IDLE)

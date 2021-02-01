@@ -23,7 +23,6 @@
 [ext_resource path="res://game_objects/game_actors/animations/give/give_left.tres" type="Animation" id=21]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=22]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
 
@@ -87,7 +86,7 @@ texture = ExtResource( 18 )
 offset = Vector2( 0, -5 )
 vframes = 12
 hframes = 9
-frame = 50
+frame = 34
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 13 )

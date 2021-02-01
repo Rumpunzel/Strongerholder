@@ -24,13 +24,16 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.285714, 0.714286 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.285714, 0.714286, 0.857143 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "just_stepped"
 }, {
 "args": [  ],
 "method": "just_stepped"
+}, {
+"args": [  ],
+"method": "animation_finished"
 } ]
 }
