@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_game_object.svg-6a2bb302b44b29b9be65bd259f618a52.stex"
+path="res://.import/icon_main.svg-db85fe6334f34f5b9992b1a34b46dc2d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://class_icons/game_objects/icon_game_object.svg"
-dest_files=[ "res://.import/icon_game_object.svg-6a2bb302b44b29b9be65bd259f618a52.stex" ]
+source_file="res://class_icons/icon_main.svg"
+dest_files=[ "res://.import/icon_main.svg-db85fe6334f34f5b9992b1a34b46dc2d.stex" ]
 
 [params]
 
@@ -18,12 +18,12 @@ compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=2
+compress/normal_map=0
 flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false

@@ -23,7 +23,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _current_dummies.empty():
 		return
 	
-	if event.is_action_released("place_building"):
+	if event.is_action_pressed("place_building"):
 		get_tree().set_input_as_handled()
 		
 		var place_free: bool = true
@@ -36,7 +36,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_current_structure.global_position = _current_dummies.front().get_building_position()
 			
 			_current_structure = _current_blueprint.instance()
-	elif event.is_action_released("place_building_cancel"):
+	elif event.is_action_pressed("place_building_cancel"):
 		get_tree().set_input_as_handled()
 		
 		_delete_blue_print()

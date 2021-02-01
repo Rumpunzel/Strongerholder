@@ -1,4 +1,4 @@
-class_name Main
+class_name Main, "res://class_icons/icon_main.svg"
 extends Node
 
 

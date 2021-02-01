@@ -1,4 +1,4 @@
-class_name GameObject, "res://class_icons/game_objects/icon_game_object.svg"
+class_name GameObject
 extends StaticBody2D
 
 
@@ -31,13 +31,13 @@ onready var _selection_outline: SelectionOutline = $SelectionOutline
 
 
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_action_released("select_object"):
+	if event.is_action_pressed("select_object"):
 		get_tree().set_input_as_handled()
 		set_selected(true)
 
 # TODO: kind of a hack to get deselecting to work atm
 func _input(event: InputEvent) -> void:
-	if event.is_action_released("select_object"):
+	if event.is_action_pressed("select_object"):
 		set_selected(false)
 
 
