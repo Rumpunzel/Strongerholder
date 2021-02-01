@@ -29,7 +29,7 @@ var employer_structure: CityStructure = null
 # warning-ignore-all:unused_class_variable
 var dedicated_tool: Spyglass = null
 
-var _update_time: float = 1.0
+var _update_time: float = 0.5
 var _timed_passed: float = 0.0
 
 
@@ -45,10 +45,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_timed_passed += delta
-
+	
 	if _timed_passed < _update_time:
 		return
-
+	
 	_timed_passed = 0.0
 	
 	_check_for_exit_conditions()
