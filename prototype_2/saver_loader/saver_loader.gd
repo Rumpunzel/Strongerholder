@@ -705,6 +705,7 @@ func _encode_object(object: Object) -> String:
 		
 		is_weak_ref = true
 	
+	
 	assert("PERSIST_AS_PROCEDURAL_OBJECT" in object) # can't persist a non-persist obj
 	
 	var save_id: int
