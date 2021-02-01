@@ -18,6 +18,7 @@ script = ExtResource( 6 )
 script = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="Navigator"]
+z_index = -10
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1

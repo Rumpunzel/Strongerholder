@@ -1,4 +1,4 @@
-class_name Structure, "res://class_icons/structures/icon_structure.svg"
+class_name Structure, "res://class_icons/game_objects/structures/icon_structure.svg"
 extends GameObject
 
 

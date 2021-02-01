@@ -1,4 +1,4 @@
-class_name CityStructure, "res://class_icons/structures/icon_city_structure.svg"
+class_name CityStructure, "res://class_icons/game_objects/structures/icon_city_structure.svg"
 extends Structure
 
 

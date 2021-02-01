@@ -1,4 +1,4 @@
-class_name CityPilotMaster, "res://class_icons/structures/icon_city_pilot_master.svg"
+class_name CityPilotMaster, "res://class_icons/game_objects/structures/icon_city_pilot_master.svg"
 extends PilotMaster
 
 
