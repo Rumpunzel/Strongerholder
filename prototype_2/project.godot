@@ -149,6 +149,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/gui.gd"
 }, {
+"base": "Node",
+"class": "GUTTest",
+"language": "GDScript",
+"path": "res://addons/gut/test.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "GameActor",
 "language": "GDScript",
@@ -458,6 +463,7 @@ _global_script_class_icons={
 "Custodian": "res://assets/icons/structures/icon_custodian.svg",
 "FileHelper": "",
 "GUI": "",
+"GUTTest": "",
 "GameActor": "res://assets/icons/game_actors/icon_game_actor.svg",
 "GameAudioPlayer": "",
 "GameObject": "res://assets/icons/icon_game_object.svg",
@@ -544,6 +550,10 @@ gdscript/warnings/unsafe_call_argument=true
 window/size/width=1920
 window/size/height=1080
 window/size/resizable=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "gut" )
 
 [gdnative]
 

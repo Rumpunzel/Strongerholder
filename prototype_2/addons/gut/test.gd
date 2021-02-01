@@ -35,6 +35,7 @@
 # This provides all the asserts and other testing features.  Test scripts are
 # run by the Gut class in gut.gd
 # ##############################################################################
+class_name GUTTest
 extends Node
 
 # ------------------------------------------------------------------------------
