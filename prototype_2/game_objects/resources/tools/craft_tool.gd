@@ -1,4 +1,4 @@
-class_name CraftTool, "res://class_icons/game_actors/icon_crafting_tool.svg"
+class_name CraftTool, "res://class_icons/game_objects/resources/icon_crafting_tool.svg"
 extends Spyglass
 
 

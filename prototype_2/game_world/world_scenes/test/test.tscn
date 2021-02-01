@@ -5,7 +5,7 @@
 [ext_resource path="res://city_management/objects_layer.gd" type="Script" id=3]
 [ext_resource path="res://game_world/world_scenes/test/test_tilemap.tres" type="TileSet" id=4]
 [ext_resource path="res://game_objects/game_actors/player_camera.gd" type="Script" id=5]
-[ext_resource path="res://game_world/world_scenes/test/test.tres.gd" type="Script" id=6]
+[ext_resource path="res://game_world/world_scenes/test/test.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
 
 [sub_resource type="OccluderPolygon2D" id=1]

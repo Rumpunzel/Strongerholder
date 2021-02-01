@@ -1,4 +1,4 @@
-class_name LoadingGUI
+class_name LoadingGUI, "res://class_icons/gui/icon_loading_gui.svg"
 extends Popup
 
 

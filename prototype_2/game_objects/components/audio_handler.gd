@@ -1,4 +1,4 @@
-class_name AudioHandler, "res://class_icons/icon_audio_handler.svg"
+class_name AudioHandler, "res://class_icons/game_objects/icon_audio_handler.svg"
 extends Node2D
 
 

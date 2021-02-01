@@ -1,4 +1,4 @@
-class_name GUI
+class_name GUI, "res://class_icons/gui/icon_gui.svg"
 extends Control
 
 

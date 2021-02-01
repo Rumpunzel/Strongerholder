@@ -1,4 +1,4 @@
-class_name ResourceStateMachine, "res://class_icons/icon_resource_state_machine.svg"
+class_name ResourceStateMachine, "res://class_icons/states/icon_resource_state_machine.svg"
 extends ObjectStateMachine
 
 

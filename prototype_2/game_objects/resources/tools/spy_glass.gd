@@ -1,4 +1,4 @@
-class_name Spyglass, "res://class_icons/icon_spyglass.svg"
+class_name Spyglass, "res://class_icons/game_objects/resources/icon_spyglass.svg"
 extends GameResource
 
 

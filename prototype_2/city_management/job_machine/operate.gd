@@ -1,4 +1,4 @@
-class_name JobStateOperate, "res://class_icons/game_actors/states/icon_state_operate.svg"
+class_name JobStateOperate, "res://class_icons/states/icon_state_operate.svg"
 extends JobStateMoveTo
 
 

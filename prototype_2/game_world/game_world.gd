@@ -1,4 +1,4 @@
-class_name GameWorld
+class_name GameWorld, "res://class_icons/game_objects/icon_world.svg"
 extends Node2D
 
 

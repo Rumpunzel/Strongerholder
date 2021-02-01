@@ -1,4 +1,4 @@
-class_name WorldScene
+class_name WorldScene, "res://class_icons/game_objects/icon_world_scene.svg"
 extends Node
 
 

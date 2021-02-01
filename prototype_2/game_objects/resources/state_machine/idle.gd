@@ -1,4 +1,4 @@
-class_name ResourceStateIdle, "res://class_icons/game_actors/states/icon_state_idle.svg"
+class_name ResourceStateIdle, "res://class_icons/states/icon_state_idle.svg"
 extends ResourceState
 
 

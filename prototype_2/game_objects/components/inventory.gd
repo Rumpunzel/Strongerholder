@@ -1,4 +1,4 @@
-class_name Inventory, "res://class_icons/icon_inventory.svg"
+class_name Inventory, "res://class_icons/game_objects/icon_inventory.svg"
 extends Node2D
 
 

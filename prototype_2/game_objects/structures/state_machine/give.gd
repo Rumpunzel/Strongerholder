@@ -1,4 +1,4 @@
-class_name CityStructureStateGive, "res://class_icons/game_actors/states/icon_state_give.svg"
+class_name CityStructureStateGive, "res://class_icons/states/icon_state_give.svg"
 extends CityStructureState
 
 

@@ -1,4 +1,4 @@
-class_name GameActor, "res://class_icons/game_actors/icon_game_actor.svg"
+class_name GameActor, "res://class_icons/game_objects/game_actors/icon_game_actor.svg"
 extends KinematicBody2D
 
 

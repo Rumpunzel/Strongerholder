@@ -1,4 +1,4 @@
-class_name MainMenu
+class_name MainMenu, "res://class_icons/gui/icon_main_menu.svg"
 extends Menu
 
 
