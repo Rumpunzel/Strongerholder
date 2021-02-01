@@ -530,7 +530,7 @@ default_bus_layout="res://assets/sounds/default_bus_layout.tres"
 [autoload]
 
 ServiceLocator="*res://city_management/service_locator.gd"
-SaverLoader="*res://saver_loader/saver_loader.gd"
+SaverLoader="*res://addons/saver_loader/saver_loader.gd"
 
 [debug]
 
