@@ -1,4 +1,4 @@
-class_name ToolStateInactive, "res://assets/icons/game_actors/states/icon_state.svg"
+class_name ToolStateInactive, "res://class_icons/game_actors/states/icon_state.svg"
 extends ToolState
 
 

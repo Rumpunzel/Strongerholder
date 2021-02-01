@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/loading_gui/loading_gui.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/ui_main_menu_title_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ui/fonts/ui_main_menu_title_font.tres" type="DynamicFont" id=3]
+
 
 [node name="LoadingGUI" type="Popup"]
 pause_mode = 2

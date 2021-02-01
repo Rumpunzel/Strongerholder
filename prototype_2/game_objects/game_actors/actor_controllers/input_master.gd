@@ -1,4 +1,4 @@
-class_name InputMaster, "res://assets/icons/game_actors/icon_input_master.svg"
+class_name InputMaster, "res://class_icons/game_actors/icon_input_master.svg"
 extends Area2D
 
 

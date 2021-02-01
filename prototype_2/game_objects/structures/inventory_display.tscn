@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://game_objects/structures/inventory_display.gd" type="Script" id=2]
+
 
 [node name="InventoryDisplay" type="PanelContainer"]
 margin_right = 110.0

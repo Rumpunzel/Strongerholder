@@ -1,4 +1,4 @@
-class_name JobStatePickUp, "res://assets/icons/game_actors/states/icon_state_pick_up.svg"
+class_name JobStatePickUp, "res://class_icons/game_actors/states/icon_state_pick_up.svg"
 extends JobStateMoveTo
 
 

@@ -1,0 +1,74 @@
+[gd_resource type="Theme" load_steps=5 format=2]
+
+[ext_resource path="res://ui/fonts/default_ui_font.tres" type="DynamicFont" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.337255, 0.172549, 0, 1 )
+border_width_left = 8
+border_width_top = 4
+border_width_right = 8
+border_width_bottom = 4
+border_color = Color( 0.180392, 0.133333, 0.133333, 1 )
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.337255, 0.172549, 0, 1 )
+border_width_left = 8
+border_width_top = 4
+border_width_right = 8
+border_width_bottom = 4
+border_color = Color( 0.180392, 0.133333, 0.133333, 1 )
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 0.843137, 0, 1 )
+border_width_left = 8
+border_width_top = 4
+border_width_right = 8
+border_width_bottom = 4
+border_color = Color( 0.180392, 0.133333, 0.133333, 1 )
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[resource]
+default_font = ExtResource( 1 )
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 1, 0.843137, 0, 1 )
+Button/colors/font_color_pressed = Color( 0.368627, 0.0705882, 0.141176, 1 )
+Button/constants/hseparation = 10
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = SubResource( 1 )
+Button/styles/normal = SubResource( 2 )
+Button/styles/pressed = SubResource( 3 )
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 16
+PanelContainer/styles/panel = SubResource( 2 )
+VBoxContainer/constants/separation = 20

@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/gui/resource_icons/icon_wood_planks.png" type="Texture" id=1]
+[ext_resource path="res://ui/game_gui/resource_icons/icon_wood_planks.png" type="Texture" id=1]
 [ext_resource path="res://ui/city_ui/resource_counter.gd" type="Script" id=2]
+
+
 
 [node name="ResourceCounter" type="HBoxContainer"]
 script = ExtResource( 2 )

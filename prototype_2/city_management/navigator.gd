@@ -1,4 +1,4 @@
-class_name Navigator, "res://assets/icons/icon_navigator.svg"
+class_name Navigator, "res://class_icons/icon_navigator.svg"
 extends Navigation2D
 
 

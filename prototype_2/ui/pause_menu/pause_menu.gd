@@ -1,4 +1,4 @@
-class_name PauseMenu, "res://assets/icons/gui/icon_pause_menu.svg"
+class_name PauseMenu, "res://class_icons/gui/icon_pause_menu.svg"
 extends Menu
 
 

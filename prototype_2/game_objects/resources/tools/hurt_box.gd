@@ -1,4 +1,4 @@
-class_name HurtBox, "res://assets/icons/icon_hurt_box.svg"
+class_name HurtBox, "res://class_icons/icon_hurt_box.svg"
 extends Area2D
 
 

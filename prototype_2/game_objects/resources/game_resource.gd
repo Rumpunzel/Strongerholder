@@ -1,4 +1,4 @@
-class_name GameResource, "res://assets/icons/icon_resource.svg"
+class_name GameResource, "res://class_icons/icon_resource.svg"
 extends GameObject
 
 

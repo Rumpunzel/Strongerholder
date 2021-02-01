@@ -1,4 +1,4 @@
-class_name ResourceStateDead, "res://assets/icons/icon_state_dead.svg"
+class_name ResourceStateDead, "res://class_icons/icon_state_dead.svg"
 extends ResourceStateInactive
 
 

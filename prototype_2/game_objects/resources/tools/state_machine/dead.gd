@@ -1,4 +1,4 @@
-class_name ToolStateDead, "res://assets/icons/icon_state_dead.svg"
+class_name ToolStateDead, "res://class_icons/icon_state_dead.svg"
 extends ToolStateInactive
 
 

@@ -1,4 +1,4 @@
-class_name GameObject, "res://assets/icons/icon_game_object.svg"
+class_name GameObject, "res://class_icons/icon_game_object.svg"
 extends StaticBody2D
 
 

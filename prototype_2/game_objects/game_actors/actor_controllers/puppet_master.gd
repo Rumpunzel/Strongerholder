@@ -1,4 +1,4 @@
-class_name PuppetMaster, "res://assets/icons/game_actors/icon_puppet_master.svg"
+class_name PuppetMaster, "res://class_icons/game_actors/icon_puppet_master.svg"
 extends InputMaster
 
 

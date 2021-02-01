@@ -1,4 +1,4 @@
-class_name JobMachine, "res://assets/icons/icon_job_machine.svg"
+class_name JobMachine, "res://class_icons/icon_job_machine.svg"
 extends StateMachine
 
 

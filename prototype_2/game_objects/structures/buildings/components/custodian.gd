@@ -1,4 +1,4 @@
-class_name Custodian, "res://assets/icons/structures/icon_custodian.svg"
+class_name Custodian, "res://class_icons/structures/icon_custodian.svg"
 extends ToolBelt
 
 

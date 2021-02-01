@@ -1,4 +1,4 @@
-class_name PilotMaster, "res://assets/icons/structures/icon_pilot_master.svg"
+class_name PilotMaster, "res://class_icons/structures/icon_pilot_master.svg"
 extends InputMaster
 
 

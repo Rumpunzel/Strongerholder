@@ -1,4 +1,4 @@
-class_name JobStateJustStarted, "res://assets/icons/game_actors/states/icon_state_just_started.svg"
+class_name JobStateJustStarted, "res://class_icons/game_actors/states/icon_state_just_started.svg"
 extends JobStateRetrieve
 
 

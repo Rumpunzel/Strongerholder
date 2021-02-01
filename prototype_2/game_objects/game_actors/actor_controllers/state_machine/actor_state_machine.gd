@@ -1,4 +1,4 @@
-class_name ActorStateMachine, "res://assets/icons/game_actors/states/icon_actor_state_machine.svg"
+class_name ActorStateMachine, "res://class_icons/game_actors/states/icon_actor_state_machine.svg"
 extends ObjectStateMachine
 
 

@@ -1,4 +1,4 @@
-class_name ActorStateRequest, "res://assets/icons/game_actors/states/icon_state_request.svg"
+class_name ActorStateRequest, "res://class_icons/game_actors/states/icon_state_request.svg"
 extends ActorState
 
 

@@ -1,4 +1,4 @@
-class_name CityStructureStateDead, "res://assets/icons/icon_state_dead.svg"
+class_name CityStructureStateDead, "res://class_icons/icon_state_dead.svg"
 extends CityStructureInactive
 
 

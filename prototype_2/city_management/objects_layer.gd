@@ -1,4 +1,4 @@
-class_name ObjectsLayer, "res://assets/icons/icon_objects_layer.svg"
+class_name ObjectsLayer, "res://class_icons/icon_objects_layer.svg"
 extends YSort
 
 

@@ -1,4 +1,4 @@
-class_name StructureStateMachine, "res://assets/icons/structures/icon_city_structure_state_machine.svg"
+class_name StructureStateMachine, "res://class_icons/structures/icon_city_structure_state_machine.svg"
 extends ObjectStateMachine
 
 

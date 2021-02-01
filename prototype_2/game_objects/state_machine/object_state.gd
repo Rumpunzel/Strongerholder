@@ -1,4 +1,4 @@
-class_name ObjectState, "res://assets/icons/game_actors/states/icon_state_idle.svg"
+class_name ObjectState, "res://class_icons/game_actors/states/icon_state_idle.svg"
 extends Node
 
 

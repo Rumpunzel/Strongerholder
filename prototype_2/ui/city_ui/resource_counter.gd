@@ -2,9 +2,9 @@ extends HBoxContainer
 
 
 const RESOURCE_ICONS: Dictionary = {
-	Constants.Resources.LUMBER: "res://assets/gui/resource_icons/icon_wood.png",
-	Constants.Resources.WOOD_PLANKS: "res://assets/gui/resource_icons/icon_wood_planks.png",
-	Constants.Resources.STONE: "res://assets/gui/resource_icons/icon_stone.png",
+	Constants.Resources.LUMBER: "res://ui/game_gui/resource_icons/icon_wood.png",
+	Constants.Resources.WOOD_PLANKS: "res://ui/game_gui/resource_icons/icon_wood_planks.png",
+	Constants.Resources.STONE: "res://ui/game_gui/resource_icons/icon_stone.png",
 }
 
 
