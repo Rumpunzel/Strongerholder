@@ -20,7 +20,6 @@ __meta__ = {
 [node name="GameGUI" parent="." instance=ExtResource( 5 )]
 
 [node name="PauseMenu" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="LoadingGUI" parent="." instance=ExtResource( 4 )]
 

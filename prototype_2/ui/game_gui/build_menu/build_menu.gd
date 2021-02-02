@@ -9,9 +9,6 @@ var _current_structure: BuildingPoint = null
 var _objects_layer: ObjectsLayer = null setget set_objects_layer
 
 
-onready var _popup: Popup = $Popup
-
-
 
 
 func _ready() -> void:
@@ -45,8 +42,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func place_building(structure: PackedScene) -> void:
-	_close()
-	
 	_current_blueprint = structure
 	_current_structure = _current_blueprint.instance()
 	
@@ -69,17 +64,6 @@ func place_building(structure: PackedScene) -> void:
 
 func set_objects_layer(new_objects_layer: ObjectsLayer):
 	_objects_layer = new_objects_layer
-
-
-
-func _open_build_menu() -> void:
-	_delete_blue_print()
-	
-	_popup.show()
-
-
-func _close() -> void:
-	_popup.hide()
 
 
 

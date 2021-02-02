@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/game_gui/player_menu/player_menu.gd" type="Script" id=1]
+
+[node name="PlayerMenu" type="ItemList"]
+margin_left = 610.0
+margin_right = 1310.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
+auto_height = true
+max_columns = 7
+same_column_width = true
+fixed_column_width = 64
+fixed_icon_size = Vector2( 64, 64 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

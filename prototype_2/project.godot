@@ -77,7 +77,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "BuildMenu",
 "language": "GDScript",
-"path": "res://ui/build_menu/build_menu.gd"
+"path": "res://ui/game_gui/build_menu/build_menu.gd"
 }, {
 "base": "Position2D",
 "class": "BuildingPoint",
@@ -314,6 +314,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://city_management/placement_dummy.gd"
 }, {
+"base": "ItemList",
+"class": "PlayerMenu",
+"language": "GDScript",
+"path": "res://ui/game_gui/player_menu/player_menu.gd"
+}, {
 "base": "InputMaster",
 "class": "PuppetMaster",
 "language": "GDScript",
@@ -434,10 +439,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/state_machine/tool_state_machine.gd"
 }, {
-"base": "Popup",
+"base": "Reference",
 "class": "ToolsMenu",
 "language": "GDScript",
-"path": "res://ui/tools_menu/tools_menu.gd"
+"path": "res://ui/game_gui/tools_menu/tools_menu.gd"
 }, {
 "base": "Node",
 "class": "WorldScene",
@@ -506,6 +511,7 @@ _global_script_class_icons={
 "PauseMenu": "res://class_icons/gui/icon_pause_menu.svg",
 "PilotMaster": "res://class_icons/structures/icon_pilot_master.svg",
 "PlacementDummy": "",
+"PlayerMenu": "",
 "PuppetMaster": "res://class_icons/game_objects/game_actors/icon_puppet_master.svg",
 "QuarterMaster": "res://class_icons/icon_quarter_master.svg",
 "RadiantContainer": "",
@@ -561,7 +567,6 @@ gdscript/warnings/unsafe_call_argument=true
 
 window/size/width=1920
 window/size/height=1080
-window/size/resizable=false
 
 [editor_plugins]
 

@@ -3,8 +3,9 @@
 [ext_resource path="res://ui/radiant_ui/RadiantUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/tools/hammer.png" type="Texture" id=2]
 [ext_resource path="res://ui/ui_theme.tres" type="Theme" id=5]
-[ext_resource path="res://ui/tools_menu/tools_menu.gd" type="Script" id=7]
+[ext_resource path="res://ui/game_gui/tools_menu/tools_menu.gd" type="Script" id=7]
 [ext_resource path="res://ui/radiant_ui/RadiantUIButton.gd" type="Script" id=8]
+
 
 
 
