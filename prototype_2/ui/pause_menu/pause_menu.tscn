@@ -102,11 +102,11 @@ __meta__ = {
 }
 
 [node name="Version" type="Label" parent="MarginContainer"]
-margin_left = 1821.0
+margin_left = 918.0
 margin_top = 1050.0
-margin_right = 1904.0
+margin_right = 1001.0
 margin_bottom = 1064.0
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "version 0.0.1"
 

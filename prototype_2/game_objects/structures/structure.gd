@@ -41,7 +41,7 @@ func _process(_delta: float) -> void:
 
 
 
-func transfer_item(item: GameResource) -> void:
+func transfer_item(item: Node2D) -> void:
 	_pilot_master.transfer_item(item)
 
 

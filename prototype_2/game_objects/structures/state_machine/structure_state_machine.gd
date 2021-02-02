@@ -8,7 +8,7 @@ const PERSIST_OBJ_PROPERTIES_3 := ["pilot_master"]
 signal operated
 
 
-var pilot_master: InputMaster = null
+var pilot_master = null
 
 
 
@@ -30,11 +30,11 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 
 
 
-func give_item(item: GameResource, receiver: Node2D) -> void:
+func give_item(item: Node2D, receiver: Node2D) -> void:
 	current_state.give_item(item, receiver)
 
 
-func take_item(item: GameResource) -> void:
+func take_item(item: Node2D) -> void:
 	current_state.take_item(item)
 
 

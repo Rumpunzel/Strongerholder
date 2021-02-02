@@ -45,7 +45,7 @@ func _ready() -> void:
 	
 	if not _flag and DebugFlagScene:
 		_flag = DebugFlagScene.instance()
-		get_tree().current_scene.add_child(_flag)
+		get_tree().current_scene._world.add_child(_flag)
 
 
 func _setup(new_employer: Node2D, new_employer_structure: Node2D, new_employee: Node2D) -> void:

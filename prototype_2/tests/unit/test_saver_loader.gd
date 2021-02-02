@@ -3,7 +3,7 @@ extends GUTTest
 
 
 func test_assert_eq_number_not_equal():
-	assert_eq(2, 2, "Should fail.  1 != 2")
+	assert_eq(2, 1, "Should fail.  1 != 2")
 
 func test_assert_eq_number_equal():
 	assert_eq('asdf', 'asdf', "Should pass")

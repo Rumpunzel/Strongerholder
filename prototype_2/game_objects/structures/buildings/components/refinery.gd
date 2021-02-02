@@ -24,7 +24,7 @@ var production_steps: int
 var steps_done: int = 0
 
 
-onready var _quarter_master: QuarterMaster = ServiceLocator.quarter_master
+onready var _quarter_master = ServiceLocator.quarter_master
 
 
 

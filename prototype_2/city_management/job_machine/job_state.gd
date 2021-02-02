@@ -29,7 +29,7 @@ var employer_structure: CityStructure = null
 # warning-ignore-all:unused_class_variable
 var dedicated_tool: Spyglass = null
 
-var _update_time: float = 0.5
+var _update_time: float = 0.3
 var _timed_passed: float = 0.0
 
 

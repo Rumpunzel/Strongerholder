@@ -204,7 +204,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/components/inventory.gd"
 }, {
-"base": "StateMachine",
+"base": "Reference",
 "class": "JobMachine",
 "language": "GDScript",
 "path": "res://city_management/job_machine/job_machine.gd"
@@ -484,7 +484,7 @@ _global_script_class_icons={
 "HurtBox": "res://class_icons/game_objects/resources/icon_hurt_box.svg",
 "InputMaster": "res://class_icons/game_objects/game_actors/icon_input_master.svg",
 "Inventory": "res://class_icons/game_objects/icon_inventory.svg",
-"JobMachine": "res://class_icons/icon_job_machine.svg",
+"JobMachine": "",
 "JobState": "res://class_icons/states/icon_state_idle.svg",
 "JobStateDeliver": "res://class_icons/states/icon_state_deliver.svg",
 "JobStateGather": "res://class_icons/states/icon_state_gather.svg",
@@ -511,7 +511,7 @@ _global_script_class_icons={
 "RadiantContainer": "",
 "RadiantUI": "",
 "RadiantUIButton": "",
-"Refinery": "res://class_icons/structures/icon_refinery.svg",
+"Refinery": "res://class_icons/game_objects/structures/icon_refinery.svg",
 "ResourceState": "res://class_icons/states/icon_state_idle.svg",
 "ResourceStateDead": "res://class_icons/icon_state_dead.svg",
 "ResourceStateIdle": "res://class_icons/states/icon_state_idle.svg",
@@ -523,7 +523,7 @@ _global_script_class_icons={
 "StateInactive": "res://class_icons/states/icon_state.svg",
 "StateMachine": "",
 "Structure": "res://class_icons/game_objects/structures/icon_structure.svg",
-"StructureStateMachine": "res://class_icons/structures/icon_city_structure_state_machine.svg",
+"StructureStateMachine": "res://class_icons/game_objects/structures/icon_city_structure_state_machine.svg",
 "ToolBelt": "res://class_icons/game_objects/game_actors/icon_tool_belt.svg",
 "ToolState": "",
 "ToolStateAttack": "res://class_icons/states/icon_state_attack.svg",
