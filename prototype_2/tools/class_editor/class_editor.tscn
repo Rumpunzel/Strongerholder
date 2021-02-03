@@ -20,41 +20,59 @@ margin_top = 4.0
 margin_right = 1912.0
 margin_bottom = 1076.0
 
-[node name="EditorDivider" type="HSplitContainer" parent="MarginContainer"]
+[node name="SideBar" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 1884.0
 margin_bottom = 1052.0
 
-[node name="SideBar" type="VBoxContainer" parent="MarginContainer/EditorDivider"]
-margin_right = 256.0
-margin_bottom = 1036.0
-
-[node name="Title" type="Label" parent="MarginContainer/EditorDivider/SideBar"]
-margin_right = 256.0
+[node name="Title" type="Label" parent="MarginContainer/SideBar"]
+margin_right = 1868.0
 margin_bottom = 32.0
 custom_fonts/font = ExtResource( 4 )
 text = "GameClass Editor"
 
-[node name="TitleSeparator" type="HSeparator" parent="MarginContainer/EditorDivider/SideBar"]
+[node name="TitleSeparator" type="HSeparator" parent="MarginContainer/SideBar"]
 margin_top = 52.0
-margin_right = 256.0
+margin_right = 1868.0
 margin_bottom = 56.0
 
-[node name="Info" type="RichTextLabel" parent="MarginContainer/EditorDivider/SideBar"]
+[node name="EditorDivider" type="HSplitContainer" parent="MarginContainer/SideBar"]
 margin_top = 76.0
-margin_right = 256.0
+margin_right = 1868.0
 margin_bottom = 1036.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/SideBar/EditorDivider"]
+margin_right = 367.0
+margin_bottom = 960.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/SideBar/EditorDivider/PanelContainer"]
+margin_left = 8.0
+margin_top = 4.0
+margin_right = 359.0
+margin_bottom = 956.0
+
+[node name="Info" type="RichTextLabel" parent="MarginContainer/SideBar/EditorDivider/PanelContainer/MarginContainer"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 331.0
+margin_bottom = 932.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
 text = "Description about what this is.
 
 And how to use it."
 
-[node name="ClassEditor" type="TabContainer" parent="MarginContainer/EditorDivider"]
-margin_left = 268.0
+[node name="ClassEditor" type="TabContainer" parent="MarginContainer/SideBar/EditorDivider"]
+margin_left = 379.0
 margin_right = 1868.0
-margin_bottom = 1036.0
+margin_bottom = 960.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0
@@ -63,13 +81,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GameResources" parent="MarginContainer/EditorDivider/ClassEditor" instance=ExtResource( 1 )]
+[node name="GameResources" parent="MarginContainer/SideBar/EditorDivider/ClassEditor" instance=ExtResource( 1 )]
 margin_left = 8.0
 margin_top = 37.0
 margin_right = -8.0
 margin_bottom = -4.0
 
-[node name="Structures" parent="MarginContainer/EditorDivider/ClassEditor" instance=ExtResource( 5 )]
+[node name="Structures" parent="MarginContainer/SideBar/EditorDivider/ClassEditor" instance=ExtResource( 5 )]
 visible = false
 margin_left = 8.0
 margin_top = 37.0
