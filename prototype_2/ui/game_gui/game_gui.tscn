@@ -17,38 +17,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InfoContainer" type="MarginContainer" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
-mouse_filter = 2
-custom_constants/margin_right = 272
-custom_constants/margin_top = 16
-custom_constants/margin_left = 16
-custom_constants/margin_bottom = 16
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FPS" type="Label" parent="InfoContainer"]
-margin_left = 16.0
-margin_top = 1050.0
-margin_right = 58.0
-margin_bottom = 1064.0
-size_flags_horizontal = 0
-size_flags_vertical = 8
-text = "69 FPS"
-script = ExtResource( 3 )
-
-[node name="Disclaimer" type="Label" parent="InfoContainer"]
-margin_left = 1528.0
-margin_top = 1050.0
-margin_right = 1648.0
-margin_bottom = 1064.0
-size_flags_horizontal = 8
-size_flags_vertical = 8
-text = "PLACEHOLDER ART"
-uppercase = true
-
 [node name="VerticalDivider" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -111,11 +79,48 @@ margin_left = 1733.0
 margin_top = 243.0
 margin_bottom = 533.0
 
-[node name="Advisor" type="TextureRect" parent="VerticalDivider"]
-margin_left = 1664.0
+[node name="BottomDivider" type="HBoxContainer" parent="VerticalDivider"]
 margin_top = 824.0
 margin_right = 1920.0
 margin_bottom = 1080.0
+
+[node name="InfoContainer" type="MarginContainer" parent="VerticalDivider/BottomDivider"]
+margin_right = 1660.0
+margin_bottom = 256.0
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_constants/margin_right = 16
+custom_constants/margin_top = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="VerticalDivider/BottomDivider/InfoContainer"]
+margin_left = 16.0
+margin_top = 226.0
+margin_right = 58.0
+margin_bottom = 240.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "69 FPS"
+script = ExtResource( 3 )
+
+[node name="Disclaimer" type="Label" parent="VerticalDivider/BottomDivider/InfoContainer"]
+margin_left = 1524.0
+margin_top = 226.0
+margin_right = 1644.0
+margin_bottom = 240.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "PLACEHOLDER ART"
+uppercase = true
+
+[node name="Advisor" type="TextureRect" parent="VerticalDivider/BottomDivider"]
+margin_left = 1664.0
+margin_right = 1920.0
+margin_bottom = 256.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture = ExtResource( 1 )

@@ -1,65 +1,77 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://tools/class_editor/resource_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/game_resources/game_resources.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/class_editor.gd" type="Script" id=2]
+[ext_resource path="res://tools/class_editor/editor_theme.tres" type="Theme" id=3]
+[ext_resource path="res://ui/fonts/ui_title_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://tools/class_editor/structures/structures.tscn" type="PackedScene" id=5]
 
-[node name="ClassEditor" type="TabContainer"]
+[node name="ClassEditor" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-tab_align = 0
+theme = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = 8.0
-margin_top = 28.0
-margin_right = -8.0
-margin_bottom = -4.0
+margin_top = 4.0
+margin_right = 1912.0
+margin_bottom = 1076.0
 
-[node name="GameResources" type="VBoxContainer" parent="MarginContainer"]
+[node name="EditorDivider" type="HSplitContainer" parent="MarginContainer"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 1884.0
-margin_bottom = 1028.0
+margin_bottom = 1052.0
 
-[node name="TopContainer" type="HBoxContainer" parent="MarginContainer/GameResources"]
-margin_right = 1868.0
-margin_bottom = 22.0
+[node name="SideBar" type="VBoxContainer" parent="MarginContainer/EditorDivider"]
+margin_right = 256.0
+margin_bottom = 1036.0
 
-[node name="Title" type="Label" parent="MarginContainer/GameResources/TopContainer"]
-margin_top = 4.0
-margin_right = 1760.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-text = "Edit GameResources"
+[node name="Title" type="Label" parent="MarginContainer/EditorDivider/SideBar"]
+margin_right = 256.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+text = "GameClass Editor"
 
-[node name="Button" type="Button" parent="MarginContainer/GameResources/TopContainer"]
-margin_left = 1764.0
-margin_right = 1868.0
-margin_bottom = 22.0
-text = "Add Resource"
+[node name="TitleSeparator" type="HSeparator" parent="MarginContainer/EditorDivider/SideBar"]
+margin_top = 52.0
+margin_right = 256.0
+margin_bottom = 56.0
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/GameResources"]
-margin_top = 42.0
-margin_right = 1868.0
-margin_bottom = 46.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/GameResources"]
-margin_top = 66.0
-margin_right = 1868.0
-margin_bottom = 1012.0
-size_flags_vertical = 3
-scroll_horizontal_enabled = false
-
-[node name="Resources" type="GridContainer" parent="MarginContainer/GameResources/ScrollContainer"]
-margin_right = 1868.0
-margin_bottom = 946.0
+[node name="Info" type="RichTextLabel" parent="MarginContainer/EditorDivider/SideBar"]
+margin_top = 76.0
+margin_right = 256.0
+margin_bottom = 1036.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 4
+text = "Description about what this is.
 
-[node name="ResourceItem" parent="MarginContainer/GameResources/ScrollContainer/Resources" instance=ExtResource( 1 )]
-margin_right = 313.0
-margin_bottom = 100.0
+And how to use it."
+
+[node name="ClassEditor" type="TabContainer" parent="MarginContainer/EditorDivider"]
+margin_left = 268.0
+margin_right = 1868.0
+margin_bottom = 1036.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameResources" parent="MarginContainer/EditorDivider/ClassEditor" instance=ExtResource( 1 )]
+margin_left = 8.0
+margin_top = 37.0
+margin_right = -8.0
+margin_bottom = -4.0
+
+[node name="Structures" parent="MarginContainer/EditorDivider/ClassEditor" instance=ExtResource( 5 )]
+visible = false
+margin_left = 8.0
+margin_top = 37.0
+margin_right = -8.0
+margin_bottom = -4.0

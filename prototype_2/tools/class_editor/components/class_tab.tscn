@@ -1,0 +1,39 @@
+[gd_scene format=2]
+
+[node name="ClassTab" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoDivider" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1900.0
+margin_bottom = 1060.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="Label" parent="InfoDivider"]
+margin_right = 1884.0
+margin_bottom = 14.0
+text = "And a description about what this is."
+
+[node name="HSeparator" type="HSeparator" parent="InfoDivider"]
+margin_top = 34.0
+margin_right = 1884.0
+margin_bottom = 38.0
+
+[node name="SubClasses" type="TabContainer" parent="InfoDivider"]
+margin_top = 58.0
+margin_right = 1884.0
+margin_bottom = 1044.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+drag_to_rearrange_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

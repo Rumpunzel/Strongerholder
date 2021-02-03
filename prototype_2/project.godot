@@ -124,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/structures/state_machine/take.gd"
 }, {
+"base": "TabContainer",
+"class": "ClassEditor",
+"language": "GDScript",
+"path": "res://tools/class_editor/class_editor.gd"
+}, {
 "base": "Resource",
 "class": "Constants",
 "language": "GDScript",
@@ -163,6 +168,11 @@ _global_script_classes=[ {
 "class": "GameAudioPlayer",
 "language": "GDScript",
 "path": "res://helpers/game_audio_player.gd"
+}, {
+"base": "Resource",
+"class": "GameClassFactory",
+"language": "GDScript",
+"path": "res://tools/class_editor/components/game_class_factory.gd"
 }, {
 "base": "Resource",
 "class": "GameClasses",
@@ -478,6 +488,7 @@ _global_script_class_icons={
 "CityStructureStateDead": "res://class_icons/states/icon_state_dead.svg",
 "CityStructureStateGive": "res://class_icons/states/icon_state_give.svg",
 "CityStructureStateTake": "res://class_icons/states/icon_state_take.svg",
+"ClassEditor": "",
 "Constants": "",
 "CraftTool": "res://class_icons/game_objects/resources/icon_crafting_tool.svg",
 "Custodian": "res://class_icons/structures/icon_custodian.svg",
@@ -486,6 +497,7 @@ _global_script_class_icons={
 "GUTTest": "",
 "GameActor": "res://class_icons/game_objects/game_actors/icon_game_actor.svg",
 "GameAudioPlayer": "",
+"GameClassFactory": "",
 "GameClasses": "",
 "GameGUI": "res://class_icons/gui/icon_game_gui.svg",
 "GameObject": "",
@@ -581,10 +593,6 @@ enabled=PoolStringArray( "gut" )
 [gdnative]
 
 singletons=[  ]
-
-[gui]
-
-theme/custom="res://ui/ui_theme.tres"
 
 [importer_defaults]
 
