@@ -1,5 +1,8 @@
 class_name ClassEditor
-extends TabContainer
+extends PanelContainer
+
+
+onready var _main_node: Main = get_tree().current_scene as Main
 
 
 
@@ -13,3 +16,25 @@ func _ready() -> void:
 #func _process(delta: float) -> void:
 #	pass
 
+
+
+
+func _save(quit_after: bool = false) -> void:
+	print("saving")
+	
+	if quit_after:
+		_leave_editor()
+
+
+func _quit(with_saving: bool = true) -> void:
+	if with_saving:
+		_save(true)
+	else:
+		_leave_editor()
+
+
+func _leave_editor() -> void:
+	_main_node.open_main_menu()
+	
+	get_parent().remove_child(self)
+	queue_free()

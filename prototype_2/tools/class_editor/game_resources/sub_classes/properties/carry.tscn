@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tools/class_editor/components/class_property.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends ClassProperty
+
+
+
+func set_value(new_value):
+	property.value = new_value
+"
+
+[node name="Carry" instance=ExtResource( 1 )]
+script = SubResource( 1 )
+
+[node name="PropContainer" parent="." index="0"]
+margin_right = 175.0
+margin_bottom = 54.0
+
+[node name="Label" parent="PropContainer" index="0"]
+margin_right = 167.0
+text = "how_many_can_be_carried"
+
+[node name="HSeparator" parent="PropContainer" index="1"]
+margin_right = 167.0
+
+[node name="Property" type="SpinBox" parent="PropContainer" index="2"]
+margin_top = 26.0
+margin_right = 167.0
+margin_bottom = 50.0
+value = 1.0

@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://tools/class_editor/components/class_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/game_resources/sub_classes/resource_item_properties.gd" type="Script" id=2]
+[ext_resource path="res://tools/class_editor/game_resources/sub_classes/properties/carry.tscn" type="PackedScene" id=3]
+
+[node name="ResourceItem" instance=ExtResource( 1 )]
+class_scene = "res://game_objects/resources/game_resource.tscn"
+
+[node name="MarginContainer" parent="." index="0"]
+margin_right = 315.0
+margin_bottom = 114.0
+
+[node name="IconDivider" parent="MarginContainer" index="0"]
+margin_right = 303.0
+margin_bottom = 106.0
+
+[node name="Sprite" parent="MarginContainer/IconDivider" index="0"]
+margin_bottom = 102.0
+
+[node name="TypeDivider" parent="MarginContainer/IconDivider" index="1"]
+margin_right = 299.0
+margin_bottom = 102.0
+
+[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
+margin_right = 183.0
+
+[node name="Properties" parent="MarginContainer/IconDivider/TypeDivider" index="1"]
+margin_right = 183.0
+margin_bottom = 102.0
+script = ExtResource( 2 )
+
+[node name="Carry" parent="MarginContainer/IconDivider/TypeDivider/Properties" index="0" instance=ExtResource( 3 )]
+margin_right = 183.0
+margin_bottom = 58.0

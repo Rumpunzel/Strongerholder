@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://tools/class_editor/components/class_list.gd" type="Script" id=1]
 [ext_resource path="res://tools/class_editor/components/sub_class_tab.gd" type="Script" id=2]
+[ext_resource path="res://tools/class_editor/components/class_grid.gd" type="Script" id=3]
 
 [node name="SubClassTab" type="MarginContainer"]
 anchor_right = 1.0
@@ -50,10 +50,9 @@ margin_bottom = 1012.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="ClassList" type="Tree" parent="TitleDivider/ScrollContainer"]
+[node name="ClassGrid" type="GridContainer" parent="TitleDivider/ScrollContainer"]
 margin_right = 1868.0
 margin_bottom = 946.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-hide_root = true
-script = ExtResource( 1 )
+script = ExtResource( 3 )

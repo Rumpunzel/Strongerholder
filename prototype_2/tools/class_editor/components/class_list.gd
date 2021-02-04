@@ -50,10 +50,6 @@ func update_list() -> void:
 		
 		_meta_data = GameClasses.get_script_constant_map()[name_of_class].get_script_constant_map()
 		
-		if not updated_columns:
-			columns = _meta_data.size()
-		
-		
 		for constant_name in _meta_data.keys():
 			var constant = _meta_data[constant_name]
 			
@@ -89,6 +85,8 @@ func update_list() -> void:
 		
 		updated_columns = true
 		print(_meta_data)
+	
+	columns = _column_titles.size()
 
 
 
