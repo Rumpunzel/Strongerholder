@@ -17,6 +17,7 @@ margin_bottom = 106.0
 
 [node name="Sprite" parent="MarginContainer/IconDivider" index="0"]
 margin_bottom = 102.0
+mouse_filter = 0
 
 [node name="TypeDivider" parent="MarginContainer/IconDivider" index="1"]
 margin_right = 299.0

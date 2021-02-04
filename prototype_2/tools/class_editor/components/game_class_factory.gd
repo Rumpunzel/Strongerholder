@@ -18,11 +18,14 @@ const _GAME_CLASSES_HEADER := """# Avoid changing this file by hand if you can
 class_name %s
 extends Resource
 
+
 %s
 """
 
 const _CLASS_DICTIONARY := """
-const CLASSES := {%s}
+const CLASSES := {
+%s}
+
 """
 
 const _BASE_CLASS := """
@@ -37,7 +40,6 @@ class _GameClass:
 			new_game_class.set(property, properties[property])
 		
 		return new_game_class
-
 """
 
 const _CLASS_BLUEPRINT := """
@@ -49,18 +51,15 @@ class %s extends _GameClass:
 	
 	static func spawn() -> Node2D:
 		return _spawn(scene, type, load(sprite), _PROPERTIES)
-"""
 
-
-const _CLASS_ARRAY_BLUEPRINT := """
-	\"%s\": [
-		\"%s\",
-	],
 """
 
 
 const _CONSTANT_BLUEPRINT := "const %s := %s\n"
 const _PROPERTY_BLUEPRINT := "\"%s\": %s,\n"
+
+const _ARRAY_BLUEPRINT := "[\n%s"
+const _DICTIONARY_BLUEPRINT := "{\n%s"
 
 
 
@@ -71,15 +70,17 @@ class ClassToStringInterface:
 	var sprite: String
 	var properties: Dictionary
 	
-	func _init(new_class_scene: String, new_type: String, new_sprite: String, new_properties: Dictionary) -> void:
-		scene = new_class_scene
+	func _init(new_type: String, new_sprite: String, new_properties: Dictionary) -> void:
 		type = new_type
 		sprite = new_sprite
 		properties = new_properties
+	
+	func _to_string() -> String:
+		return "{ #Interface# type: %s, sprite: %s, properties: %s }" % [ type, sprite, properties ]
 
 
 
-static func create_file(class_interfaces: Array) -> void:
+static func create_file(class_interfaces: Dictionary) -> void:
 	# Initialise the class header with class declaration
 	#	and a list of constants with the class scenes
 	var file_string := _GAME_CLASSES_HEADER % [ _CLASS_NAME, _properties_to_data(_CONSTANT_BLUEPRINT, _get_scene_dictionary(), 0) ]
@@ -88,23 +89,29 @@ static func create_file(class_interfaces: Array) -> void:
 	var scene_name_dictionary := { }
 	
 	# Add pairs of scenes to types to scene_name_dictionary
-	for interface in class_interfaces:
-		scene_name_dictionary[interface.scene] = scene_name_dictionary.get(interface.scene, [ ])
-		scene_name_dictionary[interface.scene].append(interface.type)
+	for class_of_interfaces in class_interfaces.keys():
+		var array_of_classes: Array = class_interfaces[class_of_interfaces]
+		for game_class in array_of_classes:
+			scene_name_dictionary[class_of_interfaces] = scene_name_dictionary.get(class_of_interfaces, [ ])
+			scene_name_dictionary[class_of_interfaces].append(game_class.type)
 	
 	# Then add convert scene_name_dictionary as a dictionary of arays to the file
-	file_string += _CLASS_DICTIONARY % _properties_to_data(_CLASS_ARRAY_BLUEPRINT, scene_name_dictionary, 0)
-	
-	# Add the spawn method
-	file_string += _BASE_CLASS
+	file_string += _CLASS_DICTIONARY % _properties_to_data(_PROPERTY_BLUEPRINT, scene_name_dictionary, 1)
 	
 	
 	# Then go through the entire array of interfaces
 	#	and add the according class strings
-	for interface in class_interfaces:
-		file_string += _create_game_class(interface)
+	for class_of_interfaces in scene_name_dictionary.keys():
+		var array_of_classes: Array = class_interfaces[class_of_interfaces]
+		for game_class in array_of_classes:
+			game_class.scene = class_of_interfaces
+			file_string += _create_game_class(game_class)
 	
 	
+	# Add the spawn method
+	file_string += _BASE_CLASS
+	
+	#print(file_string)
 	# Open a new file to write into
 	var file = File.new()
 	file.open(_FILE_LOCATION, File.WRITE)
@@ -123,29 +130,84 @@ static func _create_game_class(class_interface: ClassToStringInterface) -> Strin
 	
 	var class_constants := _properties_to_data(_CONSTANT_BLUEPRINT, main_properties, 1)
 	var class_properties := _properties_to_data(_CONSTANT_BLUEPRINT, class_interface.properties, 1)
-	var properties := _properties_to_data(_PROPERTY_BLUEPRINT, class_interface.properties, 2)
+	
+	
+	var matched_properties := { }
+	
+	for property in class_interface.properties.keys():
+		matched_properties[property] = property
+	
+	var properties := _properties_to_data(_PROPERTY_BLUEPRINT, matched_properties, 2, true)
+	print(matched_properties)
 	
 	return _CLASS_BLUEPRINT % [ class_interface.type, class_constants, class_properties, properties ]
 
 
 
 
-static func _properties_to_data(blueprint: String, properties: Dictionary, indent: int) -> String:
+static func _properties_to_data(blueprint: String, properties: Dictionary, indent: int, property_is_variable: bool = false) -> String:
 	var properties_as_vars := ""
 	
 	for property in properties.keys():
-		properties_as_vars += _property_to_string(blueprint, property.to_lower(), properties[property], indent)
+		properties_as_vars += _property_to_string(blueprint, property, properties[property], indent, property_is_variable)
 	
 	return properties_as_vars
 
 
-static func _property_to_string(blueprint: String, property_name: String, property_value, indent: int) -> String:
+static func _property_to_string(blueprint: String, property_name: String, property_value, indent: int, property_is_variable: bool) -> String:
 	var property_string := ""
 	
 	for _i in range(indent):
 		property_string += "\t"
 	
-	property_string += blueprint % [ property_name, ("\"%s\"" if typeof(property_value) == TYPE_STRING else "%s") % property_value ]
+	
+	var value_string: String
+	
+	if property_is_variable:
+		value_string = "%s" % property_value
+	else:
+		match typeof(property_value):
+			TYPE_STRING:
+				value_string = "\"%s\"" % property_value
+			
+			TYPE_ARRAY:
+				var array_properties := ""
+				
+				for value in property_value:
+					array_properties += _properties_to_data("%s%s,\n", { "": value }, indent + 1)
+				
+				value_string = _ARRAY_BLUEPRINT % array_properties
+				
+				for _i in range(indent):
+					value_string += "\t"
+				
+				value_string += "]"
+			
+			TYPE_DICTIONARY:
+				var dict_properties := _properties_to_data(_PROPERTY_BLUEPRINT, property_value , indent + 1)
+				value_string = _DICTIONARY_BLUEPRINT % dict_properties
+				
+				for _i in range(indent):
+					value_string += "\t"
+				
+				value_string += "}"
+			
+			TYPE_INT:
+				value_string = "%d" % property_value
+			
+			TYPE_REAL:
+				value_string = "%f" % property_value
+			
+			TYPE_BOOL:
+				value_string = "%s" % property_value
+				value_string = value_string.to_lower()
+			
+			_:
+				print("found no type")
+				print(property_value)
+				value_string = "%s" % property_value
+	
+	property_string += blueprint % [ property_name, value_string ]
 	
 	return property_string
 

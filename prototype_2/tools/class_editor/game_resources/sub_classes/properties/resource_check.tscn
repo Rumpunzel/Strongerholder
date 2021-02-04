@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://tools/class_editor/game_resources/sub_classes/properties/resource_check.gd" type="Script" id=1]
+
+[node name="ResourceCheck" type="HBoxContainer"]
+margin_right = 65.0
+margin_bottom = 24.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="CheckBox" parent="."]
+margin_right = 24.0
+margin_bottom = 24.0
+flat = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = 28.0
+margin_top = 5.0
+margin_right = 87.0
+margin_bottom = 19.0
+text = "Resource"

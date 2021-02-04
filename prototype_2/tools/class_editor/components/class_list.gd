@@ -15,7 +15,6 @@ export(String, FILE, "*.tscn") var _packed_scene
 var icon_size := 32
 
 var _root: TreeItem
-var _meta_data: Dictionary
 var _column_titles: Array = [ ]
 
 
@@ -48,10 +47,10 @@ func update_list() -> void:
 		var new_item: TreeItem = create_item(_root)
 		var i := 0
 		
-		_meta_data = GameClasses.get_script_constant_map()[name_of_class].get_script_constant_map()
+		var meta_data = GameClasses.get_script_constant_map()[name_of_class].get_script_constant_map()
 		
-		for constant_name in _meta_data.keys():
-			var constant = _meta_data[constant_name]
+		for constant_name in meta_data.keys():
+			var constant = meta_data[constant_name]
 			
 			if typeof(constant) == TYPE_ARRAY or typeof(constant) == TYPE_DICTIONARY:
 				print(constant)
@@ -84,7 +83,7 @@ func update_list() -> void:
 			i += 1
 		
 		updated_columns = true
-		print(_meta_data)
+		print(meta_data)
 	
 	columns = _column_titles.size()
 
@@ -115,7 +114,7 @@ func get_class_interfaces() -> Array:
 			else:
 				prop_dict[PROPERTIES][tit] = item.get_metadata(i)
 		
-		var new_interface := GameClassFactory.ClassToStringInterface.new(prop_dict[SCENE], prop_dict[TYPE], prop_dict[SPRITE], prop_dict[PROPERTIES])
+		var new_interface := GameClassFactory.ClassToStringInterface.new(prop_dict[TYPE], prop_dict[SPRITE], prop_dict[PROPERTIES])
 		class_interfaces.append(new_interface)
 		
 		item = item.get_next()

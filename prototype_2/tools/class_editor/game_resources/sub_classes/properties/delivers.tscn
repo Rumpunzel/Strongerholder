@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://tools/class_editor/components/resource_list.gd" type="Script" id=1]
+[ext_resource path="res://tools/class_editor/game_resources/sub_classes/properties/resource_check.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tools/class_editor/components/class_property.tscn" type="PackedScene" id=3]
+
+[node name="Delivers" instance=ExtResource( 3 )]
+script = ExtResource( 1 )
+list_item = ExtResource( 2 )
+
+[node name="Label" parent="PropContainer" index="0"]
+text = "delivers"
+
+[node name="Property" type="HBoxContainer" parent="PropContainer" index="2"]
+margin_top = 26.0
+margin_right = 95.0
+margin_bottom = 26.0

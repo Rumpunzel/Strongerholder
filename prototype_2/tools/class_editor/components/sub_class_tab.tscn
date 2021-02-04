@@ -48,7 +48,6 @@ margin_top = 66.0
 margin_right = 1868.0
 margin_bottom = 1012.0
 size_flags_vertical = 3
-scroll_horizontal_enabled = false
 
 [node name="ClassGrid" type="GridContainer" parent="TitleDivider/ScrollContainer"]
 margin_right = 1868.0

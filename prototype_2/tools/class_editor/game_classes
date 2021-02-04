@@ -34,7 +34,7 @@ class WoodLogs extends _GameClass:
 	const how_many_can_be_carried := 3
 	
 	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
+		"how_many_can_be_carried": 3,
 	}
 	
 	static func spawn() -> Node2D:
@@ -49,7 +49,7 @@ class WoodPlanks extends _GameClass:
 	const how_many_can_be_carried := 12
 	
 	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
+		"how_many_can_be_carried": 12,
 	}
 	
 	static func spawn() -> Node2D:
@@ -64,7 +64,7 @@ class Timber extends _GameClass:
 	const how_many_can_be_carried := 1
 	
 	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
+		"how_many_can_be_carried": 1,
 	}
 	
 	static func spawn() -> Node2D:
@@ -81,21 +81,33 @@ class Axe extends _GameClass:
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": true,
+		"ClassType": false,
 	}
 	const delivers := {
 		"WoodLogs": true,
 		"WoodPlanks": false,
 		"Timber": false,
+		"ClassType": false,
 	}
 	const attack_value := 2
 	const animation := "attack"
 	
 	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-		"gathers": gathers,
-		"delivers": delivers,
-		"attack_value": attack_value,
-		"animation": animation,
+		"how_many_can_be_carried": 1,
+		"gathers": {
+			"WoodLogs": false,
+			"WoodPlanks": false,
+			"Timber": true,
+			"ClassType": false,
+		},
+		"delivers": {
+			"WoodLogs": true,
+			"WoodPlanks": false,
+			"Timber": false,
+			"ClassType": false,
+		},
+		"attack_value": 2,
+		"animation": "attack",
 	}
 	
 	static func spawn() -> Node2D:
@@ -112,21 +124,33 @@ class Saw extends _GameClass:
 		"WoodLogs": true,
 		"WoodPlanks": false,
 		"Timber": false,
+		"ClassType": false,
 	}
 	const delivers := {
 		"WoodLogs": false,
 		"WoodPlanks": true,
 		"Timber": false,
+		"ClassType": false,
 	}
 	const attack_value := 2
 	const animation := "attack"
 	
 	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-		"gathers": gathers,
-		"delivers": delivers,
-		"attack_value": attack_value,
-		"animation": animation,
+		"how_many_can_be_carried": 1,
+		"gathers": {
+			"WoodLogs": true,
+			"WoodPlanks": false,
+			"Timber": false,
+			"ClassType": false,
+		},
+		"delivers": {
+			"WoodLogs": false,
+			"WoodPlanks": true,
+			"Timber": false,
+			"ClassType": false,
+		},
+		"attack_value": 2,
+		"animation": "attack",
 	}
 	
 	static func spawn() -> Node2D:
@@ -143,17 +167,29 @@ class SpyglassType extends _GameClass:
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": false,
+		"ClassType": false,
 	}
 	const delivers := {
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": false,
+		"ClassType": false,
 	}
 	
 	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-		"gathers": gathers,
-		"delivers": delivers,
+		"how_many_can_be_carried": 3,
+		"gathers": {
+			"WoodLogs": false,
+			"WoodPlanks": false,
+			"Timber": false,
+			"ClassType": false,
+		},
+		"delivers": {
+			"WoodLogs": false,
+			"WoodPlanks": false,
+			"Timber": false,
+			"ClassType": false,
+		},
 	}
 	
 	static func spawn() -> Node2D:
