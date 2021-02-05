@@ -5,9 +5,9 @@ extends Spyglass
 const PERSIST_PROPERTIES_4 := ["attack_value", "animation"]
 
 
-export var attack_value: float = 2.0
+var attack_value: float = 2.0
 # warning-ignore-all:unused_class_variable
-export(String, "none", "attack", "give") var animation
+var animation: String = "none"
 
 
 onready var _hurt_box: HurtBox = $HurtBox

@@ -5,8 +5,6 @@ extends Structure
 const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "output_resources", "production_steps", "_available_job"]
 
 
-export(GDScript) var _available_job
-
 # Defines what types of resources can be stored in this building
 var storage_resources: Array = [ ]
 
@@ -16,6 +14,9 @@ var input_resources: Dictionary = { }
 var output_resources: Dictionary = { }
 
 var production_steps: int = 2
+
+
+var _available_job := load("res://city_management/job_machine/job_machine.gd")
 
 
 

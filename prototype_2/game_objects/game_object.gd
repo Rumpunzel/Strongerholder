@@ -12,7 +12,7 @@ signal died
 
 
 var type: String
-var sprite: String
+var sprite: String setget set_sprite
 
 var hit_points_max: float = 10.0 setget set_hit_points_max
 var indestructible: bool = false setget set_indestructible

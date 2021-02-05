@@ -24,12 +24,12 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="."]
 margin_left = 36.0
 margin_top = 17.0
-margin_right = 95.0
+margin_right = 546.0
 margin_bottom = 31.0
+size_flags_horizontal = 3
 text = "Resource"
 
 [node name="SpinBox" type="SpinBox" parent="."]
-margin_left = 99.0
+margin_left = 550.0
 margin_right = 624.0
 margin_bottom = 48.0
-size_flags_horizontal = 3

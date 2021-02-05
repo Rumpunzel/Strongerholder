@@ -15,7 +15,7 @@ __meta__ = {
 
 [node name="Icon" type="TextureRect" parent="."]
 margin_right = 32.0
-margin_bottom = 24.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 32, 0 )
 size_flags_vertical = 3
 texture = ExtResource( 1 )
@@ -24,14 +24,14 @@ stretch_mode = 6
 
 [node name="Label" type="Label" parent="."]
 margin_left = 36.0
-margin_top = 5.0
+margin_top = 13.0
 margin_right = 95.0
-margin_bottom = 19.0
+margin_bottom = 27.0
 text = "Resource"
 
-[node name="CheckBox" type="CheckBox" parent="."]
+[node name="CheckBox" type="CheckButton" parent="."]
 margin_left = 99.0
-margin_right = 123.0
-margin_bottom = 24.0
+margin_right = 245.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 flat = true

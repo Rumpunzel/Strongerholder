@@ -22,9 +22,10 @@ text = "input_resources"
 [node name="HSeparator" parent="PropContainer" index="1"]
 margin_right = 102.0
 
-[node name="Property" type="HBoxContainer" parent="PropContainer" index="2"]
+[node name="Property" type="GridContainer" parent="PropContainer" index="2"]
 margin_top = 26.0
 margin_right = 102.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+columns = 3

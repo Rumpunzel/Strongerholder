@@ -9,6 +9,8 @@ radius = 20.0
 
 [node name="CraftTool" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+gathers = [  ]
+delivers = [  ]
 type = 2049
 animation = "attack"
 

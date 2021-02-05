@@ -1,44 +1,8 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://ui/game_gui/build_menu/build_menu.gd" type="Script" id=1]
-[ext_resource path="res://ui/game_gui/build_menu/build_menu_button.gd" type="Script" id=2]
-[ext_resource path="res://game_objects/structures/buildings/woodcutters_hut.tscn" type="PackedScene" id=3]
-[ext_resource path="res://game_objects/structures/buildings/lumber_mill.tscn" type="PackedScene" id=5]
-[ext_resource path="res://game_objects/structures/buildings/stockpile.tscn" type="PackedScene" id=6]
-[ext_resource path="res://game_objects/structures/buildings/house.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game_objects/structures/buildings/market.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/sprites/structures/medievalStructure_21.png" type="Texture" id=9]
-[ext_resource path="res://assets/sprites/trees/tree6.png" type="Texture" id=10]
-[ext_resource path="res://assets/sprites/structures/medievalStructure_18.png" type="Texture" id=11]
-[ext_resource path="res://assets/sprites/structures/medievalStructure_16.png" type="Texture" id=12]
-[ext_resource path="res://assets/sprites/structures/medievalStructure_19.png" type="Texture" id=13]
-[ext_resource path="res://assets/sprites/structures/medievalStructure_22.png" type="Texture" id=14]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Button
-
-
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	connect(\"pressed\", self, \"place_building\")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
-
-
-
-func place_building() -> void:
-	owner.place_building_2(GameClasses.Beech.spawn())
-"
-
-[node name="PanelContainer" type="TabContainer"]
+[node name="BuildMenu" type="TabContainer"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_top = -280.5
@@ -61,49 +25,3 @@ margin_right = -8.0
 margin_bottom = -4.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-
-[node name="Tree" type="Button" parent="Buildings"]
-margin_right = 80.0
-margin_bottom = 65.0
-icon = ExtResource( 10 )
-script = SubResource( 1 )
-
-[node name="WoodcuttersHut" type="Button" parent="Buildings"]
-margin_top = 85.0
-margin_right = 80.0
-margin_bottom = 157.0
-icon = ExtResource( 12 )
-script = ExtResource( 2 )
-_building_to_place = ExtResource( 3 )
-
-[node name="LumberMill" type="Button" parent="Buildings"]
-margin_top = 177.0
-margin_right = 80.0
-margin_bottom = 249.0
-icon = ExtResource( 9 )
-script = ExtResource( 2 )
-_building_to_place = ExtResource( 5 )
-
-[node name="Stockpile" type="Button" parent="Buildings"]
-margin_top = 269.0
-margin_right = 80.0
-margin_bottom = 341.0
-icon = ExtResource( 13 )
-script = ExtResource( 2 )
-_building_to_place = ExtResource( 6 )
-
-[node name="Market" type="Button" parent="Buildings"]
-margin_top = 361.0
-margin_right = 80.0
-margin_bottom = 433.0
-icon = ExtResource( 14 )
-script = ExtResource( 2 )
-_building_to_place = ExtResource( 8 )
-
-[node name="House" type="Button" parent="Buildings"]
-margin_top = 453.0
-margin_right = 80.0
-margin_bottom = 525.0
-icon = ExtResource( 11 )
-script = ExtResource( 2 )
-_building_to_place = ExtResource( 7 )

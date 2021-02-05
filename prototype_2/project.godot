@@ -79,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/game_gui/build_menu/build_menu.gd"
 }, {
+"base": "Button",
+"class": "BuildMenuButton",
+"language": "GDScript",
+"path": "res://ui/game_gui/build_menu/build_menu_button.gd"
+}, {
 "base": "Position2D",
 "class": "BuildingPoint",
 "language": "GDScript",
@@ -499,8 +504,9 @@ _global_script_class_icons={
 "AnimationStateMachine": "",
 "AudioHandler": "res://class_icons/game_objects/icon_audio_handler.svg",
 "BuildMenu": "",
+"BuildMenuButton": "",
 "BuildingPoint": "",
-"CityPilotMaster": "res://class_icons/structures/icon_city_pilot_master.svg",
+"CityPilotMaster": "res://class_icons/game_objects/structures/icon_city_pilot_master.svg",
 "CityStructure": "res://class_icons/game_objects/structures/icon_city_structure.svg",
 "CityStructureAudioHandler": "",
 "CityStructureInactive": "res://class_icons/states/icon_state.svg",

@@ -2,7 +2,7 @@ class_name GameResource, "res://class_icons/game_objects/resources/icon_resource
 extends GameObject
 
 
-const PERSIST_PROPERTIES_2 := ["type", "can_carry"]
+const PERSIST_PROPERTIES_2 := ["can_carry"]
 
 # warning-ignore-all:unused_class_variable
 var can_carry: int = 1

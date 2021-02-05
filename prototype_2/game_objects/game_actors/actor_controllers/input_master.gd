@@ -41,7 +41,7 @@ func process_commands(state_machine: ObjectStateMachine, player_controlled: bool
 
 func pick_up_item(item: Node2D) -> bool:
 	for inventory in _inventories:
-		if in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass)):
+		if in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass)):
 			inventory.pick_up_item(item)
 			return true
 	
@@ -60,7 +60,7 @@ func drop_all_items(position_to_drop: Vector2 = global_position) -> void:
 
 func transfer_item(item: Node2D) -> bool:
 	for inventory in _inventories:
-		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass):
+		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass):
 			inventory.transfer_item(item)
 			return true
 	

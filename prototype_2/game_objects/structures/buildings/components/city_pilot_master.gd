@@ -127,7 +127,7 @@ func _initialise_inventories() -> void:
 	._initialise_inventories()
 
 
-func _initialise_refineries(input_resources: Array, output_resources: Array, production_steps: int) -> void:
+func _initialise_refineries(input_resources: Dictionary, output_resources: Dictionary, production_steps: int) -> void:
 	for inventory in _inventories:
 		if inventory is Refinery:
 			inventory.game_object = self

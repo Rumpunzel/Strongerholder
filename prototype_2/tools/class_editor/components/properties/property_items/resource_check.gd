@@ -3,7 +3,7 @@ extends HBoxContainer
 
 onready var _label: Label = $Label
 onready var _icon: TextureRect = $Icon
-onready var _check_box: CheckBox = $CheckBox
+onready var _check_box: CheckButton = $CheckBox
 
 
 

@@ -227,11 +227,11 @@ func _property_to_string(blueprint: String, property_name: String, property_valu
 
 func _get_scene_dictionary() -> Dictionary:
 	var scene_dictionary := {
-		"_GAME_RESOURCE_SCENE": _GAME_RESOURCE_SCENE,
-		"_SPYGLASS_SCENE": _SPYGLASS_SCENE,
-		"_CRAFT_TOOL_SCENE": _CRAFT_TOOL_SCENE,
-		"_CITY_STRUCTURE_SCENE": _CITY_STRUCTURE_SCENE,
-		"_STRUCTURE_SCENE": _STRUCTURE_SCENE,
+		"GAME_RESOURCE_SCENE": _GAME_RESOURCE_SCENE,
+		"SPYGLASS_SCENE": _SPYGLASS_SCENE,
+		"CRAFT_TOOL_SCENE": _CRAFT_TOOL_SCENE,
+		"CITY_STRUCTURE_SCENE": _CITY_STRUCTURE_SCENE,
+		"STRUCTURE_SCENE": _STRUCTURE_SCENE,
 	}
 	
 	return scene_dictionary
@@ -239,11 +239,11 @@ func _get_scene_dictionary() -> Dictionary:
 
 func _get_scene_constant_name(scene_path: String) -> String:
 	var scene_dictionary := {
-		_GAME_RESOURCE_SCENE: "_GAME_RESOURCE_SCENE",
-		_SPYGLASS_SCENE: "_SPYGLASS_SCENE",
-		_CRAFT_TOOL_SCENE: "_CRAFT_TOOL_SCENE",
-		_CITY_STRUCTURE_SCENE: "_CITY_STRUCTURE_SCENE",
-		_STRUCTURE_SCENE: "_STRUCTURE_SCENE",
+		_GAME_RESOURCE_SCENE: "GAME_RESOURCE_SCENE",
+		_SPYGLASS_SCENE: "SPYGLASS_SCENE",
+		_CRAFT_TOOL_SCENE: "CRAFT_TOOL_SCENE",
+		_CITY_STRUCTURE_SCENE: "CITY_STRUCTURE_SCENE",
+		_STRUCTURE_SCENE: "STRUCTURE_SCENE",
 	}
 	
 	return scene_dictionary[scene_path]
