@@ -15,8 +15,6 @@ const CLASSES := {
 		"WoodLogs",
 		"WoodPlanks",
 		"Timber",
-		"ClassType",
-		"ClassType2",
 	],
 	"res://game_objects/resources/tools/craft_tool.tscn": [
 		"Axe",
@@ -54,28 +52,6 @@ class Timber extends _GameClass:
 	const scene := "res://game_objects/resources/game_resource.tscn"
 	const type := "Timber"
 	const sprite := "res://assets/sprites/trees/tree5.png"
-	
-	const can_carry := 1
-	
-	static func spawn() -> Node2D:
-		return _spawn(scene, type)
-
-
-class ClassType extends _GameClass:
-	const scene := "res://game_objects/resources/game_resource.tscn"
-	const type := "ClassType"
-	const sprite := "res://assets/sprites/icon.png"
-	
-	const can_carry := 1
-	
-	static func spawn() -> Node2D:
-		return _spawn(scene, type)
-
-
-class ClassType2 extends _GameClass:
-	const scene := "res://game_objects/resources/game_resource.tscn"
-	const type := "ClassType2"
-	const sprite := "res://assets/sprites/icon.png"
 	
 	const can_carry := 1
 	
