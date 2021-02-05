@@ -5,5 +5,3 @@
 
 [node name="Spyglass" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-type = 2048
-can_carry = 0

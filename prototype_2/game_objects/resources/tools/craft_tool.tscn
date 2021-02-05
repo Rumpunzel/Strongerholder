@@ -2,7 +2,7 @@
 
 [ext_resource path="res://game_objects/resources/tools/spyglass.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/resources/tools/craft_tool.gd" type="Script" id=2]
-[ext_resource path="res://game_objects/resources/tools/hurt_box.gd" type="Script" id=3]
+[ext_resource path="res://game_objects/resources/tools/components/hurt_box.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 20.0

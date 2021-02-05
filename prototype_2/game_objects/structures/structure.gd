@@ -2,11 +2,13 @@ class_name Structure, "res://class_icons/game_objects/structures/icon_structure.
 extends GameObject
 
 
+const SCENE := "res://game_objects/structures/structure.tscn"
+
 const PERSIST_PROPERTIES_2 := ["starting_items"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
 
 
-const PilotMasterScene: PackedScene = preload("res://game_objects/structures/pilot_master.tscn")
+const PilotMasterScene: PackedScene = preload("res://game_objects/structures/components/pilot_master.tscn")
 
 
 var starting_items: Dictionary = { }

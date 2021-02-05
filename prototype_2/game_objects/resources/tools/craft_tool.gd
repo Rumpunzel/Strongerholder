@@ -2,6 +2,8 @@ class_name CraftTool, "res://class_icons/game_objects/resources/icon_crafting_to
 extends Spyglass
 
 
+const SCENE_OVERRIDE_2 := "res://game_objects/resources/tools/craft_tool.tscn"
+
 const PERSIST_PROPERTIES_4 := ["attack_value", "animation"]
 
 

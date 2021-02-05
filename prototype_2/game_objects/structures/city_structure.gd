@@ -2,6 +2,8 @@ class_name CityStructure, "res://class_icons/game_objects/structures/icon_city_s
 extends Structure
 
 
+const SCENE_OVERRIDE := "res://game_objects/structures/city_structure.tscn"
+
 const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "output_resources", "production_steps", "_available_job"]
 
 
@@ -51,7 +53,7 @@ func request_item(request, receiver: Node2D) -> void:
 
 
 func _initialise_pilot_master() -> void:
-	_pilot_master = load("res://game_objects/structures/buildings/components/city_pilot_master.tscn").instance()
+	_pilot_master = load("res://game_objects/structures/components/city_pilot_master.tscn").instance()
 	_pilot_master.game_object = self
 	_pilot_master.available_job = _available_job
 	_pilot_master.storage_resources = storage_resources
