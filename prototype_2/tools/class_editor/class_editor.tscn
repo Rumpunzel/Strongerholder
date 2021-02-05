@@ -107,3 +107,5 @@ margin_right = -8.0
 margin_bottom = -4.0
 [connection signal="pressed" from="MarginContainer/TopDivider/TitleDivider/SaveButton" to="." method="_save"]
 [connection signal="pressed" from="MarginContainer/TopDivider/TitleDivider/QuitButton" to="." method="_quit"]
+[connection signal="data_saved" from="MarginContainer/TopDivider/EditorDivider/Classes" to="." method="_save"]
+[connection signal="tab_changed" from="MarginContainer/TopDivider/EditorDivider/Classes" to="." method="_save"]

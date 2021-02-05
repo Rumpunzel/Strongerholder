@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://tools/class_editor/components/class_tab.gd" type="Script" id=1]
+[ext_resource path="res://tools/class_editor/components/sub_classes.gd" type="Script" id=2]
 
 [node name="ClassTab" type="MarginContainer"]
 anchor_right = 1.0
@@ -37,6 +38,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0
 drag_to_rearrange_enabled = true
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="tab_changed" from="InfoDivider/SubClasses" to="." method="_save_data"]
