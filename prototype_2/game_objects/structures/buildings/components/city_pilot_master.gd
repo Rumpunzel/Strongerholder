@@ -7,7 +7,7 @@ const PERSIST_OBJ_PROPERTIES_4 := ["_custodian", "_assigned_gatherers"]
 
 
 var available_job
-var storage_resources: Array = [ ]
+var storage_resources := { }
 
 var _custodian: Custodian = null
 var _assigned_gatherers: Dictionary = { }
@@ -18,8 +18,9 @@ var _posted_job: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for resource in storage_resources:
-		_quarter_master.register_storage(game_object, resource)
+	for resource in storage_resources.keys():
+		if storage_resources[resource]:
+			_quarter_master.register_storage(game_object, resource)
 
 
 
@@ -76,7 +77,7 @@ func unassign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
 
 
 func can_be_gathered(gathering_resource, puppet_master: Node2D, is_employee: bool) -> bool:
-	if not (is_employee or storage_resources.has(gathering_resource)):
+	if not (is_employee or storage_resources[gathering_resource]):
 		return false
 	
 	var assigned_workers: Array = _assigned_gatherers.get(gathering_resource, [ ])

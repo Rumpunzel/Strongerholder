@@ -18,7 +18,6 @@ position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -32 )
 texture = ExtResource( 3 )
 
 [node name="AudioHandler" parent="." instance=ExtResource( 1 )]

@@ -6,6 +6,6 @@ const PERSIST_PROPERTIES_3 := ["gathers", "delivers"]
 
 
 # warning-ignore-all:unused_class_variable
-var gathers: Array = [ ]
+var gathers := { }
 # warning-ignore-all:unused_class_variable
-var delivers: Array = [ ]
+var delivers := { }

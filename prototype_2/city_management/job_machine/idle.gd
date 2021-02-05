@@ -28,7 +28,10 @@ func _check_for_exit_conditions() -> void:
 	
 	
 	# Check for available storage fo all the resources I deliver with my tools
-	for use in dedicated_tool.delivers:
+	for use in dedicated_tool.delivers.keys():
+		if not dedicated_tool.delivers[use]:
+			continue
+		
 		var nearest_storage: Node2D = _quarter_master.nearest_storage(employer.global_position, use)
 		
 		if not nearest_storage or not (job_items.empty() or use == job_items.front().type):
@@ -45,8 +48,8 @@ func _check_for_exit_conditions() -> void:
 	
 	
 	# Check if there is anything more of what I am currently supposed to be gathering to be had
-	for use in dedicated_tool.gathers:
-		if not (job_items.empty() or use == job_item.type):
+	for use in dedicated_tool.gathers.keys():
+		if not dedicated_tool.gathers[use] or not (job_items.empty() or use == job_item.type):
 			continue
 		
 		if _construct_new_plan(use, employer):
@@ -86,7 +89,6 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 	var nearest_resource: GameResource = _get_nearest_item_of_type(use)
 	
 	if nearest_resource:
-		#print("Found %s in world" % Constants.enum_name(Constants.Resources, use))
 		exit(PICK_UP, [nearest_resource, delivery_target])
 		return true
 	
@@ -101,7 +103,7 @@ func _construct_new_plan(use, delivery_target: Node2D) -> bool:
 				state = RETRIEVE
 			else:
 				return false
-		#print("Found %s in the %s" % [ Constants.enum_name(Constants.Resources, use), "wild" if state == GATHER else "city" ])
+		
 		exit(state, [use, nearest_structure, delivery_target])
 		return true
 	

@@ -6,12 +6,12 @@ const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "output_r
 
 
 # Defines what types of resources can be stored in this building
-var storage_resources: Array = [ ]
+var storage_resources := { }
 
 # Defines behaviour of the refinery for this structure
 #	if this structure is not supposed to refine anything, leave it empty
-var input_resources: Dictionary = { }
-var output_resources: Dictionary = { }
+var input_resources := { }
+var output_resources := { }
 
 var production_steps: int = 2
 

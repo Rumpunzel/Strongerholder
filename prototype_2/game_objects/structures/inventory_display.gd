@@ -27,6 +27,6 @@ func update_display() -> void:
 		content[item.type] = content.get(item.type, 0) + 1
 	
 	for item in content.keys():
-		display_string += "%s: %s " % [Constants.enum_name(Constants.Resources, item), content[item]]
+		display_string += "%s: %s " % [item, content[item]]
 	
 	$label.text = display_string

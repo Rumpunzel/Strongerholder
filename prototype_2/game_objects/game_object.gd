@@ -108,6 +108,7 @@ func set_indestructible(new_status: bool):
 func set_sprite(new_sprite: String):
 	sprite = new_sprite
 	$Sprite.texture = load(sprite)
+	$Sprite.offset.y = -$Sprite.texture.get_height() / 2.0
 
 
 func set_selected(new_status: bool) -> void:

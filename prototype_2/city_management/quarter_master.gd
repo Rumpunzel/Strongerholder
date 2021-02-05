@@ -1,4 +1,4 @@
-class_name QuarterMaster, "res://class_icons/icon_quarter_master.svg"
+class_name QuarterMaster, "res://class_icons/city_management/icon_quarter_master.svg"
 extends Node
 
 

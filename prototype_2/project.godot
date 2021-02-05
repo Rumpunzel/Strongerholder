@@ -154,11 +154,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://tools/class_editor/components/properties/components/class_property.gd"
 }, {
-"base": "Resource",
-"class": "Constants",
-"language": "GDScript",
-"path": "res://constants.gd"
-}, {
 "base": "Spyglass",
 "class": "CraftTool",
 "language": "GDScript",
@@ -519,7 +514,6 @@ _global_script_class_icons={
 "ClassItem": "",
 "ClassProperties": "",
 "ClassProperty": "",
-"Constants": "",
 "CraftTool": "res://class_icons/game_objects/resources/icon_crafting_tool.svg",
 "Custodian": "res://class_icons/structures/icon_custodian.svg",
 "FileHelper": "",
@@ -552,7 +546,7 @@ _global_script_class_icons={
 "Main": "res://class_icons/icon_main.svg",
 "MainMenu": "res://class_icons/gui/icon_main_menu.svg",
 "Menu": "",
-"Navigator": "res://class_icons/icon_navigator.svg",
+"Navigator": "res://class_icons/city_management/icon_navigator.svg",
 "ObjectState": "res://class_icons/states/icon_state_idle.svg",
 "ObjectStateMachine": "res://class_icons/states/icon_state_machine.svg",
 "ObjectsLayer": "res://class_icons/game_objects/icon_objects_layer.svg",
@@ -561,7 +555,7 @@ _global_script_class_icons={
 "PlacementDummy": "",
 "PlayerMenu": "",
 "PuppetMaster": "res://class_icons/game_objects/game_actors/icon_puppet_master.svg",
-"QuarterMaster": "res://class_icons/icon_quarter_master.svg",
+"QuarterMaster": "res://class_icons/city_management/icon_quarter_master.svg",
 "RadiantContainer": "",
 "RadiantUI": "",
 "RadiantUIButton": "",
