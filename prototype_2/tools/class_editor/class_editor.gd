@@ -2,6 +2,9 @@ class_name ClassEditor
 extends PanelContainer
 
 
+var _game_class_factory := GameClassFactory.new()
+
+
 onready var _main_node: Main = get_tree().current_scene as Main
 onready var _classes: TabContainer = $MarginContainer/TopDivider/EditorDivider/Classes
 
@@ -31,21 +34,21 @@ func _save(quit_after: bool = false) -> void:
 			class_interfaces[key] = dict[key]
 	
 	#print(class_interfaces)
-	GameClassFactory.create_file(class_interfaces)
+	_game_class_factory.create_file(class_interfaces)
+	
+	yield(_game_class_factory, "file_created")
 	
 	if quit_after:
 		_leave_editor()
 
 
-func _quit(with_saving: bool = true) -> void:
-	if with_saving:
-		_save(true)
-	else:
-		_leave_editor()
+func _quit() -> void:
+	_save(true)
 
 
 func _leave_editor() -> void:
-	_main_node.open_main_menu()
-	
-	get_parent().remove_child(self)
-	queue_free()
+	_main_node.quit_game()
+#	_main_node.open_main_menu()
+#
+#	get_parent().remove_child(self)
+#	queue_free()

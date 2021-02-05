@@ -23,7 +23,14 @@ mouse_filter = 0
 margin_right = 299.0
 margin_bottom = 102.0
 
-[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
+[node name="ButtonsDivider" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
+margin_right = 183.0
+
+[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="0"]
+margin_right = 155.0
+
+[node name="MenuButton" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="1"]
+margin_left = 159.0
 margin_right = 183.0
 
 [node name="Properties" parent="MarginContainer/IconDivider/TypeDivider" index="1"]

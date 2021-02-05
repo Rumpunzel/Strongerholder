@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://tools/class_editor/game_resources/sub_classes/spyglass_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tools/class_editor/game_resources/sub_classes/properties/animation.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://tools/class_editor/components/class_item.gd" type="Script" id=4]
 [ext_resource path="res://tools/class_editor/game_resources/sprite.gd" type="Script" id=5]
 [ext_resource path="res://assets/sprites/icon.png" type="Texture" id=6]
+[ext_resource path="res://tools/class_editor/components/menu_button.gd" type="Script" id=7]
 
 [node name="CraftToolItem" instance=ExtResource( 1 )]
 margin_right = 251.0
@@ -49,10 +50,25 @@ filters = PoolStringArray( "*.png ; PNG Images" )
 margin_right = 607.0
 size_flags_horizontal = 3
 
-[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
+[node name="ButtonsDivider" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
 margin_right = 527.0
 margin_bottom = 24.0
-text = "CraftToolType"
+size_flags_horizontal = 3
+
+[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="0"]
+margin_right = 499.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "ClassType"
+
+[node name="MenuButton" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="1"]
+margin_left = 503.0
+margin_right = 527.0
+margin_bottom = 24.0
+text = "..."
+flat = false
+align = 0
+script = ExtResource( 7 )
 
 [node name="Properties" parent="MarginContainer/IconDivider/TypeDivider" index="1"]
 margin_top = 44.0

@@ -30,16 +30,18 @@ current_path = "res://ui/game_gui/resource_icons/icon_wood.png"
 margin_left = 80.0
 margin_right = 413.0
 
-[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
+[node name="ButtonsDivider" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
 margin_right = 333.0
-size_flags_horizontal = 1
-text = "SpyglassType"
+
+[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="0"]
+margin_right = 305.0
+
+[node name="MenuButton" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="1"]
+margin_left = 309.0
+margin_right = 333.0
 
 [node name="Properties" parent="MarginContainer/IconDivider/TypeDivider" index="1"]
-margin_top = 44.0
 margin_right = 333.0
-size_flags_vertical = 3
-custom_constants/separation = 10
 
 [node name="Gathers" parent="MarginContainer/IconDivider/TypeDivider/Properties" index="1" instance=ExtResource( 2 )]
 margin_left = 193.0

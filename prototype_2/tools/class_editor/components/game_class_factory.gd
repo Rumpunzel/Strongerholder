@@ -2,8 +2,11 @@ class_name GameClassFactory
 extends Resource
 
 
+signal file_created
+
+
 const _CLASS_NAME := "GameClasses"
-const _FILE_LOCATION := "res://tools/class_editor/game_classes.gd"
+const _FILE_LOCATION := "res://game_objects/game_classes.gd"
 
 
 const _GAME_RESOURCE_SCENE := "res://game_objects/resources/game_resource.tscn"
@@ -30,14 +33,15 @@ const CLASSES := {
 
 const _BASE_CLASS := """
 class _GameClass:
-	static func _spawn(scene: String, type: String, sprite: Texture, properties: Dictionary) -> Node2D:
+	static func _spawn(scene: String, type: String) -> Node2D:
 		var new_game_class: Node2D = load(scene).instance()
+		var class_constants: Dictionary = load(\"res://game_objects/game_classes.gd\").get_script_constant_map()[type].get_script_constant_map()
 		
-		properties[\"type\"] = type
-		properties[\"sprite\"] = sprite
-		
-		for property in properties.keys():
-			new_game_class.set(property, properties[property])
+		for property in class_constants.keys():
+			if property == scene:
+				pass
+			else:
+				new_game_class.set(property, class_constants[property])
 		
 		return new_game_class
 """
@@ -46,11 +50,8 @@ const _CLASS_BLUEPRINT := """
 class %s extends _GameClass:
 %s	
 %s	
-	const _PROPERTIES := {
-%s	}
-	
 	static func spawn() -> Node2D:
-		return _spawn(scene, type, load(sprite), _PROPERTIES)
+		return _spawn(scene, type)
 
 """
 
@@ -80,7 +81,7 @@ class ClassToStringInterface:
 
 
 
-static func create_file(class_interfaces: Dictionary) -> void:
+func create_file(class_interfaces: Dictionary) -> void:
 	# Initialise the class header with class declaration
 	#	and a list of constants with the class scenes
 	var file_string := _GAME_CLASSES_HEADER % [ _CLASS_NAME, _properties_to_data(_CONSTANT_BLUEPRINT, _get_scene_dictionary(), 0) ]
@@ -117,11 +118,13 @@ static func create_file(class_interfaces: Dictionary) -> void:
 	file.open(_FILE_LOCATION, File.WRITE)
 	file.store_string(file_string)
 	file.close()
+	
+	emit_signal("file_created")
 
 
 
 
-static func _create_game_class(class_interface: ClassToStringInterface) -> String:
+func _create_game_class(class_interface: ClassToStringInterface) -> String:
 	var main_properties := {
 		"scene": class_interface.scene,
 		"type": class_interface.type,
@@ -131,21 +134,12 @@ static func _create_game_class(class_interface: ClassToStringInterface) -> Strin
 	var class_constants := _properties_to_data(_CONSTANT_BLUEPRINT, main_properties, 1)
 	var class_properties := _properties_to_data(_CONSTANT_BLUEPRINT, class_interface.properties, 1)
 	
-	
-	var matched_properties := { }
-	
-	for property in class_interface.properties.keys():
-		matched_properties[property] = property
-	
-	var properties := _properties_to_data(_PROPERTY_BLUEPRINT, matched_properties, 2, true)
-	print(matched_properties)
-	
-	return _CLASS_BLUEPRINT % [ class_interface.type, class_constants, class_properties, properties ]
+	return _CLASS_BLUEPRINT % [ class_interface.type, class_constants, class_properties ]
 
 
 
 
-static func _properties_to_data(blueprint: String, properties: Dictionary, indent: int, property_is_variable: bool = false) -> String:
+func _properties_to_data(blueprint: String, properties: Dictionary, indent: int, property_is_variable: bool = false) -> String:
 	var properties_as_vars := ""
 	
 	for property in properties.keys():
@@ -154,7 +148,7 @@ static func _properties_to_data(blueprint: String, properties: Dictionary, inden
 	return properties_as_vars
 
 
-static func _property_to_string(blueprint: String, property_name: String, property_value, indent: int, property_is_variable: bool) -> String:
+func _property_to_string(blueprint: String, property_name: String, property_value, indent: int, property_is_variable: bool) -> String:
 	var property_string := ""
 	
 	for _i in range(indent):
@@ -210,6 +204,7 @@ static func _property_to_string(blueprint: String, property_name: String, proper
 	property_string += blueprint % [ property_name, value_string ]
 	
 	return property_string
+
 
 
 static func _get_scene_dictionary() -> Dictionary:

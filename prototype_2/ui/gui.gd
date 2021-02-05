@@ -10,8 +10,6 @@ signal quit_game
 
 onready var _main_menu = $MainMenu
 onready var _loading_gui: LoadingGUI = $LoadingGUI
-onready var _pause_menu = $PauseMenu
-onready var _game_gui = $GameGUI
 
 
 

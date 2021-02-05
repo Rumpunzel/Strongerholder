@@ -7,7 +7,15 @@ export(PackedScene) var list_item = null
 
 
 func _ready() -> void:
-	for resource in GameClasses.CLASSES[GameClasses._GAME_RESOURCE_SCENE]:
+	update_list()
+
+
+
+
+func update_list() -> void:
+	var lookup_file: GDScript = load("res://game_objects/game_classes.gd")
+	
+	for resource in lookup_file.CLASSES[lookup_file._GAME_RESOURCE_SCENE]:
 		var new_item = list_item.instance()
 		
 		property.add_child(new_item)
