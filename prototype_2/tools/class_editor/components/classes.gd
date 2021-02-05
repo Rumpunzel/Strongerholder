@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 
-func save_data() -> void:
+func save_data(_tab: int = 0) -> void:
 	emit_signal("data_saved")
 
 

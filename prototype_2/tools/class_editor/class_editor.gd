@@ -3,6 +3,9 @@ extends PanelContainer
 
 
 var _game_class_factory := GameClassFactory.new()
+var _going_to_save := { "saving": false, "quit_after": false }
+var _every_n_frames := 50
+var _frames_passed := 0
 
 
 onready var _main_node: Main = get_tree().current_scene as Main
@@ -17,13 +20,24 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _process(_delta: float) -> void:
+	if _going_to_save["saving"]:
+		if _frames_passed >= _every_n_frames:
+			_frames_passed = 0
+			_actually_save(_going_to_save["quit_after"])
+		else:
+			print("CURRENTLY BUSY // FILE WAS NOT SAVED!")
+	
+	_frames_passed += 1
 
 
 
 
 func _save(quit_after: bool = false) -> void:
+	_going_to_save = { "saving": true, "quit_after": quit_after }
+
+
+func _actually_save(quit_after: bool = false) -> void:
 	print("saving")
 	
 	var class_interfaces := { }
@@ -36,7 +50,9 @@ func _save(quit_after: bool = false) -> void:
 	#print(class_interfaces)
 	_game_class_factory.create_file(class_interfaces)
 	
-	yield(_game_class_factory, "file_created")
+	#yield(_game_class_factory, "file_created")
+	print("successfully saved")
+	_going_to_save = { "saving": false, "quit_after": false }
 	
 	if quit_after:
 		_leave_editor()

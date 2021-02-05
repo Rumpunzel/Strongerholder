@@ -69,8 +69,6 @@ class Axe extends _GameClass:
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": true,
-		"ClassType": false,
-		"ClassType2": false,
 	}
 	const animation := "attack"
 	const attack_value := 2
@@ -78,8 +76,6 @@ class Axe extends _GameClass:
 		"WoodLogs": true,
 		"WoodPlanks": false,
 		"Timber": false,
-		"ClassType": false,
-		"ClassType2": false,
 	}
 	
 	static func spawn() -> Node2D:
@@ -96,8 +92,6 @@ class Saw extends _GameClass:
 		"WoodLogs": true,
 		"WoodPlanks": false,
 		"Timber": false,
-		"ClassType": false,
-		"ClassType2": false,
 	}
 	const animation := "attack"
 	const attack_value := 2
@@ -105,8 +99,6 @@ class Saw extends _GameClass:
 		"WoodLogs": false,
 		"WoodPlanks": true,
 		"Timber": false,
-		"ClassType": false,
-		"ClassType2": false,
 	}
 	
 	static func spawn() -> Node2D:
@@ -123,15 +115,11 @@ class SpyglassType extends _GameClass:
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": false,
-		"ClassType": false,
-		"ClassType2": false,
 	}
 	const delivers := {
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": false,
-		"ClassType": false,
-		"ClassType2": false,
 	}
 	
 	static func spawn() -> Node2D:

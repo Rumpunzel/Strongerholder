@@ -140,7 +140,7 @@ _global_script_classes=[ {
 "path": "res://tools/class_editor/components/class_item.gd"
 }, {
 "base": "GridContainer",
-"class": "ClassItemProperties",
+"class": "ClassProperties",
 "language": "GDScript",
 "path": "res://tools/class_editor/components/properties.gd"
 }, {
@@ -511,7 +511,7 @@ _global_script_class_icons={
 "ClassEditor": "",
 "ClassGrid": "",
 "ClassItem": "",
-"ClassItemProperties": "",
+"ClassProperties": "",
 "ClassProperty": "",
 "Constants": "",
 "CraftTool": "res://class_icons/game_objects/resources/icon_crafting_tool.svg",
