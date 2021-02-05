@@ -17,7 +17,8 @@ class_scene = "res://game_objects/resources/tools/craft_tool.tscn"
 [node name="MarginContainer" parent="." index="0"]
 margin_left = 8.0
 margin_top = 4.0
-margin_right = 623.0
+margin_right = 506.0
+size_flags_horizontal = 3
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -26,7 +27,9 @@ custom_constants/margin_bottom = 4
 [node name="IconDivider" parent="MarginContainer" index="0"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 611.0
+margin_right = 494.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 16
 
 [node name="Sprite" parent="MarginContainer/IconDivider" index="0"]
@@ -47,23 +50,23 @@ mode = 0
 filters = PoolStringArray( "*.png ; PNG Images" )
 
 [node name="TypeDivider" parent="MarginContainer/IconDivider" index="1"]
-margin_right = 607.0
+margin_right = 490.0
 size_flags_horizontal = 3
 
 [node name="ButtonsDivider" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
-margin_right = 527.0
+margin_right = 410.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
 [node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="0"]
-margin_right = 499.0
+margin_right = 382.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "ClassType"
 
 [node name="MenuButton" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="1"]
-margin_left = 503.0
-margin_right = 527.0
+margin_left = 386.0
+margin_right = 410.0
 margin_bottom = 24.0
 text = "..."
 flat = false
@@ -72,17 +75,17 @@ script = ExtResource( 7 )
 
 [node name="Properties" parent="MarginContainer/IconDivider/TypeDivider" index="1"]
 margin_top = 44.0
-margin_right = 527.0
+margin_right = 410.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 10
+columns = 5
 
 [node name="AttackValue" parent="MarginContainer/IconDivider/TypeDivider/Properties" index="3" instance=ExtResource( 3 )]
-margin_left = 343.0
-margin_right = 437.0
+margin_left = 232.0
+margin_right = 326.0
 margin_bottom = 58.0
 
 [node name="Animation" parent="MarginContainer/IconDivider/TypeDivider/Properties" index="4" instance=ExtResource( 2 )]
-margin_left = 447.0
-margin_right = 527.0
+margin_left = 330.0
+margin_right = 410.0
 margin_bottom = 58.0

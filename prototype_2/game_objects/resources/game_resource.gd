@@ -2,13 +2,13 @@ class_name GameResource, "res://class_icons/game_objects/resources/icon_resource
 extends GameObject
 
 
-const PERSIST_PROPERTIES_2 := ["type", "how_many_can_be_carried"]
+const PERSIST_PROPERTIES_2 := ["type", "can_carry"]
 
 
 export(Constants.Resources) var type
 
 # warning-ignore-all:unused_class_variable
-export(int, 100) var how_many_can_be_carried: int = 1
+export(int, 100) var can_carry: int = 1
 
 
 onready var _objects_layer = ServiceLocator.objects_layer

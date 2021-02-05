@@ -10,6 +10,8 @@ margin_left = 8.0
 margin_top = 28.0
 margin_right = -8.0
 margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -20,6 +22,8 @@ margin_left = 16.0
 margin_top = 16.0
 margin_right = 1884.0
 margin_bottom = 1028.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="TopContainer" type="HBoxContainer" parent="TitleDivider"]
 margin_right = 1868.0
@@ -47,6 +51,7 @@ margin_bottom = 46.0
 margin_top = 66.0
 margin_right = 1868.0
 margin_bottom = 1012.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ClassGrid" type="GridContainer" parent="TitleDivider/ScrollContainer"]

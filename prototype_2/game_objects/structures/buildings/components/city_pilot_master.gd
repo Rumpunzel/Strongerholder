@@ -85,7 +85,7 @@ func can_be_gathered(gathering_resource, puppet_master: Node2D, is_employee: boo
 		return true
 	
 	var available_items: Array = how_many_of_item(gathering_resource)
-	var effective_workers: int = 0 if available_items.empty() else assigned_workers.size() * available_items.front().how_many_can_be_carried
+	var effective_workers: int = 0 if available_items.empty() else assigned_workers.size() * available_items.front().can_carry
 	
 	return effective_workers < available_items.size()
 

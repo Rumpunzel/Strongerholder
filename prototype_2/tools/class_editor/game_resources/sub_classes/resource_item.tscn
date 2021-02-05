@@ -8,11 +8,9 @@
 class_scene = "res://game_objects/resources/game_resource.tscn"
 
 [node name="MarginContainer" parent="." index="0"]
-margin_right = 315.0
 margin_bottom = 114.0
 
 [node name="IconDivider" parent="MarginContainer" index="0"]
-margin_right = 303.0
 margin_bottom = 106.0
 
 [node name="Sprite" parent="MarginContainer/IconDivider" index="0"]
@@ -20,24 +18,11 @@ margin_bottom = 102.0
 mouse_filter = 0
 
 [node name="TypeDivider" parent="MarginContainer/IconDivider" index="1"]
-margin_right = 299.0
 margin_bottom = 102.0
 
-[node name="ButtonsDivider" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
-margin_right = 183.0
-
-[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="0"]
-margin_right = 155.0
-
-[node name="MenuButton" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="1"]
-margin_left = 159.0
-margin_right = 183.0
-
 [node name="Properties" parent="MarginContainer/IconDivider/TypeDivider" index="1"]
-margin_right = 183.0
 margin_bottom = 102.0
 script = ExtResource( 2 )
 
 [node name="Carry" parent="MarginContainer/IconDivider/TypeDivider/Properties" index="0" instance=ExtResource( 3 )]
-margin_right = 183.0
 margin_bottom = 58.0

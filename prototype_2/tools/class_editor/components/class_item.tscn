@@ -20,6 +20,7 @@ margin_left = 8.0
 margin_top = 4.0
 margin_right = 243.0
 margin_bottom = 112.0
+size_flags_horizontal = 3
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -63,6 +64,7 @@ margin_left = 116.0
 margin_right = 227.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="ButtonsDivider" type="HBoxContainer" parent="MarginContainer/IconDivider/TypeDivider"]
 margin_right = 111.0
@@ -84,11 +86,10 @@ flat = false
 align = 0
 script = ExtResource( 5 )
 
-[node name="Properties" type="HBoxContainer" parent="MarginContainer/IconDivider/TypeDivider"]
+[node name="Properties" type="GridContainer" parent="MarginContainer/IconDivider/TypeDivider"]
 margin_top = 44.0
 margin_right = 111.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 10
 script = ExtResource( 4 )

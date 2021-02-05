@@ -5,6 +5,8 @@
 [node name="ResourceCheck" type="HBoxContainer"]
 margin_right = 65.0
 margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -20,4 +22,5 @@ margin_left = 28.0
 margin_top = 5.0
 margin_right = 87.0
 margin_bottom = 19.0
+size_flags_horizontal = 3
 text = "Resource"

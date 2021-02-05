@@ -1,5 +1,5 @@
 class_name ClassItemProperties
-extends HBoxContainer
+extends GridContainer
 
 
 

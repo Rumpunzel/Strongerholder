@@ -10,7 +10,7 @@
 [node name="WoodPlank" instance=ExtResource( 3 )]
 script = ExtResource( 1 )
 type = 1027
-how_many_can_be_carried = 12
+can_carry = 12
 
 [node name="Sprite" parent="." index="1"]
 scale = Vector2( 0.05, 0.05 )

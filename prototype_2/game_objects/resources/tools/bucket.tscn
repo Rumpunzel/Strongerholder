@@ -8,7 +8,7 @@
 [node name="Bucket" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 type = 0
-how_many_can_be_carried = 1
+can_carry = 1
 
 [node name="Sprite" parent="." index="1"]
 scale = Vector2( 0.5, 0.5 )

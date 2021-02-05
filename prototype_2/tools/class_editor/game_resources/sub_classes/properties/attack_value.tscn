@@ -16,5 +16,6 @@ text = "attack_value"
 margin_top = 26.0
 margin_right = 95.0
 margin_bottom = 50.0
+size_flags_horizontal = 3
 value = 2.0
 allow_greater = true

@@ -75,8 +75,8 @@ func capacity_left() -> float:
 	var carry_weight: float = 1.0
 	
 	for item in get_contents():
-		if not item.how_many_can_be_carried == 0:
-			carry_weight -= 1.0 / float(item.how_many_can_be_carried)
+		if not item.can_carry == 0:
+			carry_weight -= 1.0 / float(item.can_carry)
 	
 	return carry_weight
 

@@ -14,4 +14,6 @@ text = "delivers"
 [node name="Property" type="HBoxContainer" parent="PropContainer" index="2"]
 margin_top = 26.0
 margin_right = 95.0
-margin_bottom = 26.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

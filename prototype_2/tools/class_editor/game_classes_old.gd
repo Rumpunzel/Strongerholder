@@ -24,7 +24,7 @@ class Wood extends _GameClass:
 	
 	static func spawn() -> Node2D:
 		var properties := {
-			"how_many_can_be_carried": HOW_MANY_CAN_BE_CARRIED,
+			"can_carry": HOW_MANY_CAN_BE_CARRIED,
 		}
 		
 		return _spawn(_GAME_RESOURCE_SCENE, TYPE, load(SPRITE), properties)

@@ -31,7 +31,7 @@ class WoodLogs extends _GameClass:
 	const type := "WoodLogs"
 	const sprite := "res://ui/game_gui/resource_icons/icon_wood.png"
 	
-	const how_many_can_be_carried := 3
+	const can_carry := 3
 	
 	static func spawn() -> Node2D:
 		return _spawn(scene, type)
@@ -42,7 +42,7 @@ class WoodPlanks extends _GameClass:
 	const type := "WoodPlanks"
 	const sprite := "res://ui/game_gui/resource_icons/icon_wood_planks.png"
 	
-	const how_many_can_be_carried := 12
+	const can_carry := 12
 	
 	static func spawn() -> Node2D:
 		return _spawn(scene, type)
@@ -53,7 +53,7 @@ class Timber extends _GameClass:
 	const type := "Timber"
 	const sprite := "res://assets/sprites/trees/tree5.png"
 	
-	const how_many_can_be_carried := 1
+	const can_carry := 1
 	
 	static func spawn() -> Node2D:
 		return _spawn(scene, type)
@@ -64,7 +64,7 @@ class Axe extends _GameClass:
 	const type := "Axe"
 	const sprite := "res://assets/sprites/tools/axe.png"
 	
-	const how_many_can_be_carried := 1
+	const can_carry := 1
 	const gathers := {
 		"WoodLogs": false,
 		"WoodPlanks": false,
@@ -89,7 +89,7 @@ class Saw extends _GameClass:
 	const type := "Saw"
 	const sprite := "res://assets/sprites/tools/saw.png"
 	
-	const how_many_can_be_carried := 1
+	const can_carry := 1
 	const gathers := {
 		"WoodLogs": true,
 		"WoodPlanks": false,
@@ -114,7 +114,7 @@ class SpyglassType extends _GameClass:
 	const type := "SpyglassType"
 	const sprite := "res://ui/game_gui/resource_icons/icon_wood.png"
 	
-	const how_many_can_be_carried := 3
+	const can_carry := 3
 	const gathers := {
 		"WoodLogs": false,
 		"WoodPlanks": false,
