@@ -13,15 +13,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CheckBox" type="CheckBox" parent="."]
-margin_right = 24.0
-margin_bottom = 24.0
-size_flags_horizontal = 0
-flat = true
-
 [node name="Icon" type="TextureRect" parent="."]
-margin_left = 28.0
-margin_right = 60.0
+margin_right = 32.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 32, 0 )
 size_flags_vertical = 3
@@ -30,9 +23,15 @@ expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="."]
-margin_left = 64.0
+margin_left = 36.0
 margin_top = 5.0
-margin_right = 123.0
+margin_right = 95.0
 margin_bottom = 19.0
-size_flags_horizontal = 3
 text = "Resource"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+margin_left = 99.0
+margin_right = 123.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+flat = true

@@ -112,12 +112,16 @@ class Axe extends _GameClass:
 		"WoodPlanks": false,
 		"Timber": true,
 		"Stone": false,
+		"Axe": false,
+		"Saw": false,
 	}
 	const delivers := {
 		"WoodLogs": true,
 		"WoodPlanks": false,
 		"Timber": false,
 		"Stone": false,
+		"Axe": false,
+		"Saw": false,
 	}
 	
 	static func spawn() -> Node2D:
@@ -140,12 +144,16 @@ class Saw extends _GameClass:
 		"WoodPlanks": false,
 		"Timber": false,
 		"Stone": false,
+		"Axe": false,
+		"Saw": false,
 	}
 	const delivers := {
 		"WoodLogs": false,
 		"WoodPlanks": true,
 		"Timber": false,
 		"Stone": false,
+		"Axe": false,
+		"Saw": false,
 	}
 	
 	static func spawn() -> Node2D:
@@ -166,24 +174,32 @@ class WoodcuttersHut extends _GameClass:
 		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
+		"Axe": 1,
+		"Saw": 0,
 	}
 	const storage_resources := {
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": false,
 		"Stone": false,
+		"Axe": false,
+		"Saw": false,
 	}
 	const input_resources := {
 		"WoodLogs": 0,
 		"WoodPlanks": 0,
 		"Timber": 1,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 0,
 	}
 	const output_resources := {
 		"WoodLogs": 3,
 		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 0,
 	}
 	
 	static func spawn() -> Node2D:
@@ -204,24 +220,32 @@ class Sawmill extends _GameClass:
 		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 1,
 	}
 	const storage_resources := {
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": false,
 		"Stone": false,
+		"Axe": false,
+		"Saw": false,
 	}
 	const input_resources := {
 		"WoodLogs": 1,
 		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 0,
 	}
 	const output_resources := {
 		"WoodLogs": 0,
 		"WoodPlanks": 4,
 		"Timber": 0,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 0,
 	}
 	
 	static func spawn() -> Node2D:
@@ -242,24 +266,32 @@ class Stockpile extends _GameClass:
 		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 0,
 	}
 	const storage_resources := {
 		"WoodLogs": true,
 		"WoodPlanks": true,
 		"Timber": true,
 		"Stone": true,
+		"Axe": false,
+		"Saw": false,
 	}
 	const input_resources := {
 		"WoodLogs": 0,
 		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 0,
 	}
 	const output_resources := {
 		"WoodLogs": 0,
 		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 0,
 	}
 	
 	static func spawn() -> Node2D:
@@ -279,6 +311,8 @@ class Beech extends _GameClass:
 		"WoodPlanks": 0,
 		"Timber": 1,
 		"Stone": 0,
+		"Axe": 0,
+		"Saw": 0,
 	}
 	
 	static func spawn() -> Node2D:

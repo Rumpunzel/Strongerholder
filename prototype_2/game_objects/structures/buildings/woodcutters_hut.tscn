@@ -6,4 +6,3 @@
 [node name="WoodcuttersHut" instance=ExtResource( 1 )]
 
 [node name="WoodcutttersHut" parent="." index="0" instance=ExtResource( 2 )]
-input_pickable = true

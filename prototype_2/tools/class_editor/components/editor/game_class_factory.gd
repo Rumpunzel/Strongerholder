@@ -31,6 +31,16 @@ const CLASSES := {
 
 """
 
+const _SPAWN_FUNCTION := """
+static func spawn_class_with_name(class_name_to_spawn: String) -> Node2D:
+	var lookup_file: GDScript = load(\"res://game_objects/game_classes.gd\")
+	var constants: Dictionary = lookup_file.get_script_constant_map()
+	var new_class = constants[class_name_to_spawn].spawn()
+	
+	return new_class
+
+"""
+
 const _BASE_CLASS := """
 class _GameClass:
 	static func _spawn(scene: String, type: String) -> Node2D:
@@ -104,6 +114,7 @@ func create_file(class_interfaces: Dictionary) -> void:
 	
 	# Then add convert scene_name_dictionary as a dictionary of arays to the file
 	file_string += _CLASS_DICTIONARY % _properties_to_data(_VARIABLE_BLUEPRINT, scene_name_dictionary, 1)
+	file_string += _SPAWN_FUNCTION
 	
 	
 	# Then go through the entire array of interfaces

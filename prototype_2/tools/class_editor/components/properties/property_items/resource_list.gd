@@ -14,8 +14,9 @@ func _ready() -> void:
 
 func update_list() -> void:
 	var lookup_file: GDScript = load("res://game_objects/game_classes.gd")
+	var resources_to_list: Array = lookup_file.CLASSES.get(lookup_file._GAME_RESOURCE_SCENE, [ ]) + lookup_file.CLASSES.get(lookup_file._SPYGLASS_SCENE, [ ]) + lookup_file.CLASSES.get(lookup_file._CRAFT_TOOL_SCENE, [ ])
 	
-	for resource in lookup_file.CLASSES[lookup_file._GAME_RESOURCE_SCENE]:
+	for resource in resources_to_list:
 		var new_item = list_item.instance()
 		
 		property.add_child(new_item)
