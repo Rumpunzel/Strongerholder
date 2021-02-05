@@ -33,12 +33,8 @@ class WoodLogs extends _GameClass:
 	
 	const how_many_can_be_carried := 3
 	
-	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-	}
-	
 	static func spawn() -> Node2D:
-		return _spawn(scene, type, load(sprite), _PROPERTIES)
+		return _spawn(scene, type)
 
 
 class WoodPlanks extends _GameClass:
@@ -48,12 +44,8 @@ class WoodPlanks extends _GameClass:
 	
 	const how_many_can_be_carried := 12
 	
-	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-	}
-	
 	static func spawn() -> Node2D:
-		return _spawn(scene, type, load(sprite), _PROPERTIES)
+		return _spawn(scene, type)
 
 
 class Timber extends _GameClass:
@@ -63,12 +55,8 @@ class Timber extends _GameClass:
 	
 	const how_many_can_be_carried := 1
 	
-	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-	}
-	
 	static func spawn() -> Node2D:
-		return _spawn(scene, type, load(sprite), _PROPERTIES)
+		return _spawn(scene, type)
 
 
 class Axe extends _GameClass:
@@ -81,25 +69,19 @@ class Axe extends _GameClass:
 		"WoodLogs": false,
 		"WoodPlanks": false,
 		"Timber": true,
+		"ClassType": false,
 	}
 	const delivers := {
 		"WoodLogs": true,
 		"WoodPlanks": false,
 		"Timber": false,
+		"ClassType": false,
 	}
 	const attack_value := 2
 	const animation := "attack"
 	
-	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-		"gathers": gathers,
-		"delivers": delivers,
-		"attack_value": attack_value,
-		"animation": animation,
-	}
-	
 	static func spawn() -> Node2D:
-		return _spawn(scene, type, load(sprite), _PROPERTIES)
+		return _spawn(scene, type)
 
 
 class Saw extends _GameClass:
@@ -112,25 +94,19 @@ class Saw extends _GameClass:
 		"WoodLogs": true,
 		"WoodPlanks": false,
 		"Timber": false,
+		"ClassType": false,
 	}
 	const delivers := {
 		"WoodLogs": false,
 		"WoodPlanks": true,
 		"Timber": false,
+		"ClassType": false,
 	}
 	const attack_value := 2
 	const animation := "attack"
 	
-	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-		"gathers": gathers,
-		"delivers": delivers,
-		"attack_value": attack_value,
-		"animation": animation,
-	}
-	
 	static func spawn() -> Node2D:
-		return _spawn(scene, type, load(sprite), _PROPERTIES)
+		return _spawn(scene, type)
 
 
 class SpyglassType extends _GameClass:
@@ -150,24 +126,19 @@ class SpyglassType extends _GameClass:
 		"Timber": false,
 	}
 	
-	const _PROPERTIES := {
-		"how_many_can_be_carried": how_many_can_be_carried,
-		"gathers": gathers,
-		"delivers": delivers,
-	}
-	
 	static func spawn() -> Node2D:
-		return _spawn(scene, type, load(sprite), _PROPERTIES)
+		return _spawn(scene, type)
 
 
 class _GameClass:
-	static func _spawn(scene: String, type: String, sprite: Texture, properties: Dictionary) -> Node2D:
+	static func _spawn(scene: String, type: String) -> Node2D:
 		var new_game_class: Node2D = load(scene).instance()
+		var class_constants: Dictionary = load("res://game_objects/game_classes.gd").get_script_constant_map()[type].get_script_constant_map()
 		
-		properties["type"] = type
-		properties["sprite"] = sprite
-		
-		for property in properties.keys():
-			new_game_class.set(property, properties[property])
+		for property in class_constants.keys():
+			if property == scene:
+				pass
+			else:
+				new_game_class.set(property, class_constants[property])
 		
 		return new_game_class

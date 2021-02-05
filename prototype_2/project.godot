@@ -144,11 +144,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://tools/class_editor/components/properties.gd"
 }, {
-"base": "Tree",
-"class": "ClassList",
-"language": "GDScript",
-"path": "res://tools/class_editor/components/class_list.gd"
-}, {
 "base": "PanelContainer",
 "class": "ClassProperty",
 "language": "GDScript",
@@ -202,7 +197,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "GameClasses",
 "language": "GDScript",
-"path": "res://tools/class_editor/game_classes.gd"
+"path": "res://game_objects/game_classes.gd"
 }, {
 "base": "Control",
 "class": "GameGUI",
@@ -517,7 +512,6 @@ _global_script_class_icons={
 "ClassGrid": "",
 "ClassItem": "",
 "ClassItemProperties": "",
-"ClassList": "",
 "ClassProperty": "",
 "Constants": "",
 "CraftTool": "res://class_icons/game_objects/resources/icon_crafting_tool.svg",
