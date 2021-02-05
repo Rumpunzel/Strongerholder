@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://tools/class_editor/components/properties/property_items/resource_list.gd" type="Script" id=1]
+[ext_resource path="res://tools/class_editor/components/properties/property_items/resource_check.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tools/class_editor/components/properties/components/class_property.tscn" type="PackedScene" id=3]
+[ext_resource path="res://tools/class_editor/components/properties/property_items/toggle_all.gd" type="Script" id=4]
+
+[node name="StorageResources" instance=ExtResource( 3 )]
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+list_item = ExtResource( 2 )
+
+[node name="PropContainer" parent="." index="0"]
+margin_right = 218.0
+
+[node name="TopDivider" parent="PropContainer" index="0"]
+margin_right = 210.0
+margin_bottom = 24.0
+
+[node name="Label" parent="PropContainer/TopDivider" index="0"]
+margin_top = 5.0
+margin_right = 116.0
+margin_bottom = 19.0
+text = "storage_resources"
+
+[node name="ToggleAll" type="CheckBox" parent="PropContainer/TopDivider" index="1"]
+margin_left = 120.0
+margin_right = 210.0
+margin_bottom = 24.0
+text = "Toggle All"
+flat = true
+script = ExtResource( 4 )
+
+[node name="HSeparator" parent="PropContainer" index="1"]
+margin_top = 28.0
+margin_right = 210.0
+margin_bottom = 32.0
+
+[node name="Property" type="HBoxContainer" parent="PropContainer" index="2"]
+margin_top = 36.0
+margin_right = 210.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

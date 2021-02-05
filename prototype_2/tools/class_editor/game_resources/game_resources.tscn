@@ -1,9 +1,14 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://tools/class_editor/components/class_tab.tscn" type="PackedScene" id=1]
-[ext_resource path="res://tools/class_editor/game_resources/sub_classes/game_resources.tscn" type="PackedScene" id=2]
-[ext_resource path="res://tools/class_editor/game_resources/sub_classes/craft_tools.tscn" type="PackedScene" id=3]
-[ext_resource path="res://tools/class_editor/game_resources/sub_classes/spyglasses.tscn" type="PackedScene" id=4]
+[ext_resource path="res://tools/class_editor/components/editor/class_tab.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/game_resources/game_resources_tab.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tools/class_editor/game_resources/craft_tools_tab.tscn" type="PackedScene" id=3]
+[ext_resource path="res://tools/class_editor/game_resources/spyglasses_tab.tscn" type="PackedScene" id=4]
+
+
+
+
+
 
 [node name="GameResources" instance=ExtResource( 1 )]
 

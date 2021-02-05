@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://tools/class_editor/components/properties/property_items/resource_list.gd" type="Script" id=1]
+[ext_resource path="res://tools/class_editor/components/properties/components/class_property.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tools/class_editor/components/properties/property_items/resource_counter.tscn" type="PackedScene" id=3]
+
+[node name="InputResources" instance=ExtResource( 2 )]
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+list_item = ExtResource( 3 )
+
+[node name="PropContainer" parent="." index="0"]
+margin_right = 110.0
+
+[node name="TopDivider" parent="PropContainer" index="0"]
+margin_right = 102.0
+
+[node name="Label" parent="PropContainer/TopDivider" index="0"]
+margin_right = 102.0
+text = "input_resources"
+
+[node name="HSeparator" parent="PropContainer" index="1"]
+margin_right = 102.0
+
+[node name="Property" type="HBoxContainer" parent="PropContainer" index="2"]
+margin_top = 26.0
+margin_right = 102.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
