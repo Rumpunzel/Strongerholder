@@ -92,7 +92,7 @@ _global_script_classes=[ {
 "base": "Structure",
 "class": "CityStructure",
 "language": "GDScript",
-"path": "res://game_objects/structures/buildings/components/city_structure.gd"
+"path": "res://game_objects/structures/city_structure.gd"
 }, {
 "base": "AudioHandler",
 "class": "CityStructureAudioHandler",

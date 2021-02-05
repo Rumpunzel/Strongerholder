@@ -4,10 +4,8 @@
 [ext_resource path="res://assets/sprites/trees/tree5.png" type="Texture" id=2]
 [ext_resource path="res://game_objects/resources/wood_log.gd" type="Script" id=3]
 
-
 [node name="WoodLog" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-type = 1025
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 2 )

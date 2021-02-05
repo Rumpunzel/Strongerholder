@@ -4,11 +4,8 @@ extends GameObject
 
 const PERSIST_PROPERTIES_2 := ["type", "can_carry"]
 
-
-export(Constants.Resources) var type
-
 # warning-ignore-all:unused_class_variable
-export(int, 100) var can_carry: int = 1
+var can_carry: int = 1
 
 
 onready var _objects_layer = ServiceLocator.objects_layer
@@ -22,9 +19,6 @@ func _ready() -> void:
 		_first_time = false
 		
 		_initialise_state_machine()
-	
-	
-	add_to_group(Constants.enum_name(Constants.Resources, type))
 	
 	connect("died", self, "unregister_resource")
 	

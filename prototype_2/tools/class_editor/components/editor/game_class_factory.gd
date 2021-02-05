@@ -13,8 +13,8 @@ const _GAME_RESOURCE_SCENE := "res://game_objects/resources/game_resource.tscn"
 const _SPYGLASS_SCENE := "res://game_objects/resources/tools/spyglass.tscn"
 const _CRAFT_TOOL_SCENE := "res://game_objects/resources/tools/craft_tool.tscn"
 
-const _CITY_STRUCTURE_SCENE := "res://game_objects/structures/city_structure_with_point.tscn"
-const _STRUCTURE_SCENE := "res://game_objects/structures/structure_with_point.tscn"
+const _CITY_STRUCTURE_SCENE := "res://game_objects/structures/city_structure.tscn"
+const _STRUCTURE_SCENE := "res://game_objects/structures/structure.tscn"
 
 
 const _GAME_CLASSES_HEADER := """# Avoid changing this file by hand if you can
@@ -37,10 +37,13 @@ class _GameClass:
 		var new_game_class: Node2D = load(scene).instance()
 		var class_constants: Dictionary = load(\"res://game_objects/game_classes.gd\").get_script_constant_map()[type].get_script_constant_map()
 		
+		new_game_class.name = type
+		
 		for property in class_constants.keys():
-			if property == scene:
+			if property == \"scene\":
 				pass
 			else:
+				assert(property in new_game_class)
 				new_game_class.set(property, class_constants[property])
 		
 		return new_game_class

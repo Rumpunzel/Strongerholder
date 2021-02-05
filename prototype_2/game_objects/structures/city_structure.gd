@@ -8,14 +8,14 @@ const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "output_r
 export(GDScript) var _available_job
 
 # Defines what types of resources can be stored in this building
-export(Array, Constants.Resources) var storage_resources = [ ]
+var storage_resources: Array = [ ]
 
 # Defines behaviour of the refinery for this structure
 #	if this structure is not supposed to refine anything, leave it empty
-export(Array, Constants.Resources) var input_resources = [ ]
-export(Array, Constants.Resources) var output_resources = [ ]
+var input_resources: Dictionary = { }
+var output_resources: Dictionary = { }
 
-export var production_steps: int = 2
+var production_steps: int = 2
 
 
 

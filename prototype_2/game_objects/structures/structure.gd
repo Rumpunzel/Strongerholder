@@ -2,16 +2,14 @@ class_name Structure, "res://class_icons/game_objects/structures/icon_structure.
 extends GameObject
 
 
-const PERSIST_PROPERTIES_2 := ["type", "starting_items"]
+const PERSIST_PROPERTIES_2 := ["starting_items"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
 
 
 const PilotMasterScene: PackedScene = preload("res://game_objects/structures/pilot_master.tscn")
 
 
-export(Constants.Structures) var type: int
-
-export(Array, PackedScene) var starting_items
+var starting_items: Dictionary = { }
 
 
 var _pilot_master
@@ -27,9 +25,6 @@ func _ready() -> void:
 		_initialise_state_machine()
 		
 		_initialise_starting_items()
-	
-	
-	add_to_group(Constants.enum_name(Constants.Structures, type))
 	
 	$AudioHandler.connect_signals(_state_machine)
 
@@ -73,14 +68,17 @@ func _initialise_state_machine() -> void:
 	_state_machine.name = "StateMachine"
 	_state_machine.game_object = self
 	_state_machine.pilot_master = _pilot_master
+	_state_machine.hit_points_max = hit_points_max
+	_state_machine.indestructible = indestructible
 	
 	add_child(_state_machine)
 
 
 func _initialise_starting_items() -> void:
-	for item in starting_items:
-		var new_item: Node2D = item.instance()
-		
-		add_child(new_item)
-		new_item.appear(false)
-		_pilot_master.transfer_item(new_item)
+	for item in starting_items.keys():
+		for _i in range(starting_items[item]):
+			var new_item: Node2D = GameClasses.spawn_class_with_name(item)
+			
+			add_child(new_item)
+			new_item.appear(false)
+			_pilot_master.transfer_item(new_item)

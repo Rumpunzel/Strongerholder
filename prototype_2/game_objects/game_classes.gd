@@ -6,8 +6,8 @@ extends Resource
 const _GAME_RESOURCE_SCENE := "res://game_objects/resources/game_resource.tscn"
 const _SPYGLASS_SCENE := "res://game_objects/resources/tools/spyglass.tscn"
 const _CRAFT_TOOL_SCENE := "res://game_objects/resources/tools/craft_tool.tscn"
-const _CITY_STRUCTURE_SCENE := "res://game_objects/structures/city_structure_with_point.tscn"
-const _STRUCTURE_SCENE := "res://game_objects/structures/structure_with_point.tscn"
+const _CITY_STRUCTURE_SCENE := "res://game_objects/structures/city_structure.tscn"
+const _STRUCTURE_SCENE := "res://game_objects/structures/structure.tscn"
 
 
 const CLASSES := {
@@ -30,6 +30,14 @@ const CLASSES := {
 		"Beech",
 	],
 }
+
+
+static func spawn_class_with_name(class_name_to_spawn: String) -> Node2D:
+	var lookup_file: GDScript = load("res://game_objects/game_classes.gd")
+	var constants: Dictionary = lookup_file.get_script_constant_map()
+	var new_class = constants[class_name_to_spawn].spawn()
+	
+	return new_class
 
 
 class WoodLogs extends _GameClass:
@@ -145,7 +153,7 @@ class Saw extends _GameClass:
 
 
 class WoodcuttersHut extends _GameClass:
-	const scene := "res://game_objects/structures/city_structure_with_point.tscn"
+	const scene := "res://game_objects/structures/city_structure.tscn"
 	const type := "WoodcuttersHut"
 	const sprite := "res://assets/sprites/structures/medievalStructure_16.png"
 	
@@ -183,7 +191,7 @@ class WoodcuttersHut extends _GameClass:
 
 
 class Sawmill extends _GameClass:
-	const scene := "res://game_objects/structures/city_structure_with_point.tscn"
+	const scene := "res://game_objects/structures/city_structure.tscn"
 	const type := "Sawmill"
 	const sprite := "res://assets/sprites/structures/medievalStructure_21.png"
 	
@@ -221,7 +229,7 @@ class Sawmill extends _GameClass:
 
 
 class Stockpile extends _GameClass:
-	const scene := "res://game_objects/structures/city_structure_with_point.tscn"
+	const scene := "res://game_objects/structures/city_structure.tscn"
 	const type := "Stockpile"
 	const sprite := "res://assets/sprites/structures/medievalStructure_19.png"
 	
@@ -259,7 +267,7 @@ class Stockpile extends _GameClass:
 
 
 class Beech extends _GameClass:
-	const scene := "res://game_objects/structures/structure_with_point.tscn"
+	const scene := "res://game_objects/structures/structure.tscn"
 	const type := "Beech"
 	const sprite := "res://assets/sprites/trees/tree1.png"
 	
@@ -269,8 +277,8 @@ class Beech extends _GameClass:
 	const starting_items := {
 		"WoodLogs": 0,
 		"WoodPlanks": 0,
-		"Timber": 0,
-		"Stone": 1,
+		"Timber": 1,
+		"Stone": 0,
 	}
 	
 	static func spawn() -> Node2D:
@@ -282,10 +290,13 @@ class _GameClass:
 		var new_game_class: Node2D = load(scene).instance()
 		var class_constants: Dictionary = load("res://game_objects/game_classes.gd").get_script_constant_map()[type].get_script_constant_map()
 		
+		new_game_class.name = type
+		
 		for property in class_constants.keys():
-			if property == scene:
+			if property == "scene":
 				pass
 			else:
+				assert(property in new_game_class)
 				new_game_class.set(property, class_constants[property])
 		
 		return new_game_class

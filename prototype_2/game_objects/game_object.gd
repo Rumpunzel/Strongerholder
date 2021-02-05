@@ -4,15 +4,20 @@ extends StaticBody2D
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "position", "maximum_operators", "_first_time"]
+const PERSIST_PROPERTIES := ["name", "position", "type", "sprite", "hit_points_max", "indestructible", "maximum_operators", "_first_time"]
 const PERSIST_OBJ_PROPERTIES := ["_assigned_workers", "_state_machine"]
 
 
 signal died
 
 
-export var maximum_operators: int = 1
+var type: String
+var sprite: String
 
+var hit_points_max: float = 10.0 setget set_hit_points_max
+var indestructible: bool = false setget set_indestructible
+
+var maximum_operators: int = 1
 
 var selected: bool = false setget set_selected
 
@@ -25,9 +30,14 @@ var _assigned_workers: Array = [ ]
 
 
 onready var _collision_shape: CollisionShape2D = $CollisionShape
+onready var _sprite: Sprite = $Sprite
 onready var _selection_outline: SelectionOutline = $SelectionOutline
 
 
+
+
+func _ready() -> void:
+	add_to_group(type)
 
 
 func _input_event(_viewport: Object, event: InputEvent, _shape_idx: int) -> void:
@@ -78,6 +88,26 @@ func is_active() -> bool:
 func enable_collision(new_status: bool) -> void:
 	_collision_shape.set_deferred("disabled", not new_status)
 
+
+
+
+func set_hit_points_max(new_max: float):
+	hit_points_max = new_max
+	
+	if _state_machine:
+		_state_machine.hit_points_max = hit_points_max
+
+
+func set_indestructible(new_status: bool):
+	indestructible = new_status
+	
+	if _state_machine:
+		_state_machine.indestructible = indestructible
+
+
+func set_sprite(new_sprite: String):
+	sprite = new_sprite
+	$Sprite.texture = load(sprite)
 
 
 func set_selected(new_status: bool) -> void:

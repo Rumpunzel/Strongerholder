@@ -4,7 +4,7 @@ extends Control
 
 var _current_dummies: Array = [ ]
 var _current_blueprint: PackedScene = null
-var _current_structure: BuildingPoint = null
+var _current_structure: Node2D = null
 
 var _objects_layer: ObjectsLayer = null setget set_objects_layer
 
@@ -32,7 +32,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_objects_layer.add_child(_current_structure)
 			_current_structure.global_position = _current_dummies.front().get_building_position()
 			
-			_current_structure = _current_blueprint.instance()
+			#_current_structure = _current_blueprint.instance()
 	elif event.is_action_pressed("place_building_cancel"):
 		get_tree().set_input_as_handled()
 		
@@ -48,6 +48,26 @@ func place_building(structure: PackedScene) -> void:
 	var new_collision_shapes: Array = [ ]
 	var new_sprites: Array = [ ]
 	var new_structures: Array = _current_structure.get_children()
+	
+	_current_dummies = [ ]
+	
+	for i in range(new_structures.size()):
+		new_collision_shapes.append(new_structures[i]._get_copy_of_collision_shape())
+		new_sprites.append(new_structures[i]._get_copy_sprite())
+		
+		var new_dummy: PlacementDummy = PlacementDummy.new(new_collision_shapes[i], new_structures[i].position, new_sprites[i], new_structures[i].position)
+		
+		_current_dummies.append(new_dummy)
+		_objects_layer.add_child(new_dummy)
+
+
+func place_building_2(structure: Node2D) -> void:
+	#_current_blueprint = structure
+	_current_structure = structure#_current_blueprint.instance()
+	
+	var new_collision_shapes: Array = [ ]
+	var new_sprites: Array = [ ]
+	var new_structures: Array = [_current_structure]#.get_children()
 	
 	_current_dummies = [ ]
 	
