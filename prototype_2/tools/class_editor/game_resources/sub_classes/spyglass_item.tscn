@@ -9,49 +9,29 @@ size_flags_horizontal = 1
 class_scene = "res://game_objects/resources/tools/spyglass.tscn"
 
 [node name="MarginContainer" parent="." index="0"]
-margin_right = 324.0
+margin_bottom = 146.0
 
-[node name="IconDivider" parent="MarginContainer" index="0"]
-margin_right = 312.0
+[node name="PropertyDivider" parent="MarginContainer" index="0"]
+margin_bottom = 138.0
 
-[node name="Sprite" parent="MarginContainer/IconDivider" index="0"]
-margin_right = 64.0
-rect_min_size = Vector2( 64, 64 )
-size_flags_vertical = 1
+[node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
+margin_bottom = 134.0
 
-[node name="ImageDialog" parent="MarginContainer/IconDivider/Sprite" index="0"]
-current_dir = "res://ui/game_gui/resource_icons"
-current_file = "icon_wood.png"
-current_path = "res://ui/game_gui/resource_icons/icon_wood.png"
+[node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
+margin_bottom = 134.0
 
-[node name="TypeDivider" parent="MarginContainer/IconDivider" index="1"]
-margin_left = 80.0
-margin_right = 308.0
-size_flags_vertical = 1
+[node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
+margin_bottom = 134.0
 
-[node name="ButtonsDivider" parent="MarginContainer/IconDivider/TypeDivider" index="0"]
-margin_right = 228.0
-
-[node name="ResourceName" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="0"]
-margin_right = 200.0
-
-[node name="MenuButton" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider" index="1"]
-margin_left = 204.0
-margin_right = 228.0
-
-[node name="Properties" parent="MarginContainer/IconDivider/TypeDivider" index="1"]
-margin_right = 228.0
-columns = 3
-
-[node name="Carry" parent="MarginContainer/IconDivider/TypeDivider/Properties" index="0"]
-margin_right = 90.0
-
-[node name="Gathers" parent="MarginContainer/IconDivider/TypeDivider/Properties" index="1" instance=ExtResource( 2 )]
-margin_left = 94.0
-margin_right = 157.0
+[node name="Carry" parent="MarginContainer/PropertyDivider/Properties" index="0"]
 margin_bottom = 58.0
 
-[node name="Delivers" parent="MarginContainer/IconDivider/TypeDivider/Properties" index="2" instance=ExtResource( 3 )]
-margin_left = 161.0
-margin_right = 228.0
-margin_bottom = 58.0
+[node name="Gathers" parent="MarginContainer/PropertyDivider/Properties" index="1" instance=ExtResource( 2 )]
+margin_top = 62.0
+margin_right = 106.0
+margin_bottom = 96.0
+
+[node name="Delivers" parent="MarginContainer/PropertyDivider/Properties" index="2" instance=ExtResource( 3 )]
+margin_top = 100.0
+margin_right = 106.0
+margin_bottom = 134.0

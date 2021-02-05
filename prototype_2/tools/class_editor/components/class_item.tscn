@@ -26,7 +26,7 @@ custom_constants/margin_top = 4
 custom_constants/margin_left = 4
 custom_constants/margin_bottom = 4
 
-[node name="IconDivider" type="HBoxContainer" parent="MarginContainer"]
+[node name="PropertyDivider" type="HBoxContainer" parent="MarginContainer"]
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 231.0
@@ -35,8 +35,36 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 16
 
-[node name="Sprite" type="TextureRect" parent="MarginContainer/IconDivider"]
-margin_right = 100.0
+[node name="IconDivider" type="VBoxContainer" parent="MarginContainer/PropertyDivider"]
+margin_right = 105.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 4
+
+[node name="ButtonsDivider" type="HBoxContainer" parent="MarginContainer/PropertyDivider/IconDivider"]
+margin_right = 105.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="ResourceName" type="LineEdit" parent="MarginContainer/PropertyDivider/IconDivider/ButtonsDivider"]
+margin_right = 77.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "ClassType"
+
+[node name="MenuButton" type="MenuButton" parent="MarginContainer/PropertyDivider/IconDivider/ButtonsDivider"]
+margin_left = 81.0
+margin_right = 105.0
+margin_bottom = 24.0
+text = "..."
+flat = false
+align = 0
+script = ExtResource( 5 )
+
+[node name="Sprite" type="TextureRect" parent="MarginContainer/PropertyDivider/IconDivider"]
+margin_top = 28.0
+margin_right = 105.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 0 )
 mouse_default_cursor_shape = 2
@@ -46,7 +74,7 @@ expand = true
 stretch_mode = 6
 script = ExtResource( 2 )
 
-[node name="ImageDialog" type="FileDialog" parent="MarginContainer/IconDivider/Sprite"]
+[node name="ImageDialog" type="FileDialog" parent="MarginContainer/PropertyDivider/IconDivider/Sprite"]
 margin_right = 560.0
 margin_bottom = 496.0
 window_title = "Open a File"
@@ -59,36 +87,9 @@ current_dir = "res://assets/sprites"
 current_file = "icon.png"
 current_path = "res://assets/sprites/icon.png"
 
-[node name="TypeDivider" type="VBoxContainer" parent="MarginContainer/IconDivider"]
-margin_left = 116.0
+[node name="Properties" type="GridContainer" parent="MarginContainer/PropertyDivider"]
+margin_left = 121.0
 margin_right = 227.0
-margin_bottom = 100.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ButtonsDivider" type="HBoxContainer" parent="MarginContainer/IconDivider/TypeDivider"]
-margin_right = 111.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-
-[node name="ResourceName" type="LineEdit" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider"]
-margin_right = 83.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-text = "ClassType"
-
-[node name="MenuButton" type="MenuButton" parent="MarginContainer/IconDivider/TypeDivider/ButtonsDivider"]
-margin_left = 87.0
-margin_right = 111.0
-margin_bottom = 24.0
-text = "..."
-flat = false
-align = 0
-script = ExtResource( 5 )
-
-[node name="Properties" type="GridContainer" parent="MarginContainer/IconDivider/TypeDivider"]
-margin_top = 44.0
-margin_right = 111.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

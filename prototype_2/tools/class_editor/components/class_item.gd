@@ -11,9 +11,9 @@ const PROPERTIES := "_PROPERTIES"
 export(String, FILE, "*.tscn") var class_scene = ""
 
 
-onready var _sprite: TextureRect = $MarginContainer/IconDivider/Sprite
-onready var _resource_name: LineEdit = $MarginContainer/IconDivider/TypeDivider/ButtonsDivider/ResourceName
-onready var _properties: ClassItemProperties = $MarginContainer/IconDivider/TypeDivider/Properties
+onready var _sprite: TextureRect = $MarginContainer/PropertyDivider/IconDivider/Sprite
+onready var _resource_name: LineEdit = $MarginContainer/PropertyDivider/IconDivider/ButtonsDivider/ResourceName
+onready var _properties: ClassItemProperties = $MarginContainer/PropertyDivider/Properties
 
 
 
