@@ -24,6 +24,7 @@ func _gui_input(event: InputEvent) -> void:
 func set_current_image_path(new_path: String):
 	_image_dialog.current_path = new_path
 	texture = load(new_path)
+	call_deferred("set_custom_minimum_size", Vector2(max(rect_size.x, rect_size.y), rect_min_size.y))
 
 
 func get_current_image_path() -> String:

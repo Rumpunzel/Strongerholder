@@ -9,12 +9,12 @@ script = ExtResource( 2 )
 [node name="PropContainer" parent="." index="0"]
 margin_bottom = 54.0
 
-[node name="Label" parent="PropContainer" index="0"]
+[node name="Label" parent="PropContainer/TopDivider" index="0"]
+margin_right = 59.0
 text = "can_carry"
 
 [node name="Property" type="SpinBox" parent="PropContainer" index="2"]
 margin_top = 26.0
 margin_right = 95.0
 margin_bottom = 50.0
-size_flags_horizontal = 3
 value = 1.0

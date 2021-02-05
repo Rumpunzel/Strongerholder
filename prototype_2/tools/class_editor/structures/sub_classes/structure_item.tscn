@@ -1,5 +1,73 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://tools/class_editor/components/class_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/components/game_object_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/structures/sub_classes/properties/starting_items.tscn" type="PackedScene" id=2]
 
 [node name="StructureItem" instance=ExtResource( 1 )]
+class_scene = "res://game_objects/structures/structure_with_point.tscn"
+
+[node name="MarginContainer" parent="." index="0"]
+margin_right = 391.0
+margin_bottom = 210.0
+size_flags_vertical = 1
+
+[node name="PropertyDivider" parent="MarginContainer" index="0"]
+margin_right = 379.0
+margin_bottom = 202.0
+
+[node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
+margin_right = 100.0
+margin_bottom = 198.0
+size_flags_horizontal = 1
+
+[node name="ButtonsDivider" parent="MarginContainer/PropertyDivider/IconDivider" index="0"]
+margin_right = 100.0
+
+[node name="ResourceName" parent="MarginContainer/PropertyDivider/IconDivider/ButtonsDivider" index="0"]
+margin_right = 72.0
+
+[node name="MenuButton" parent="MarginContainer/PropertyDivider/IconDivider/ButtonsDivider" index="1"]
+margin_left = 76.0
+margin_right = 100.0
+
+[node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
+margin_right = 100.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 1
+
+[node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
+margin_left = 116.0
+margin_right = 375.0
+margin_bottom = 198.0
+
+[node name="GridContainer" parent="MarginContainer/PropertyDivider/Properties" index="0"]
+margin_right = 148.0
+margin_bottom = 198.0
+columns = 1
+
+[node name="HitPointsMax" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="0"]
+margin_right = 148.0
+margin_bottom = 58.0
+
+[node name="Indestructible" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="1"]
+margin_left = 0.0
+margin_top = 62.0
+margin_right = 148.0
+margin_bottom = 136.0
+
+[node name="MaximumOperators" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="2"]
+margin_top = 140.0
+margin_right = 148.0
+margin_bottom = 198.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PropertyDivider/Properties" index="1"]
+margin_left = 152.0
+margin_right = 259.0
+margin_bottom = 198.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StartingItems" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="0" instance=ExtResource( 2 )]
+margin_right = 107.0
+margin_bottom = 198.0

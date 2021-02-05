@@ -139,7 +139,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://tools/class_editor/components/class_item.gd"
 }, {
-"base": "GridContainer",
+"base": "HBoxContainer",
 "class": "ClassProperties",
 "language": "GDScript",
 "path": "res://tools/class_editor/components/properties.gd"
@@ -501,7 +501,7 @@ _global_script_class_icons={
 "BuildMenu": "",
 "BuildingPoint": "",
 "CityPilotMaster": "res://class_icons/structures/icon_city_pilot_master.svg",
-"CityStructure": "res://class_icons/structures/icon_city_structure.svg",
+"CityStructure": "res://class_icons/game_objects/structures/icon_city_structure.svg",
 "CityStructureAudioHandler": "",
 "CityStructureInactive": "res://class_icons/states/icon_state.svg",
 "CityStructureState": "",

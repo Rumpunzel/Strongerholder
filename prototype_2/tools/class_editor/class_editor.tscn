@@ -54,12 +54,12 @@ margin_bottom = 32.0
 text = "Quit"
 
 [node name="TitleSeparator" type="HSeparator" parent="MarginContainer/TopDivider"]
-margin_top = 52.0
+margin_top = 42.0
 margin_right = 1868.0
-margin_bottom = 56.0
+margin_bottom = 46.0
 
 [node name="EditorDivider" type="HSplitContainer" parent="MarginContainer/TopDivider"]
-margin_top = 76.0
+margin_top = 56.0
 margin_right = 1868.0
 margin_bottom = 1036.0
 size_flags_horizontal = 3
@@ -67,7 +67,7 @@ size_flags_vertical = 3
 
 [node name="SideBar" type="PanelContainer" parent="MarginContainer/TopDivider/EditorDivider"]
 margin_right = 300.0
-margin_bottom = 960.0
+margin_bottom = 980.0
 rect_min_size = Vector2( 300, 0 )
 size_flags_vertical = 3
 
@@ -75,13 +75,13 @@ size_flags_vertical = 3
 margin_left = 8.0
 margin_top = 4.0
 margin_right = 292.0
-margin_bottom = 956.0
+margin_bottom = 976.0
 
 [node name="Info" type="RichTextLabel" parent="MarginContainer/TopDivider/EditorDivider/SideBar/MarginContainer"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 264.0
-margin_bottom = 932.0
+margin_bottom = 952.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
@@ -92,7 +92,7 @@ And how to use it."
 [node name="Classes" type="TabContainer" parent="MarginContainer/TopDivider/EditorDivider"]
 margin_left = 312.0
 margin_right = 1868.0
-margin_bottom = 960.0
+margin_bottom = 980.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0

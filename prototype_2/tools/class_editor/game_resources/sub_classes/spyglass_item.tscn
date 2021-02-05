@@ -1,37 +1,38 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://tools/class_editor/game_resources/sub_classes/resource_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tools/class_editor/game_resources/sub_classes/properties/gathers.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tools/class_editor/game_resources/sub_classes/properties/delivers.tscn" type="PackedScene" id=3]
+[ext_resource path="res://tools/class_editor/components/class_item.gd" type="Script" id=4]
 
 [node name="SpyglassItem" instance=ExtResource( 1 )]
-size_flags_horizontal = 1
+margin_right = 251.0
+margin_bottom = 116.0
+size_flags_horizontal = 3
+script = ExtResource( 4 )
 class_scene = "res://game_objects/resources/tools/spyglass.tscn"
 
 [node name="MarginContainer" parent="." index="0"]
-margin_bottom = 146.0
+margin_right = 414.0
 
 [node name="PropertyDivider" parent="MarginContainer" index="0"]
-margin_bottom = 138.0
-
-[node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
-margin_bottom = 134.0
-
-[node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
-margin_bottom = 134.0
+margin_right = 402.0
 
 [node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
-margin_bottom = 134.0
+margin_right = 398.0
 
-[node name="Carry" parent="MarginContainer/PropertyDivider/Properties" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PropertyDivider/Properties" index="1"]
+margin_left = 190.0
+margin_right = 277.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Gathers" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="0" instance=ExtResource( 2 )]
+margin_right = 87.0
 margin_bottom = 58.0
 
-[node name="Gathers" parent="MarginContainer/PropertyDivider/Properties" index="1" instance=ExtResource( 2 )]
-margin_top = 62.0
-margin_right = 106.0
-margin_bottom = 96.0
-
-[node name="Delivers" parent="MarginContainer/PropertyDivider/Properties" index="2" instance=ExtResource( 3 )]
-margin_top = 100.0
-margin_right = 106.0
-margin_bottom = 134.0
+[node name="Delivers" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="1" instance=ExtResource( 3 )]
+margin_top = 78.0
+margin_right = 87.0
+margin_bottom = 136.0

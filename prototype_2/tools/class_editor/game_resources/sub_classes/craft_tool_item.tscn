@@ -1,99 +1,63 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://tools/class_editor/game_resources/sub_classes/spyglass_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tools/class_editor/game_resources/sub_classes/properties/animation.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tools/class_editor/game_resources/sub_classes/properties/attack_value.tscn" type="PackedScene" id=3]
-[ext_resource path="res://tools/class_editor/components/class_item.gd" type="Script" id=4]
-[ext_resource path="res://tools/class_editor/game_resources/sprite.gd" type="Script" id=5]
-[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=6]
 
 [node name="CraftToolItem" instance=ExtResource( 1 )]
-margin_right = 251.0
-margin_bottom = 116.0
-script = ExtResource( 4 )
 class_scene = "res://game_objects/resources/tools/craft_tool.tscn"
 
 [node name="MarginContainer" parent="." index="0"]
-margin_left = 8.0
-margin_top = 4.0
-margin_right = 381.0
-margin_bottom = 132.0
-size_flags_horizontal = 3
-custom_constants/margin_right = 4
-custom_constants/margin_top = 4
-custom_constants/margin_left = 4
-custom_constants/margin_bottom = 4
+margin_right = 549.0
+margin_bottom = 210.0
 
 [node name="PropertyDivider" parent="MarginContainer" index="0"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 369.0
-margin_bottom = 124.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 16
+margin_right = 537.0
+margin_bottom = 202.0
 
 [node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
-margin_right = 100.0
-margin_bottom = 120.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 4
+margin_right = 189.0
+margin_bottom = 198.0
 
 [node name="ButtonsDivider" parent="MarginContainer/PropertyDivider/IconDivider" index="0"]
-margin_right = 100.0
-margin_bottom = 24.0
+margin_right = 189.0
 
 [node name="ResourceName" parent="MarginContainer/PropertyDivider/IconDivider/ButtonsDivider" index="0"]
-margin_right = 72.0
-margin_bottom = 24.0
+margin_right = 161.0
 
 [node name="MenuButton" parent="MarginContainer/PropertyDivider/IconDivider/ButtonsDivider" index="1"]
-margin_left = 76.0
-margin_right = 100.0
-margin_bottom = 24.0
+margin_left = 165.0
+margin_right = 189.0
 
 [node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
-margin_top = 28.0
-margin_right = 100.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 100, 0 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 3
-texture = ExtResource( 6 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 5 )
+margin_right = 189.0
+margin_bottom = 198.0
 
 [node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
-margin_left = 116.0
-margin_right = 365.0
-margin_bottom = 120.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 3
+margin_left = 205.0
+margin_right = 533.0
+margin_bottom = 198.0
 
-[node name="Carry" parent="MarginContainer/PropertyDivider/Properties" index="0"]
-margin_right = 94.0
+[node name="GridContainer" parent="MarginContainer/PropertyDivider/Properties" index="0"]
+margin_bottom = 198.0
 
-[node name="Gathers" parent="MarginContainer/PropertyDivider/Properties" index="1"]
-margin_left = 98.0
-margin_top = 0.0
-margin_right = 165.0
-margin_bottom = 58.0
+[node name="AttackValue" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="4" instance=ExtResource( 3 )]
+margin_top = 140.0
+margin_right = 148.0
+margin_bottom = 198.0
 
-[node name="Animation" parent="MarginContainer/PropertyDivider/Properties" index="2" instance=ExtResource( 2 )]
-margin_left = 169.0
-margin_right = 249.0
-margin_bottom = 58.0
+[node name="Animation" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="5" instance=ExtResource( 2 )]
+margin_left = 152.0
+margin_top = 140.0
+margin_right = 257.0
+margin_bottom = 198.0
 
-[node name="AttackValue" parent="MarginContainer/PropertyDivider/Properties" index="3" instance=ExtResource( 3 )]
-margin_top = 62.0
-margin_right = 94.0
-margin_bottom = 120.0
+[node name="VBoxContainer" parent="MarginContainer/PropertyDivider/Properties" index="1"]
+margin_bottom = 198.0
 
-[node name="Delivers" parent="MarginContainer/PropertyDivider/Properties" index="4"]
-margin_left = 98.0
-margin_top = 62.0
-margin_right = 165.0
-margin_bottom = 120.0
+[node name="Gathers" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="0"]
+margin_bottom = 89.0
+
+[node name="Delivers" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="1"]
+margin_top = 109.0
+margin_bottom = 198.0

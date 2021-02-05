@@ -2,7 +2,7 @@ class_name Structure, "res://class_icons/game_objects/structures/icon_structure.
 extends GameObject
 
 
-const PERSIST_PROPERTIES_2 := ["type", "_starting_items"]
+const PERSIST_PROPERTIES_2 := ["type", "starting_items"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
 
 
@@ -11,7 +11,7 @@ const PilotMasterScene: PackedScene = preload("res://game_objects/structures/pil
 
 export(Constants.Structures) var type: int
 
-export(Array, PackedScene) var _starting_items
+export(Array, PackedScene) var starting_items
 
 
 var _pilot_master
@@ -78,7 +78,7 @@ func _initialise_state_machine() -> void:
 
 
 func _initialise_starting_items() -> void:
-	for item in _starting_items:
+	for item in starting_items:
 		var new_item: Node2D = item.instance()
 		
 		add_child(new_item)

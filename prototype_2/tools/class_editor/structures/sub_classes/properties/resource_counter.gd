@@ -3,7 +3,7 @@ extends HBoxContainer
 
 onready var _label: Label = $Label
 onready var _icon: TextureRect = $Icon
-onready var _check_box: CheckBox = $CheckBox
+onready var _spin_box: SpinBox = $SpinBox
 
 
 
@@ -22,11 +22,11 @@ func get_resource() -> String:
 
 
 func set_value(new_value) -> void:
-	if new_value == null:
+	if not new_value:
 		return
 	
-	_check_box.pressed = new_value
+	_spin_box.value = new_value
 
 
-func get_value() -> bool:
-	return _check_box.pressed
+func get_value() -> int:
+	return int(_spin_box.value)

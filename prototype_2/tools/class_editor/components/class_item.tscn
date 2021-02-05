@@ -21,6 +21,7 @@ margin_top = 4.0
 margin_right = 243.0
 margin_bottom = 112.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -66,8 +67,9 @@ script = ExtResource( 5 )
 margin_top = 28.0
 margin_right = 105.0
 margin_bottom = 100.0
-rect_min_size = Vector2( 100, 0 )
+rect_min_size = Vector2( 105, 0 )
 mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
 expand = true
@@ -87,7 +89,7 @@ current_dir = "res://assets/sprites"
 current_file = "icon.png"
 current_path = "res://assets/sprites/icon.png"
 
-[node name="Properties" type="GridContainer" parent="MarginContainer/PropertyDivider"]
+[node name="Properties" type="HBoxContainer" parent="MarginContainer/PropertyDivider"]
 margin_left = 121.0
 margin_right = 227.0
 margin_bottom = 100.0

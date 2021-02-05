@@ -34,6 +34,11 @@ func set_value(resource_list) -> void:
 			resource_item.set_value(value)
 
 
+func set_all_values_to(new_value) -> void:
+	for resource_item in property.get_children():
+		resource_item.set_value(new_value)
+
+
 func get_value() -> Dictionary:
 	var resource_list := { }
 	

@@ -4,14 +4,14 @@ extends StaticBody2D
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "position", "_maximum_operators", "_first_time"]
+const PERSIST_PROPERTIES := ["name", "position", "maximum_operators", "_first_time"]
 const PERSIST_OBJ_PROPERTIES := ["_assigned_workers", "_state_machine"]
 
 
 signal died
 
 
-export var _maximum_operators: int = 1
+export var maximum_operators: int = 1
 
 
 var selected: bool = false setget set_selected
@@ -46,7 +46,7 @@ func _input(event: InputEvent) -> void:
 func assign_worker(puppet_master: Node2D) -> void:
 	if not _assigned_workers.has(puppet_master):
 		_assigned_workers.append(puppet_master)
-	assert(_assigned_workers.size() <= _maximum_operators)
+	assert(_assigned_workers.size() <= maximum_operators)
 
 
 func unassign_worker(puppet_master: Node2D) -> void:
@@ -54,7 +54,7 @@ func unassign_worker(puppet_master: Node2D) -> void:
 
 
 func position_open(puppet_master: Node2D) -> bool:
-	return worker_assigned(puppet_master) or _assigned_workers.size() < _maximum_operators
+	return worker_assigned(puppet_master) or _assigned_workers.size() < maximum_operators
 
 
 func worker_assigned(puppet_master: Node2D) -> bool:

@@ -2,7 +2,7 @@ class_name ClassProperty
 extends PanelContainer
 
 
-onready var label: Label = $PropContainer/Label
+onready var label: Label = $PropContainer/TopDivider/Label
 # warning-ignore-all:unused_class_variable
 onready var property = $PropContainer/Property
 

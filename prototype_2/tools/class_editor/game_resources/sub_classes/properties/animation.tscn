@@ -7,7 +7,8 @@
 script = ExtResource( 1 )
 options = [ "none", "attack", "give" ]
 
-[node name="Label" parent="PropContainer" index="0"]
+[node name="Label" parent="PropContainer/TopDivider" index="0"]
+margin_right = 64.0
 text = "animation"
 
 [node name="Property" type="OptionButton" parent="PropContainer" index="2"]

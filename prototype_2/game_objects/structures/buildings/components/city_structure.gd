@@ -2,7 +2,7 @@ class_name CityStructure, "res://class_icons/game_objects/structures/icon_city_s
 extends Structure
 
 
-const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "_output_resources", "_production_steps", "_available_job"]
+const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "output_resources", "production_steps", "_available_job"]
 
 
 export(GDScript) var _available_job
@@ -13,9 +13,9 @@ export(Array, Constants.Resources) var storage_resources = [ ]
 # Defines behaviour of the refinery for this structure
 #	if this structure is not supposed to refine anything, leave it empty
 export(Array, Constants.Resources) var input_resources = [ ]
-export(Array, Constants.Resources) var _output_resources = [ ]
+export(Array, Constants.Resources) var output_resources = [ ]
 
-export var _production_steps: int = 2
+export var production_steps: int = 2
 
 
 
@@ -57,5 +57,5 @@ func _initialise_pilot_master() -> void:
 	
 	add_child(_pilot_master)
 	
-	_pilot_master._initialise_refineries(input_resources, _output_resources, _production_steps)
+	_pilot_master._initialise_refineries(input_resources, output_resources, production_steps)
 	connect("died", _pilot_master, "unregister_resource")

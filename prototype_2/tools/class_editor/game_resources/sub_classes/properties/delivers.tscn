@@ -5,10 +5,12 @@
 [ext_resource path="res://tools/class_editor/components/class_property.tscn" type="PackedScene" id=3]
 
 [node name="Delivers" instance=ExtResource( 3 )]
+size_flags_horizontal = 3
 script = ExtResource( 1 )
 list_item = ExtResource( 2 )
 
-[node name="Label" parent="PropContainer" index="0"]
+[node name="Label" parent="PropContainer/TopDivider" index="0"]
+margin_right = 51.0
 text = "delivers"
 
 [node name="Property" type="HBoxContainer" parent="PropContainer" index="2"]
