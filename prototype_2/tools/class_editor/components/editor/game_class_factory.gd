@@ -58,6 +58,7 @@ class %s extends _GameClass:
 
 const _CONSTANT_BLUEPRINT := "const %s := %s\n"
 const _PROPERTY_BLUEPRINT := "\"%s\": %s,\n"
+const _VARIABLE_BLUEPRINT := "%s: %s,\n"
 
 const _ARRAY_BLUEPRINT := "[\n%s"
 const _DICTIONARY_BLUEPRINT := "{\n%s"
@@ -92,20 +93,23 @@ func create_file(class_interfaces: Dictionary) -> void:
 	# Add pairs of scenes to types to scene_name_dictionary
 	for class_of_interfaces in class_interfaces.keys():
 		var array_of_classes: Array = class_interfaces[class_of_interfaces]
+		
 		for game_class in array_of_classes:
-			scene_name_dictionary[class_of_interfaces] = scene_name_dictionary.get(class_of_interfaces, [ ])
-			scene_name_dictionary[class_of_interfaces].append(game_class.type)
+			var class_scene_constance := _get_scene_constant_name(class_of_interfaces)
+			scene_name_dictionary[class_scene_constance] = scene_name_dictionary.get(class_scene_constance, [ ])
+			scene_name_dictionary[class_scene_constance].append(game_class.type)
 	
 	# Then add convert scene_name_dictionary as a dictionary of arays to the file
-	file_string += _CLASS_DICTIONARY % _properties_to_data(_PROPERTY_BLUEPRINT, scene_name_dictionary, 1)
+	file_string += _CLASS_DICTIONARY % _properties_to_data(_VARIABLE_BLUEPRINT, scene_name_dictionary, 1)
 	
 	
 	# Then go through the entire array of interfaces
 	#	and add the according class strings
 	for class_of_interfaces in scene_name_dictionary.keys():
-		var array_of_classes: Array = class_interfaces[class_of_interfaces]
+		var array_of_classes: Array = class_interfaces[_get_scene_dictionary()[class_of_interfaces]]
+		
 		for game_class in array_of_classes:
-			game_class.scene = class_of_interfaces
+			game_class.scene = _get_scene_dictionary()[class_of_interfaces]
 			file_string += _create_game_class(game_class)
 	
 	
@@ -207,7 +211,7 @@ func _property_to_string(blueprint: String, property_name: String, property_valu
 
 
 
-static func _get_scene_dictionary() -> Dictionary:
+func _get_scene_dictionary() -> Dictionary:
 	var scene_dictionary := {
 		"_GAME_RESOURCE_SCENE": _GAME_RESOURCE_SCENE,
 		"_SPYGLASS_SCENE": _SPYGLASS_SCENE,
@@ -217,3 +221,15 @@ static func _get_scene_dictionary() -> Dictionary:
 	}
 	
 	return scene_dictionary
+
+
+func _get_scene_constant_name(scene_path: String) -> String:
+	var scene_dictionary := {
+		_GAME_RESOURCE_SCENE: "_GAME_RESOURCE_SCENE",
+		_SPYGLASS_SCENE: "_SPYGLASS_SCENE",
+		_CRAFT_TOOL_SCENE: "_CRAFT_TOOL_SCENE",
+		_CITY_STRUCTURE_SCENE: "_CITY_STRUCTURE_SCENE",
+		_STRUCTURE_SCENE: "_STRUCTURE_SCENE",
+	}
+	
+	return scene_dictionary[scene_path]

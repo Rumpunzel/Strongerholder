@@ -11,20 +11,23 @@ const _STRUCTURE_SCENE := "res://game_objects/structures/structure_with_point.ts
 
 
 const CLASSES := {
-	"res://game_objects/resources/game_resource.tscn": [
+	_GAME_RESOURCE_SCENE: [
 		"WoodLogs",
 		"WoodPlanks",
 		"Timber",
 		"Stone",
 	],
-	"res://game_objects/resources/tools/craft_tool.tscn": [
+	_CRAFT_TOOL_SCENE: [
 		"Axe",
 		"Saw",
 	],
-	"res://game_objects/structures/city_structure_with_point.tscn": [
+	_CITY_STRUCTURE_SCENE: [
 		"WoodcuttersHut",
 		"Sawmill",
 		"Stockpile",
+	],
+	_STRUCTURE_SCENE: [
+		"Beech",
 	],
 }
 
@@ -201,8 +204,8 @@ class Sawmill extends _GameClass:
 		"Stone": false,
 	}
 	const input_resources := {
-		"WoodLogs": 0,
-		"WoodPlanks": 1,
+		"WoodLogs": 1,
+		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
 	}
@@ -249,6 +252,25 @@ class Stockpile extends _GameClass:
 		"WoodPlanks": 0,
 		"Timber": 0,
 		"Stone": 0,
+	}
+	
+	static func spawn() -> Node2D:
+		return _spawn(scene, type)
+
+
+class Beech extends _GameClass:
+	const scene := "res://game_objects/structures/structure_with_point.tscn"
+	const type := "Beech"
+	const sprite := "res://assets/sprites/trees/tree1.png"
+	
+	const hit_points_max := 10
+	const indestructible := false
+	const maximum_operators := 1
+	const starting_items := {
+		"WoodLogs": 0,
+		"WoodPlanks": 0,
+		"Timber": 0,
+		"Stone": 1,
 	}
 	
 	static func spawn() -> Node2D:
