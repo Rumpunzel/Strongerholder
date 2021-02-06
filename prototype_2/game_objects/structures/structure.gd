@@ -8,9 +8,6 @@ const PERSIST_PROPERTIES_2 := ["starting_items"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
 
 
-const PilotMasterScene: PackedScene = preload("res://game_objects/structures/components/pilot_master.tscn")
-
-
 var starting_items: Dictionary = { }
 
 
@@ -58,8 +55,8 @@ func _get_copy_sprite() -> Sprite:
 
 
 
-func _initialise_pilot_master() -> void:
-	_pilot_master = PilotMasterScene.instance()
+func _initialise_pilot_master(new_pilot_master := load("res://game_objects/structures/components/pilot_master.tscn")) -> void:
+	_pilot_master = new_pilot_master.instance()
 	_pilot_master.game_object = self
 	add_child(_pilot_master)
 	connect("died", _pilot_master, "unregister_resource")

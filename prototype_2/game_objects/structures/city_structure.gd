@@ -51,14 +51,10 @@ func request_item(request, receiver: Node2D) -> void:
 
 
 
-
-func _initialise_pilot_master() -> void:
-	_pilot_master = load("res://game_objects/structures/components/city_pilot_master.tscn").instance()
-	_pilot_master.game_object = self
+func _initialise_pilot_master(new_pilot_master := load("res://game_objects/structures/components/city_pilot_master.tscn")) -> void:
+	._initialise_pilot_master(new_pilot_master)
+	
 	_pilot_master.available_job = _available_job
 	_pilot_master.storage_resources = storage_resources
 	
-	add_child(_pilot_master)
-	
 	_pilot_master._initialise_refineries(input_resources, output_resources, production_steps)
-	connect("died", _pilot_master, "unregister_resource")
