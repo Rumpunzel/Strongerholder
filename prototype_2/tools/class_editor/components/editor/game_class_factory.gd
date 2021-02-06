@@ -132,7 +132,7 @@ func create_file(class_interfaces: Dictionary) -> void:
 	
 	#print(file_string)
 	# Open a new file to write into
-	var file = File.new()
+	var file := File.new()
 	file.open(_FILE_LOCATION, File.WRITE)
 	file.store_string(file_string)
 	file.close()

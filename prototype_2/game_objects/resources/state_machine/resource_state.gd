@@ -2,9 +2,6 @@ class_name ResourceState, "res://class_icons/states/icon_state_idle.svg"
 extends ObjectState
 
 
-const DROP_RADIUS := 16.0
-
-
 
 func drop_item(objects_layer: YSort, position_to_drop: Vector2) -> void:
 	if game_object.get_parent():
@@ -12,7 +9,8 @@ func drop_item(objects_layer: YSort, position_to_drop: Vector2) -> void:
 	
 	objects_layer.call_deferred("add_child", game_object)
 	
-	game_object.global_position = position_to_drop + Vector2(randf() * DROP_RADIUS, randf() * DROP_RADIUS)
+	game_object.global_position = position_to_drop
+	game_object.call_deferred("_play_drop_animation")
 	
 	exit(IDLE)
 

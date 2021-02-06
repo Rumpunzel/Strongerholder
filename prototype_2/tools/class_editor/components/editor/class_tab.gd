@@ -16,8 +16,8 @@ func get_class_interfaces() -> Dictionary:
 	return class_interfaces
 
 
-func update_list() -> void:
-	_sub_classes.update_list()
+func update_all_data() -> void:
+	_sub_classes.update_all_data()
 
 
 

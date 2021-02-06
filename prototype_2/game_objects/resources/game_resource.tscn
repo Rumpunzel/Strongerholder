@@ -14,5 +14,10 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 disabled = true
 
+[node name="Sprite" parent="." index="1"]
+scale = Vector2( 0.05, 0.05 )
+
 [node name="SelectionOutline" parent="." index="2"]
 visible = false
+
+[node name="Tween" type="Tween" parent="." index="3"]

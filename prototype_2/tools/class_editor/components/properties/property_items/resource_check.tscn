@@ -27,11 +27,11 @@ margin_left = 36.0
 margin_top = 13.0
 margin_right = 95.0
 margin_bottom = 27.0
+size_flags_horizontal = 3
 text = "Resource"
 
 [node name="CheckBox" type="CheckButton" parent="."]
 margin_left = 99.0
-margin_right = 245.0
+margin_right = 175.0
 margin_bottom = 40.0
-size_flags_horizontal = 3
 flat = true

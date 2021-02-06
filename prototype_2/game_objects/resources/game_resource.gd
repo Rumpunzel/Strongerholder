@@ -7,12 +7,18 @@ const SCENE := "res://game_objects/resources/game_resource.tscn"
 const PERSIST_PROPERTIES_2 := ["can_carry"]
 
 
+const DROP_RADIUS := 16.0
+const DROP_SPEED := 0.2
+const DROP_HEIGHT := 16.0
+
+
 # warning-ignore-all:unused_class_variable
 var can_carry: int = 1
 
 
 onready var _objects_layer = ServiceLocator.objects_layer
 onready var _quarter_master = ServiceLocator.quarter_master
+onready var _tween: Tween = $Tween
 
 
 
@@ -62,3 +68,14 @@ func _initialise_state_machine() -> void:
 	_state_machine.game_object = self
 	
 	add_child(_state_machine)
+
+
+func _play_drop_animation() -> void:
+	var final_position := global_position + Vector2(DROP_RADIUS - randf() * 2.0 * DROP_RADIUS, randf() * 2.0 * DROP_RADIUS)
+	
+	_tween.interpolate_property(self, "global_position:x", global_position.x, final_position.x, DROP_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
+	_tween.interpolate_property(self, "global_position:y", global_position.y, final_position.y - DROP_HEIGHT, DROP_SPEED * 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	_tween.interpolate_property(self, "global_position:y", final_position.y - DROP_HEIGHT, final_position.y, DROP_SPEED * 0.5, Tween.TRANS_QUAD, Tween.EASE_IN, DROP_SPEED * 0.5)
+	
+	_tween.start()
