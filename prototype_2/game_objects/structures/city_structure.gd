@@ -4,7 +4,7 @@ extends Structure
 
 const SCENE_OVERRIDE := "res://game_objects/structures/city_structure.tscn"
 
-const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "output_resources", "production_steps", "_available_job"]
+const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "output_resources", "production_steps"]
 
 
 # Defines what types of resources can be stored in this building
@@ -40,14 +40,14 @@ func can_be_operated() -> bool:
 	return _pilot_master.can_be_operated()
 
 
-func has_how_many_of_item(item_type) -> Array:
+func has_how_many_of_item(item_type: String) -> Array:
 	return _pilot_master.how_many_of_item(item_type)
 
-func request_item(request, receiver: Node2D) -> void:
-	var requested_item: Node2D = _pilot_master.has_item(request)
+func request_item(request: String, reciever: Node2D) -> void:
+	var item: GameResource = _pilot_master.has_item(request)
 	
-	if requested_item:
-		_state_machine.give_item(requested_item, receiver)
+	if item and _pilot_master.in_range(reciever):
+		_state_machine.give_item(item, reciever)
 
 
 

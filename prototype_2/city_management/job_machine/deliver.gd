@@ -2,11 +2,10 @@ class_name JobStateDeliver, "res://class_icons/states/icon_state_deliver.svg"
 extends JobStateMoveTo
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_delivery_target", "_target_structure"]
+const PERSIST_OBJ_PROPERTIES_3 := ["_delivery_target"]
 
 
-var _delivery_target: PilotMaster = null
-var _target_structure: Structure = null
+var _delivery_target: CityStructure = null
 
 
 
@@ -17,8 +16,8 @@ func _ready() -> void:
 
 
 
-func _check_for_exit_conditions() -> void:
-	if _job_items().empty():
+func check_for_exit_conditions(employee: PuppetMaster, _employer: CityStructure, _dedicated_tool: Spyglass) -> void:
+	if employee.get_inventory_contents(true).empty():
 		exit(IDLE)
 
 
@@ -29,23 +28,23 @@ func enter(parameters: Array = [ ]) -> void:
 		assert(parameters.size() == 1 and parameters[0])
 		
 		_delivery_target = parameters[0]
-		_target_structure = _delivery_target.game_object
 	
 	.enter([_delivery_target.global_position])
 
 
 func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_delivery_target = null
-	_target_structure = null
 	
 	.exit(next_state, parameters)
 
 
 
 
-func next_command() -> InputMaster.Command:
-	if not _job_items().empty():
-		var item: GameResource = _job_items().front()
+func next_command(employee: PuppetMaster, _dedicated_tool: Spyglass) -> InputMaster.Command:
+	var job_items: Array = employee.get_inventory_contents(true)
+	
+	if not job_items.empty():
+		var item: GameResource = job_items.front()
 		
 		item.unassign_worker(employee)
 		
@@ -54,5 +53,5 @@ func next_command() -> InputMaster.Command:
 	return InputMaster.Command.new()
 
 
-func current_target() -> Node2D:
-	return _target_structure
+func current_target() -> GameObject:
+	return _delivery_target

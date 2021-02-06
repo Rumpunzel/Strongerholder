@@ -1,24 +1,85 @@
-class_name JobMachine, "res://class_icons/icon_job_machine.svg"
+class_name JobMachine, "res://class_icons/states/icon_state_machine.svg"
 extends StateMachine
 
 
-const PERSIST_PROPERTIES_2 := ["_debug_flag_scene"]
-const PERSIST_OBJ_PROPERTIES_2 := ["employer", "employer_structure", "employee", "dedicated_tool", "_flag"]
+const PERSIST_PROPERTIES_2 := ["_debug_flag_scene", "_timed_passed"]
+const PERSIST_OBJ_PROPERTIES_2 := ["employee", "employer", "dedicated_tool", "_flag"]
 
 
 const DebugFlagScene = preload("res://city_management/job_machine/flag.tscn")
 
 
-var employer: Node2D
-var employer_structure: Node2D
-var employee: Node2D
+var employee: PuppetMaster
+var employer: CityStructure
+var dedicated_tool: Spyglass
 
-var dedicated_tool: Spyglass setget set_dedicated_tool
 
+var _update_time: float = 0.3
+var _timed_passed: float = 0.0
 
 var _flag: Sprite
 
 
+
+
+func _ready() -> void:
+	if not _flag and DebugFlagScene:
+		_flag = DebugFlagScene.instance()
+		get_tree().current_scene._world.add_child(_flag)
+
+
+func _setup(new_employer: CityStructure, new_employee: PuppetMaster) -> void:
+	employer = new_employer
+	employee = new_employee
+	
+	_flag.target = employee
+
+
+func _process(delta: float) -> void:
+	yield(get_tree(), "idle_frame")
+	
+	var target: Node2D = current_target()
+	
+	if target:
+		_flag.visible = true
+		_flag.global_position = target.global_position
+	else:
+		_flag.visible = false
+	
+	
+	_timed_passed += delta
+	
+	if _timed_passed < _update_time:
+		return
+	
+	_timed_passed = 0.0
+	
+	_check_for_exit_conditions()
+
+
+
+
+func next_step() -> Vector2:
+	return current_state.next_step(employee.global_position)
+
+func next_command() -> InputMaster.Command:
+	return current_state.next_command(employee, dedicated_tool)
+
+func current_target() -> GameObject:
+	return current_state.current_target()
+
+
+
+func activate(first_time: bool = false, tool_type = null) -> void:
+	current_state.activate(first_time, [ tool_type, employer ])
+
+func deactivate() -> void:
+	current_state.deactivate()
+
+
+
+func _check_for_exit_conditions() -> void:
+	current_state.check_for_exit_conditions(employee, employer, dedicated_tool)
 
 
 func _setup_states(state_classes: Array = [ ]) -> void:
@@ -36,68 +97,40 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 		]
 	
 	._setup_states(state_classes)
-
-
-func _ready() -> void:
-#	for state in get_children():
-#		state.employer = employer
-#		state.employee = employee
-	
-	if not _flag and DebugFlagScene:
-		_flag = DebugFlagScene.instance()
-		get_tree().current_scene._world.add_child(_flag)
-
-
-func _setup(new_employer: Node2D, new_employer_structure: Node2D, new_employee: Node2D) -> void:
-	employer = new_employer
-	employer_structure = new_employer_structure
-	employee = new_employee
-	
+	print("doing this")
 	for state in get_children():
-		state.job_machine = self
-		state.employer = employer
-		state.employer_structure = employer_structure
-		state.employee = employee
+		state.connect("state_changed", self, "_change_to")
+		state.connect("items_assigned", self, "_on_items_assigned")
+		state.connect("gatherer_assigned", self, "_on_gatherer_assigned")
+		state.connect("gatherer_unassigned", self, "_on_gatherer_unassigned")
+		state.connect("worker_assigned", self, "_on_worker_assigned")
+		state.connect("worker_unassigned", self, "_on_worker_unassigned")
+
+
+func _change_to(new_state: String, parameters: Array = [ ]) -> void:
+	_timed_passed = 0.0
 	
-	_flag.target = employee
-
-
-func _process(_delta) -> void:
-	yield(get_tree(), "idle_frame")
+	for item in employee.get_inventory_contents(true):
+		if weakref(item).get_ref():
+			item.unassign_worker(employee)
 	
-	var target: Node2D = current_target()
+	._change_to(new_state, parameters)
+
+func _on_items_assigned(additional_item: GameResource = null) -> void:
+	if additional_item:
+		additional_item.assign_worker(employee)
 	
-	if target:
-		_flag.visible = true
-		_flag.global_position = target.global_position
-	else:
-		_flag.visible = false
+	for item in employee.get_inventory_contents(true):
+		item.assign_worker(employee)
 
+func _on_gatherer_assigned(structure_to_retrieve_from: CityStructure, item_type: String) -> void:
+	structure_to_retrieve_from.assign_gatherer(employee, item_type)
 
+func _on_gatherer_unassigned(structure_to_retrieve_from: CityStructure, item_type: String) -> void:
+	structure_to_retrieve_from.unassign_gatherer(employee, item_type)
 
+func _on_worker_assigned(structure_to_gather_from: Structure) -> void:
+	structure_to_gather_from.assign_worker(employee)
 
-func next_step() -> Vector2:
-	return current_state.next_step()
-
-func next_command() -> InputMaster.Command:
-	return current_state.next_command()
-
-func current_target() -> Node2D:
-	return current_state.current_target()
-
-
-
-func activate(first_time: bool = false, tool_type = null) -> void:
-	current_state.activate(first_time, tool_type)
-
-func deactivate() -> void:
-	current_state.deactivate()
-
-
-
-func set_dedicated_tool(new_tool: Spyglass) -> void:
-	dedicated_tool = new_tool
-	assert(dedicated_tool)
-	
-	for state in get_children():
-		state.dedicated_tool = dedicated_tool
+func _on_worker_unassigned(structure_to_gather_from: Structure) -> void:
+	structure_to_gather_from.unassign_worker(employee)

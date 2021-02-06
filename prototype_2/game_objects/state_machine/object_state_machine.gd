@@ -10,8 +10,8 @@ signal animation_changed
 
 
 
-func damage(damage_points: float, sender) -> float:
-	return current_state.damage(damage_points, sender)
+func damage(damage_points: float) -> float:
+	return current_state.damage(damage_points)
 
 
 func die() -> void:

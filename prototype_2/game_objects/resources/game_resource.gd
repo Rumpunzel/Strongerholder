@@ -36,14 +36,14 @@ func _ready() -> void:
 
 
 func drop_item(position_to_drop: Vector2) -> void:
-	_state_machine.drop_item(_objects_layer, position_to_drop)
+	_state_machine.drop_item(position_to_drop)
 
 
-func pick_up_item(new_inventory: Inventory) -> void:
+func pick_up_item(new_inventory) -> void:
 	_state_machine.pick_up_item(new_inventory)
 
 
-func transfer_item(new_inventory: Inventory) -> void:
+func transfer_item(new_inventory) -> void:
 	if _state_machine:
 		_state_machine.transfer_item(new_inventory)
 	else:
@@ -62,6 +62,10 @@ func unregister_resource() -> void:
 
 func _initialise_state_machine(new_state_machine: ObjectStateMachine = ResourceStateMachine.new()) -> void:
 	._initialise_state_machine(new_state_machine)
+
+
+func _connect_state_machine() -> void:
+	._connect_state_machine()
 	
 	_state_machine.connect("item_picked_up", self, "_on_item_picked_up")
 	_state_machine.connect("item_transferred", self, "_on_item_transferred")
@@ -69,7 +73,7 @@ func _initialise_state_machine(new_state_machine: ObjectStateMachine = ResourceS
 
 
 
-func _on_item_picked_up(new_inventory: Inventory) -> void:
+func _on_item_picked_up(new_inventory) -> void:
 	position = Vector2()
 	
 	get_parent().remove_child(self)
@@ -79,7 +83,7 @@ func _on_item_picked_up(new_inventory: Inventory) -> void:
 	emit_signal("item_picked_up")
 
 
-func _on_item_transferred(new_inventory: Inventory) -> void:
+func _on_item_transferred(new_inventory) -> void:
 	var parent: Node2D = get_parent()
 	
 	if parent:

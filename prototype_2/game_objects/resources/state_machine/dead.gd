@@ -25,5 +25,5 @@ func drop_item(_position_to_drop: Vector2) -> void:
 	pass
 
 
-func transfer_item(_new_inventory: Inventory) -> void:
+func transfer_item(_new_inventory) -> void:
 	pass

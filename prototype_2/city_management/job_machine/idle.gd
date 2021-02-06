@@ -5,7 +5,7 @@ extends JobState
 const PERSIST_OBJ_PROPERTIES_2 := ["_delivery_target"]
 
 
-var _delivery_target: PilotMaster = null
+var _delivery_target: CityStructure = null
 
 
 
@@ -16,13 +16,13 @@ func _ready() -> void:
 
 
 
-func _check_for_exit_conditions() -> void:
-	var job_items: Array = _job_items()
+func check_for_exit_conditions(employee: PuppetMaster, employer: CityStructure, dedicated_tool: Spyglass) -> void:
+	var job_items: Array = employee.get_inventory_contents(true)
 	var job_item: GameObject = job_items.front() if not job_items.empty() else null
 	
 	# Check if I can carry anything more
 	#	 if I cannot, deliver to _delviery_target
-	if _delivery_target and job_item and employee.has_inventory_space_for(job_item):
+	if _delivery_target and job_item and not employee.has_inventory_space_for(job_item):
 		exit(DELIVER, [_delivery_target])
 		return
 	
@@ -37,13 +37,13 @@ func _check_for_exit_conditions() -> void:
 		if not nearest_storage or not (job_items.empty() or use == job_items.front().type):
 			continue
 		
-		if _construct_new_plan(use, nearest_storage._pilot_master):
+		if _construct_new_plan(employee, employer, use, nearest_storage._pilot_master):
 			return
 	
 	
 	# Check if the employer can be operated and do so if possible
-	if employer.can_be_operated() and employer_structure.position_open(employee):
-		exit(OPERATE, [employer_structure])
+	if employer.can_be_operated() and employer.position_open(employee):
+		exit(OPERATE, [employer])
 		return
 	
 	
@@ -52,7 +52,7 @@ func _check_for_exit_conditions() -> void:
 		if not dedicated_tool.gathers[use] or not (job_items.empty() or use == job_item.type):
 			continue
 		
-		if _construct_new_plan(use, employer):
+		if _construct_new_plan(employee, employer, use):
 			return
 	
 	
@@ -85,21 +85,24 @@ func exit(next_state: String, parameters: Array = [ ]) -> void:
 
 
 
-func _construct_new_plan(use, delivery_target: Node2D) -> bool:
-	var nearest_resource: GameResource = _get_nearest_item_of_type(use)
+func _construct_new_plan(employee: PuppetMaster, employer: CityStructure, use: String, delivery_target: CityStructure = null) -> bool:
+	var nearest_resource: GameResource = _get_nearest_item_of_type(employee, use)
+	
+	if not delivery_target:
+		delivery_target = employer
 	
 	if nearest_resource:
 		exit(PICK_UP, [nearest_resource, delivery_target])
 		return true
 	
 	
-	var nearest_structure: Structure = _get_nearest_structure_holding_item_of_type(use, [delivery_target.game_object.type])
+	var nearest_structure: Structure = _get_nearest_structure_holding_item_of_type(employee, use, [delivery_target.type])
 	
 	if nearest_structure:
 		var state: String = GATHER
 		
 		if nearest_structure is CityStructure:
-			if nearest_structure.can_be_gathered(use, employee, nearest_structure == employer_structure):
+			if nearest_structure.can_be_gathered(use, employee, nearest_structure == employer):
 				state = RETRIEVE
 			else:
 				return false

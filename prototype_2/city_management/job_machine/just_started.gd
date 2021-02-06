@@ -12,6 +12,6 @@ func _ready() -> void:
 
 func enter(parameters: Array = [ ]) -> void:
 	if not parameters.empty():
-		assert(parameters.size() == 1)
+		assert(parameters.size() == 2)
 	
-	.exit(RETRIEVE, [parameters[0], employer_structure, null])
+	.exit(RETRIEVE, [parameters[0], parameters[1], null])

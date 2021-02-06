@@ -6,7 +6,7 @@ const PERSIST_OBJ_PROPERTIES_3 := ["_item", "_delivery_target"]
 
 
 var _item: GameResource = null
-var _delivery_target: PilotMaster = null
+var _delivery_target: CityStructure = null
 
 
 
@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 
-func _check_for_exit_conditions() -> void:
+func check_for_exit_conditions(_employee: PuppetMaster, _employer: CityStructure, _dedicated_tool: Spyglass) -> void:
 	if not _item.is_active():
 		if _delivery_target:
 			exit(IDLE, [_delivery_target])
@@ -32,7 +32,7 @@ func enter(parameters: Array = [ ]) -> void:
 		assert(parameters.size() == 2)
 		
 		_item = parameters[0]
-		_item.assign_worker(employee)
+		emit_signal("items_assigned", _item)
 		
 		_delivery_target = parameters[1]
 	
@@ -49,8 +49,8 @@ func exit(next_state: String, parameters: Array = [ ]) -> void:
 
 
 
-func next_command() -> InputMaster.Command:
+func next_command(_employee: PuppetMaster, _dedicated_tool: Spyglass) -> InputMaster.Command:
 	return InputMaster.TakeCommand.new(_item)
 
-func current_target() -> Node2D:
+func current_target() -> GameObject:
 	return _item

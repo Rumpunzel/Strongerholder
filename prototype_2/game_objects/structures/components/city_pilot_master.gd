@@ -51,7 +51,7 @@ func employ_worker(puppet_master: Node2D) -> void:
 	if not needs_workers():
 		_unpost_job()
 	
-	new_job._setup(self, game_object, puppet_master)
+	new_job._setup(game_object, puppet_master)
 	
 	yield(get_tree(), "idle_frame")
 	
@@ -134,7 +134,7 @@ func _initialise_inventories() -> void:
 func _initialise_refineries(input_resources: Dictionary, output_resources: Dictionary, production_steps: int) -> void:
 	for inventory in _inventories:
 		if inventory is Refinery:
-			inventory.game_object = self
+			inventory.pilot_master = self
 			inventory.input_resources = input_resources
 			inventory.output_resources = output_resources
 			inventory.production_steps = production_steps

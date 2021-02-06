@@ -39,7 +39,7 @@ func process_commands(state_machine: ObjectStateMachine, player_controlled: bool
 
 
 
-func pick_up_item(item: Node2D) -> bool:
+func pick_up_item(item: GameResource) -> bool:
 	for inventory in _inventories:
 		if in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass)):
 			inventory.pick_up_item(item)
@@ -48,7 +48,7 @@ func pick_up_item(item: Node2D) -> bool:
 	return false
 
 
-func drop_item(item: Node2D, position_to_drop: Vector2 = global_position) -> void:
+func drop_item(item: GameResource, position_to_drop: Vector2 = global_position) -> void:
 	for inventory in _reversed_inventories:
 		if inventory.drop_item(item, position_to_drop):
 			break
@@ -57,7 +57,7 @@ func drop_all_items(position_to_drop: Vector2 = global_position) -> void:
 	for inventory in _reversed_inventories:
 		inventory.drop_all_items(position_to_drop)
 
-func recieve_transferred_item(item: Node2D) -> bool:
+func recieve_transferred_item(item: GameResource) -> bool:
 	for inventory in _inventories:
 		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass):
 			inventory.transfer_item(item)
@@ -66,9 +66,9 @@ func recieve_transferred_item(item: Node2D) -> bool:
 	return false
 
 
-func has_item(resource_type) -> Node2D:
+func has_item(resource_type: String) -> GameResource:
 	for inventory in _reversed_inventories:
-		var item: Node2D = inventory.has(resource_type)
+		var item: GameResource = inventory.has(resource_type)
 		
 		if item:
 			return item
@@ -88,7 +88,7 @@ func get_inventory_contents(only_main_inventory: bool = false) -> Array:
 	return contents
 
 
-func how_many_of_item(item_type) -> Array:
+func how_many_of_item(item_type: String) -> Array:
 	var item_count: Array = [ ]
 	
 	for item in get_inventory_contents():
@@ -98,7 +98,11 @@ func how_many_of_item(item_type) -> Array:
 	return item_count
 
 
+# This currently takes either a GameResource or a GameClasses._GameClass so not static typing
 func has_inventory_space_for(item) -> bool:
+	if item.can_carry <= 0:
+		return true
+	
 	return (_main_inventory.capacity_left() - 1.0 / float(item.can_carry)) >= 0.0
 
 
@@ -106,7 +110,7 @@ func in_range(object: PhysicsBody2D) -> bool:
 	return get_overlapping_bodies().has(object)
 
 
-func interact_with(structure: Node2D) -> void:
+func interact_with(structure: StaticBody2D) -> void:
 	if in_range(structure):
 		structure.operate()
 

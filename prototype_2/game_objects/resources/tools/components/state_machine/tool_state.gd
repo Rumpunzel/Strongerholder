@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 
-func start_attack(game_actor: Node2D) -> void:
+func start_attack(game_actor) -> void:
 	exit(ATTACK, [game_actor])
 
 

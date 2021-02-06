@@ -24,9 +24,8 @@ var maximum_operators: int
 var selected: bool = false setget set_selected
 
 
-# warning-ignore-all:unused_class_variable
 var _first_time: bool = true
-var _state_machine
+var _state_machine: ObjectStateMachine
 
 var _assigned_workers: Array = [ ]
 
@@ -47,6 +46,8 @@ func _ready() -> void:
 		hit_points = hit_points_max
 		
 		_initialisation()
+	
+	_connect_state_machine()
 	
 	add_to_group(type)
 
@@ -91,8 +92,7 @@ func damage(damage_points: float, sender) -> bool:
 	if indestructible:
 		return false
 	
-	
-	var damage_taken: float = _state_machine.damage(damage_points, sender)
+	var damage_taken: float = _state_machine.damage(damage_points)
 	
 	hit_points -= damage_taken
 	
@@ -141,10 +141,12 @@ func _initialise_state_machine(new_state_machine: ObjectStateMachine = ObjectSta
 	_state_machine = new_state_machine
 	_state_machine.name = "StateMachine"
 	
+	add_child(_state_machine)
+
+
+func _connect_state_machine() -> void:
 	_state_machine.connect("active_state_set", self, "_on_active_state_set")
 	_state_machine.connect("died", self, "_on_died")
-	
-	add_child(_state_machine)
 
 
 
@@ -156,4 +158,6 @@ func _on_active_state_set(new_state: bool) -> void:
 	set_physics_process(new_state)
 
 func _on_died() -> void:
+	_on_active_state_set(false)
+	
 	emit_signal("died")

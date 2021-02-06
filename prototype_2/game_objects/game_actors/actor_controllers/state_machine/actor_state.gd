@@ -59,7 +59,7 @@ func attack(weapon: CraftTool) -> void:
 	exit(ATTACK, [weapon])
 
 
-func operate(structure: Structure) -> void:
+func operate(structure: CityStructure) -> void:
 	exit(OPERATE, [structure])
 
 

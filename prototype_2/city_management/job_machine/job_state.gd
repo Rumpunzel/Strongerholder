@@ -5,93 +5,71 @@ extends Node
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
 const PERSIST_PROPERTIES := ["name"]
-const PERSIST_OBJ_PROPERTIES := ["job_machine", "employee", "employer", "employer_structure", "dedicated_tool"]
+const PERSIST_OBJ_PROPERTIES := ["employee", "employer", "employer_structure", "dedicated_tool"]
 
 
-const JUST_STARTED = "JustStarted"
-const IDLE = "Idle"
-const DELIVER = "Deliver"
-const RETRIEVE = "Retrieve"
-const PICK_UP = "PickUp"
-const GATHER = "Gather"
-const MOVE_TO = "MoveTo"
-const OPERATE = "Operate"
-const INACTIVE = "Inactive"
+signal state_changed
+
+signal items_assigned
+# warning-ignore:unused_signal
+signal gatherer_assigned
+# warning-ignore:unused_signal
+signal gatherer_unassigned
+# warning-ignore:unused_signal
+signal worker_assigned
+# warning-ignore:unused_signal
+signal worker_unassigned
 
 
-var job_machine = null
-# warning-ignore-all:unused_class_variable
-var employee: PuppetMaster = null
-# warning-ignore-all:unused_class_variable
-var employer: PilotMaster = null
-var employer_structure: CityStructure = null
 
-# warning-ignore-all:unused_class_variable
-var dedicated_tool: Spyglass = null
-
-var _update_time: float = 0.3
-var _timed_passed: float = 0.0
+const JUST_STARTED := "JustStarted"
+const IDLE := "Idle"
+const DELIVER := "Deliver"
+const RETRIEVE := "Retrieve"
+const PICK_UP := "PickUp"
+const GATHER := "Gather"
+const MOVE_TO := "MoveTo"
+const OPERATE := "Operate"
+const INACTIVE := "Inactive"
 
 
-onready var _navigator: Navigator = ServiceLocator.navigator
 onready var _quarter_master = ServiceLocator.quarter_master
 
 
 
 
-func _ready() -> void:
-	set_process(false)
+func check_for_exit_conditions(_employee: PuppetMaster, _employer: CityStructure, _dedicated_tool: Spyglass) -> void:
+	pass
 
-
-func _process(delta: float) -> void:
-	_timed_passed += delta
-	
-	if _timed_passed < _update_time:
-		return
-	
-	_timed_passed = 0.0
-	
-	_check_for_exit_conditions()
 
 
 
 
 func enter(_parameters: Array = [ ]) -> void:
-	for item in _job_items():
-		item.assign_worker(employee)
-	
-	set_process(true)
+	emit_signal("items_assigned")
 
 
 func exit(next_state: String, parameters: Array = [ ]) -> void:
-	set_process(false)
-	
-	_timed_passed = 0.0
-	
-	for item in _job_items():
-		if weakref(item).get_ref():
-			item.unassign_worker(employee)
-	
-	job_machine._change_to(next_state, parameters)
+	emit_signal("state_changed", next_state, parameters)
 
 
 
 
-func next_step() -> Vector2:
+func next_step(_start_position: Vector2) -> Vector2:
 	return Vector2()
 
 
-func next_command() -> InputMaster.Command:
+func next_command(_employee: PuppetMaster, _dedicated_tool: Spyglass) -> InputMaster.Command:
 	return InputMaster.Command.new()
 
 
-func current_target() -> Node2D:
+func current_target() -> GameObject:
 	return null
 
 
 
-func activate(_first_time: bool = false, _tool_type = null) -> void:
-	pass
+func activate(_first_time: bool = false, _parameters: Array = [ ]) -> void:
+	assert(false, "already active")
 
 func deactivate() -> void:
 	exit(INACTIVE)
@@ -102,16 +80,8 @@ func is_active() -> bool:
 
 
 
-func _check_for_exit_conditions() -> void:
-	pass
-
-
-func _job_items() -> Array:
-	return employee.get_inventory_contents(true)
-
-
-func _get_nearest_item_of_type(item_type) -> GameResource:
+func _get_nearest_item_of_type(employee: PuppetMaster, item_type: String) -> GameResource:
 	return _quarter_master.inquire_for_resource(employee, item_type, true)
 
-func _get_nearest_structure_holding_item_of_type(item_type, groups_to_exclude: Array) -> Structure:
+func _get_nearest_structure_holding_item_of_type(employee: PuppetMaster, item_type: String, groups_to_exclude: Array) -> Structure:
 	return _quarter_master.inquire_for_resource(employee, item_type, false, groups_to_exclude)

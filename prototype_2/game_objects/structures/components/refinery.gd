@@ -6,7 +6,7 @@ const PERSIST_PROPERTIES_2 := ["production_steps", "steps_done"]
 const PERSIST_OBJ_PROPERTIES_2 := ["game_object", "input_resources", "output_resources"]
 
 
-var game_object: Node2D = null
+var pilot_master: Node2D = null
 
 var input_resources: Dictionary = { }
 var output_resources: Dictionary = { }
@@ -20,7 +20,7 @@ onready var _quarter_master = ServiceLocator.quarter_master
 
 
 
-func pick_up_item(item: Node2D) -> void:
+func pick_up_item(item: GameResource) -> void:
 	item.unregister_resource()
 	
 	.pick_up_item(item)
@@ -67,4 +67,4 @@ func refine_prodcut() -> void:
 		for _i in range(output_resources[item]):
 			var new_item: Node2D = GameClasses.spawn_class_with_name(item)
 			
-			game_object.transfer_item(new_item)
+			pilot_master.recieve_transferred_item(new_item)

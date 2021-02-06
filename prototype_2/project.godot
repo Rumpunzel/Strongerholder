@@ -239,7 +239,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/components/inventory.gd"
 }, {
-"base": "Reference",
+"base": "StateMachine",
 "class": "JobMachine",
 "language": "GDScript",
 "path": "res://city_management/job_machine/job_machine.gd"
@@ -474,7 +474,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/state_machine/tool_state_machine.gd"
 }, {
-"base": "Reference",
+"base": "Popup",
 "class": "ToolsMenu",
 "language": "GDScript",
 "path": "res://ui/game_gui/tools_menu/tools_menu.gd"
@@ -531,7 +531,7 @@ _global_script_class_icons={
 "InfoMenu": "",
 "InputMaster": "res://class_icons/game_objects/game_actors/icon_input_master.svg",
 "Inventory": "res://class_icons/game_objects/icon_inventory.svg",
-"JobMachine": "",
+"JobMachine": "res://class_icons/states/icon_state_machine.svg",
 "JobState": "res://class_icons/states/icon_state_idle.svg",
 "JobStateDeliver": "res://class_icons/states/icon_state_deliver.svg",
 "JobStateGather": "res://class_icons/states/icon_state_gather.svg",
@@ -567,7 +567,7 @@ _global_script_class_icons={
 "ResourceStateMachine": "res://class_icons/states/icon_resource_state_machine.svg",
 "SelectionOutline": "",
 "Spyglass": "res://class_icons/game_objects/resources/icon_spyglass.svg",
-"StateDead": "res://class_icons/icon_state_dead.svg",
+"StateDead": "res://class_icons/states/icon_state_dead.svg",
 "StateInactive": "res://class_icons/states/icon_state.svg",
 "StateMachine": "",
 "Structure": "res://class_icons/game_objects/structures/icon_structure.svg",

@@ -10,6 +10,8 @@ signal operated
 signal item_dropped
 # warning-ignore:unused_signal
 signal took_item
+# warning-ignore:unused_signal
+signal item_transferred
 
 
 const GIVE := "Give"

@@ -23,7 +23,7 @@ func enter(parameters: Array = [ ]) -> void:
 		_receiver = parameters[1]
 	
 	if _receiver:
-		_receiver.transfer_item(_item)
+		emit_signal("item_transferred", _item, _receiver)
 	else:
 		emit_signal("item_dropped", _item)
 	

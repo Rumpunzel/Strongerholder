@@ -112,11 +112,11 @@ func _on_dropped_item(item: GameResource) -> void:
 func _on_took_item(item_to_take: GameResource) -> void:
 	emit_signal("took_item", item_to_take)
 
-func _on_item_requested(request: GameResource, structure_to_request_from) -> void:
+func _on_item_requested(request: String, structure_to_request_from: CityStructure) -> void:
 	emit_signal("item_requested", request, structure_to_request_from)
 
 func _on_attacked(weapon: CraftTool) -> void:
 	emit_signal("attacked", weapon)
 
-func _on_operated_structure(structure) -> void:
+func _on_operated_structure(structure: CityStructure) -> void:
 	emit_signal("operated_structure", structure)

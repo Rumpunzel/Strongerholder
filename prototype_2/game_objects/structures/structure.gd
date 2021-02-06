@@ -19,11 +19,6 @@ onready var _audio_handler: AudioHandler = $AudioHandler
 
 
 func _ready() -> void:
-	if _first_time:
-		_first_time = false
-		
-		_initialisation()
-	
 	connect("damaged", _audio_handler, "play_damage_audio")
 
 
@@ -34,8 +29,13 @@ func _process(_delta: float) -> void:
 
 
 
-func transfer_item(item: Node2D) -> void:
-	_pilot_master.transfer_item(item)
+func transfer_item(item: GameResource, reciever) -> bool:
+	return reciever.recieve_transferred_item(item)
+
+
+func recieve_transferred_item(item: GameResource) -> bool:
+	return _pilot_master.recieve_transferred_item(item)
+
 
 
 func die() -> void:
@@ -73,14 +73,20 @@ func _initialise_pilot_master(new_pilot_master := load("res://game_objects/struc
 
 func _initialise_state_machine(new_state_machine: ObjectStateMachine = StructureStateMachine.new()) -> void:
 	._initialise_state_machine(new_state_machine)
+
+
+func _connect_state_machine() -> void:
+	._connect_state_machine()
 	
 	_state_machine.connect("operated", _pilot_master, "refine_resource")
 	_state_machine.connect("item_dropped", _pilot_master, "drop_item")
 	_state_machine.connect("took_item", _pilot_master, "pick_up_item")
+	_state_machine.connect("item_transferred", self, "transfer_item")
 
 
 func _initialise_starting_items() -> void:
 	for item in starting_items.keys():
 		for _i in range(starting_items[item]):
-			var new_item: Node2D = GameClasses.spawn_class_with_name(item)
+			var new_item: GameResource = GameClasses.spawn_class_with_name(item)
+			
 			_pilot_master.recieve_transferred_item(new_item)

@@ -8,11 +8,11 @@ signal item_dropped
 
 
 
-func drop_item(objects_layer: YSort, position_to_drop: Vector2) -> void:
-	current_state.drop_item(objects_layer, position_to_drop)
+func drop_item(position_to_drop: Vector2) -> void:
+	current_state.drop_item(position_to_drop)
 
 
-func pick_up_item(new_invetory: Inventory) -> void:
+func pick_up_item(new_invetory) -> void:
 	current_state.pick_up_item(new_invetory)
 
 
@@ -44,10 +44,10 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 func _on_active_state_set(new_state: bool) -> void:
 	emit_signal("active_state_set", new_state)
 
-func _on_item_picked_up(new_inventory: Inventory) -> void:
+func _on_item_picked_up(new_inventory) -> void:
 	emit_signal("item_picked_up", new_inventory)
 
-func _on_item_transferred(new_inventory: Inventory) -> void:
+func _on_item_transferred(new_inventory) -> void:
 	emit_signal("item_transferred", new_inventory)
 
 func _on_item_dropped(position_to_drop: Vector2) -> void:

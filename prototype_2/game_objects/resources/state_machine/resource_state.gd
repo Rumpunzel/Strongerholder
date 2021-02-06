@@ -8,13 +8,13 @@ signal item_dropped
 
 
 
-func pick_up_item(new_inventory: Inventory) -> void:
+func pick_up_item(new_inventory) -> void:
 	exit(INACTIVE)
 	
 	emit_signal("item_picked_up", new_inventory)
 
 
-func transfer_item(new_inventory: Inventory) -> void:
+func transfer_item(new_inventory) -> void:
 	emit_signal("item_transferred", new_inventory)
 
 
