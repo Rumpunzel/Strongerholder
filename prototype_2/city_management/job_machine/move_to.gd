@@ -2,7 +2,7 @@ class_name JobStateMoveTo, "res://class_icons/states/icon_state_move_to.svg"
 extends JobState
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["_pathing_target", "_path", "_calculated"]
+const PERSIST_PROPERTIES_2 := ["_pathing_target", "_path", "_calculated"]
 
 
 var _pathing_target: Vector2 = Vector2()

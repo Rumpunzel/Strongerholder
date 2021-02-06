@@ -2,7 +2,7 @@ class_name ActorStateOperate, "res://class_icons/states/icon_state_operate.svg"
 extends ActorState
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_structure"]
+const PERSIST_OBJ_PROPERTIES := ["_structure"]
 
 
 var _structure: Structure = null

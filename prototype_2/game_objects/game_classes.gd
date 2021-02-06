@@ -91,7 +91,7 @@ class Axe extends _GameClass:
 	const hit_points_max := 10
 	const indestructible := false
 	const maximum_operators := 1
-	const can_carry := 0
+	const can_carry := 1
 	const attack_value := 2
 	const animation := "attack"
 	const gathers := {
@@ -121,7 +121,7 @@ class Saw extends _GameClass:
 	const hit_points_max := 10
 	const indestructible := false
 	const maximum_operators := 1
-	const can_carry := 0
+	const can_carry := 1
 	const gathers := {
 		"WoodLogs": false,
 		"WoodPlanks": true,

@@ -2,7 +2,7 @@ class_name ActorStateRequest, "res://class_icons/states/icon_state_request.svg"
 extends ActorState
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_request", "_structure_to_request_from"]
+const PERSIST_OBJ_PROPERTIES := ["_request", "_structure_to_request_from"]
 
 
 var _request

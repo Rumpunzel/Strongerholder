@@ -31,6 +31,10 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 		]
 	
 	._setup_states(state_classes)
+
+
+func _connect_states() -> void:
+	._connect_states()
 	
 	for state in get_children():
 		state.connect("active_state_set", self, "_on_active_state_set")

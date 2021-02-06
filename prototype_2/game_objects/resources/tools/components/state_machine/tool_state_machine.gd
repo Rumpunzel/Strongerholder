@@ -7,6 +7,17 @@ signal hit_box_disabled
 
 
 
+
+func start_attack(game_actor: Node2D) -> void:#GameActor) -> void:
+	current_state.start_attack(game_actor)
+
+
+func end_attack() -> void:
+	current_state.end_attack()
+
+
+
+
 func _setup_states(state_classes: Array = [ ]) -> void:
 	if state_classes.empty():
 		state_classes = [
@@ -17,20 +28,14 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 		]
 	
 	._setup_states(state_classes)
+
+
+func _connect_states() -> void:
+	._connect_states()
 	
 	for state in get_children():
 		state.connect("hit_box_enabled", self, "_on_hit_box_enabled")
 		state.connect("hit_box_disabled", self, "_on_hit_box_disabled")
-
-
-
-
-func start_attack(game_actor: Node2D) -> void:#GameActor) -> void:
-	current_state.start_attack(game_actor)
-
-
-func end_attack() -> void:
-	current_state.end_attack()
 
 
 

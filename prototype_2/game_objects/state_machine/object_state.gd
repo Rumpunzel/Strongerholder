@@ -2,6 +2,11 @@ class_name ObjectState, "res://class_icons/states/icon_state_idle.svg"
 extends Node
 
 
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+
+const PERSIST_PROPERTIES := ["name", "_animation_cancellable"]
+
+
 signal state_entered
 signal state_exited
 signal active_state_set
@@ -10,11 +15,6 @@ signal died
 
 # warning-ignore:unused_signal
 signal animation_changed
-
-
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-
-const PERSIST_PROPERTIES := ["name", "_animation_cancellable"]
 
 
 const IDLE := "Idle"

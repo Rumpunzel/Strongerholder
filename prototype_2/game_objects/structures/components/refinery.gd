@@ -3,7 +3,7 @@ extends Inventory
 
 
 const PERSIST_PROPERTIES_2 := ["production_steps", "steps_done"]
-const PERSIST_OBJ_PROPERTIES_2 := ["game_object", "input_resources", "output_resources"]
+const PERSIST_OBJ_PROPERTIES_2 := ["pilot_master", "input_resources", "output_resources"]
 
 
 var pilot_master: Node2D = null

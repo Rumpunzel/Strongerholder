@@ -2,7 +2,7 @@ class_name JobStatePickUp, "res://class_icons/states/icon_state_pick_up.svg"
 extends JobStateMoveTo
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_item", "_delivery_target"]
+const PERSIST_OBJ_PROPERTIES_2 := ["_item", "_delivery_target"]
 
 
 var _item: GameResource = null

@@ -97,7 +97,11 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 		]
 	
 	._setup_states(state_classes)
-	print("doing this")
+
+
+func _connect_states() -> void:
+	._connect_states()
+	
 	for state in get_children():
 		state.connect("state_changed", self, "_change_to")
 		state.connect("items_assigned", self, "_on_items_assigned")

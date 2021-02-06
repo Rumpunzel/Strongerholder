@@ -2,7 +2,7 @@ class_name ActorStateTake, "res://class_icons/states/icon_state_take.svg"
 extends ActorState
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_item"]
+const PERSIST_OBJ_PROPERTIES := ["_item"]
 
 
 var _item: GameResource = null
