@@ -25,18 +25,18 @@ func end_attack() -> void:
 
 
 
+
+func _initialise_state_machine(new_state_machine: ObjectStateMachine = ToolStateMachine.new()) -> void:
+	._initialise_state_machine(new_state_machine)
+	
+	_state_machine.connect("hit_box_enabled", self, "_enable_hurtbox")
+	_state_machine.connect("hit_box_disabled", self, "_disable_hurtbox")
+
+
+
 func _enable_hurtbox(game_actor: Node2D) -> void:
 	_hurt_box.start_attack(game_actor, attack_value)
 
 
 func _disable_hurtbox() -> void:
 	_hurt_box.end_attack()
-
-
-
-func _initialise_state_machine() -> void:
-	_state_machine = ToolStateMachine.new()
-	_state_machine.name = "state_machine"
-	_state_machine.game_object = self
-	
-	add_child(_state_machine)

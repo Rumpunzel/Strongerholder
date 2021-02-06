@@ -16,6 +16,12 @@ func enter(parameters: Array = [ ]) -> void:
 	emit_signal("active_state_set", false)
 
 
+func exit(next_state: String, parameters: Array = [ ]) -> void:
+	emit_signal("active_state_set", true)
+	
+	.exit(next_state, parameters)
+
+
 
 func damage(_damage_points: float, _sender) -> float:
 	return 0.0

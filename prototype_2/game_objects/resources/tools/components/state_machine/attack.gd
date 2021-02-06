@@ -14,11 +14,11 @@ func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
 	if not parameters.empty():
-		game_object._enable_hurtbox(parameters[0])
+		emit_signal("hit_box_enabled", parameters[0])
 
 
 func exit(next_state: String, parameters: Array = [ ]) -> void:
-	game_object._disable_hurtbox()
+	emit_signal("hit_box_disabled")
 	
 	.exit(next_state, parameters)
 

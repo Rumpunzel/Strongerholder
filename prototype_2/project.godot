@@ -459,7 +459,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/state_machine/attack.gd"
 }, {
-"base": "Reference",
+"base": "ToolStateInactive",
 "class": "ToolStateDead",
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/state_machine/dead.gd"
@@ -575,7 +575,7 @@ _global_script_class_icons={
 "ToolBelt": "res://class_icons/game_objects/game_actors/icon_tool_belt.svg",
 "ToolState": "",
 "ToolStateAttack": "res://class_icons/states/icon_state_attack.svg",
-"ToolStateDead": "",
+"ToolStateDead": "res://class_icons/states/icon_state_dead.svg",
 "ToolStateInactive": "res://class_icons/states/icon_state.svg",
 "ToolStateMachine": "res://class_icons/states/icon_tool_state_machine.svg",
 "ToolsMenu": "",

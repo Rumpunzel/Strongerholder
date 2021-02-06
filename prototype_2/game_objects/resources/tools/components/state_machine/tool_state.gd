@@ -2,6 +2,10 @@ class_name ToolState
 extends ResourceState
 
 
+signal hit_box_enabled
+signal hit_box_disabled
+
+
 const ATTACK = "attack"
 
 

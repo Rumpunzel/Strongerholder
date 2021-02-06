@@ -9,10 +9,6 @@ radius = 20.0
 
 [node name="CraftTool" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-gathers = [  ]
-delivers = [  ]
-type = 2049
-animation = "attack"
 
 [node name="HurtBox" type="Area2D" parent="." index="2"]
 collision_layer = 2048
