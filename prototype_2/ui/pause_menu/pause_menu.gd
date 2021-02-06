@@ -86,10 +86,14 @@ func _back_to_main_menu() -> void:
 		dialog.window_title = ""
 		
 		dialog.get_cancel().connect("pressed", dialog, "queue_free")
-		dialog.connect("confirmed", _main_node, "open_main_menu")
+		dialog.connect("confirmed", self, "_open_main_menu")
 		
 		_menu.add_child(dialog)
 		dialog.popup_centered()
+
+func _open_main_menu() -> void:
+	hide()
+	_main_node.open_main_menu()
 
 
 func _quit_game() -> void:

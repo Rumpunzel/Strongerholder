@@ -46,7 +46,7 @@ margin_bottom = 404.0
 
 [node name="MiddleMenu" type="MarginContainer" parent="VerticalDivider/HorizontalDivider"]
 margin_left = 20.0
-margin_right = 1729.0
+margin_right = 1716.0
 margin_bottom = 776.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -58,7 +58,7 @@ custom_constants/margin_bottom = 50
 [node name="MenuBook" type="Popup" parent="VerticalDivider/HorizontalDivider/MiddleMenu"]
 margin_left = 200.0
 margin_top = 50.0
-margin_right = 1509.0
+margin_right = 1496.0
 margin_bottom = 726.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -75,9 +75,9 @@ __meta__ = {
 }
 
 [node name="InfoMenu" parent="VerticalDivider/HorizontalDivider" instance=ExtResource( 7 )]
-margin_left = 1733.0
-margin_top = 243.0
-margin_bottom = 533.0
+margin_left = 1720.0
+margin_top = 253.0
+margin_bottom = 523.0
 
 [node name="BottomDivider" type="HBoxContainer" parent="VerticalDivider"]
 margin_top = 824.0
