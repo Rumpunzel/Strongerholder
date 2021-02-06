@@ -11,7 +11,7 @@ const PERSIST_OBJ_PROPERTIES := ["current_state"]
 const MAXIMUM_HISTORY_LENGTH: int = 32
 
 
-signal state_changed(new_state, old_state)
+signal state_changed
 
 
 var current_state = null

@@ -7,6 +7,11 @@ const SCENE := "res://game_objects/resources/game_resource.tscn"
 const PERSIST_PROPERTIES_2 := ["can_carry"]
 
 
+signal item_picked_up
+signal item_transferred
+signal item_dropped
+
+
 const DROP_RADIUS := 16.0
 const DROP_SPEED := 0.2
 const DROP_HEIGHT := 16.0
@@ -65,11 +70,15 @@ func _on_item_picked_up(new_inventory: Inventory) -> void:
 	position = Vector2()
 	get_parent().remove_child(self)
 	new_inventory.call_deferred("_add_item", self)
+	
+	emit_signal("item_picked_up")
 
 
 func _on_item_transferred(new_inventory: Inventory) -> void:
 	get_parent().remove_child(self)
 	new_inventory.call_deferred("_add_item", self)
+	
+	emit_signal("item_transferred")
 
 
 func _on_item_dropped(position_to_drop: Vector2) -> void:
@@ -82,6 +91,8 @@ func _on_item_dropped(position_to_drop: Vector2) -> void:
 	
 	global_position = position_to_drop
 	call_deferred("_play_drop_animation")
+	
+	emit_signal("item_dropped")
 
 
 func _play_drop_animation() -> void:

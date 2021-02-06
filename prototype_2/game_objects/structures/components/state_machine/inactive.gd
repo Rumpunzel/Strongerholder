@@ -13,11 +13,11 @@ func _ready() -> void:
 func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
-	_toggle_active_state(game_object, false)
+	emit_signal("active_state_set", false)
 
 
 func exit(next_state: String, parameters: Array = [ ]) -> void:
-	_toggle_active_state(game_object, true)
+	emit_signal("active_state_set", true)
 	
 	.exit(next_state, parameters)
 
@@ -37,6 +37,5 @@ func give_item(_item: GameResource, _receiver: Node2D) -> void:
 func take_item(_item: GameResource) -> void:
 	pass
 
-
-func operate() -> bool:
-	return false
+func operate():
+	pass

@@ -101,6 +101,9 @@ func can_be_operated() -> bool:
 
 
 func refine_resource() -> void:
+	if not can_be_operated():
+		return
+	
 	for inventory in _inventories:
 		if inventory is Refinery:
 			inventory.refine_prodcut()

@@ -25,7 +25,7 @@ func enter(parameters: Array = [ ]) -> void:
 	if _receiver:
 		_receiver.transfer_item(_item)
 	else:
-		pilot_master.drop_item(_item)
+		emit_signal("item_dropped", _item)
 	
 	_item = null
 	_receiver = null

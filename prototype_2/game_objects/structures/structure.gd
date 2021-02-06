@@ -65,15 +65,12 @@ func _initialise_pilot_master() -> void:
 	connect("died", _pilot_master, "unregister_resource")
 
 
-func _initialise_state_machine() -> void:
-	_state_machine = StructureStateMachine.new()
-	_state_machine.name = "StateMachine"
-	_state_machine.game_object = self
-	_state_machine.pilot_master = _pilot_master
-	_state_machine.hit_points_max = hit_points_max
-	_state_machine.indestructible = indestructible
+func _initialise_state_machine(new_state_machine: ObjectStateMachine = StructureStateMachine.new()) -> void:
+	._initialise_state_machine(new_state_machine)
 	
-	add_child(_state_machine)
+	_state_machine.connect("operated", _pilot_master, "refine_resource")
+	_state_machine.connect("item_dropped", _pilot_master, "drop_item")
+	_state_machine.connect("took_item", _pilot_master, "pick_up_item")
 
 
 func _initialise_starting_items() -> void:

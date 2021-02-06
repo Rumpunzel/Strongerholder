@@ -8,6 +8,7 @@
 radius = 20.0
 
 [node name="CraftTool" instance=ExtResource( 1 )]
+input_pickable = true
 script = ExtResource( 2 )
 
 [node name="HurtBox" type="Area2D" parent="." index="2"]

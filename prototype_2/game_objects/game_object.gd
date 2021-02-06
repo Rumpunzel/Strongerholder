@@ -9,15 +9,17 @@ const PERSIST_OBJ_PROPERTIES := ["_assigned_workers", "_state_machine"]
 
 
 signal died
+signal damaged
 
 
 var type: String
 var sprite: String setget set_sprite
 
-var hit_points_max: float = 10.0 setget set_hit_points_max
-var indestructible: bool = false setget set_indestructible
+var hit_points_max: float
+var indestructible: bool
+var hit_points: float
 
-var maximum_operators: int = 1
+var maximum_operators: int
 
 var selected: bool = false setget set_selected
 
@@ -41,6 +43,8 @@ onready var _objects_layer = ServiceLocator.objects_layer
 func _ready() -> void:
 	if _first_time:
 		_first_time = false
+		
+		hit_points = hit_points_max
 		
 		_initialise_state_machine()
 	
@@ -84,11 +88,26 @@ func appear(new_status: bool) -> void:
 
 
 func damage(damage_points: float, sender) -> bool:
-	return _state_machine.damage(damage_points, sender)
+	if indestructible:
+		return false
+	
+	
+	var damage_taken: float = _state_machine.damage(damage_points, sender)
+	
+	hit_points -= damage_taken
+	
+	emit_signal("damaged", damage_taken, sender)
+	#print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
+	
+	if hit_points <= 0:
+		die()
+		return false
+	
+	return true
 
 
 func die() -> void:
-	emit_signal("died")
+	_state_machine.die()
 
 
 
@@ -100,20 +119,6 @@ func enable_collision(new_status: bool) -> void:
 	_collision_shape.set_deferred("disabled", not new_status)
 
 
-
-
-func set_hit_points_max(new_max: float):
-	hit_points_max = new_max
-	
-	if _state_machine:
-		_state_machine.hit_points_max = hit_points_max
-
-
-func set_indestructible(new_status: bool):
-	indestructible = new_status
-	
-	if _state_machine:
-		_state_machine.indestructible = indestructible
 
 
 func set_sprite(new_sprite: String):
@@ -148,4 +153,4 @@ func _on_active_state_set(new_state: bool) -> void:
 	set_physics_process(new_state)
 
 func _on_died() -> void:
-	die()
+	emit_signal("died")

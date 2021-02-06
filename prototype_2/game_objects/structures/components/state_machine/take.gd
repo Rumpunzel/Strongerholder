@@ -24,7 +24,6 @@ func enter(parameters: Array = [ ]) -> void:
 	if not _item:
 		return
 	
-	if pilot_master.pick_up_item(_item):
-		_item = null
+	emit_signal("took_item")
 	
 	exit(IDLE)

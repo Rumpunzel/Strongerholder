@@ -13,7 +13,7 @@ func _ready() -> void:
 func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
-	game_object.die()
+	emit_signal("died")
 
 
 func exit(_next_state: String, _parameters: Array = [ ]) -> void:

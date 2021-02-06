@@ -12,9 +12,9 @@ const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 const PERSIST_PROPERTIES := ["name", "_animation_cancellable"]
 
 
-const IDLE = "idle"
-const INACTIVE = "inactive"
-const DEAD = "dead"
+const IDLE := "idle"
+const INACTIVE := "inactive"
+const DEAD := "dead"
 
 
 var _animation_cancellable: bool = true

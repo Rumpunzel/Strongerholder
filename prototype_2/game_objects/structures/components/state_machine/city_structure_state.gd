@@ -5,11 +5,13 @@ extends ObjectState
 const PERSIST_OBJ_PROPERTIES_2 := ["pilot_master"]
 
 
-const GIVE = "give"
-const TAKE = "take"
+signal operated
+signal item_dropped
+signal took_item
 
 
-var pilot_master
+const GIVE := "give"
+const TAKE := "take"
 
 
 
@@ -35,10 +37,5 @@ func take_item(item: GameResource) -> void:
 	exit(TAKE, [item])
 
 
-func operate() -> bool:
-	if pilot_master.can_be_operated():
-		pilot_master.refine_resource()
-		
-		return true
-	
-	return false
+func operate() -> void:
+	emit_signal("operated")

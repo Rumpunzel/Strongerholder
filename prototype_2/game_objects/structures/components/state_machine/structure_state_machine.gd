@@ -6,9 +6,22 @@ const PERSIST_OBJ_PROPERTIES_3 := ["pilot_master"]
 
 
 signal operated
+signal item_dropped
+signal took_item
 
 
-var pilot_master = null
+
+func give_item(item: GameResource, receiver: Node2D) -> void:
+	current_state.give_item(item, receiver)
+
+
+func take_item(item: GameResource) -> void:
+	current_state.take_item(item)
+
+
+func operate() -> void:
+	current_state.operate()
+
 
 
 
@@ -25,19 +38,17 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 	._setup_states(state_classes)
 	
 	for state in get_children():
-		state.pilot_master = pilot_master
+		state.connect("operated", self, "_on_operated")
+		state.connect("item_dropped", self, "_on_item_dropped")
+		state.connect("took_item", self, "_on_took_item")
 
 
 
+func _on_operated() -> void:
+	emit_signal("operated")
 
-func give_item(item: Node2D, receiver: Node2D) -> void:
-	current_state.give_item(item, receiver)
+func _on_item_dropped(item_to_drop: GameResource) -> void:
+	emit_signal("item_dropped", item_to_drop)
 
-
-func take_item(item: Node2D) -> void:
-	current_state.take_item(item)
-
-
-func operate() -> void:
-	if current_state.operate():
-		emit_signal("operated")
+func _on_took_item(item_to_take: GameResource) -> void:
+	emit_signal("took_item", item_to_take)
