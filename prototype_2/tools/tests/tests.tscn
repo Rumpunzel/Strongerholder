@@ -10,5 +10,5 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-_directory1 = "res://tests/unit"
-_directory2 = "res://tests/integration"
+_directory1 = "res://tools/tests/unit"
+_directory2 = "res://tools/tests/integration"

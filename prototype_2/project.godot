@@ -219,7 +219,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_world/game_world.gd"
 }, {
-"base": "Reference",
+"base": "Area2D",
 "class": "HurtBox",
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/hurt_box.gd"
@@ -444,12 +444,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/tool_belt.gd"
 }, {
-"base": "Reference",
+"base": "ResourceState",
 "class": "ToolState",
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/state_machine/tool_state.gd"
 }, {
-"base": "Reference",
+"base": "ToolStateInactive",
 "class": "ToolStateAttack",
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/state_machine/attack.gd"
@@ -459,12 +459,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/state_machine/dead.gd"
 }, {
-"base": "Reference",
+"base": "ToolState",
 "class": "ToolStateInactive",
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/state_machine/inactive.gd"
 }, {
-"base": "Reference",
+"base": "ResourceStateMachine",
 "class": "ToolStateMachine",
 "language": "GDScript",
 "path": "res://game_objects/resources/tools/components/state_machine/tool_state_machine.gd"
@@ -522,7 +522,7 @@ _global_script_class_icons={
 "GameResource": "res://class_icons/game_objects/resources/icon_resource.svg",
 "GameSprite": "",
 "GameWorld": "res://class_icons/game_objects/icon_world.svg",
-"HurtBox": "",
+"HurtBox": "res://class_icons/game_objects/resources/icon_hurt_box.svg",
 "InputMaster": "res://class_icons/game_objects/game_actors/icon_input_master.svg",
 "Inventory": "res://class_icons/game_objects/icon_inventory.svg",
 "JobMachine": "",
@@ -568,10 +568,10 @@ _global_script_class_icons={
 "StructureStateMachine": "res://class_icons/game_objects/structures/icon_city_structure_state_machine.svg",
 "ToolBelt": "res://class_icons/game_objects/game_actors/icon_tool_belt.svg",
 "ToolState": "",
-"ToolStateAttack": "",
+"ToolStateAttack": "res://class_icons/states/icon_state_attack.svg",
 "ToolStateDead": "",
-"ToolStateInactive": "",
-"ToolStateMachine": "",
+"ToolStateInactive": "res://class_icons/states/icon_state.svg",
+"ToolStateMachine": "res://class_icons/states/icon_tool_state_machine.svg",
 "ToolsMenu": "",
 "WorldScene": "res://class_icons/game_objects/icon_world_scene.svg"
 }
