@@ -10,8 +10,10 @@ const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
 
 var starting_items: Dictionary = { }
 
+var _pilot_master: PilotMaster
 
-var _pilot_master
+
+onready var _audio_handler: AudioHandler = $AudioHandler
 
 
 
@@ -20,12 +22,9 @@ func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
-		_initialise_pilot_master()
-		_initialise_state_machine()
-		
-		_initialise_starting_items()
+		_initialisation()
 	
-	$AudioHandler.connect_signals(_state_machine)
+	connect("damaged", _audio_handler, "play_damage_audio")
 
 
 func _process(_delta: float) -> void:
@@ -55,10 +54,20 @@ func _get_copy_sprite() -> Sprite:
 
 
 
+func _initialisation() -> void:
+	_initialise_pilot_master()
+	
+	._initialisation()
+	
+	_initialise_starting_items()
+
+
 func _initialise_pilot_master(new_pilot_master := load("res://game_objects/structures/components/pilot_master.tscn")) -> void:
 	_pilot_master = new_pilot_master.instance()
 	_pilot_master.game_object = self
+	
 	add_child(_pilot_master)
+	
 	connect("died", _pilot_master, "unregister_resource")
 
 
@@ -74,7 +83,4 @@ func _initialise_starting_items() -> void:
 	for item in starting_items.keys():
 		for _i in range(starting_items[item]):
 			var new_item: Node2D = GameClasses.spawn_class_with_name(item)
-			
-			add_child(new_item)
-			new_item.appear(false)
-			_pilot_master.transfer_item(new_item)
+			_pilot_master.recieve_transferred_item(new_item)

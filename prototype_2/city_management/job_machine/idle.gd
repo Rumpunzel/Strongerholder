@@ -22,7 +22,7 @@ func _check_for_exit_conditions() -> void:
 	
 	# Check if I can carry anything more
 	#	 if I cannot, deliver to _delviery_target
-	if _delivery_target and employee.carry_weight_left() <= 0.01:
+	if _delivery_target and job_item and employee.has_inventory_space_for(job_item):
 		exit(DELIVER, [_delivery_target])
 		return
 	

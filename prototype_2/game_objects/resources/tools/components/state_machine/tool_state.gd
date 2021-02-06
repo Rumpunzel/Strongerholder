@@ -2,11 +2,13 @@ class_name ToolState
 extends ResourceState
 
 
+# warning-ignore:unused_signal
 signal hit_box_enabled
+# warning-ignore:unused_signal
 signal hit_box_disabled
 
 
-const ATTACK = "attack"
+const ATTACK = "Attack"
 
 
 

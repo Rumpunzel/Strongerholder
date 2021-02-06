@@ -57,8 +57,7 @@ func drop_all_items(position_to_drop: Vector2 = global_position) -> void:
 	for inventory in _reversed_inventories:
 		inventory.drop_all_items(position_to_drop)
 
-
-func transfer_item(item: Node2D) -> bool:
+func recieve_transferred_item(item: Node2D) -> bool:
 	for inventory in _inventories:
 		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass):
 			inventory.transfer_item(item)
@@ -99,8 +98,8 @@ func how_many_of_item(item_type) -> Array:
 	return item_count
 
 
-func carry_weight_left() -> float:
-	return _main_inventory.capacity_left()
+func has_inventory_space_for(item) -> bool:
+	return (_main_inventory.capacity_left() - 1.0 / float(item.can_carry)) >= 0.0
 
 
 func in_range(object: PhysicsBody2D) -> bool:
@@ -136,7 +135,7 @@ func _get_input(_player_controlled: bool) -> Array:
 
 func _initialise_inventories() -> void:
 	_main_inventory = Inventory.new()
-	_main_inventory.name = "inventory"
+	_main_inventory.name = "Inventory"
 	add_child(_main_inventory)
 	_inventories.append(_main_inventory)
 

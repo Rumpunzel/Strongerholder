@@ -21,7 +21,7 @@ func exit(_next_state: String, _parameters: Array = [ ]) -> void:
 
 
 
-func drop_item(_objects_layer: YSort, _position_to_drop: Vector2) -> void:
+func drop_item(_position_to_drop: Vector2) -> void:
 	pass
 
 

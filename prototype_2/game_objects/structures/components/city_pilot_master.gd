@@ -44,7 +44,7 @@ func employ_worker(puppet_master: Node2D) -> void:
 		return
 	
 	var new_job = available_job.new()
-	new_job.name = "job"
+	new_job.name = "Job"
 	
 	puppet_master.assign_job(new_job)
 	
@@ -119,12 +119,12 @@ func _unpost_job() -> void:
 
 func _initialise_inventories() -> void:
 	var new_refinery: Refinery = Refinery.new()
-	new_refinery.name = "refinery"
+	new_refinery.name = "Refinery"
 	add_child(new_refinery)
 	_inventories.append(new_refinery)
 	
 	_custodian = Custodian.new()
-	_custodian.name = "custodian"
+	_custodian.name = "Custodian"
 	add_child(_custodian)
 	_inventories.append(_custodian)
 	

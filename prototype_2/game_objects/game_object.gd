@@ -46,7 +46,7 @@ func _ready() -> void:
 		
 		hit_points = hit_points_max
 		
-		_initialise_state_machine()
+		_initialisation()
 	
 	add_to_group(type)
 
@@ -133,10 +133,13 @@ func set_selected(new_status: bool) -> void:
 
 
 
+func _initialisation() -> void:
+	_initialise_state_machine()
+
 
 func _initialise_state_machine(new_state_machine: ObjectStateMachine = ObjectStateMachine.new()) -> void:
 	_state_machine = new_state_machine
-	_state_machine.name = "state_machine"
+	_state_machine.name = "StateMachine"
 	
 	_state_machine.connect("active_state_set", self, "_on_active_state_set")
 	_state_machine.connect("died", self, "_on_died")

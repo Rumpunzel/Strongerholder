@@ -18,7 +18,7 @@ func transfer_item(new_inventory: Inventory) -> void:
 	emit_signal("item_transferred", new_inventory)
 
 
-func drop_item(objects_layer: YSort, position_to_drop: Vector2) -> void:
+func drop_item(position_to_drop: Vector2) -> void:
 	emit_signal("item_dropped", position_to_drop)
 	
 	exit(IDLE)

@@ -8,15 +8,15 @@ const PERSIST_PROPERTIES := ["name"]
 const PERSIST_OBJ_PROPERTIES := ["job_machine", "employee", "employer", "employer_structure", "dedicated_tool"]
 
 
-const JUST_STARTED = "just_started"
-const IDLE = "idle"
-const DELIVER = "deliver"
-const RETRIEVE = "retrieve"
-const PICK_UP = "pick_up"
-const GATHER = "gather"
-const MOVE_TO = "move_to"
-const OPERATE = "operate"
-const INACTIVE = "inactive"
+const JUST_STARTED = "JustStarted"
+const IDLE = "Idle"
+const DELIVER = "Deliver"
+const RETRIEVE = "Retrieve"
+const PICK_UP = "PickUp"
+const GATHER = "Gather"
+const MOVE_TO = "MoveTo"
+const OPERATE = "Operate"
+const INACTIVE = "Inactive"
 
 
 var job_machine = null

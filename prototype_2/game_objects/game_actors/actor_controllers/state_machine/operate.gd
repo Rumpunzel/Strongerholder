@@ -32,7 +32,7 @@ func animation_acted(_animation: String) -> void:
 	if not _structure:
 		return
 	
-	puppet_master.interact_with(_structure)
+	emit_signal("operated_structure", _structure)
 
 
 func animation_finished(animation: String) -> void:

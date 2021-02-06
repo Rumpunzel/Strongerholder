@@ -59,7 +59,7 @@ func _get_input(player_controlled: bool) -> Array:
 
 func _initialise_inventories() -> void:
 	var new_tool_belt: ToolBelt = ToolBelt.new()
-	new_tool_belt.name = "tool_belt"
+	new_tool_belt.name = "ToolBelt"
 	add_child(new_tool_belt)
 	_inventories.append(new_tool_belt)
 	

@@ -6,12 +6,14 @@ const PERSIST_OBJ_PROPERTIES_2 := ["pilot_master"]
 
 
 signal operated
+# warning-ignore:unused_signal
 signal item_dropped
+# warning-ignore:unused_signal
 signal took_item
 
 
-const GIVE := "give"
-const TAKE := "take"
+const GIVE := "Give"
+const TAKE := "Take"
 
 
 

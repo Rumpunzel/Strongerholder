@@ -487,7 +487,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ActorState": "",
 "ActorStateAttack": "res://class_icons/states/icon_state_attack.svg",
-"ActorStateDead": "res://class_icons/icon_state_dead.svg",
+"ActorStateDead": "res://class_icons/states/icon_state_dead.svg",
 "ActorStateGive": "res://class_icons/states/icon_state_give.svg",
 "ActorStateIdle": "res://class_icons/states/icon_state_idle.svg",
 "ActorStateInactive": "res://class_icons/states/icon_state.svg",

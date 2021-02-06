@@ -32,8 +32,9 @@ func animation_acted(_animation: String) -> void:
 	if not _item:
 		return
 	
-	if puppet_master.pick_up_item(_item):
-		_item = null
+	emit_signal("took_item", _item)
+	
+	_item = null
 
 
 func animation_finished(animation: String) -> void:

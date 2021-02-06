@@ -67,6 +67,4 @@ func refine_prodcut() -> void:
 		for _i in range(output_resources[item]):
 			var new_item: Node2D = GameClasses.spawn_class_with_name(item)
 			
-			add_child(new_item)
-			new_item.appear(false)
 			game_object.transfer_item(new_item)

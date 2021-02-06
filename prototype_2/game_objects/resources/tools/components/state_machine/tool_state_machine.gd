@@ -38,4 +38,4 @@ func _on_hit_box_enabled(game_actor: Node2D) -> void:#GameActor) -> void:
 	emit_signal("hit_box_enabled", game_actor)
 
 func _on_hit_box_disabled() -> void:
-	emit_signal("hit_box_enabled")
+	emit_signal("hit_box_disabled")
