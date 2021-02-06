@@ -33,10 +33,17 @@ onready var _collision_shape: CollisionShape2D = $CollisionShape
 onready var _sprite: Sprite = $Sprite
 onready var _selection_outline: SelectionOutline = $SelectionOutline
 
+onready var _objects_layer = ServiceLocator.objects_layer
+
 
 
 
 func _ready() -> void:
+	if _first_time:
+		_first_time = false
+		
+		_initialise_state_machine()
+	
 	add_to_group(type)
 
 
@@ -70,6 +77,10 @@ func position_open(puppet_master: Node2D) -> bool:
 func worker_assigned(puppet_master: Node2D) -> bool:
 	return _assigned_workers.has(puppet_master) 
 
+
+
+func appear(new_status: bool) -> void:
+	visible = new_status
 
 
 func damage(damage_points: float, sender) -> bool:
@@ -114,3 +125,27 @@ func set_sprite(new_sprite: String):
 func set_selected(new_status: bool) -> void:
 	selected = new_status
 	_selection_outline.visible = selected
+
+
+
+
+func _initialise_state_machine(new_state_machine: ObjectStateMachine = ObjectStateMachine.new()) -> void:
+	_state_machine = new_state_machine
+	_state_machine.name = "state_machine"
+	
+	_state_machine.connect("active_state_set", self, "_on_active_state_set")
+	_state_machine.connect("died", self, "_on_died")
+	
+	add_child(_state_machine)
+
+
+
+func _on_active_state_set(new_state: bool) -> void:
+	appear(new_state)
+	enable_collision(new_state)
+	
+	set_process(new_state)
+	set_physics_process(new_state)
+
+func _on_died() -> void:
+	die()

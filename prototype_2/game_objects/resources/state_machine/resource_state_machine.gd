@@ -2,18 +2,9 @@ class_name ResourceStateMachine, "res://class_icons/states/icon_resource_state_m
 extends ObjectStateMachine
 
 
-
-
-func _setup_states(state_classes: Array = [ ]) -> void:
-	if state_classes.empty():
-		state_classes = [
-			ResourceStateInactive,
-			ResourceStateIdle,
-			ResourceStateDead,
-		]
-	
-	._setup_states(state_classes)
-
+signal item_picked_up
+signal item_transferred
+signal item_dropped
 
 
 
@@ -27,3 +18,37 @@ func pick_up_item(new_invetory: Inventory) -> void:
 
 func transfer_item(new_inventory) -> void:
 	current_state.transfer_item(new_inventory)
+
+
+
+
+func _setup_states(state_classes: Array = [ ]) -> void:
+	if state_classes.empty():
+		state_classes = [
+			ResourceStateInactive,
+			ResourceStateIdle,
+			ResourceStateDead,
+		]
+	
+	._setup_states(state_classes)
+	
+	for state in get_children():
+		state.connect("active_state_set", self, "_on_active_state_set")
+		
+		state.connect("item_picked_up", self, "_on_item_picked_up")
+		state.connect("item_transferred", self, "_on_item_transferred")
+		state.connect("item_dropped", self, "_on_item_dropped")
+
+
+
+func _on_active_state_set(new_state: bool) -> void:
+	emit_signal("active_state_set", new_state)
+
+func _on_item_picked_up(new_inventory: Inventory) -> void:
+	emit_signal("item_picked_up", new_inventory)
+
+func _on_item_transferred(new_inventory: Inventory) -> void:
+	emit_signal("item_transferred", new_inventory)
+
+func _on_item_dropped(position_to_drop: Vector2) -> void:
+	emit_signal("item_dropped", position_to_drop)

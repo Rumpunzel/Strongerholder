@@ -16,7 +16,6 @@ const DROP_HEIGHT := 16.0
 var can_carry: int = 1
 
 
-onready var _objects_layer = ServiceLocator.objects_layer
 onready var _quarter_master = ServiceLocator.quarter_master
 onready var _tween: Tween = $Tween
 
@@ -24,11 +23,6 @@ onready var _tween: Tween = $Tween
 
 
 func _ready() -> void:
-	if _first_time:
-		_first_time = false
-		
-		_initialise_state_machine()
-	
 	connect("died", self, "unregister_resource")
 	
 	register_resource()
@@ -49,11 +43,6 @@ func transfer_item(new_inventory) -> void:
 
 
 
-func appear(new_status: bool) -> void:
-	visible = new_status
-
-
-
 func register_resource() -> void:
 	 _quarter_master.register_resource(self)
 
@@ -62,12 +51,37 @@ func unregister_resource() -> void:
 
 
 
-func _initialise_state_machine() -> void:
-	_state_machine = ResourceStateMachine.new()
-	_state_machine.name = "state_machine"
-	_state_machine.game_object = self
+
+func _initialise_state_machine(new_state_machine: ObjectStateMachine = ResourceStateMachine.new()) -> void:
+	._initialise_state_machine(new_state_machine)
 	
-	add_child(_state_machine)
+	_state_machine.connect("item_picked_up", self, "_on_item_picked_up")
+	_state_machine.connect("item_transferred", self, "_on_item_transferred")
+	_state_machine.connect("item_dropped", self, "_on_item_dropped")
+
+
+
+func _on_item_picked_up(new_inventory: Inventory) -> void:
+	position = Vector2()
+	get_parent().remove_child(self)
+	new_inventory.call_deferred("_add_item", self)
+
+
+func _on_item_transferred(new_inventory: Inventory) -> void:
+	get_parent().remove_child(self)
+	new_inventory.call_deferred("_add_item", self)
+
+
+func _on_item_dropped(position_to_drop: Vector2) -> void:
+	var parent: Node2D = get_parent()
+	
+	if parent:
+		parent.remove_child(self)
+	
+	_objects_layer.call_deferred("add_child", self)
+	
+	global_position = position_to_drop
+	call_deferred("_play_drop_animation")
 
 
 func _play_drop_animation() -> void:

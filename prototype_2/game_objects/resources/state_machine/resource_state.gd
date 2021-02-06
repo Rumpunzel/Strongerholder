@@ -2,36 +2,23 @@ class_name ResourceState, "res://class_icons/states/icon_state_idle.svg"
 extends ObjectState
 
 
+signal item_picked_up
+signal item_transferred
+signal item_dropped
 
-func drop_item(objects_layer: YSort, position_to_drop: Vector2) -> void:
-	if game_object.get_parent():
-		game_object.get_parent().remove_child(game_object)
-	
-	objects_layer.call_deferred("add_child", game_object)
-	
-	game_object.global_position = position_to_drop
-	game_object.call_deferred("_play_drop_animation")
-	
-	exit(IDLE)
 
 
 func pick_up_item(new_inventory: Inventory) -> void:
 	exit(INACTIVE)
 	
-	game_object.position = Vector2()
-	game_object.get_parent().remove_child(game_object)
-	new_inventory.call_deferred("_add_item", game_object)
+	emit_signal("item_picked_up", new_inventory)
 
 
 func transfer_item(new_inventory: Inventory) -> void:
-	game_object.get_parent().remove_child(game_object)
-	new_inventory.call_deferred("_add_item", game_object)
+	emit_signal("item_transferred", new_inventory)
 
 
-
-func _toggle_active_state(object: Node, new_state: bool) -> void:
-	object.appear(new_state)
-	object.enable_collision(new_state)
+func drop_item(objects_layer: YSort, position_to_drop: Vector2) -> void:
+	emit_signal("item_dropped", position_to_drop)
 	
-	object.set_process(new_state)
-	object.set_physics_process(new_state)
+	exit(IDLE)

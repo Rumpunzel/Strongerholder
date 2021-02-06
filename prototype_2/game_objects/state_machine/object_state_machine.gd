@@ -2,14 +2,15 @@ class_name ObjectStateMachine, "res://class_icons/states/icon_state_machine.svg"
 extends StateMachine
 
 
+signal active_state_set
+signal died
+
+
 const PERSIST_PROPERTIES_2 := ["hit_points_max", "indestructible", "hit_points"]
-const PERSIST_OBJ_PROPERTIES_2 := ["game_object"]
 
 
 signal damaged(damage_points, sender)
 
-
-var game_object: Node2D = null
 
 var hit_points_max: float = 10.0
 var indestructible: bool = false
@@ -26,8 +27,8 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 	._setup_states(state_classes)
 	
 	for state in get_children():
-		state.state_machine = self
-		state.game_object = game_object
+		state.connect("state_exited", self, "_change_to")
+		state.connect("died", self, "_on_died")
 
 
 
@@ -49,3 +50,8 @@ func damage(damage_points: float, sender) -> bool:
 
 func die(_sender) -> void:
 	change_to(ObjectState.DEAD)
+
+
+
+func _on_died() -> void:
+	emit_signal("died")

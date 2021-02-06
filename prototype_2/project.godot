@@ -561,7 +561,7 @@ _global_script_class_icons={
 "RadiantUIButton": "",
 "Refinery": "res://class_icons/game_objects/structures/icon_refinery.svg",
 "ResourceState": "res://class_icons/states/icon_state_idle.svg",
-"ResourceStateDead": "res://class_icons/icon_state_dead.svg",
+"ResourceStateDead": "res://class_icons/states/icon_state_dead.svg",
 "ResourceStateIdle": "res://class_icons/states/icon_state_idle.svg",
 "ResourceStateInactive": "res://class_icons/states/icon_state.svg",
 "ResourceStateMachine": "res://class_icons/states/icon_resource_state_machine.svg",
