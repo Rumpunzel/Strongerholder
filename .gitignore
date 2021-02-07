@@ -10,3 +10,5 @@ prototype_2/lib/
 *.translation
 prototype/export_presets.cfg
 prototype_2/export_presets.cfg
+*.exe
+*.pck

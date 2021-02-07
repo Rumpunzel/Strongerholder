@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tools/class_editor/game_resources/properties/carry.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/components/properties/game_object_item.tscn" type="PackedScene" id=2]
+
+[node name="ResourceItem" instance=ExtResource( 2 )]
+class_scene = "res://game_objects/resources/game_resource.tscn"
+
+[node name="Carry" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="3" instance=ExtResource( 1 )]
+margin_left = 94.0
+margin_top = 78.0
+margin_right = 186.0
+margin_bottom = 136.0

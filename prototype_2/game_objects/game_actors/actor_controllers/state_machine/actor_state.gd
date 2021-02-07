@@ -2,19 +2,30 @@ class_name ActorState
 extends ObjectState
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["puppet_master"]
+# warning-ignore:unused_signal
+signal moved
+
+# warning-ignore:unused_signal
+signal gave_item_to
+# warning-ignore:unused_signal
+signal dropped_item
+# warning-ignore:unused_signal
+signal took_item
+# warning-ignore:unused_signal
+signal item_requested
+
+# warning-ignore:unused_signal
+signal attacked
+# warning-ignore:unused_signal
+signal operated_structure
 
 
-const RUN = "run"
-const GIVE = "give"
-const TAKE = "take"
-const REQUEST = "request"
-const ATTACK = "attack"
-const OPERATE = "operate"
-
-
-# warning-ignore-all:unused_class_variable
-var puppet_master: InputMaster = null
+const RUN := "Run"
+const GIVE := "Give"
+const TAKE := "Take"
+const REQUEST := "Request"
+const ATTACK := "Attack"
+const OPERATE := "Operate"
 
 
 
@@ -48,7 +59,7 @@ func attack(weapon: CraftTool) -> void:
 	exit(ATTACK, [weapon])
 
 
-func operate(structure: Structure) -> void:
+func operate(structure: StaticBody2D) -> void:
 	exit(OPERATE, [structure])
 
 
@@ -68,4 +79,4 @@ func animation_finished(_animation: String) -> void:
 
 
 func _change_animation(new_animation: String, new_direction: Vector2 = Vector2()) -> void:
-	state_machine._change_animation(new_animation, new_direction)
+	emit_signal("animation_changed", new_animation.to_lower(), new_direction)

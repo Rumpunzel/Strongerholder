@@ -2,10 +2,12 @@ class_name Spyglass, "res://class_icons/game_objects/resources/icon_spyglass.svg
 extends GameResource
 
 
-const PERSIST_PROPERTIES_3 := ["gathers", "delivers"]
+const SCENE_OVERRIDE := "res://game_objects/resources/tools/spyglass.tscn"
+
+const PERSIST_PROPERTIES_3 := [ "gathers", "delivers" ]
 
 
-# warning-ignore-all:unused_class_variable
-export(Array, Constants.Resources) var gathers: Array
-# warning-ignore-all:unused_class_variable
-export(Array, Constants.Resources) var delivers: Array
+# warning-ignore:unused_class_variable
+var gathers := { }
+# warning-ignore:unused_class_variable
+var delivers := { }

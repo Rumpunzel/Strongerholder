@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tools/class_editor/components/editor/sub_class_tab.gd" type="Script" id=1]
+[ext_resource path="res://tools/class_editor/components/editor/class_grid.gd" type="Script" id=2]
+
+[node name="SubClassTab" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 28.0
+margin_right = -8.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleDivider" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 1884.0
+margin_bottom = 1028.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopContainer" type="HBoxContainer" parent="TitleDivider"]
+margin_right = 1868.0
+margin_bottom = 22.0
+
+[node name="Info" type="Label" parent="TitleDivider/TopContainer"]
+margin_top = 4.0
+margin_right = 1786.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "And yet even more description."
+
+[node name="Button" type="Button" parent="TitleDivider/TopContainer"]
+margin_left = 1790.0
+margin_right = 1868.0
+margin_bottom = 22.0
+text = "Add Class"
+
+[node name="HSeparator" type="HSeparator" parent="TitleDivider"]
+margin_top = 42.0
+margin_right = 1868.0
+margin_bottom = 46.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TitleDivider"]
+margin_top = 66.0
+margin_right = 1868.0
+margin_bottom = 1012.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ClassGrid" type="GridContainer" parent="TitleDivider/ScrollContainer"]
+margin_right = 1868.0
+margin_bottom = 946.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+script = ExtResource( 2 )

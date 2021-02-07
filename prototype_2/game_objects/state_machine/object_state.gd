@@ -1,51 +1,34 @@
 class_name ObjectState, "res://class_icons/states/icon_state_idle.svg"
-extends Node
+extends State
 
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "_animation_cancellable"]
-const PERSIST_OBJ_PROPERTIES := ["state_machine", "game_object"]
+const PERSIST_PROPERTIES := [ "name", "_animation_cancellable" ]
 
 
-const IDLE = "idle"
-const INACTIVE = "inactive"
-const DEAD = "dead"
+signal active_state_set
+# warning-ignore:unused_signal
+signal died
+
+# warning-ignore:unused_signal
+signal animation_changed
 
 
-var state_machine = null
-# warning-ignore-all:unused_class_variable
-var game_object = null
+const IDLE := "Idle"
+const INACTIVE := "Inactive"
+const DEAD := "Dead"
 
 
 var _animation_cancellable: bool = true
 
 
 
-func enter(_parameters: Array = [ ]) -> void:
-	assert(game_object)
-	pass
 
-
-func exit(next_state: String, parameters: Array = [ ]) -> void:
-	state_machine._change_to(next_state, parameters)
-
-
-
-
-func damage(damage_points: float, _sender) -> float:
+func damage(damage_points: float) -> float:
 	return damage_points
 
 
 
-func is_active() -> bool:
-	return true
-
-
-
-func _toggle_active_state(object: Node, new_state: bool) -> void:
-	object.visible = new_state
-	object.enable_collision(new_state)
-	
-	object.set_process(new_state)
-	object.set_physics_process(new_state)
+func _toggle_active_state(new_state: bool) -> void:
+	emit_signal("active_state_set", new_state)

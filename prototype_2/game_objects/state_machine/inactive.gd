@@ -6,17 +6,17 @@ extends ObjectState
 func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
-	_toggle_active_state(game_object, false)
+	emit_signal("active_state_set", false)
 
 
 func exit(next_state: String, parameters: Array = [ ]) -> void:
-	_toggle_active_state(game_object, true)
+	emit_signal("active_state_set", true)
 	
 	.exit(next_state, parameters)
 
 
 
-func damage(_damage_points: float, _sender) -> float:
+func damage(_damage_points: float) -> float:
 	return 0.0
 
 

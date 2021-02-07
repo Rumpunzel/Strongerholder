@@ -2,11 +2,11 @@ class_name Menu
 extends Popup
 
 
-# warning-ignore-all:unused_signal
+# warning-ignore:unused_signal
 signal new_game
-# warning-ignore-all:unused_signal
+# warning-ignore:unused_signal
 signal load_game
-# warning-ignore-all:unused_signal
+# warning-ignore:unused_signal
 signal quit_game
 
 

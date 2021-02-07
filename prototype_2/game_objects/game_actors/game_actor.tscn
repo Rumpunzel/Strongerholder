@@ -46,6 +46,7 @@ func _process(_delta):
 [sub_resource type="GDScript" id=4]
 script/source = "extends Label
 
+# warning-ignore-all:unsafe_property_access
 
 var _puppet_master: PuppetMaster
 
@@ -61,6 +62,7 @@ func _process(_delta):
 [sub_resource type="GDScript" id=5]
 script/source = "extends Label
 
+# warning-ignore-all:unsafe_property_access
 
 var _puppet_master: PuppetMaster
 
@@ -70,7 +72,7 @@ var _puppet_master: PuppetMaster
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if _puppet_master and _puppet_master is PuppetMaster and _puppet_master._current_job:
-		text = \"%s\" % [_puppet_master._current_job.employer.get_parent().name if _puppet_master._current_job else \"unemployed\"]
+		text = \"%s\" % [_puppet_master._current_job.employer.name if _puppet_master._current_job else \"unemployed\"]
 "
 
 [node name="GameActor" type="KinematicBody2D"]

@@ -4,17 +4,17 @@ extends Node
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "history", "_first_time"]
-const PERSIST_OBJ_PROPERTIES := ["current_state"]
+const PERSIST_PROPERTIES := [ "name", "history", "_first_time" ]
+const PERSIST_OBJ_PROPERTIES := [ "current_state" ]
 
 
 const MAXIMUM_HISTORY_LENGTH: int = 32
 
 
-signal state_changed(new_state, old_state)
+signal state_changed
 
 
-var current_state = null
+var current_state: State = null
 
 var history: Array = [ ]
 
@@ -27,6 +27,14 @@ var _first_time: bool = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_setup_states()
+	
+	yield(get_tree(), "idle_frame")
+	
+	_connect_states()
+	
+	assert(current_state)
+	
+	_enter_state()
 
 
 
@@ -77,10 +85,8 @@ func _setup_states(state_classes: Array = [ ]) -> void:
 	# Set the initial state to the first child node
 	if not current_state:
 		current_state = get_child(0)
-	
-	assert(current_state)
-	
-	yield(get_tree(), "idle_frame")
-	
-	_enter_state()
+
+
+func _connect_states() -> void:
+	pass
 

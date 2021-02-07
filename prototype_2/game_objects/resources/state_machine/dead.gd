@@ -1,4 +1,4 @@
-class_name ResourceStateDead, "res://class_icons/icon_state_dead.svg"
+class_name ResourceStateDead, "res://class_icons/states/icon_state_dead.svg"
 extends ResourceStateInactive
 
 
@@ -13,7 +13,7 @@ func _ready() -> void:
 func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
-	game_object.die()
+	emit_signal("died")
 
 
 func exit(_next_state: String, _parameters: Array = [ ]) -> void:
@@ -21,9 +21,9 @@ func exit(_next_state: String, _parameters: Array = [ ]) -> void:
 
 
 
-func drop_item(_objects_layer: YSort, _position_to_drop: Vector2) -> void:
+func drop_item(_position_to_drop: Vector2) -> void:
 	pass
 
 
-func transfer_item(_new_inventory: Inventory) -> void:
+func transfer_item(_new_inventory) -> void:
 	pass

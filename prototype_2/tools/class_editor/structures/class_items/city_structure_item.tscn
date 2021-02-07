@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://tools/class_editor/structures/class_items/structure_item.tscn" type="PackedScene" id=4]
+[ext_resource path="res://tools/class_editor/structures/properties/input_resources.tscn" type="PackedScene" id=5]
+[ext_resource path="res://tools/class_editor/structures/properties/output_resources.tscn" type="PackedScene" id=6]
+[ext_resource path="res://tools/class_editor/structures/properties/storage_resources.tscn" type="PackedScene" id=7]
+[ext_resource path="res://tools/class_editor/structures/properties/production_steps.tscn" type="PackedScene" id=8]
+
+[node name="CityStructureItem" instance=ExtResource( 4 )]
+class_scene = "res://game_objects/structures/city_structure.tscn"
+
+[node name="MarginContainer" parent="." index="0"]
+margin_right = 510.0
+margin_bottom = 256.0
+
+[node name="PropertyDivider" parent="MarginContainer" index="0"]
+margin_right = 498.0
+margin_bottom = 248.0
+
+[node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
+margin_bottom = 244.0
+
+[node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
+margin_bottom = 244.0
+
+[node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
+margin_right = 494.0
+margin_bottom = 244.0
+
+[node name="GridContainer" parent="MarginContainer/PropertyDivider/Properties" index="0"]
+margin_bottom = 244.0
+
+[node name="ProductionSteps" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="3" instance=ExtResource( 8 )]
+margin_top = 186.0
+margin_right = 148.0
+margin_bottom = 244.0
+
+[node name="VBoxContainer" parent="MarginContainer/PropertyDivider/Properties" index="1"]
+margin_right = 378.0
+margin_bottom = 244.0
+
+[node name="StartingItems" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="0"]
+margin_right = 226.0
+
+[node name="StorageResources" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="1" instance=ExtResource( 7 )]
+margin_top = 54.0
+margin_right = 226.0
+margin_bottom = 98.0
+
+[node name="InputResources" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="2" instance=ExtResource( 5 )]
+margin_top = 118.0
+margin_right = 226.0
+margin_bottom = 152.0
+
+[node name="OutputResources" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="3" instance=ExtResource( 6 )]
+margin_top = 172.0
+margin_right = 226.0
+margin_bottom = 206.0
