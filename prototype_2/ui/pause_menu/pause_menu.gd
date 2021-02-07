@@ -8,8 +8,8 @@ const QUIT_GAME_QUESTION: String = "Quit The Game?"
 
 var _busy: bool = false
 
+var _main_node: Main = null
 
-onready var _main_node: Main = get_tree().current_scene as Main
 
 onready var _background: ColorRect = $Background
 onready var _menu: CenterContainer = $SplitContainer/Menu
@@ -37,6 +37,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _listening_to_inputs() -> bool:
+	if not _main_node:
+		return false
+	
 	return not _busy and _main_node.is_in_game()
 
 

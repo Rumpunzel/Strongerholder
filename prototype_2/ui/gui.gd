@@ -45,11 +45,5 @@ func _input_after_load() -> void:
 	emit_signal("game_load_finished")
 
 
-func _open_class_editor() -> void:
-	var new_class_editor: ClassEditor = preload("res://tools/class_editor/class_editor.tscn").instance()
-	
-	add_child(new_class_editor)
-
-
 func _quit_game() -> void:
 	emit_signal("quit_game")
