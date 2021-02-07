@@ -1,8 +1,10 @@
-class_name InfoMenu
-extends TabContainer
+extends MarginContainer
 
 
-var _currently_selected: GameObject = null
+onready var _title: Label = $Info/Title
+onready var _description: RichTextLabel = $Info/Description
+onready var _image: TextureRect = $Info/Image
+onready var _info: RichTextLabel = $Info/Info
 
 
 
@@ -19,9 +21,6 @@ func _ready() -> void:
 
 
 func object_selected(new_object: GameObject) -> void:
-	_currently_selected = new_object
-	
-	visible = true if _currently_selected else false
-	
-	for menu in get_children():
-		menu.object_selected(new_object)
+	if new_object:
+		_title.text = new_object.name
+		_image.texture = new_object._sprite.texture

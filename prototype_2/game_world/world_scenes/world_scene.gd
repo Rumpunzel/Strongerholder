@@ -7,6 +7,9 @@ const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 const PERSIST_PROPERTIES := [ "name", "_first_time" ]
 
 
+signal object_selected
+
+
 var main_node setget set_main_node
 
 
@@ -44,6 +47,8 @@ func _initialise_scene() -> void:
 	_objects_layer.name = "ObjectsLayer"
 	add_child(_objects_layer)
 	
+	_objects_layer.connect("object_selected", self, "_on_object_selected")
+	
 	
 	for i in range(5):
 		for j in range(2):
@@ -54,3 +59,7 @@ func _initialise_scene() -> void:
 			
 			if i == 0 and j == 0:
 				player.player_controlled = true
+
+
+func _on_object_selected(new_node: GameObject) -> void:
+	emit_signal("object_selected", new_node)

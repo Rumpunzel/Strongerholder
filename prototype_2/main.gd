@@ -30,6 +30,8 @@ func _ready() -> void:
 	
 	_gui.main_node = self
 	
+	_world.connect("object_selected", _gui, "_on_object_selected")
+	
 	open_main_menu()
 
 

@@ -4,19 +4,19 @@
 [ext_resource path="res://ui/game_gui/info_menu/main_info.tscn" type="PackedScene" id=2]
 
 [node name="InfoMenu" type="TabContainer"]
-margin_left = 1904.0
-margin_right = 1920.0
-margin_bottom = 776.0
-rect_min_size = Vector2( 200, 0 )
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
 size_flags_horizontal = 0
 size_flags_vertical = 4
-tab_align = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MainInfo" parent="." instance=ExtResource( 2 )]
-margin_left = 8.0
-margin_right = -8.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
 margin_bottom = -4.0

@@ -19,8 +19,10 @@ const PERSIST_PROPERTIES := [
 const PERSIST_OBJ_PROPERTIES := [ "_assigned_workers", "_state_machine" ]
 
 
-signal died
+signal selected
+
 signal damaged
+signal died
 
 
 var type: String
@@ -165,6 +167,8 @@ func set_damaged_sounds(new_sounds: String) -> void:
 func set_selected(new_status: bool) -> void:
 	selected = new_status
 	_selection_outline.visible = selected
+	
+	emit_signal("selected", self if selected else null)
 
 
 

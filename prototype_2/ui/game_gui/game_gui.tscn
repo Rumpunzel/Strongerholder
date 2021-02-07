@@ -28,26 +28,26 @@ __meta__ = {
 [node name="PlayerMenu" parent="VerticalDivider" instance=ExtResource( 6 )]
 margin_left = 760.0
 margin_right = 1160.0
-margin_bottom = 8.0
+margin_bottom = 9.0
 
 [node name="HorizontalDivider" type="HBoxContainer" parent="VerticalDivider"]
-margin_top = 28.0
+margin_top = 13.0
 margin_right = 1920.0
-margin_bottom = 804.0
+margin_bottom = 820.0
 mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="BuildMenu" parent="VerticalDivider/HorizontalDivider" instance=ExtResource( 2 )]
 anchor_top = 0.0
 anchor_bottom = 0.0
-margin_top = 372.0
-margin_right = 16.0
-margin_bottom = 404.0
+margin_top = 385.0
+margin_right = 8.0
+margin_bottom = 421.0
 
 [node name="MiddleMenu" type="MarginContainer" parent="VerticalDivider/HorizontalDivider"]
-margin_left = 20.0
-margin_right = 1716.0
-margin_bottom = 776.0
+margin_left = 12.0
+margin_right = 1920.0
+margin_bottom = 807.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_constants/margin_right = 200
@@ -58,8 +58,8 @@ custom_constants/margin_bottom = 50
 [node name="MenuBook" type="Popup" parent="VerticalDivider/HorizontalDivider/MiddleMenu"]
 margin_left = 200.0
 margin_top = 50.0
-margin_right = 1496.0
-margin_bottom = 726.0
+margin_right = 1708.0
+margin_bottom = 757.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -75,9 +75,14 @@ __meta__ = {
 }
 
 [node name="InfoMenu" parent="VerticalDivider/HorizontalDivider" instance=ExtResource( 7 )]
-margin_left = 1720.0
-margin_top = 253.0
-margin_bottom = 523.0
+visible = false
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1702.0
+margin_top = 210.0
+margin_right = 1920.0
+margin_bottom = 596.0
 
 [node name="BottomDivider" type="HBoxContainer" parent="VerticalDivider"]
 margin_top = 824.0

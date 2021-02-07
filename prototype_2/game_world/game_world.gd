@@ -5,6 +5,9 @@ extends Node2D
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 
+signal object_selected
+
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -33,7 +36,14 @@ func enter_scene(main_node: Main, new_packed_scene: PackedScene, leave_previous_
 	
 	new_scene.main_node = main_node
 	add_child(new_scene)
+	
+	new_scene.connect("object_selected", self, "_on_object_selected")
 
 
 func is_in_game() -> bool:
 	return get_child_count() > 0
+
+
+
+func _on_object_selected(new_node: GameObject) -> void:
+	emit_signal("object_selected", new_node)

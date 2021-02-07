@@ -11,7 +11,8 @@ signal quit_game
 var main_node: Main setget set_main_node
 
 
-onready var _main_menu = $MainMenu
+onready var _game_gui: GameGUI = $GameGUI
+onready var _main_menu: MainMenu = $MainMenu
 onready var _pause_menu: PauseMenu = $PauseMenu
 onready var _loading_gui: LoadingGUI = $LoadingGUI
 
@@ -37,6 +38,10 @@ func set_main_node(new_main_node) -> void:
 	main_node = new_main_node
 	_pause_menu.main_node = main_node
 
+
+
+func _on_object_selected(new_node: GameObject) -> void:
+	_game_gui.object_selected(new_node)
 
 
 func _start_new_game() -> void:
