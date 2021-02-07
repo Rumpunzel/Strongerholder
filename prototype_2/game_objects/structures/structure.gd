@@ -49,8 +49,15 @@ func _get_copy_of_collision_shape() -> CollisionShape2D:
 
 func _get_copy_sprite() -> Sprite:
 	var sprite_copy := Sprite.new()
+	var directory := Directory.new()
 	
-	sprite_copy.texture = load(sprite)
+	if directory.dir_exists(sprite):
+		var images: Array = FileHelper.list_files_in_directory(sprite, false, ".png")
+		
+		sprite_copy.texture = load(images[randi() % images.size()])
+	else:
+		sprite_copy.texture = load(sprite)
+	
 	sprite_copy.offset.y = -sprite_copy.texture.get_height() / 2.0
 	
 	return sprite_copy

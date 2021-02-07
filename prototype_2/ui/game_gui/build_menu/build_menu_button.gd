@@ -15,7 +15,15 @@ var building_to_place: String
 func _ready() -> void:
 	connect("pressed", self, "place_building")
 	
-	icon = load(GameClasses.get_script_constant_map()[building_to_place].sprite)
+	var directory := Directory.new()
+	var sprite: String = GameClasses.get_script_constant_map()[building_to_place].sprite
+	
+	if directory.dir_exists(sprite):
+		var images: Array = FileHelper.list_files_in_directory(sprite, false, ".png")
+		
+		icon = load(images.front())
+	else:
+		icon = load(sprite)
 
 
 func _init(building: String, menu) -> void:

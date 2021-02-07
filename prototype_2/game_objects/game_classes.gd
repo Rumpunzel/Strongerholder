@@ -236,7 +236,7 @@ class Workshop extends _GameClass:
 class Beech extends _GameClass:
 	const scene := "res://game_objects/structures/structure.tscn"
 	const type := "Beech"
-	const sprite := "res://assets/sprites/trees/tree1.png"
+	const sprite := "res://assets/sprites/trees"
 	
 	const hit_points_max := 10
 	const indestructible := false

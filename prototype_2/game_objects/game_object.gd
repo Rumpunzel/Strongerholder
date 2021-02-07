@@ -144,7 +144,15 @@ func set_sprite(new_sprite: String) -> void:
 	sprite = new_sprite
 	
 	if _sprite:
-		_sprite.texture = load(sprite)
+		var directory := Directory.new()
+		
+		if directory.dir_exists(sprite):
+			var images: Array = FileHelper.list_files_in_directory(sprite, false, ".png")
+			
+			_sprite.texture = load(images[randi() % images.size()])
+		else:
+			_sprite.texture = load(sprite)
+		
 		_sprite.offset.y = -_sprite.texture.get_height() / 2.0
 
 func set_damaged_sounds(new_sounds: String) -> void:
