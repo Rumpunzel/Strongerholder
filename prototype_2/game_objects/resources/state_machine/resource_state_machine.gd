@@ -8,16 +8,16 @@ signal item_dropped
 
 
 
-func drop_item(position_to_drop: Vector2) -> void:
-	(current_state as ResourceState).drop_item(position_to_drop)
+func drop_item(position_to_drop: Vector2) -> bool:
+	return (current_state as ResourceState).drop_item(position_to_drop)
 
 
-func pick_up_item() -> void:
-	(current_state as ResourceState).pick_up_item()
+func pick_up_item() -> bool:
+	return (current_state as ResourceState).pick_up_item()
 
 
-func transfer_item() -> void:
-	(current_state as ResourceState).transfer_item()
+func transfer_item() -> bool:
+	return (current_state as ResourceState).transfer_item()
 
 
 

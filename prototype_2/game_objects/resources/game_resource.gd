@@ -36,16 +36,16 @@ func _ready() -> void:
 
 
 
-func drop_item(position_to_drop: Vector2) -> void:
-	(_state_machine as ResourceStateMachine).drop_item(position_to_drop)
+func drop_item(position_to_drop: Vector2) -> bool:
+	return (_state_machine as ResourceStateMachine).drop_item(position_to_drop)
 
 
-func pick_up_item() -> void:
-	(_state_machine as ResourceStateMachine).pick_up_item()
+func pick_up_item() -> bool:
+	return (_state_machine as ResourceStateMachine).pick_up_item()
 
 
-func transfer_item() -> void:
-	(_state_machine as ResourceStateMachine).transfer_item()
+func transfer_item() -> bool:
+	return (_state_machine as ResourceStateMachine).transfer_item()
 
 
 
@@ -72,19 +72,10 @@ func _connect_state_machine() -> void:
 
 
 func _on_item_picked_up() -> void:
-	position = Vector2()
-	get_parent().remove_child(self)
-	
 	emit_signal("item_picked_up")
 
 
 func _on_item_transferred() -> void:
-	var parent: Node2D = get_parent()
-	
-	if parent:
-		parent.remove_child(self)
-	assert(not get_parent())
-	
 	emit_signal("item_transferred")
 
 

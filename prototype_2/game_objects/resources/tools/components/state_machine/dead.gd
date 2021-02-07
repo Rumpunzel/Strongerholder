@@ -21,12 +21,12 @@ func exit(_next_state: String, _parameters: Array = [ ]) -> void:
 
 
 
-func drop_item(_position_to_drop: Vector2) -> void:
-	pass
+func drop_item(_position_to_drop: Vector2) -> bool:
+	return false
 
 
-func transfer_item() -> void:
-	pass
+func transfer_item() -> bool:
+	return false
 
 
 func start_attack(_game_actor: Node2D) -> void:

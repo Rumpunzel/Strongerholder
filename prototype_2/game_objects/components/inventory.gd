@@ -34,19 +34,21 @@ func _ready() -> void:
 
 
 func pick_up_item(item: GameResource) -> void:
-	item.pick_up_item()
-	
-	yield(item, "item_picked_up")
-	
-	_add_item(item)
+	if item.pick_up_item():
+		item.position = Vector2()
+		item.get_parent().remove_child(item)
+		
+		_add_item(item)
 
 
 func transfer_item(item: GameResource) -> void:
-	item.transfer_item()
-	
-	yield(item, "item_transferred")
-	
-	_add_item(item)
+	if item.transfer_item():
+		var parent: Node2D = item.get_parent()
+		
+		if parent:
+			parent.remove_child(item)
+		
+		_add_item(item)
 
 
 

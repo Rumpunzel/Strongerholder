@@ -8,17 +8,20 @@ signal item_dropped
 
 
 
-func pick_up_item() -> void:
+func pick_up_item() -> bool:
 	exit(INACTIVE)
 	
 	emit_signal("item_picked_up")
+	return true
 
 
-func transfer_item() -> void:
+func transfer_item() -> bool:
 	emit_signal("item_transferred")
+	return true
 
 
-func drop_item(position_to_drop: Vector2) -> void:
-	emit_signal("item_dropped", position_to_drop)
-	
+func drop_item(position_to_drop: Vector2) -> bool:
 	exit(IDLE)
+	
+	emit_signal("item_dropped", position_to_drop)
+	return true

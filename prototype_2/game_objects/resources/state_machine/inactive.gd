@@ -27,8 +27,8 @@ func damage(_damage_points: float) -> float:
 	return 0.0
 
 
-func pick_up_item() -> void:
-	pass
+func pick_up_item() -> bool:
+	return false
 
 
 
