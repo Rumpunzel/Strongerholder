@@ -35,7 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().set_input_as_handled()
 		
 		if _current_dummy.place_free():
-			_objects_layer.add_child(_current_structure)
+			_objects_layer.add_child(_current_structure, true)
 			_current_structure.global_position = _current_dummy.get_building_position()
 			
 			_current_structure = GameClasses.spawn_class_with_name(_current_structure.type)

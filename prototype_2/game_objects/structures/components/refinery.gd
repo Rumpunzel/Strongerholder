@@ -68,4 +68,5 @@ func refine_prodcut() -> void:
 		for _i in range(output_resources[item]):
 			var new_item: GameResource = GameClasses.spawn_class_with_name(item)
 			
+			new_item.appear(false)
 			emit_signal("resources_refined", new_item)

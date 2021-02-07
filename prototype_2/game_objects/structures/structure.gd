@@ -94,4 +94,5 @@ func _initialise_starting_items() -> void:
 		for _i in range(starting_items[item]):
 			var new_item: GameResource = GameClasses.spawn_class_with_name(item)
 			
+			new_item.appear(false)
 			_pilot_master.recieve_transferred_item(new_item)
