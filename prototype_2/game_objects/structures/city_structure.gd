@@ -18,26 +18,26 @@ var output_resources := { }
 var production_steps: int = 2
 
 
-var _available_job := load("res://city_management/job_machine/job_machine.gd")
+var _available_job: GDScript = load("res://city_management/job_machine/job_machine.gd") as GDScript
 
 
 
 
 func assign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
-	_pilot_master.assign_gatherer(puppet_master, gathering_resource)
+	(_pilot_master as CityPilotMaster).assign_gatherer(puppet_master, gathering_resource)
 
 func unassign_gatherer(puppet_master: Node2D, gathering_resource) -> void:
-	_pilot_master.unassign_gatherer(puppet_master, gathering_resource)
+	(_pilot_master as CityPilotMaster).unassign_gatherer(puppet_master, gathering_resource)
 
 func can_be_gathered(gathering_resource, puppet_master: Node2D, is_employee: bool = false) -> bool:
-	return _pilot_master.can_be_gathered(gathering_resource, puppet_master, is_employee)
+	return (_pilot_master as CityPilotMaster).can_be_gathered(gathering_resource, puppet_master, is_employee)
 
 
 func operate() -> void:
-	_state_machine.operate()
+	(_state_machine as StructureStateMachine).operate()
 
 func can_be_operated() -> bool:
-	return _pilot_master.can_be_operated()
+	return (_pilot_master as CityPilotMaster).can_be_operated()
 
 
 func has_how_many_of_item(item_type: String) -> Array:
@@ -47,14 +47,14 @@ func request_item(request: String, reciever: Node2D) -> void:
 	var item: GameResource = _pilot_master.has_item(request)
 	
 	if item and _pilot_master.in_range(reciever):
-		_state_machine.give_item(item, reciever)
+		(_state_machine as StructureStateMachine).give_item(item, reciever)
 
 
 
-func _initialise_pilot_master(new_pilot_master := load("res://game_objects/structures/components/city_pilot_master.tscn")) -> void:
+func _initialise_pilot_master(new_pilot_master: PackedScene = load("res://game_objects/structures/components/city_pilot_master.tscn") as PackedScene) -> void:
 	._initialise_pilot_master(new_pilot_master)
 	
-	_pilot_master.available_job = _available_job
-	_pilot_master.storage_resources = storage_resources
+	(_pilot_master as CityPilotMaster).available_job = _available_job
+	(_pilot_master as CityPilotMaster).storage_resources = storage_resources
 	
-	_pilot_master._initialise_refineries(input_resources, output_resources, production_steps)
+	(_pilot_master as CityPilotMaster)._initialise_refineries(input_resources, output_resources, production_steps)

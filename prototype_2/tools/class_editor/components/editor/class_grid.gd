@@ -1,6 +1,7 @@
 class_name ClassGrid
 extends GridContainer
 
+# warning-ignore-all:unsafe_property_access
 
 const _PROPERTIES := "_PROPERTIES"
 

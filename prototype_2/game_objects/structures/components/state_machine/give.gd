@@ -2,7 +2,7 @@ class_name CityStructureStateGive, "res://class_icons/states/icon_state_give.svg
 extends CityStructureState
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_item", "_receiver"]
+const PERSIST_OBJ_PROPERTIES := [ "_item", "_receiver" ]
 
 
 var _item: GameResource = null

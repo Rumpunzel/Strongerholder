@@ -2,7 +2,7 @@ class_name JobStateOperate, "res://class_icons/states/icon_state_operate.svg"
 extends JobStateMoveTo
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["_structure_to_operate"]
+const PERSIST_OBJ_PROPERTIES := [ "_structure_to_operate" ]
 
 
 var _structure_to_operate: CityStructure = null

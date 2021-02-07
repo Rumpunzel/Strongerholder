@@ -3,10 +3,10 @@ extends PilotMaster
 
 
 const PERSIST_PROPERTIES_2 := ["available_job", "storage_resources", "_posted_job"]
-const PERSIST_OBJ_PROPERTIES_4 := ["_custodian", "_assigned_gatherers"]
+const PERSIST_OBJ_PROPERTIES_3 := ["_custodian", "_assigned_gatherers"]
 
 
-var available_job
+var available_job: GDScript
 var storage_resources := { }
 
 var _custodian: Custodian = null
@@ -36,7 +36,7 @@ func _process(_delta: float) -> void:
 
 
 
-func employ_worker(puppet_master: Node2D) -> void:
+func employ_worker(puppet_master: PuppetMaster) -> void:
 	var available_tool: Spyglass = _custodian.get_available_tool()
 	
 	if not available_tool:
@@ -120,13 +120,18 @@ func _unpost_job() -> void:
 func _initialise_inventories() -> void:
 	var new_refinery: Refinery = Refinery.new()
 	new_refinery.name = "Refinery"
+	
+	new_refinery.connect("resources_refined", self, "recieve_transferred_item")
+	
 	add_child(new_refinery)
 	_inventories.append(new_refinery)
+	
 	
 	_custodian = Custodian.new()
 	_custodian.name = "Custodian"
 	add_child(_custodian)
 	_inventories.append(_custodian)
+	
 	
 	._initialise_inventories()
 
@@ -134,7 +139,6 @@ func _initialise_inventories() -> void:
 func _initialise_refineries(input_resources: Dictionary, output_resources: Dictionary, production_steps: int) -> void:
 	for inventory in _inventories:
 		if inventory is Refinery:
-			inventory.pilot_master = self
 			inventory.input_resources = input_resources
 			inventory.output_resources = output_resources
 			inventory.production_steps = production_steps

@@ -1,5 +1,7 @@
 extends TextureRect
 
+# warning-ignore-all:unsafe_property_access
+# warning-ignore-all:unsafe_method_access
 
 signal new_image
 

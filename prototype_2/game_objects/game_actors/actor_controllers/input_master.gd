@@ -162,30 +162,35 @@ class MoveCommand extends Command:
 		sprinting = new_sprinting
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.move_to(movement_vector, sprinting)
+		(state_machine as ActorStateMachine).move_to(movement_vector, sprinting)
 
 
 
 class GiveCommand extends Command:
-	var what_to_give: Node2D
+	var what_to_give: GameResource
 	var whom_to_give_to: Node2D
 	
-	func _init(new_what_to_give: Node2D, new_whom_to_give_to: Node2D) -> void:
+	func _init(new_what_to_give: GameResource, new_whom_to_give_to: Node2D) -> void:
 		what_to_give = new_what_to_give
 		whom_to_give_to = new_whom_to_give_to
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.give_item(what_to_give, whom_to_give_to)
+		(state_machine as ActorStateMachine).give_item(what_to_give, whom_to_give_to)
 
 
 class TakeCommand extends Command:
-	var what_to_take: Node2D
+	var what_to_take: GameResource
 	
-	func _init(new_what_to_take: Node2D) -> void:
+	func _init(new_what_to_take: GameResource) -> void:
 		what_to_take = new_what_to_take
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.take_item(what_to_take)
+		if state_machine is ActorStateMachine:
+			(state_machine as ActorStateMachine).take_item(what_to_take)
+		elif state_machine is StructureStateMachine:
+			(state_machine as StructureStateMachine).take_item(what_to_take)
+		else:
+			assert(false)
 
 
 class RequestCommand extends Command:
@@ -197,18 +202,18 @@ class RequestCommand extends Command:
 		whom_to_ask = new_whom_to_ask
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.request_item(request, whom_to_ask)
+		(state_machine as ActorStateMachine).request_item(request, whom_to_ask)
 
 
 
 class AttackCommand extends Command:
-	var weapon: Node2D
+	var weapon: CraftTool
 	
-	func _init(new_weapon: Node2D) -> void:
+	func _init(new_weapon: CraftTool) -> void:
 		weapon = new_weapon
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.attack(weapon)
+		(state_machine as ActorStateMachine).attack(weapon)
 
 
 class InteractCommand extends Command:
@@ -218,7 +223,7 @@ class InteractCommand extends Command:
 		structure = new_structure
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.operate(structure)
+		(state_machine as ActorStateMachine).operate(structure)
 
 
 

@@ -8,7 +8,7 @@ const PERSIST_PROPERTIES_4 := ["attack_value", "animation"]
 
 
 var attack_value: float = 2.0
-# warning-ignore-all:unused_class_variable
+# warning-ignore:unused_class_variable
 var animation: String = "none"
 
 
@@ -17,17 +17,21 @@ onready var _hurt_box: HurtBox = $HurtBox
 
 
 func start_attack(game_actor: Node2D) -> void:
-	_state_machine.start_attack(game_actor)
+	(_state_machine as ToolStateMachine).start_attack(game_actor)
 
 
 func end_attack() -> void:
-	_state_machine.end_attack()
+	(_state_machine as ToolStateMachine).end_attack()
 
 
 
 
 func _initialise_state_machine(new_state_machine: ObjectStateMachine = ToolStateMachine.new()) -> void:
 	._initialise_state_machine(new_state_machine)
+
+
+func _connect_state_machine() -> void:
+	._connect_state_machine()
 	
 	_state_machine.connect("hit_box_enabled", self, "_enable_hurtbox")
 	_state_machine.connect("hit_box_disabled", self, "_disable_hurtbox")

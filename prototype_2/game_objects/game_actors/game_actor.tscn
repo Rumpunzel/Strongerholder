@@ -46,6 +46,7 @@ func _process(_delta):
 [sub_resource type="GDScript" id=4]
 script/source = "extends Label
 
+# warning-ignore-all:unsafe_property_access
 
 var _puppet_master: PuppetMaster
 
@@ -61,6 +62,7 @@ func _process(_delta):
 [sub_resource type="GDScript" id=5]
 script/source = "extends Label
 
+# warning-ignore-all:unsafe_property_access
 
 var _puppet_master: PuppetMaster
 

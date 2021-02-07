@@ -4,7 +4,7 @@ extends GameObject
 
 const SCENE := "res://game_objects/resources/game_resource.tscn"
 
-const PERSIST_PROPERTIES_2 := ["can_carry"]
+const PERSIST_PROPERTIES_2 := [ "can_carry" ]
 
 
 signal item_picked_up
@@ -17,10 +17,11 @@ const DROP_SPEED := 0.2
 const DROP_HEIGHT := 16.0
 
 
-# warning-ignore-all:unused_class_variable
+# warning-ignore:unused_class_variable
 var can_carry: int = 1
 
 
+onready var _objects_layer = ServiceLocator.objects_layer
 onready var _quarter_master = ServiceLocator.quarter_master
 onready var _tween: Tween = $Tween
 
@@ -36,16 +37,16 @@ func _ready() -> void:
 
 
 func drop_item(position_to_drop: Vector2) -> void:
-	_state_machine.drop_item(position_to_drop)
+	(_state_machine as ResourceStateMachine).drop_item(position_to_drop)
 
 
 func pick_up_item(new_inventory) -> void:
-	_state_machine.pick_up_item(new_inventory)
+	(_state_machine as ResourceStateMachine).pick_up_item(new_inventory)
 
 
 func transfer_item(new_inventory) -> void:
 	if _state_machine:
-		_state_machine.transfer_item(new_inventory)
+		(_state_machine as ResourceStateMachine).transfer_item(new_inventory)
 	else:
 		new_inventory._add_item(self)
 

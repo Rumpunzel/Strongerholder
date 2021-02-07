@@ -4,8 +4,8 @@ extends Node
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "history", "_first_time"]
-const PERSIST_OBJ_PROPERTIES := ["current_state"]
+const PERSIST_PROPERTIES := [ "name", "history", "_first_time" ]
+const PERSIST_OBJ_PROPERTIES := [ "current_state" ]
 
 
 const MAXIMUM_HISTORY_LENGTH: int = 32
@@ -14,7 +14,7 @@ const MAXIMUM_HISTORY_LENGTH: int = 32
 signal state_changed
 
 
-var current_state = null
+var current_state: State = null
 
 var history: Array = [ ]
 

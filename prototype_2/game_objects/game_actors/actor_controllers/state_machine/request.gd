@@ -6,7 +6,7 @@ const PERSIST_OBJ_PROPERTIES := ["_request", "_structure_to_request_from"]
 
 
 var _request
-var _structure_to_request_from: CityStructure
+var _structure_to_request_from: StaticBody2D
 
 
 

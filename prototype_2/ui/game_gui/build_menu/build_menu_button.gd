@@ -2,6 +2,9 @@ class_name BuildMenuButton
 extends Button
 
 
+signal building_placed
+
+
 var build_menu
 var building_to_place: String
 
@@ -23,4 +26,4 @@ func _init(building: String, menu) -> void:
 
 
 func place_building() -> void:
-	build_menu.place_building_2(GameClasses.spawn_class_with_name(building_to_place))
+	emit_signal("building_placed", GameClasses.spawn_class_with_name(building_to_place))

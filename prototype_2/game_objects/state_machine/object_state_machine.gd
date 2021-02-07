@@ -11,7 +11,7 @@ signal animation_changed
 
 
 func damage(damage_points: float) -> float:
-	return current_state.damage(damage_points)
+	return (current_state as ObjectState).damage(damage_points)
 
 
 func die() -> void:

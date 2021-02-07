@@ -1,5 +1,6 @@
 extends ClassProperty
 
+# warning-ignore-all:unsafe_property_access
 
 export(PackedScene) var list_item = null
 

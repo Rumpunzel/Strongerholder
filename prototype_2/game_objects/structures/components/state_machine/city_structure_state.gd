@@ -2,9 +2,6 @@ class_name CityStructureState
 extends ObjectState
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["pilot_master"]
-
-
 signal operated
 # warning-ignore:unused_signal
 signal item_dropped

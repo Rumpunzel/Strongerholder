@@ -2,8 +2,8 @@ class_name JobStateRetrieve, "res://class_icons/states/icon_state_retrieve.svg"
 extends JobStateMoveTo
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["_item_type", "_structure_to_retrieve_from", "_delivery_target"]
-const PERSIST_PROPERTIES_3 := ["_requested_item"]
+const PERSIST_OBJ_PROPERTIES := [ "_item_type", "_structure_to_retrieve_from", "_delivery_target" ]
+const PERSIST_PROPERTIES_3 := [ "_requested_item" ]
 
 
 var _item_type = null

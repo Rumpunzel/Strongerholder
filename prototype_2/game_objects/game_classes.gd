@@ -289,8 +289,8 @@ class Beech extends _GameClass:
 
 class _GameClass:
 	static func _spawn(scene: String, type: String) -> Node2D:
-		var new_game_class: Node2D = load(scene).instance()
-		var class_constants: Dictionary = load("res://game_objects/game_classes.gd").get_script_constant_map()[type].get_script_constant_map()
+		var new_game_class: Node2D = (load(scene) as PackedScene).instance()
+		var class_constants: Dictionary = (load("res://game_objects/game_classes.gd") as GDScript).get_script_constant_map()[type].get_script_constant_map()
 		
 		new_game_class.name = type
 		

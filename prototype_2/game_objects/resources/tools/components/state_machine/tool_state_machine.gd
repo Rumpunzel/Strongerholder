@@ -9,11 +9,11 @@ signal hit_box_disabled
 
 
 func start_attack(game_actor: Node2D) -> void:#GameActor) -> void:
-	current_state.start_attack(game_actor)
+	(current_state as ToolState).start_attack(game_actor)
 
 
 func end_attack() -> void:
-	current_state.end_attack()
+	(current_state as ToolState).end_attack()
 
 
 

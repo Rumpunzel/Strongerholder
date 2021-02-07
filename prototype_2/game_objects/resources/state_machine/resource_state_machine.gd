@@ -9,15 +9,15 @@ signal item_dropped
 
 
 func drop_item(position_to_drop: Vector2) -> void:
-	current_state.drop_item(position_to_drop)
+	(current_state as ResourceState).drop_item(position_to_drop)
 
 
 func pick_up_item(new_invetory) -> void:
-	current_state.pick_up_item(new_invetory)
+	(current_state as ResourceState).pick_up_item(new_invetory)
 
 
 func transfer_item(new_inventory) -> void:
-	current_state.transfer_item(new_inventory)
+	(current_state as ResourceState).transfer_item(new_inventory)
 
 
 

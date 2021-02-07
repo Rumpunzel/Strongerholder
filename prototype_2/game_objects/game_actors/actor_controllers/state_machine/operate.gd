@@ -5,7 +5,7 @@ extends ActorState
 const PERSIST_OBJ_PROPERTIES := ["_structure"]
 
 
-var _structure: Structure = null
+var _structure: StaticBody2D = null
 
 
 

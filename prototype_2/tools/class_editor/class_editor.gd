@@ -8,7 +8,6 @@ var _every_n_frames := 50
 var _frames_passed := 0
 
 
-onready var _main_node: Main = get_tree().current_scene as Main
 onready var _classes: TabContainer = $MarginContainer/TopDivider/EditorDivider/Classes
 
 
@@ -66,8 +65,4 @@ func _quit() -> void:
 
 
 func _leave_editor() -> void:
-	_main_node.quit_game()
-#	_main_node.open_main_menu()
-#
-#	get_parent().remove_child(self)
-#	queue_free()
+	get_tree().quit()

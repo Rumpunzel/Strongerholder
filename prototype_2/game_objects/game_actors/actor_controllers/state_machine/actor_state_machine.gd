@@ -34,42 +34,38 @@ var _checked_animation: bool = false
 
 
 func move_to(direction: Vector2, is_sprinting: bool = false) -> void:
-	current_state.move_to(direction, is_sprinting)
+	(current_state as ActorState).move_to(direction, is_sprinting)
 
 
 func give_item(item: GameResource, receiver: Node2D) -> void:
-	current_state.give_item(item, receiver)
+	(current_state as ActorState).give_item(item, receiver)
 
 
 func take_item(item: GameResource) -> void:
-	current_state.take_item(item)
+	(current_state as ActorState).take_item(item)
 
 
 func request_item(request, receiver: Node2D) -> void:
-	current_state.request_item(request, receiver)
-
-
-func transfer_item(item, receiver: Node2D) -> void:
-	current_state.transfer_item(item, receiver)
+	(current_state as ActorState).request_item(request, receiver)
 
 
 func attack(weapon: CraftTool) -> void:
-	current_state.attack(weapon)
+	(current_state as ActorState).attack(weapon)
 
 
 func operate(structure: Node2D) -> void:
-	current_state.operate(structure)
+	(current_state as ActorState).operate(structure)
 
 
 
 func _animation_acted(animation: String) -> void:
-	current_state.animation_acted(animation)
+	(current_state as ActorState).animation_acted(animation)
 
 func _action_finished(animation: String) -> void:
-	current_state.action_finished(animation)
+	(current_state as ActorState).action_finished(animation)
 
 func _animation_finished(animation: String) -> void:
-	current_state.animation_finished(animation)
+	(current_state as ActorState).animation_finished(animation)
 
 
 
@@ -116,11 +112,11 @@ func _on_dropped_item(item: GameResource) -> void:
 func _on_took_item(item_to_take: GameResource) -> void:
 	emit_signal("took_item", item_to_take)
 
-func _on_item_requested(request: String, structure_to_request_from: CityStructure) -> void:
+func _on_item_requested(request: String, structure_to_request_from: StaticBody2D) -> void:
 	emit_signal("item_requested", request, structure_to_request_from)
 
 func _on_attacked(weapon: CraftTool) -> void:
 	emit_signal("attacked", weapon)
 
-func _on_operated_structure(structure: CityStructure) -> void:
+func _on_operated_structure(structure: StaticBody2D) -> void:
 	emit_signal("operated_structure", structure)

@@ -2,9 +2,6 @@ class_name StructureStateMachine, "res://class_icons/game_objects/structures/ico
 extends ObjectStateMachine
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["pilot_master"]
-
-
 signal operated
 signal item_dropped
 signal took_item
@@ -13,15 +10,15 @@ signal item_transferred
 
 
 func give_item(item: GameResource, receiver: Node2D) -> void:
-	current_state.give_item(item, receiver)
+	(current_state as CityStructureState).give_item(item, receiver)
 
 
 func take_item(item: GameResource) -> void:
-	current_state.take_item(item)
+	(current_state as CityStructureState).take_item(item)
 
 
 func operate() -> void:
-	current_state.operate()
+	(current_state as CityStructureState).operate()
 
 
 

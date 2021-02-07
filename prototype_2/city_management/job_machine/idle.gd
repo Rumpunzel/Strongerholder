@@ -2,7 +2,7 @@ class_name JobStateIdle
 extends JobState
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["_delivery_target"]
+const PERSIST_OBJ_PROPERTIES := [ "_delivery_target" ]
 
 
 var _delivery_target: CityStructure = null

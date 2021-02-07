@@ -3,10 +3,10 @@ extends PanelContainer
 
 
 onready var label: Label = $PropContainer/TopDivider/Label
-# warning-ignore-all:unused_class_variable
+# warning-ignore:unused_class_variable
 onready var property = $PropContainer/Property
 
-# warning-ignore-all:unused_class_variable
+# warning-ignore:unused_class_variable
 onready var property_name: String = label.text
 
 

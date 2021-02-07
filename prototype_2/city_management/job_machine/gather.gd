@@ -2,7 +2,7 @@ class_name JobStateGather, "res://class_icons/states/icon_state_gather.svg"
 extends JobStateMoveTo
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["_item_type", "_structure_to_gather_from", "_delivery_target"]
+const PERSIST_OBJ_PROPERTIES := [ "_item_type", "_structure_to_gather_from", "_delivery_target" ]
 
 
 var _item_type = null

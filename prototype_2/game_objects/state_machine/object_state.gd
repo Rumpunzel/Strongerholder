@@ -1,14 +1,12 @@
 class_name ObjectState, "res://class_icons/states/icon_state_idle.svg"
-extends Node
+extends State
 
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "_animation_cancellable"]
+const PERSIST_PROPERTIES := [ "name", "_animation_cancellable" ]
 
 
-signal state_entered
-signal state_exited
 signal active_state_set
 # warning-ignore:unused_signal
 signal died
@@ -27,21 +25,8 @@ var _animation_cancellable: bool = true
 
 
 
-func enter(_parameters: Array = [ ]) -> void:
-	emit_signal("state_entered")
-
-func exit(next_state: String, parameters: Array = [ ]) -> void:
-	emit_signal("state_exited", next_state, parameters)
-
-
-
 func damage(damage_points: float) -> float:
 	return damage_points
-
-
-
-func is_active() -> bool:
-	return true
 
 
 

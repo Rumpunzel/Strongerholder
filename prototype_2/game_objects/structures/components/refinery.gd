@@ -2,11 +2,12 @@ class_name Refinery, "res://class_icons/game_objects/structures/icon_refinery.sv
 extends Inventory
 
 
-const PERSIST_PROPERTIES_2 := ["production_steps", "steps_done"]
-const PERSIST_OBJ_PROPERTIES_2 := ["pilot_master", "input_resources", "output_resources"]
+const PERSIST_PROPERTIES_2 := [ "production_steps", "steps_done" ]
+const PERSIST_OBJ_PROPERTIES_2 := [ "input_resources", "output_resources" ]
 
 
-var pilot_master: Node2D = null
+signal resources_refined
+
 
 var input_resources: Dictionary = { }
 var output_resources: Dictionary = { }
@@ -65,6 +66,6 @@ func refine_prodcut() -> void:
 	
 	for item in output_resources.keys():
 		for _i in range(output_resources[item]):
-			var new_item: Node2D = GameClasses.spawn_class_with_name(item)
+			var new_item: GameResource = GameClasses.spawn_class_with_name(item)
 			
-			pilot_master.recieve_transferred_item(new_item)
+			emit_signal("resources_refined", new_item)

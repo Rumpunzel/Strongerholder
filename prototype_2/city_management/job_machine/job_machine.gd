@@ -2,8 +2,8 @@ class_name JobMachine, "res://class_icons/states/icon_state_machine.svg"
 extends StateMachine
 
 
-const PERSIST_PROPERTIES_2 := ["_debug_flag_scene", "_timed_passed"]
-const PERSIST_OBJ_PROPERTIES_2 := ["employee", "employer", "dedicated_tool", "_flag"]
+const PERSIST_PROPERTIES_2 := [ "_timed_passed" ]
+const PERSIST_OBJ_PROPERTIES_2 := [ "employee", "employer", "dedicated_tool", "_flag" ]
 
 
 const DebugFlagScene = preload("res://city_management/job_machine/flag.tscn")
@@ -60,26 +60,26 @@ func _process(delta: float) -> void:
 
 
 func next_step() -> Vector2:
-	return current_state.next_step(employee.global_position)
+	return (current_state as JobState).next_step(employee.global_position)
 
 func next_command() -> InputMaster.Command:
-	return current_state.next_command(employee, dedicated_tool)
+	return (current_state as JobState).next_command(employee, dedicated_tool)
 
 func current_target() -> GameObject:
-	return current_state.current_target()
+	return (current_state as JobState).current_target()
 
 
 
 func activate(first_time: bool = false, tool_type = null) -> void:
-	current_state.activate(first_time, [ tool_type, employer ])
+	(current_state as JobState).activate(first_time, [ tool_type, employer ])
 
 func deactivate() -> void:
-	current_state.deactivate()
+	(current_state as JobState).deactivate()
 
 
 
 func _check_for_exit_conditions() -> void:
-	current_state.check_for_exit_conditions(employee, employer, dedicated_tool)
+	(current_state as JobState).check_for_exit_conditions(employee, employer, dedicated_tool)
 
 
 func _setup_states(state_classes: Array = [ ]) -> void:
@@ -103,7 +103,7 @@ func _connect_states() -> void:
 	._connect_states()
 	
 	for state in get_children():
-		state.connect("state_changed", self, "_change_to")
+		state.connect("state_exited", self, "_change_to")
 		state.connect("items_assigned", self, "_on_items_assigned")
 		state.connect("gatherer_assigned", self, "_on_gatherer_assigned")
 		state.connect("gatherer_unassigned", self, "_on_gatherer_unassigned")

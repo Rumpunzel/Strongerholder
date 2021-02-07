@@ -1,14 +1,11 @@
 class_name JobState, "res://class_icons/states/icon_state_idle.svg"
-extends Node
+extends State
 
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name"]
-const PERSIST_OBJ_PROPERTIES := ["employee", "employer", "employer_structure", "dedicated_tool"]
+const PERSIST_PROPERTIES := [ "name" ]
 
-
-signal state_changed
 
 signal items_assigned
 # warning-ignore:unused_signal
@@ -43,14 +40,10 @@ func check_for_exit_conditions(_employee: PuppetMaster, _employer: CityStructure
 
 
 
-
-
-func enter(_parameters: Array = [ ]) -> void:
+func enter(parameters: Array = [ ]) -> void:
+	.enter(parameters)
+	
 	emit_signal("items_assigned")
-
-
-func exit(next_state: String, parameters: Array = [ ]) -> void:
-	emit_signal("state_changed", next_state, parameters)
 
 
 

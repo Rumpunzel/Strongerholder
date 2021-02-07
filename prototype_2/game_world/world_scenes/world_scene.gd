@@ -33,7 +33,7 @@ func _ready() -> void:
 func _initialise_scene() -> void:
 	for i in range(5):
 		for j in range(2):
-			var player: GameActor = load("res://game_objects/game_actors/game_actor.tscn").instance()
+			var player: GameActor = (load("res://game_objects/game_actors/game_actor.tscn") as PackedScene).instance()
 			
 			_objects_layer.add_child(player)
 			player.global_position = Vector2(i * 32, j * 32)

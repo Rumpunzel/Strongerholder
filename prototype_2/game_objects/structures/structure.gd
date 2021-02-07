@@ -50,7 +50,12 @@ func _get_copy_of_collision_shape() -> CollisionShape2D:
 
 
 func _get_copy_sprite() -> Sprite:
-	return $Sprite.duplicate() as Sprite
+	var sprite_copy := Sprite.new()
+	
+	sprite_copy.texture = load(sprite)
+	sprite_copy.offset.y = -sprite_copy.texture.get_height() / 2.0
+	
+	return sprite_copy
 
 
 
@@ -62,7 +67,7 @@ func _initialisation() -> void:
 	_initialise_starting_items()
 
 
-func _initialise_pilot_master(new_pilot_master := load("res://game_objects/structures/components/pilot_master.tscn")) -> void:
+func _initialise_pilot_master(new_pilot_master: PackedScene = load("res://game_objects/structures/components/pilot_master.tscn") as PackedScene) -> void:
 	_pilot_master = new_pilot_master.instance()
 	_pilot_master.game_object = self
 	

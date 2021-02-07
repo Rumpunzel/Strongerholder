@@ -2,10 +2,10 @@ class_name PilotMaster, "res://class_icons/game_objects/structures/icon_pilot_ma
 extends InputMaster
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["game_object", "_desired_items"]
+const PERSIST_OBJ_PROPERTIES_2 := ["game_object", "_desired_items"]
 
 
-# warning-ignore-all:unused_class_variable
+# warning-ignore:unused_class_variable
 var game_object: Node2D = null
 
 var _desired_items: Array = [ ]

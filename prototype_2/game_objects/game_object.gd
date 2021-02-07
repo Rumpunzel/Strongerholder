@@ -4,8 +4,18 @@ extends StaticBody2D
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name", "position", "type", "sprite", "hit_points_max", "indestructible", "maximum_operators", "_first_time"]
-const PERSIST_OBJ_PROPERTIES := ["_assigned_workers", "_state_machine"]
+const PERSIST_PROPERTIES := [
+	"name",
+	"position",
+	"type",
+	"sprite",
+	"hit_points_max",
+	"indestructible",
+	"hit_points",
+	"maximum_operators",
+	"_first_time",
+]
+const PERSIST_OBJ_PROPERTIES := [ "_assigned_workers", "_state_machine" ]
 
 
 signal died
@@ -34,8 +44,6 @@ onready var _collision_shape: CollisionShape2D = $CollisionShape
 onready var _sprite: Sprite = $Sprite
 onready var _selection_outline: SelectionOutline = $SelectionOutline
 
-onready var _objects_layer = ServiceLocator.objects_layer
-
 
 
 
@@ -48,6 +56,8 @@ func _ready() -> void:
 		_initialisation()
 	
 	_connect_state_machine()
+	
+	set_sprite(sprite)
 	
 	add_to_group(type)
 
@@ -123,13 +133,16 @@ func enable_collision(new_status: bool) -> void:
 
 func set_sprite(new_sprite: String):
 	sprite = new_sprite
-	$Sprite.texture = load(sprite)
-	$Sprite.offset.y = -$Sprite.texture.get_height() / 2.0
+	
+	if _sprite:
+		_sprite.texture = load(sprite)
+		_sprite.offset.y = -_sprite.texture.get_height() / 2.0
 
 
 func set_selected(new_status: bool) -> void:
 	selected = new_status
 	_selection_outline.visible = selected
+
 
 
 

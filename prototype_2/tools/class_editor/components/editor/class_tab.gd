@@ -1,5 +1,6 @@
 extends MarginContainer
 
+# warning-ignore-all:unsafe_method_access
 
 onready var _sub_classes: TabContainer = $InfoDivider/SubClasses
 

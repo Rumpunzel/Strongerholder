@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game_objects/components/audio_handler.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_objects/structures/structure.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/game_object.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -16,8 +17,11 @@ shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
 position = Vector2( 0, 8 )
+texture = ExtResource( 4 )
 
 [node name="SelectionOutline" parent="." index="2"]
 visible = false
+point_count = 32
+color = Color( 1, 0.843137, 0, 1 )
 
 [node name="AudioHandler" parent="." index="3" instance=ExtResource( 1 )]

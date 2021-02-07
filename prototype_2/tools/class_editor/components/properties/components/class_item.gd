@@ -1,6 +1,7 @@
 class_name ClassItem
 extends PanelContainer
 
+# warning-ignore-all:unsafe_method_access
 
 const SCENE := "scene"
 const TYPE := "type"

@@ -16,7 +16,7 @@ func exit(next_state: String, parameters: Array = [ ]) -> void:
 
 
 
-func damage(_damage_points: float, _sender) -> float:
+func damage(_damage_points: float) -> float:
 	return 0.0
 
 

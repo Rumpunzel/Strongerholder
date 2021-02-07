@@ -30,7 +30,7 @@ func end_attack() -> void:
 
 
 
-func _hit_object(other_object: Node2D) -> void:
+func _hit_object(other_object: PhysicsBody2D) -> void:
 	if other_object == _damage_source:
 		return
 	

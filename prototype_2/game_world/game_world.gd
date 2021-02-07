@@ -5,7 +5,7 @@ extends Node2D
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 
-var default_scene: PackedScene = load("res://game_world/world_scenes/test/test.tscn")
+export(PackedScene) var default_scene := preload("res://game_world/world_scenes/test/test.tscn")
 
 
 

@@ -39,6 +39,7 @@ var _state_machine: ActorStateMachine
 
 
 onready var _collision_shape: CollisionShape2D = $CollisionShape
+onready var _sprite: Sprite = $Sprite
 onready var _animation_tree: AnimationStateMachine = $AnimationTree
 
 
@@ -54,8 +55,13 @@ func _ready() -> void:
 	
 	_connect_state_machine()
 	
+	set_sprite(sprite)
+	
+	# warning-ignore:unsafe_property_access
 	$StateLabel._state_machine = _state_machine
+	# warning-ignore:unsafe_property_access
 	$JobLabel._puppet_master = _puppet_master
+	# warning-ignore:unsafe_property_access
 	$EmployerLabel._puppet_master = _puppet_master
 
 
@@ -121,8 +127,10 @@ func set_velocity(new_velocity: Vector2, sprinting: bool) -> void:
 
 func set_sprite(new_sprite: String):
 	sprite = new_sprite
-	#$Sprite.texture = load(sprite)
-	#$Sprite.offset.y = -$Sprite.texture.get_height() / 2.0
+	
+#	if _sprite:
+#		_sprite.texture = load(sprite)
+#		_sprite.offset.y = -_sprite.texture.get_height() / 2.0
 
 func set_selected(new_status: bool) -> void:
 	selected = new_status
@@ -136,7 +144,7 @@ func _initialisation() -> void:
 	_initialise_state_machine()
 
 
-func _initialise_puppet_master(new_puppet_master := load("res://game_objects/game_actors/actor_controllers/puppet_master.tscn")) -> void:
+func _initialise_puppet_master(new_puppet_master: PackedScene = load("res://game_objects/game_actors/actor_controllers/puppet_master.tscn") as PackedScene) -> void:
 	_puppet_master = new_puppet_master.instance()
 	add_child(_puppet_master)
 

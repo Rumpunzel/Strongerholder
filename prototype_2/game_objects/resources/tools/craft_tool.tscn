@@ -19,3 +19,6 @@ script = ExtResource( 3 )
 [node name="HurtShape" type="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource( 1 )
 disabled = true
+
+[node name="SelectionOutline" parent="." index="3"]
+color = Color( 1, 0.843137, 0, 1 )

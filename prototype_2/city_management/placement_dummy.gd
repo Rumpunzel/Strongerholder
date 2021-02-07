@@ -15,8 +15,8 @@ func _init(new_collision_shape: CollisionShape2D, shape_offset: Vector2, new_spr
 	add_child(new_collision_shape)
 	add_child(new_sprite)
 	
-	new_collision_shape.position += shape_offset
-	new_sprite.position += sprite_offset
+	#new_collision_shape.position += shape_offset
+	#new_sprite.position += sprite_offset
 	
 	modulate = PLACEMENT_COLOR
 	modulate.a = 0.75
