@@ -2,10 +2,10 @@ class_name ActorStateOperate, "res://class_icons/states/icon_state_operate.svg"
 extends ActorState
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_structure"]
+const PERSIST_OBJ_PROPERTIES := ["_structure"]
 
 
-var _structure: Structure = null
+var _structure: StaticBody2D = null
 
 
 
@@ -32,7 +32,7 @@ func animation_acted(_animation: String) -> void:
 	if not _structure:
 		return
 	
-	puppet_master.interact_with(_structure)
+	emit_signal("operated_structure", _structure)
 
 
 func animation_finished(animation: String) -> void:

@@ -8,17 +8,14 @@ signal game_load_finished
 signal quit_game
 
 
+var main_node: Main setget set_main_node
+
+
 onready var _main_menu = $MainMenu
+onready var _pause_menu: PauseMenu = $PauseMenu
 onready var _loading_gui: LoadingGUI = $LoadingGUI
-onready var _pause_menu = $PauseMenu
-onready var _game_gui = $GameGUI
 
 
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,6 +30,12 @@ func show_main_menu() -> void:
 
 func loading_game(new_game: bool = false) -> void:
 	_loading_gui.loading_game(new_game)
+
+
+
+func set_main_node(new_main_node) -> void:
+	main_node = new_main_node
+	_pause_menu.main_node = main_node
 
 
 

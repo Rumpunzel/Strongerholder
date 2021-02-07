@@ -14,4 +14,4 @@ func _ready() -> void:
 func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
-	_toggle_active_state(game_object, true)
+	emit_signal("active_state_set", true)

@@ -1,4 +1,4 @@
-class_name Navigator, "res://class_icons/icon_navigator.svg"
+class_name Navigator, "res://class_icons/city_management/icon_navigator.svg"
 extends Navigation2D
 
 
@@ -13,15 +13,15 @@ func _exit_tree() -> void:
 
 
 
-func nearest_in_group(start_position: Vector2, group_name, groups_to_exclude: Array = [ ], objects_to_exclude: Array = [ ]) -> Node2D:
-	if Constants.is_structure(group_name) or Constants.is_thing(group_name):
-		group_name = Constants.enum_name(Constants.Structures, group_name)
-	elif Constants.is_resource(group_name):
-		group_name = Constants.enum_name(Constants.Resources, group_name)
-	
-	var group: Array = get_tree().get_nodes_in_group(group_name)
-	
-	return nearest_from_array(start_position, group, groups_to_exclude, objects_to_exclude)
+#func nearest_in_group(start_position: Vector2, group_name, groups_to_exclude: Array = [ ], objects_to_exclude: Array = [ ]) -> Node2D:
+#	if Constants.is_structure(group_name) or Constants.is_thing(group_name):
+#		group_name = Constants.enum_name(Constants.Structures, group_name)
+#	elif Constants.is_resource(group_name):
+#		group_name = Constants.enum_name(Constants.Resources, group_name)
+#
+#	var group: Array = get_tree().get_nodes_in_group(group_name)
+#
+#	return nearest_from_array(start_position, group, groups_to_exclude, objects_to_exclude)
 
 
 
@@ -38,7 +38,7 @@ func nearest_from_array(start_position: Vector2, group: Array, groups_to_exclude
 		var object_groups: Array = object.get_groups()
 		
 		for ex_group in groups_to_exclude:
-			if object_groups.has(Constants.enum_name(Constants.Structures, ex_group)):
+			if object_groups.has(ex_group):
 				valid_object = false
 				break
 		

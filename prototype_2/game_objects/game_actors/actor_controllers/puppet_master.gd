@@ -37,7 +37,7 @@ func _get_input(player_controlled: bool) -> Array:
 	var commands: Array = [ ]
 	
 	if _current_job:
-		var task_target: Node2D = _current_job.current_target()
+		var task_target: GameObject = _current_job.current_target()
 		var next_step: Vector2 = _current_job.next_step()
 		
 		if task_target and in_range(task_target):
@@ -59,7 +59,7 @@ func _get_input(player_controlled: bool) -> Array:
 
 func _initialise_inventories() -> void:
 	var new_tool_belt: ToolBelt = ToolBelt.new()
-	new_tool_belt.name = "tool_belt"
+	new_tool_belt.name = "ToolBelt"
 	add_child(new_tool_belt)
 	_inventories.append(new_tool_belt)
 	

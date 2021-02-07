@@ -1,4 +1,4 @@
-class_name ActorStateDead, "res://class_icons/icon_state_dead.svg"
+class_name ActorStateDead, "res://class_icons/states/icon_state_dead.svg"
 extends ActorStateInactive
 
 
@@ -13,7 +13,7 @@ func _ready() -> void:
 func enter(parameters: Array = [ ]) -> void:
 	.enter(parameters)
 	
-	game_object.die()
+	emit_signal("died")
 
 
 func exit(_next_state: String, _parameters: Array = [ ]) -> void:

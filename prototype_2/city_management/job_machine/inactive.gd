@@ -10,9 +10,9 @@ func _ready() -> void:
 
 
 
-func activate(first_time: bool = false, tool_type = null) -> void:
+func activate(first_time: bool = false, parameters: Array = [ ]) -> void:
 	if first_time:
-		exit(JUST_STARTED, [tool_type])
+		exit(JUST_STARTED, parameters)
 	else:
 		exit(IDLE)
 

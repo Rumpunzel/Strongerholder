@@ -2,30 +2,33 @@ class_name GameResource, "res://class_icons/game_objects/resources/icon_resource
 extends GameObject
 
 
-const PERSIST_PROPERTIES_2 := ["type", "how_many_can_be_carried"]
+const SCENE := "res://game_objects/resources/game_resource.tscn"
+
+const PERSIST_PROPERTIES_2 := [ "can_carry" ]
 
 
-export(Constants.Resources) var type
+signal item_picked_up
+signal item_transferred
+signal item_dropped
 
-# warning-ignore-all:unused_class_variable
-export(int, 100) var how_many_can_be_carried: int = 1
+
+const DROP_RADIUS := 16.0
+const DROP_SPEED := 0.2
+const DROP_HEIGHT := 16.0
+
+
+# warning-ignore:unused_class_variable
+var can_carry: int = 1
 
 
 onready var _objects_layer = ServiceLocator.objects_layer
 onready var _quarter_master = ServiceLocator.quarter_master
+onready var _tween: Tween = $Tween
 
 
 
 
 func _ready() -> void:
-	if _first_time:
-		_first_time = false
-		
-		_initialise_state_machine()
-	
-	
-	add_to_group(Constants.enum_name(Constants.Resources, type))
-	
 	connect("died", self, "unregister_resource")
 	
 	register_resource()
@@ -34,20 +37,18 @@ func _ready() -> void:
 
 
 func drop_item(position_to_drop: Vector2) -> void:
-	_state_machine.drop_item(_objects_layer, position_to_drop)
+	(_state_machine as ResourceStateMachine).drop_item(position_to_drop)
 
 
 func pick_up_item(new_inventory) -> void:
-	_state_machine.pick_up_item(new_inventory)
+	(_state_machine as ResourceStateMachine).pick_up_item(new_inventory)
 
 
 func transfer_item(new_inventory) -> void:
-	_state_machine.transfer_item(new_inventory)
-
-
-
-func appear(new_status: bool) -> void:
-	visible = new_status
+	if _state_machine:
+		(_state_machine as ResourceStateMachine).transfer_item(new_inventory)
+	else:
+		new_inventory._add_item(self)
 
 
 
@@ -59,9 +60,62 @@ func unregister_resource() -> void:
 
 
 
-func _initialise_state_machine() -> void:
-	_state_machine = ResourceStateMachine.new()
-	_state_machine.name = "state_machine"
-	_state_machine.game_object = self
+
+func _initialise_state_machine(new_state_machine: ObjectStateMachine = ResourceStateMachine.new()) -> void:
+	._initialise_state_machine(new_state_machine)
+
+
+func _connect_state_machine() -> void:
+	._connect_state_machine()
 	
-	add_child(_state_machine)
+	_state_machine.connect("item_picked_up", self, "_on_item_picked_up")
+	_state_machine.connect("item_transferred", self, "_on_item_transferred")
+	_state_machine.connect("item_dropped", self, "_on_item_dropped")
+
+
+
+func _on_item_picked_up(new_inventory) -> void:
+	position = Vector2()
+	
+	get_parent().remove_child(self)
+	#new_inventory.call_deferred("_add_item", self)
+	new_inventory._add_item(self)
+	
+	emit_signal("item_picked_up")
+
+
+func _on_item_transferred(new_inventory) -> void:
+	var parent: Node2D = get_parent()
+	
+	if parent:
+		parent.remove_child(self)
+	assert(not get_parent())
+	#new_inventory.call_deferred("_add_item", self)
+	new_inventory._add_item(self)
+	
+	emit_signal("item_transferred")
+
+
+func _on_item_dropped(position_to_drop: Vector2) -> void:
+	var parent: Node2D = get_parent()
+	
+	if parent:
+		parent.remove_child(self)
+	
+	_objects_layer.call_deferred("add_child", self)
+	
+	global_position = position_to_drop
+	call_deferred("_play_drop_animation")
+	
+	emit_signal("item_dropped")
+
+
+func _play_drop_animation() -> void:
+	var final_position := global_position + Vector2(DROP_RADIUS - randf() * 2.0 * DROP_RADIUS, randf() * 2.0 * DROP_RADIUS)
+	
+	_tween.interpolate_property(self, "global_position:x", global_position.x, final_position.x, DROP_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
+	_tween.interpolate_property(self, "global_position:y", global_position.y, final_position.y - DROP_HEIGHT, DROP_SPEED * 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	_tween.interpolate_property(self, "global_position:y", final_position.y - DROP_HEIGHT, final_position.y, DROP_SPEED * 0.5, Tween.TRANS_QUAD, Tween.EASE_IN, DROP_SPEED * 0.5)
+	
+	_tween.start()

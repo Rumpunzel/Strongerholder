@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://tools/class_editor/components/properties/components/class_property.gd" type="Script" id=1]
+
+[node name="PropName" type="PanelContainer"]
+margin_right = 111.0
+margin_bottom = 56.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PropContainer" type="VBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 4.0
+margin_right = 103.0
+margin_bottom = 52.0
+custom_constants/separation = 4
+
+[node name="TopDivider" type="HBoxContainer" parent="PropContainer"]
+margin_right = 95.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="PropContainer/TopDivider"]
+margin_right = 71.0
+margin_bottom = 14.0
+text = "prop_name"
+
+[node name="HSeparator" type="HSeparator" parent="PropContainer"]
+margin_top = 18.0
+margin_right = 95.0
+margin_bottom = 22.0

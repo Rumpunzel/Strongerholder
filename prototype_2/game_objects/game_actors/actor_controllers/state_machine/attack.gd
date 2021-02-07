@@ -2,7 +2,7 @@ class_name ActorStateAttack, "res://class_icons/states/icon_state_attack.svg"
 extends ActorState
 
 
-const PERSIST_OBJ_PROPERTIES_3 := ["_weapon"]
+const PERSIST_OBJ_PROPERTIES := ["_weapon"]
 
 
 var _weapon: CraftTool = null
@@ -29,7 +29,7 @@ func enter(parameters: Array = [ ]) -> void:
 
 
 func animation_acted(_animation: String) -> void:
-	_weapon.start_attack(game_object)
+	emit_signal("attacked", _weapon)
 
 
 func action_finished(_animation: String) -> void:

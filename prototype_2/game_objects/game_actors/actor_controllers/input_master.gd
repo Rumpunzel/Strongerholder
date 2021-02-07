@@ -39,16 +39,16 @@ func process_commands(state_machine: ObjectStateMachine, player_controlled: bool
 
 
 
-func pick_up_item(item: Node2D) -> bool:
+func pick_up_item(item: GameResource) -> bool:
 	for inventory in _inventories:
-		if in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass)):
+		if in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass)):
 			inventory.pick_up_item(item)
 			return true
 	
 	return false
 
 
-func drop_item(item: Node2D, position_to_drop: Vector2 = global_position) -> void:
+func drop_item(item: GameResource, position_to_drop: Vector2 = global_position) -> void:
 	for inventory in _reversed_inventories:
 		if inventory.drop_item(item, position_to_drop):
 			break
@@ -57,19 +57,18 @@ func drop_all_items(position_to_drop: Vector2 = global_position) -> void:
 	for inventory in _reversed_inventories:
 		inventory.drop_all_items(position_to_drop)
 
-
-func transfer_item(item: Node2D) -> bool:
+func recieve_transferred_item(item: GameResource) -> bool:
 	for inventory in _inventories:
-		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources.has(item.type)) or (inventory is ToolBelt and item is Spyglass):
+		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass):
 			inventory.transfer_item(item)
 			return true
 	
 	return false
 
 
-func has_item(resource_type) -> Node2D:
+func has_item(resource_type: String) -> GameResource:
 	for inventory in _reversed_inventories:
-		var item: Node2D = inventory.has(resource_type)
+		var item: GameResource = inventory.has(resource_type)
 		
 		if item:
 			return item
@@ -89,7 +88,7 @@ func get_inventory_contents(only_main_inventory: bool = false) -> Array:
 	return contents
 
 
-func how_many_of_item(item_type) -> Array:
+func how_many_of_item(item_type: String) -> Array:
 	var item_count: Array = [ ]
 	
 	for item in get_inventory_contents():
@@ -99,15 +98,19 @@ func how_many_of_item(item_type) -> Array:
 	return item_count
 
 
-func carry_weight_left() -> float:
-	return _main_inventory.capacity_left()
+# This currently takes either a GameResource or a GameClasses._GameClass so not static typing
+func has_inventory_space_for(item) -> bool:
+	if item.can_carry <= 0:
+		return true
+	
+	return (_main_inventory.capacity_left() - 1.0 / float(item.can_carry)) >= 0.0
 
 
 func in_range(object: PhysicsBody2D) -> bool:
 	return get_overlapping_bodies().has(object)
 
 
-func interact_with(structure: Node2D) -> void:
+func interact_with(structure: StaticBody2D) -> void:
 	if in_range(structure):
 		structure.operate()
 
@@ -136,7 +139,7 @@ func _get_input(_player_controlled: bool) -> Array:
 
 func _initialise_inventories() -> void:
 	_main_inventory = Inventory.new()
-	_main_inventory.name = "inventory"
+	_main_inventory.name = "Inventory"
 	add_child(_main_inventory)
 	_inventories.append(_main_inventory)
 
@@ -159,30 +162,35 @@ class MoveCommand extends Command:
 		sprinting = new_sprinting
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.move_to(movement_vector, sprinting)
+		(state_machine as ActorStateMachine).move_to(movement_vector, sprinting)
 
 
 
 class GiveCommand extends Command:
-	var what_to_give: Node2D
+	var what_to_give: GameResource
 	var whom_to_give_to: Node2D
 	
-	func _init(new_what_to_give: Node2D, new_whom_to_give_to: Node2D) -> void:
+	func _init(new_what_to_give: GameResource, new_whom_to_give_to: Node2D) -> void:
 		what_to_give = new_what_to_give
 		whom_to_give_to = new_whom_to_give_to
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.give_item(what_to_give, whom_to_give_to)
+		(state_machine as ActorStateMachine).give_item(what_to_give, whom_to_give_to)
 
 
 class TakeCommand extends Command:
-	var what_to_take: Node2D
+	var what_to_take: GameResource
 	
-	func _init(new_what_to_take: Node2D) -> void:
+	func _init(new_what_to_take: GameResource) -> void:
 		what_to_take = new_what_to_take
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.take_item(what_to_take)
+		if state_machine is ActorStateMachine:
+			(state_machine as ActorStateMachine).take_item(what_to_take)
+		elif state_machine is StructureStateMachine:
+			(state_machine as StructureStateMachine).take_item(what_to_take)
+		else:
+			assert(false)
 
 
 class RequestCommand extends Command:
@@ -194,18 +202,18 @@ class RequestCommand extends Command:
 		whom_to_ask = new_whom_to_ask
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.request_item(request, whom_to_ask)
+		(state_machine as ActorStateMachine).request_item(request, whom_to_ask)
 
 
 
 class AttackCommand extends Command:
-	var weapon: Node2D
+	var weapon: CraftTool
 	
-	func _init(new_weapon: Node2D) -> void:
+	func _init(new_weapon: CraftTool) -> void:
 		weapon = new_weapon
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.attack(weapon)
+		(state_machine as ActorStateMachine).attack(weapon)
 
 
 class InteractCommand extends Command:
@@ -215,7 +223,7 @@ class InteractCommand extends Command:
 		structure = new_structure
 	
 	func execute(state_machine: ObjectStateMachine) -> void:
-		state_machine.operate(structure)
+		(state_machine as ActorStateMachine).operate(structure)
 
 
 
