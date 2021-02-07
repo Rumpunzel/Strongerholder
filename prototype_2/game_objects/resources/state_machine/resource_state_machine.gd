@@ -12,12 +12,12 @@ func drop_item(position_to_drop: Vector2) -> void:
 	(current_state as ResourceState).drop_item(position_to_drop)
 
 
-func pick_up_item(new_invetory) -> void:
-	(current_state as ResourceState).pick_up_item(new_invetory)
+func pick_up_item() -> void:
+	(current_state as ResourceState).pick_up_item()
 
 
-func transfer_item(new_inventory) -> void:
-	(current_state as ResourceState).transfer_item(new_inventory)
+func transfer_item() -> void:
+	(current_state as ResourceState).transfer_item()
 
 
 
@@ -48,11 +48,11 @@ func _connect_states() -> void:
 func _on_active_state_set(new_state: bool) -> void:
 	emit_signal("active_state_set", new_state)
 
-func _on_item_picked_up(new_inventory) -> void:
-	emit_signal("item_picked_up", new_inventory)
+func _on_item_picked_up() -> void:
+	emit_signal("item_picked_up")
 
-func _on_item_transferred(new_inventory) -> void:
-	emit_signal("item_transferred", new_inventory)
+func _on_item_transferred() -> void:
+	emit_signal("item_transferred")
 
 func _on_item_dropped(position_to_drop: Vector2) -> void:
 	emit_signal("item_dropped", position_to_drop)

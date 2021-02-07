@@ -8,17 +8,13 @@
 radius = 20.0
 
 [node name="CraftTool" instance=ExtResource( 1 )]
-input_pickable = true
 script = ExtResource( 2 )
 
 [node name="HurtBox" type="Area2D" parent="." index="2"]
-collision_layer = 2048
+collision_layer = 0
 collision_mask = 4
 script = ExtResource( 3 )
 
 [node name="HurtShape" type="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource( 1 )
 disabled = true
-
-[node name="SelectionOutline" parent="." index="3"]
-color = Color( 1, 0.843137, 0, 1 )

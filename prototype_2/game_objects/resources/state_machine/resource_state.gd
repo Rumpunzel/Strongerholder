@@ -8,14 +8,14 @@ signal item_dropped
 
 
 
-func pick_up_item(new_inventory) -> void:
+func pick_up_item() -> void:
 	exit(INACTIVE)
 	
-	emit_signal("item_picked_up", new_inventory)
+	emit_signal("item_picked_up")
 
 
-func transfer_item(new_inventory) -> void:
-	emit_signal("item_transferred", new_inventory)
+func transfer_item() -> void:
+	emit_signal("item_transferred")
 
 
 func drop_item(position_to_drop: Vector2) -> void:

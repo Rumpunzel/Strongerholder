@@ -2,9 +2,9 @@ class_name ObjectsLayer, "res://class_icons/game_objects/icon_objects_layer.svg"
 extends YSort
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := ["name"]
+const PERSIST_PROPERTIES := [ "name" ]
 
 
 

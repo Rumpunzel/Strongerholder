@@ -2,6 +2,8 @@ class_name CityPilotMaster, "res://class_icons/game_objects/structures/icon_city
 extends PilotMaster
 
 
+const SCENE_OVERRIDE := "res://game_objects/structures/components/city_pilot_master.tscn"
+
 const PERSIST_PROPERTIES_2 := ["available_job", "storage_resources", "_posted_job"]
 const PERSIST_OBJ_PROPERTIES_3 := ["_custodian", "_assigned_gatherers"]
 

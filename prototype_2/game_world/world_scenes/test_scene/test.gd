@@ -20,16 +20,7 @@ var test_positions := [
 
 
 func _initialise_scene() -> void:
-	for i in range(5):
-		for j in range(2):
-			var player: GameActor = (load("res://game_objects/game_actors/game_actor.tscn") as PackedScene).instance() as GameActor
-			
-			_objects_layer.add_child(player)
-			player.global_position = Vector2(i * 32, j * 32)
-			
-			if i == 0 and j == 0:
-				player.player_controlled = true
-	
+	._initialise_scene()
 	
 	for i in test_scenes.size():
 		var new_scene: Structure = test_scenes[i].spawn() as Structure

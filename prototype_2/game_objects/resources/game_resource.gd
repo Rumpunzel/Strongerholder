@@ -40,15 +40,12 @@ func drop_item(position_to_drop: Vector2) -> void:
 	(_state_machine as ResourceStateMachine).drop_item(position_to_drop)
 
 
-func pick_up_item(new_inventory) -> void:
-	(_state_machine as ResourceStateMachine).pick_up_item(new_inventory)
+func pick_up_item() -> void:
+	(_state_machine as ResourceStateMachine).pick_up_item()
 
 
-func transfer_item(new_inventory) -> void:
-	if _state_machine:
-		(_state_machine as ResourceStateMachine).transfer_item(new_inventory)
-	else:
-		new_inventory._add_item(self)
+func transfer_item() -> void:
+	(_state_machine as ResourceStateMachine).transfer_item()
 
 
 
@@ -74,24 +71,19 @@ func _connect_state_machine() -> void:
 
 
 
-func _on_item_picked_up(new_inventory) -> void:
+func _on_item_picked_up() -> void:
 	position = Vector2()
-	
 	get_parent().remove_child(self)
-	#new_inventory.call_deferred("_add_item", self)
-	new_inventory._add_item(self)
 	
 	emit_signal("item_picked_up")
 
 
-func _on_item_transferred(new_inventory) -> void:
+func _on_item_transferred() -> void:
 	var parent: Node2D = get_parent()
 	
 	if parent:
 		parent.remove_child(self)
 	assert(not get_parent())
-	#new_inventory.call_deferred("_add_item", self)
-	new_inventory._add_item(self)
 	
 	emit_signal("item_transferred")
 

@@ -2,7 +2,7 @@ class_name Custodian, "res://class_icons/game_objects/structures/icon_custodian.
 extends ToolBelt
 
 
-const PERSIST_OBJ_PROPERTIES_2 := ["distributed_tools"]
+const PERSIST_OBJ_PROPERTIES_2 := [ "distributed_tools" ]
 
 
 var distributed_tools: Array = [ ]

@@ -349,6 +349,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://city_management/placement_dummy.gd"
 }, {
+"base": "Camera2D",
+"class": "PlayerCamera",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/player_camera.gd"
+}, {
 "base": "ItemList",
 "class": "PlayerMenu",
 "language": "GDScript",
@@ -558,6 +563,7 @@ _global_script_class_icons={
 "PauseMenu": "res://class_icons/gui/icon_pause_menu.svg",
 "PilotMaster": "res://class_icons/game_objects/structures/icon_pilot_master.svg",
 "PlacementDummy": "",
+"PlayerCamera": "",
 "PlayerMenu": "",
 "PuppetMaster": "res://class_icons/game_objects/game_actors/icon_puppet_master.svg",
 "QuarterMaster": "res://class_icons/city_management/icon_quarter_master.svg",
@@ -617,6 +623,7 @@ gdscript/warnings/unsafe_call_argument=true
 
 window/size/width=1920
 window/size/height=1080
+window/vsync/use_vsync=false
 
 [editor_plugins]
 

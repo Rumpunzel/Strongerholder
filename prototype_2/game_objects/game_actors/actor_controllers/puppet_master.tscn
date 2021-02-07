@@ -6,7 +6,7 @@
 radius = 16.0
 
 [node name="puppet_master" type="Area2D"]
-collision_layer = 2048
+collision_layer = 0
 collision_mask = 31
 script = ExtResource( 3 )
 

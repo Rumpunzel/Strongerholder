@@ -49,6 +49,7 @@ func die() -> void:
 
 
 
+
 func _get_copy_of_collision_shape() -> CollisionShape2D:
 	return $CollisionShape.duplicate() as CollisionShape2D
 
@@ -94,9 +95,4 @@ func _connect_state_machine() -> void:
 
 
 func _initialise_starting_items() -> void:
-	for item in starting_items.keys():
-		for _i in range(starting_items[item]):
-			var new_item: GameResource = GameClasses.spawn_class_with_name(item)
-			
-			new_item.appear(false)
-			_pilot_master.recieve_transferred_item(new_item)
+	_pilot_master.initialise_starting_items(starting_items)

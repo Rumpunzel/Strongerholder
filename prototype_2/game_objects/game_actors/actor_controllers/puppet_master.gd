@@ -2,6 +2,8 @@ class_name PuppetMaster, "res://class_icons/game_objects/game_actors/icon_puppet
 extends InputMaster
 
 
+const SCENE := "res://game_objects/game_actors/actor_controllers/puppet_master.tscn"
+
 const PERSIST_PROPERTIES_2 := ["_applied"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_jobs", "_current_job"]
 

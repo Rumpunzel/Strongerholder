@@ -2,7 +2,7 @@ class_name ActorStateAttack, "res://class_icons/states/icon_state_attack.svg"
 extends ActorState
 
 
-const PERSIST_OBJ_PROPERTIES := ["_weapon"]
+const PERSIST_OBJ_PROPERTIES := [ "_weapon" ]
 
 
 var _weapon: CraftTool = null

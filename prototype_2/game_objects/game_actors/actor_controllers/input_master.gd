@@ -3,10 +3,9 @@ extends Area2D
 
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-const SCENE := "res://game_objects/game_actors/actor_controllers/puppet_master.tscn"
 
-const PERSIST_PROPERTIES := ["name", "_first_time"]
-const PERSIST_OBJ_PROPERTIES := ["_inventories", "_reversed_inventories", "_main_inventory"]
+const PERSIST_PROPERTIES := [ "name", "_first_time" ]
+const PERSIST_OBJ_PROPERTIES := [ "_inventories", "_reversed_inventories", "_main_inventory" ]
 
 
 var _first_time: bool = true
@@ -41,7 +40,7 @@ func process_commands(state_machine: ObjectStateMachine, player_controlled: bool
 
 func pick_up_item(item: GameResource) -> bool:
 	for inventory in _inventories:
-		if in_range(item) and (inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass)):
+		if in_range(item) and _item_belongs_in_inventory(inventory, item):
 			inventory.pick_up_item(item)
 			return true
 	
@@ -59,11 +58,32 @@ func drop_all_items(position_to_drop: Vector2 = global_position) -> void:
 
 func recieve_transferred_item(item: GameResource) -> bool:
 	for inventory in _inventories:
-		if inventory == _main_inventory or (inventory is Refinery and inventory.input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass):
+		if _item_belongs_in_inventory(inventory, item):
 			inventory.transfer_item(item)
 			return true
 	
 	return false
+
+
+func initialise_starting_items(starting_items: Dictionary) -> void:
+	for item in starting_items.keys():
+		for _i in range(starting_items[item]):
+			var new_item: GameResource = GameClasses.spawn_class_with_name(item)
+			
+			new_item.appear(false)
+			_recieve_spawned_item(new_item)
+
+func _recieve_spawned_item(item: GameResource) -> bool:
+	for inventory in _inventories:
+		if _item_belongs_in_inventory(inventory, item):
+			inventory._add_item(item)
+			return true
+	
+	return false
+
+
+func _item_belongs_in_inventory(inventory: Inventory, item: GameResource) -> bool:
+	return inventory == _main_inventory or (inventory is Refinery and (inventory as Refinery).input_resources[item.type] > 0) or (inventory is ToolBelt and item is Spyglass)
 
 
 func has_item(resource_type: String) -> GameResource:

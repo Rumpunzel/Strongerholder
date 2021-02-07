@@ -4,7 +4,7 @@ extends Structure
 
 const SCENE_OVERRIDE := "res://game_objects/structures/city_structure.tscn"
 
-const PERSIST_PROPERTIES_3 := ["storage_resources", "input_resources", "output_resources", "production_steps"]
+const PERSIST_PROPERTIES_3 := [ "storage_resources", "input_resources", "output_resources", "production_steps" ]
 
 
 # Defines what types of resources can be stored in this building

@@ -25,5 +25,9 @@ func drop_item(_position_to_drop: Vector2) -> void:
 	pass
 
 
+func transfer_item() -> void:
+	pass
+
+
 func start_attack(_game_actor: Node2D) -> void:
 	pass
