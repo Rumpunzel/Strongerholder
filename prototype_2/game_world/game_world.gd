@@ -28,12 +28,13 @@ func leave() -> void:
 		child.queue_free()
 
 
-func enter_scene(new_packed_scene: PackedScene = default_scene, leave_previous_scene: bool = true):
+func enter_scene(main_node: Main, new_packed_scene: PackedScene = default_scene, leave_previous_scene: bool = true):
 	if leave_previous_scene:
 		leave()
 	
 	var new_scene := new_packed_scene.instance() as WorldScene
 	
+	new_scene.main_node = main_node
 	add_child(new_scene)
 
 

@@ -8,7 +8,7 @@ const QUIT_GAME_QUESTION: String = "Quit The Game?"
 
 var _busy: bool = false
 
-var _main_node: Main = null
+var main_node: Main
 
 
 onready var _background: ColorRect = $Background
@@ -37,10 +37,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _listening_to_inputs() -> bool:
-	if not _main_node:
+	if not main_node:
 		return false
 	
-	return not _busy and _main_node.is_in_game()
+	return not _busy and main_node.is_in_game()
 
 
 func _pause_game() -> void:
@@ -67,9 +67,9 @@ func _unpause_game() -> void:
 func _save_game() -> void:
 	if not _busy:
 		_busy = true
-		_main_node.save_game()
+		main_node.save_game()
 		
-		yield(_main_node, "game_save_finished")
+		yield(main_node, "game_save_finished")
 		
 		_busy = false
 
@@ -78,7 +78,7 @@ func _load_game() -> void:
 	if not _busy:
 		hide()
 		
-		_main_node.load_game()
+		main_node.load_game()
 
 
 func _back_to_main_menu() -> void:
@@ -96,7 +96,7 @@ func _back_to_main_menu() -> void:
 
 func _open_main_menu() -> void:
 	hide()
-	_main_node.open_main_menu()
+	main_node.open_main_menu()
 
 
 func _quit_game() -> void:

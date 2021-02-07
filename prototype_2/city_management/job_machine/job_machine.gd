@@ -20,12 +20,15 @@ var _timed_passed: float = 0.0
 var _flag: Sprite
 
 
+onready var objects_layer: ObjectsLayer = ServiceLocator.objects_layer
+
+
 
 
 func _ready() -> void:
 	if not _flag and DebugFlagScene:
 		_flag = DebugFlagScene.instance()
-		get_tree().current_scene._world.add_child(_flag)
+		objects_layer.add_child(_flag)
 
 
 func _setup(new_employer: CityStructure, new_employee: PuppetMaster) -> void:

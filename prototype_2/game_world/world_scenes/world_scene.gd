@@ -4,21 +4,24 @@ extends Node
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
-const PERSIST_PROPERTIES := ["name", "_first_time"]
+const PERSIST_PROPERTIES := [ "name", "_first_time" ]
+
+
+var main_node: Main setget set_main_node
 
 
 var _first_time: bool = true
 
 
-onready var _main_node := get_tree().current_scene as Main
 onready var _objects_layer = ServiceLocator.objects_layer
 
 
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	yield(_main_node, "game_load_finished")
+func set_main_node(new_main: Main) -> void:
+	main_node = new_main
+	
+	yield(main_node, "game_load_finished")
 	
 	if not _first_time:
 		return

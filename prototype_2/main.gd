@@ -25,6 +25,8 @@ onready var _gui = $GUILayer/GUI
 func _ready() -> void:
 	randomize()
 	
+	_gui.main_node = self
+	
 	open_main_menu()
 
 
@@ -95,4 +97,4 @@ func _input_after_load() -> void:
 	emit_signal("game_load_finished")
 
 func _enter_world():
-	_world.enter_scene()
+	_world.enter_scene(self)
