@@ -15,6 +15,9 @@ const SAVE_LOCATION := "user://savegame.save"
 const VERSION_POSTFIX := "alpha"
 
 
+export(PackedScene) var default_world_scene := preload("res://game_world/world_scenes/default_scene/default_scene.tscn")
+
+
 onready var _world = $GameWorld
 onready var _gui = $GUILayer/GUI
 
@@ -75,12 +78,11 @@ func load_game(path: String = SAVE_LOCATION) -> void:
 	save_file.open(path, File.READ)
 	emit_signal("game_load_started")
 	
-	_enter_world()
-	
 	SaverLoader.load_game(save_file, get_tree())
 	
 	yield(SaverLoader, "finished")
 	
+	emit_signal("game_save_finished")
 	print("Game loaded from %s" % SAVE_LOCATION)
 
 
@@ -96,5 +98,5 @@ func _start_new_game() -> void:
 func _input_after_load() -> void:
 	emit_signal("game_load_finished")
 
-func _enter_world():
-	_world.enter_scene(self)
+func _enter_world(scene_to_enter: PackedScene = default_world_scene):
+	_world.enter_scene(self, scene_to_enter)

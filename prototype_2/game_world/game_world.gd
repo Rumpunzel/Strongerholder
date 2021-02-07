@@ -5,9 +5,6 @@ extends Node2D
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 
-export(PackedScene) var default_scene := preload("res://game_world/world_scenes/test/test.tscn")
-
-
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,7 +25,7 @@ func leave() -> void:
 		child.queue_free()
 
 
-func enter_scene(main_node: Main, new_packed_scene: PackedScene = default_scene, leave_previous_scene: bool = true):
+func enter_scene(main_node: Main, new_packed_scene: PackedScene, leave_previous_scene: bool = true):
 	if leave_previous_scene:
 		leave()
 	

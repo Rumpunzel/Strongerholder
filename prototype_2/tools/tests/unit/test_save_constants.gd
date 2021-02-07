@@ -13,12 +13,34 @@ func test_scenes_declared_correctly():
 	
 	for file in all_saved_scripts:
 		var script: GDScript = load(file) as GDScript
-		var problem_at_counter: int
 		
-		problem_at_counter = _test_script_scenes(script)
+		var scenes_that_do_not_exist: Array = _test_script_scene(script)
+		assert_true(scenes_that_do_not_exist.empty(), "Testing if SCENE constants exist: %s, %s do not exist!" % [ file, scenes_that_do_not_exist ])
+		
+		var problem_at_counter: int = _test_script_load_scenes(script)
 		assert_true(problem_at_counter < 0, "Testing if SCENE constants are correctly declared in: %s, the index %d is wrong!" % [ file, problem_at_counter ])
 
-func _test_script_scenes(script: GDScript) -> int:
+func _test_script_scene(script: GDScript) -> Array:
+	var scenes_that_do_not_exist: Array = [ ]
+	
+	var scene := "SCENE"
+	var postfix := "_OVERRIDE"
+	var post_fix_2 := "_%d"
+	var test_up_to := 10
+	
+	for counter in range(1, test_up_to):
+		var const_to_check := "%s%s%s" % [ scene, postfix if counter >= 2 else "", (post_fix_2 % (counter - 1)) if counter > 2 else "" ]
+		var directory := Directory.new()
+		
+		if const_to_check in script:
+			var scene_to_check: String = script.get(const_to_check)
+			
+			if not (directory.file_exists(scene_to_check) and scene_to_check.get_extension() == "tscn"):
+				scenes_that_do_not_exist.append(scene_to_check)
+	
+	return scenes_that_do_not_exist
+
+func _test_script_load_scenes(script: GDScript) -> int:
 	var scene := "SCENE"
 	var postfix := "_OVERRIDE"
 	var post_fix_2 := "_%d"
@@ -27,7 +49,6 @@ func _test_script_scenes(script: GDScript) -> int:
 	for counter in range(2, test_up_to):
 		if "%s%s%s" % [ scene, postfix, post_fix_2 % (counter - 1) if counter > 2 else "" ] in script:
 			if not "%s%s%s" % [ scene, postfix if counter > 2 else "", post_fix_2 % (counter - 2) if counter > 3 else "" ] in script:
-				gut.p("Error at index %d" % counter)
 				return counter
 		
 	return -1
@@ -76,10 +97,10 @@ func test_properties_saved():
 		var properties_not_in_class: Array
 		
 		properties_not_in_class = _test_script_properties(script, persist_properties)
-		assert_true(properties_not_in_class.empty(), "Testing if all PERSIST_PROPERTIES are members of: %s,  %s are not!" % [ file, properties_not_in_class ])
+		assert_true(properties_not_in_class.empty(), "Testing if all PERSIST_PROPERTIES are members of: %s, %s are not!" % [ file, properties_not_in_class ])
 		
 		properties_not_in_class = _test_script_properties(script, persist_obj_properties)
-		assert_true(properties_not_in_class.empty(), "Testing if all PERSIST_OBJ_PROPERTIES are members of: %s,  %s are not!" % [ file, properties_not_in_class ])
+		assert_true(properties_not_in_class.empty(), "Testing if all PERSIST_OBJ_PROPERTIES are members of: %s, %s are not!" % [ file, properties_not_in_class ])
 
 func _test_script_properties(script, constant_to_check: String) -> Array:
 	var properties_not_in_class: Array = [ ]

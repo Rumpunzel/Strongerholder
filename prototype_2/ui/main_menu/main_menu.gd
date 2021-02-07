@@ -53,7 +53,11 @@ func _open_tests() -> void:
 	if not visible:
 		return
 	
-	get_tree().change_scene("res://tools/tests/tests.tscn")
+	hide()
+	
+	var new_splitter = Node.new()
+	get_parent().add_child(new_splitter)
+	new_splitter.add_child(load("res://tools/tests/tests.tscn").instance())
 
 
 func _quit_game() -> void:

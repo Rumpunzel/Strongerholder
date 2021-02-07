@@ -3,15 +3,15 @@
 [ext_resource path="res://city_management/quarter_master.gd" type="Script" id=1]
 [ext_resource path="res://city_management/navigator.gd" type="Script" id=2]
 [ext_resource path="res://city_management/objects_layer.gd" type="Script" id=3]
-[ext_resource path="res://game_world/world_scenes/test/test_tilemap.tres" type="TileSet" id=4]
+[ext_resource path="res://game_world/world_scenes/test_tilemap.tres" type="TileSet" id=4]
 [ext_resource path="res://game_objects/game_actors/player_camera.gd" type="Script" id=5]
-[ext_resource path="res://game_world/world_scenes/test/test.gd" type="Script" id=6]
+[ext_resource path="res://game_world/world_scenes/default_scene/default_scene.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 26.5, -61, -13, -61, -120, -61.5, -116.5, 63.5, -63.5, 112, 58.5, 30 )
 
-[node name="Test" type="Node2D"]
+[node name="DefaultScene" type="Node2D"]
 script = ExtResource( 6 )
 
 [node name="Navigator" type="Navigation2D" parent="."]

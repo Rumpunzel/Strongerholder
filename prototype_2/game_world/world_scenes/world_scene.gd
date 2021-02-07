@@ -7,7 +7,7 @@ const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 const PERSIST_PROPERTIES := [ "name", "_first_time" ]
 
 
-var main_node: Main setget set_main_node
+var main_node setget set_main_node
 
 
 var _first_time: bool = true
@@ -18,7 +18,7 @@ onready var _objects_layer = ServiceLocator.objects_layer
 
 
 
-func set_main_node(new_main: Main) -> void:
+func set_main_node(new_main) -> void:
 	main_node = new_main
 	
 	yield(main_node, "game_load_finished")

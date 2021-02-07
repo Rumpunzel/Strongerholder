@@ -626,10 +626,6 @@ enabled=PoolStringArray( "gut" )
 
 singletons=[  ]
 
-[gui]
-
-theme/custom="res://ui/ui_theme.tres"
-
 [importer_defaults]
 
 texture={
