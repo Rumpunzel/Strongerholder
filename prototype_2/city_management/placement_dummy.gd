@@ -11,7 +11,7 @@ const SLIGHT_OFFSET: Vector2 = Vector2(0, -0.01)
 
 
 
-func _init(new_collision_shape: CollisionShape2D, shape_offset: Vector2, new_sprite: Sprite, sprite_offset: Vector2) -> void:
+func _init(new_collision_shape: CollisionShape2D, _shape_offset: Vector2, new_sprite: Sprite, _sprite_offset: Vector2) -> void:
 	add_child(new_collision_shape)
 	add_child(new_sprite)
 	

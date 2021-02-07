@@ -37,7 +37,7 @@ func check_for_exit_conditions(employee: PuppetMaster, employer: CityStructure, 
 		if not nearest_storage or not (job_items.empty() or use == job_items.front().type):
 			continue
 		
-		if _construct_new_plan(employee, employer, use, nearest_storage._pilot_master):
+		if _construct_new_plan(employee, employer, use, nearest_storage):
 			return
 	
 	
@@ -102,7 +102,7 @@ func _construct_new_plan(employee: PuppetMaster, employer: CityStructure, use: S
 		var state: String = GATHER
 		
 		if nearest_structure is CityStructure:
-			if nearest_structure.can_be_gathered(use, employee, nearest_structure == employer):
+			if (nearest_structure as CityStructure).can_be_gathered(use, employee, nearest_structure == employer):
 				state = RETRIEVE
 			else:
 				return false

@@ -4,7 +4,7 @@ extends GameResource
 
 const SCENE_OVERRIDE := "res://game_objects/resources/tools/spyglass.tscn"
 
-const PERSIST_PROPERTIES_3 := ["gathers", "delivers"]
+const PERSIST_PROPERTIES_3 := [ "gathers", "delivers" ]
 
 
 # warning-ignore:unused_class_variable

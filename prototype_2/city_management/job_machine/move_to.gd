@@ -2,7 +2,7 @@ class_name JobStateMoveTo, "res://class_icons/states/icon_state_move_to.svg"
 extends JobState
 
 
-const PERSIST_PROPERTIES_2 := ["_pathing_target", "_path", "_calculated"]
+const PERSIST_PROPERTIES_2 := [ "_pathing_target", "_path", "_calculated" ]
 
 
 var _pathing_target: Vector2 = Vector2()
@@ -30,6 +30,7 @@ func check_for_exit_conditions(_employee: PuppetMaster, _employer: CityStructure
 
 func enter(parameters: Array = [ ]) -> void:
 	_pathing_target = parameters[0]
+	_calculated = false
 	
 	.enter(parameters)
 
@@ -37,7 +38,6 @@ func enter(parameters: Array = [ ]) -> void:
 func exit(next_state: String, parameters: Array = [ ]) -> void:
 	_pathing_target = Vector2()
 	_path = [ ]
-	_calculated = false
 	
 	.exit(next_state, parameters)
 

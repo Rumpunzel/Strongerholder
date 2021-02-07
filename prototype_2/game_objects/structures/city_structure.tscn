@@ -4,5 +4,5 @@
 [ext_resource path="res://game_objects/structures/structure.tscn" type="PackedScene" id=2]
 
 [node name="CityStructure" instance=ExtResource( 2 )]
-collision_layer = 20
+collision_layer = 16
 script = ExtResource( 1 )

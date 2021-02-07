@@ -24,6 +24,6 @@ func enter(parameters: Array = [ ]) -> void:
 	if not _item:
 		return
 	
-	emit_signal("took_item")
+	emit_signal("took_item", _item)
 	
 	exit(IDLE)

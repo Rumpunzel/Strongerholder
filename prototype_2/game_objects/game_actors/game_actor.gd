@@ -5,8 +5,21 @@ extends KinematicBody2D
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 const SCENE := "res://game_objects/game_actors/game_actor.tscn"
 
-const PERSIST_PROPERTIES := ["name", "position", "type", "sprite", "hit_points_max", "indestructible", "hit_points", "move_speed", "sprint_modifier", "velocity", "player_controlled", "_first_time"]
-const PERSIST_OBJ_PROPERTIES := ["_puppet_master", "_state_machine"]
+const PERSIST_PROPERTIES := [
+	"name",
+	"position",
+	"type",
+	"sprite",
+	"hit_points_max",
+	"indestructible",
+	"hit_points",
+	"move_speed",
+	"sprint_modifier",
+	"velocity",
+	"player_controlled",
+	"_first_time"
+]
+const PERSIST_OBJ_PROPERTIES := [ "_puppet_master", "_state_machine" ]
 
 
 signal moved(direction)

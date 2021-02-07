@@ -40,9 +40,6 @@ func can_be_operated() -> bool:
 	return (_pilot_master as CityPilotMaster).can_be_operated()
 
 
-func has_how_many_of_item(item_type: String) -> Array:
-	return _pilot_master.how_many_of_item(item_type)
-
 func request_item(request: String, reciever: Node2D) -> void:
 	var item: GameResource = _pilot_master.has_item(request)
 	

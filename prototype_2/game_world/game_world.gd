@@ -29,7 +29,7 @@ func enter_scene(main_node: Main, new_packed_scene: PackedScene, leave_previous_
 	if leave_previous_scene:
 		leave()
 	
-	var new_scene := new_packed_scene.instance() as WorldScene
+	var new_scene: WorldScene = new_packed_scene.instance() as WorldScene
 	
 	new_scene.main_node = main_node
 	add_child(new_scene)

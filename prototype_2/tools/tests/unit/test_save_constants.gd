@@ -20,6 +20,7 @@ func test_scenes_declared_correctly():
 		var problem_at_counter: int = _test_script_load_scenes(script)
 		assert_true(problem_at_counter < 0, "Testing if SCENE constants are correctly declared in: %s, the index %d is wrong!" % [ file, problem_at_counter ])
 
+
 func _test_script_scene(script: GDScript) -> Array:
 	var scenes_that_do_not_exist: Array = [ ]
 	
@@ -39,6 +40,7 @@ func _test_script_scene(script: GDScript) -> Array:
 				scenes_that_do_not_exist.append(scene_to_check)
 	
 	return scenes_that_do_not_exist
+
 
 func _test_script_load_scenes(script: GDScript) -> int:
 	var scene := "SCENE"
@@ -72,6 +74,7 @@ func test_arrays_to_be_saved():
 		problem_at_counter = _test_script_arrays(script, persist_obj_properties)
 		assert_true(problem_at_counter < 0, "Testing if PERSIST_OBJ_PROPERTIES constants are correctly declared in: %s, the index %d is wrong!" % [ file, problem_at_counter ])
 
+
 func _test_script_arrays(script: GDScript, constant_to_check: String) -> int:
 	var postfix := "_%d"
 	var test_up_to := 10
@@ -101,6 +104,7 @@ func test_properties_saved():
 		
 		properties_not_in_class = _test_script_properties(script, persist_obj_properties)
 		assert_true(properties_not_in_class.empty(), "Testing if all PERSIST_OBJ_PROPERTIES are members of: %s, %s are not!" % [ file, properties_not_in_class ])
+
 
 func _test_script_properties(script, constant_to_check: String) -> Array:
 	var properties_not_in_class: Array = [ ]

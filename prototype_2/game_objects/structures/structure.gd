@@ -37,6 +37,10 @@ func recieve_transferred_item(item: GameResource) -> bool:
 	return _pilot_master.recieve_transferred_item(item)
 
 
+func has_how_many_of_item(item_type: String) -> Array:
+	return _pilot_master.how_many_of_item(item_type)
+
+
 
 func die() -> void:
 	_pilot_master.drop_all_items()
