@@ -13,6 +13,7 @@ const PERSIST_PROPERTIES := [
 	"indestructible",
 	"hit_points",
 	"maximum_operators",
+	"damaged_sounds",
 	"_first_time",
 ]
 const PERSIST_OBJ_PROPERTIES := [ "_assigned_workers", "_state_machine" ]
@@ -31,11 +32,15 @@ var hit_points: float
 
 var maximum_operators: int
 
+var damaged_sounds: String setget set_damaged_sounds
+
+
 var selected: bool = false setget set_selected
 
 
 var _first_time: bool = true
 var _state_machine: ObjectStateMachine
+
 
 var _assigned_workers: Array = [ ]
 
@@ -43,6 +48,7 @@ var _assigned_workers: Array = [ ]
 onready var _collision_shape: CollisionShape2D = $CollisionShape
 onready var _sprite: Sprite = $Sprite
 onready var _selection_outline: SelectionOutline = $SelectionOutline
+onready var _audio_handler: AudioHandler = $AudioHandler
 
 
 
@@ -58,6 +64,9 @@ func _ready() -> void:
 	_connect_state_machine()
 	
 	set_sprite(sprite)
+	set_damaged_sounds(damaged_sounds)
+	
+	connect("damaged", _audio_handler, "play_damage_audio")
 	
 	add_to_group(type)
 
@@ -131,12 +140,18 @@ func enable_collision(new_status: bool) -> void:
 
 
 
-func set_sprite(new_sprite: String):
+func set_sprite(new_sprite: String) -> void:
 	sprite = new_sprite
 	
 	if _sprite:
 		_sprite.texture = load(sprite)
 		_sprite.offset.y = -_sprite.texture.get_height() / 2.0
+
+func set_damaged_sounds(new_sounds: String) -> void:
+	damaged_sounds = new_sounds
+	
+	if _audio_handler:
+		_audio_handler.set_damaged_sounds(damaged_sounds)
 
 
 func set_selected(new_status: bool) -> void:

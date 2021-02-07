@@ -2,12 +2,11 @@ class_name AudioHandler, "res://class_icons/game_objects/icon_audio_handler.svg"
 extends Node2D
 
 
-export(String, DIR) var _damage_sounds_directory: String
-
 export var _volume_modifer: float = 0.0
 
 
-onready var _damage_sounds: Array = FileHelper.list_files_in_directory(_damage_sounds_directory, false, ".wav")
+var _damaged_sounds: Array = [ ]
+
 
 onready var _interaction_audio: GameAudioPlayer = $InteractionAudio
 
@@ -22,4 +21,10 @@ func _ready() -> void:
 
 func play_damage_audio(damage_taken: float, _sender) -> void:
 	if damage_taken > 0:
-		_interaction_audio.play_audio_from_array(_damage_sounds)
+		_interaction_audio.play_audio_from_array(_damaged_sounds)
+
+
+
+
+func set_damaged_sounds(new_sounds: String) -> void:
+	_damaged_sounds = FileHelper.list_files_in_directory(new_sounds, false, ".wav")

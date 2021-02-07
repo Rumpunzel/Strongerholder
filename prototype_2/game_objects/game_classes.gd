@@ -6,7 +6,7 @@ extends Resource
 const GAME_RESOURCE_SCENE := "res://game_objects/resources/game_resource.tscn"
 const SPYGLASS_SCENE := "res://game_objects/resources/tools/spyglass.tscn"
 const CRAFT_TOOL_SCENE := "res://game_objects/resources/tools/craft_tool.tscn"
-const CITY_STRUCTURE_SCENE := "res://game_objects/structures/city_structure.tscn"
+const CITY_STRUCTURE_SCENE := "res://game_objects/city_structures/city_structure.tscn"
 const STRUCTURE_SCENE := "res://game_objects/structures/structure.tscn"
 
 
@@ -23,9 +23,8 @@ const CLASSES := {
 		"Saw",
 	],
 	CITY_STRUCTURE_SCENE: [
-		"WoodcuttersHut",
 		"Sawmill",
-		"Stockpile",
+		"Workshop",
 	],
 	STRUCTURE_SCENE: [
 		"Beech",
@@ -50,6 +49,7 @@ class WoodLogs extends _GameClass:
 	const indestructible := false
 	const maximum_operators := 1
 	const can_carry := 3
+	const damaged_sounds := "res://assets/sounds/axe/"
 	
 	static func spawn() -> Node2D:
 		return _spawn(scene, type)
@@ -64,6 +64,7 @@ class WoodPlanks extends _GameClass:
 	const indestructible := false
 	const maximum_operators := 1
 	const can_carry := 12
+	const damaged_sounds := "res://assets/sounds/axe/"
 	
 	static func spawn() -> Node2D:
 		return _spawn(scene, type)
@@ -78,6 +79,7 @@ class Stone extends _GameClass:
 	const indestructible := false
 	const maximum_operators := 1
 	const can_carry := 1
+	const damaged_sounds := "res://assets/sounds/axe/"
 	
 	static func spawn() -> Node2D:
 		return _spawn(scene, type)
@@ -94,6 +96,7 @@ class Axe extends _GameClass:
 	const can_carry := 1
 	const attack_value := 2
 	const animation := "attack"
+	const damaged_sounds := "res://assets/sounds/axe/"
 	const gathers := {
 		"WoodLogs": true,
 		"WoodPlanks": false,
@@ -122,6 +125,7 @@ class Saw extends _GameClass:
 	const indestructible := false
 	const maximum_operators := 1
 	const can_carry := 1
+	const damaged_sounds := "res://assets/sounds/axe/"
 	const gathers := {
 		"WoodLogs": false,
 		"WoodPlanks": true,
@@ -141,15 +145,17 @@ class Saw extends _GameClass:
 		return _spawn(scene, type)
 
 
-class WoodcuttersHut extends _GameClass:
-	const scene := "res://game_objects/structures/city_structure.tscn"
-	const type := "WoodcuttersHut"
+class Sawmill extends _GameClass:
+	const scene := "res://game_objects/city_structures/city_structure.tscn"
+	const type := "Sawmill"
 	const sprite := "res://assets/sprites/structures/medievalStructure_16.png"
 	
 	const hit_points_max := 10
 	const indestructible := false
 	const maximum_operators := 1
 	const production_steps := 2
+	const damaged_sounds := "res://assets/sounds/axe/"
+	const operated_sounds := "res://assets/sounds/axe/"
 	const starting_items := {
 		"WoodLogs": 0,
 		"WoodPlanks": 0,
@@ -183,15 +189,17 @@ class WoodcuttersHut extends _GameClass:
 		return _spawn(scene, type)
 
 
-class Sawmill extends _GameClass:
-	const scene := "res://game_objects/structures/city_structure.tscn"
-	const type := "Sawmill"
-	const sprite := "res://assets/sprites/structures/medievalStructure_21.png"
+class Workshop extends _GameClass:
+	const scene := "res://game_objects/city_structures/city_structure.tscn"
+	const type := "Workshop"
+	const sprite := "res://assets/sprites/structures/medievalStructure_20.png"
 	
 	const hit_points_max := 10
 	const indestructible := false
 	const maximum_operators := 1
 	const production_steps := 2
+	const damaged_sounds := "res://assets/sounds/axe/"
+	const operated_sounds := "res://assets/sounds/woodsaw"
 	const starting_items := {
 		"WoodLogs": 0,
 		"WoodPlanks": 0,
@@ -225,48 +233,6 @@ class Sawmill extends _GameClass:
 		return _spawn(scene, type)
 
 
-class Stockpile extends _GameClass:
-	const scene := "res://game_objects/structures/city_structure.tscn"
-	const type := "Stockpile"
-	const sprite := "res://assets/sprites/structures/medievalStructure_19.png"
-	
-	const hit_points_max := 10
-	const indestructible := false
-	const maximum_operators := 1
-	const production_steps := 2
-	const starting_items := {
-		"WoodLogs": 0,
-		"WoodPlanks": 0,
-		"Stone": 0,
-		"Saw": 0,
-		"Axe": 0,
-	}
-	const storage_resources := {
-		"WoodLogs": true,
-		"WoodPlanks": true,
-		"Stone": true,
-		"Saw": false,
-		"Axe": false,
-	}
-	const input_resources := {
-		"WoodLogs": 0,
-		"WoodPlanks": 0,
-		"Stone": 0,
-		"Saw": 0,
-		"Axe": 0,
-	}
-	const output_resources := {
-		"WoodLogs": 0,
-		"WoodPlanks": 0,
-		"Stone": 0,
-		"Saw": 0,
-		"Axe": 0,
-	}
-	
-	static func spawn() -> Node2D:
-		return _spawn(scene, type)
-
-
 class Beech extends _GameClass:
 	const scene := "res://game_objects/structures/structure.tscn"
 	const type := "Beech"
@@ -275,6 +241,7 @@ class Beech extends _GameClass:
 	const hit_points_max := 10
 	const indestructible := false
 	const maximum_operators := 1
+	const damaged_sounds := "res://assets/sounds/axe/"
 	const starting_items := {
 		"WoodLogs": 3,
 		"WoodPlanks": 0,

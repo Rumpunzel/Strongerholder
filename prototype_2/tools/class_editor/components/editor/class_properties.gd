@@ -25,8 +25,11 @@ func _setup_node(node: Control, class_constants: Dictionary) -> Dictionary:
 		else:
 			var property_name: String = child.property_name
 			assert(not property_name == "prop_name")
+			var property_in_class = class_constants.get(property_name, null)
 			
-			child.set_value(class_constants.get(property_name, null))
+			if property_in_class:
+				child.set_value(property_in_class)
+			
 			class_constants.erase(property_name)
 	
 	return class_constants

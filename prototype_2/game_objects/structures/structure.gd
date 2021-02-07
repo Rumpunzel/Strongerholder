@@ -13,13 +13,6 @@ var starting_items: Dictionary = { }
 var _pilot_master: PilotMaster
 
 
-onready var _audio_handler: AudioHandler = $AudioHandler
-
-
-
-
-func _ready() -> void:
-	connect("damaged", _audio_handler, "play_damage_audio")
 
 
 func _process(_delta: float) -> void:
@@ -88,7 +81,6 @@ func _initialise_state_machine(new_state_machine: ObjectStateMachine = Structure
 func _connect_state_machine() -> void:
 	._connect_state_machine()
 	
-	_state_machine.connect("operated", _pilot_master, "refine_resource")
 	_state_machine.connect("item_dropped", _pilot_master, "drop_item")
 	_state_machine.connect("took_item", _pilot_master, "pick_up_item")
 	_state_machine.connect("item_transferred", self, "transfer_item")

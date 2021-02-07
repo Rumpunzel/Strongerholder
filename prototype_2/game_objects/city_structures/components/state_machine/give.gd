@@ -1,5 +1,5 @@
-class_name StructureStateGive, "res://class_icons/states/icon_state_give.svg"
-extends StructureState
+class_name CityStructureStateGive, "res://class_icons/states/icon_state_give.svg"
+extends CityStructureState
 
 
 const PERSIST_OBJ_PROPERTIES := [ "_item", "_receiver" ]

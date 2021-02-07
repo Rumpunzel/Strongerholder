@@ -2,10 +2,10 @@ class_name CityPilotMaster, "res://class_icons/game_objects/structures/icon_city
 extends PilotMaster
 
 
-const SCENE_OVERRIDE := "res://game_objects/structures/components/city_pilot_master.tscn"
+const SCENE_OVERRIDE := "res://game_objects/city_structures/components/city_pilot_master.tscn"
 
-const PERSIST_PROPERTIES_2 := ["available_job", "storage_resources", "_posted_job"]
-const PERSIST_OBJ_PROPERTIES_3 := ["_custodian", "_assigned_gatherers"]
+const PERSIST_PROPERTIES_2 := [ "available_job", "storage_resources", "_posted_job" ]
+const PERSIST_OBJ_PROPERTIES_3 := [ "_custodian", "_assigned_gatherers" ]
 
 
 var available_job: GDScript
@@ -123,7 +123,7 @@ func _initialise_inventories() -> void:
 	var new_refinery: Refinery = Refinery.new()
 	new_refinery.name = "Refinery"
 	
-	new_refinery.connect("resources_refined", self, "recieve_transferred_item")
+	new_refinery.connect("resources_refined", self, "_recieve_spawned_item")
 	
 	add_child(new_refinery)
 	_inventories.append(new_refinery)

@@ -13,7 +13,7 @@ const _GAME_RESOURCE_SCENE := "res://game_objects/resources/game_resource.tscn"
 const _SPYGLASS_SCENE := "res://game_objects/resources/tools/spyglass.tscn"
 const _CRAFT_TOOL_SCENE := "res://game_objects/resources/tools/craft_tool.tscn"
 
-const _CITY_STRUCTURE_SCENE := "res://game_objects/structures/city_structure.tscn"
+const _CITY_STRUCTURE_SCENE := "res://game_objects/city_structures/city_structure.tscn"
 const _STRUCTURE_SCENE := "res://game_objects/structures/structure.tscn"
 
 

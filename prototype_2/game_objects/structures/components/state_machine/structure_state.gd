@@ -1,8 +1,7 @@
-class_name CityStructureState
+class_name StructureState
 extends ObjectState
 
 
-signal operated
 # warning-ignore:unused_signal
 signal item_dropped
 # warning-ignore:unused_signal
@@ -36,7 +35,3 @@ func give_item(item: GameResource, receiver: Node2D) -> void:
 
 func take_item(item: GameResource) -> void:
 	exit(TAKE, [item])
-
-
-func operate() -> void:
-	emit_signal("operated")

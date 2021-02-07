@@ -1,5 +1,5 @@
-class_name StructureInactive, "res://class_icons/states/icon_state.svg"
-extends StructureState
+class_name CityStructureInactive, "res://class_icons/states/icon_state.svg"
+extends CityStructureState
 
 
 
