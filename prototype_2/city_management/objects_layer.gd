@@ -4,8 +4,6 @@ extends YSort
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := [ "name" ]
-
 
 signal object_selected
 
@@ -15,6 +13,8 @@ signal object_selected
 func _enter_tree() -> void:
 	ServiceLocator.register_as_objects_layer(self)
 
+func _ready() -> void:
+	name = "ObjectsLayer"
 
 func _exit_tree() -> void:
 	ServiceLocator.unregister_as_objects_layer(self)

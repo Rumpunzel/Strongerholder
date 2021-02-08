@@ -4,7 +4,7 @@ extends State
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := [ "name", "_animation_cancellable" ]
+const PERSIST_PROPERTIES := [ "_animation_cancellable" ]
 
 
 signal active_state_set

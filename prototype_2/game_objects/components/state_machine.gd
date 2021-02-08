@@ -4,7 +4,7 @@ extends Node
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := [ "name", "history", "_first_time" ]
+const PERSIST_PROPERTIES := [ "history", "_first_time" ]
 const PERSIST_OBJ_PROPERTIES := [ "current_state" ]
 
 
@@ -26,6 +26,8 @@ var _first_time: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	name = "StateMachine"
+	
 	_setup_states()
 	
 	yield(get_tree(), "idle_frame")

@@ -6,9 +6,9 @@ const SCENE := "res://game_world/world_scenes/test_scene/test.tscn"
 
 var test_scenes := [
 	GameClasses.Beech,
-	GameClasses.Sawmill,
+	GameClasses.Workshop,
 	GameClasses.Beech,
-	GameClasses.WoodcuttersHut,
+	GameClasses.Sawmill,
 ]
 var test_positions := [
 	Vector2(-192, -112),

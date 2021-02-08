@@ -4,7 +4,7 @@ extends Node
 
 const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
 
-const PERSIST_PROPERTIES := [ "name", "_first_time" ]
+const PERSIST_PROPERTIES := [ "_first_time" ]
 
 
 signal object_selected
@@ -36,7 +36,6 @@ func set_main_node(new_main) -> void:
 
 func _initialise_scene() -> void:
 	var new_quarter_master := QuarterMaster.new()
-	new_quarter_master.name = "QuarterMaster"
 	add_child(new_quarter_master)
 	
 	var new_camera := PlayerCamera.new()
@@ -44,7 +43,6 @@ func _initialise_scene() -> void:
 	add_child(new_camera)
 	
 	_objects_layer = ObjectsLayer.new()
-	_objects_layer.name = "ObjectsLayer"
 	add_child(_objects_layer)
 	
 	_objects_layer.connect("object_selected", self, "_on_object_selected")

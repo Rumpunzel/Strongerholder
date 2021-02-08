@@ -25,6 +25,9 @@ onready var _navigator: Navigator = ServiceLocator.navigator
 func _enter_tree() -> void:
 	ServiceLocator.register_as_quarter_master(self)
 
+func _ready() -> void:
+	name = "QuarterMaster"
+
 func _process(_delta: float) -> void:
 	_assign_job()
 
