@@ -2,48 +2,34 @@ class_name GameSprite
 extends Sprite
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
-
-const SCENE := "res://game_objects/components/game_sprite.tscn"
-
-const PERSIST_PROPERTIES := [
-	"sprite_sheets",
-	"_current_sheet",
-	"_first_time",
-]
+signal acted
+signal action_finished
+signal animation_finished
 
 
-var sprite_sheets: Array = [ ]
-
-
-var _first_time: bool = true
-var _current_sheet: String setget set_current_sheet
+onready var _animation_tree: GameSpriteTree = $AnimationTree
 
 
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	name = "Sprite"
-	
-	if _first_time:
-		_first_time = false
-		
-		set_current_sheet(sprite_sheets[ randi() % sprite_sheets.size() ])
-	
-	assert(texture)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+	_animation_tree.connect("acted", self, "_on_animation_acted")
+	_animation_tree.connect("action_finished", self, "_on_action_finished")
+	_animation_tree.connect("animation_finished", self, "_on_animation_finished")
 
 
 
-func set_current_sheet(new_sh: String) -> void:
-	_current_sheet = new_sh
-	texture = load(_current_sheet)
 
+func travel(new_animation: String) -> void:
+	_animation_tree.travel(new_animation)
+
+
+func set_blend_positions(new_positions: Vector2) -> void:
+	_animation_tree.set_blend_positions(new_positions)
+
+
+func get_current_animation() -> String:
+	return _animation_tree.get_current_animation()
 
 
 func get_copy_sprite() -> Sprite:
@@ -51,17 +37,11 @@ func get_copy_sprite() -> Sprite:
 
 
 
+func _on_animation_acted(animation: String) -> void:
+	emit_signal("acted", animation)
 
-#func set_sprite_path(new_paths: Array) -> void:
-#	sprite_paths = new_paths
-#
-#	var directory := Directory.new()
-#
-#	if directory.dir_exists(sprite_path):
-#		var images: Array = FileHelper.list_files_in_directory(sprite_path, false, ".png")
-#
-#		_sprite.texture = load(images[randi() % images.size()])
-#	else:
-#		_sprite.texture = load(sprite)
-#
-#	_sprite.offset.y = -_sprite.texture.get_height() / 2.0
+func _on_action_finished(animation: String) -> void:
+	emit_signal("action_finished", animation)
+
+func _on_animation_finished(animation: String) -> void:
+	emit_signal("animation_finished", animation)

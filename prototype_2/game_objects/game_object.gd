@@ -11,12 +11,12 @@ const PERSIST_PROPERTIES := [
 	"sprite_sheets",
 	"maximum_operators",
 	"damaged_sounds",
+	"_current_sprite_sheet",
 	"_first_time",
 ]
 const PERSIST_OBJ_PROPERTIES := [
 	"_state_machine",
 	"_object_stats",
-	"_game_sprite",
 	"_assigned_workers",
 ]
 
@@ -45,13 +45,13 @@ var selected: bool = false setget set_selected
 var _first_time: bool = true
 var _state_machine: ObjectStateMachine
 var _object_stats: GameObjectStats
-var _game_sprite: GameSprite
-
+var _current_sprite_sheet: String setget set_current_sprite_sheet
 
 var _assigned_workers: Array = [ ]
 
 
 onready var _collision_shape: CollisionShape2D = $CollisionShape
+onready var _sprite: GameSprite = $Sprite
 onready var _selection_outline: SelectionOutline = $SelectionOutline
 onready var _audio_handler: AudioHandler = $AudioHandler
 
@@ -169,6 +169,11 @@ func set_selected(new_status: bool) -> void:
 	emit_signal("selected", self if selected else null)
 
 
+func set_current_sprite_sheet(new_sheet: String) -> void:
+	_current_sprite_sheet = new_sheet
+	_sprite.texture = load(_current_sprite_sheet)
+
+
 
 func get_hit_points_max() -> float:
 	if _object_stats:
@@ -220,12 +225,8 @@ func _initialise_object_stats(new_object_stats := GameObjectStats.new()) -> void
 	add_child(_object_stats)
 
 
-func _initialise_game_sprite(new_game_sprite: PackedScene = null) -> void:
-	assert(new_game_sprite)
-	_game_sprite = new_game_sprite.instance()
-	_game_sprite.sprite_sheets = sprite_sheets
-	
-	add_child(_game_sprite)
+func _initialise_game_sprite() -> void:
+	set_current_sprite_sheet(sprite_sheets[ randi() % sprite_sheets.size() ])
 
 
 

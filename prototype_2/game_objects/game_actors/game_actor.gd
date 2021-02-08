@@ -52,8 +52,7 @@ var _state_machine: ActorStateMachine
 
 
 onready var _collision_shape: CollisionShape2D = $CollisionShape
-onready var _sprite: Sprite = $Sprite
-onready var _animation_tree: ActorSpriteTree = $Sprite/AnimationTree
+onready var _sprite: GameSprite = $Sprite
 
 
 
@@ -180,21 +179,21 @@ func _connect_state_machine() -> void:
 	_state_machine.connect("attacked", self, "_on_attacked")
 	_state_machine.connect("operated_structure", _puppet_master, "interact_with")
 	
-	_animation_tree.connect("acted", _state_machine, "_animation_acted")
-	_animation_tree.connect("action_finished", _state_machine, "_action_finished")
-	_animation_tree.connect("animation_finished", _state_machine, "_animation_finished")
+	_sprite.connect("acted", _state_machine, "_animation_acted")
+	_sprite.connect("action_finished", _state_machine, "_action_finished")
+	_sprite.connect("animation_finished", _state_machine, "_animation_finished")
 
 
 
 func _on_animation_changed(new_animation: String, new_direction: Vector2) -> void:
-	if _animation_tree.get_current_animation() == new_animation:
+	if _sprite.get_current_animation() == new_animation:
 		_state_machine._animation_acted(new_animation)
 		_state_machine._animation_finished(new_animation)
 	else:
-		_animation_tree.travel(new_animation)
+		_sprite.travel(new_animation)
 	
 	if not new_direction == Vector2():
-		_animation_tree.blend_positions = Vector2(new_direction.x * 0.9, new_direction.y)
+		_sprite.set_blend_positions(Vector2(new_direction.x * 0.9, new_direction.y))
 
 
 func _on_item_requested(request: String, structure_to_request_from: CityStructure) -> void:

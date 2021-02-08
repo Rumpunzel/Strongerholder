@@ -48,8 +48,8 @@ func _get_copy_of_collision_shape() -> CollisionShape2D:
 
 
 func _get_copy_sprite() -> Sprite:
-	if _game_sprite:
-		return _game_sprite.get_copy_sprite()
+	if _sprite:
+		return _sprite.get_copy_sprite()
 	
 	var sprite_copy := Sprite.new()
 	
@@ -87,9 +87,6 @@ func _connect_state_machine() -> void:
 	_state_machine.connect("took_item", _pilot_master, "pick_up_item")
 	_state_machine.connect("item_transferred", self, "transfer_item")
 
-
-func _initialise_game_sprite(new_game_sprite: PackedScene = (load("res://game_objects/structures/components/structure_sprite.tscn") as PackedScene)) -> void:
-	._initialise_game_sprite(new_game_sprite)
 
 func _initialise_starting_items() -> void:
 	_pilot_master.initialise_starting_items(starting_items)

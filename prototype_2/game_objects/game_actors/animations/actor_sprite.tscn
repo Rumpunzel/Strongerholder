@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://helpers/game_audio_player.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=2]
@@ -20,19 +20,17 @@
 [ext_resource path="res://game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=18]
 [ext_resource path="res://game_objects/game_actors/animations/give/give_up.tres" type="Animation" id=19]
 [ext_resource path="res://game_objects/game_actors/animations/run/run_left.tres" type="Animation" id=20]
-[ext_resource path="res://game_objects/game_actors/animations/actor_sprite.gd" type="Script" id=21]
 [ext_resource path="res://game_objects/game_actors/animations/actor_sprite_player.gd" type="Script" id=22]
 [ext_resource path="res://game_objects/game_actors/animations/actor_sprite_tree.gd" type="Script" id=23]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
-[node name="ActorSprite" instance=ExtResource( 3 )]
+[node name="Sprite" instance=ExtResource( 3 )]
 texture = ExtResource( 2 )
 offset = Vector2( 1, -17 )
 vframes = 12
 hframes = 9
-frame = 54
-script = ExtResource( 21 )
+frame = 9
 
 [node name="AnimationTree" parent="." index="0"]
 tree_root = ExtResource( 4 )

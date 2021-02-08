@@ -70,9 +70,6 @@ func _connect_state_machine() -> void:
 	_state_machine.connect("item_dropped", self, "_on_item_dropped")
 
 
-func _initialise_game_sprite(new_game_sprite: PackedScene = (load("res://game_objects/resources/components/resource_sprite.tscn") as PackedScene)) -> void:
-	._initialise_game_sprite(new_game_sprite)
-
 
 func _on_item_picked_up() -> void:
 	emit_signal("item_picked_up")

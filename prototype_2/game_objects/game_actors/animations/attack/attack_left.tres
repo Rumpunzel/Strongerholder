@@ -16,7 +16,7 @@ tracks/0/keys = {
 "values": [ 45, 46, 47, 48, 49 ]
 }
 tracks/1/type = "method"
-tracks/1/path = NodePath("./AnimationPlayer")
+tracks/1/path = NodePath("AnimationPlayer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false

@@ -9,7 +9,7 @@ export(String, DIR) var _step_sounds: String
 
 
 onready var _sounds: Array = FileHelper.list_files_in_directory(_step_sounds, false, ".wav")
-onready var _footstep_sounds = $FootstepSounds
+onready var _footstep_sounds = $Footsteps
 
 
 

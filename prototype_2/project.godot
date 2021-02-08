@@ -9,17 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "GameSprite",
-"class": "ActorSprite",
-"language": "GDScript",
-"path": "res://game_objects/game_actors/animations/actor_sprite.gd"
-}, {
-"base": "Reference",
+"base": "GameSpritePlayer",
 "class": "ActorSpritePlayer",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/animations/actor_sprite_player.gd"
 }, {
-"base": "Reference",
+"base": "GameSpriteTree",
 "class": "ActorSpriteTree",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/animations/actor_sprite_tree.gd"
@@ -419,11 +414,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/refinery.gd"
 }, {
-"base": "GameSprite",
-"class": "ResourceSprite",
-"language": "GDScript",
-"path": "res://game_objects/resources/components/resource_sprite.gd"
-}, {
 "base": "ObjectState",
 "class": "ResourceState",
 "language": "GDScript",
@@ -488,11 +478,6 @@ _global_script_classes=[ {
 "class": "StructureInactive",
 "language": "GDScript",
 "path": "res://game_objects/structures/components/state_machine/inactive.gd"
-}, {
-"base": "GameSprite",
-"class": "StructureSprite",
-"language": "GDScript",
-"path": "res://game_objects/structures/components/structure_sprite.gd"
 }, {
 "base": "ObjectState",
 "class": "StructureState",
@@ -560,7 +545,6 @@ _global_script_classes=[ {
 "path": "res://game_world/world_scenes/world_scene.gd"
 } ]
 _global_script_class_icons={
-"ActorSprite": "",
 "ActorSpritePlayer": "",
 "ActorSpriteTree": "",
 "ActorState": "",
@@ -642,7 +626,6 @@ _global_script_class_icons={
 "RadiantUI": "",
 "RadiantUIButton": "",
 "Refinery": "res://class_icons/game_objects/structures/icon_refinery.svg",
-"ResourceSprite": "",
 "ResourceState": "res://class_icons/states/icon_state_idle.svg",
 "ResourceStateDead": "res://class_icons/states/icon_state_dead.svg",
 "ResourceStateIdle": "res://class_icons/states/icon_state_idle.svg",
@@ -656,7 +639,6 @@ _global_script_class_icons={
 "StateMachine": "",
 "Structure": "res://class_icons/game_objects/structures/icon_structure.svg",
 "StructureInactive": "res://class_icons/states/icon_state.svg",
-"StructureSprite": "",
 "StructureState": "",
 "StructureStateDead": "res://class_icons/states/icon_state_dead.svg",
 "StructureStateGive": "res://class_icons/states/icon_state_give.svg",
