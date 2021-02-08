@@ -1,4 +1,4 @@
-class_name AnimationStateMachine
+class_name GameSpriteTree
 extends AnimationTree
 
 
@@ -7,15 +7,13 @@ signal acted(anim_name)
 # warning-ignore:unused_signal
 signal action_finished(anim_name)
 # warning-ignore:unused_signal
-signal stepped(anim_name)
-# warning-ignore:unused_signal
 signal animation_finished(anim_name)
 
 
-const ANIMATIONS: Array = ["idle", "run", "attack", "give"]
-
-
 var blend_positions: Vector2 setget set_blend_positions
+
+
+var _animations: Array = [ ]
 
 
 onready var _animation_player: AnimationPlayer = get_node(anim_player)
@@ -31,7 +29,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	_animation_player.connect("acted", self, "_transfer_signal", ["acted"])
-	_animation_player.connect("stepped", self, "_transfer_signal", ["stepped"])
 	
 	_animation_player.connect("action_finished", self, "_transfer_signal", ["action_finished"])
 	_animation_player.connect("animation_finished", self, "_transfer_signal", ["animation_finished"])
@@ -47,7 +44,7 @@ func travel(new_animation: String) -> void:
 func set_blend_positions(new_direction: Vector2) -> void:
 	blend_positions = new_direction
 	
-	for animation in ANIMATIONS:
+	for animation in _animations:
 		set("parameters/%s/blend_position" % [animation], blend_positions)
 
 

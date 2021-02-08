@@ -43,7 +43,9 @@ static func spawn_class_with_name(class_name_to_spawn: String) -> Node2D:
 class WoodLogs extends _GameClass:
 	const scene := "res://game_objects/resources/game_resource.tscn"
 	const type := "WoodLogs"
-	const sprite := "res://ui/game_gui/resource_icons/icon_wood.png"
+	const sprite_sheets := [
+		"res://ui/game_gui/resource_icons/icon_wood.png",
+	]
 	
 	const hit_points_max := 10
 	const indestructible := false
@@ -58,7 +60,9 @@ class WoodLogs extends _GameClass:
 class WoodPlanks extends _GameClass:
 	const scene := "res://game_objects/resources/game_resource.tscn"
 	const type := "WoodPlanks"
-	const sprite := "res://ui/game_gui/resource_icons/icon_wood_planks.png"
+	const sprite_sheets := [
+		"res://ui/game_gui/resource_icons/icon_wood_planks.png",
+	]
 	
 	const hit_points_max := 10
 	const indestructible := false
@@ -73,7 +77,9 @@ class WoodPlanks extends _GameClass:
 class Stone extends _GameClass:
 	const scene := "res://game_objects/resources/game_resource.tscn"
 	const type := "Stone"
-	const sprite := "res://ui/game_gui/resource_icons/icon_stone.png"
+	const sprite_sheets := [
+		"res://ui/game_gui/resource_icons/icon_stone.png",
+	]
 	
 	const hit_points_max := 50
 	const indestructible := false
@@ -88,7 +94,9 @@ class Stone extends _GameClass:
 class Axe extends _GameClass:
 	const scene := "res://game_objects/resources/tools/craft_tool.tscn"
 	const type := "Axe"
-	const sprite := "res://assets/sprites/tools/axe.png"
+	const sprite_sheets := [
+		"res://assets/sprites/tools/axe.png",
+	]
 	
 	const hit_points_max := 10
 	const indestructible := false
@@ -119,7 +127,9 @@ class Axe extends _GameClass:
 class Saw extends _GameClass:
 	const scene := "res://game_objects/resources/tools/spyglass.tscn"
 	const type := "Saw"
-	const sprite := "res://assets/sprites/tools/saw.png"
+	const sprite_sheets := [
+		"res://assets/sprites/tools/saw.png",
+	]
 	
 	const hit_points_max := 10
 	const indestructible := false
@@ -148,7 +158,9 @@ class Saw extends _GameClass:
 class Sawmill extends _GameClass:
 	const scene := "res://game_objects/city_structures/city_structure.tscn"
 	const type := "Sawmill"
-	const sprite := "res://assets/sprites/structures/medievalStructure_16.png"
+	const sprite_sheets := [
+		"res://assets/sprites/structures/medievalStructure_16.png",
+	]
 	
 	const hit_points_max := 10
 	const indestructible := false
@@ -192,7 +204,10 @@ class Sawmill extends _GameClass:
 class Workshop extends _GameClass:
 	const scene := "res://game_objects/city_structures/city_structure.tscn"
 	const type := "Workshop"
-	const sprite := "res://assets/sprites/structures/medievalStructure_20.png"
+	const sprite_sheets := [
+		"res://assets/sprites/structures/medievalStructure_20.png",
+		"res://assets/sprites/structures/medievalStructure_21.png",
+	]
 	
 	const hit_points_max := 10
 	const indestructible := false
@@ -236,7 +251,15 @@ class Workshop extends _GameClass:
 class Beech extends _GameClass:
 	const scene := "res://game_objects/structures/structure.tscn"
 	const type := "Beech"
-	const sprite := "res://assets/sprites/trees"
+	const sprite_sheets := [
+		"res://assets/sprites/trees/tree1.png",
+		"res://assets/sprites/trees/tree2.png",
+		"res://assets/sprites/trees/tree3.png",
+		"res://assets/sprites/trees/tree4.png",
+		"res://assets/sprites/trees/tree5.png",
+		"res://assets/sprites/trees/tree6.png",
+		"res://assets/sprites/trees/tree7.png",
+	]
 	
 	const hit_points_max := 10
 	const indestructible := false
@@ -262,10 +285,13 @@ class _GameClass:
 		new_game_class.name = type
 		
 		for property in class_constants.keys():
-			if property == "scene":
-				pass
-			else:
-				assert(property in new_game_class)
-				new_game_class.set(property, class_constants[property])
+			match property:
+				"scene":
+					pass
+				"stats":
+					pass
+				_:
+					assert(property in new_game_class)
+					new_game_class.set(property, class_constants[property])
 		
 		return new_game_class

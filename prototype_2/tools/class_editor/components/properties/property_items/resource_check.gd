@@ -12,9 +12,13 @@ func set_resource(new_resource: String) -> void:
 	name = new_resource
 	
 	var lookup_file: GDScript = load("res://game_objects/game_classes.gd")
-	var resource_sprite: String = lookup_file.get_script_constant_map()[new_resource].get_script_constant_map().sprite
+	var resource_sprite_sheets: Array = lookup_file.get_script_constant_map()[new_resource].get_script_constant_map().sprite_sheets
 	
-	_icon.texture = load(resource_sprite)
+	if not resource_sprite_sheets.empty():
+		_icon.texture = load(resource_sprite_sheets.front())
+		_icon.visible = true
+	else:
+		_icon.visible = false
 
 
 func get_resource() -> String:

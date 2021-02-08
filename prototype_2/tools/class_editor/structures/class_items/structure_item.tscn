@@ -1,61 +1,41 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://tools/class_editor/components/properties/game_object_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://tools/class_editor/structures/properties/starting_items.tscn" type="PackedScene" id=2]
-[ext_resource path="res://tools/class_editor/components/properties/components/sprite.gd" type="Script" id=3]
-[ext_resource path="res://tools/class_editor/components/editor/class_properties.gd" type="Script" id=4]
-[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=5]
 
 [node name="StructureItem" instance=ExtResource( 1 )]
 class_scene = "res://game_objects/structures/structure.tscn"
 
 [node name="MarginContainer" parent="." index="0"]
-margin_right = 424.0
+margin_right = 466.0
 margin_bottom = 279.0
 size_flags_vertical = 1
 
 [node name="PropertyDivider" parent="MarginContainer" index="0"]
-margin_right = 413.0
+margin_right = 455.0
 margin_bottom = 268.0
 
 [node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
-margin_right = 100.0
 margin_bottom = 264.0
-size_flags_horizontal = 1
-
-[node name="ButtonsDivider" parent="MarginContainer/PropertyDivider/IconDivider" index="0"]
-margin_right = 100.0
-
-[node name="ResourceName" parent="MarginContainer/PropertyDivider/IconDivider/ButtonsDivider" index="0"]
-margin_right = 72.0
-
-[node name="MenuButton" parent="MarginContainer/PropertyDivider/IconDivider/ButtonsDivider" index="1"]
-margin_left = 76.0
-margin_right = 100.0
 
 [node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
-margin_right = 100.0
 margin_bottom = 264.0
 rect_min_size = Vector2( 100, 0 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 3
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 3 )
 
-[node name="ImageDialog" parent="MarginContainer/PropertyDivider/IconDivider/Sprite" index="0"]
-margin_right = 560.0
-margin_bottom = 496.0
+[node name="ButtonDivider" parent="MarginContainer/PropertyDivider/IconDivider/Sprite" index="0"]
+margin_bottom = 236.0
+
+[node name="SpriteSheets" parent="MarginContainer/PropertyDivider/IconDivider/Sprite/ButtonDivider" index="1"]
+margin_bottom = 236.0
+
+[node name="ImageDialog" parent="MarginContainer/PropertyDivider/IconDivider/Sprite" index="1"]
+margin_right = 225.0
+margin_bottom = 236.0
 dialog_text = "Select the GameResource' sprite"
 
 [node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
-margin_left = 116.0
-margin_right = 409.0
+margin_right = 451.0
 margin_bottom = 264.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource( 4 )
 
 [node name="GridContainer" parent="MarginContainer/PropertyDivider/Properties" index="0"]
 margin_right = 184.0

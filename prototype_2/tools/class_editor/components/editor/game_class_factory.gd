@@ -50,11 +50,14 @@ class _GameClass:
 		new_game_class.name = type
 		
 		for property in class_constants.keys():
-			if property == \"scene\":
-				pass
-			else:
-				assert(property in new_game_class)
-				new_game_class.set(property, class_constants[property])
+			match property:
+				\"scene\":
+					pass
+				\"stats\":
+					pass
+				_:
+					assert(property in new_game_class)
+					new_game_class.set(property, class_constants[property])
 		
 		return new_game_class
 """
@@ -82,16 +85,16 @@ const _DICTIONARY_BLUEPRINT := "{\n%s"
 class ClassToStringInterface:
 	var scene: String
 	var type: String
-	var sprite: String
+	var sprite_sheets: Array
 	var properties: Dictionary
 	
-	func _init(new_type: String, new_sprite: String, new_properties: Dictionary) -> void:
+	func _init(new_type: String, new_sprite_sheets: Array, new_properties: Dictionary) -> void:
 		type = new_type
-		sprite = new_sprite
+		sprite_sheets = new_sprite_sheets
 		properties = new_properties
 	
 	func _to_string() -> String:
-		return "{ #Interface# type: %s, sprite: %s, properties: %s }" % [ type, sprite, properties ]
+		return "{ #Interface# type: %s, sprite_sheets: %s, properties: %s }" % [ type, sprite_sheets, properties ]
 
 
 
@@ -146,7 +149,7 @@ func _create_game_class(class_interface: ClassToStringInterface) -> String:
 	var main_properties := {
 		"scene": class_interface.scene,
 		"type": class_interface.type,
-		"sprite": class_interface.sprite,
+		"sprite_sheets": class_interface.sprite_sheets,
 	}
 	
 	var class_constants := _properties_to_data(_CONSTANT_BLUEPRINT, main_properties, 1)

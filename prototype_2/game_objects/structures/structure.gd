@@ -48,27 +48,22 @@ func _get_copy_of_collision_shape() -> CollisionShape2D:
 
 
 func _get_copy_sprite() -> Sprite:
+	if _game_sprite:
+		return _game_sprite.get_copy_sprite()
+	
 	var sprite_copy := Sprite.new()
-	var directory := Directory.new()
 	
-	if directory.dir_exists(sprite):
-		var images: Array = FileHelper.list_files_in_directory(sprite, false, ".png")
-		
-		sprite_copy.texture = load(images[randi() % images.size()])
-	else:
-		sprite_copy.texture = load(sprite)
-	
-	sprite_copy.offset.y = -sprite_copy.texture.get_height() / 2.0
+	sprite_copy.texture = load(sprite_sheets[randi() % sprite_sheets.size()])
+	#sprite_copy.offset.y = -sprite_copy.texture.get_height() / 2.0
 	
 	return sprite_copy
 
 
 
 func _initialisation() -> void:
-	_initialise_pilot_master()
-	
 	._initialisation()
 	
+	_initialise_pilot_master()
 	_initialise_starting_items()
 
 
@@ -92,6 +87,9 @@ func _connect_state_machine() -> void:
 	_state_machine.connect("took_item", _pilot_master, "pick_up_item")
 	_state_machine.connect("item_transferred", self, "transfer_item")
 
+
+func _initialise_game_sprite(new_game_sprite: PackedScene = (load("res://game_objects/structures/components/structure_sprite.tscn") as PackedScene)) -> void:
+	._initialise_game_sprite(new_game_sprite)
 
 func _initialise_starting_items() -> void:
 	_pilot_master.initialise_starting_items(starting_items)

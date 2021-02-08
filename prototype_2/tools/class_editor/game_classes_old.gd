@@ -18,7 +18,7 @@ const CLASSES := {
 class Wood extends _GameClass:
 	const SCENE := "res://game_objects/resources/game_resource.tscn"
 	const TYPE: String = "Wood"
-	const SPRITE: String = "res://ui/game_gui/resource_icons/icon_wood.png"
+	const SPRITE_SHEETS: String = "res://ui/game_gui/resource_icons/icon_wood.png"
 	
 	const HOW_MANY_CAN_BE_CARRIED: int = 3
 	
@@ -27,13 +27,13 @@ class Wood extends _GameClass:
 			"can_carry": HOW_MANY_CAN_BE_CARRIED,
 		}
 		
-		return _spawn(_GAME_RESOURCE_SCENE, TYPE, load(SPRITE), properties)
+		return _spawn(_GAME_RESOURCE_SCENE, TYPE, load(SPRITE_SHEETS), properties)
 
 
 class WoodcuttersHut extends _GameClass:
 	const SCENE := "res://game_objects/structures/city_structure_with_point.tscn"
 	const TYPE: String = "WoodcuttersHut"
-	const SPRITE: String = "res://assets/sprites/structures/medievalStructure_16.png"
+	const SPRITE_SHEETS: String = "res://assets/sprites/structures/medievalStructure_16.png"
 	
 	const STARTING_ITEMS: Array = [ "Axe" ]
 	const AVAILABLE_JOB = "res://city_management/job_machine/job_machine.gd"
@@ -58,7 +58,7 @@ class WoodcuttersHut extends _GameClass:
 			"volume_modifier": VOLUME_MODIFIER,
 		}
 		
-		return _spawn(_CITY_STRUCTURE_SCENE, TYPE, load(SPRITE), properties)
+		return _spawn(_CITY_STRUCTURE_SCENE, TYPE, load(SPRITE_SHEETS), properties)
 
 
 

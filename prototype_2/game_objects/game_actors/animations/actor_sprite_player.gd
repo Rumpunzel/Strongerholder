@@ -1,8 +1,7 @@
-extends AnimationPlayer
+class_name ActorSpritePlayer
+extends GameSpritePlayer
 
 
-signal acted
-signal action_finished
 signal stepped
 
 
@@ -28,6 +27,3 @@ func just_stepped() -> void:
 	_footstep_sounds.play_audio_from_array(_sounds)
 	
 	emit_signal("stepped")
-
-func animation_finished() -> void:
-	emit_signal("animation_finished")

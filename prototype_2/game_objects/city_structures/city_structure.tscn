@@ -8,6 +8,5 @@
 collision_layer = 16
 script = ExtResource( 2 )
 
-[node name="AudioHandler" parent="." index="3"]
+[node name="AudioHandler" parent="." index="2"]
 script = ExtResource( 3 )
-_volume_modifer = 0.0

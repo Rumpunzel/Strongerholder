@@ -53,7 +53,7 @@ var _state_machine: ActorStateMachine
 
 onready var _collision_shape: CollisionShape2D = $CollisionShape
 onready var _sprite: Sprite = $Sprite
-onready var _animation_tree: AnimationStateMachine = $AnimationTree
+onready var _animation_tree: ActorSpriteTree = $Sprite/AnimationTree
 
 
 
@@ -164,7 +164,6 @@ func _initialise_puppet_master(new_puppet_master: PackedScene = load("res://game
 
 func _initialise_state_machine(new_state_machine: ActorStateMachine = ActorStateMachine.new()) -> void:
 	_state_machine = new_state_machine
-	_state_machine.name = "StateMachine"
 	
 	add_child(_state_machine)
 

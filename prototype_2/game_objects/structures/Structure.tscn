@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game_objects/structures/structure.gd" type="Script" id=2]
 [ext_resource path="res://game_objects/game_object.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -13,10 +12,3 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape" parent="." index="0"]
 shape = SubResource( 1 )
-
-[node name="Sprite" parent="." index="1"]
-position = Vector2( 0, 8 )
-texture = ExtResource( 4 )
-
-[node name="SelectionOutline" parent="." index="2"]
-color = Color( 1, 0.843137, 0, 1 )

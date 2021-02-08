@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "GameSprite",
+"class": "ActorSprite",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/animations/actor_sprite.gd"
+}, {
+"base": "Reference",
+"class": "ActorSpritePlayer",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/animations/actor_sprite_player.gd"
+}, {
+"base": "Reference",
+"class": "ActorSpriteTree",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/animations/actor_sprite_tree.gd"
+}, {
 "base": "ObjectState",
 "class": "ActorState",
 "language": "GDScript",
@@ -63,11 +78,6 @@ _global_script_classes=[ {
 "class": "ActorStateTake",
 "language": "GDScript",
 "path": "res://game_objects/game_actors/actor_controllers/state_machine/take.gd"
-}, {
-"base": "AnimationTree",
-"class": "AnimationStateMachine",
-"language": "GDScript",
-"path": "res://game_objects/game_actors/actor_controllers/animation_state_machine.gd"
 }, {
 "base": "Node2D",
 "class": "AudioHandler",
@@ -209,6 +219,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/game_object.gd"
 }, {
+"base": "Node",
+"class": "GameObjectStats",
+"language": "GDScript",
+"path": "res://game_objects/components/game_object_stats.gd"
+}, {
 "base": "GameObject",
 "class": "GameResource",
 "language": "GDScript",
@@ -217,7 +232,17 @@ _global_script_classes=[ {
 "base": "Sprite",
 "class": "GameSprite",
 "language": "GDScript",
-"path": "res://game_objects/game_sprite.gd"
+"path": "res://game_objects/components/game_sprite.gd"
+}, {
+"base": "AnimationPlayer",
+"class": "GameSpritePlayer",
+"language": "GDScript",
+"path": "res://game_objects/components/game_sprite_player.gd"
+}, {
+"base": "AnimationTree",
+"class": "GameSpriteTree",
+"language": "GDScript",
+"path": "res://game_objects/components/game_sprite_tree.gd"
 }, {
 "base": "Node2D",
 "class": "GameWorld",
@@ -394,6 +419,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/refinery.gd"
 }, {
+"base": "GameSprite",
+"class": "ResourceSprite",
+"language": "GDScript",
+"path": "res://game_objects/resources/components/resource_sprite.gd"
+}, {
 "base": "ObjectState",
 "class": "ResourceState",
 "language": "GDScript",
@@ -458,6 +488,11 @@ _global_script_classes=[ {
 "class": "StructureInactive",
 "language": "GDScript",
 "path": "res://game_objects/structures/components/state_machine/inactive.gd"
+}, {
+"base": "GameSprite",
+"class": "StructureSprite",
+"language": "GDScript",
+"path": "res://game_objects/structures/components/structure_sprite.gd"
 }, {
 "base": "ObjectState",
 "class": "StructureState",
@@ -525,6 +560,9 @@ _global_script_classes=[ {
 "path": "res://game_world/world_scenes/world_scene.gd"
 } ]
 _global_script_class_icons={
+"ActorSprite": "",
+"ActorSpritePlayer": "",
+"ActorSpriteTree": "",
 "ActorState": "",
 "ActorStateAttack": "res://class_icons/states/icon_state_attack.svg",
 "ActorStateDead": "res://class_icons/states/icon_state_dead.svg",
@@ -536,7 +574,6 @@ _global_script_class_icons={
 "ActorStateRequest": "res://class_icons/states/icon_state_request.svg",
 "ActorStateRun": "res://class_icons/states/icon_state_run.svg",
 "ActorStateTake": "res://class_icons/states/icon_state_take.svg",
-"AnimationStateMachine": "",
 "AudioHandler": "res://class_icons/game_objects/icon_audio_handler.svg",
 "BuildMenu": "",
 "BuildMenuButton": "",
@@ -565,8 +602,11 @@ _global_script_class_icons={
 "GameClasses": "",
 "GameGUI": "res://class_icons/gui/icon_game_gui.svg",
 "GameObject": "",
+"GameObjectStats": "",
 "GameResource": "res://class_icons/game_objects/resources/icon_resource.svg",
 "GameSprite": "",
+"GameSpritePlayer": "",
+"GameSpriteTree": "",
 "GameWorld": "res://class_icons/game_objects/icon_world.svg",
 "HurtBox": "res://class_icons/game_objects/resources/icon_hurt_box.svg",
 "InfoMenu": "",
@@ -602,6 +642,7 @@ _global_script_class_icons={
 "RadiantUI": "",
 "RadiantUIButton": "",
 "Refinery": "res://class_icons/game_objects/structures/icon_refinery.svg",
+"ResourceSprite": "",
 "ResourceState": "res://class_icons/states/icon_state_idle.svg",
 "ResourceStateDead": "res://class_icons/states/icon_state_dead.svg",
 "ResourceStateIdle": "res://class_icons/states/icon_state_idle.svg",
@@ -615,6 +656,7 @@ _global_script_class_icons={
 "StateMachine": "",
 "Structure": "res://class_icons/game_objects/structures/icon_structure.svg",
 "StructureInactive": "res://class_icons/states/icon_state.svg",
+"StructureSprite": "",
 "StructureState": "",
 "StructureStateDead": "res://class_icons/states/icon_state_dead.svg",
 "StructureStateGive": "res://class_icons/states/icon_state_give.svg",

@@ -8,15 +8,17 @@ const PERSIST_PROPERTIES := [
 	"name",
 	"position",
 	"type",
-	"sprite",
-	"hit_points_max",
-	"indestructible",
-	"hit_points",
+	"sprite_sheets",
 	"maximum_operators",
 	"damaged_sounds",
 	"_first_time",
 ]
-const PERSIST_OBJ_PROPERTIES := [ "_assigned_workers", "_state_machine" ]
+const PERSIST_OBJ_PROPERTIES := [
+	"_state_machine",
+	"_object_stats",
+	"_game_sprite",
+	"_assigned_workers",
+]
 
 
 signal selected
@@ -26,11 +28,11 @@ signal died
 
 
 var type: String
-var sprite: String setget set_sprite
+var sprite_sheets: Array
 
-var hit_points_max: float
-var indestructible: bool
-var hit_points: float
+var hit_points_max: float setget set_hit_points_max, get_hit_points_max
+var hit_points: float setget set_hit_points, get_hit_points
+var indestructible: bool setget set_indestructible, get_indestructible
 
 var maximum_operators: int
 
@@ -42,13 +44,14 @@ var selected: bool = false setget set_selected
 
 var _first_time: bool = true
 var _state_machine: ObjectStateMachine
+var _object_stats: GameObjectStats
+var _game_sprite: GameSprite
 
 
 var _assigned_workers: Array = [ ]
 
 
 onready var _collision_shape: CollisionShape2D = $CollisionShape
-onready var _sprite: Sprite = $Sprite
 onready var _selection_outline: SelectionOutline = $SelectionOutline
 onready var _audio_handler: AudioHandler = $AudioHandler
 
@@ -59,14 +62,10 @@ func _ready() -> void:
 	if _first_time:
 		_first_time = false
 		
-		hit_points = hit_points_max
-		
 		_initialisation()
 	
 	_connect_state_machine()
-	
-	set_sprite(sprite)
-	set_damaged_sounds(damaged_sounds)
+	_initialise_deferred_components()
 	
 	connect("damaged", _audio_handler, "play_damage_audio")
 	
@@ -110,17 +109,12 @@ func appear(new_status: bool) -> void:
 
 
 func damage(damage_points: float, sender) -> bool:
-	if indestructible:
-		return false
-	
-	var damage_taken: float = _state_machine.damage(damage_points)
-	
-	hit_points -= damage_taken
+	var damage_taken: float = _object_stats.damage(_state_machine.damage(damage_points))
 	
 	emit_signal("damaged", damage_taken, sender)
 	#print("%s damaged %s for %s damage." % [sender.name, name, damage_points])
 	
-	if hit_points <= 0:
+	if _object_stats.is_dead():
 		die()
 		return false
 	
@@ -142,20 +136,24 @@ func enable_collision(new_status: bool) -> void:
 
 
 
-func set_sprite(new_sprite: String) -> void:
-	sprite = new_sprite
+func set_hit_points_max(new_max: float) -> void:
+	hit_points_max = new_max
 	
-	if _sprite:
-		var directory := Directory.new()
-		
-		if directory.dir_exists(sprite):
-			var images: Array = FileHelper.list_files_in_directory(sprite, false, ".png")
-			
-			_sprite.texture = load(images[randi() % images.size()])
-		else:
-			_sprite.texture = load(sprite)
-		
-		_sprite.offset.y = -_sprite.texture.get_height() / 2.0
+	if _object_stats:
+		_object_stats.hit_points_max = hit_points_max
+
+func set_hit_points(new_hit_points: float) -> void:
+	hit_points = new_hit_points
+	
+	if _object_stats:
+		_object_stats.hit_points = hit_points
+
+func set_indestructible(new_status: bool) -> void:
+	indestructible = new_status
+	
+	if _object_stats:
+		_object_stats.indestructible = indestructible
+
 
 func set_damaged_sounds(new_sounds: String) -> void:
 	damaged_sounds = new_sounds
@@ -172,21 +170,62 @@ func set_selected(new_status: bool) -> void:
 
 
 
+func get_hit_points_max() -> float:
+	if _object_stats:
+		hit_points_max = _object_stats.hit_points_max
+	
+	return hit_points_max
+
+func get_hit_points() -> float:
+	if _object_stats:
+		hit_points = _object_stats.hit_points
+	
+	return hit_points
+
+func get_indestructible() -> bool:
+	if _object_stats:
+		indestructible = _object_stats.indestructible
+	
+	return indestructible
+
+
 
 func _initialisation() -> void:
 	_initialise_state_machine()
+	_initialise_object_stats()
+	_initialise_game_sprite()
+
+func _initialise_deferred_components() -> void:
+	set_damaged_sounds(damaged_sounds)
+
 
 
 func _initialise_state_machine(new_state_machine: ObjectStateMachine = ObjectStateMachine.new()) -> void:
 	_state_machine = new_state_machine
-	_state_machine.name = "StateMachine"
-	
 	add_child(_state_machine)
 
 
 func _connect_state_machine() -> void:
 	_state_machine.connect("active_state_set", self, "_on_active_state_set")
 	_state_machine.connect("died", self, "_on_died")
+
+
+func _initialise_object_stats(new_object_stats := GameObjectStats.new()) -> void:
+	_object_stats = new_object_stats
+	_object_stats.name = "ObjectStats"
+	
+	set_hit_points_max(hit_points_max)
+	set_indestructible(indestructible)
+	
+	add_child(_object_stats)
+
+
+func _initialise_game_sprite(new_game_sprite: PackedScene = null) -> void:
+	assert(new_game_sprite)
+	_game_sprite = new_game_sprite.instance()
+	_game_sprite.sprite_sheets = sprite_sheets
+	
+	add_child(_game_sprite)
 
 
 
