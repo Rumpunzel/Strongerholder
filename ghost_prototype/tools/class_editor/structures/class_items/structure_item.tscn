@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tools/class_editor/components/properties/game_object_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/structures/properties/starting_items.tscn" type="PackedScene" id=2]
+
+[node name="StructureItem" instance=ExtResource( 1 )]
+class_scene = "res://game_objects/structures/structure.tscn"
+
+[node name="MarginContainer" parent="." index="0"]
+margin_right = 466.0
+margin_bottom = 279.0
+size_flags_vertical = 1
+
+[node name="PropertyDivider" parent="MarginContainer" index="0"]
+margin_right = 455.0
+margin_bottom = 268.0
+
+[node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
+margin_bottom = 264.0
+
+[node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
+margin_bottom = 264.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="ButtonDivider" parent="MarginContainer/PropertyDivider/IconDivider/Sprite" index="0"]
+margin_bottom = 236.0
+
+[node name="SpriteSheets" parent="MarginContainer/PropertyDivider/IconDivider/Sprite/ButtonDivider" index="1"]
+margin_bottom = 236.0
+
+[node name="ImageDialog" parent="MarginContainer/PropertyDivider/IconDivider/Sprite" index="1"]
+margin_right = 225.0
+margin_bottom = 236.0
+dialog_text = "Select the GameResource' sprite"
+
+[node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
+margin_right = 451.0
+margin_bottom = 264.0
+
+[node name="GridContainer" parent="MarginContainer/PropertyDivider/Properties" index="0"]
+margin_right = 184.0
+margin_bottom = 264.0
+columns = 1
+
+[node name="HitPointsMax" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="0"]
+margin_right = 184.0
+
+[node name="Indestructible" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="1"]
+margin_left = 0.0
+margin_top = 68.0
+margin_right = 184.0
+margin_bottom = 132.0
+
+[node name="MaximumOperators" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="2"]
+margin_top = 136.0
+margin_right = 184.0
+margin_bottom = 200.0
+
+[node name="DamagedSounds" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="3"]
+margin_left = 0.0
+margin_top = 204.0
+margin_right = 184.0
+margin_bottom = 264.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PropertyDivider/Properties" index="1"]
+margin_left = 188.0
+margin_right = 293.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StartingItems" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="0" instance=ExtResource( 2 )]
+margin_right = 105.0
+margin_bottom = 40.0

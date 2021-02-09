@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tools/class_editor/components/editor/sub_class_tab.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/structures/class_items/structure_item.tscn" type="PackedScene" id=2]
+
+[node name="Structures" instance=ExtResource( 1 )]
+
+[node name="TitleDivider" parent="." index="0"]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 1904.0
+margin_bottom = 1048.0
+
+[node name="TopContainer" parent="TitleDivider" index="0"]
+margin_right = 1904.0
+margin_bottom = 20.0
+
+[node name="Info" parent="TitleDivider/TopContainer" index="0"]
+margin_top = 3.0
+margin_right = 1826.0
+margin_bottom = 17.0
+
+[node name="Button" parent="TitleDivider/TopContainer" index="1"]
+margin_left = 1830.0
+margin_right = 1904.0
+margin_bottom = 20.0
+
+[node name="HSeparator" parent="TitleDivider" index="1"]
+margin_top = 24.0
+margin_right = 1904.0
+margin_bottom = 28.0
+
+[node name="ScrollContainer" parent="TitleDivider" index="2"]
+margin_top = 32.0
+margin_right = 1904.0
+margin_bottom = 1048.0
+
+[node name="ClassGrid" parent="TitleDivider/ScrollContainer" index="0"]
+margin_right = 1904.0
+margin_bottom = 1016.0
+_item_scene = ExtResource( 2 )

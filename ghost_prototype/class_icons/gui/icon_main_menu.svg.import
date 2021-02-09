@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/icon_main_menu.svg-88b921023b63151f67c857f28dc6f0cf.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://class_icons/gui/icon_main_menu.svg"
+dest_files=[ "res://.import/icon_main_menu.svg-88b921023b63151f67c857f28dc6f0cf.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

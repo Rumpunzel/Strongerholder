@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://tools/class_editor/components/properties/components/class_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/components/properties/maximum_operators.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tools/class_editor/components/properties/indestructible.tscn" type="PackedScene" id=3]
+[ext_resource path="res://tools/class_editor/components/properties/hit_points_max.tscn" type="PackedScene" id=4]
+[ext_resource path="res://tools/class_editor/components/properties/damaged_sounds.tscn" type="PackedScene" id=5]
+
+[node name="GameObjectItem" instance=ExtResource( 1 )]
+
+[node name="MarginContainer" parent="." index="0"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 470.0
+margin_bottom = 147.0
+
+[node name="PropertyDivider" parent="MarginContainer" index="0"]
+margin_right = 459.0
+margin_bottom = 136.0
+
+[node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
+margin_bottom = 132.0
+
+[node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
+margin_bottom = 132.0
+
+[node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
+margin_right = 455.0
+margin_bottom = 132.0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/PropertyDivider/Properties" index="0"]
+margin_right = 334.0
+margin_bottom = 132.0
+columns = 2
+
+[node name="HitPointsMax" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="0" instance=ExtResource( 4 )]
+margin_right = 146.0
+margin_bottom = 64.0
+
+[node name="Indestructible" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="1" instance=ExtResource( 3 )]
+margin_left = 150.0
+margin_right = 334.0
+margin_bottom = 64.0
+
+[node name="MaximumOperators" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="2" instance=ExtResource( 2 )]
+margin_top = 68.0
+margin_right = 146.0
+margin_bottom = 132.0
+
+[node name="DamagedSounds" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="3" instance=ExtResource( 5 )]
+margin_left = 150.0
+margin_top = 68.0
+margin_right = 334.0
+margin_bottom = 132.0

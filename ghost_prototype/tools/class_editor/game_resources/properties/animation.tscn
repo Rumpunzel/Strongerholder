@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tools/class_editor/components/properties/property_items/option_property.gd" type="Script" id=1]
+[ext_resource path="res://tools/class_editor/components/properties/components/class_property.tscn" type="PackedScene" id=2]
+
+[node name="Animation" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+options = [ "none", "attack", "give" ]
+
+[node name="Label" parent="PropContainer/TopDivider" index="0"]
+margin_right = 64.0
+text = "animation"
+
+[node name="Property" type="OptionButton" parent="PropContainer" index="2"]
+margin_top = 26.0
+margin_right = 95.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+text = "none"

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game_objects/components/selection_outline.gd" type="Script" id=1]
+
+[node name="SelectionOutline" type="Line2D"]
+show_behind_parent = true
+z_index = -1
+points = PoolVector2Array( -40, -12, -40, -36, 40, -36, 40, 12, -40, 12, -40, -12 )
+width = 1.0
+default_color = Color( 1, 0.843137, 0, 1 )
+joint_mode = 1
+script = ExtResource( 1 )

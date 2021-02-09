@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game_objects/game_object.gd" type="Script" id=1]
+[ext_resource path="res://game_objects/components/selection_outline.gd" type="Script" id=2]
+[ext_resource path="res://game_objects/components/audio_handler.tscn" type="PackedScene" id=3]
+
+[node name="GameObject" type="StaticBody2D"]
+input_pickable = true
+collision_layer = 0
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+
+[node name="SelectionOutline" type="Node2D" parent="."]
+visible = false
+z_index = -1
+script = ExtResource( 2 )
+radius = 16.0
+point_count = 32
+line_width = 1.2
+color = Color( 1, 0.843137, 0, 1 )
+
+[node name="AudioHandler" parent="." instance=ExtResource( 3 )]

@@ -1,0 +1,65 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://helpers/game_audio_player.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/characters/hero_sprite_sheet.png" type="Texture" id=2]
+[ext_resource path="res://game_objects/components/game_sprite.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=4]
+[ext_resource path="res://game_objects/game_actors/animations/idle/idle_down.tres" type="Animation" id=5]
+[ext_resource path="res://game_objects/game_actors/animations/idle/idle_left.tres" type="Animation" id=6]
+[ext_resource path="res://game_objects/game_actors/animations/give/give_down.tres" type="Animation" id=7]
+[ext_resource path="res://game_objects/game_actors/animations/attack/attack_right.tres" type="Animation" id=8]
+[ext_resource path="res://game_objects/game_actors/animations/run/run_down.tres" type="Animation" id=9]
+[ext_resource path="res://game_objects/game_actors/animations/idle/idle_right.tres" type="Animation" id=10]
+[ext_resource path="res://game_objects/game_actors/animations/attack/attack_left.tres" type="Animation" id=11]
+[ext_resource path="res://game_objects/game_actors/animations/attack/attack_up.tres" type="Animation" id=12]
+[ext_resource path="res://game_objects/game_actors/animations/give/give_right.tres" type="Animation" id=13]
+[ext_resource path="res://game_objects/game_actors/animations/idle/idle_up.tres" type="Animation" id=14]
+[ext_resource path="res://game_objects/game_actors/animations/attack/attack_down.tres" type="Animation" id=15]
+[ext_resource path="res://game_objects/game_actors/animations/run/run_up.tres" type="Animation" id=16]
+[ext_resource path="res://game_objects/game_actors/animations/give/give_left.tres" type="Animation" id=17]
+[ext_resource path="res://game_objects/game_actors/animations/run/run_right.tres" type="Animation" id=18]
+[ext_resource path="res://game_objects/game_actors/animations/give/give_up.tres" type="Animation" id=19]
+[ext_resource path="res://game_objects/game_actors/animations/run/run_left.tres" type="Animation" id=20]
+[ext_resource path="res://game_objects/game_actors/animations/actor_sprite_player.gd" type="Script" id=22]
+[ext_resource path="res://game_objects/game_actors/animations/actor_sprite_tree.gd" type="Script" id=23]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
+[node name="Sprite" instance=ExtResource( 3 )]
+texture = ExtResource( 2 )
+offset = Vector2( 1, -17 )
+vframes = 12
+hframes = 9
+frame = 9
+
+[node name="AnimationTree" parent="." index="0"]
+tree_root = ExtResource( 4 )
+parameters/playback = SubResource( 1 )
+parameters/attack/blend_position = Vector2( 0, 0 )
+parameters/give/blend_position = Vector2( 0, 0 )
+parameters/idle/blend_position = Vector2( 0, 0 )
+parameters/run/blend_position = Vector2( 0, 0 )
+script = ExtResource( 23 )
+
+[node name="AnimationPlayer" parent="." index="1"]
+anims/attack_down = ExtResource( 15 )
+anims/attack_left = ExtResource( 11 )
+anims/attack_right = ExtResource( 8 )
+anims/attack_up = ExtResource( 12 )
+anims/give_down = ExtResource( 7 )
+anims/give_left = ExtResource( 17 )
+anims/give_right = ExtResource( 13 )
+anims/give_up = ExtResource( 19 )
+anims/idle_down = ExtResource( 5 )
+anims/idle_left = ExtResource( 6 )
+anims/idle_right = ExtResource( 10 )
+anims/idle_up = ExtResource( 14 )
+anims/run_down = ExtResource( 9 )
+anims/run_left = ExtResource( 20 )
+anims/run_right = ExtResource( 18 )
+anims/run_up = ExtResource( 16 )
+script = ExtResource( 22 )
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="AnimationPlayer" index="0"]
+volume_db = -18.0
+script = ExtResource( 1 )

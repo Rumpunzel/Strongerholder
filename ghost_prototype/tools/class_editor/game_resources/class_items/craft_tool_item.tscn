@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://tools/class_editor/game_resources/properties/animation.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/game_resources/properties/attack_value.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tools/class_editor/game_resources/class_items/spyglass_item.tscn" type="PackedScene" id=3]
+
+[node name="CraftToolItem" instance=ExtResource( 3 )]
+class_scene = "res://game_objects/resources/tools/craft_tool.tscn"
+
+[node name="MarginContainer" parent="." index="0"]
+margin_right = 465.0
+margin_bottom = 194.0
+
+[node name="PropertyDivider" parent="MarginContainer" index="0"]
+margin_right = 453.0
+margin_bottom = 186.0
+
+[node name="IconDivider" parent="MarginContainer/PropertyDivider" index="0"]
+margin_bottom = 182.0
+
+[node name="Sprite" parent="MarginContainer/PropertyDivider/IconDivider" index="1"]
+margin_bottom = 182.0
+
+[node name="Properties" parent="MarginContainer/PropertyDivider" index="1"]
+margin_right = 449.0
+margin_bottom = 182.0
+
+[node name="GridContainer" parent="MarginContainer/PropertyDivider/Properties" index="0"]
+margin_bottom = 182.0
+
+[node name="HitPointsMax" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="0"]
+margin_bottom = 58.0
+
+[node name="Indestructible" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="1"]
+margin_bottom = 58.0
+
+[node name="MaximumOperators" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="2"]
+margin_top = 62.0
+margin_bottom = 120.0
+
+[node name="Carry" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="3"]
+margin_left = 152.0
+margin_top = 62.0
+margin_right = 257.0
+margin_bottom = 120.0
+
+[node name="AttackValue" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="4" instance=ExtResource( 2 )]
+margin_top = 124.0
+margin_right = 148.0
+margin_bottom = 182.0
+
+[node name="Animation" parent="MarginContainer/PropertyDivider/Properties/GridContainer" index="5" instance=ExtResource( 1 )]
+margin_left = 152.0
+margin_top = 124.0
+margin_right = 257.0
+margin_bottom = 182.0
+
+[node name="VBoxContainer" parent="MarginContainer/PropertyDivider/Properties" index="1"]
+margin_left = 261.0
+margin_right = 328.0
+margin_bottom = 182.0
+
+[node name="Gathers" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="0"]
+margin_right = 67.0
+margin_bottom = 34.0
+
+[node name="Delivers" parent="MarginContainer/PropertyDivider/Properties/VBoxContainer" index="1"]
+margin_top = 54.0
+margin_right = 67.0
+margin_bottom = 88.0

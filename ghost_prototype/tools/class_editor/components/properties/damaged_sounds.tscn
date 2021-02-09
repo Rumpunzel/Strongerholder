@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tools/class_editor/components/properties/components/class_property.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tools/class_editor/components/properties/property_items/sound_selection.gd" type="Script" id=2]
+
+[node name="DamagedSounds" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="PropContainer" parent="." index="0"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 177.0
+margin_bottom = 53.0
+
+[node name="TopDivider" parent="PropContainer" index="0"]
+margin_right = 170.0
+
+[node name="Label" parent="PropContainer/TopDivider" index="0"]
+margin_right = 110.0
+text = "damaged_sounds"
+
+[node name="HSeparator" parent="PropContainer" index="1"]
+margin_right = 170.0
+
+[node name="Property" type="Button" parent="PropContainer" index="2"]
+margin_top = 26.0
+margin_right = 170.0
+margin_bottom = 46.0
+text = "res://assets/sounds/axe/"
+
+[node name="FileDialog" type="FileDialog" parent="PropContainer/Property" index="0"]
+margin_right = 315.0
+margin_bottom = 130.0
+window_title = "Open a Directory"
+resizable = true
+dialog_text = "Select the GameObject's sounds when damaged"
+dialog_hide_on_ok = true
+mode = 2
+current_dir = "res://assets/sounds/axe"
+current_path = "res://assets/sounds/axe/"

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game_objects/resources/tools/spyglass.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game_objects/resources/tools/craft_tool.gd" type="Script" id=2]
+[ext_resource path="res://game_objects/resources/tools/components/hurt_box.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 20.0
+
+[node name="CraftTool" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="HurtBox" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource( 3 )
+
+[node name="HurtShape" type="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource( 1 )
+disabled = true

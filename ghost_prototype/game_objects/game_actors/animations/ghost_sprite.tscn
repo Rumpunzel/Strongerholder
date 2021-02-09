@@ -1,0 +1,152 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://game_objects/components/game_sprite.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game_objects/game_actors/sprites/ghost_test.png" type="Texture" id=2]
+[ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=3]
+[ext_resource path="res://game_objects/game_actors/animations/ghost_particles.gd" type="Script" id=4]
+[ext_resource path="res://game_objects/game_actors/animations/actor_sprite_tree.gd" type="Script" id=5]
+[ext_resource path="res://game_objects/game_actors/animations/actor_sprite_player.gd" type="Script" id=6]
+[ext_resource path="res://helpers/game_audio_player.gd" type="Script" id=7]
+[ext_resource path="res://game_objects/game_actors/animations/movement_particels.gd" type="Script" id=8]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
+[sub_resource type="Animation" id=7]
+resource_name = "idle_left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "idle_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "run_left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "run_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 1 ) ]
+}
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0.381679, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 0.32549 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+width = 4
+
+[sub_resource type="ParticlesMaterial" id=4]
+lifetime_randomness = 0.2
+emission_shape = 2
+emission_box_extents = Vector3( 2, 4, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 30, 0 )
+initial_velocity = 5.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 25.0
+color_ramp = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_box_extents = Vector3( 2, 4, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 30.0
+gravity = Vector3( 0, 30, 0 )
+initial_velocity = 5.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 25.0
+color_ramp = SubResource( 6 )
+
+[node name="Sprite" instance=ExtResource( 1 )]
+texture = ExtResource( 2 )
+offset = Vector2( 0, -2 )
+
+[node name="AnimationTree" parent="." index="0"]
+tree_root = ExtResource( 3 )
+parameters/playback = SubResource( 1 )
+parameters/attack/blend_position = Vector2( 0, 0 )
+parameters/give/blend_position = Vector2( 0, 0 )
+parameters/idle/blend_position = Vector2( 0, 0 )
+parameters/run/blend_position = Vector2( 0, 0 )
+script = ExtResource( 5 )
+
+[node name="AnimationPlayer" parent="." index="1"]
+anims/idle_left = SubResource( 7 )
+anims/idle_right = SubResource( 8 )
+anims/run_left = SubResource( 9 )
+anims/run_right = SubResource( 10 )
+script = ExtResource( 6 )
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="AnimationPlayer" index="0"]
+script = ExtResource( 7 )
+
+[node name="Particles" type="Particles2D" parent="." index="2"]
+show_behind_parent = true
+amount = 16
+preprocess = 2.0
+process_material = SubResource( 4 )
+script = ExtResource( 4 )
+
+[node name="MovementParticels" type="Particles2D" parent="." index="3"]
+show_behind_parent = true
+position = Vector2( 0, 4 )
+emitting = false
+local_coords = false
+process_material = SubResource( 11 )
+script = ExtResource( 8 )
+[connection signal="moved" from="." to="MovementParticels" method="_on_moved"]
+[connection signal="moved" from="." to="Particles" method="_on_moved"]

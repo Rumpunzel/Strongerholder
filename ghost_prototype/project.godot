@@ -1,0 +1,855 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "GameSpritePlayer",
+"class": "ActorSpritePlayer",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/animations/actor_sprite_player.gd"
+}, {
+"base": "GameSpriteTree",
+"class": "ActorSpriteTree",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/animations/actor_sprite_tree.gd"
+}, {
+"base": "ObjectState",
+"class": "ActorState",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/actor_state.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateAttack",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/attack.gd"
+}, {
+"base": "ActorStateInactive",
+"class": "ActorStateDead",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/dead.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateGive",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/give.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateIdle",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/idle.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateInactive",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/inactive.gd"
+}, {
+"base": "ObjectStateMachine",
+"class": "ActorStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/actor_state_machine.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateOperate",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/operate.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateRequest",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/request.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateRun",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/run.gd"
+}, {
+"base": "ActorState",
+"class": "ActorStateTake",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/state_machine/take.gd"
+}, {
+"base": "Node2D",
+"class": "AudioHandler",
+"language": "GDScript",
+"path": "res://game_objects/components/audio_handler.gd"
+}, {
+"base": "Control",
+"class": "BuildMenu",
+"language": "GDScript",
+"path": "res://ui/game_gui/build_menu/build_menu.gd"
+}, {
+"base": "Button",
+"class": "BuildMenuButton",
+"language": "GDScript",
+"path": "res://ui/game_gui/build_menu/build_menu_button.gd"
+}, {
+"base": "PilotMaster",
+"class": "CityPilotMaster",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/city_pilot_master.gd"
+}, {
+"base": "Structure",
+"class": "CityStructure",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/city_structure.gd"
+}, {
+"base": "AudioHandler",
+"class": "CityStructureAudioHandler",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/city_structure_audio_handler.gd"
+}, {
+"base": "CityStructureState",
+"class": "CityStructureInactive",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/state_machine/inactive.gd"
+}, {
+"base": "StructureState",
+"class": "CityStructureState",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/state_machine/city_structure_state.gd"
+}, {
+"base": "CityStructureInactive",
+"class": "CityStructureStateDead",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/state_machine/dead.gd"
+}, {
+"base": "CityStructureState",
+"class": "CityStructureStateGive",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/state_machine/give.gd"
+}, {
+"base": "StructureStateMachine",
+"class": "CityStructureStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/state_machine/city_structure_state_machine.gd"
+}, {
+"base": "CityStructureState",
+"class": "CityStructureStateTake",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/state_machine/take.gd"
+}, {
+"base": "PanelContainer",
+"class": "ClassEditor",
+"language": "GDScript",
+"path": "res://tools/class_editor/class_editor.gd"
+}, {
+"base": "GridContainer",
+"class": "ClassGrid",
+"language": "GDScript",
+"path": "res://tools/class_editor/components/editor/class_grid.gd"
+}, {
+"base": "PanelContainer",
+"class": "ClassItem",
+"language": "GDScript",
+"path": "res://tools/class_editor/components/properties/components/class_item.gd"
+}, {
+"base": "HBoxContainer",
+"class": "ClassProperties",
+"language": "GDScript",
+"path": "res://tools/class_editor/components/editor/class_properties.gd"
+}, {
+"base": "PanelContainer",
+"class": "ClassProperty",
+"language": "GDScript",
+"path": "res://tools/class_editor/components/properties/components/class_property.gd"
+}, {
+"base": "Spyglass",
+"class": "CraftTool",
+"language": "GDScript",
+"path": "res://game_objects/resources/tools/craft_tool.gd"
+}, {
+"base": "ToolBelt",
+"class": "Custodian",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/custodian.gd"
+}, {
+"base": "Resource",
+"class": "FileHelper",
+"language": "GDScript",
+"path": "res://helpers/file_helper.gd"
+}, {
+"base": "Control",
+"class": "GUI",
+"language": "GDScript",
+"path": "res://ui/gui.gd"
+}, {
+"base": "Node",
+"class": "GUTTest",
+"language": "GDScript",
+"path": "res://addons/gut/test.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "GameActor",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/game_actor.gd"
+}, {
+"base": "AudioStreamPlayer2D",
+"class": "GameAudioPlayer",
+"language": "GDScript",
+"path": "res://helpers/game_audio_player.gd"
+}, {
+"base": "Resource",
+"class": "GameClassFactory",
+"language": "GDScript",
+"path": "res://tools/class_editor/components/editor/game_class_factory.gd"
+}, {
+"base": "Resource",
+"class": "GameClasses",
+"language": "GDScript",
+"path": "res://game_objects/game_classes.gd"
+}, {
+"base": "Control",
+"class": "GameGUI",
+"language": "GDScript",
+"path": "res://ui/game_gui/game_gui.gd"
+}, {
+"base": "StaticBody2D",
+"class": "GameObject",
+"language": "GDScript",
+"path": "res://game_objects/game_object.gd"
+}, {
+"base": "Node",
+"class": "GameObjectStats",
+"language": "GDScript",
+"path": "res://game_objects/components/game_object_stats.gd"
+}, {
+"base": "GameObject",
+"class": "GameResource",
+"language": "GDScript",
+"path": "res://game_objects/resources/game_resource.gd"
+}, {
+"base": "Sprite",
+"class": "GameSprite",
+"language": "GDScript",
+"path": "res://game_objects/components/game_sprite.gd"
+}, {
+"base": "AnimationPlayer",
+"class": "GameSpritePlayer",
+"language": "GDScript",
+"path": "res://game_objects/components/game_sprite_player.gd"
+}, {
+"base": "AnimationTree",
+"class": "GameSpriteTree",
+"language": "GDScript",
+"path": "res://game_objects/components/game_sprite_tree.gd"
+}, {
+"base": "Control",
+"class": "GameWorld",
+"language": "GDScript",
+"path": "res://game_world/game_world.gd"
+}, {
+"base": "Area2D",
+"class": "HurtBox",
+"language": "GDScript",
+"path": "res://game_objects/resources/tools/components/hurt_box.gd"
+}, {
+"base": "TabContainer",
+"class": "InfoMenu",
+"language": "GDScript",
+"path": "res://ui/game_gui/info_menu/info_menu.gd"
+}, {
+"base": "Area2D",
+"class": "InputMaster",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/input_master.gd"
+}, {
+"base": "Node2D",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://game_objects/components/inventory.gd"
+}, {
+"base": "StateMachine",
+"class": "JobMachine",
+"language": "GDScript",
+"path": "res://city_management/job_machine/job_machine.gd"
+}, {
+"base": "State",
+"class": "JobState",
+"language": "GDScript",
+"path": "res://city_management/job_machine/job_state.gd"
+}, {
+"base": "JobStateMoveTo",
+"class": "JobStateDeliver",
+"language": "GDScript",
+"path": "res://city_management/job_machine/deliver.gd"
+}, {
+"base": "JobStateMoveTo",
+"class": "JobStateGather",
+"language": "GDScript",
+"path": "res://city_management/job_machine/gather.gd"
+}, {
+"base": "JobState",
+"class": "JobStateIdle",
+"language": "GDScript",
+"path": "res://city_management/job_machine/idle.gd"
+}, {
+"base": "JobState",
+"class": "JobStateInactive",
+"language": "GDScript",
+"path": "res://city_management/job_machine/inactive.gd"
+}, {
+"base": "JobStateRetrieve",
+"class": "JobStateJustStarted",
+"language": "GDScript",
+"path": "res://city_management/job_machine/just_started.gd"
+}, {
+"base": "JobState",
+"class": "JobStateMoveTo",
+"language": "GDScript",
+"path": "res://city_management/job_machine/move_to.gd"
+}, {
+"base": "JobStateMoveTo",
+"class": "JobStateOperate",
+"language": "GDScript",
+"path": "res://city_management/job_machine/operate.gd"
+}, {
+"base": "JobStateMoveTo",
+"class": "JobStatePickUp",
+"language": "GDScript",
+"path": "res://city_management/job_machine/pick_up.gd"
+}, {
+"base": "JobStateMoveTo",
+"class": "JobStateRetrieve",
+"language": "GDScript",
+"path": "res://city_management/job_machine/retrieve.gd"
+}, {
+"base": "Popup",
+"class": "LoadingGUI",
+"language": "GDScript",
+"path": "res://ui/loading_gui/loading_gui.gd"
+}, {
+"base": "Node",
+"class": "Main",
+"language": "GDScript",
+"path": "res://main.gd"
+}, {
+"base": "Menu",
+"class": "MainMenu",
+"language": "GDScript",
+"path": "res://ui/main_menu/main_menu.gd"
+}, {
+"base": "Popup",
+"class": "Menu",
+"language": "GDScript",
+"path": "res://ui/menu.gd"
+}, {
+"base": "Navigation2D",
+"class": "Navigator",
+"language": "GDScript",
+"path": "res://city_management/navigator.gd"
+}, {
+"base": "State",
+"class": "ObjectState",
+"language": "GDScript",
+"path": "res://game_objects/state_machine/object_state.gd"
+}, {
+"base": "StateMachine",
+"class": "ObjectStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/state_machine/object_state_machine.gd"
+}, {
+"base": "YSort",
+"class": "ObjectsLayer",
+"language": "GDScript",
+"path": "res://city_management/objects_layer.gd"
+}, {
+"base": "Menu",
+"class": "PauseMenu",
+"language": "GDScript",
+"path": "res://ui/pause_menu/pause_menu.gd"
+}, {
+"base": "InputMaster",
+"class": "PilotMaster",
+"language": "GDScript",
+"path": "res://game_objects/structures/components/pilot_master.gd"
+}, {
+"base": "Area2D",
+"class": "PlacementDummy",
+"language": "GDScript",
+"path": "res://city_management/placement_dummy.gd"
+}, {
+"base": "Camera2D",
+"class": "PlayerCamera",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/player_camera.gd"
+}, {
+"base": "ItemList",
+"class": "PlayerMenu",
+"language": "GDScript",
+"path": "res://ui/game_gui/player_menu/player_menu.gd"
+}, {
+"base": "InputMaster",
+"class": "PuppetMaster",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/puppet_master.gd"
+}, {
+"base": "Node",
+"class": "QuarterMaster",
+"language": "GDScript",
+"path": "res://city_management/quarter_master.gd"
+}, {
+"base": "CenterContainer",
+"class": "RadiantContainer",
+"language": "GDScript",
+"path": "res://ui/radiant_container.gd"
+}, {
+"base": "RadiantContainer",
+"class": "RadiantUI",
+"language": "GDScript",
+"path": "res://ui/radiant_ui/RadiantUI.gd"
+}, {
+"base": "Button",
+"class": "RadiantUIButton",
+"language": "GDScript",
+"path": "res://ui/radiant_ui/RadiantUIButton.gd"
+}, {
+"base": "Inventory",
+"class": "Refinery",
+"language": "GDScript",
+"path": "res://game_objects/city_structures/components/refinery.gd"
+}, {
+"base": "ObjectState",
+"class": "ResourceState",
+"language": "GDScript",
+"path": "res://game_objects/resources/state_machine/resource_state.gd"
+}, {
+"base": "ResourceStateInactive",
+"class": "ResourceStateDead",
+"language": "GDScript",
+"path": "res://game_objects/resources/state_machine/dead.gd"
+}, {
+"base": "ResourceState",
+"class": "ResourceStateIdle",
+"language": "GDScript",
+"path": "res://game_objects/resources/state_machine/idle.gd"
+}, {
+"base": "ResourceState",
+"class": "ResourceStateInactive",
+"language": "GDScript",
+"path": "res://game_objects/resources/state_machine/inactive.gd"
+}, {
+"base": "ObjectStateMachine",
+"class": "ResourceStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/resources/state_machine/resource_state_machine.gd"
+}, {
+"base": "Node2D",
+"class": "SelectionOutline",
+"language": "GDScript",
+"path": "res://game_objects/components/selection_outline.gd"
+}, {
+"base": "GameResource",
+"class": "Spyglass",
+"language": "GDScript",
+"path": "res://game_objects/resources/tools/spy_glass.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://game_objects/components/state.gd"
+}, {
+"base": "StateInactive",
+"class": "StateDead",
+"language": "GDScript",
+"path": "res://game_objects/state_machine/dead.gd"
+}, {
+"base": "ObjectState",
+"class": "StateInactive",
+"language": "GDScript",
+"path": "res://game_objects/state_machine/inactive.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://game_objects/components/state_machine.gd"
+}, {
+"base": "GameObject",
+"class": "Structure",
+"language": "GDScript",
+"path": "res://game_objects/structures/structure.gd"
+}, {
+"base": "StructureState",
+"class": "StructureInactive",
+"language": "GDScript",
+"path": "res://game_objects/structures/components/state_machine/inactive.gd"
+}, {
+"base": "ObjectState",
+"class": "StructureState",
+"language": "GDScript",
+"path": "res://game_objects/structures/components/state_machine/structure_state.gd"
+}, {
+"base": "StructureInactive",
+"class": "StructureStateDead",
+"language": "GDScript",
+"path": "res://game_objects/structures/components/state_machine/dead.gd"
+}, {
+"base": "StructureState",
+"class": "StructureStateGive",
+"language": "GDScript",
+"path": "res://game_objects/structures/components/state_machine/give.gd"
+}, {
+"base": "ObjectStateMachine",
+"class": "StructureStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/structures/components/state_machine/structure_state_machine.gd"
+}, {
+"base": "StructureState",
+"class": "StructureStateTake",
+"language": "GDScript",
+"path": "res://game_objects/structures/components/state_machine/take.gd"
+}, {
+"base": "Inventory",
+"class": "ToolBelt",
+"language": "GDScript",
+"path": "res://game_objects/game_actors/actor_controllers/tool_belt.gd"
+}, {
+"base": "ResourceState",
+"class": "ToolState",
+"language": "GDScript",
+"path": "res://game_objects/resources/tools/components/state_machine/tool_state.gd"
+}, {
+"base": "ToolStateInactive",
+"class": "ToolStateAttack",
+"language": "GDScript",
+"path": "res://game_objects/resources/tools/components/state_machine/attack.gd"
+}, {
+"base": "ToolStateInactive",
+"class": "ToolStateDead",
+"language": "GDScript",
+"path": "res://game_objects/resources/tools/components/state_machine/dead.gd"
+}, {
+"base": "ToolState",
+"class": "ToolStateInactive",
+"language": "GDScript",
+"path": "res://game_objects/resources/tools/components/state_machine/inactive.gd"
+}, {
+"base": "ResourceStateMachine",
+"class": "ToolStateMachine",
+"language": "GDScript",
+"path": "res://game_objects/resources/tools/components/state_machine/tool_state_machine.gd"
+}, {
+"base": "Popup",
+"class": "ToolsMenu",
+"language": "GDScript",
+"path": "res://ui/game_gui/tools_menu/tools_menu.gd"
+}, {
+"base": "Control",
+"class": "WorldScene",
+"language": "GDScript",
+"path": "res://game_world/world_scenes/world_scene.gd"
+} ]
+_global_script_class_icons={
+"ActorSpritePlayer": "",
+"ActorSpriteTree": "",
+"ActorState": "",
+"ActorStateAttack": "res://class_icons/states/icon_state_attack.svg",
+"ActorStateDead": "res://class_icons/states/icon_state_dead.svg",
+"ActorStateGive": "res://class_icons/states/icon_state_give.svg",
+"ActorStateIdle": "res://class_icons/states/icon_state_idle.svg",
+"ActorStateInactive": "res://class_icons/states/icon_state.svg",
+"ActorStateMachine": "res://class_icons/states/icon_actor_state_machine.svg",
+"ActorStateOperate": "res://class_icons/states/icon_state_operate.svg",
+"ActorStateRequest": "res://class_icons/states/icon_state_request.svg",
+"ActorStateRun": "res://class_icons/states/icon_state_run.svg",
+"ActorStateTake": "res://class_icons/states/icon_state_take.svg",
+"AudioHandler": "res://class_icons/game_objects/icon_audio_handler.svg",
+"BuildMenu": "",
+"BuildMenuButton": "",
+"CityPilotMaster": "res://class_icons/game_objects/structures/icon_city_pilot_master.svg",
+"CityStructure": "res://class_icons/game_objects/structures/icon_city_structure.svg",
+"CityStructureAudioHandler": "",
+"CityStructureInactive": "res://class_icons/states/icon_state.svg",
+"CityStructureState": "",
+"CityStructureStateDead": "res://class_icons/states/icon_state_dead.svg",
+"CityStructureStateGive": "res://class_icons/states/icon_state_give.svg",
+"CityStructureStateMachine": "res://class_icons/game_objects/structures/icon_city_structure_state_machine.svg",
+"CityStructureStateTake": "res://class_icons/states/icon_state_take.svg",
+"ClassEditor": "",
+"ClassGrid": "",
+"ClassItem": "",
+"ClassProperties": "",
+"ClassProperty": "",
+"CraftTool": "res://class_icons/game_objects/resources/icon_crafting_tool.svg",
+"Custodian": "res://class_icons/game_objects/structures/icon_custodian.svg",
+"FileHelper": "",
+"GUI": "res://class_icons/gui/icon_gui.svg",
+"GUTTest": "",
+"GameActor": "res://class_icons/game_objects/game_actors/icon_game_actor.svg",
+"GameAudioPlayer": "",
+"GameClassFactory": "",
+"GameClasses": "",
+"GameGUI": "res://class_icons/gui/icon_game_gui.svg",
+"GameObject": "",
+"GameObjectStats": "",
+"GameResource": "res://class_icons/game_objects/resources/icon_resource.svg",
+"GameSprite": "",
+"GameSpritePlayer": "",
+"GameSpriteTree": "",
+"GameWorld": "res://class_icons/game_objects/icon_world.svg",
+"HurtBox": "res://class_icons/game_objects/resources/icon_hurt_box.svg",
+"InfoMenu": "",
+"InputMaster": "res://class_icons/game_objects/game_actors/icon_input_master.svg",
+"Inventory": "res://class_icons/game_objects/icon_inventory.svg",
+"JobMachine": "res://class_icons/states/icon_state_machine.svg",
+"JobState": "res://class_icons/states/icon_state_idle.svg",
+"JobStateDeliver": "res://class_icons/states/icon_state_deliver.svg",
+"JobStateGather": "res://class_icons/states/icon_state_gather.svg",
+"JobStateIdle": "",
+"JobStateInactive": "res://class_icons/states/icon_state.svg",
+"JobStateJustStarted": "res://class_icons/states/icon_state_just_started.svg",
+"JobStateMoveTo": "res://class_icons/states/icon_state_move_to.svg",
+"JobStateOperate": "res://class_icons/states/icon_state_operate.svg",
+"JobStatePickUp": "res://class_icons/states/icon_state_pick_up.svg",
+"JobStateRetrieve": "res://class_icons/states/icon_state_retrieve.svg",
+"LoadingGUI": "res://class_icons/gui/icon_loading_gui.svg",
+"Main": "res://class_icons/icon_main.svg",
+"MainMenu": "res://class_icons/gui/icon_main_menu.svg",
+"Menu": "",
+"Navigator": "res://class_icons/city_management/icon_navigator.svg",
+"ObjectState": "res://class_icons/states/icon_state_idle.svg",
+"ObjectStateMachine": "res://class_icons/states/icon_state_machine.svg",
+"ObjectsLayer": "res://class_icons/game_objects/icon_objects_layer.svg",
+"PauseMenu": "res://class_icons/gui/icon_pause_menu.svg",
+"PilotMaster": "res://class_icons/game_objects/structures/icon_pilot_master.svg",
+"PlacementDummy": "",
+"PlayerCamera": "",
+"PlayerMenu": "",
+"PuppetMaster": "res://class_icons/game_objects/game_actors/icon_puppet_master.svg",
+"QuarterMaster": "res://class_icons/city_management/icon_quarter_master.svg",
+"RadiantContainer": "",
+"RadiantUI": "",
+"RadiantUIButton": "",
+"Refinery": "res://class_icons/game_objects/structures/icon_refinery.svg",
+"ResourceState": "res://class_icons/states/icon_state_idle.svg",
+"ResourceStateDead": "res://class_icons/states/icon_state_dead.svg",
+"ResourceStateIdle": "res://class_icons/states/icon_state_idle.svg",
+"ResourceStateInactive": "res://class_icons/states/icon_state.svg",
+"ResourceStateMachine": "res://class_icons/states/icon_resource_state_machine.svg",
+"SelectionOutline": "",
+"Spyglass": "res://class_icons/game_objects/resources/icon_spyglass.svg",
+"State": "",
+"StateDead": "res://class_icons/states/icon_state_dead.svg",
+"StateInactive": "res://class_icons/states/icon_state.svg",
+"StateMachine": "",
+"Structure": "res://class_icons/game_objects/structures/icon_structure.svg",
+"StructureInactive": "res://class_icons/states/icon_state.svg",
+"StructureState": "",
+"StructureStateDead": "res://class_icons/states/icon_state_dead.svg",
+"StructureStateGive": "res://class_icons/states/icon_state_give.svg",
+"StructureStateMachine": "res://class_icons/game_objects/structures/icon_city_structure_state_machine.svg",
+"StructureStateTake": "res://class_icons/states/icon_state_take.svg",
+"ToolBelt": "res://class_icons/game_objects/game_actors/icon_tool_belt.svg",
+"ToolState": "",
+"ToolStateAttack": "res://class_icons/states/icon_state_attack.svg",
+"ToolStateDead": "res://class_icons/states/icon_state_dead.svg",
+"ToolStateInactive": "res://class_icons/states/icon_state.svg",
+"ToolStateMachine": "res://class_icons/states/icon_tool_state_machine.svg",
+"ToolsMenu": "",
+"WorldScene": "res://class_icons/game_objects/icon_world_scene.svg"
+}
+
+[application]
+
+config/name="Prototype 2"
+run/main_scene="res://main.tscn"
+config/icon="res://assets/sprites/castle_icon_colour.png"
+config/version="0.0.1"
+
+[audio]
+
+default_bus_layout="res://assets/sounds/default_bus_layout.tres"
+
+[autoload]
+
+ServiceLocator="*res://city_management/service_locator.gd"
+SaverLoader="*res://addons/saver_loader/saver_loader.gd"
+
+[debug]
+
+gdscript/warnings/unused_class_variable=true
+gdscript/warnings/return_value_discarded=false
+gdscript/warnings/unsafe_property_access=true
+gdscript/warnings/unsafe_method_access=true
+gdscript/warnings/unsafe_cast=true
+gdscript/warnings/unsafe_call_argument=true
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/vsync/use_vsync=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "gut" )
+
+[gdnative]
+
+singletons=[  ]
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[input]
+
+ui_accept={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777222,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_select={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+ui_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+ui_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+ui_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+ui_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+move_left={
+"deadzone": 0.1,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_right={
+"deadzone": 0.1,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_up={
+"deadzone": 0.1,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_down={
+"deadzone": 0.1,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+ ]
+}
+sprint={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"unicode":0,"echo":false,"script":null)
+ ]
+}
+interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":2,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+open_menu={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pause_game={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":11,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+place_building={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+place_building_cancel={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+select_object={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="GameActors"
+2d_physics/layer_3="Structures"
+2d_physics/layer_4="Resources"
+2d_physics/layer_5="CityStructures"
+2d_physics/layer_11="WorldAreas"
+2d_physics/layer_12="ActorAreas"
+2d_physics/layer_13="StructureAreas"
+2d_physics/layer_14="ResourcesAreas"
+2d_physics/layer_15="ToolAreas"
+
+[node]
+
+name_num_separator=2
+
+[rendering]
+
+quality/2d/use_pixel_snap=true

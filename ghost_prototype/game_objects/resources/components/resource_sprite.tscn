@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game_objects/components/game_sprite.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/game_gui/resource_icons/icon_wood.png" type="Texture" id=3]
+
+[sub_resource type="AnimationNodeStateMachine" id=1]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
+
+[node name="Sprite" instance=ExtResource( 1 )]
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 3 )
+
+[node name="AnimationTree" parent="." index="0"]
+tree_root = SubResource( 1 )
+parameters/playback = SubResource( 2 )
