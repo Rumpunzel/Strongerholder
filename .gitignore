@@ -1,14 +1,9 @@
 
-prototype/.import/
-prototype_2/.import/
-prototype/bin/
-prototype/build/
-prototype/lib/
-prototype_2/bin/
-prototype_2/build/
-prototype_2/lib/
+**/.import/
+**/bin/
+**/lib/
+**/build/
 *.translation
-prototype/export_presets.cfg
-prototype_2/export_presets.cfg
+**/export_presets.cfg
 *.exe
 *.pck
