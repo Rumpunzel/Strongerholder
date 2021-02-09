@@ -1,7 +1,7 @@
 extends Viewport
 
 
-const PERSIST_AS_PROCEDURAL_OBJECT: bool = true
+const PERSIST_AS_PROCEDURAL_OBJECT: bool = false
 
 
 # Called when the node enters the scene tree for the first time.

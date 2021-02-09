@@ -14,6 +14,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.784314 )
+
 [node name="Background" type="TextureRect" parent="."]
 visible = false
 anchor_right = 1.0

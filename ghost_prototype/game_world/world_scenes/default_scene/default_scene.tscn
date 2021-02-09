@@ -1,15 +1,17 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game_world/world_scenes/viewport.gd" type="Script" id=1]
 [ext_resource path="res://city_management/navigator.gd" type="Script" id=2]
 [ext_resource path="res://game_world/world_scenes/default_scene/tile_map.tscn" type="PackedScene" id=3]
+[ext_resource path="res://city_management/objects_layer.gd" type="Script" id=4]
+[ext_resource path="res://city_management/quarter_master.gd" type="Script" id=5]
 [ext_resource path="res://game_world/world_scenes/default_scene/default_scene.gd" type="Script" id=6]
 [ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
 
-[sub_resource type="ViewportTexture" id=2]
+[sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="OccluderPolygon2D" id=1]
+[sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( 26.5, -61, -13, -61, -120, -61.5, -116.5, 63.5, -63.5, 112, 58.5, 30 )
 
 [node name="DefaultScene" type="Control"]
@@ -23,13 +25,16 @@ __meta__ = {
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 expand = true
 stretch_mode = 6
 flip_v = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="QuarterMaster" type="Node" parent="."]
+script = ExtResource( 5 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 480, 270 )
@@ -56,4 +61,7 @@ shadow_enabled = true
 
 [node name="LightOccluder" type="LightOccluder2D" parent="Viewport"]
 position = Vector2( -24, 106 )
-occluder = SubResource( 1 )
+occluder = SubResource( 2 )
+
+[node name="ObjectsLayer" type="YSort" parent="Viewport"]
+script = ExtResource( 4 )

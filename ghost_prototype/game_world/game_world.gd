@@ -23,21 +23,22 @@ func _ready() -> void:
 
 
 func leave() -> void:
-	for child in get_children():
-		remove_child(child)
-		child.queue_free()
+	pass
+#	for child in get_children():
+#		remove_child(child)
+#		child.queue_free()
 
 
 func enter_scene(main_node: Main, new_packed_scene: PackedScene, leave_previous_scene: bool = true):
 	if leave_previous_scene:
 		leave()
 	
-	var new_scene: WorldScene = new_packed_scene.instance() as WorldScene
+	#var new_scene: WorldScene = new_packed_scene.instance() as WorldScene
 	
-	new_scene.main_node = main_node
-	add_child(new_scene)
+	$DefaultScene.main_node = main_node
+	#add_child(new_scene)
 	
-	new_scene.connect("object_selected", self, "_on_object_selected")
+	$DefaultScene.connect("object_selected", self, "_on_object_selected")
 
 
 func is_in_game() -> bool:
