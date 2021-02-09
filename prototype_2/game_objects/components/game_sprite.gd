@@ -6,6 +6,8 @@ signal acted
 signal action_finished
 signal animation_finished
 
+signal moved
+
 
 onready var _animation_tree: GameSpriteTree = $AnimationTree
 
@@ -45,3 +47,7 @@ func _on_action_finished(animation: String) -> void:
 
 func _on_animation_finished(animation: String) -> void:
 	emit_signal("animation_finished", animation)
+
+
+func _on_moved(new_velocity: Vector2) -> void:
+	emit_signal("moved", new_velocity)

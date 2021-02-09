@@ -45,7 +45,7 @@ func set_blend_positions(new_direction: Vector2) -> void:
 	blend_positions = new_direction
 	
 	for animation in _animations:
-		set("parameters/%s/blend_position" % [animation], blend_positions)
+		set("parameters/%s/blend_position" % animation, blend_positions)
 
 
 

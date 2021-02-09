@@ -3,7 +3,6 @@
 [ext_resource path="res://ui/loading_gui/loading_gui.gd" type="Script" id=1]
 [ext_resource path="res://ui/fonts/ui_main_menu_title_font.tres" type="DynamicFont" id=3]
 
-
 [node name="LoadingGUI" type="Popup"]
 pause_mode = 2
 anchor_right = 1.0
@@ -18,7 +17,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 0.784314 )
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

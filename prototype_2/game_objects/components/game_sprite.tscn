@@ -5,7 +5,7 @@
 [ext_resource path="res://game_objects/components/game_sprite_tree.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/icon.png" type="Texture" id=4]
 
-[node name="GameSprite" type="Sprite"]
+[node name="Sprite" type="Sprite"]
 texture = ExtResource( 4 )
 script = ExtResource( 1 )
 

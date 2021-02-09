@@ -58,11 +58,11 @@ func loading_game(new_game: bool = false) -> void:
 		_progress_bar.value = 100
 	else:
 		set_process(true)
+		
+		_tween.interpolate_property(_background, "color", Color.black, Color("c8000000"), 1.0, Tween.TRANS_ELASTIC)
+		_tween.start()
 	
 	show()
-	
-	_tween.interpolate_property(_background, "color", Color.black, Color("c8000000"), 1.0, Tween.TRANS_ELASTIC)
-	_tween.start()
 
 
 func _check_input(event: InputEvent) -> void:
