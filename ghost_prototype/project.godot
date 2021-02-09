@@ -656,7 +656,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Prototype 2"
+config/name="Ghost Prototype"
 run/main_scene="res://main.tscn"
 config/icon="res://assets/sprites/castle_icon_colour.png"
 config/version="0.0.1"

@@ -19,8 +19,8 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _process(_delta: float) -> void:
+	speed_scale = 0.5 if get_tree().paused else 1.0
 
 
 

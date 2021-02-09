@@ -11,7 +11,7 @@
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 resource_name = "idle_left"
 length = 0.1
 tracks/0/type = "value"
@@ -27,7 +27,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 resource_name = "idle_right"
 length = 0.1
 tracks/0/type = "value"
@@ -43,7 +43,7 @@ tracks/0/keys = {
 "values": [ Vector2( -1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 resource_name = "run_left"
 length = 0.1
 tracks/0/type = "value"
@@ -59,7 +59,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=5]
 resource_name = "run_right"
 length = 0.1
 tracks/0/type = "value"
@@ -75,15 +75,15 @@ tracks/0/keys = {
 "values": [ Vector2( -1, 1 ) ]
 }
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0.381679, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 0.32549 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
 width = 4
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=8]
 lifetime_randomness = 0.2
 emission_shape = 2
 emission_box_extents = Vector3( 2, 4, 1 )
@@ -95,9 +95,9 @@ initial_velocity = 5.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 25.0
-color_ramp = SubResource( 6 )
+color_ramp = SubResource( 7 )
 
-[sub_resource type="ParticlesMaterial" id=11]
+[sub_resource type="ParticlesMaterial" id=9]
 lifetime_randomness = 0.5
 emission_shape = 2
 emission_box_extents = Vector3( 2, 4, 1 )
@@ -109,7 +109,7 @@ initial_velocity = 5.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 25.0
-color_ramp = SubResource( 6 )
+color_ramp = SubResource( 7 )
 
 [node name="Sprite" instance=ExtResource( 1 )]
 texture = ExtResource( 2 )
@@ -125,20 +125,21 @@ parameters/run/blend_position = Vector2( 0, 0 )
 script = ExtResource( 5 )
 
 [node name="AnimationPlayer" parent="." index="1"]
-anims/idle_left = SubResource( 7 )
-anims/idle_right = SubResource( 8 )
-anims/run_left = SubResource( 9 )
-anims/run_right = SubResource( 10 )
+anims/idle_left = SubResource( 2 )
+anims/idle_right = SubResource( 3 )
+anims/run_left = SubResource( 4 )
+anims/run_right = SubResource( 5 )
 script = ExtResource( 6 )
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="AnimationPlayer" index="0"]
 script = ExtResource( 7 )
 
 [node name="Particles" type="Particles2D" parent="." index="2"]
+pause_mode = 2
 show_behind_parent = true
 amount = 16
 preprocess = 2.0
-process_material = SubResource( 4 )
+process_material = SubResource( 8 )
 script = ExtResource( 4 )
 
 [node name="MovementParticels" type="Particles2D" parent="." index="3"]
@@ -146,7 +147,7 @@ show_behind_parent = true
 position = Vector2( 0, 4 )
 emitting = false
 local_coords = false
-process_material = SubResource( 11 )
+process_material = SubResource( 9 )
 script = ExtResource( 8 )
-[connection signal="moved" from="." to="MovementParticels" method="_on_moved"]
 [connection signal="moved" from="." to="Particles" method="_on_moved"]
+[connection signal="moved" from="." to="MovementParticels" method="_on_moved"]

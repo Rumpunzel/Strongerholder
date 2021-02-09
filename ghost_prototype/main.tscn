@@ -5,9 +5,11 @@
 [ext_resource path="res://ui/gui.tscn" type="PackedScene" id=3]
 
 [node name="Main" type="Node"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="GameWorld" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
 
 [node name="GUILayer" type="CanvasLayer" parent="."]
 
