@@ -853,3 +853,4 @@ name_num_separator=2
 [rendering]
 
 quality/2d/use_pixel_snap=true
+environment/default_clear_color=Color( 0.105882, 0.105882, 0.156863, 1 )

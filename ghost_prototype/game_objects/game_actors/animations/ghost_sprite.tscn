@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://game_objects/components/game_sprite.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game_objects/game_actors/sprites/ghost_test.png" type="Texture" id=2]
+[ext_resource path="res://game_objects/game_actors/sprites/ghost_white.png" type="Texture" id=2]
 [ext_resource path="res://game_objects/game_actors/animations/game_actor.tres" type="AnimationNodeStateMachine" id=3]
 [ext_resource path="res://game_objects/game_actors/animations/ghost_particles.gd" type="Script" id=4]
 [ext_resource path="res://game_objects/game_actors/animations/actor_sprite_tree.gd" type="Script" id=5]
@@ -77,7 +77,7 @@ tracks/0/keys = {
 
 [sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0.381679, 1 )
-colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 0.32549 )
+colors = PoolColorArray( 0.941176, 0.941176, 0.913725, 1, 0.941176, 0.941176, 0.913725, 0 )
 
 [sub_resource type="GradientTexture" id=7]
 gradient = SubResource( 6 )
