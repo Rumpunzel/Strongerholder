@@ -15,6 +15,7 @@ const CLASSES := {
 		"WoodLogs",
 		"WoodPlanks",
 		"Stone",
+		"Test",
 	],
 	CRAFT_TOOL_SCENE: [
 		"Axe",
@@ -85,6 +86,23 @@ class Stone extends _GameClass:
 	const indestructible := false
 	const maximum_operators := 1
 	const can_carry := 1
+	const damaged_sounds := "res://assets/sounds/axe/"
+	
+	static func spawn() -> Node2D:
+		return _spawn(scene, type)
+
+
+class Test extends _GameClass:
+	const scene := "res://game_objects/resources/game_resource.tscn"
+	const type := "Test"
+	const sprite_sheets := [
+		"res://assets/sprites/icon.png",
+	]
+	
+	const hit_points_max := 10
+	const indestructible := false
+	const maximum_operators := 1
+	const can_carry := 4
 	const damaged_sounds := "res://assets/sounds/axe/"
 	
 	static func spawn() -> Node2D:

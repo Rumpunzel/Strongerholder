@@ -48,6 +48,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func place_building(structure: Structure) -> void:
+	_delete_blue_print()
+	
 	_current_structure = structure
 	
 	var new_collision_shape: CollisionShape2D = _current_structure._get_copy_of_collision_shape()
@@ -65,8 +67,9 @@ func set_objects_layer(new_objects_layer: ObjectsLayer):
 
 
 func _delete_blue_print() -> void:
-	_current_dummy.queue_free()
-	_current_dummy = null
+	if _current_dummy:
+		_current_dummy.queue_free()
+		_current_dummy = null
 	
 	if _current_structure:
 		_current_structure.queue_free()

@@ -12,6 +12,7 @@ script = ExtResource( 2 )
 [node name="GUILayer" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="GUILayer" instance=ExtResource( 3 )]
+
 [connection signal="game_load_finished" from="GUILayer/GUI" to="." method="_input_after_load"]
 [connection signal="load_game" from="GUILayer/GUI" to="." method="load_game"]
 [connection signal="new_game" from="GUILayer/GUI" to="." method="_start_new_game"]

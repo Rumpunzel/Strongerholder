@@ -104,7 +104,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/city_structure_audio_handler.gd"
 }, {
-"base": "Reference",
+"base": "CityStructureState",
 "class": "CityStructureInactive",
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/state_machine/inactive.gd"
@@ -114,12 +114,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/state_machine/city_structure_state.gd"
 }, {
-"base": "Reference",
+"base": "CityStructureInactive",
 "class": "CityStructureStateDead",
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/state_machine/dead.gd"
 }, {
-"base": "Reference",
+"base": "CityStructureState",
 "class": "CityStructureStateGive",
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/state_machine/give.gd"
@@ -129,7 +129,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/state_machine/city_structure_state_machine.gd"
 }, {
-"base": "Reference",
+"base": "CityStructureState",
 "class": "CityStructureStateTake",
 "language": "GDScript",
 "path": "res://game_objects/city_structures/components/state_machine/take.gd"
@@ -564,12 +564,12 @@ _global_script_class_icons={
 "CityPilotMaster": "res://class_icons/game_objects/structures/icon_city_pilot_master.svg",
 "CityStructure": "res://class_icons/game_objects/structures/icon_city_structure.svg",
 "CityStructureAudioHandler": "",
-"CityStructureInactive": "",
+"CityStructureInactive": "res://class_icons/states/icon_state.svg",
 "CityStructureState": "",
-"CityStructureStateDead": "",
-"CityStructureStateGive": "",
+"CityStructureStateDead": "res://class_icons/states/icon_state_dead.svg",
+"CityStructureStateGive": "res://class_icons/states/icon_state_give.svg",
 "CityStructureStateMachine": "res://class_icons/game_objects/structures/icon_city_structure_state_machine.svg",
-"CityStructureStateTake": "",
+"CityStructureStateTake": "res://class_icons/states/icon_state_take.svg",
 "ClassEditor": "",
 "ClassGrid": "",
 "ClassItem": "",
@@ -852,4 +852,6 @@ name_num_separator=2
 
 [rendering]
 
+2d/snapping/use_gpu_pixel_snap=true
+environment/default_clear_color=Color( 0.105882, 0.105882, 0.156863, 1 )
 quality/2d/use_pixel_snap=true

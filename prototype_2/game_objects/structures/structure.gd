@@ -7,7 +7,6 @@ const SCENE := "res://game_objects/structures/structure.tscn"
 const PERSIST_PROPERTIES_2 := ["starting_items"]
 const PERSIST_OBJ_PROPERTIES_2 := ["_pilot_master"]
 
-
 var starting_items: Dictionary = { }
 
 var _pilot_master: PilotMaster

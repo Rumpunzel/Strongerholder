@@ -24,6 +24,7 @@ __meta__ = {
 [node name="LoadingGUI" parent="." instance=ExtResource( 4 )]
 
 [node name="MainMenu" parent="." instance=ExtResource( 1 )]
+
 [connection signal="game_load_finished" from="LoadingGUI" to="." method="_input_after_load"]
 [connection signal="load_game" from="MainMenu" to="." method="_load_game"]
 [connection signal="new_game" from="MainMenu" to="." method="_start_new_game"]

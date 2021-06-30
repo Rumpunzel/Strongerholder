@@ -70,6 +70,8 @@ func save_game(path: String = SAVE_LOCATION) -> void:
 	yield(SaverLoader, "finished")
 	
 	emit_signal("game_save_finished")
+	
+	save_file.close()
 
 
 func load_game(path: String = SAVE_LOCATION) -> void:
@@ -86,6 +88,8 @@ func load_game(path: String = SAVE_LOCATION) -> void:
 	
 	emit_signal("game_save_finished")
 	print("Game loaded from %s" % SAVE_LOCATION)
+	
+	save_file.close()
 
 
 
