@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Cow.obj-1d9338da83a09d41c659593fff4163bf.mesh"
+
+[deps]
+
+files=[ "res://.import/Cow.obj-1d9338da83a09d41c659593fff4163bf.mesh" ]
+
+source_file="res://quaternius/Farm Animals/Farm Animals by @Quaternius/OBJ/Cow.obj"
+dest_files=[ "res://.import/Cow.obj-1d9338da83a09d41c659593fff4163bf.mesh", "res://.import/Cow.obj-1d9338da83a09d41c659593fff4163bf.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Dagger.obj-018b7af04949c68bfb9cf3f01f1247d7.mesh"
+
+[deps]
+
+files=[ "res://.import/Dagger.obj-018b7af04949c68bfb9cf3f01f1247d7.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/Medieval Weapons Pack by @Quaternius/OBJ/Dagger.obj"
+dest_files=[ "res://.import/Dagger.obj-018b7af04949c68bfb9cf3f01f1247d7.mesh", "res://.import/Dagger.obj-018b7af04949c68bfb9cf3f01f1247d7.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

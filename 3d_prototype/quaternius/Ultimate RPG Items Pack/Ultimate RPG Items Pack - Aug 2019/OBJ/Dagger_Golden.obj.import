@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Dagger_Golden.obj-ac5101742c9e452b4998a7b91996ebc6.mesh"
+
+[deps]
+
+files=[ "res://.import/Dagger_Golden.obj-ac5101742c9e452b4998a7b91996ebc6.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Dagger_Golden.obj"
+dest_files=[ "res://.import/Dagger_Golden.obj-ac5101742c9e452b4998a7b91996ebc6.mesh", "res://.import/Dagger_Golden.obj-ac5101742c9e452b4998a7b91996ebc6.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

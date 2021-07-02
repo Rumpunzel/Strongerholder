@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Pouch.obj-9e64670a75e2ed520a98e6d45ba4f007.mesh"
+
+[deps]
+
+files=[ "res://.import/Pouch.obj-9e64670a75e2ed520a98e6d45ba4f007.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Pouch.obj"
+dest_files=[ "res://.import/Pouch.obj-9e64670a75e2ed520a98e6d45ba4f007.mesh", "res://.import/Pouch.obj-9e64670a75e2ed520a98e6d45ba4f007.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

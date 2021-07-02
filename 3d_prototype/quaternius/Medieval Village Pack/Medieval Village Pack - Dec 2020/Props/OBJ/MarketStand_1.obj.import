@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/MarketStand_1.obj-e9b40e8b2687e2f529898cf756123328.mesh"
+
+[deps]
+
+files=[ "res://.import/MarketStand_1.obj-e9b40e8b2687e2f529898cf756123328.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Props/OBJ/MarketStand_1.obj"
+dest_files=[ "res://.import/MarketStand_1.obj-e9b40e8b2687e2f529898cf756123328.mesh", "res://.import/MarketStand_1.obj-e9b40e8b2687e2f529898cf756123328.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Cheese_Singles.obj-34ad740b6256b51fb8a20a142ff07a10.mesh"
+
+[deps]
+
+files=[ "res://.import/Cheese_Singles.obj-34ad740b6256b51fb8a20a142ff07a10.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Cheese_Singles.obj"
+dest_files=[ "res://.import/Cheese_Singles.obj-34ad740b6256b51fb8a20a142ff07a10.mesh", "res://.import/Cheese_Singles.obj-34ad740b6256b51fb8a20a142ff07a10.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

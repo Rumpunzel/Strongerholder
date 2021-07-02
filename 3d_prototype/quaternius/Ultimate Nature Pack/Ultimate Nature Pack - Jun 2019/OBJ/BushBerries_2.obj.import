@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/BushBerries_2.obj-14df4319b83d77683f1cd30f9a1b42fa.mesh"
+
+[deps]
+
+files=[ "res://.import/BushBerries_2.obj-14df4319b83d77683f1cd30f9a1b42fa.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/Ultimate Nature Pack - Jun 2019/OBJ/BushBerries_2.obj"
+dest_files=[ "res://.import/BushBerries_2.obj-14df4319b83d77683f1cd30f9a1b42fa.mesh", "res://.import/BushBerries_2.obj-14df4319b83d77683f1cd30f9a1b42fa.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

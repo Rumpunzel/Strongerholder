@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Path_Straight.obj-31e476f62ddce817fbd3c630dc448002.mesh"
+
+[deps]
+
+files=[ "res://.import/Path_Straight.obj-31e476f62ddce817fbd3c630dc448002.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Props/OBJ/Path_Straight.obj"
+dest_files=[ "res://.import/Path_Straight.obj-31e476f62ddce817fbd3c630dc448002.mesh", "res://.import/Path_Straight.obj-31e476f62ddce817fbd3c630dc448002.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

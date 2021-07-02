@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Corn_3.obj-eccdc18044d5cf4a799346d2190b3fa5.mesh"
+
+[deps]
+
+files=[ "res://.import/Corn_3.obj-eccdc18044d5cf4a799346d2190b3fa5.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/Nature Crops Pack - Jan 2020/OBJ/Corn_3.obj"
+dest_files=[ "res://.import/Corn_3.obj-eccdc18044d5cf4a799346d2190b3fa5.mesh", "res://.import/Corn_3.obj-eccdc18044d5cf4a799346d2190b3fa5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

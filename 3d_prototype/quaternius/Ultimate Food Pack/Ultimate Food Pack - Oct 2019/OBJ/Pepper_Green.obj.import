@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Pepper_Green.obj-48af9a5edae89a95368a48aacbb9e086.mesh"
+
+[deps]
+
+files=[ "res://.import/Pepper_Green.obj-48af9a5edae89a95368a48aacbb9e086.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Pepper_Green.obj"
+dest_files=[ "res://.import/Pepper_Green.obj-48af9a5edae89a95368a48aacbb9e086.mesh", "res://.import/Pepper_Green.obj-48af9a5edae89a95368a48aacbb9e086.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

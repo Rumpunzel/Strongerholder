@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/TreeStump.obj-f5433cd1ac2f31a89c5b24b536695bba.mesh"
+
+[deps]
+
+files=[ "res://.import/TreeStump.obj-f5433cd1ac2f31a89c5b24b536695bba.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/Ultimate Nature Pack - Jun 2019/OBJ/TreeStump.obj"
+dest_files=[ "res://.import/TreeStump.obj-f5433cd1ac2f31a89c5b24b536695bba.mesh", "res://.import/TreeStump.obj-f5433cd1ac2f31a89c5b24b536695bba.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

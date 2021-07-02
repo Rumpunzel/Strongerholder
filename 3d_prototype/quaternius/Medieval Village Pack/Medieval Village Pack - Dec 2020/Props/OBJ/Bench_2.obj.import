@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bench_2.obj-683f16fd133ffbc06efb081d942a802a.mesh"
+
+[deps]
+
+files=[ "res://.import/Bench_2.obj-683f16fd133ffbc06efb081d942a802a.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Props/OBJ/Bench_2.obj"
+dest_files=[ "res://.import/Bench_2.obj-683f16fd133ffbc06efb081d942a802a.mesh", "res://.import/Bench_2.obj-683f16fd133ffbc06efb081d942a802a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Doctor_Female_Old.obj-dd05418490c8ce1fe2ae56a6ea688525.mesh"
+
+[deps]
+
+files=[ "res://.import/Doctor_Female_Old.obj-dd05418490c8ce1fe2ae56a6ea688525.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/Ultimate Animated Character Pack - Nov 2019/OBJ/Doctor_Female_Old.obj"
+dest_files=[ "res://.import/Doctor_Female_Old.obj-dd05418490c8ce1fe2ae56a6ea688525.mesh", "res://.import/Doctor_Female_Old.obj-dd05418490c8ce1fe2ae56a6ea688525.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

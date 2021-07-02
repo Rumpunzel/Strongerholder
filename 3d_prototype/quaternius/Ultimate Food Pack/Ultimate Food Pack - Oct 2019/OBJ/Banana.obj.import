@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Banana.obj-514dee6b8a465749a63d0a44b60e2fd0.mesh"
+
+[deps]
+
+files=[ "res://.import/Banana.obj-514dee6b8a465749a63d0a44b60e2fd0.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Banana.obj"
+dest_files=[ "res://.import/Banana.obj-514dee6b8a465749a63d0a44b60e2fd0.mesh", "res://.import/Banana.obj-514dee6b8a465749a63d0a44b60e2fd0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

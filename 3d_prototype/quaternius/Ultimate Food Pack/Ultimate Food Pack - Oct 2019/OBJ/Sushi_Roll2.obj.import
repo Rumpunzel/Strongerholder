@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Sushi_Roll2.obj-be4391a00a79f042c8d2320d6f81530c.mesh"
+
+[deps]
+
+files=[ "res://.import/Sushi_Roll2.obj-be4391a00a79f042c8d2320d6f81530c.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Sushi_Roll2.obj"
+dest_files=[ "res://.import/Sushi_Roll2.obj-be4391a00a79f042c8d2320d6f81530c.mesh", "res://.import/Sushi_Roll2.obj-be4391a00a79f042c8d2320d6f81530c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

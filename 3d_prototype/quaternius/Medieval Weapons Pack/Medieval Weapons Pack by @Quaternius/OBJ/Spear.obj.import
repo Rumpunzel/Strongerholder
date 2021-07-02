@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Spear.obj-69c8e15c2c598896cac75f78f32ad005.mesh"
+
+[deps]
+
+files=[ "res://.import/Spear.obj-69c8e15c2c598896cac75f78f32ad005.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/Medieval Weapons Pack by @Quaternius/OBJ/Spear.obj"
+dest_files=[ "res://.import/Spear.obj-69c8e15c2c598896cac75f78f32ad005.mesh", "res://.import/Spear.obj-69c8e15c2c598896cac75f78f32ad005.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

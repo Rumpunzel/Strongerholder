@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Trashcan.obj-ffa1fd9126ecce09c6bf51624b7e5f19.mesh"
+
+[deps]
+
+files=[ "res://.import/Trashcan.obj-ffa1fd9126ecce09c6bf51624b7e5f19.mesh" ]
+
+source_file="res://quaternius/Survival Pack/Survival Pack - Sept 2020/OBJ/Trashcan.obj"
+dest_files=[ "res://.import/Trashcan.obj-ffa1fd9126ecce09c6bf51624b7e5f19.mesh", "res://.import/Trashcan.obj-ffa1fd9126ecce09c6bf51624b7e5f19.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

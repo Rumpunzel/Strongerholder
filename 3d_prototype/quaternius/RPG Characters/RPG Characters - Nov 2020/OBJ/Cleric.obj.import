@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Cleric.obj-18b1bc5b0e4a2463d869e3338b0847a0.mesh"
+
+[deps]
+
+files=[ "res://.import/Cleric.obj-18b1bc5b0e4a2463d869e3338b0847a0.mesh" ]
+
+source_file="res://quaternius/RPG Characters/RPG Characters - Nov 2020/OBJ/Cleric.obj"
+dest_files=[ "res://.import/Cleric.obj-18b1bc5b0e4a2463d869e3338b0847a0.mesh", "res://.import/Cleric.obj-18b1bc5b0e4a2463d869e3338b0847a0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

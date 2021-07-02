@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Doctor_Male_Young.obj-cd3932b8e05b7cd8dfabcd2945174f4c.mesh"
+
+[deps]
+
+files=[ "res://.import/Doctor_Male_Young.obj-cd3932b8e05b7cd8dfabcd2945174f4c.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/Ultimate Animated Character Pack - Nov 2019/OBJ/Doctor_Male_Young.obj"
+dest_files=[ "res://.import/Doctor_Male_Young.obj-cd3932b8e05b7cd8dfabcd2945174f4c.mesh", "res://.import/Doctor_Male_Young.obj-cd3932b8e05b7cd8dfabcd2945174f4c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

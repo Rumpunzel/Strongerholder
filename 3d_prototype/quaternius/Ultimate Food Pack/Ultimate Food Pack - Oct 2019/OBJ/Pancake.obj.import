@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Pancake.obj-cc090adbefbacb8aaa83cc1a9cbf352d.mesh"
+
+[deps]
+
+files=[ "res://.import/Pancake.obj-cc090adbefbacb8aaa83cc1a9cbf352d.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Pancake.obj"
+dest_files=[ "res://.import/Pancake.obj-cc090adbefbacb8aaa83cc1a9cbf352d.mesh", "res://.import/Pancake.obj-cc090adbefbacb8aaa83cc1a9cbf352d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bow_Evil.obj-d1f6b719726ab19c65d04d80ab3b2152.mesh"
+
+[deps]
+
+files=[ "res://.import/Bow_Evil.obj-d1f6b719726ab19c65d04d80ab3b2152.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/Medieval Weapons Pack by @Quaternius/OBJ/Bow_Evil.obj"
+dest_files=[ "res://.import/Bow_Evil.obj-d1f6b719726ab19c65d04d80ab3b2152.mesh", "res://.import/Bow_Evil.obj-d1f6b719726ab19c65d04d80ab3b2152.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Chef_Hat.obj-3db07146d6190c6f2f1702d1d5e446db.mesh"
+
+[deps]
+
+files=[ "res://.import/Chef_Hat.obj-3db07146d6190c6f2f1702d1d5e446db.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/Ultimate Animated Character Pack - Nov 2019/OBJ/Chef_Hat.obj"
+dest_files=[ "res://.import/Chef_Hat.obj-3db07146d6190c6f2f1702d1d5e446db.mesh", "res://.import/Chef_Hat.obj-3db07146d6190c6f2f1702d1d5e446db.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

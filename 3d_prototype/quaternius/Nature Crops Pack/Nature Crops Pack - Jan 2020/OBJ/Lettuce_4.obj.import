@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Lettuce_4.obj-3513698f986d3f9802ff96432974e06c.mesh"
+
+[deps]
+
+files=[ "res://.import/Lettuce_4.obj-3513698f986d3f9802ff96432974e06c.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/Nature Crops Pack - Jan 2020/OBJ/Lettuce_4.obj"
+dest_files=[ "res://.import/Lettuce_4.obj-3513698f986d3f9802ff96432974e06c.mesh", "res://.import/Lettuce_4.obj-3513698f986d3f9802ff96432974e06c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

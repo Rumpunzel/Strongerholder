@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/BirchTree_Dead_1.obj-8014ab917d3fbddb75838c168c06f85a.mesh"
+
+[deps]
+
+files=[ "res://.import/BirchTree_Dead_1.obj-8014ab917d3fbddb75838c168c06f85a.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/Ultimate Nature Pack - Jun 2019/OBJ/BirchTree_Dead_1.obj"
+dest_files=[ "res://.import/BirchTree_Dead_1.obj-8014ab917d3fbddb75838c168c06f85a.mesh", "res://.import/BirchTree_Dead_1.obj-8014ab917d3fbddb75838c168c06f85a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/House_4.obj-eba2af1136296d2bf338e3601b0ab51f.mesh"
+
+[deps]
+
+files=[ "res://.import/House_4.obj-eba2af1136296d2bf338e3601b0ab51f.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Buildings/OBJ/House_4.obj"
+dest_files=[ "res://.import/House_4.obj-eba2af1136296d2bf338e3601b0ab51f.mesh", "res://.import/House_4.obj-eba2af1136296d2bf338e3601b0ab51f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

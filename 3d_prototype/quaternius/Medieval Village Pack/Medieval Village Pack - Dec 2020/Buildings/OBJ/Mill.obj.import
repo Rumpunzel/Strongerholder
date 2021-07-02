@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Mill.obj-413c34d808250ea21e44716b6df29429.mesh"
+
+[deps]
+
+files=[ "res://.import/Mill.obj-413c34d808250ea21e44716b6df29429.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Buildings/OBJ/Mill.obj"
+dest_files=[ "res://.import/Mill.obj-413c34d808250ea21e44716b6df29429.mesh", "res://.import/Mill.obj-413c34d808250ea21e44716b6df29429.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

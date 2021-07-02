@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Pizza.obj-c26042718977dacb7f85ae96cc23cb7f.mesh"
+
+[deps]
+
+files=[ "res://.import/Pizza.obj-c26042718977dacb7f85ae96cc23cb7f.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Pizza.obj"
+dest_files=[ "res://.import/Pizza.obj-c26042718977dacb7f85ae96cc23cb7f.mesh", "res://.import/Pizza.obj-c26042718977dacb7f85ae96cc23cb7f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

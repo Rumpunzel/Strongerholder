@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Rock_Snow_7.obj-97e043a8eef7947b1700bb3709cd0f2f.mesh"
+
+[deps]
+
+files=[ "res://.import/Rock_Snow_7.obj-97e043a8eef7947b1700bb3709cd0f2f.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/Ultimate Nature Pack - Jun 2019/OBJ/Rock_Snow_7.obj"
+dest_files=[ "res://.import/Rock_Snow_7.obj-97e043a8eef7947b1700bb3709cd0f2f.mesh", "res://.import/Rock_Snow_7.obj-97e043a8eef7947b1700bb3709cd0f2f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bow_Wooden.obj-fd79beb296b35b6b0bcaa144a256a5ce.mesh"
+
+[deps]
+
+files=[ "res://.import/Bow_Wooden.obj-fd79beb296b35b6b0bcaa144a256a5ce.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/Medieval Weapons Pack by @Quaternius/OBJ/Bow_Wooden.obj"
+dest_files=[ "res://.import/Bow_Wooden.obj-fd79beb296b35b6b0bcaa144a256a5ce.mesh", "res://.import/Bow_Wooden.obj-fd79beb296b35b6b0bcaa144a256a5ce.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

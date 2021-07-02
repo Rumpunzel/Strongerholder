@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Crown2.obj-f78dd396a8520effc372b0f8101e29ed.mesh"
+
+[deps]
+
+files=[ "res://.import/Crown2.obj-f78dd396a8520effc372b0f8101e29ed.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Crown2.obj"
+dest_files=[ "res://.import/Crown2.obj-f78dd396a8520effc372b0f8101e29ed.mesh", "res://.import/Crown2.obj-f78dd396a8520effc372b0f8101e29ed.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

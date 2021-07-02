@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Grass_2.obj-d7f46d67c8837982237ebe9a7ba2d435.mesh"
+
+[deps]
+
+files=[ "res://.import/Grass_2.obj-d7f46d67c8837982237ebe9a7ba2d435.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/Nature Crops Pack - Jan 2020/OBJ/Grass_2.obj"
+dest_files=[ "res://.import/Grass_2.obj-d7f46d67c8837982237ebe9a7ba2d435.mesh", "res://.import/Grass_2.obj-d7f46d67c8837982237ebe9a7ba2d435.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

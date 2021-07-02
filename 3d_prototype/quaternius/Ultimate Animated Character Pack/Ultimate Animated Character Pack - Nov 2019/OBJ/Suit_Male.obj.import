@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Suit_Male.obj-bb85e602c3a82fd37a14590dd9e101aa.mesh"
+
+[deps]
+
+files=[ "res://.import/Suit_Male.obj-bb85e602c3a82fd37a14590dd9e101aa.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/Ultimate Animated Character Pack - Nov 2019/OBJ/Suit_Male.obj"
+dest_files=[ "res://.import/Suit_Male.obj-bb85e602c3a82fd37a14590dd9e101aa.mesh", "res://.import/Suit_Male.obj-bb85e602c3a82fd37a14590dd9e101aa.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

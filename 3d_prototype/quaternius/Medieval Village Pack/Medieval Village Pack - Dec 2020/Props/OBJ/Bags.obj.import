@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bags.obj-813a09ecd6bce0069d7e1f14e3ef967d.mesh"
+
+[deps]
+
+files=[ "res://.import/Bags.obj-813a09ecd6bce0069d7e1f14e3ef967d.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Props/OBJ/Bags.obj"
+dest_files=[ "res://.import/Bags.obj-813a09ecd6bce0069d7e1f14e3ef967d.mesh", "res://.import/Bags.obj-813a09ecd6bce0069d7e1f14e3ef967d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Tomato_Harvested.obj-4d1778cd8d73501e4057081f033e9763.mesh"
+
+[deps]
+
+files=[ "res://.import/Tomato_Harvested.obj-4d1778cd8d73501e4057081f033e9763.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/Nature Crops Pack - Jan 2020/OBJ/Tomato_Harvested.obj"
+dest_files=[ "res://.import/Tomato_Harvested.obj-4d1778cd8d73501e4057081f033e9763.mesh", "res://.import/Tomato_Harvested.obj-4d1778cd8d73501e4057081f033e9763.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

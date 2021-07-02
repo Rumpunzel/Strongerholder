@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Blacksmith.obj-3ae14c86d6d5a3533f1cb488a61a7eb1.mesh"
+
+[deps]
+
+files=[ "res://.import/Blacksmith.obj-3ae14c86d6d5a3533f1cb488a61a7eb1.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Buildings/OBJ/Blacksmith.obj"
+dest_files=[ "res://.import/Blacksmith.obj-3ae14c86d6d5a3533f1cb488a61a7eb1.mesh", "res://.import/Blacksmith.obj-3ae14c86d6d5a3533f1cb488a61a7eb1.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Mushroom_Crop.obj-d50d33c76758c706ac651b4c5ef8f331.mesh"
+
+[deps]
+
+files=[ "res://.import/Mushroom_Crop.obj-d50d33c76758c706ac651b4c5ef8f331.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/Nature Crops Pack - Jan 2020/OBJ/Mushroom_Crop.obj"
+dest_files=[ "res://.import/Mushroom_Crop.obj-d50d33c76758c706ac651b4c5ef8f331.mesh", "res://.import/Mushroom_Crop.obj-d50d33c76758c706ac651b4c5ef8f331.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

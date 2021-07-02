@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Sword_big_Golden.obj-dc9d4fbd48887a8ec2e838be2ebbb72a.mesh"
+
+[deps]
+
+files=[ "res://.import/Sword_big_Golden.obj-dc9d4fbd48887a8ec2e838be2ebbb72a.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Sword_big_Golden.obj"
+dest_files=[ "res://.import/Sword_big_Golden.obj-dc9d4fbd48887a8ec2e838be2ebbb72a.mesh", "res://.import/Sword_big_Golden.obj-dc9d4fbd48887a8ec2e838be2ebbb72a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Plate_Square.obj-f4c07fd410376430ce738b8e3dc8a717.mesh"
+
+[deps]
+
+files=[ "res://.import/Plate_Square.obj-f4c07fd410376430ce738b8e3dc8a717.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Plate_Square.obj"
+dest_files=[ "res://.import/Plate_Square.obj-f4c07fd410376430ce738b8e3dc8a717.mesh", "res://.import/Plate_Square.obj-f4c07fd410376430ce738b8e3dc8a717.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

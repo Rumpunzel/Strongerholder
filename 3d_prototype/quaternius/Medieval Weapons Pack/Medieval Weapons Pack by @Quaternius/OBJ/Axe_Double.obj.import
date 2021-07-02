@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Axe_Double.obj-2cf73ee97bd7f24761d0f002f002100c.mesh"
+
+[deps]
+
+files=[ "res://.import/Axe_Double.obj-2cf73ee97bd7f24761d0f002f002100c.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/Medieval Weapons Pack by @Quaternius/OBJ/Axe_Double.obj"
+dest_files=[ "res://.import/Axe_Double.obj-2cf73ee97bd7f24761d0f002f002100c.mesh", "res://.import/Axe_Double.obj-2cf73ee97bd7f24761d0f002f002100c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

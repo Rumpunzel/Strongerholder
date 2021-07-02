@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/WatchTowerWRoof.obj-b1a7ccb6070e966705d965626f5e998d.mesh"
+
+[deps]
+
+files=[ "res://.import/WatchTowerWRoof.obj-b1a7ccb6070e966705d965626f5e998d.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/Modular Medieval Pack by @Quaternius/OBJ/WatchTowerWRoof.obj"
+dest_files=[ "res://.import/WatchTowerWRoof.obj-b1a7ccb6070e966705d965626f5e998d.mesh", "res://.import/WatchTowerWRoof.obj-b1a7ccb6070e966705d965626f5e998d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Arrow.obj-77ae27aef95df14a2f588e5f69856078.mesh"
+
+[deps]
+
+files=[ "res://.import/Arrow.obj-77ae27aef95df14a2f588e5f69856078.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/Medieval Weapons Pack by @Quaternius/OBJ/Arrow.obj"
+dest_files=[ "res://.import/Arrow.obj-77ae27aef95df14a2f588e5f69856078.mesh", "res://.import/Arrow.obj-77ae27aef95df14a2f588e5f69856078.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

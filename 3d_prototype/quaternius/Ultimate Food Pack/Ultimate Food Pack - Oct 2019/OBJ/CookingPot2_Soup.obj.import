@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/CookingPot2_Soup.obj-54ac4defe3bd63bb20ceeb2710b1a5c3.mesh"
+
+[deps]
+
+files=[ "res://.import/CookingPot2_Soup.obj-54ac4defe3bd63bb20ceeb2710b1a5c3.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/CookingPot2_Soup.obj"
+dest_files=[ "res://.import/CookingPot2_Soup.obj-54ac4defe3bd63bb20ceeb2710b1a5c3.mesh", "res://.import/CookingPot2_Soup.obj-54ac4defe3bd63bb20ceeb2710b1a5c3.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

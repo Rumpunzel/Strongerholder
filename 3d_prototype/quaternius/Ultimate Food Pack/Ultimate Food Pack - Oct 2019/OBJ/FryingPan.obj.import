@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/FryingPan.obj-b23c1bdbd023a89acec457b14a8cd2cc.mesh"
+
+[deps]
+
+files=[ "res://.import/FryingPan.obj-b23c1bdbd023a89acec457b14a8cd2cc.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/FryingPan.obj"
+dest_files=[ "res://.import/FryingPan.obj-b23c1bdbd023a89acec457b14a8cd2cc.mesh", "res://.import/FryingPan.obj-b23c1bdbd023a89acec457b14a8cd2cc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

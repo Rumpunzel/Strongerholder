@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Necklace3.obj-a60bc446e94173e1212692c910a462a0.mesh"
+
+[deps]
+
+files=[ "res://.import/Necklace3.obj-a60bc446e94173e1212692c910a462a0.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Necklace3.obj"
+dest_files=[ "res://.import/Necklace3.obj-a60bc446e94173e1212692c910a462a0.mesh", "res://.import/Necklace3.obj-a60bc446e94173e1212692c910a462a0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

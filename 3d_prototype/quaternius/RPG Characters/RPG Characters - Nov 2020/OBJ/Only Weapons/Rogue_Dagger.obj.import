@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Rogue_Dagger.obj-832629ee7ce17338756bf17b7e030300.mesh"
+
+[deps]
+
+files=[ "res://.import/Rogue_Dagger.obj-832629ee7ce17338756bf17b7e030300.mesh" ]
+
+source_file="res://quaternius/RPG Characters/RPG Characters - Nov 2020/OBJ/Only Weapons/Rogue_Dagger.obj"
+dest_files=[ "res://.import/Rogue_Dagger.obj-832629ee7ce17338756bf17b7e030300.mesh", "res://.import/Rogue_Dagger.obj-832629ee7ce17338756bf17b7e030300.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

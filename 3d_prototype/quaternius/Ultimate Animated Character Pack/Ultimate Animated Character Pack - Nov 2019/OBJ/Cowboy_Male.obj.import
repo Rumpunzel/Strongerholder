@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Cowboy_Male.obj-adf0a7091e6365a5f94cf77f0503a9ce.mesh"
+
+[deps]
+
+files=[ "res://.import/Cowboy_Male.obj-adf0a7091e6365a5f94cf77f0503a9ce.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/Ultimate Animated Character Pack - Nov 2019/OBJ/Cowboy_Male.obj"
+dest_files=[ "res://.import/Cowboy_Male.obj-adf0a7091e6365a5f94cf77f0503a9ce.mesh", "res://.import/Cowboy_Male.obj-adf0a7091e6365a5f94cf77f0503a9ce.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

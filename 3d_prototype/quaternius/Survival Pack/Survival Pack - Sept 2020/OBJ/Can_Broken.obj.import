@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Can_Broken.obj-c3e0378368b1441f62b13611d6678490.mesh"
+
+[deps]
+
+files=[ "res://.import/Can_Broken.obj-c3e0378368b1441f62b13611d6678490.mesh" ]
+
+source_file="res://quaternius/Survival Pack/Survival Pack - Sept 2020/OBJ/Can_Broken.obj"
+dest_files=[ "res://.import/Can_Broken.obj-c3e0378368b1441f62b13611d6678490.mesh", "res://.import/Can_Broken.obj-c3e0378368b1441f62b13611d6678490.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

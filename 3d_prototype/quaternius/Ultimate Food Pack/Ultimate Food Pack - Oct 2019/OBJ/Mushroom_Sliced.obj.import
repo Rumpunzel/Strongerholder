@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Mushroom_Sliced.obj-1ae935db4ec1b751582d86e7b0a02e30.mesh"
+
+[deps]
+
+files=[ "res://.import/Mushroom_Sliced.obj-1ae935db4ec1b751582d86e7b0a02e30.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Mushroom_Sliced.obj"
+dest_files=[ "res://.import/Mushroom_Sliced.obj-1ae935db4ec1b751582d86e7b0a02e30.mesh", "res://.import/Mushroom_Sliced.obj-1ae935db4ec1b751582d86e7b0a02e30.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Glove.obj-5c9068f578f83893e4e3118c02ca8a05.mesh"
+
+[deps]
+
+files=[ "res://.import/Glove.obj-5c9068f578f83893e4e3118c02ca8a05.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Glove.obj"
+dest_files=[ "res://.import/Glove.obj-5c9068f578f83893e4e3118c02ca8a05.mesh", "res://.import/Glove.obj-5c9068f578f83893e4e3118c02ca8a05.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

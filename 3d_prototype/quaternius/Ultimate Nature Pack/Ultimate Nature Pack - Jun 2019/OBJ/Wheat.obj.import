@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Wheat.obj-92cd605c05ff7e22885497ed14178481.mesh"
+
+[deps]
+
+files=[ "res://.import/Wheat.obj-92cd605c05ff7e22885497ed14178481.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/Ultimate Nature Pack - Jun 2019/OBJ/Wheat.obj"
+dest_files=[ "res://.import/Wheat.obj-92cd605c05ff7e22885497ed14178481.mesh", "res://.import/Wheat.obj-92cd605c05ff7e22885497ed14178481.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

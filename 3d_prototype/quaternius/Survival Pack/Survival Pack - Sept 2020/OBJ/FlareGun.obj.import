@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/FlareGun.obj-ab71e26021fcc5be91219b3bfd2eccac.mesh"
+
+[deps]
+
+files=[ "res://.import/FlareGun.obj-ab71e26021fcc5be91219b3bfd2eccac.mesh" ]
+
+source_file="res://quaternius/Survival Pack/Survival Pack - Sept 2020/OBJ/FlareGun.obj"
+dest_files=[ "res://.import/FlareGun.obj-ab71e26021fcc5be91219b3bfd2eccac.mesh", "res://.import/FlareGun.obj-ab71e26021fcc5be91219b3bfd2eccac.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

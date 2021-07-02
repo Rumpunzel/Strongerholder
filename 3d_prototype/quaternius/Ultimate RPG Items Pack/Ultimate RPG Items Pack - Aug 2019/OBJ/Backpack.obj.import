@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Backpack.obj-106da7ff298318750f77bdc9a47471ee.mesh"
+
+[deps]
+
+files=[ "res://.import/Backpack.obj-106da7ff298318750f77bdc9a47471ee.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Backpack.obj"
+dest_files=[ "res://.import/Backpack.obj-106da7ff298318750f77bdc9a47471ee.mesh", "res://.import/Backpack.obj-106da7ff298318750f77bdc9a47471ee.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

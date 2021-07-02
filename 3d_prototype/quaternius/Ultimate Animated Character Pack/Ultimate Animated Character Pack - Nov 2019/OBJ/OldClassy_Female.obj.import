@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/OldClassy_Female.obj-8ac9952e2fe520343aba48d7c77776fd.mesh"
+
+[deps]
+
+files=[ "res://.import/OldClassy_Female.obj-8ac9952e2fe520343aba48d7c77776fd.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/Ultimate Animated Character Pack - Nov 2019/OBJ/OldClassy_Female.obj"
+dest_files=[ "res://.import/OldClassy_Female.obj-8ac9952e2fe520343aba48d7c77776fd.mesh", "res://.import/OldClassy_Female.obj-8ac9952e2fe520343aba48d7c77776fd.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

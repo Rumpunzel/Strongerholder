@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Revolver_1.obj-81c76150f98dc042d0cc1460341f0e62.mesh"
+
+[deps]
+
+files=[ "res://.import/Revolver_1.obj-81c76150f98dc042d0cc1460341f0e62.mesh" ]
+
+source_file="res://quaternius/Survival Pack/Survival Pack - Sept 2020/OBJ/Revolver_1.obj"
+dest_files=[ "res://.import/Revolver_1.obj-81c76150f98dc042d0cc1460341f0e62.mesh", "res://.import/Revolver_1.obj-81c76150f98dc042d0cc1460341f0e62.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

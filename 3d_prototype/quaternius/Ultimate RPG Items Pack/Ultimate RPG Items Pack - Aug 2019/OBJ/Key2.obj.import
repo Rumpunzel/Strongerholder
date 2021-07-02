@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Key2.obj-07b9bca7e11670a7471568bd1c60779e.mesh"
+
+[deps]
+
+files=[ "res://.import/Key2.obj-07b9bca7e11670a7471568bd1c60779e.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Key2.obj"
+dest_files=[ "res://.import/Key2.obj-07b9bca7e11670a7471568bd1c60779e.mesh", "res://.import/Key2.obj-07b9bca7e11670a7471568bd1c60779e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

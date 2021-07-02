@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Tomato.obj-ec3724da3c423a7171f6bf0dbd2e8249.mesh"
+
+[deps]
+
+files=[ "res://.import/Tomato.obj-ec3724da3c423a7171f6bf0dbd2e8249.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/Tomato.obj"
+dest_files=[ "res://.import/Tomato.obj-ec3724da3c423a7171f6bf0dbd2e8249.mesh", "res://.import/Tomato.obj-ec3724da3c423a7171f6bf0dbd2e8249.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

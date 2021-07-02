@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/WallEntranceBricks.obj-4f4286de5e687ca29c5813bd4184d32e.mesh"
+
+[deps]
+
+files=[ "res://.import/WallEntranceBricks.obj-4f4286de5e687ca29c5813bd4184d32e.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/Modular Medieval Pack by @Quaternius/OBJ/WallEntranceBricks.obj"
+dest_files=[ "res://.import/WallEntranceBricks.obj-4f4286de5e687ca29c5813bd4184d32e.mesh", "res://.import/WallEntranceBricks.obj-4f4286de5e687ca29c5813bd4184d32e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

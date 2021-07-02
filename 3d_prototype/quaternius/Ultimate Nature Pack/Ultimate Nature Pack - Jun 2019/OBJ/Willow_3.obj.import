@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Willow_3.obj-208d1480004c55120d8fd76fe950ab4f.mesh"
+
+[deps]
+
+files=[ "res://.import/Willow_3.obj-208d1480004c55120d8fd76fe950ab4f.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/Ultimate Nature Pack - Jun 2019/OBJ/Willow_3.obj"
+dest_files=[ "res://.import/Willow_3.obj-208d1480004c55120d8fd76fe950ab4f.mesh", "res://.import/Willow_3.obj-208d1480004c55120d8fd76fe950ab4f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

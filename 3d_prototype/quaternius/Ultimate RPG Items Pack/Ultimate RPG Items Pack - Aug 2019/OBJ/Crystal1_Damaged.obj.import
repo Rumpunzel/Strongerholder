@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Crystal1_Damaged.obj-a86cdb8f8f2b7217b4654d2f3aa4c5fb.mesh"
+
+[deps]
+
+files=[ "res://.import/Crystal1_Damaged.obj-a86cdb8f8f2b7217b4654d2f3aa4c5fb.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/Ultimate RPG Items Pack - Aug 2019/OBJ/Crystal1_Damaged.obj"
+dest_files=[ "res://.import/Crystal1_Damaged.obj-a86cdb8f8f2b7217b4654d2f3aa4c5fb.mesh", "res://.import/Crystal1_Damaged.obj-a86cdb8f8f2b7217b4654d2f3aa4c5fb.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

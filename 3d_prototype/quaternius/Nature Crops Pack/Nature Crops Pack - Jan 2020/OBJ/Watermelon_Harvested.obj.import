@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Watermelon_Harvested.obj-cddae9f6cfdafd6572861f40faf57c88.mesh"
+
+[deps]
+
+files=[ "res://.import/Watermelon_Harvested.obj-cddae9f6cfdafd6572861f40faf57c88.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/Nature Crops Pack - Jan 2020/OBJ/Watermelon_Harvested.obj"
+dest_files=[ "res://.import/Watermelon_Harvested.obj-cddae9f6cfdafd6572861f40faf57c88.mesh", "res://.import/Watermelon_Harvested.obj-cddae9f6cfdafd6572861f40faf57c88.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/BurgerPatty_Cooked.obj-7e26d223cf7ba0beaeccb198b6d6efe5.mesh"
+
+[deps]
+
+files=[ "res://.import/BurgerPatty_Cooked.obj-7e26d223cf7ba0beaeccb198b6d6efe5.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/Ultimate Food Pack - Oct 2019/OBJ/BurgerPatty_Cooked.obj"
+dest_files=[ "res://.import/BurgerPatty_Cooked.obj-7e26d223cf7ba0beaeccb198b6d6efe5.mesh", "res://.import/BurgerPatty_Cooked.obj-7e26d223cf7ba0beaeccb198b6d6efe5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

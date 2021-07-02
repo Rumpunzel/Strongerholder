@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/SmallSquareTowerBricks(1).obj-9803ffa4b220a5950d197e12546bb72e.mesh"
+
+[deps]
+
+files=[ "res://.import/SmallSquareTowerBricks(1).obj-9803ffa4b220a5950d197e12546bb72e.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/Modular Medieval Pack by @Quaternius/OBJ/SmallSquareTowerBricks(1).obj"
+dest_files=[ "res://.import/SmallSquareTowerBricks(1).obj-9803ffa4b220a5950d197e12546bb72e.mesh", "res://.import/SmallSquareTowerBricks(1).obj-9803ffa4b220a5950d197e12546bb72e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

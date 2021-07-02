@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/WoodLog_Moss.obj-8f2757f49bd56f67b9f3279fa90dccfb.mesh"
+
+[deps]
+
+files=[ "res://.import/WoodLog_Moss.obj-8f2757f49bd56f67b9f3279fa90dccfb.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/Ultimate Nature Pack - Jun 2019/OBJ/WoodLog_Moss.obj"
+dest_files=[ "res://.import/WoodLog_Moss.obj-8f2757f49bd56f67b9f3279fa90dccfb.mesh", "res://.import/WoodLog_Moss.obj-8f2757f49bd56f67b9f3279fa90dccfb.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

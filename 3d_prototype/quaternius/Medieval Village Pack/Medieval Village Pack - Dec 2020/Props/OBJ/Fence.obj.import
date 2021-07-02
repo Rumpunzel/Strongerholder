@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Fence.obj-909fd3559e59b3fdfa0dfc6661136701.mesh"
+
+[deps]
+
+files=[ "res://.import/Fence.obj-909fd3559e59b3fdfa0dfc6661136701.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Props/OBJ/Fence.obj"
+dest_files=[ "res://.import/Fence.obj-909fd3559e59b3fdfa0dfc6661136701.mesh", "res://.import/Fence.obj-909fd3559e59b3fdfa0dfc6661136701.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

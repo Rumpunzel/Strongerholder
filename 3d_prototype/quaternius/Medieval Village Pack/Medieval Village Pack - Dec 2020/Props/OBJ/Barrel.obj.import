@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Barrel.obj-5ce707df54f29003ec731f379953cd92.mesh"
+
+[deps]
+
+files=[ "res://.import/Barrel.obj-5ce707df54f29003ec731f379953cd92.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Medieval Village Pack - Dec 2020/Props/OBJ/Barrel.obj"
+dest_files=[ "res://.import/Barrel.obj-5ce707df54f29003ec731f379953cd92.mesh", "res://.import/Barrel.obj-5ce707df54f29003ec731f379953cd92.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

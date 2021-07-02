@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Rice_2.obj-55ed64ad133b7200df2869c48c332ac3.mesh"
+
+[deps]
+
+files=[ "res://.import/Rice_2.obj-55ed64ad133b7200df2869c48c332ac3.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/Nature Crops Pack - Jan 2020/OBJ/Rice_2.obj"
+dest_files=[ "res://.import/Rice_2.obj-55ed64ad133b7200df2869c48c332ac3.mesh", "res://.import/Rice_2.obj-55ed64ad133b7200df2869c48c332ac3.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
