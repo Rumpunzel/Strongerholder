@@ -15,7 +15,7 @@ class ApplyMovementVectorAction extends StateAction:
 		# warning-ignore:unsafe_property_access
 		_movement_stats = _character_controller.movement_stats
 	
-	func on_update(_delta: float) -> void:
+	func on_update(delta: float) -> void:
 		var horizontal_movement := _character_controller.horizontal_movement_vector
 		var new_movement_vector := Vector3(
 				horizontal_movement.x,
@@ -26,6 +26,6 @@ class ApplyMovementVectorAction extends StateAction:
 		_character_controller.velocity = new_movement_vector
 		
 		if not horizontal_movement == Vector2.ZERO:
-			var look_at := _character_controller.transform.origin - Vector3(horizontal_movement.x, 0.0, horizontal_movement.y)
-			# TODO: add smooth rotation
-			_character_controller.look_at(look_at, Vector3.UP)
+			var look_position := -Vector3(horizontal_movement.x, 0.0, horizontal_movement.y) * 10.0
+			var new_transform := _character_controller.transform.looking_at(look_position, Vector3.UP)
+			_character_controller.transform  = _character_controller.transform.interpolate_with(new_transform, _movement_stats.turn_rate * delta)
