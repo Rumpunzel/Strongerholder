@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Cactus_Harvested.obj-2a1866a97a2b9b30578dce525edef33f.mesh"
+
+[deps]
+
+files=[ "res://.import/Cactus_Harvested.obj-2a1866a97a2b9b30578dce525edef33f.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Cactus_Harvested.obj"
+dest_files=[ "res://.import/Cactus_Harvested.obj-2a1866a97a2b9b30578dce525edef33f.mesh", "res://.import/Cactus_Harvested.obj-2a1866a97a2b9b30578dce525edef33f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

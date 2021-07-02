@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/PointyTower.obj-d9a98db6c22754857c5b1dc726f0aa99.mesh"
+
+[deps]
+
+files=[ "res://.import/PointyTower.obj-d9a98db6c22754857c5b1dc726f0aa99.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/OBJ/PointyTower.obj"
+dest_files=[ "res://.import/PointyTower.obj-d9a98db6c22754857c5b1dc726f0aa99.mesh", "res://.import/PointyTower.obj-d9a98db6c22754857c5b1dc726f0aa99.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Orange_Crop.obj-33df2146c3d17296f4c2cebf6e2d2675.mesh"
+
+[deps]
+
+files=[ "res://.import/Orange_Crop.obj-33df2146c3d17296f4c2cebf6e2d2675.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Orange_Crop.obj"
+dest_files=[ "res://.import/Orange_Crop.obj-33df2146c3d17296f4c2cebf6e2d2675.mesh", "res://.import/Orange_Crop.obj-33df2146c3d17296f4c2cebf6e2d2675.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Witch.obj-6ae4875777d8918dc314e2a0135fbde8.mesh"
+
+[deps]
+
+files=[ "res://.import/Witch.obj-6ae4875777d8918dc314e2a0135fbde8.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Witch.obj"
+dest_files=[ "res://.import/Witch.obj-6ae4875777d8918dc314e2a0135fbde8.mesh", "res://.import/Witch.obj-6ae4875777d8918dc314e2a0135fbde8.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

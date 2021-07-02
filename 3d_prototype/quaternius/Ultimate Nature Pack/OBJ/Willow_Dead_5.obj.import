@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Willow_Dead_5.obj-c1409e991289cf03d771ca1c927f4212.mesh"
+
+[deps]
+
+files=[ "res://.import/Willow_Dead_5.obj-c1409e991289cf03d771ca1c927f4212.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/Willow_Dead_5.obj"
+dest_files=[ "res://.import/Willow_Dead_5.obj-c1409e991289cf03d771ca1c927f4212.mesh", "res://.import/Willow_Dead_5.obj-c1409e991289cf03d771ca1c927f4212.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

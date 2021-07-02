@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Potion2_Empty.obj-e1e7e06be9b524a5f75c90accca0d4dc.mesh"
+
+[deps]
+
+files=[ "res://.import/Potion2_Empty.obj-e1e7e06be9b524a5f75c90accca0d4dc.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Potion2_Empty.obj"
+dest_files=[ "res://.import/Potion2_Empty.obj-e1e7e06be9b524a5f75c90accca0d4dc.mesh", "res://.import/Potion2_Empty.obj-e1e7e06be9b524a5f75c90accca0d4dc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

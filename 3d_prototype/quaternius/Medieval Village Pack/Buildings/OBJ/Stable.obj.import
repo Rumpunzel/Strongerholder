@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Stable.obj-4cce7e56dd6fc7468d58596d8f818275.mesh"
+
+[deps]
+
+files=[ "res://.import/Stable.obj-4cce7e56dd6fc7468d58596d8f818275.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Buildings/OBJ/Stable.obj"
+dest_files=[ "res://.import/Stable.obj-4cce7e56dd6fc7468d58596d8f818275.mesh", "res://.import/Stable.obj-4cce7e56dd6fc7468d58596d8f818275.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Axe_Double_Golden.obj-547dba2a8c6ea05d798508b40c148a5c.mesh"
+
+[deps]
+
+files=[ "res://.import/Axe_Double_Golden.obj-547dba2a8c6ea05d798508b40c148a5c.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Axe_Double_Golden.obj"
+dest_files=[ "res://.import/Axe_Double_Golden.obj-547dba2a8c6ea05d798508b40c148a5c.mesh", "res://.import/Axe_Double_Golden.obj-547dba2a8c6ea05d798508b40c148a5c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

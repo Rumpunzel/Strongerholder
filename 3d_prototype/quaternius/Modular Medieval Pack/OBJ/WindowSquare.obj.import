@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/WindowSquare.obj-b7e6bbbfc0e6a6198b13e5878bc13de1.mesh"
+
+[deps]
+
+files=[ "res://.import/WindowSquare.obj-b7e6bbbfc0e6a6198b13e5878bc13de1.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/OBJ/WindowSquare.obj"
+dest_files=[ "res://.import/WindowSquare.obj-b7e6bbbfc0e6a6198b13e5878bc13de1.mesh", "res://.import/WindowSquare.obj-b7e6bbbfc0e6a6198b13e5878bc13de1.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

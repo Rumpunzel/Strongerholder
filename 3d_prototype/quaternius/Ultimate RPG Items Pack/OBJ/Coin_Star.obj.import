@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Coin_Star.obj-5fa4d1fa57fc5e0ac4ca94dc342626df.mesh"
+
+[deps]
+
+files=[ "res://.import/Coin_Star.obj-5fa4d1fa57fc5e0ac4ca94dc342626df.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Coin_Star.obj"
+dest_files=[ "res://.import/Coin_Star.obj-5fa4d1fa57fc5e0ac4ca94dc342626df.mesh", "res://.import/Coin_Star.obj-5fa4d1fa57fc5e0ac4ca94dc342626df.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

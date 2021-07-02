@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Wheat_4.obj-e329b20a6f8d5598dd6d2903d946b95c.mesh"
+
+[deps]
+
+files=[ "res://.import/Wheat_4.obj-e329b20a6f8d5598dd6d2903d946b95c.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Wheat_4.obj"
+dest_files=[ "res://.import/Wheat_4.obj-e329b20a6f8d5598dd6d2903d946b95c.mesh", "res://.import/Wheat_4.obj-e329b20a6f8d5598dd6d2903d946b95c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

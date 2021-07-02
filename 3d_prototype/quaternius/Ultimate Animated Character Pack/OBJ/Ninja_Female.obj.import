@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Ninja_Female.obj-70148480c9c2774938b7acfe07f06794.mesh"
+
+[deps]
+
+files=[ "res://.import/Ninja_Female.obj-70148480c9c2774938b7acfe07f06794.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Ninja_Female.obj"
+dest_files=[ "res://.import/Ninja_Female.obj-70148480c9c2774938b7acfe07f06794.mesh", "res://.import/Ninja_Female.obj-70148480c9c2774938b7acfe07f06794.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

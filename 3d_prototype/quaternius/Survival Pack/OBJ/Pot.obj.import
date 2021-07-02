@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Pot.obj-30f91efe16fc17a747aa335ed83ed2ff.mesh"
+
+[deps]
+
+files=[ "res://.import/Pot.obj-30f91efe16fc17a747aa335ed83ed2ff.mesh" ]
+
+source_file="res://quaternius/Survival Pack/OBJ/Pot.obj"
+dest_files=[ "res://.import/Pot.obj-30f91efe16fc17a747aa335ed83ed2ff.mesh", "res://.import/Pot.obj-30f91efe16fc17a747aa335ed83ed2ff.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

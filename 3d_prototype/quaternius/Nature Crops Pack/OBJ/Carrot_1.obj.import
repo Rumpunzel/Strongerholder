@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Carrot_1.obj-0a3bfb73c6264a95109fd0b8e247afbe.mesh"
+
+[deps]
+
+files=[ "res://.import/Carrot_1.obj-0a3bfb73c6264a95109fd0b8e247afbe.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Carrot_1.obj"
+dest_files=[ "res://.import/Carrot_1.obj-0a3bfb73c6264a95109fd0b8e247afbe.mesh", "res://.import/Carrot_1.obj-0a3bfb73c6264a95109fd0b8e247afbe.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

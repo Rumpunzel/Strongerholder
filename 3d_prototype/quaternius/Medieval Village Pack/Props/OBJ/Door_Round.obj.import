@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Door_Round.obj-4312d265fb767c16c1447ca69293c2dd.mesh"
+
+[deps]
+
+files=[ "res://.import/Door_Round.obj-4312d265fb767c16c1447ca69293c2dd.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Props/OBJ/Door_Round.obj"
+dest_files=[ "res://.import/Door_Round.obj-4312d265fb767c16c1447ca69293c2dd.mesh", "res://.import/Door_Round.obj-4312d265fb767c16c1447ca69293c2dd.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Goblin_Male.obj-61b54a403d89353b0ef4ebcd6302e110.mesh"
+
+[deps]
+
+files=[ "res://.import/Goblin_Male.obj-61b54a403d89353b0ef4ebcd6302e110.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Goblin_Male.obj"
+dest_files=[ "res://.import/Goblin_Male.obj-61b54a403d89353b0ef4ebcd6302e110.mesh", "res://.import/Goblin_Male.obj-61b54a403d89353b0ef4ebcd6302e110.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

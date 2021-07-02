@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Sword.obj-db2275e4a01d2fa0050456334d6a3277.mesh"
+
+[deps]
+
+files=[ "res://.import/Sword.obj-db2275e4a01d2fa0050456334d6a3277.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Sword.obj"
+dest_files=[ "res://.import/Sword.obj-db2275e4a01d2fa0050456334d6a3277.mesh", "res://.import/Sword.obj-db2275e4a01d2fa0050456334d6a3277.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

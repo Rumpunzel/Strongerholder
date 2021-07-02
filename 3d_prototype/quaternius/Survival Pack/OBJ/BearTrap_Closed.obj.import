@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/BearTrap_Closed.obj-54f685cc87a2c7e842cb6f2641ed7a54.mesh"
+
+[deps]
+
+files=[ "res://.import/BearTrap_Closed.obj-54f685cc87a2c7e842cb6f2641ed7a54.mesh" ]
+
+source_file="res://quaternius/Survival Pack/OBJ/BearTrap_Closed.obj"
+dest_files=[ "res://.import/BearTrap_Closed.obj-54f685cc87a2c7e842cb6f2641ed7a54.mesh", "res://.import/BearTrap_Closed.obj-54f685cc87a2c7e842cb6f2641ed7a54.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

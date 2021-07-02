@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Crown.obj-ba4b7473c53f0b171b343fa138dd601f.mesh"
+
+[deps]
+
+files=[ "res://.import/Crown.obj-ba4b7473c53f0b171b343fa138dd601f.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Crown.obj"
+dest_files=[ "res://.import/Crown.obj-ba4b7473c53f0b171b343fa138dd601f.mesh", "res://.import/Crown.obj-ba4b7473c53f0b171b343fa138dd601f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

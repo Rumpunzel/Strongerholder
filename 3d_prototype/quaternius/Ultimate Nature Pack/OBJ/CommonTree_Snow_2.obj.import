@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/CommonTree_Snow_2.obj-77358633c4f795d11c6287bdf63c9aca.mesh"
+
+[deps]
+
+files=[ "res://.import/CommonTree_Snow_2.obj-77358633c4f795d11c6287bdf63c9aca.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/CommonTree_Snow_2.obj"
+dest_files=[ "res://.import/CommonTree_Snow_2.obj-77358633c4f795d11c6287bdf63c9aca.mesh", "res://.import/CommonTree_Snow_2.obj-77358633c4f795d11c6287bdf63c9aca.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Knife.obj-587b5f187b3f676e35693d9e6ad1cec0.mesh"
+
+[deps]
+
+files=[ "res://.import/Knife.obj-587b5f187b3f676e35693d9e6ad1cec0.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Knife.obj"
+dest_files=[ "res://.import/Knife.obj-587b5f187b3f676e35693d9e6ad1cec0.mesh", "res://.import/Knife.obj-587b5f187b3f676e35693d9e6ad1cec0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

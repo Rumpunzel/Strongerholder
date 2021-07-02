@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/BurgerLarge.obj-c824d9afb26fc86f9c3134e2e3ab4a01.mesh"
+
+[deps]
+
+files=[ "res://.import/BurgerLarge.obj-c824d9afb26fc86f9c3134e2e3ab4a01.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/BurgerLarge.obj"
+dest_files=[ "res://.import/BurgerLarge.obj-c824d9afb26fc86f9c3134e2e3ab4a01.mesh", "res://.import/BurgerLarge.obj-c824d9afb26fc86f9c3134e2e3ab4a01.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

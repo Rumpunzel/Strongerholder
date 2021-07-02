@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Heart.obj-441f157e8978cfe304a67ef4cecca101.mesh"
+
+[deps]
+
+files=[ "res://.import/Heart.obj-441f157e8978cfe304a67ef4cecca101.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Heart.obj"
+dest_files=[ "res://.import/Heart.obj-441f157e8978cfe304a67ef4cecca101.mesh", "res://.import/Heart.obj-441f157e8978cfe304a67ef4cecca101.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

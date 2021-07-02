@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Pirate_Female.obj-703dbc7c0aceaf3b9f250ea780270e0c.mesh"
+
+[deps]
+
+files=[ "res://.import/Pirate_Female.obj-703dbc7c0aceaf3b9f250ea780270e0c.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Pirate_Female.obj"
+dest_files=[ "res://.import/Pirate_Female.obj-703dbc7c0aceaf3b9f250ea780270e0c.mesh", "res://.import/Pirate_Female.obj-703dbc7c0aceaf3b9f250ea780270e0c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

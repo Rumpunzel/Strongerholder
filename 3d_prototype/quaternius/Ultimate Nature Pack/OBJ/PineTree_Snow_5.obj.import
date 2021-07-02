@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/PineTree_Snow_5.obj-162d5f8b8f00bb6e5db12a5c2223724d.mesh"
+
+[deps]
+
+files=[ "res://.import/PineTree_Snow_5.obj-162d5f8b8f00bb6e5db12a5c2223724d.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/PineTree_Snow_5.obj"
+dest_files=[ "res://.import/PineTree_Snow_5.obj-162d5f8b8f00bb6e5db12a5c2223724d.mesh", "res://.import/PineTree_Snow_5.obj-162d5f8b8f00bb6e5db12a5c2223724d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

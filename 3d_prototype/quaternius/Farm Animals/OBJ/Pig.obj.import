@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Pig.obj-deff6d8110bda56b579e03b3e6509bed.mesh"
+
+[deps]
+
+files=[ "res://.import/Pig.obj-deff6d8110bda56b579e03b3e6509bed.mesh" ]
+
+source_file="res://quaternius/Farm Animals/OBJ/Pig.obj"
+dest_files=[ "res://.import/Pig.obj-deff6d8110bda56b579e03b3e6509bed.mesh", "res://.import/Pig.obj-deff6d8110bda56b579e03b3e6509bed.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

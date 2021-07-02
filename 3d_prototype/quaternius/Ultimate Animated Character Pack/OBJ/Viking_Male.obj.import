@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Viking_Male.obj-cbd2b4761dce6aec3569f534cdeb351d.mesh"
+
+[deps]
+
+files=[ "res://.import/Viking_Male.obj-cbd2b4761dce6aec3569f534cdeb351d.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Viking_Male.obj"
+dest_files=[ "res://.import/Viking_Male.obj-cbd2b4761dce6aec3569f534cdeb351d.mesh", "res://.import/Viking_Male.obj-cbd2b4761dce6aec3569f534cdeb351d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

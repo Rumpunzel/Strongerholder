@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Hammer_Small.obj-39a7011a5d0669b2460941ae4ef1bb8e.mesh"
+
+[deps]
+
+files=[ "res://.import/Hammer_Small.obj-39a7011a5d0669b2460941ae4ef1bb8e.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/OBJ/Hammer_Small.obj"
+dest_files=[ "res://.import/Hammer_Small.obj-39a7011a5d0669b2460941ae4ef1bb8e.mesh", "res://.import/Hammer_Small.obj-39a7011a5d0669b2460941ae4ef1bb8e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

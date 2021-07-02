@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/PalmTree_2.obj-bd864b7dccf3d4966784855460eede58.mesh"
+
+[deps]
+
+files=[ "res://.import/PalmTree_2.obj-bd864b7dccf3d4966784855460eede58.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/PalmTree_2.obj"
+dest_files=[ "res://.import/PalmTree_2.obj-bd864b7dccf3d4966784855460eede58.mesh", "res://.import/PalmTree_2.obj-bd864b7dccf3d4966784855460eede58.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

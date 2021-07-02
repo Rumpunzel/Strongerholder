@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Ranger_Bow.obj-f9c2539cea5582dc4a0796930ef0250e.mesh"
+
+[deps]
+
+files=[ "res://.import/Ranger_Bow.obj-f9c2539cea5582dc4a0796930ef0250e.mesh" ]
+
+source_file="res://quaternius/RPG Characters/OBJ/Only Weapons/Ranger_Bow.obj"
+dest_files=[ "res://.import/Ranger_Bow.obj-f9c2539cea5582dc4a0796930ef0250e.mesh", "res://.import/Ranger_Bow.obj-f9c2539cea5582dc4a0796930ef0250e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

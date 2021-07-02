@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bush_Snow_2.obj-2f5ef3589e64c66cf56ba330b4f3218e.mesh"
+
+[deps]
+
+files=[ "res://.import/Bush_Snow_2.obj-2f5ef3589e64c66cf56ba330b4f3218e.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/Bush_Snow_2.obj"
+dest_files=[ "res://.import/Bush_Snow_2.obj-2f5ef3589e64c66cf56ba330b4f3218e.mesh", "res://.import/Bush_Snow_2.obj-2f5ef3589e64c66cf56ba330b4f3218e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

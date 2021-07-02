@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Crate.obj-c9f7023e97406cb58e78ba4a0763efe5.mesh"
+
+[deps]
+
+files=[ "res://.import/Crate.obj-c9f7023e97406cb58e78ba4a0763efe5.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Props/OBJ/Crate.obj"
+dest_files=[ "res://.import/Crate.obj-c9f7023e97406cb58e78ba4a0763efe5.mesh", "res://.import/Crate.obj-c9f7023e97406cb58e78ba4a0763efe5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

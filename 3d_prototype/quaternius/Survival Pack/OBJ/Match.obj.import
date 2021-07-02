@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Match.obj-dedec5e649e87d40fd8df9e144f90521.mesh"
+
+[deps]
+
+files=[ "res://.import/Match.obj-dedec5e649e87d40fd8df9e144f90521.mesh" ]
+
+source_file="res://quaternius/Survival Pack/OBJ/Match.obj"
+dest_files=[ "res://.import/Match.obj-dedec5e649e87d40fd8df9e144f90521.mesh", "res://.import/Match.obj-dedec5e649e87d40fd8df9e144f90521.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Door(1).obj-3b0a5be9b7df1e05cf6c984b5ca8e09a.mesh"
+
+[deps]
+
+files=[ "res://.import/Door(1).obj-3b0a5be9b7df1e05cf6c984b5ca8e09a.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/OBJ/Door(1).obj"
+dest_files=[ "res://.import/Door(1).obj-3b0a5be9b7df1e05cf6c984b5ca8e09a.mesh", "res://.import/Door(1).obj-3b0a5be9b7df1e05cf6c984b5ca8e09a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

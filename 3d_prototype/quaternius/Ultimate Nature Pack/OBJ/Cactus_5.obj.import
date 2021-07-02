@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Cactus_5.obj-4e2fd7856319f2072e2f595191273411.mesh"
+
+[deps]
+
+files=[ "res://.import/Cactus_5.obj-4e2fd7856319f2072e2f595191273411.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/Cactus_5.obj"
+dest_files=[ "res://.import/Cactus_5.obj-4e2fd7856319f2072e2f595191273411.mesh", "res://.import/Cactus_5.obj-4e2fd7856319f2072e2f595191273411.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

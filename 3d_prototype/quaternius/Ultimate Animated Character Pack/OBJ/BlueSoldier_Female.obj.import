@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/BlueSoldier_Female.obj-9928a8f17b0098f01d304888c1e89ecc.mesh"
+
+[deps]
+
+files=[ "res://.import/BlueSoldier_Female.obj-9928a8f17b0098f01d304888c1e89ecc.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/BlueSoldier_Female.obj"
+dest_files=[ "res://.import/BlueSoldier_Female.obj-9928a8f17b0098f01d304888c1e89ecc.mesh", "res://.import/BlueSoldier_Female.obj-9928a8f17b0098f01d304888c1e89ecc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

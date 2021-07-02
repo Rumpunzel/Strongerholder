@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Steak_burned.obj-ab889ab1023e050624468d662a9a47d5.mesh"
+
+[deps]
+
+files=[ "res://.import/Steak_burned.obj-ab889ab1023e050624468d662a9a47d5.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Steak_burned.obj"
+dest_files=[ "res://.import/Steak_burned.obj-ab889ab1023e050624468d662a9a47d5.mesh", "res://.import/Steak_burned.obj-ab889ab1023e050624468d662a9a47d5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Chef_Male.obj-333b524d211e4f1e0ed3f2fdaddb0719.mesh"
+
+[deps]
+
+files=[ "res://.import/Chef_Male.obj-333b524d211e4f1e0ed3f2fdaddb0719.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Chef_Male.obj"
+dest_files=[ "res://.import/Chef_Male.obj-333b524d211e4f1e0ed3f2fdaddb0719.mesh", "res://.import/Chef_Male.obj-333b524d211e4f1e0ed3f2fdaddb0719.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

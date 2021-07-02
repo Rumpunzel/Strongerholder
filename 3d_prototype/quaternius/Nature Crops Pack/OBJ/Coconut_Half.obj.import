@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Coconut_Half.obj-08cc131dd1901d14413492d148a4038e.mesh"
+
+[deps]
+
+files=[ "res://.import/Coconut_Half.obj-08cc131dd1901d14413492d148a4038e.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Coconut_Half.obj"
+dest_files=[ "res://.import/Coconut_Half.obj-08cc131dd1901d14413492d148a4038e.mesh", "res://.import/Coconut_Half.obj-08cc131dd1901d14413492d148a4038e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

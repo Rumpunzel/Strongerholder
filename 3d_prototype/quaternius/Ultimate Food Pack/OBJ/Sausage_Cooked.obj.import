@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Sausage_Cooked.obj-2a0ac57e53a7672703fd243ff28d4bd5.mesh"
+
+[deps]
+
+files=[ "res://.import/Sausage_Cooked.obj-2a0ac57e53a7672703fd243ff28d4bd5.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Sausage_Cooked.obj"
+dest_files=[ "res://.import/Sausage_Cooked.obj-2a0ac57e53a7672703fd243ff28d4bd5.mesh", "res://.import/Sausage_Cooked.obj-2a0ac57e53a7672703fd243ff28d4bd5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

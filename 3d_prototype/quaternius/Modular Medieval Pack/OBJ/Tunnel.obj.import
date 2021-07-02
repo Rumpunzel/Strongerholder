@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Tunnel.obj-1fd608ee30cef5fd41fa923598219d1c.mesh"
+
+[deps]
+
+files=[ "res://.import/Tunnel.obj-1fd608ee30cef5fd41fa923598219d1c.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/OBJ/Tunnel.obj"
+dest_files=[ "res://.import/Tunnel.obj-1fd608ee30cef5fd41fa923598219d1c.mesh", "res://.import/Tunnel.obj-1fd608ee30cef5fd41fa923598219d1c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

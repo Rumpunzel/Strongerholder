@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Apple_1.obj-cb9929f3054f581f2bb037a7eb34c04b.mesh"
+
+[deps]
+
+files=[ "res://.import/Apple_1.obj-cb9929f3054f581f2bb037a7eb34c04b.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Apple_1.obj"
+dest_files=[ "res://.import/Apple_1.obj-cb9929f3054f581f2bb037a7eb34c04b.mesh", "res://.import/Apple_1.obj-cb9929f3054f581f2bb037a7eb34c04b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

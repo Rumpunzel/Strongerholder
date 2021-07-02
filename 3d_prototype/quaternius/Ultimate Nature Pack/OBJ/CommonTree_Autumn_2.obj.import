@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/CommonTree_Autumn_2.obj-44a485c31196baf9337d0b5722b864af.mesh"
+
+[deps]
+
+files=[ "res://.import/CommonTree_Autumn_2.obj-44a485c31196baf9337d0b5722b864af.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/CommonTree_Autumn_2.obj"
+dest_files=[ "res://.import/CommonTree_Autumn_2.obj-44a485c31196baf9337d0b5722b864af.mesh", "res://.import/CommonTree_Autumn_2.obj-44a485c31196baf9337d0b5722b864af.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

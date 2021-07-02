@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Willow_Autumn_5.obj-88174c5b5bfc7abe2b9bae50397731f4.mesh"
+
+[deps]
+
+files=[ "res://.import/Willow_Autumn_5.obj-88174c5b5bfc7abe2b9bae50397731f4.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/Willow_Autumn_5.obj"
+dest_files=[ "res://.import/Willow_Autumn_5.obj-88174c5b5bfc7abe2b9bae50397731f4.mesh", "res://.import/Willow_Autumn_5.obj-88174c5b5bfc7abe2b9bae50397731f4.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

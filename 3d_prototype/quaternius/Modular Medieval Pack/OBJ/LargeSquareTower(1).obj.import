@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/LargeSquareTower(1).obj-472b179f0c4b4e680323efc234d85fcc.mesh"
+
+[deps]
+
+files=[ "res://.import/LargeSquareTower(1).obj-472b179f0c4b4e680323efc234d85fcc.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/OBJ/LargeSquareTower(1).obj"
+dest_files=[ "res://.import/LargeSquareTower(1).obj-472b179f0c4b4e680323efc234d85fcc.mesh", "res://.import/LargeSquareTower(1).obj-472b179f0c4b4e680323efc234d85fcc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

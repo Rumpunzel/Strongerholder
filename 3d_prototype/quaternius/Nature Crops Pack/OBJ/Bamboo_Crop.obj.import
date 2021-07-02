@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bamboo_Crop.obj-d0dc0df5798a77974e5d51bc85491193.mesh"
+
+[deps]
+
+files=[ "res://.import/Bamboo_Crop.obj-d0dc0df5798a77974e5d51bc85491193.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Bamboo_Crop.obj"
+dest_files=[ "res://.import/Bamboo_Crop.obj-d0dc0df5798a77974e5d51bc85491193.mesh", "res://.import/Bamboo_Crop.obj-d0dc0df5798a77974e5d51bc85491193.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

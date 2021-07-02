@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/OldClassy_Male.obj-c5ef391c418424660e61aef0a53aa020.mesh"
+
+[deps]
+
+files=[ "res://.import/OldClassy_Male.obj-c5ef391c418424660e61aef0a53aa020.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/OldClassy_Male.obj"
+dest_files=[ "res://.import/OldClassy_Male.obj-c5ef391c418424660e61aef0a53aa020.mesh", "res://.import/OldClassy_Male.obj-c5ef391c418424660e61aef0a53aa020.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

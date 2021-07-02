@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Flowers.obj-26b3e5a1b4e76e6072d647099fc84de1.mesh"
+
+[deps]
+
+files=[ "res://.import/Flowers.obj-26b3e5a1b4e76e6072d647099fc84de1.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/Flowers.obj"
+dest_files=[ "res://.import/Flowers.obj-26b3e5a1b4e76e6072d647099fc84de1.mesh", "res://.import/Flowers.obj-26b3e5a1b4e76e6072d647099fc84de1.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

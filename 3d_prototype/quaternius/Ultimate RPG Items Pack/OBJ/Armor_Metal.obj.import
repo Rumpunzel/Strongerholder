@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Armor_Metal.obj-c724fd72f3b4393b245ec3d978afb118.mesh"
+
+[deps]
+
+files=[ "res://.import/Armor_Metal.obj-c724fd72f3b4393b245ec3d978afb118.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Armor_Metal.obj"
+dest_files=[ "res://.import/Armor_Metal.obj-c724fd72f3b4393b245ec3d978afb118.mesh", "res://.import/Armor_Metal.obj-c724fd72f3b4393b245ec3d978afb118.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

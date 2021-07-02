@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Rock_2.obj-8e0fa86bb65a34d4cfba2a82bffdbd8f.mesh"
+
+[deps]
+
+files=[ "res://.import/Rock_2.obj-8e0fa86bb65a34d4cfba2a82bffdbd8f.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/Rock_2.obj"
+dest_files=[ "res://.import/Rock_2.obj-8e0fa86bb65a34d4cfba2a82bffdbd8f.mesh", "res://.import/Rock_2.obj-8e0fa86bb65a34d4cfba2a82bffdbd8f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

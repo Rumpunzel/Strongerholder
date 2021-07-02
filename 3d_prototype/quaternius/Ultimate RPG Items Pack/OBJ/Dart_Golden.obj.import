@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Dart_Golden.obj-a605a1b01f08dc102cf6a4bc057a2664.mesh"
+
+[deps]
+
+files=[ "res://.import/Dart_Golden.obj-a605a1b01f08dc102cf6a4bc057a2664.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Dart_Golden.obj"
+dest_files=[ "res://.import/Dart_Golden.obj-a605a1b01f08dc102cf6a4bc057a2664.mesh", "res://.import/Dart_Golden.obj-a605a1b01f08dc102cf6a4bc057a2664.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

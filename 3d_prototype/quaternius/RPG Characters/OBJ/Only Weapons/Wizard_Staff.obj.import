@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Wizard_Staff.obj-f2115359ab5e5409550872b35404c10e.mesh"
+
+[deps]
+
+files=[ "res://.import/Wizard_Staff.obj-f2115359ab5e5409550872b35404c10e.mesh" ]
+
+source_file="res://quaternius/RPG Characters/OBJ/Only Weapons/Wizard_Staff.obj"
+dest_files=[ "res://.import/Wizard_Staff.obj-f2115359ab5e5409550872b35404c10e.mesh", "res://.import/Wizard_Staff.obj-f2115359ab5e5409550872b35404c10e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

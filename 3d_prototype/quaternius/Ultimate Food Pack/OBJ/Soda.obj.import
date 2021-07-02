@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Soda.obj-55576a8268fa20d035ddb1d3c32b9689.mesh"
+
+[deps]
+
+files=[ "res://.import/Soda.obj-55576a8268fa20d035ddb1d3c32b9689.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Soda.obj"
+dest_files=[ "res://.import/Soda.obj-55576a8268fa20d035ddb1d3c32b9689.mesh", "res://.import/Soda.obj-55576a8268fa20d035ddb1d3c32b9689.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

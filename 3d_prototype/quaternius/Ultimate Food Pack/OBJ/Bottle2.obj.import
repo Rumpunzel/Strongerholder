@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bottle2.obj-d97becc6443fb1f6d2a86f334a44e65d.mesh"
+
+[deps]
+
+files=[ "res://.import/Bottle2.obj-d97becc6443fb1f6d2a86f334a44e65d.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Bottle2.obj"
+dest_files=[ "res://.import/Bottle2.obj-d97becc6443fb1f6d2a86f334a44e65d.mesh", "res://.import/Bottle2.obj-d97becc6443fb1f6d2a86f334a44e65d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Book3_Open.obj-3dc83313fdbed56470c8860a069e2f40.mesh"
+
+[deps]
+
+files=[ "res://.import/Book3_Open.obj-3dc83313fdbed56470c8860a069e2f40.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Book3_Open.obj"
+dest_files=[ "res://.import/Book3_Open.obj-3dc83313fdbed56470c8860a069e2f40.mesh", "res://.import/Book3_Open.obj-3dc83313fdbed56470c8860a069e2f40.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

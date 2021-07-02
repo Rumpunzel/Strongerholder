@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Kimono_Male.obj-150f042ed3acf803fd1ad9acca9a58cf.mesh"
+
+[deps]
+
+files=[ "res://.import/Kimono_Male.obj-150f042ed3acf803fd1ad9acca9a58cf.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Kimono_Male.obj"
+dest_files=[ "res://.import/Kimono_Male.obj-150f042ed3acf803fd1ad9acca9a58cf.mesh", "res://.import/Kimono_Male.obj-150f042ed3acf803fd1ad9acca9a58cf.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

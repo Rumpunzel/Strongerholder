@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Ring5.obj-d43f3ca84217e60e424207ffc3c3638a.mesh"
+
+[deps]
+
+files=[ "res://.import/Ring5.obj-d43f3ca84217e60e424207ffc3c3638a.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Ring5.obj"
+dest_files=[ "res://.import/Ring5.obj-d43f3ca84217e60e424207ffc3c3638a.mesh", "res://.import/Ring5.obj-d43f3ca84217e60e424207ffc3c3638a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

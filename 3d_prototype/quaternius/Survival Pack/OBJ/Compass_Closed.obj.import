@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Compass_Closed.obj-3873e230feadbc59b7e35219e6af4ae0.mesh"
+
+[deps]
+
+files=[ "res://.import/Compass_Closed.obj-3873e230feadbc59b7e35219e6af4ae0.mesh" ]
+
+source_file="res://quaternius/Survival Pack/OBJ/Compass_Closed.obj"
+dest_files=[ "res://.import/Compass_Closed.obj-3873e230feadbc59b7e35219e6af4ae0.mesh", "res://.import/Compass_Closed.obj-3873e230feadbc59b7e35219e6af4ae0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

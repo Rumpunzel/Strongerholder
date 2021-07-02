@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Radio.obj-5c579f98851cfb4e34649a143e118a30.mesh"
+
+[deps]
+
+files=[ "res://.import/Radio.obj-5c579f98851cfb4e34649a143e118a30.mesh" ]
+
+source_file="res://quaternius/Survival Pack/OBJ/Radio.obj"
+dest_files=[ "res://.import/Radio.obj-5c579f98851cfb4e34649a143e118a30.mesh", "res://.import/Radio.obj-5c579f98851cfb4e34649a143e118a30.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

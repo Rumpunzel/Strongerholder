@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Shield_Heater_2.obj-a6c4cc9a6b57872f661a94b68764228a.mesh"
+
+[deps]
+
+files=[ "res://.import/Shield_Heater_2.obj-a6c4cc9a6b57872f661a94b68764228a.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/OBJ/Shield_Heater_2.obj"
+dest_files=[ "res://.import/Shield_Heater_2.obj-a6c4cc9a6b57872f661a94b68764228a.mesh", "res://.import/Shield_Heater_2.obj-a6c4cc9a6b57872f661a94b68764228a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

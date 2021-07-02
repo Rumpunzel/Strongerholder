@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Flowers_Harvested.obj-a1ff24aae452a681db7197d784154153.mesh"
+
+[deps]
+
+files=[ "res://.import/Flowers_Harvested.obj-a1ff24aae452a681db7197d784154153.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Flowers_Harvested.obj"
+dest_files=[ "res://.import/Flowers_Harvested.obj-a1ff24aae452a681db7197d784154153.mesh", "res://.import/Flowers_Harvested.obj-a1ff24aae452a681db7197d784154153.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

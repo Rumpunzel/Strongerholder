@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Snowflake3.obj-9c4b778287041168a36c8110586df216.mesh"
+
+[deps]
+
+files=[ "res://.import/Snowflake3.obj-9c4b778287041168a36c8110586df216.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Snowflake3.obj"
+dest_files=[ "res://.import/Snowflake3.obj-9c4b778287041168a36c8110586df216.mesh", "res://.import/Snowflake3.obj-9c4b778287041168a36c8110586df216.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

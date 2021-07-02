@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Snake_angry.obj-ac1ccfcf9bced14f8fdb3f9e1c3e9714.mesh"
+
+[deps]
+
+files=[ "res://.import/Snake_angry.obj-ac1ccfcf9bced14f8fdb3f9e1c3e9714.mesh" ]
+
+source_file="res://quaternius/Easy Animated Enemy Pack/OBJ/Snake_angry.obj"
+dest_files=[ "res://.import/Snake_angry.obj-ac1ccfcf9bced14f8fdb3f9e1c3e9714.mesh", "res://.import/Snake_angry.obj-ac1ccfcf9bced14f8fdb3f9e1c3e9714.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

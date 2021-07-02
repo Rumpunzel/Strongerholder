@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Crystal5.obj-1f28241208d4eb9c388b7f307b757d39.mesh"
+
+[deps]
+
+files=[ "res://.import/Crystal5.obj-1f28241208d4eb9c388b7f307b757d39.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Crystal5.obj"
+dest_files=[ "res://.import/Crystal5.obj-1f28241208d4eb9c388b7f307b757d39.mesh", "res://.import/Crystal5.obj-1f28241208d4eb9c388b7f307b757d39.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Willow_Snow_4.obj-4064d68821a47b6d506c8e73950ad571.mesh"
+
+[deps]
+
+files=[ "res://.import/Willow_Snow_4.obj-4064d68821a47b6d506c8e73950ad571.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/Willow_Snow_4.obj"
+dest_files=[ "res://.import/Willow_Snow_4.obj-4064d68821a47b6d506c8e73950ad571.mesh", "res://.import/Willow_Snow_4.obj-4064d68821a47b6d506c8e73950ad571.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

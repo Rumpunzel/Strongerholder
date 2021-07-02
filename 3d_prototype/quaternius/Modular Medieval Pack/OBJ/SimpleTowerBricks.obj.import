@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/SimpleTowerBricks.obj-faf0dc957321ca3e028a00ea32bc2243.mesh"
+
+[deps]
+
+files=[ "res://.import/SimpleTowerBricks.obj-faf0dc957321ca3e028a00ea32bc2243.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/OBJ/SimpleTowerBricks.obj"
+dest_files=[ "res://.import/SimpleTowerBricks.obj-faf0dc957321ca3e028a00ea32bc2243.mesh", "res://.import/SimpleTowerBricks.obj-faf0dc957321ca3e028a00ea32bc2243.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Donut3.obj-979150cfffbe0b74a4f7bba5c50d52e4.mesh"
+
+[deps]
+
+files=[ "res://.import/Donut3.obj-979150cfffbe0b74a4f7bba5c50d52e4.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Donut3.obj"
+dest_files=[ "res://.import/Donut3.obj-979150cfffbe0b74a4f7bba5c50d52e4.mesh", "res://.import/Donut3.obj-979150cfffbe0b74a4f7bba5c50d52e4.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

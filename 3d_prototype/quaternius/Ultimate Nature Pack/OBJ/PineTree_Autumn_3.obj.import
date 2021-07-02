@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/PineTree_Autumn_3.obj-72017f09b58a75049e82582aed695ad7.mesh"
+
+[deps]
+
+files=[ "res://.import/PineTree_Autumn_3.obj-72017f09b58a75049e82582aed695ad7.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/PineTree_Autumn_3.obj"
+dest_files=[ "res://.import/PineTree_Autumn_3.obj-72017f09b58a75049e82582aed695ad7.mesh", "res://.import/PineTree_Autumn_3.obj-72017f09b58a75049e82582aed695ad7.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

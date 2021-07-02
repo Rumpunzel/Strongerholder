@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Lettuce_Harvested.obj-d984da066122751dd638848f4311cff0.mesh"
+
+[deps]
+
+files=[ "res://.import/Lettuce_Harvested.obj-d984da066122751dd638848f4311cff0.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Lettuce_Harvested.obj"
+dest_files=[ "res://.import/Lettuce_Harvested.obj-d984da066122751dd638848f4311cff0.mesh", "res://.import/Lettuce_Harvested.obj-d984da066122751dd638848f4311cff0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Casual_Bald.obj-aa7b23a662e668a987e06c85c0913dff.mesh"
+
+[deps]
+
+files=[ "res://.import/Casual_Bald.obj-aa7b23a662e668a987e06c85c0913dff.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Casual_Bald.obj"
+dest_files=[ "res://.import/Casual_Bald.obj-aa7b23a662e668a987e06c85c0913dff.mesh", "res://.import/Casual_Bald.obj-aa7b23a662e668a987e06c85c0913dff.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

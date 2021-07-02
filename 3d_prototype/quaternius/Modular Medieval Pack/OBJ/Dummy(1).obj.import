@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Dummy(1).obj-7714be04d234429742cad332ee6b864a.mesh"
+
+[deps]
+
+files=[ "res://.import/Dummy(1).obj-7714be04d234429742cad332ee6b864a.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/OBJ/Dummy(1).obj"
+dest_files=[ "res://.import/Dummy(1).obj-7714be04d234429742cad332ee6b864a.mesh", "res://.import/Dummy(1).obj-7714be04d234429742cad332ee6b864a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

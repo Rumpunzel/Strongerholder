@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/BushBerries_4.obj-6d9945eeefda267732c683dc0bddd5cd.mesh"
+
+[deps]
+
+files=[ "res://.import/BushBerries_4.obj-6d9945eeefda267732c683dc0bddd5cd.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/BushBerries_4.obj"
+dest_files=[ "res://.import/BushBerries_4.obj-6d9945eeefda267732c683dc0bddd5cd.mesh", "res://.import/BushBerries_4.obj-6d9945eeefda267732c683dc0bddd5cd.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

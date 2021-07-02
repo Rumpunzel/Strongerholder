@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Book2_Closed.obj-cc3001076e180db4049a1d87bdd5477e.mesh"
+
+[deps]
+
+files=[ "res://.import/Book2_Closed.obj-cc3001076e180db4049a1d87bdd5477e.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Book2_Closed.obj"
+dest_files=[ "res://.import/Book2_Closed.obj-cc3001076e180db4049a1d87bdd5477e.mesh", "res://.import/Book2_Closed.obj-cc3001076e180db4049a1d87bdd5477e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

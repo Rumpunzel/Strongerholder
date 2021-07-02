@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Arrow.obj-e598d127c3eda0e48f8c132230e74dc9.mesh"
+
+[deps]
+
+files=[ "res://.import/Arrow.obj-e598d127c3eda0e48f8c132230e74dc9.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Arrow.obj"
+dest_files=[ "res://.import/Arrow.obj-e598d127c3eda0e48f8c132230e74dc9.mesh", "res://.import/Arrow.obj-e598d127c3eda0e48f8c132230e74dc9.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

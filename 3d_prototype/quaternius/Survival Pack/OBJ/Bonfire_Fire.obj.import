@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bonfire_Fire.obj-abd15a967436c275f056fbc75d2c6a0b.mesh"
+
+[deps]
+
+files=[ "res://.import/Bonfire_Fire.obj-abd15a967436c275f056fbc75d2c6a0b.mesh" ]
+
+source_file="res://quaternius/Survival Pack/OBJ/Bonfire_Fire.obj"
+dest_files=[ "res://.import/Bonfire_Fire.obj-abd15a967436c275f056fbc75d2c6a0b.mesh", "res://.import/Bonfire_Fire.obj-abd15a967436c275f056fbc75d2c6a0b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bonfire.obj-5cbc49d81ba24cdbb8716e1494628e4f.mesh"
+
+[deps]
+
+files=[ "res://.import/Bonfire.obj-5cbc49d81ba24cdbb8716e1494628e4f.mesh" ]
+
+source_file="res://quaternius/Medieval Village Pack/Props/OBJ/Bonfire.obj"
+dest_files=[ "res://.import/Bonfire.obj-5cbc49d81ba24cdbb8716e1494628e4f.mesh", "res://.import/Bonfire.obj-5cbc49d81ba24cdbb8716e1494628e4f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

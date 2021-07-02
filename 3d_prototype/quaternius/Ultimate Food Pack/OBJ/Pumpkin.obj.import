@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Pumpkin.obj-aa19bedc417e8763568e833c89210c09.mesh"
+
+[deps]
+
+files=[ "res://.import/Pumpkin.obj-aa19bedc417e8763568e833c89210c09.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Pumpkin.obj"
+dest_files=[ "res://.import/Pumpkin.obj-aa19bedc417e8763568e833c89210c09.mesh", "res://.import/Pumpkin.obj-aa19bedc417e8763568e833c89210c09.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Egg_Burned.obj-fcb8d8e648dbacb3f29c19637f584a9e.mesh"
+
+[deps]
+
+files=[ "res://.import/Egg_Burned.obj-fcb8d8e648dbacb3f29c19637f584a9e.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Egg_Burned.obj"
+dest_files=[ "res://.import/Egg_Burned.obj-fcb8d8e648dbacb3f29c19637f584a9e.mesh", "res://.import/Egg_Burned.obj-fcb8d8e648dbacb3f29c19637f584a9e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

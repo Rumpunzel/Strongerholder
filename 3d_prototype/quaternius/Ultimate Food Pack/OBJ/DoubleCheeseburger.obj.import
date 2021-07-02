@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/DoubleCheeseburger.obj-d7d64b7cdb80e9aa09f547b92da2ecb0.mesh"
+
+[deps]
+
+files=[ "res://.import/DoubleCheeseburger.obj-d7d64b7cdb80e9aa09f547b92da2ecb0.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/DoubleCheeseburger.obj"
+dest_files=[ "res://.import/DoubleCheeseburger.obj-d7d64b7cdb80e9aa09f547b92da2ecb0.mesh", "res://.import/DoubleCheeseburger.obj-d7d64b7cdb80e9aa09f547b92da2ecb0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

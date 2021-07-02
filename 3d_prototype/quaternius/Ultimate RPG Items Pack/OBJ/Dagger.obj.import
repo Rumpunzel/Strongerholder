@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Dagger.obj-f3849d3b6aa08d89bd9a108e6957ed29.mesh"
+
+[deps]
+
+files=[ "res://.import/Dagger.obj-f3849d3b6aa08d89bd9a108e6957ed29.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Dagger.obj"
+dest_files=[ "res://.import/Dagger.obj-f3849d3b6aa08d89bd9a108e6957ed29.mesh", "res://.import/Dagger.obj-f3849d3b6aa08d89bd9a108e6957ed29.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

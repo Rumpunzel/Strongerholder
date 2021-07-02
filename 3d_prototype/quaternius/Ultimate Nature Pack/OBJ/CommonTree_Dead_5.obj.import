@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/CommonTree_Dead_5.obj-2ea5df6f69c465275d348225a95dedce.mesh"
+
+[deps]
+
+files=[ "res://.import/CommonTree_Dead_5.obj-2ea5df6f69c465275d348225a95dedce.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/CommonTree_Dead_5.obj"
+dest_files=[ "res://.import/CommonTree_Dead_5.obj-2ea5df6f69c465275d348225a95dedce.mesh", "res://.import/CommonTree_Dead_5.obj-2ea5df6f69c465275d348225a95dedce.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

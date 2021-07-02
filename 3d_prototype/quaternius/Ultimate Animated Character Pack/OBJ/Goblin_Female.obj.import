@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Goblin_Female.obj-7754fccd6cada2ebda30b1e3108e1d14.mesh"
+
+[deps]
+
+files=[ "res://.import/Goblin_Female.obj-7754fccd6cada2ebda30b1e3108e1d14.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Goblin_Female.obj"
+dest_files=[ "res://.import/Goblin_Female.obj-7754fccd6cada2ebda30b1e3108e1d14.mesh", "res://.import/Goblin_Female.obj-7754fccd6cada2ebda30b1e3108e1d14.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

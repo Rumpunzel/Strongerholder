@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Ninja_Male_Hair.obj-1f965d8119788106eb3829b47d52c0c4.mesh"
+
+[deps]
+
+files=[ "res://.import/Ninja_Male_Hair.obj-1f965d8119788106eb3829b47d52c0c4.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Ninja_Male_Hair.obj"
+dest_files=[ "res://.import/Ninja_Male_Hair.obj-1f965d8119788106eb3829b47d52c0c4.mesh", "res://.import/Ninja_Male_Hair.obj-1f965d8119788106eb3829b47d52c0c4.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

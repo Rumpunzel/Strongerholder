@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Coin.obj-be0ce3f7e817d0219538a01bc4797ddb.mesh"
+
+[deps]
+
+files=[ "res://.import/Coin.obj-be0ce3f7e817d0219538a01bc4797ddb.mesh" ]
+
+source_file="res://quaternius/Ultimate RPG Items Pack/OBJ/Coin.obj"
+dest_files=[ "res://.import/Coin.obj-be0ce3f7e817d0219538a01bc4797ddb.mesh", "res://.import/Coin.obj-be0ce3f7e817d0219538a01bc4797ddb.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

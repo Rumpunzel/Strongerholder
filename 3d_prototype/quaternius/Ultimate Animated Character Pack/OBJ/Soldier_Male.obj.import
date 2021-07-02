@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Soldier_Male.obj-2f0c922c6397288f49f6eb7a6c1c0e9e.mesh"
+
+[deps]
+
+files=[ "res://.import/Soldier_Male.obj-2f0c922c6397288f49f6eb7a6c1c0e9e.mesh" ]
+
+source_file="res://quaternius/Ultimate Animated Character Pack/OBJ/Soldier_Male.obj"
+dest_files=[ "res://.import/Soldier_Male.obj-2f0c922c6397288f49f6eb7a6c1c0e9e.mesh", "res://.import/Soldier_Male.obj-2f0c922c6397288f49f6eb7a6c1c0e9e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

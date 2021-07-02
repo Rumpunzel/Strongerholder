@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/IceCream_Cone.obj-e73e5e7fe61942df040471d54bc8d3ee.mesh"
+
+[deps]
+
+files=[ "res://.import/IceCream_Cone.obj-e73e5e7fe61942df040471d54bc8d3ee.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/IceCream_Cone.obj"
+dest_files=[ "res://.import/IceCream_Cone.obj-e73e5e7fe61942df040471d54bc8d3ee.mesh", "res://.import/IceCream_Cone.obj-e73e5e7fe61942df040471d54bc8d3ee.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

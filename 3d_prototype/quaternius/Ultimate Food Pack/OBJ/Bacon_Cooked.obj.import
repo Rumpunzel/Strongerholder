@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bacon_Cooked.obj-9e338cd19a8cc35f93af6d9024ec9859.mesh"
+
+[deps]
+
+files=[ "res://.import/Bacon_Cooked.obj-9e338cd19a8cc35f93af6d9024ec9859.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Bacon_Cooked.obj"
+dest_files=[ "res://.import/Bacon_Cooked.obj-9e338cd19a8cc35f93af6d9024ec9859.mesh", "res://.import/Bacon_Cooked.obj-9e338cd19a8cc35f93af6d9024ec9859.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

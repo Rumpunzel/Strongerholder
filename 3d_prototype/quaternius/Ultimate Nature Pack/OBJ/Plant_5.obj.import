@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Plant_5.obj-d7fecaeb235fd44bbf679c270049e696.mesh"
+
+[deps]
+
+files=[ "res://.import/Plant_5.obj-d7fecaeb235fd44bbf679c270049e696.mesh" ]
+
+source_file="res://quaternius/Ultimate Nature Pack/OBJ/Plant_5.obj"
+dest_files=[ "res://.import/Plant_5.obj-d7fecaeb235fd44bbf679c270049e696.mesh", "res://.import/Plant_5.obj-d7fecaeb235fd44bbf679c270049e696.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

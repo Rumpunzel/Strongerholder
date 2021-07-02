@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/TargetWithArrows.obj-8a356989776c55bf33d4930472272060.mesh"
+
+[deps]
+
+files=[ "res://.import/TargetWithArrows.obj-8a356989776c55bf33d4930472272060.mesh" ]
+
+source_file="res://quaternius/Modular Medieval Pack/OBJ/TargetWithArrows.obj"
+dest_files=[ "res://.import/TargetWithArrows.obj-8a356989776c55bf33d4930472272060.mesh", "res://.import/TargetWithArrows.obj-8a356989776c55bf33d4930472272060.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

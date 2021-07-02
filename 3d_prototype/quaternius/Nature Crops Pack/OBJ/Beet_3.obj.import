@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Beet_3.obj-b5fe92a7b870ea9d2c0fdee7ae4211b3.mesh"
+
+[deps]
+
+files=[ "res://.import/Beet_3.obj-b5fe92a7b870ea9d2c0fdee7ae4211b3.mesh" ]
+
+source_file="res://quaternius/Nature Crops Pack/OBJ/Beet_3.obj"
+dest_files=[ "res://.import/Beet_3.obj-b5fe92a7b870ea9d2c0fdee7ae4211b3.mesh", "res://.import/Beet_3.obj-b5fe92a7b870ea9d2c0fdee7ae4211b3.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

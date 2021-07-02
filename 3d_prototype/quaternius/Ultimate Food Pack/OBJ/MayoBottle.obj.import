@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/MayoBottle.obj-af7796632aed7f50fa194c559d7b940d.mesh"
+
+[deps]
+
+files=[ "res://.import/MayoBottle.obj-af7796632aed7f50fa194c559d7b940d.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/MayoBottle.obj"
+dest_files=[ "res://.import/MayoBottle.obj-af7796632aed7f50fa194c559d7b940d.mesh", "res://.import/MayoBottle.obj-af7796632aed7f50fa194c559d7b940d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

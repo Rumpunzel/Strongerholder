@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Hammer_Double.obj-0a89dd66634a3ead392014137c1174f4.mesh"
+
+[deps]
+
+files=[ "res://.import/Hammer_Double.obj-0a89dd66634a3ead392014137c1174f4.mesh" ]
+
+source_file="res://quaternius/Medieval Weapons Pack/OBJ/Hammer_Double.obj"
+dest_files=[ "res://.import/Hammer_Double.obj-0a89dd66634a3ead392014137c1174f4.mesh", "res://.import/Hammer_Double.obj-0a89dd66634a3ead392014137c1174f4.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

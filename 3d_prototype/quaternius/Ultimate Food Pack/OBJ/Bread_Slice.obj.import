@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bread_Slice.obj-b052a24e2d97a98c0cc5f121b160fc24.mesh"
+
+[deps]
+
+files=[ "res://.import/Bread_Slice.obj-b052a24e2d97a98c0cc5f121b160fc24.mesh" ]
+
+source_file="res://quaternius/Ultimate Food Pack/OBJ/Bread_Slice.obj"
+dest_files=[ "res://.import/Bread_Slice.obj-b052a24e2d97a98c0cc5f121b160fc24.mesh", "res://.import/Bread_Slice.obj-b052a24e2d97a98c0cc5f121b160fc24.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
