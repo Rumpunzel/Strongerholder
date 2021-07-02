@@ -1,11 +1,13 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=8 format=2]
 
 [ext_resource path="res://state_machines/resources/state_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/humans/state_machines/actions/apply_movement_vector.tres" type="Resource" id=2]
 [ext_resource path="res://characters/humans/state_machines/actions/gravity_ground.tres" type="Resource" id=3]
 [ext_resource path="res://characters/humans/state_machines/actions/move_on_the_ground.tres" type="Resource" id=4]
 [ext_resource path="res://characters/humans/state_machines/actions/animator_move_speed_action.tres" type="Resource" id=5]
+[ext_resource path="res://characters/humans/state_machines/actions/set_walking_true_on_enter.tres" type="Resource" id=6]
+[ext_resource path="res://characters/humans/state_machines/actions/set_walking_false_on_exit.tres" type="Resource" id=7]
 
 [resource]
 script = ExtResource( 1 )
-_actions = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 5 ) ]
+_actions = [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 7 ) ]

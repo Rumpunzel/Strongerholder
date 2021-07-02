@@ -25,5 +25,7 @@ class ApplyMovementVectorAction extends StateAction:
 		
 		_character_controller.velocity = new_movement_vector
 		
-		#if not horizontal_movement == Vector2.ZERO:
-		#	look_rotation
+		if not horizontal_movement == Vector2.ZERO:
+			var look_at := _character_controller.transform.origin - Vector3(horizontal_movement.x, 0.0, horizontal_movement.y)
+			# TODO: add smooth rotation
+			_character_controller.look_at(look_at, Vector3.UP)

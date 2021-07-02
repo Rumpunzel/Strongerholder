@@ -1,0 +1,50 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=8 format=2]
+
+[sub_resource type="AnimationNodeTransition" id=23]
+input_count = 2
+xfade_time = 0.2
+input_0/name = "grounded"
+input_0/auto_advance = false
+input_1/name = "airborne"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeTransition" id=18]
+input_count = 2
+xfade_time = 0.2
+input_0/name = "idle"
+input_0/auto_advance = false
+input_1/name = "walk"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "Spell1"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "Run"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "Walk"
+
+[sub_resource type="AnimationNodeBlend2" id=21]
+
+[resource]
+graph_offset = Vector2( -349, 95 )
+nodes/grounded/node = SubResource( 23 )
+nodes/grounded/position = Vector2( 400, 220 )
+nodes/idle/node = SubResource( 17 )
+nodes/idle/position = Vector2( -200, 120 )
+nodes/idle_walk/node = SubResource( 18 )
+nodes/idle_walk/position = Vector2( 180, 140 )
+nodes/jump/node = SubResource( 24 )
+nodes/jump/position = Vector2( 220, 420 )
+nodes/output/position = Vector2( 560, 200 )
+nodes/run/node = SubResource( 19 )
+nodes/run/position = Vector2( -260, 380 )
+nodes/walk/node = SubResource( 20 )
+nodes/walk/position = Vector2( -300, 260 )
+nodes/walk_speed/node = SubResource( 21 )
+nodes/walk_speed/position = Vector2( -20, 260 )
+node_connections = [ "output", 0, "grounded", "grounded", 0, "idle_walk", "grounded", 1, "jump", "walk_speed", 0, "walk", "walk_speed", 1, "run", "idle_walk", 0, "idle", "idle_walk", 1, "walk_speed" ]
