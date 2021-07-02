@@ -2698,19 +2698,19 @@ bones/7/bound_children = [ NodePath("BoneAttachment") ]
 bones/22/bound_children = [ NodePath("BoneAttachment2") ]
 
 [node name="BoneAttachment" parent="Cleric/CharacterArmature/Skeleton" index="0"]
-transform = Transform( 1, 5.81206e-11, -0.000550203, -4.08152e-05, 0.997245, -0.074182, 0.000548687, 0.074182, 0.997245, -0.000638377, 2.08585, 0.0809258 )
+transform = Transform( 1, 4.95995e-12, -0.000550203, -2.16755e-05, 0.999224, -0.0393955, 0.000549776, 0.0393956, 0.999224, -0.000638377, 2.10503, 0.0397175 )
 
 [node name="Head" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment" index="0"]
 mesh = SubResource( 1 )
 
 [node name="BoneAttachment2" parent="Cleric/CharacterArmature/Skeleton" index="1"]
-transform = Transform( -0.0706679, -0.0997802, -0.992497, -0.359763, -0.925468, 0.118657, -0.930363, 0.365449, 0.0295038, -0.644262, 0.986644, 0.163334 )
+transform = Transform( -0.422387, 0.146379, -0.894517, -0.218499, -0.974215, -0.0562463, -0.879685, 0.171693, 0.44348, -0.498105, 0.959332, 0.0788018 )
 
 [node name="Cleric_Staff" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment2" index="0"]
 mesh = SubResource( 2 )
 
 [node name="BoneAttachment3" parent="Cleric/CharacterArmature/Skeleton" index="2"]
-transform = Transform( 1, -2.85993e-12, -6.0869e-07, -1.11867e-07, 0.982966, -0.183788, 5.98322e-07, 0.183788, 0.982966, -0.000638377, 1.52368, -0.0145075 )
+transform = Transform( 1, -2.98428e-12, -6.08689e-07, -6.79806e-08, 0.993743, -0.111688, 6.04882e-07, 0.111689, 0.993743, -0.000638377, 1.53741, -0.0145075 )
 
 [node name="ShoulderPads" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment3" index="0"]
 mesh = SubResource( 3 )
@@ -2735,9 +2735,10 @@ anims/Walk = SubResource( 16 )
 [node name="AnimationTree" type="AnimationTree" parent="." index="4"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Cleric/AnimationPlayer")
-active = true
 parameters/grounded/current = 0
 parameters/idle_walk/current = 0
 parameters/walk_speed/blend_amount = 0.0
+
+[connection signal="instantiated" from="." to="AnimationTree" method="set_active" binds= [ true ]]
 
 [editable path="Cleric"]

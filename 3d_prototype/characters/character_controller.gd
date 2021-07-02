@@ -2,6 +2,9 @@ class_name CharacterController
 extends KinematicBody
 tool
 
+signal instantiated
+
+
 # warning-ignore-all:unused_class_variable
 export(Resource) var movement_stats = null
 
@@ -44,6 +47,8 @@ func _ready() -> void:
 	
 	_camera_system = ServiceLocator.get_service(CameraSystem) as CameraSystem
 	InputReader.listener = self
+	
+	emit_signal("instantiated")
 
 
 func _process(_delta: float) -> void:
