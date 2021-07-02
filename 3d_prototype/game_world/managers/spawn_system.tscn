@@ -4,7 +4,7 @@
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tools/editor/editor_gizmo.tscn" type="PackedScene" id=3]
 
-[sub_resource type="ViewportTexture" id=1]
+[sub_resource type="ViewportTexture" id=3]
 viewport_path = NodePath("EditorGizmo/Viewport")
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -16,7 +16,7 @@ flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 params_cull_mode = 2
 params_billboard_mode = 1
-albedo_texture = SubResource( 1 )
+albedo_texture = SubResource( 3 )
 
 [node name="SpawnSystem" type="Position3D"]
 script = ExtResource( 1 )
@@ -34,5 +34,6 @@ text = "PlayerSpawnPoint"
 
 [node name="Sprite3D" parent="EditorGizmo" index="1"]
 material_override = SubResource( 2 )
+texture = SubResource( 3 )
 
 [editable path="EditorGizmo"]

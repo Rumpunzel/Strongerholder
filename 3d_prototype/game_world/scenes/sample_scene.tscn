@@ -6,7 +6,7 @@
 [ext_resource path="res://prototype_assets/prototype_grids/prototype_512x512_blue2.png" type="Texture" id=4]
 [ext_resource path="res://quaternius/Medieval Village Pack/Props/OBJ/Bonfire_Lit.obj" type="ArrayMesh" id=5]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=1]
 script/source = "extends DirectionalLight
 
 
@@ -18,14 +18,14 @@ func _process(delta: float) -> void:
 	rotate_x(radians_to_rotate)
 "
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 4 )
 uv1_scale = Vector3( 256, 256, 1 )
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 1, 2.5, 1 )
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 1, 2, 1 )
 
 [sub_resource type="BoxShape" id=5]
@@ -44,7 +44,7 @@ light_bake_mode = 2
 shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 8192.0
-script = SubResource( 4 )
+script = SubResource( 1 )
 
 [node name="Plane" type="CSGBox" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
@@ -52,14 +52,14 @@ use_collision = true
 width = 512.0
 height = 1.0
 depth = 512.0
-material = SubResource( 3 )
+material = SubResource( 2 )
 
 [node name="BellTower" type="StaticBody" parent="." index="3"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 0, -6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="BellTower" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="Bell_Tower" type="MeshInstance" parent="BellTower" index="1"]
 mesh = ExtResource( 2 )
@@ -79,7 +79,7 @@ transform = Transform( -1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, -10, 0,
 
 [node name="CollisionShape" type="CollisionShape" parent="House" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="House_1" type="MeshInstance" parent="House" index="1"]
 mesh = ExtResource( 3 )

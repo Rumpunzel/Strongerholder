@@ -89,6 +89,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_world/cameras/game_camera.gd"
 }, {
+"base": "Label",
+"class": "GameTitle",
+"language": "GDScript",
+"path": "res://ui/game_title.gd"
+}, {
+"base": "Label",
+"class": "GameVersion",
+"language": "GDScript",
+"path": "res://ui/game_version.gd"
+}, {
 "base": "Spatial",
 "class": "GameWorld",
 "language": "GDScript",
@@ -153,6 +163,11 @@ _global_script_classes=[ {
 "class": "Main",
 "language": "GDScript",
 "path": "res://main.gd"
+}, {
+"base": "Control",
+"class": "MainMenu",
+"language": "GDScript",
+"path": "res://ui/main_menu/main_menu.gd"
 }, {
 "base": "StateActionResource",
 "class": "MoveToPointActionResource",
@@ -266,6 +281,8 @@ _global_script_class_icons={
 "DescendActionResource": "",
 "FPSLabel": "",
 "GameCamera": "",
+"GameTitle": "",
+"GameVersion": "",
 "GameWorld": "",
 "GroundGravityActionResource": "",
 "HasHitHeadConditionResource": "",
@@ -279,6 +296,7 @@ _global_script_class_icons={
 "IsMovingToPointConditionResource": "",
 "IsPickingUpConditionResource": "",
 "Main": "",
+"MainMenu": "",
 "MoveToPointActionResource": "",
 "SpawnSystem": "",
 "State": "",
@@ -304,8 +322,8 @@ _global_script_class_icons={
 
 config/name="3D Prototype"
 run/main_scene="res://main.tscn"
-config/icon="res://icon.png"
-config/version="0.0.1"
+config/icon="res://castle.png"
+config/version="0.0.1-alpha"
 
 [audio]
 

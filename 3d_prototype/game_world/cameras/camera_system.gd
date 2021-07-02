@@ -10,8 +10,7 @@ var current_camera: GameCamera setget set_current_camera
 func _enter_tree() -> void:
 	var error := Events.connect("player_instantiated", self, "_on_player_instantiated")
 	assert(error == OK)
-
-func _ready() -> void:
+	
 	ServiceLocator.register_service(self)
 	set_current_camera(get_node(_main_camera_node) as GameCamera)
 

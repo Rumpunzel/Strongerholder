@@ -1,0 +1,88 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/game_title.gd" type="Script" id=2]
+[ext_resource path="res://ui/game_version.gd" type="Script" id=3]
+[ext_resource path="res://ui/main_menu/main_menu.gd" type="Script" id=4]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1920.0
+margin_bottom = 860.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MenuContent" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_top = 386.0
+margin_right = 958.0
+margin_bottom = 474.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_constants/separation = 30
+
+[node name="GameTitle" type="Label" parent="VBoxContainer/HBoxContainer/MenuContent"]
+margin_left = 479.0
+margin_right = 479.0
+margin_bottom = 14.0
+size_flags_horizontal = 4
+script = ExtResource( 2 )
+
+[node name="MenuButtons" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MenuContent"]
+margin_left = 438.0
+margin_top = 44.0
+margin_right = 520.0
+margin_bottom = 88.0
+size_flags_horizontal = 4
+
+[node name="NewGame" type="Button" parent="VBoxContainer/HBoxContainer/MenuContent/MenuButtons"]
+margin_right = 82.0
+margin_bottom = 20.0
+text = "New Game"
+
+[node name="Quit" type="Button" parent="VBoxContainer/HBoxContainer/MenuContent/MenuButtons"]
+margin_top = 24.0
+margin_right = 82.0
+margin_bottom = 44.0
+text = "Quit"
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_left = 962.0
+margin_right = 1920.0
+margin_bottom = 860.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 864.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+custom_constants/margin_right = 20
+custom_constants/margin_top = 16
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 16
+
+[node name="GameVersion" type="Label" parent="VBoxContainer/MarginContainer"]
+margin_left = 20.0
+margin_top = 186.0
+margin_right = 20.0
+margin_bottom = 200.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+script = ExtResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuContent/MenuButtons/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MenuContent/MenuButtons/Quit" to="." method="_on_quit_pressed"]

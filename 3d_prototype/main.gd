@@ -1,8 +1,6 @@
 class_name Main
 extends Node
 
-signal main_menu_showed
-
 signal game_save_started
 signal game_save_finished
 signal game_load_started
@@ -10,27 +8,20 @@ signal game_load_finished
 
 signal new_game_started
 
-signal game_quit
-
 
 const SAVE_LOCATION := "user://savegame.save"
 const VERSION_POSTFIX := "alpha"
 
 
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _enter_tree() -> void:
 	randomize()
-	
 	ServiceLocator.register_service(self)
 	
-	#open_main_menu()
+	var error := Events.connect("game_quit", self, "_on_game_quit")
+	assert(error == OK)
 
 
-
-static func get_game_title() -> String:
-	return ProjectSettings.get("application/config/name")
 
 static func get_version() -> String:
 	return "version-%s-%s" % [ ProjectSettings.get("application/config/version"), VERSION_POSTFIX ]
@@ -41,11 +32,6 @@ static func get_service_class() -> String:
 
 func get_class() -> String:
 	return get_service_class()
-
-func open_main_menu() -> void:
-	get_tree().paused = true
-	emit_signal("main_menu_showed")
-
 
 
 func save_game(path: String = SAVE_LOCATION) -> void:
@@ -82,9 +68,7 @@ func load_game(path: String = SAVE_LOCATION) -> void:
 
 
 
-func quit_game() -> void:
-	emit_signal("game_quit")
-	
+func _on_game_quit() -> void:
 	get_tree().quit()
 
 
