@@ -79,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state_machines/actions/descend_action_resource.gd"
 }, {
+"base": "Label",
+"class": "FPSLabel",
+"language": "GDScript",
+"path": "res://ui/fps_label.gd"
+}, {
 "base": "Camera",
 "class": "GameCamera",
 "language": "GDScript",
@@ -259,6 +264,7 @@ _global_script_class_icons={
 "ClearInputCachOnEnterResource": "",
 "ConditionUsageResource": "",
 "DescendActionResource": "",
+"FPSLabel": "",
 "GameCamera": "",
 "GameWorld": "",
 "GroundGravityActionResource": "",
@@ -323,6 +329,7 @@ gdscript/warnings/unsafe_call_argument=true
 
 window/size/width=1920
 window/size/height=1080
+window/vsync/use_vsync=false
 
 [input]
 
