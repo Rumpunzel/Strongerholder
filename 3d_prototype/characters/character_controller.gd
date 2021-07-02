@@ -1,8 +1,9 @@
 class_name CharacterController
 extends KinematicBody
+tool
 
 # warning-ignore-all:unused_class_variable
-export(Resource) var movement_stats
+export(Resource) var movement_stats = null
 
 
 var velocity: Vector3
@@ -38,11 +39,17 @@ onready var _ground_check: RayCast = $GroundCheck
 
 
 func _ready() -> void:
+	if Engine.editor_hint:
+		return
+	
 	_camera_system = ServiceLocator.get_service(CameraSystem) as CameraSystem
 	InputReader.listener = self
 
 
 func _process(_delta: float) -> void:
+	if Engine.editor_hint:
+		return
+	
 	if moving_to_destination:
 		_calculate_target_speed(1.0)
 	else:
@@ -90,3 +97,21 @@ func _recalculate_movement() -> void:
 
 func _get_point_from_mouse() -> void:
 	movement_input = Vector3.ZERO
+
+
+func _get_configuration_warning() -> String:
+	var warning := ""
+	
+	# Structure
+	for child in get_children():
+		if not child is GeometryInstance:
+			warning = "GeometryInstance is required"
+			break
+	
+	# Data
+	if not movement_stats:
+		warning = "MovementStats are required"
+	elif not movement_stats is CharacterMovementStatsResource:
+		warning = "MovementStats are of the wrong type"
+	
+	return warning
