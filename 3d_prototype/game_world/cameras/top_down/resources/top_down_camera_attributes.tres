@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource( 1 )
-fov = 20.0
+fov = 40.0
 shoulder_height = 1.0
-distance_off_ground = 23.0
-distance_from_follow = 36.0
+distance_off_ground = 18.0
+distance_from_follow = 18.0
 camera_angle_offset = 45.0
 camera_turn_angle = 90.0
 camera_turn_smoothing = 0.02

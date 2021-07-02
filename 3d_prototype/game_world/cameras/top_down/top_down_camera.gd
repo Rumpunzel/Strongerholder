@@ -18,8 +18,6 @@ var _zoom: float = 1.0
 
 
 func _ready() -> void:
-	fov = _attributes.fov
-	
 	_angle_offset = deg2rad(_attributes.camera_angle_offset)
 	_turn_angle = deg2rad(_attributes.camera_turn_angle)
 	
@@ -27,6 +25,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	fov = _attributes.fov
+	
 	if follow_node:
 		_frame_node(follow_node)
 
