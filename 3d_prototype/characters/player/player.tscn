@@ -2682,6 +2682,7 @@ tracks/31/enabled = true
 tracks/31/keys = PoolRealArray( 0, 1, 0, 0, 0, -3.55271e-15, 0, 0, 1, 1, 1, 1, 1.25, 1, 0, 0, 0, -3.55271e-15, 0, 0, 1, 1, 1, 1 )
 
 [node name="CharacterController" instance=ExtResource( 1 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
@@ -2698,19 +2699,19 @@ bones/7/bound_children = [ NodePath("BoneAttachment") ]
 bones/22/bound_children = [ NodePath("BoneAttachment2") ]
 
 [node name="BoneAttachment" parent="Cleric/CharacterArmature/Skeleton" index="0"]
-transform = Transform( 1, 4.95995e-12, -0.000550203, -2.16755e-05, 0.999224, -0.0393955, 0.000549776, 0.0393956, 0.999224, -0.000638377, 2.10503, 0.0397175 )
+transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )
 
 [node name="Head" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment" index="0"]
 mesh = SubResource( 1 )
 
 [node name="BoneAttachment2" parent="Cleric/CharacterArmature/Skeleton" index="1"]
-transform = Transform( -0.422387, 0.146379, -0.894517, -0.218499, -0.974215, -0.0562463, -0.879685, 0.171693, 0.44348, -0.498105, 0.959332, 0.0788018 )
+transform = Transform( -0.0610309, -0.0750186, -0.995312, -0.361523, -0.927803, 0.0920982, -0.930363, 0.365449, 0.029504, -0.621624, 0.991996, 0.163334 )
 
 [node name="Cleric_Staff" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment2" index="0"]
 mesh = SubResource( 2 )
 
 [node name="BoneAttachment3" parent="Cleric/CharacterArmature/Skeleton" index="2"]
-transform = Transform( 1, -2.98428e-12, -6.08689e-07, -6.79806e-08, 0.993743, -0.111688, 6.04882e-07, 0.111689, 0.993743, -0.000638377, 1.53741, -0.0145075 )
+transform = Transform( 1, -2.92033e-12, -6.08689e-07, -1.11867e-07, 0.982966, -0.183788, 5.98322e-07, 0.183788, 0.982966, -0.000638377, 1.53741, -0.0145075 )
 
 [node name="ShoulderPads" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment3" index="0"]
 mesh = SubResource( 3 )
