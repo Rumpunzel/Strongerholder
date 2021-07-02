@@ -2682,20 +2682,25 @@ tracks/31/keys = PoolRealArray( 0, 1, 0, 0, 0, -3.55271e-15, 0, 0, 1, 1, 1, 1, 1
 
 [node name="Cleric" parent="." index="3" instance=ExtResource( 2 )]
 
+[node name="Skeleton" parent="Cleric/CharacterArmature" index="0"]
+bones/5/bound_children = [ NodePath("BoneAttachment3") ]
+bones/7/bound_children = [ NodePath("BoneAttachment") ]
+bones/22/bound_children = [ NodePath("BoneAttachment2") ]
+
 [node name="BoneAttachment" parent="Cleric/CharacterArmature/Skeleton" index="0"]
-transform = Transform( 1, 3.05889e-12, -0.000550203, -4.369e-05, 0.996843, -0.079407, 0.000548466, 0.0794071, 0.996842, -0.000638377, 2.0875, 0.0809258 )
+transform = Transform( 1, 6.20979e-11, -0.000550203, -3.70185e-05, 0.997734, -0.0672814, 0.000548956, 0.0672815, 0.997734, -0.000638377, 2.08304, 0.0809258 )
 
 [node name="Head" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment" index="0"]
 mesh = SubResource( 1 )
 
 [node name="BoneAttachment2" parent="Cleric/CharacterArmature/Skeleton" index="1"]
-transform = Transform( -0.0700812, -0.098271, -0.992689, -0.359878, -0.925629, 0.117039, -0.930363, 0.365449, 0.0295039, -0.642887, 0.987763, 0.163334 )
+transform = Transform( -0.0737178, -0.107629, -0.991454, -0.359151, -0.924588, 0.127074, -0.930363, 0.365449, 0.0295038, -0.651402, 0.98662, 0.163334 )
 
 [node name="Cleric_Staff" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment2" index="0"]
 mesh = SubResource( 2 )
 
 [node name="BoneAttachment3" parent="Cleric/CharacterArmature/Skeleton" index="2"]
-transform = Transform( 1, -2.85993e-12, -6.08689e-07, -1.11867e-07, 0.982966, -0.183788, 5.98322e-07, 0.183788, 0.982966, -0.000638377, 1.52533, -0.0145075 )
+transform = Transform( 1, -2.87415e-12, -6.0869e-07, -1.11867e-07, 0.982966, -0.183788, 5.98322e-07, 0.183788, 0.982966, -0.000638377, 1.52087, -0.0145075 )
 
 [node name="ShoulderPads" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment3" index="0"]
 mesh = SubResource( 3 )
