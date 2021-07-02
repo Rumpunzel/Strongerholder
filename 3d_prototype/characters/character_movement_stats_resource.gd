@@ -7,7 +7,7 @@ export var move_acceleration: float = 12.0
 
 export(float, 0.0, 1.0, 0.1) var walking_modifier: float = 0.7
 
-export var jump_height: float = 1.0
+export var jump_height: float = 2.0
 export var aerial_modifier: float = 1.1
 export var aerial_acceleration: float = 200.0
 

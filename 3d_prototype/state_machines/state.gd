@@ -48,9 +48,7 @@ func try_get_transition() -> State:
 	
 	for transition in transitions:
 		state = transition.try_get_transition()
-		
 		if state:
-			print(state)
 			break
 	
 	for transition in transitions:
