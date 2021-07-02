@@ -1,9 +1,21 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game_world/scenes/_base_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://quaternius/Medieval Village Pack/Buildings/OBJ/Bell_Tower.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://quaternius/Medieval Village Pack/Buildings/OBJ/House_1.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://prototype_assets/prototype_grids/prototype_512x512_blue2.png" type="Texture" id=4]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends DirectionalLight
+
+
+export var _day_length_in_minutes: int = 5
+
+
+func _process(delta: float) -> void:
+	var radians_to_rotate := -delta * TAU / (60.0 * _day_length_in_minutes)
+	rotate_x(radians_to_rotate)
+"
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_texture = ExtResource( 4 )
@@ -24,6 +36,7 @@ light_bake_mode = 2
 shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 8192.0
+script = SubResource( 4 )
 
 [node name="Plane" type="CSGBox" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
