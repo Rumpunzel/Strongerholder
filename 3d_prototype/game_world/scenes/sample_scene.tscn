@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game_world/scenes/_base_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_world/scenes/prototype_scenes/house.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_world/scenes/prototype_scenes/bell_tower.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prototype_assets/prototype_grids/prototype_512x512_blue2.png" type="Texture" id=4]
 [ext_resource path="res://game_world/scenes/prototype_scenes/campfire.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game_world/scenes/prototype_scenes/axe.tscn" type="PackedScene" id=6]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends DirectionalLight
@@ -50,3 +51,6 @@ material = SubResource( 2 )
 [node name="House" parent="." index="4" instance=ExtResource( 2 )]
 
 [node name="Campfire" parent="." index="5" instance=ExtResource( 5 )]
+
+[node name="Axe" parent="." index="6" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -2, 1, 3 )
