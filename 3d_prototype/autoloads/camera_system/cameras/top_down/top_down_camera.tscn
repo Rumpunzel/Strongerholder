@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://game_world/cameras/top_down/resources/top_down_camera_attributes.tres" type="Resource" id=1]
-[ext_resource path="res://game_world/cameras/top_down/top_down_camera.gd" type="Script" id=2]
+[ext_resource path="res://autoloads/camera_system/cameras/top_down/resources/top_down_camera_attributes.tres" type="Resource" id=1]
+[ext_resource path="res://autoloads/camera_system/cameras/top_down/top_down_camera.gd" type="Script" id=2]
 
 [node name="TopDownCamera" type="Camera"]
 transform = Transform( 0.707107, -0.385118, 0.59303, 0, 0.838671, 0.544639, -0.707107, -0.385118, 0.59303, 24, 25, 24 )

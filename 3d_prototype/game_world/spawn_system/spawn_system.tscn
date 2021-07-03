@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://game_world/managers/spawn_system.gd" type="Script" id=1]
+[ext_resource path="res://game_world/spawn_system/spawn_system.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tools/editor/editor_gizmo.tscn" type="PackedScene" id=3]
 

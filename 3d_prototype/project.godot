@@ -44,11 +44,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state_machines/actions/ascend_action_resource.gd"
 }, {
-"base": "Node",
-"class": "CameraSystem",
-"language": "GDScript",
-"path": "res://game_world/cameras/camera_system.gd"
-}, {
 "base": "KinematicBody",
 "class": "Character",
 "language": "GDScript",
@@ -102,7 +97,7 @@ _global_script_classes=[ {
 "base": "Camera",
 "class": "GameCamera",
 "language": "GDScript",
-"path": "res://game_world/cameras/game_camera.gd"
+"path": "res://autoloads/camera_system/cameras/game_camera.gd"
 }, {
 "base": "GUILayerBase",
 "class": "GameHUD",
@@ -212,7 +207,7 @@ _global_script_classes=[ {
 "base": "Position3D",
 "class": "SpawnSystem",
 "language": "GDScript",
-"path": "res://game_world/managers/spawn_system.gd"
+"path": "res://game_world/spawn_system/spawn_system.gd"
 }, {
 "base": "Reference",
 "class": "State",
@@ -287,12 +282,12 @@ _global_script_classes=[ {
 "base": "GameCamera",
 "class": "TopDownCamera",
 "language": "GDScript",
-"path": "res://game_world/cameras/top_down/top_down_camera.gd"
+"path": "res://autoloads/camera_system/cameras/top_down/top_down_camera.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "TopDownCameraAttributes",
 "language": "GDScript",
-"path": "res://game_world/cameras/top_down/top_down_attributes.gd"
+"path": "res://autoloads/camera_system/cameras/top_down/top_down_attributes.gd"
 }, {
 "base": "Resource",
 "class": "TransitionItemResource",
@@ -317,7 +312,6 @@ _global_script_class_icons={
 "ApplyDestinationPointActionResource": "",
 "ApplyMovementVectorActionResource": "",
 "AscendActionResource": "",
-"CameraSystem": "",
 "Character": "",
 "CharacterModel": "",
 "CharacterMovementStatsResource": "",
@@ -388,6 +382,7 @@ default_bus_layout="res://assets/sounds/default_bus_layout.tres"
 ServiceLocator="*res://autoloads/service_locator.gd"
 Events="*res://autoloads/events.gd"
 InputReader="*res://autoloads/input_reader.gd"
+CameraSystem="*res://autoloads/camera_system/camera_system.tscn"
 
 [debug]
 

@@ -31,8 +31,6 @@ var jump_input: bool
 var attack_input: bool
 
 
-var _camera_system: CameraSystem
-
 var _getting_point_from_mouse: bool = false
 var _previous_speed: float
 
@@ -45,7 +43,6 @@ func _ready() -> void:
 	if Engine.editor_hint:
 		return
 	
-	_camera_system = ServiceLocator.get_service(CameraSystem) as CameraSystem
 	InputReader.listener = self
 	
 	emit_signal("instantiated")
@@ -78,7 +75,7 @@ func _physics_process(_delta: float) -> void:
 
 func get_adjusted_movement() -> Vector3:
 	var ajusted_movement: Vector3
-	var camera: Camera = _camera_system.current_camera
+	var camera: Camera = CameraSystem.current_camera
 	
 	if camera:
 		var camera_forward: Vector3 = camera.transform.basis.z
