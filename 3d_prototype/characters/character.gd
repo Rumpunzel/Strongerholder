@@ -76,17 +76,12 @@ func _physics_process(_delta: float) -> void:
 func get_adjusted_movement() -> Vector3:
 	var ajusted_movement: Vector3
 	var camera: Camera = CameraSystem.current_camera
+	var camera_forward: Vector3 = camera.transform.basis.z
+	camera_forward.y = 0.0
+	var camera_right: Vector3 = camera.transform.basis.x
+	camera_right.y = 0.0
 	
-	if camera:
-		var camera_forward: Vector3 = camera.transform.basis.z
-		camera_forward.y = 0.0
-		var camera_right: Vector3 = camera.transform.basis.x
-		camera_right.y = 0.0
-		
-		ajusted_movement = camera_right.normalized() * input_vector.x + camera_forward.normalized() * input_vector.y
-	else:
-		printerr("No gameplay camera in the scene. Movement orientation will not be correct.")
-		ajusted_movement = Vector3(input_vector.x, 0.0, input_vector.y)
+	ajusted_movement = camera_right.normalized() * input_vector.x + camera_forward.normalized() * input_vector.y
 	
 	return ajusted_movement
 
