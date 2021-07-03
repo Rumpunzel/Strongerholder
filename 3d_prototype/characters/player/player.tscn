@@ -2679,11 +2679,6 @@ _transition_table_resource = ExtResource( 6 )
 [node name="Cleric" parent="." index="4" instance=ExtResource( 2 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
-[node name="Skeleton" parent="Cleric/CharacterArmature" index="0"]
-bones/5/bound_children = [  ]
-bones/7/bound_children = [  ]
-bones/22/bound_children = [  ]
-
 [node name="Head" parent="Cleric/CharacterArmature/Skeleton/BoneAttachment" index="0"]
 mesh = SubResource( 2 )
 

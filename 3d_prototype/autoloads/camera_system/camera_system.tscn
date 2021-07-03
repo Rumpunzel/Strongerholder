@@ -10,3 +10,6 @@ _main_camera_node = NodePath("MainCamera")
 
 [node name="MainCamera" parent="." instance=ExtResource( 3 )]
 current = true
+
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true

@@ -43,14 +43,14 @@ func _ready() -> void:
 	if Engine.editor_hint:
 		return
 	
-	InputReader.listener = self
-	
 	emit_signal("instantiated")
 
 
 func _process(_delta: float) -> void:
 	if Engine.editor_hint:
 		return
+	
+	_read_inputs()
 	
 	if moving_to_destination:
 		_calculate_target_speed(1.0)
@@ -100,8 +100,27 @@ func _calculate_target_speed(new_target_speed: float) -> void:
 func _recalculate_movement() -> void:
 	movement_input = get_adjusted_movement().normalized() * target_speed
 
+
+
+func _read_inputs() -> void:
+	input_vector = Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
+	
+	if Input.is_action_just_pressed("sprint"):
+		is_running = true
+	if Input.is_action_just_released("sprint"):
+		is_running = false
+	
+	if Input.is_action_just_pressed("jump"):
+		jump_input = true
+	if Input.is_action_just_released("jump"):
+		jump_input = false
+
+
 func _get_point_from_mouse() -> void:
 	movement_input = Vector3.ZERO
+	destination_input = CameraSystem.mouse_as_world_point()
+	print(destination_input)
+
 
 
 func _get_configuration_warning() -> String:
