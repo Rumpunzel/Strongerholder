@@ -1,4 +1,4 @@
-class_name CharacterController
+class_name Character
 extends KinematicBody
 tool
 
@@ -68,6 +68,9 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	if Engine.editor_hint:
+		return
+	
 	velocity = move_and_slide(velocity)
 	is_grounded = _ground_check.is_colliding()
 

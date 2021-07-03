@@ -2,16 +2,16 @@
 
 [ext_resource path="res://quaternius/Medieval Village Pack/Props/OBJ/Bonfire.obj" type="ArrayMesh" id=1]
 
-[sub_resource type="SphereShape" id=5]
+[sub_resource type="SphereShape" id=1]
 radius = 0.3
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -5.91505, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=9]
-curve = SubResource( 8 )
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=10]
+[sub_resource type="ParticlesMaterial" id=4]
 lifetime_randomness = 0.5
 emission_shape = 1
 emission_sphere_radius = 0.05
@@ -19,9 +19,9 @@ gravity = Vector3( 0, 9.8, 0 )
 damping = 9.5
 damping_random = 0.1
 scale_random = 0.5
-scale_curve = SubResource( 9 )
+scale_curve = SubResource( 3 )
 
-[sub_resource type="SpatialMaterial" id=11]
+[sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
 flags_do_not_receive_shadows = true
 albedo_color = Color( 1, 0.678431, 0.466667, 1 )
@@ -31,8 +31,8 @@ emission_energy = 5.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=12]
-material = SubResource( 11 )
+[sub_resource type="SphereMesh" id=6]
+material = SubResource( 5 )
 radius = 0.05
 height = 0.1
 radial_segments = 16
@@ -42,7 +42,7 @@ rings = 8
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 pause_mode = 2
@@ -56,8 +56,9 @@ omni_range = 32.0
 pause_mode = 2
 amount = 20
 lifetime = 1.1
-process_material = SubResource( 10 )
-draw_pass_1 = SubResource( 12 )
+preprocess = 2.0
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
 
 [node name="Bonfire" type="MeshInstance" parent="."]
 mesh = ExtResource( 1 )

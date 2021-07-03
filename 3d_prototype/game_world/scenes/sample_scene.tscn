@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game_world/scenes/_base_scene.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game_world/scenes/prototype_scenes/house.tscn" type="PackedScene" id=2]
-[ext_resource path="res://game_world/scenes/prototype_scenes/bell_tower.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prototype_assets/house.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prototype_assets/bell_tower.tscn" type="PackedScene" id=3]
 [ext_resource path="res://prototype_assets/prototype_grids/prototype_512x512_blue2.png" type="Texture" id=4]
-[ext_resource path="res://game_world/scenes/prototype_scenes/campfire.tscn" type="PackedScene" id=5]
-[ext_resource path="res://game_world/scenes/prototype_scenes/axe.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prototype_assets/campfire.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prototype_assets/axe.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prototype_assets/tree.tscn" type="PackedScene" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends DirectionalLight
@@ -39,18 +40,23 @@ directional_shadow_max_distance = 8192.0
 script = SubResource( 1 )
 
 [node name="Plane" type="CSGBox" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0 )
 use_collision = true
 width = 512.0
-height = 1.0
+height = 10.0
 depth = 512.0
 material = SubResource( 2 )
 
 [node name="BellTower" parent="." index="3" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -7 )
 
 [node name="House" parent="." index="4" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0, 4 )
 
 [node name="Campfire" parent="." index="5" instance=ExtResource( 5 )]
 
-[node name="Axe" parent="." index="6" instance=ExtResource( 6 )]
+[node name="Tree" parent="." index="6" instance=ExtResource( 7 )]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 6, 0, -10 )
+
+[node name="Axe" parent="." index="7" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -2, 1, 3 )

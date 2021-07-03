@@ -9,10 +9,10 @@ func create_condition() -> StateCondition:
 
 class IsActuallyMovingToPointCondition extends StateCondition:
 	var _threshold: float
-	var _character_controller: CharacterController
+	var _character: Character
 	
 	func _init(threshold: float):
 		_threshold = threshold
 	
 	func awake(state_machine):
-		_character_controller = state_machine.owner
+		_character = state_machine.owner

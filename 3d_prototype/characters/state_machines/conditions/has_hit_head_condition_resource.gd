@@ -6,18 +6,18 @@ func create_condition() -> StateCondition:
 
 
 class HasHitHeadCondition extends StateCondition:
-	var _character_controller: CharacterController
+	var _character: Character
 	
 	
 	func awake(state_machine):
-		_character_controller = state_machine.owner
+		_character = state_machine.owner
 	
 	
 	func _statement() -> bool:
-		if _character_controller.vertical_velocity <= 0.0 or not _character_controller.is_on_ceiling():
+		if _character.vertical_velocity <= 0.0 or not _character.is_on_ceiling():
 			return false
 		
-		_character_controller.jump_input = false
-		_character_controller.vertical_velocity = 0.0
+		_character.jump_input = false
+		_character.vertical_velocity = 0.0
 		
 		return true

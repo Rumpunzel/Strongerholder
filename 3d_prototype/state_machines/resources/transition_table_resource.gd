@@ -1,12 +1,9 @@
 class_name TransitionTableResource
 extends Resource
 
-
 enum { CONDITIONS, RESULT_GROUPS }
 
-
 export(Array, Resource) var _transitions
-
 
 
 func get_initial_state(state_machine) -> State:# StateMachine) -> State:
@@ -14,7 +11,6 @@ func get_initial_state(state_machine) -> State:# StateMachine) -> State:
 	
 	assert(not states.empty(), "State Machine has not states.")
 	return states.front()
-
 
 
 func _initialize_states(state_machine) -> Array:

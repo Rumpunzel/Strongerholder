@@ -6,13 +6,13 @@ func _create_action() -> StateAction:
 
 
 class ClearInputCachOnEnter extends StateAction:
-	var _character_controller: CharacterController
+	var _character: Character
 	var _interaction_manager
 	
 	
 	func awake(state_machine) -> void:
-		_character_controller = state_machine.owner
+		_character = state_machine.owner
 	
 	func on_state_enter():
-		_character_controller.jump_input = false
+		_character.jump_input = false
 		_interaction_manager.current_interaction = null

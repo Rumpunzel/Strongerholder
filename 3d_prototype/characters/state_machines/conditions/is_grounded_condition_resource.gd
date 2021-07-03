@@ -6,12 +6,12 @@ func create_condition() -> StateCondition:
 
 
 class IsGroundedCondition extends StateCondition:
-	var _character_controller: CharacterController
+	var _character: Character
 	
 	
 	func awake(state_machine):
-		_character_controller = state_machine.owner
+		_character = state_machine.owner
 	
 	
 	func _statement() -> bool:
-		return _character_controller.is_grounded
+		return _character.is_grounded

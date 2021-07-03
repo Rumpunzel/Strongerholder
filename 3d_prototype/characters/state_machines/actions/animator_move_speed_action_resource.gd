@@ -8,7 +8,7 @@ func _create_action() -> StateAction:
 
 
 class AnimatorMoveSpeedAction extends StateAction:
-	var _character_controller: CharacterController
+	var _character: Character
 	var _movement_stats: CharacterMovementStatsResource
 	var _animation_tree: AnimationTree
 	
@@ -20,12 +20,12 @@ class AnimatorMoveSpeedAction extends StateAction:
 	
 	
 	func awake(state_machine) -> void:
-		_character_controller = state_machine.owner
+		_character = state_machine.owner
 		# warning-ignore:unsafe_property_access
-		_movement_stats = _character_controller.movement_stats
+		_movement_stats = _character.movement_stats
 		_animation_tree = state_machine.owner.get_node("AnimationTree")
 	
 	
 	func on_update(_delta: float) -> void:
-		var normalised_speed := _character_controller.horizontal_movement_vector.length() / _movement_stats.move_speed
+		var normalised_speed := _character.horizontal_movement_vector.length() / _movement_stats.move_speed
 		_animation_tree.set(_parameter_name, normalised_speed)
