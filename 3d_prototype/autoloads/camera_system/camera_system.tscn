@@ -9,3 +9,4 @@ script = ExtResource( 4 )
 _main_camera_node = NodePath("MainCamera")
 
 [node name="MainCamera" parent="." instance=ExtResource( 3 )]
+current = true
