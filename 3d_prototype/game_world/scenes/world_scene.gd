@@ -1,5 +1,5 @@
 class_name WorldScene
-extends Spatial
+extends Navigation
 
 func _ready() -> void:
 	Events.emit_signal("scene_loaded")

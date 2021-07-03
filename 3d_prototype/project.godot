@@ -299,7 +299,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://state_machines/resources/transition_table_resource.gd"
 }, {
-"base": "Spatial",
+"base": "Navigation",
 "class": "WorldScene",
 "language": "GDScript",
 "path": "res://game_world/scenes/world_scene.gd"
