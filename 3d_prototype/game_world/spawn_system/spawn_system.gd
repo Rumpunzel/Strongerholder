@@ -3,7 +3,7 @@ extends Position3D
 
 export(PackedScene) var _player_scene
 
-export var _height_offset: float = 0.0
+export(float, 0.0, 1.0, 0.1) var _height_offset = 0.0
 
 
 

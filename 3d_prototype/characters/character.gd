@@ -36,7 +36,7 @@ var _previous_speed: float
 
 
 onready var _ground_check: RayCast = $GroundCheck
-
+#onready var _navigation: Navigation = get_parent() as Navigation
 
 
 func _ready() -> void:

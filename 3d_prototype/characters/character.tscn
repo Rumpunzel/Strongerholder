@@ -2,7 +2,7 @@
 
 [ext_resource path="res://state_machines/state_machine.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
-[ext_resource path="res://characters/character_controller.gd" type="Script" id=3]
+[ext_resource path="res://characters/character.gd" type="Script" id=3]
 [ext_resource path="res://characters/humans/human_movement_stats.tres" type="Resource" id=5]
 
 [sub_resource type="CylinderShape" id=1]
