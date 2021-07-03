@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 4 )
-uv1_scale = Vector3( 256, 256, 1 )
+uv1_scale = Vector3( 128, -128, 1 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 1, 2.5, 1 )
@@ -28,8 +28,8 @@ extents = Vector3( 1, 2.5, 1 )
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 1, 2, 1 )
 
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.3, 0.3, 0.3 )
+[sub_resource type="SphereShape" id=5]
+radius = 0.3
 
 [node name="WorldScene" instance=ExtResource( 1 )]
 
@@ -55,7 +55,7 @@ depth = 512.0
 material = SubResource( 2 )
 
 [node name="BellTower" type="StaticBody" parent="." index="3"]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 0, -6 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -2, 0, -6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="BellTower" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
@@ -75,7 +75,7 @@ material/8 = null
 material/9 = null
 
 [node name="House" type="StaticBody" parent="." index="4"]
-transform = Transform( -1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, -10, 0, 5 )
+transform = Transform( -1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, -10, 0, 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="House" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
@@ -97,7 +97,6 @@ material/8 = null
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Campfire" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
 shape = SubResource( 5 )
 
 [node name="Bonfire_Lit" type="MeshInstance" parent="Campfire" index="1"]

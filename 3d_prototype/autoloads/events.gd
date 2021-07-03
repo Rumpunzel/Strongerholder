@@ -3,8 +3,12 @@ extends Node
 # warning-ignore-all:unused_signal
 
 # Management signal
-signal new_game_started()
+signal game_started()
+signal continued()
 signal game_quit()
+
+signal game_paused()
+signal game_unpaused()
 
 # Menu signals
 signal main_menu_requested()

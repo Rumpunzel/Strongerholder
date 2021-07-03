@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/main_menu/main_menu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ui/game_hud/game_hud.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/gui.gd" type="Script" id=3]
 
 [node name="GUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 43, -165 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -14,3 +16,6 @@ __meta__ = {
 [node name="GameHUD" parent="." instance=ExtResource( 2 )]
 
 [node name="MainMenu" parent="." instance=ExtResource( 1 )]
+
+[connection signal="showed" from="GameHUD" to="." method="_on_game_hud_showed"]
+[connection signal="showed" from="MainMenu" to="." method="_on_main_menu_showed"]
