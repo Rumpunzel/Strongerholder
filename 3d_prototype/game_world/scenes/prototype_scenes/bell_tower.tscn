@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://quaternius/Medieval Village Pack/Buildings/OBJ/Bell_Tower.obj" type="ArrayMesh" id=1]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1, 2.5, 1 )
+
+[node name="BellTower" type="StaticBody"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -2, 0, -6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+shape = SubResource( 3 )
+
+[node name="Bell_Tower" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+material/8 = null
+material/9 = null
