@@ -379,9 +379,7 @@ default_bus_layout="res://assets/sounds/default_bus_layout.tres"
 
 [autoload]
 
-ServiceLocator="*res://autoloads/service_locator.gd"
 Events="*res://autoloads/events.gd"
-InputReader="*res://autoloads/input_reader.gd"
 CameraSystem="*res://autoloads/camera_system/camera_system.tscn"
 
 [debug]

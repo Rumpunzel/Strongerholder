@@ -16,7 +16,6 @@ const SAVE_LOCATION := "user://savegame.save"
 
 func _enter_tree() -> void:
 	randomize()
-	ServiceLocator.register_service(self)
 	
 	var error := Events.connect("game_paused", self, "_on_game_paused")
 	assert(error == OK)
@@ -33,15 +32,6 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	Events.emit_signal("main_menu_requested")
 
-
-
-static func get_service_class() -> String:
-	return "Main"
-
-
-
-func get_class() -> String:
-	return get_service_class()
 
 
 func save_game(path: String = SAVE_LOCATION) -> void:
