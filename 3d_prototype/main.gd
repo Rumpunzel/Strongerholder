@@ -1,12 +1,7 @@
 class_name Main
 extends Node
 
-signal game_save_started
-signal game_save_finished
-signal game_load_started
-signal game_load_finished
-
-const SAVE_LOCATION := "user://savegame.save"
+#const SAVE_LOCATION := "user://savegame.save"
 
 #export var _time_to_pause: float = 0.2
 
@@ -34,37 +29,37 @@ func _ready() -> void:
 
 
 
-func save_game(path: String = SAVE_LOCATION) -> void:
-	var save_file := File.new()
-	var error := save_file.open(path, File.WRITE)
-	
-	assert(error == OK)
-	emit_signal("game_save_started")
-	
-	#SaverLoader.save_game(save_file, get_tree())
-	
-	#yield(SaverLoader, "finished")
-	
-	save_file.close()
-	
-	emit_signal("game_save_finished")
-
-
-func load_game(path: String = SAVE_LOCATION) -> void:
-	var save_file := File.new()
-	var error := save_file.open(path, File.READ)
-	
-	assert(error == OK)
-	emit_signal("game_load_started")
-	
-	#SaverLoader.load_game(save_file, get_tree())
-	
-	#yield(SaverLoader, "finished")
-	
-	save_file.close()
-	
-	emit_signal("game_save_finished")
-	print("Game loaded from %s" % SAVE_LOCATION)
+#func save_game(path: String = SAVE_LOCATION) -> void:
+#	var save_file := File.new()
+#	var error := save_file.open(path, File.WRITE)
+#
+#	assert(error == OK)
+#	emit_signal("game_save_started")
+#
+#	#SaverLoader.save_game(save_file, get_tree())
+#
+#	#yield(SaverLoader, "finished")
+#
+#	save_file.close()
+#
+#	emit_signal("game_save_finished")
+#
+#
+#func load_game(path: String = SAVE_LOCATION) -> void:
+#	var save_file := File.new()
+#	var error := save_file.open(path, File.READ)
+#
+#	assert(error == OK)
+#	emit_signal("game_load_started")
+#
+#	#SaverLoader.load_game(save_file, get_tree())
+#
+#	#yield(SaverLoader, "finished")
+#
+#	save_file.close()
+#
+#	emit_signal("game_save_finished")
+#	print("Game loaded from %s" % SAVE_LOCATION)
 
 
 
