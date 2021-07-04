@@ -20,7 +20,7 @@ uv1_scale = Vector3( 128, 128, 1 )
 material = SubResource( 2 )
 size = Vector2( 512, 512 )
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=4]
 script/source = "extends DirectionalLight
 
 
@@ -53,7 +53,7 @@ light_bake_mode = 2
 shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 8192.0
-script = SubResource( 5 )
+script = SubResource( 4 )
 
 [node name="PlaneCollider" type="CSGBox" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )

@@ -1,7 +1,7 @@
 class_name SpawnSystem
 extends Position3D
 
-export(PackedScene) var _player_scene
+export(String, FILE, "*.tscn") var _player_scene
 
 export(float, 0.0, 1.0, 0.1) var _height_offset = 0.0
 
@@ -17,7 +17,7 @@ func _exit_tree() -> void:
 
 
 func _on_scene_loaded() -> void:
-	var player_instance := _instantiate_scene(_player_scene)
+	var player_instance := _instantiate_scene(load(_player_scene) as PackedScene)
 	
 	Events.emit_signal("player_instantiated", player_instance)
 

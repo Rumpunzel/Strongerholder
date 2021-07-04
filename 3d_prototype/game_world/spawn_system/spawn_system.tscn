@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game_world/spawn_system/spawn_system.gd" type="Script" id=1]
-[ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tools/editor/editor_gizmo.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ViewportTexture" id=1]
@@ -20,7 +19,7 @@ albedo_texture = SubResource( 1 )
 
 [node name="SpawnSystem" type="Position3D"]
 script = ExtResource( 1 )
-_player_scene = ExtResource( 2 )
+_player_scene = "res://characters/player/player.tscn"
 
 [node name="EditorGizmo" parent="." instance=ExtResource( 3 )]
 

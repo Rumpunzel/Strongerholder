@@ -3,7 +3,7 @@ extends Node
 tool
 
 
-export(Resource) var _transition_table_resource
+export(Resource) var _transition_table_resource setget set_transition_table_resource
 
 
 var _current_state: State
@@ -14,9 +14,8 @@ func _ready():
 	if Engine.editor_hint:
 		return
 	
-	_current_state = _transition_table_resource.get_initial_state(self)
-	
-	_current_state.on_state_enter()
+	if _transition_table_resource:
+		_start()
 
 
 func _process(delta: float):
@@ -32,11 +31,23 @@ func _process(delta: float):
 	_current_state.on_update(delta)
 
 
+func _start() -> void:
+	if Engine.editor_hint:
+		return
+	
+	_current_state = _transition_table_resource.get_initial_state(self)
+	_current_state.on_state_enter()
+
 
 func _transition(transition_state: State) -> void:
 	_current_state.on_state_exit()
 	_current_state = transition_state
 	_current_state.on_state_enter()
+
+
+func set_transition_table_resource(new_table: Resource) -> void:
+	_transition_table_resource = new_table
+	_start()
 
 
 func _get_configuration_warning() -> String:

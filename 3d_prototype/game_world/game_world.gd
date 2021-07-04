@@ -12,7 +12,7 @@ func leave() -> void:
 	_current_scene.queue_free()
 
 
-func enter_scene(_new_packed_scene: PackedScene, leave_previous_scene: bool = true):
+func enter_scene(_new_scene: String, leave_previous_scene: bool = true):
 	if leave_previous_scene:
 		leave()
 	
