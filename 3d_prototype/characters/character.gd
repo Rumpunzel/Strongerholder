@@ -17,11 +17,10 @@ var movement_input: Vector3
 var horizontal_movement_vector: Vector2
 var vertical_velocity: float
 
+var moving_to_destination: bool
 var destination_input: Vector3
 var destination_point: Vector3
 var path: Array = [ ] setget set_path
-
-var moving_to_destination: bool
 
 var is_grounded: bool
 
@@ -56,8 +55,7 @@ func _process(_delta: float) -> void:
 	if Engine.editor_hint:
 		return
 	
-	_read_inputs()
-	
+	#print(destination_input)
 	if moving_to_destination:
 		_calculate_target_speed(1.0)
 	else:
@@ -98,25 +96,6 @@ func set_path(new_path: Array) -> void:
 	path = new_path
 	_path_node = 0
 
-
-
-func _read_inputs() -> void:
-	input_vector = Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
-	
-	if Input.is_action_just_pressed("sprint"):
-		is_running = true
-	if Input.is_action_just_released("sprint"):
-		is_running = false
-	
-	if Input.is_action_just_pressed("jump"):
-		jump_input = true
-	if Input.is_action_just_released("jump"):
-		jump_input = false
-	
-	if Input.is_action_just_pressed("mouse_movement"):
-		_getting_point_from_mouse = true
-	if Input.is_action_just_released("mouse_movement"):
-		_getting_point_from_mouse = false
 
 
 func _recalculate_movement() -> void:

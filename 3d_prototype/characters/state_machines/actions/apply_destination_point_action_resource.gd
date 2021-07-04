@@ -17,6 +17,7 @@ class ApplyDestinationPointAction extends StateAction:
 		# warning-ignore:unsafe_property_access
 		_movement_stats = _character.movement_stats
 	
+	
 	func on_update(_delta: float) -> void:
 		_character.path = _navigation.get_simple_path(_character.translation, _character.destination_point, true)
 		

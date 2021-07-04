@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/humans/models/cleric.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://quaternius/RPG Characters/GLB/Cleric_Texture.material" type="Material" id=4]
 [ext_resource path="res://quaternius/RPG Characters/GLB/Cleric_Staff_Texture.material" type="Material" id=5]
 [ext_resource path="res://characters/humans/human_state_machine.tres" type="Resource" id=6]
+[ext_resource path="res://characters/controllers/input_reader.tres" type="Resource" id=7]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -2676,13 +2677,11 @@ shape = SubResource( 1 )
 [node name="StateMachine" parent="." index="2"]
 _transition_table_resource = ExtResource( 6 )
 
+[node name="Controller" parent="." index="3"]
+_transition_table_resource = ExtResource( 7 )
+
 [node name="Cleric" parent="." index="5" instance=ExtResource( 2 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-
-[node name="Skeleton" parent="Cleric/CharacterArmature" index="0"]
-bones/5/bound_children = [  ]
-bones/7/bound_children = [  ]
-bones/22/bound_children = [  ]
 
 [node name="BoneAttachment" parent="Cleric/CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )

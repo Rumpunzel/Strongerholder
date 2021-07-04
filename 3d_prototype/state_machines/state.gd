@@ -1,6 +1,5 @@
 class_name State
 
-
 var origin_resource: Resource
 var state_machine#: StateMachine
 var transitions: Array
