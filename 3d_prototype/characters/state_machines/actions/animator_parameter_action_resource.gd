@@ -62,14 +62,12 @@ class AnimatorParameterAction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		_animation_tree = state_machine.owner.get_node("AnimationTree")
+		assert(_animation_tree)
 	
 	
 	func on_state_enter() -> void:
 		if _when_to_run == StateAction.SpecificMoment.ON_STATE_ENTER:
 			_set_parameter()
-	
-	#func on_update(_delta: float) -> void:
-	#	var normalised_speed := _character.horizontal_movement_vector.length() / _movement_stats.move_speed
 	
 	func on_state_exit() -> void:
 		if _when_to_run == StateAction.SpecificMoment.ON_STATE_EXIT:

@@ -3,7 +3,7 @@ extends Node
 tool
 
 
-export(Resource) var _transition_table_resource setget set_transition_table_resource
+export(Resource) var _transition_table_resource
 
 
 var _current_state: State
@@ -16,6 +16,8 @@ func _ready():
 	
 	if _transition_table_resource:
 		_start()
+	else:
+		set_process(false)
 
 
 func _process(delta: float):
@@ -46,8 +48,10 @@ func _transition(transition_state: State) -> void:
 
 
 func set_transition_table_resource(new_table: Resource) -> void:
+	assert(new_table)
 	_transition_table_resource = new_table
 	_start()
+	set_process(true)
 
 
 func _get_configuration_warning() -> String:

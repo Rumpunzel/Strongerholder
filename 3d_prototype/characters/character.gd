@@ -69,7 +69,7 @@ func _process(_delta: float) -> void:
 		_recalculate_movement()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Engine.editor_hint:
 		return
 	

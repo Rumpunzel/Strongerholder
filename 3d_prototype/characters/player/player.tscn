@@ -2676,13 +2676,8 @@ shape = SubResource( 1 )
 [node name="StateMachine" parent="." index="2"]
 _transition_table_resource = ExtResource( 6 )
 
-[node name="Cleric" parent="." index="4" instance=ExtResource( 2 )]
+[node name="Cleric" parent="." index="5" instance=ExtResource( 2 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-
-[node name="Skeleton" parent="Cleric/CharacterArmature" index="0"]
-bones/5/bound_children = [  ]
-bones/7/bound_children = [  ]
-bones/22/bound_children = [  ]
 
 [node name="BoneAttachment" parent="Cleric/CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )
@@ -2719,7 +2714,7 @@ anims/Spell1 = SubResource( 15 )
 anims/Staff_Attack = SubResource( 16 )
 anims/Walk = SubResource( 17 )
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="5"]
+[node name="AnimationTree" type="AnimationTree" parent="." index="6"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Cleric/AnimationPlayer")
 parameters/grounded/current = 0
