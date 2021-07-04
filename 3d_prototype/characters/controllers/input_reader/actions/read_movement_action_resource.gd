@@ -6,17 +6,20 @@ func _create_action() -> StateAction:
 
 
 class ReadMovementAction extends StateAction:
-	var _character: Character
+	var _inputs: CharacterMovementInputs
 	
 	
 	func awake(state_machine) -> void:
-		_character = state_machine.owner
+		var character: Character = state_machine.owner
+		_inputs = character.get_inputs()
 	
 	
 	func on_update(_delta: float) -> void:
-		_character.input_vector = Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"), Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
+		var horizonal_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+		var vertical_input := Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+		_inputs.input_vector = Vector2(horizonal_input, vertical_input)
 		
 		if Input.is_action_just_pressed("sprint"):
-			_character.is_running = true
+			_inputs.is_running = true
 		if Input.is_action_just_released("sprint"):
-			_character.is_running = false
+			_inputs.is_running = false

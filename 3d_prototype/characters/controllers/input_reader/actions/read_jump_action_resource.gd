@@ -6,15 +6,16 @@ func _create_action() -> StateAction:
 
 
 class ReadJumpAction extends StateAction:
-	var _character: Character
+	var _inputs: CharacterMovementInputs
 	
 	
 	func awake(state_machine) -> void:
-		_character = state_machine.owner
+		var character: Character = state_machine.owner
+		_inputs = character.get_inputs()
 	
 	
 	func on_update(_delta: float) -> void:
 		if Input.is_action_just_pressed("jump"):
-			_character.jump_input = true
+			_inputs.jump_input = true
 		if Input.is_action_just_released("jump"):
-			_character.jump_input = false
+			_inputs.jump_input = false
