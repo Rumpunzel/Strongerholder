@@ -20,7 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("pause_game"):
 		get_tree().set_input_as_handled()
 		if visible:
-			hide_menu()
+			_on_continue_pressed()
 		else:
 			show_menu()
 
