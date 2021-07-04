@@ -9,7 +9,6 @@ func _create_action() -> StateAction:
 
 class StopMovementAction extends StateAction:
 	var _character: Character
-	
 	var _moment: int
 	
 	
@@ -34,5 +33,5 @@ class StopMovementAction extends StateAction:
 	
 	
 	func _null_movement() -> void:
-		_character.destination_input = _character.transform.origin
+		_character.destination_input = _character.translation
 		_character.horizontal_movement_vector = Vector2.ZERO

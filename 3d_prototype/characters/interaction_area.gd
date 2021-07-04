@@ -25,19 +25,19 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_released("interact"):
 		if current_interaction and not current_interaction.type == InteractionType.NONE:
-			_character.destination_input = transform.origin
+			_character.destination_input = translation
 
 
 func _interact_with_nearest() -> void:
 	_nearest_interaction = _find_nearest_interaction(_objects_in_interaction_range)
 	if _nearest_interaction:
 		current_interaction = _nearest_interaction
-		_character.destination_input = transform.origin
+		_character.destination_input = translation
 		return
 	
 	_nearest_interaction = _find_nearest_interaction(_objects_in_perception_range)
 	if _nearest_interaction:
-		_character.destination_input = _nearest_interaction.node.transform.origin
+		_character.destination_input = _nearest_interaction.node.translation
 		return
 
 
@@ -56,7 +56,7 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 		if potential_interaction.type == InteractionType.NONE:
 			continue
 		
-		var distance := transform.origin.distance_squared_to(object.transform.origin)
+		var distance := translation.distance_squared_to(object.translation)
 		if distance < closest_distance:
 			closest_distance = distance
 			nearest = potential_interaction

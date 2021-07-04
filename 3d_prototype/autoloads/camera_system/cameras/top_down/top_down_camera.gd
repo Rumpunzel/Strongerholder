@@ -45,8 +45,8 @@ func _frame_node(node: Spatial) -> void:
 	_offset.x = _attributes.distance_from_follow * cos(_angle)
 	_offset.z = _attributes.distance_from_follow * sin(_angle)
 	
-	_position = node.transform.origin + _offset
+	_position = node.translation + _offset
 	_position.y = _attributes.shoulder_height + _attributes.distance_off_ground * _zoom
 	
-	transform.origin = _position
-	look_at(Vector3(node.transform.origin.x, _attributes.shoulder_height, node.transform.origin.z), Vector3.UP)
+	translation = _position
+	look_at(Vector3(node.translation.x, _attributes.shoulder_height, node.translation.z), Vector3.UP)

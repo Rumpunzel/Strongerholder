@@ -16,4 +16,4 @@ class MoveToPointAction extends StateAction:
 		_movement_stats = _character.movement_stats
 	
 	func on_update(_delta: float) -> void:
-		pass
+		_character.destination_point = _character.destination_input

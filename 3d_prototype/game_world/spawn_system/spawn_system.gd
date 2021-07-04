@@ -27,7 +27,7 @@ func _instantiate_scene(scene: PackedScene) -> Spatial:
 	var new_scene := scene.instance() as Spatial
 	
 	owner.add_child(new_scene)
-	new_scene.transform.origin = self.transform.origin + Vector3.UP * _height_offset
-	new_scene.rotation = self.rotation
+	new_scene.translation = translation + Vector3.UP * _height_offset
+	new_scene.rotation = rotation
 	
 	return new_scene

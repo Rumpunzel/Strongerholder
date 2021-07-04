@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=9 format=2]
 
 [ext_resource path="res://state_machines/resources/state_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/humans/state_machines/actions/apply_destination_point.tres" type="Resource" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://characters/humans/state_machines/actions/animator_move_speed_action.tres" type="Resource" id=5]
 [ext_resource path="res://characters/humans/state_machines/actions/set_walking_true_on_enter.tres" type="Resource" id=6]
 [ext_resource path="res://characters/humans/state_machines/actions/set_walking_false_on_exit.tres" type="Resource" id=7]
+[ext_resource path="res://characters/humans/state_machines/actions/enable_navigation.tres" type="Resource" id=8]
 
 [resource]
 script = ExtResource( 1 )
-_actions = [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 7 ) ]
+_actions = [ ExtResource( 8 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 7 ) ]

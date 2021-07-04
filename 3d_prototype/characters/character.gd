@@ -19,6 +19,7 @@ var vertical_velocity: float
 
 var destination_input: Vector3
 var destination_point: Vector3
+var path: Array = [ ]
 
 var moving_to_destination: bool
 
@@ -30,13 +31,17 @@ var target_speed: float
 var jump_input: bool
 var attack_input: bool
 
+var navigation: Navigation
+
 
 var _getting_point_from_mouse: bool = false
-var _previous_speed: float
+var _ground_check: RayCast
 
 
-onready var _ground_check: RayCast = $GroundCheck
-#onready var _navigation: Navigation = get_parent() as Navigation
+
+func _enter_tree() -> void:
+	navigation = get_parent() as Navigation
+	_ground_check = $GroundCheck
 
 
 func _ready() -> void:
@@ -56,7 +61,7 @@ func _process(_delta: float) -> void:
 		_calculate_target_speed(1.0)
 	else:
 		_calculate_target_speed(input_vector.length())
-		destination_input = transform.origin
+		destination_input = translation
 	
 	if _getting_point_from_mouse:
 		_get_point_from_mouse()
@@ -64,36 +69,28 @@ func _process(_delta: float) -> void:
 		_recalculate_movement()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Engine.editor_hint:
 		return
 	
-	velocity = move_and_slide(velocity)
+	if moving_to_destination:
+		if path.empty():
+			return
+		
+		var destination: Vector3 = path[0]
+		var direction := destination - translation
+		var direction_length := direction.length()
+		var step_size: float = movement_stats.move_speed
+		
+		#if step_size * delta > direction_length:
+		#	step_size = direction_length / delta
+		#	path.remove(0)
+		print(path)
+		velocity = move_and_slide(direction.normalized() * step_size)
+	else:
+		velocity = move_and_slide(velocity)
+	
 	is_grounded = _ground_check.is_colliding()
-
-
-
-func get_adjusted_movement() -> Vector3:
-	var ajusted_movement: Vector3
-	var camera: Camera = CameraSystem.current_camera
-	var camera_forward: Vector3 = camera.transform.basis.z
-	camera_forward.y = 0.0
-	var camera_right: Vector3 = camera.transform.basis.x
-	camera_right.y = 0.0
-	
-	ajusted_movement = camera_right.normalized() * input_vector.x + camera_forward.normalized() * input_vector.y
-	
-	return ajusted_movement
-
-
-
-func _calculate_target_speed(new_target_speed: float) -> void:
-	_previous_speed = target_speed
-	new_target_speed = clamp(new_target_speed, 0.0, 1.0) * (1.0 if is_running else movement_stats.walking_modifier)
-	target_speed = new_target_speed
-
-func _recalculate_movement() -> void:
-	movement_input = get_adjusted_movement().normalized() * target_speed
 
 
 
@@ -109,13 +106,25 @@ func _read_inputs() -> void:
 		jump_input = true
 	if Input.is_action_just_released("jump"):
 		jump_input = false
+	
+	if Input.is_action_just_pressed("mouse_movement"):
+		_getting_point_from_mouse = true
+	if Input.is_action_just_released("mouse_movement"):
+		_getting_point_from_mouse = false
+
+
+func _recalculate_movement() -> void:
+	movement_input = CameraSystem.get_adjusted_movement(input_vector).normalized() * target_speed
 
 
 func _get_point_from_mouse() -> void:
 	movement_input = Vector3.ZERO
-	destination_input = CameraSystem.mouse_as_world_point()
-	print(destination_input)
+	destination_input = CameraSystem.mouse_as_world_point(navigation)
 
+
+func _calculate_target_speed(new_target_speed: float) -> void:
+	new_target_speed = clamp(new_target_speed, 0.0, 1.0) * (1.0 if is_running else movement_stats.walking_modifier)
+	target_speed = new_target_speed
 
 
 func _get_configuration_warning() -> String:
