@@ -19,7 +19,7 @@ var vertical_velocity: float
 
 var destination_input: Vector3
 var destination_point: Vector3
-var path: Array = [ ]
+var path: Array = [ ] setget set_path
 
 var moving_to_destination: bool
 
@@ -35,6 +35,7 @@ var navigation: Navigation
 
 
 var _getting_point_from_mouse: bool = false
+var _path_node: int = 0
 var _ground_check: RayCast
 
 
@@ -69,28 +70,33 @@ func _process(_delta: float) -> void:
 		_recalculate_movement()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Engine.editor_hint:
 		return
 	
 	if moving_to_destination:
-		if path.empty():
+		if _path_node >= path.size():
 			return
 		
-		var destination: Vector3 = path[0]
+		var destination: Vector3 = path[_path_node]
 		var direction := destination - translation
 		var direction_length := direction.length()
 		var step_size: float = movement_stats.move_speed
-		
-		#if step_size * delta > direction_length:
-		#	step_size = direction_length / delta
-		#	path.remove(0)
 		print(path)
-		velocity = move_and_slide(direction.normalized() * step_size)
+		if direction_length < step_size * delta:
+			_path_node += 1
+		else:
+			velocity = move_and_slide(direction.normalized() * step_size)
 	else:
 		velocity = move_and_slide(velocity)
 	
 	is_grounded = _ground_check.is_colliding()
+
+
+
+func set_path(new_path: Array) -> void:
+	path = new_path
+	_path_node = 0
 
 
 

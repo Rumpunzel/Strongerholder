@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://prototype_assets/prototype_grids/prototype_512x512_blue2.png" type="Texture" id=1]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 2, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="FloorCube" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = SubResource( 1 )
