@@ -6,17 +6,20 @@ func _create_action() -> StateAction:
 
 
 class AerialMovementAction extends StateAction:
-	var _character: Character
+	var _inputs: CharacterMovementInputs
+	var _actions: CharacterMovementActions
 	var _movement_stats: CharacterMovementStatsResource
 	
 	
 	func awake(state_machine) -> void:
-		_character = state_machine.owner
+		var character: Character = state_machine.owner
+		_inputs = character.get_inputs()
+		_actions = character.get_actions()
 		# warning-ignore:unsafe_property_access
-		_movement_stats = _character.movement_stats
+		_movement_stats = character.movement_stats
 	
 	func on_update(_delta: float) -> void:
-		var move_speed := _character.target_speed * _movement_stats.move_speed * _movement_stats.aerial_modifier
+		var move_speed := _actions.target_speed * _movement_stats.move_speed * _movement_stats.aerial_modifier
 		
-		_character.horizontal_movement_vector.x = _character.movement_input.x * move_speed
-		_character.horizontal_movement_vector.y = _character.movement_input.z * move_speed
+		_actions.horizontal_movement_vector.x = _inputs.movement_input.x * move_speed
+		_actions.horizontal_movement_vector.y = _inputs.movement_input.z * move_speed

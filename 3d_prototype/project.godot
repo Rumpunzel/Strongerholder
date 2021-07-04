@@ -54,6 +54,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/character_model.gd"
 }, {
+"base": "Node",
+"class": "CharacterMovementActions",
+"language": "GDScript",
+"path": "res://characters/controllers/character_movement_actions.gd"
+}, {
+"base": "Node",
+"class": "CharacterMovementInputs",
+"language": "GDScript",
+"path": "res://characters/controllers/character_movement_inputs.gd"
+}, {
 "base": "Resource",
 "class": "CharacterMovementStatsResource",
 "language": "GDScript",
@@ -334,6 +344,8 @@ _global_script_class_icons={
 "AscendActionResource": "",
 "Character": "",
 "CharacterModel": "",
+"CharacterMovementActions": "",
+"CharacterMovementInputs": "",
 "CharacterMovementStatsResource": "",
 "ClearInputCachOnEnterResource": "",
 "CollectableItem": "",
@@ -392,7 +404,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="3D Prototype"
+config/name="Strongherholder"
 run/main_scene="res://main.tscn"
 config/icon="res://castle.png"
 config/version="0.0.1-alpha"
@@ -419,6 +431,8 @@ gdscript/warnings/unsafe_call_argument=true
 window/size/width=1920
 window/size/height=1080
 window/vsync/use_vsync=false
+mouse_cursor/custom_image="res://icon_sword.png"
+mouse_cursor/custom_image_hotspot=Vector2( 5, 5 )
 
 [input]
 

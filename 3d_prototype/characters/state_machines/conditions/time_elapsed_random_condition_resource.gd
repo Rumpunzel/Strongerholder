@@ -20,6 +20,5 @@ class TimeElapsedRandomCondition extends StateCondition:
 	func on_state_enter():
 		_start_time = OS.get_unix_time()
 	
-	
 	func _statement() -> bool:
 		return OS.get_unix_time() >= _start_time + _timer_length

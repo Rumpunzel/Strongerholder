@@ -8,8 +8,8 @@ func create_condition() -> StateCondition:
 
 
 class IsMovingCondition extends StateCondition:
+	var _inputs: CharacterMovementInputs
 	var _threshold: float
-	var _character: Character
 	
 	
 	func _init(threshold: float):
@@ -17,11 +17,11 @@ class IsMovingCondition extends StateCondition:
 	
 	
 	func awake(state_machine):
-		_character = state_machine.owner
-	
+		var character: Character = state_machine.owner
+		_inputs = character.get_inputs()
 	
 	func _statement() -> bool:
-		var movement_vector: Vector3 = _character.movement_input
+		var movement_vector: Vector3 = _inputs.movement_input
 		movement_vector.y = 0.0
 		
 		return movement_vector.length_squared() > _threshold

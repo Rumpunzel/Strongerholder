@@ -6,7 +6,7 @@ func _create_action() -> StateAction:
 
 
 class AscendAction extends StateAction:
-	var _character: Character
+	var _actions: CharacterMovementActions
 	var _movement_stats: CharacterMovementStatsResource
 	
 	var _gravity_magnitude: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -14,13 +14,14 @@ class AscendAction extends StateAction:
 	
 	
 	func awake(state_machine) -> void:
-		_character = state_machine.owner
+		var character: Character = state_machine.owner
+		_actions = character.get_actions()
 		# warning-ignore:unsafe_property_access
-		_movement_stats = _character.movement_stats
+		_movement_stats = character.movement_stats
 	
 	func on_state_enter():
 		_vertical_velocity = sqrt(_movement_stats.jump_height * 3.0 * _gravity_magnitude * _movement_stats.gravity_ascend_multiplier)
 	
 	func on_update(delta: float) -> void:
 		_vertical_velocity -= _gravity_magnitude * _movement_stats.gravity_ascend_multiplier * delta
-		_character.vertical_velocity = _vertical_velocity
+		_actions.vertical_velocity = _vertical_velocity

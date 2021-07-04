@@ -14,7 +14,9 @@ func _create_action() -> StateAction:
 class ToggleMovementAction extends StateAction:
 	enum { CONTINUOUS, NAVIGATION }
 	
-	var _character#: Character
+	var _character: Character
+	var _inputs: CharacterMovementInputs
+	var _actions: CharacterMovementActions
 	var _movement_type: int
 	
 	
@@ -24,10 +26,18 @@ class ToggleMovementAction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
+		_inputs = _character.get_inputs()
+		_actions = _character.get_actions()
+	
 	
 	func on_state_enter() -> void:
 		match _movement_type:
 			CONTINUOUS:
-				_character.moving_to_destination = false
+				_actions.moving_to_destination = false
 			NAVIGATION:
-				_character.moving_to_destination = true
+				_actions.moving_to_destination = true
+	
+	func on_update(_delta: float) -> void:
+		match _movement_type:
+			CONTINUOUS:
+				_inputs.destination_input = _character.translation

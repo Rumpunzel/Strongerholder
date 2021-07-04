@@ -6,16 +6,16 @@ func create_condition() -> StateCondition:
 
 
 class IsPickingUpCondition extends StateCondition:
-	var _interaction_manager
+	var _interaction_area: InteractionArea
 	
 	
 	func awake(state_machine):
-		_interaction_manager = state_machine.owner
-	
+		var character: Character = state_machine.owner
+		_interaction_area = character.get_interaction_area()
 	
 	func _statement() -> bool:
-		#if not _interaction_manager.current_interaction or not _interaction_manager.current_interaction.type == InteractionManager.InteractionType.Attack:
-		#	return false
+		if not _interaction_area.current_interaction or not _interaction_area.current_interaction.type == InteractionArea.InteractionType.Attack:
+			return false
 		
-		#_interaction_manager.current_interaction.type = InteractionManager.InteractionType.None
+		_interaction_area.current_interaction.type = InteractionArea.InteractionType.None
 		return false

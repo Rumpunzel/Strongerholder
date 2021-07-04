@@ -14,8 +14,13 @@ var _nearest_interaction: Interaction
 
 var current_interaction: Interaction
 
-onready var _character: Character = owner as Character
+var _inputs: CharacterMovementInputs
 
+
+
+func _ready() -> void:
+	var character = owner
+	_inputs = character.get_inputs()
 
 
 func _process(_delta: float) -> void:
@@ -25,19 +30,19 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_released("interact"):
 		if current_interaction and not current_interaction.type == InteractionType.NONE:
-			_character.destination_input = translation
+			_inputs.destination_input = translation
 
 
 func _interact_with_nearest() -> void:
 	_nearest_interaction = _find_nearest_interaction(_objects_in_interaction_range)
 	if _nearest_interaction:
 		current_interaction = _nearest_interaction
-		_character.destination_input = translation
+		_inputs.destination_input = translation
 		return
 	
 	_nearest_interaction = _find_nearest_interaction(_objects_in_perception_range)
 	if _nearest_interaction:
-		_character.destination_input = _nearest_interaction.node.translation
+		_inputs.destination_input = _nearest_interaction.node.translation
 		return
 
 

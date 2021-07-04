@@ -19,6 +19,5 @@ class TimeElapsedCondition extends StateCondition:
 	func on_state_enter():
 		_start_time = float(OS.get_ticks_msec())
 	
-	
 	func _statement() -> bool:
 		return OS.get_ticks_msec() >= _start_time + _timer_length

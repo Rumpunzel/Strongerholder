@@ -9,6 +9,8 @@ func _create_action() -> StateAction:
 
 class StopMovementAction extends StateAction:
 	var _character: Character
+	var _inputs: CharacterMovementInputs
+	var _actions: CharacterMovementActions
 	var _moment: int
 	
 	
@@ -18,6 +20,8 @@ class StopMovementAction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
+		_inputs = _character.get_inputs()
+		_actions = _character.get_actions()
 	
 	func on_state_enter() -> void:
 		if _moment == StateAction.SpecificMoment.ON_STATE_ENTER:
@@ -33,5 +37,5 @@ class StopMovementAction extends StateAction:
 	
 	
 	func _null_movement() -> void:
-		_character.destination_input = _character.translation
-		_character.horizontal_movement_vector = Vector2.ZERO
+		_inputs.destination_input = _character.translation
+		_actions.horizontal_movement_vector = Vector2.ZERO

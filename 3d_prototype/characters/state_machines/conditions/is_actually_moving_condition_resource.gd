@@ -8,8 +8,8 @@ func create_condition() -> StateCondition:
 
 
 class IsActuallyMovingCondition extends StateCondition:
-	var _threshold: float
 	var _character: Character
+	var _threshold: float
 	
 	
 	func _init(threshold: float):
@@ -18,7 +18,6 @@ class IsActuallyMovingCondition extends StateCondition:
 	
 	func awake(state_machine):
 		_character = state_machine.owner
-	
 	
 	func _statement() -> bool:
 		return _character.velocity.length_squared() > _threshold * _threshold

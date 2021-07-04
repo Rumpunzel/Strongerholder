@@ -6,7 +6,7 @@
 [ext_resource path="res://quaternius/RPG Characters/GLB/Cleric_Texture.material" type="Material" id=4]
 [ext_resource path="res://quaternius/RPG Characters/GLB/Cleric_Staff_Texture.material" type="Material" id=5]
 [ext_resource path="res://characters/humans/human_state_machine.tres" type="Resource" id=6]
-[ext_resource path="res://characters/controllers/input_reader.tres" type="Resource" id=7]
+[ext_resource path="res://characters/humans/human_movement_stats.tres" type="Resource" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -2669,6 +2669,7 @@ tracks/31/enabled = true
 tracks/31/keys = PoolRealArray( 0, 1, 0, 0, 0, -3.55271e-15, 0, 0, 1, 1, 1, 1, 1.25, 1, 0, 0, 0, -3.55271e-15, 0, 0, 1, 1, 1, 1 )
 
 [node name="Character" instance=ExtResource( 1 )]
+movement_stats = ExtResource( 8 )
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.75, 0 )
@@ -2677,11 +2678,13 @@ shape = SubResource( 1 )
 [node name="StateMachine" parent="." index="2"]
 _transition_table_resource = ExtResource( 6 )
 
-[node name="Controller" parent="." index="3"]
-_transition_table_resource = ExtResource( 7 )
-
 [node name="Cleric" parent="." index="5" instance=ExtResource( 2 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+
+[node name="Skeleton" parent="Cleric/CharacterArmature" index="0"]
+bones/5/bound_children = [  ]
+bones/7/bound_children = [  ]
+bones/22/bound_children = [  ]
 
 [node name="BoneAttachment" parent="Cleric/CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )

@@ -17,14 +17,16 @@ func _exit_tree() -> void:
 
 
 func _on_scene_loaded() -> void:
-	var player_instance := _instantiate_scene(load(_player_scene) as PackedScene)
+	var player_instance := _instantiate_scene(_player_scene)
 	
 	Events.emit_signal("player_instantiated", player_instance)
 
 
-func _instantiate_scene(scene: PackedScene) -> Spatial:
-	assert(scene)
-	var new_scene := scene.instance() as Spatial
+func _instantiate_scene(scene_path: String) -> Spatial:
+	var new_packed_scene := load(scene_path) as PackedScene
+	assert(new_packed_scene)
+	var new_scene := new_packed_scene.instance() as Spatial
+	assert(new_scene)
 	
 	owner.add_child(new_scene)
 	new_scene.translation = translation + Vector3.UP * _height_offset

@@ -6,12 +6,12 @@ func create_condition() -> StateCondition:
 
 
 class IsHoldingJumpCondition extends StateCondition:
-	var _character: Character
+	var _inputs: CharacterMovementInputs
 	
 	
 	func awake(state_machine):
-		_character = state_machine.owner
-	
+		var character: Character = state_machine.owner
+		_inputs = character.get_inputs()
 	
 	func _statement() -> bool:
-		return _character.jump_input
+		return _inputs.jump_input

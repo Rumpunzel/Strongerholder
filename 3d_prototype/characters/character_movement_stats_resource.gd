@@ -2,7 +2,7 @@ class_name CharacterMovementStatsResource
 extends Resource
 
 # warning-ignore-all:unused_class_variable
-export var move_speed: float = 12.0
+export var move_speed: float = 8.0
 export var move_acceleration: float = 12.0
 
 export(float, 0.0, 1.0, 0.1) var walking_modifier: float = 0.7

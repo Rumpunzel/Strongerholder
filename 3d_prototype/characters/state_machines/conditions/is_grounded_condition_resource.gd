@@ -12,6 +12,5 @@ class IsGroundedCondition extends StateCondition:
 	func awake(state_machine):
 		_character = state_machine.owner
 	
-	
 	func _statement() -> bool:
 		return _character.is_grounded

@@ -8,8 +8,7 @@ func _create_action() -> StateAction:
 
 
 class GroundGravityAction extends StateAction:
-	var _character: Character
-	
+	var _actions: CharacterMovementActions
 	var _vertical_pull: float
 	
 	
@@ -18,7 +17,8 @@ class GroundGravityAction extends StateAction:
 	
 	
 	func awake(state_machine) -> void:
-		_character = state_machine.owner
+		var character: Character = state_machine.owner
+		_actions = character.get_actions()
 	
 	func on_update(_delta: float) -> void:
-		_character.vertical_velocity = _vertical_pull
+		_actions.vertical_velocity = _vertical_pull
