@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://characters/state_machine_resources/states/idle.tres" type="Resource" id=1]
+[ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=2]
+[ext_resource path="res://characters/state_machine_resources/transitions/condition_usages/is_moving_true.tres" type="Resource" id=3]
+[ext_resource path="res://characters/state_machine_resources/states/walking.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 2 )
+from_state = ExtResource( 1 )
+to_state = ExtResource( 4 )
+conditions = [ ExtResource( 3 ) ]

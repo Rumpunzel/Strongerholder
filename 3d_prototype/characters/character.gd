@@ -53,13 +53,6 @@ func get_navigation() -> Navigation:
 func _get_configuration_warning() -> String:
 	var warning := ""
 	
-	# Structure
-	warning = "Character has no visuals"
-	for child in get_children():
-		if child is GeometryInstance or child is CharacterModel:
-			warning = ""
-			break
-	
 	# Data
 	if not movement_stats:
 		warning = "MovementStats are required"
