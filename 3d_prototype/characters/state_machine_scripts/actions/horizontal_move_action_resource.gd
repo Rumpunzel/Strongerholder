@@ -19,7 +19,7 @@ class HorizontalMoveAction extends StateAction:
 		_movement_stats = character.movement_stats
 	
 	func on_update(_delta: float) -> void:
-		var move_speed = _actions.target_speed * _movement_stats.move_speed
+		var move_speed := _actions.target_speed * _movement_stats.move_speed
 		
 		_actions.horizontal_movement_vector.x = _inputs.movement_input.x * move_speed
 		_actions.horizontal_movement_vector.y = _inputs.movement_input.z * move_speed

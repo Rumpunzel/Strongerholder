@@ -28,6 +28,7 @@ class ApplyMovementVectorAction extends StateAction:
 		_character.velocity = new_movement_vector
 		
 		if not horizontal_movement == Vector2.ZERO:
-			var look_position := -Vector3(horizontal_movement.x, _character.translation.y, horizontal_movement.y) * 10.0
+			var look_position := -Vector3(horizontal_movement.x, 0.0, horizontal_movement.y) * 10.0
+			look_position.y = _character.translation.y
 			var new_transform := _character.transform.looking_at(look_position, Vector3.UP)
 			_character.transform  = _character.transform.interpolate_with(new_transform, _movement_stats.turn_rate * delta)
