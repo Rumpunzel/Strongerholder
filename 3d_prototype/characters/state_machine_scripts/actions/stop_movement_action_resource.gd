@@ -37,5 +37,4 @@ class StopMovementAction extends StateAction:
 	
 	
 	func _null_movement() -> void:
-		_inputs.destination_input = _character.translation
 		_actions.horizontal_movement_vector = Vector2.ZERO

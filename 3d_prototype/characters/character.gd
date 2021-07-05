@@ -25,9 +25,7 @@ func _physics_process(_delta: float) -> void:
 	if Engine.editor_hint:
 		return
 	
-	#if not get_actions().moving_to_destination:
 	velocity = move_and_slide(velocity)
-	
 	is_grounded = _ground_check.is_colliding()
 
 

@@ -27,6 +27,7 @@ class ApplyMovementVectorAction extends StateAction:
 		
 		_character.velocity = new_movement_vector
 		
+		
 		if not horizontal_movement == Vector2.ZERO:
 			var look_position := -Vector3(horizontal_movement.x, 0.0, horizontal_movement.y) * 10.0
 			look_position.y = _character.translation.y

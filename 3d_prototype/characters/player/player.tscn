@@ -20,6 +20,9 @@ shape = SubResource( 1 )
 [node name="Controller" parent="." index="3"]
 _transition_table_resource = ExtResource( 4 )
 
+[node name="MeshInstance" parent="Controller/MovementActions/MovementDingle" index="0"]
+transform = Transform( 0.834365, 0, -0.138022, 0, -1, 0, 0.552087, 0, 0.208591, 0, 0.5, 0 )
+
 [node name="Cleric" parent="." index="5" instance=ExtResource( 2 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
@@ -28,4 +31,4 @@ tree_root = ExtResource( 3 )
 anim_player = NodePath("../Cleric/AnimationPlayer")
 parameters/grounded/current = 0
 parameters/idle_walk/current = 0
-parameters/walk_speed/blend_amount = 0
+parameters/walk_speed/blend_amount = 0.0

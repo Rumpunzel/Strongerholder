@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://state_machines/state_machine.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
@@ -17,6 +17,9 @@ script/source = "extends ImmediateGeometry
 
 func draw_path(path_array: Array) -> void:
 	clear()
+	if path_array.empty():
+		return
+	
 	begin(Mesh.PRIMITIVE_POINTS, null)
 	add_vertex(path_array[0])
 	add_vertex(path_array[path_array.size() - 1])
@@ -28,6 +31,29 @@ func draw_path(path_array: Array) -> void:
 	
 	end()
 "
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Spatial
+tool
+
+export var _turn_speed := 2.0
+
+onready var _cursor: Spatial = $MeshInstance
+
+
+func _ready() -> void:
+	var error := Events.connect(\"clicked_to_move\", _cursor, \"set_translation\")
+	assert(error == OK)
+
+func _process(delta: float) -> void:
+	_cursor.rotate_y(_turn_speed * delta)
+"
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_no_depth_test = true
+
+[sub_resource type="PrismMesh" id=6]
+size = Vector3( 1, 1, 1 )
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -58,6 +84,16 @@ script = ExtResource( 6 )
 [node name="Line" type="ImmediateGeometry" parent="Controller/MovementActions"]
 material_override = SubResource( 3 )
 script = SubResource( 4 )
+
+[node name="MovementDingle" type="Spatial" parent="Controller/MovementActions"]
+visible = false
+script = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Controller/MovementActions/MovementDingle"]
+transform = Transform( 1.00372, 0, 0.00918955, 0, -1, 0, -0.0367582, 0, 0.250929, 0, 0.5, 0 )
+material_override = SubResource( 7 )
+mesh = SubResource( 6 )
+material/0 = null
 
 [node name="InteractionArea" type="Area" parent="."]
 collision_layer = 0

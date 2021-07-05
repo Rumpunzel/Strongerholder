@@ -31,5 +31,5 @@ class IsMovingToPointCondition extends StateCondition:
 		
 		var destination: Vector3 = _inputs.destination_input
 		var distance: Vector3 = destination - _character.translation
-		
+		#print(distance)
 		return distance.length_squared() > _minimum_distance

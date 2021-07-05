@@ -19,9 +19,6 @@ class ApplyDestinationPointAction extends StateAction:
 		# warning-ignore:unsafe_property_access
 		_movement_stats = _character.movement_stats
 	
-	func on_state_enter() -> void:
-		_actions.path = _navigation.get_simple_path(_character.translation, _actions.destination_point, true)
-	
 	func on_update(delta: float) -> void:
 		if not _actions.on_path():
 			return
@@ -34,12 +31,19 @@ class ApplyDestinationPointAction extends StateAction:
 		
 		if direction_length < step_size * delta:
 			_actions.reached_point()
-		else:
-			_character.velocity = direction.normalized() * step_size
+		
+		var horizontal_movement := Vector2(direction.normalized().x, direction.normalized().z) * step_size
+		var new_movement_vector := Vector3(
+				horizontal_movement.x,
+				_actions.vertical_velocity,
+				horizontal_movement.y
+		)
+		
+		_character.velocity = new_movement_vector
 		
 		
-		if not direction == Vector3.ZERO:
-			var look_position := direction
+		if not horizontal_movement == Vector2.ZERO:
+			var look_position := -Vector3(horizontal_movement.x, 0.0, horizontal_movement.y) * 10.0
 			look_position.y = _character.translation.y
 			var new_transform := _character.transform.looking_at(look_position, Vector3.UP)
 			_character.transform  = _character.transform.interpolate_with(new_transform, _movement_stats.turn_rate * delta)

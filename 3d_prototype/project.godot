@@ -64,11 +64,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/character_movement_stats_resource.gd"
 }, {
-"base": "StateActionResource",
-"class": "ClearInputCachOnEnterResource",
-"language": "GDScript",
-"path": "res://characters/state_machine_scripts/actions/clear_input_cache_on_enter_resource.gd"
-}, {
 "base": "RigidBody",
 "class": "CollectableItem",
 "language": "GDScript",
@@ -143,16 +138,6 @@ _global_script_classes=[ {
 "class": "InteractionArea",
 "language": "GDScript",
 "path": "res://characters/interaction_area.gd"
-}, {
-"base": "StateConditionResource",
-"class": "IsActuallyMovingConditionResource",
-"language": "GDScript",
-"path": "res://characters/state_machine_scripts/conditions/is_actually_moving_condition_resource.gd"
-}, {
-"base": "StateConditionResource",
-"class": "IsActuallyMovingToPointConditionResource",
-"language": "GDScript",
-"path": "res://characters/state_machine_scripts/conditions/is_actually_moving_to_point_condition_resource.gd"
 }, {
 "base": "StateConditionResource",
 "class": "IsAttackingConditionResource",
@@ -294,11 +279,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state_machine_scripts/conditions/time_elapsed_random_condition_resource.gd"
 }, {
-"base": "StateActionResource",
-"class": "ToggleMovementActionResource",
-"language": "GDScript",
-"path": "res://characters/state_machine_scripts/actions/toggle_movement_action_resource.gd"
-}, {
 "base": "ItemResource",
 "class": "ToolResource",
 "language": "GDScript",
@@ -341,7 +321,6 @@ _global_script_class_icons={
 "CharacterMovementActions": "",
 "CharacterMovementInputs": "",
 "CharacterMovementStatsResource": "",
-"ClearInputCachOnEnterResource": "",
 "CollectableItem": "",
 "ConditionUsageResource": "",
 "DescendActionResource": "",
@@ -357,8 +336,6 @@ _global_script_class_icons={
 "HasHitHeadConditionResource": "",
 "HorizontalMoveActionResource": "",
 "InteractionArea": "",
-"IsActuallyMovingConditionResource": "",
-"IsActuallyMovingToPointConditionResource": "",
 "IsAttackingConditionResource": "",
 "IsGroundedConditionResource": "",
 "IsHoldingJumpConditionResource": "",
@@ -387,7 +364,6 @@ _global_script_class_icons={
 "StructureResource": "",
 "TimeElapsedConditionResource": "",
 "TimeElapsedRandomConditionResource": "",
-"ToggleMovementActionResource": "",
 "ToolResource": "",
 "TopDownCamera": "",
 "TopDownCameraAttributes": "",
