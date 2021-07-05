@@ -22,3 +22,10 @@ signal scene_loaded()
 signal scene_unloaded()
 
 signal camera_changed(camera_node)
+
+
+# HUD signals
+
+
+# In-world UX
+signal clicked_to_move(position)

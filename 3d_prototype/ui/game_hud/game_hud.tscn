@@ -1,7 +1,27 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/game_hud/game_hud.gd" type="Script" id=2]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Spatial
+tool
+
+export var _turn_speed := 2.0
+
+onready var _cursor: Spatial = $MeshInstance
+
+
+func _ready() -> void:
+	var error := Events.connect(\"clicked_to_move\", _cursor, \"set_translation\")
+	assert(error == OK)
+
+func _process(delta: float) -> void:
+	_cursor.rotate_y(_turn_speed * delta)
+"
+
+[sub_resource type="PrismMesh" id=1]
+size = Vector3( 1, 1, 1 )
 
 [node name="GameHUD" type="Control"]
 anchor_right = 1.0
@@ -42,3 +62,11 @@ size_flags_vertical = 8
 text = "PLACEHOLDER ART"
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="MovementDingle" type="Spatial" parent="."]
+script = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="MovementDingle"]
+transform = Transform( 1, 0, 0, 0, -1, 0, 0, 0, 0.25, 0, 0.5, 0 )
+mesh = SubResource( 1 )
+material/0 = null

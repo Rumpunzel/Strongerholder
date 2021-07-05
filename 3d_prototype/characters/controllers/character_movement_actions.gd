@@ -38,3 +38,4 @@ func _calculate_target_speed(new_target_speed: float) -> void:
 func _set_path(new_path: Array) -> void:
 	path = new_path
 	_path_node = 0
+	$Line.draw_path(path)

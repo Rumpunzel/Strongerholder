@@ -17,7 +17,8 @@ class ReadMovementAction extends StateAction:
 	func on_update(_delta: float) -> void:
 		var horizonal_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		var vertical_input := Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-		_inputs.input_vector = Vector2(horizonal_input, vertical_input)
+		var input_vector = Vector2(horizonal_input, vertical_input)
+		_inputs.movement_input = CameraSystem.get_adjusted_movement(input_vector).normalized()# * target_speed
 		
 		if Input.is_action_just_pressed("sprint"):
 			_inputs.is_running = true

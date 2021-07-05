@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://state_machines/state_machine.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
@@ -6,6 +6,28 @@
 [ext_resource path="res://characters/controllers/character_movement_inputs.gd" type="Script" id=4]
 [ext_resource path="res://characters/controllers/character_movement_actions.gd" type="Script" id=6]
 [ext_resource path="res://characters/state_machine_resources/default_character_state_machine.tres" type="Resource" id=7]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+flags_use_point_size = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends ImmediateGeometry
+
+func draw_path(path_array: Array) -> void:
+	clear()
+	begin(Mesh.PRIMITIVE_POINTS, null)
+	add_vertex(path_array[0])
+	add_vertex(path_array[path_array.size() - 1])
+	end()
+	begin(Mesh.PRIMITIVE_LINE_STRIP, null)
+	
+	for x in path_array:
+		add_vertex(x)
+	
+	end()
+"
 
 [sub_resource type="CylinderShape" id=1]
 
@@ -32,6 +54,10 @@ script = ExtResource( 4 )
 
 [node name="MovementActions" type="Node" parent="Controller"]
 script = ExtResource( 6 )
+
+[node name="Line" type="ImmediateGeometry" parent="Controller/MovementActions"]
+material_override = SubResource( 3 )
+script = SubResource( 4 )
 
 [node name="InteractionArea" type="Area" parent="."]
 collision_layer = 0
