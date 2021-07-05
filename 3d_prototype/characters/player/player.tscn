@@ -3,7 +3,7 @@
 [ext_resource path="res://characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/humans/models/cleric.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/humans/models/cleric_animations.tres" type="AnimationNodeBlendTree" id=3]
-[ext_resource path="res://characters/humans/human_state_machine.tres" type="Resource" id=6]
+[ext_resource path="res://characters/controllers/input_reader.tres" type="Resource" id=4]
 [ext_resource path="res://characters/humans/human_movement_stats.tres" type="Resource" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
@@ -17,17 +17,15 @@ movement_stats = ExtResource( 8 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.75, 0 )
 shape = SubResource( 1 )
 
-[node name="StateMachine" parent="." index="2"]
-_transition_table_resource = ExtResource( 6 )
+[node name="Controller" parent="." index="3"]
+_transition_table_resource = ExtResource( 4 )
 
 [node name="Cleric" parent="." index="5" instance=ExtResource( 2 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="6"]
+[node name="AnimationTree" parent="." index="6"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Cleric/AnimationPlayer")
 parameters/grounded/current = 0
 parameters/idle_walk/current = 0
-parameters/walk_speed/blend_amount = 0.0
-
-[connection signal="instantiated" from="." to="AnimationTree" method="set_active" binds= [ true ]]
+parameters/walk_speed/blend_amount = 0
