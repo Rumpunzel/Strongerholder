@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "StateActionResource",
-"class": "AerialMovementActionResource",
-"language": "GDScript",
-"path": "res://characters/state_machine_scripts/actions/aerial_movement_action_resource.gd"
-}, {
 "base": "StateConditionResource",
 "class": "AlwaysFalseConditionResource",
 "language": "GDScript",
@@ -28,11 +23,6 @@ _global_script_classes=[ {
 "class": "AnimatorParameterActionResource",
 "language": "GDScript",
 "path": "res://characters/state_machine_scripts/actions/animator_parameter_action_resource.gd"
-}, {
-"base": "StateActionResource",
-"class": "ApplyDestinationPointActionResource",
-"language": "GDScript",
-"path": "res://characters/state_machine_scripts/actions/apply_destination_point_action_resource.gd"
 }, {
 "base": "StateActionResource",
 "class": "ApplyMovementVectorActionResource",
@@ -155,11 +145,6 @@ _global_script_classes=[ {
 "path": "res://characters/state_machine_scripts/conditions/is_moving_condition_resource.gd"
 }, {
 "base": "StateConditionResource",
-"class": "IsMovingToPointConditionResource",
-"language": "GDScript",
-"path": "res://characters/state_machine_scripts/conditions/is_moving_to_point_condition_resource.gd"
-}, {
-"base": "StateConditionResource",
 "class": "IsPickingUpConditionResource",
 "language": "GDScript",
 "path": "res://characters/state_machine_scripts/conditions/is_picking_up_condition_resource.gd"
@@ -178,11 +163,6 @@ _global_script_classes=[ {
 "class": "MainMenu",
 "language": "GDScript",
 "path": "res://ui/main_menu/main_menu.gd"
-}, {
-"base": "StateActionResource",
-"class": "MoveToPointActionResource",
-"language": "GDScript",
-"path": "res://characters/state_machine_scripts/actions/move_to_point_action_resource.gd"
 }, {
 "base": "Resource",
 "class": "ObjectResource",
@@ -305,11 +285,9 @@ _global_script_classes=[ {
 "path": "res://game_world/scenes/world_scene.gd"
 } ]
 _global_script_class_icons={
-"AerialMovementActionResource": "",
 "AlwaysFalseConditionResource": "",
 "AnimatorMoveSpeedActionResource": "",
 "AnimatorParameterActionResource": "",
-"ApplyDestinationPointActionResource": "",
 "ApplyMovementVectorActionResource": "",
 "AscendActionResource": "",
 "Character": "",
@@ -334,12 +312,10 @@ _global_script_class_icons={
 "IsGroundedConditionResource": "",
 "IsHoldingJumpConditionResource": "",
 "IsMovingConditionResource": "",
-"IsMovingToPointConditionResource": "",
 "IsPickingUpConditionResource": "",
 "ItemResource": "",
 "Main": "",
 "MainMenu": "",
-"MoveToPointActionResource": "",
 "ObjectResource": "",
 "ReadJumpActionResource": "",
 "ReadMouseMovementActionResource": "",

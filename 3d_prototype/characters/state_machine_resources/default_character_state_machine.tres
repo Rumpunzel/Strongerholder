@@ -5,6 +5,7 @@
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_jump_ascending.tres" type="Resource" id=3]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_jump_descending.tres" type="Resource" id=4]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_pick_up.tres" type="Resource" id=5]
+[ext_resource path="res://characters/state_machine_resources/transitions/from_jump_descending/jump_descending_to_idle.tres" type="Resource" id=6]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_idle.tres" type="Resource" id=7]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_attack.tres" type="Resource" id=9]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_pick_up.tres" type="Resource" id=10]
@@ -13,9 +14,8 @@
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_jump_ascending.tres" type="Resource" id=13]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_attack/attack_to_idle.tres" type="Resource" id=15]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_pick_up/pick_up_to_idle.tres" type="Resource" id=18]
-[ext_resource path="res://characters/state_machine_resources/transitions/from_jump_descending/test_jump_descending_to_idle.tres" type="Resource" id=21]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_jump_ascending/jump_ascending_to_jump_descending.tres" type="Resource" id=25]
 
 [resource]
 script = ExtResource( 1 )
-_transitions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 25 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 21 ) ]
+_transitions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 25 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 6 ) ]
