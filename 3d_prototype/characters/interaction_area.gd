@@ -1,6 +1,8 @@
 class_name InteractionArea
 extends Area
 
+signal item_picked_up(item)
+
 enum InteractionType {
 	NONE,
 	PICK_UP,
@@ -31,7 +33,8 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_released("interact"):
 		if current_interaction and not current_interaction.type == InteractionType.NONE:
-			_inputs.destination_input = translation
+			_inputs.destination_input = _character.translation
+
 
 
 func _interact_with_nearest() -> void:
@@ -68,6 +71,18 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 			nearest = potential_interaction
 	
 	return nearest
+
+
+
+func _collect() -> void:
+	var item_node: CollectableItem = current_interaction.node as CollectableItem
+	var item: ItemResource = item_node.item_resource
+	emit_signal("item_picked_up", item)
+	
+	current_interaction = null
+	# HACK: properly destroy here
+	item_node.queue_free()
+
 
 
 

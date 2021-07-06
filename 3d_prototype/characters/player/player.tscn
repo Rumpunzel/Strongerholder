@@ -27,4 +27,5 @@ tree_root = ExtResource( 3 )
 anim_player = NodePath("../Wizard/AnimationPlayer")
 parameters/grounded/current = 0
 parameters/idle_walk/current = 0
+parameters/pick_up/active = false
 parameters/walk_speed/blend_amount = 0.0

@@ -14,8 +14,8 @@ class IsPickingUpCondition extends StateCondition:
 		_interaction_area = character.get_interaction_area()
 	
 	func _statement() -> bool:
-		if not _interaction_area.current_interaction or not _interaction_area.current_interaction.type == InteractionArea.InteractionType.ATTACK:
+		if not _interaction_area.current_interaction or not _interaction_area.current_interaction.type == InteractionArea.InteractionType.PICK_UP:
 			return false
 		
 		_interaction_area.current_interaction.type = InteractionArea.InteractionType.NONE
-		return false
+		return true

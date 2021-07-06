@@ -7,13 +7,6 @@
 [node name="CharacterArmature" parent="." index="0"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
-[node name="Skeleton" parent="CharacterArmature" index="1"]
-bones/4/bound_children = [ NodePath("BoneAttachment5") ]
-bones/7/bound_children = [ NodePath("BoneAttachment") ]
-bones/9/bound_children = [ NodePath("BoneAttachment2") ]
-bones/17/bound_children = [ NodePath("BoneAttachment4") ]
-bones/22/bound_children = [ NodePath("BoneAttachment3") ]
-
 [node name="BoneAttachment" parent="CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )
 
