@@ -24,7 +24,7 @@ class StopMovementAction extends StateAction:
 		_actions = _character.get_actions()
 	
 	func on_state_enter() -> void:
-		if _moment == StateAction.SpecificMoment.ON_STATE_ENTER:
+		if not _moment == StateAction.SpecificMoment.ON_STATE_EXIT:
 			_null_movement()
 	
 	func on_update(_delta: float) -> void:
@@ -32,9 +32,10 @@ class StopMovementAction extends StateAction:
 			_null_movement()
 	
 	func on_state_exit() -> void:
-		if _moment == StateAction.SpecificMoment.ON_STATE_EXIT:
+		if not _moment == StateAction.SpecificMoment.ON_STATE_ENTER:
 			_null_movement()
 	
 	
 	func _null_movement() -> void:
+		_inputs.destination_input = _character.translation
 		_actions.horizontal_movement_vector = Vector2.ZERO

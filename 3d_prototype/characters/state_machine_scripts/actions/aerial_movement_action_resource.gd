@@ -1,14 +1,25 @@
 class_name AerialMovementActionResource
 extends StateActionResource
 
+enum MovementType { ON_GROUND, IN_AIR }
+
+export(MovementType) var _movement_type
+
 func _create_action() -> StateAction:
-	return AerialMovementAction.new()
+	return AerialMovementAction.new(_movement_type)
 
 
 class AerialMovementAction extends StateAction:
+	enum MovementType { ON_GROUND, IN_AIR }
+	
 	var _inputs: CharacterMovementInputs
 	var _actions: CharacterMovementActions
 	var _movement_stats: CharacterMovementStatsResource
+	var _movement_type: int
+	
+	
+	func _init(movement_type: int) -> void:
+		_movement_type = movement_type
 	
 	
 	func awake(state_machine) -> void:

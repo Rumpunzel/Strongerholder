@@ -1,9 +1,7 @@
 class_name AnimatorParameterActionResource
 extends StateActionResource
 
-
 enum ParameterType { Bool, Int, Float }
-
 
 export(ParameterType) var _paramter_type
 export var _parameter_name: String
@@ -28,7 +26,7 @@ func _create_action() -> StateAction:
 
 
 class AnimatorParameterAction extends StateAction:
-	enum ParameterType { Bool, Int, Float }
+	enum { Bool, Int, Float }
 	
 	var _animation_tree: AnimationTree
 	
@@ -76,9 +74,9 @@ class AnimatorParameterAction extends StateAction:
 	
 	func _set_parameter():
 		match _parameter_type:
-			ParameterType.Bool:
+			Bool:
 				_animation_tree.set(_parameter_name, _bool_value)
-			ParameterType.Int:
+			Int:
 				_animation_tree.set(_parameter_name, _int_value)
-			ParameterType.Float:
+			Float:
 				_animation_tree.set(_parameter_name, _float_value)

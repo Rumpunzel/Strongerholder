@@ -5,13 +5,13 @@ extends Node
 var horizontal_movement_vector: Vector2 setget _set_horizontal_movement_vector
 var vertical_velocity: float
 
-var destination_point: Vector3 setget _set_destination_point
+onready var destination_point: Vector3 setget _set_destination_point
 var path: Array = [ ] setget _set_path
 
-var target_speed: float
+var moving_to_destination: bool = false setget _set_moving_to_destination
+var target_speed: float = 1.0
 
 var _navigation: Navigation
-var _moving_to_destination: bool
 var _path_node: int = 0
 
 
@@ -41,16 +41,24 @@ func reached_point() -> void:
 
 func _set_horizontal_movement_vector(new_vector: Vector2) -> void:
 	horizontal_movement_vector = new_vector
-	_set_path([ ])
+	if not horizontal_movement_vector == Vector2.ZERO:
+		_set_moving_to_destination(false)
+	#print("horizontal_movement_vector: %s" % horizontal_movement_vector)
 
 func _set_destination_point(new_point: Vector3) -> void:
 	destination_point = new_point
-	assert(false)
+	#print("destination_point: %s" % destination_point)
 	_set_path(_navigation.get_simple_path(owner.translation, destination_point))
+	$MovementDingle.translation = destination_point
 
 func _set_path(new_path: Array) -> void:
 	path = new_path
 	_path_node = 1
-	_moving_to_destination = path.size() > 1
+	#moving_to_destination = path.size() > 1
 	$Line.draw_path(path)
 	$MovementDingle.visible = path.size() > 1
+
+func _set_moving_to_destination(is_moving: bool) -> void:
+	moving_to_destination = is_moving
+	if not moving_to_destination:
+		_set_path([ ])

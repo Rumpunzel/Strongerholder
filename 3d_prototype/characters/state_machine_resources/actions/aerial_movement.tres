@@ -1,6 +1,7 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://characters/state_machine_scripts/actions/aerial_movement_action_resource.gd" type="Script" id=1]
+[ext_resource path="res://characters/state_machine_scripts/actions/horizontal_move_action_resource.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
+_movement_type = 1
