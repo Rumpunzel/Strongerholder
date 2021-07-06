@@ -4,6 +4,11 @@
 
 [node name="Cleric" instance=ExtResource( 1 )]
 
+[node name="Skeleton" parent="CharacterArmature" index="0"]
+bones/5/bound_children = [ NodePath("BoneAttachment3") ]
+bones/7/bound_children = [ NodePath("BoneAttachment") ]
+bones/22/bound_children = [ NodePath("BoneAttachment2") ]
+
 [node name="BoneAttachment" parent="CharacterArmature/Skeleton" index="0"]
 transform = Transform( 1, 6.12512e-12, -0.000550203, -6.16702e-05, 0.993699, -0.112086, 0.000546736, 0.112086, 0.993698, -0.000638377, 2.09957, 0.0809259 )
 
