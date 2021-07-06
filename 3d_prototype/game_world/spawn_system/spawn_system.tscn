@@ -10,7 +10,6 @@ viewport_path = NodePath("EditorGizmo/Viewport")
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
-flags_fixed_size = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 params_cull_mode = 2
@@ -37,6 +36,7 @@ text = "PlayerSpawnPoint"
 
 [node name="Sprite3D" parent="EditorGizmo" index="1"]
 material_override = SubResource( 2 )
+pixel_size = 0.02
 texture = SubResource( 1 )
 
 [editable path="EditorGizmo"]
