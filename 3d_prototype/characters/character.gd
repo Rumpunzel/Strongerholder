@@ -17,6 +17,7 @@ func _ready() -> void:
 	if Engine.editor_hint:
 		return
 	
+	set_axis_lock(PhysicsServer.BODY_AXIS_ANGULAR_Y, true)
 	_ground_check = $GroundCheck
 	emit_signal("instantiated")
 
