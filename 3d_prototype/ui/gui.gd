@@ -1,5 +1,5 @@
 class_name GUI
-extends Control
+extends CanvasLayer
 
 func _on_game_hud_showed(layer: GUILayerBase) -> void:
 	_show_exlusively(layer)

@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/fps_label.gd"
 }, {
-"base": "Control",
+"base": "CanvasLayer",
 "class": "GUI",
 "language": "GDScript",
 "path": "res://ui/gui.gd"
@@ -113,11 +113,6 @@ _global_script_classes=[ {
 "class": "GameVersion",
 "language": "GDScript",
 "path": "res://ui/game_version.gd"
-}, {
-"base": "Spatial",
-"class": "GameWorld",
-"language": "GDScript",
-"path": "res://game_world/game_world.gd"
 }, {
 "base": "StateActionResource",
 "class": "GroundGravityActionResource",
@@ -331,7 +326,6 @@ _global_script_class_icons={
 "GameHUD": "",
 "GameTitle": "",
 "GameVersion": "",
-"GameWorld": "",
 "GroundGravityActionResource": "",
 "HasHitHeadConditionResource": "",
 "HorizontalMoveActionResource": "",

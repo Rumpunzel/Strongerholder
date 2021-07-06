@@ -6,6 +6,7 @@
 [sub_resource type="MeshLibrary" id=1]
 
 [node name="WorldScene" type="Navigation"]
+pause_mode = 1
 script = ExtResource( 4 )
 
 [node name="SpawnSystem" parent="." instance=ExtResource( 1 )]
