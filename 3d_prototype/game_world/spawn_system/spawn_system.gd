@@ -3,7 +3,7 @@ extends Position3D
 
 export(String, FILE, "*.tscn") var _player_scene
 
-export(float, 0.0, 1.0, 0.1) var _height_offset = 0.0
+onready var _ray_cast: RayCast = $RayCast
 
 
 
@@ -29,7 +29,8 @@ func _instantiate_scene(scene_path: String) -> Spatial:
 	assert(new_scene)
 	
 	owner.add_child(new_scene)
-	new_scene.translation = translation + Vector3.UP * _height_offset
+	# TODO: find out why this raycast is not returning valid data
+	new_scene.translation = translation#_ray_cast.get_collision_point()
 	new_scene.rotation = rotation
 	
 	return new_scene
