@@ -10,7 +10,7 @@
 radius = 0.5
 height = 0.5
 
-[node name="Character" instance=ExtResource( 1 )]
+[node name="Player" instance=ExtResource( 1 )]
 movement_stats = ExtResource( 8 )
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="0"]

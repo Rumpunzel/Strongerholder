@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Cleric.glb-f05715a7143d1861bbca333a8130baba.scn"
+path="res://.import/Cleric.glb-29513a06699d2ae72b9a6753328712b7.scn"
 
 [deps]
 
-source_file="res://quaternius/RPG Characters/GLB/Cleric.glb"
-dest_files=[ "res://.import/Cleric.glb-f05715a7143d1861bbca333a8130baba.scn" ]
+source_file="res://quaternius/RPG Characters/GLB/Cleric/Cleric.glb"
+dest_files=[ "res://.import/Cleric.glb-29513a06699d2ae72b9a6753328712b7.scn" ]
 
 [params]
 
