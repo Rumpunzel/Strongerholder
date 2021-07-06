@@ -32,27 +32,21 @@ func draw_path(path_array: Array) -> void:
 	end()
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="SpatialMaterial" id=3]
+flags_no_depth_test = true
+
+[sub_resource type="PrismMesh" id=4]
+size = Vector3( 1, 1, 1 )
+
+[sub_resource type="GDScript" id=5]
 script/source = "extends Spatial
 
 export var _turn_speed := 2.0
 
-onready var _cursor: Spatial = $MeshInstance
-
-
-func _ready() -> void:
-	var error := Events.connect(\"clicked_to_move\", _cursor, \"set_translation\")
-	assert(error == OK)
 
 func _process(delta: float) -> void:
-	_cursor.rotate_y(_turn_speed * delta)
+	rotate_y(_turn_speed * delta)
 "
-
-[sub_resource type="SpatialMaterial" id=4]
-flags_no_depth_test = true
-
-[sub_resource type="PrismMesh" id=5]
-size = Vector3( 1, 1, 1 )
 
 [sub_resource type="CylinderShape" id=6]
 
@@ -84,15 +78,13 @@ script = ExtResource( 6 )
 material_override = SubResource( 1 )
 script = SubResource( 2 )
 
-[node name="MovementDingle" type="Spatial" parent="Controller/MovementActions"]
+[node name="MovementDingle" type="MeshInstance" parent="Controller/MovementActions"]
+transform = Transform( 1, 0, 0, 0, -1, 0, 0, 0, -0.25, 0, 0.5, 0 )
 visible = false
-script = SubResource( 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Controller/MovementActions/MovementDingle"]
-transform = Transform( 1, 0, 0, 0, -1, 0, 0, 0, 0.25, 0, 0.5, 0 )
-material_override = SubResource( 4 )
-mesh = SubResource( 5 )
+material_override = SubResource( 3 )
+mesh = SubResource( 4 )
 material/0 = null
+script = SubResource( 5 )
 
 [node name="InteractionArea" type="Area" parent="."]
 collision_layer = 0
