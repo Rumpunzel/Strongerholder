@@ -4,6 +4,9 @@
 
 [node name="Wizard" instance=ExtResource( 1 )]
 
+[node name="CharacterArmature" parent="." index="0"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+
 [node name="Skeleton" parent="CharacterArmature" index="1"]
 bones/4/bound_children = [ NodePath("BoneAttachment5") ]
 bones/7/bound_children = [ NodePath("BoneAttachment") ]
