@@ -80,6 +80,7 @@ material_override = SubResource( 1 )
 script = SubResource( 2 )
 
 [node name="MovementDingle" type="Spatial" parent="Controller/MovementActions"]
+visible = false
 
 [node name="MershInstance" type="MeshInstance" parent="Controller/MovementActions/MovementDingle"]
 transform = Transform( 1, 0, 0, 0, -1, 0, 0, 0, 0.25, 0, 1, 0 )

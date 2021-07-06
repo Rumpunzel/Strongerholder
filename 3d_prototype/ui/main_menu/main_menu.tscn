@@ -66,7 +66,7 @@ custom_constants/margin_left = 200
 margin_left = 200.0
 margin_top = 320.0
 margin_right = 425.0
-margin_bottom = 505.0
+margin_bottom = 565.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 50
@@ -88,11 +88,11 @@ script = ExtResource( 2 )
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MenuContainer/MenuContent"]
 margin_top = 81.0
 margin_right = 225.0
-margin_bottom = 185.0
+margin_bottom = 245.0
 
 [node name="MenuButtons" type="VBoxContainer" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer"]
 margin_right = 128.0
-margin_bottom = 104.0
+margin_bottom = 164.0
 size_flags_horizontal = 0
 custom_constants/separation = 16
 
@@ -101,10 +101,16 @@ margin_right = 128.0
 margin_bottom = 44.0
 text = "Continue"
 
-[node name="Quit" type="Button" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons"]
+[node name="Restart" type="Button" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons"]
 margin_top = 60.0
 margin_right = 128.0
 margin_bottom = 104.0
+text = "Restart"
+
+[node name="Quit" type="Button" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons"]
+margin_top = 120.0
+margin_right = 128.0
+margin_bottom = 164.0
 text = "Quit"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
@@ -129,4 +135,5 @@ script = ExtResource( 3 )
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Quit" to="." method="_on_quit_pressed"]

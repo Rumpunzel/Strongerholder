@@ -32,6 +32,9 @@ func _on_continue_pressed() -> void:
 	hide_menu()
 	Events.emit_signal("game_started")
 
+func _on_restart_pressed():
+	get_tree().reload_current_scene()
+
 func _on_quit_pressed() -> void:
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
 	
