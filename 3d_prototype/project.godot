@@ -124,6 +124,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/interaction_area.gd"
 }, {
+"base": "Node",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://characters/inventory.gd"
+}, {
+"base": "Popup",
+"class": "InventoryHUD",
+"language": "GDScript",
+"path": "res://ui/game_hud/inventory_hud/inventory_hud.gd"
+}, {
 "base": "StateConditionResource",
 "class": "IsAttackingConditionResource",
 "language": "GDScript",
@@ -154,6 +164,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://items/item_resource.gd"
 }, {
+"base": "Reference",
+"class": "ItemStack",
+"language": "GDScript",
+"path": "res://items/item_stack.gd"
+}, {
 "base": "Node",
 "class": "Main",
 "language": "GDScript",
@@ -170,6 +185,11 @@ _global_script_classes=[ {
 "path": "res://object_resources/object_resource.gd"
 }, {
 "base": "StateActionResource",
+"class": "ReadInventoryActionResource",
+"language": "GDScript",
+"path": "res://characters/controllers/input_reader/actions/read_inventory_action_resource.gd"
+}, {
+"base": "Reference",
 "class": "ReadJumpActionResource",
 "language": "GDScript",
 "path": "res://characters/controllers/input_reader/actions/read_jump_action_resource.gd"
@@ -308,15 +328,19 @@ _global_script_class_icons={
 "HasHitHeadConditionResource": "",
 "HorizontalMoveActionResource": "",
 "InteractionArea": "",
+"Inventory": "",
+"InventoryHUD": "",
 "IsAttackingConditionResource": "",
 "IsGroundedConditionResource": "",
 "IsHoldingJumpConditionResource": "",
 "IsMovingConditionResource": "",
 "IsPickingUpConditionResource": "",
 "ItemResource": "",
+"ItemStack": "",
 "Main": "",
 "MainMenu": "",
 "ObjectResource": "",
+"ReadInventoryActionResource": "",
 "ReadJumpActionResource": "",
 "ReadMouseMovementActionResource": "",
 "ReadMovementActionResource": "",
@@ -1553,6 +1577,12 @@ select_object={
 mouse_movement={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+open_inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
 

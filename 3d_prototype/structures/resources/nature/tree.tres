@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-_name = "Tree"
-_scene = "res://prototype_assets/tree.tscn"
+name = "Tree"
+scene = "res://prototype_assets/tree.tscn"

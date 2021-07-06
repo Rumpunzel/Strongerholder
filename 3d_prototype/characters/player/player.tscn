@@ -20,12 +20,14 @@ shape = SubResource( 1 )
 [node name="Controller" parent="." index="3"]
 _transition_table_resource = ExtResource( 4 )
 
-[node name="Wizard" parent="." index="5" instance=ExtResource( 2 )]
+[node name="Wizard" parent="." index="6" instance=ExtResource( 2 )]
 
-[node name="AnimationTree" parent="." index="6"]
+[node name="AnimationTree" parent="." index="7"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Wizard/AnimationPlayer")
 parameters/grounded/current = 0
 parameters/idle_walk/current = 0
 parameters/pick_up/active = false
 parameters/walk_speed/blend_amount = 0.0
+
+[connection signal="item_picked_up" from="InteractionArea" to="Inventory" method="add"]

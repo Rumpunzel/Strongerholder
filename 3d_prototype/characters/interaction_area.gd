@@ -73,7 +73,6 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 	return nearest
 
 
-
 func _collect() -> void:
 	var item_node: CollectableItem = current_interaction.node as CollectableItem
 	var item: ItemResource = item_node.item_resource
@@ -82,7 +81,6 @@ func _collect() -> void:
 	current_interaction = null
 	# HACK: properly destroy here
 	item_node.queue_free()
-
 
 
 
@@ -98,7 +96,6 @@ func _on_body_entered_interaction_area(body: Node) -> void:
 
 func _on_body_exited_interaction_area(body: Node) -> void:
 	_objects_in_interaction_range.erase(body)
-
 
 
 

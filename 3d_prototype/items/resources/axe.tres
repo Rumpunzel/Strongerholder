@@ -6,9 +6,9 @@
 
 [resource]
 script = ExtResource( 1 )
-_name = "Axe"
-_icon = ExtResource( 2 )
-_scene = "res://prototype_assets/axe.tscn"
-_stack_size = 0
-_used_on = [ ExtResource( 3 ) ]
-_damage = 1.0
+name = "Axe"
+icon = ExtResource( 2 )
+scene = "res://prototype_assets/axe.tscn"
+stack_size = 1
+used_on = [ ExtResource( 3 ) ]
+damage = 1.0

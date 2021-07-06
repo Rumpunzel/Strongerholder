@@ -18,9 +18,6 @@ transform = Transform( 1, 6.03275e-12, -0.000550203, -6.16703e-05, 0.993699, -0.
 [node name="BoneAttachment2" parent="CharacterArmature/Skeleton" index="1"]
 transform = Transform( -0.0610309, -0.0750186, -0.995312, -0.361523, -0.927803, 0.0920982, -0.930363, 0.365449, 0.029504, -0.621624, 0.991996, 0.163334 )
 
-[node name="Cleric_Staff" parent="CharacterArmature/Skeleton/BoneAttachment2" index="0"]
-visible = false
-
 [node name="HandPosition" type="Position3D" parent="CharacterArmature/Skeleton/BoneAttachment2" index="1"]
 
 [node name="BoneAttachment3" parent="CharacterArmature/Skeleton" index="2"]

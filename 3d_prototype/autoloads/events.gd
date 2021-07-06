@@ -25,6 +25,8 @@ signal camera_changed(camera_node)
 
 
 # HUD signals
+signal inventory_updated(inventory)
+signal inventory_hud_toggled()
 
 
 # In-world UX

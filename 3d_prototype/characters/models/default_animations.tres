@@ -23,7 +23,7 @@ input_1/name = "walk"
 input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeAnimation" id=5]
-animation = "Staff_Attack"
+animation = "Spell1"
 
 [sub_resource type="AnimationNodeOneShot" id=6]
 
@@ -36,7 +36,7 @@ animation = "Walk"
 [sub_resource type="AnimationNodeBlend2" id=9]
 
 [resource]
-graph_offset = Vector2( -621, -101 )
+graph_offset = Vector2( -599, 29 )
 nodes/Animation/node = SubResource( 1 )
 nodes/Animation/position = Vector2( 280, 300 )
 nodes/grounded/node = SubResource( 2 )
@@ -56,4 +56,4 @@ nodes/walk/node = SubResource( 8 )
 nodes/walk/position = Vector2( -300, 260 )
 nodes/walk_speed/node = SubResource( 9 )
 nodes/walk_speed/position = Vector2( -20, 260 )
-node_connections = [ "walk_speed", 0, "walk", "walk_speed", 1, "run", "idle_walk", 0, "idle", "idle_walk", 1, "walk_speed", "grounded", 0, "pick_up", "grounded", 1, "jump", "pick_up", 0, "idle_walk", "pick_up", 1, "Animation", "output", 0, "grounded" ]
+node_connections = [ "pick_up", 0, "idle_walk", "pick_up", 1, "Animation", "walk_speed", 0, "walk", "walk_speed", 1, "run", "grounded", 0, "pick_up", "grounded", 1, "jump", "idle_walk", 0, "idle", "idle_walk", 1, "walk_speed", "output", 0, "grounded" ]

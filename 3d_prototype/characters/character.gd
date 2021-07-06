@@ -43,6 +43,10 @@ func get_interaction_area() -> InteractionArea:
 	assert($InteractionArea as InteractionArea)
 	return $InteractionArea as InteractionArea
 
+func get_inventory() -> Inventory:
+	assert($Inventory as Inventory)
+	return $Inventory as Inventory
+
 func get_navigation() -> Navigation:
 	assert(get_parent() as Navigation)
 	return get_parent() as Navigation
