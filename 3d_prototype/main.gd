@@ -24,8 +24,8 @@ func _enter_tree() -> void:
 	error = Events.connect("game_quit", self, "_on_game_quit")
 	assert(error == OK)
 
-func _ready() -> void:
-	Events.emit_signal("main_menu_requested")
+#func _ready() -> void:
+#	Events.emit_signal("main_menu_requested")
 
 
 

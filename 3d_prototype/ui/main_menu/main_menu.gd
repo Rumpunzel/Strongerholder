@@ -34,6 +34,7 @@ func _on_continue_pressed() -> void:
 
 func _on_restart_pressed():
 	get_tree().reload_current_scene()
+	Events.emit_signal("game_started")
 
 func _on_quit_pressed() -> void:
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
