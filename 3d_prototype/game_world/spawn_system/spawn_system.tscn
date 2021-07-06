@@ -17,12 +17,13 @@ params_billboard_mode = 1
 albedo_texture = SubResource( 1 )
 
 [node name="SpawnSystem" type="Position3D"]
+pause_mode = 2
 script = ExtResource( 1 )
 _player_scene = "res://characters/player/player.tscn"
 
 [node name="RayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
-cast_to = Vector3( 0, -4, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
+cast_to = Vector3( 0, -32, 0 )
 
 [node name="EditorGizmo" parent="." instance=ExtResource( 3 )]
 
