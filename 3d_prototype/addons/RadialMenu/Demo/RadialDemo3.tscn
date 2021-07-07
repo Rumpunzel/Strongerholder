@@ -20,29 +20,29 @@ __meta__ = {
 }
 
 [node name="Background" type="HBoxContainer" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LeftThrid" type="ColorRect" parent="Background"]
-margin_right = 338.0
-margin_bottom = 600.0
+margin_right = 637.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MiddleThird" type="ColorRect" parent="Background"]
-margin_left = 342.0
-margin_right = 681.0
-margin_bottom = 600.0
+margin_left = 641.0
+margin_right = 1278.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.164706, 0.164706, 0.164706, 1 )
 
 [node name="RightThird" type="ColorRect" parent="Background"]
-margin_left = 685.0
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_left = 1282.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -58,9 +58,9 @@ __meta__ = {
 }
 
 [node name="Instructions" type="Label" parent="."]
-margin_top = 284.0
-margin_right = 1024.0
-margin_bottom = 315.0
+margin_top = 524.0
+margin_right = 1920.0
+margin_bottom = 555.0
 size_flags_horizontal = 7
 size_flags_vertical = 6
 text = "Click anywhere with the right mouse button 
@@ -71,10 +71,10 @@ __meta__ = {
 }
 
 [node name="MenuResult" type="Label" parent="."]
-margin_left = 443.0
-margin_top = 550.0
-margin_right = 580.0
-margin_bottom = 600.0
+margin_left = 891.0
+margin_top = 1030.0
+margin_right = 1028.0
+margin_bottom = 1080.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 4
 size_flags_vertical = 10
@@ -97,4 +97,5 @@ width = 50
 circle_coverage = 1.0
 center_angle = -1.02
 icon_scale = 0.7
+
 [connection signal="item_selected" from="RadialMenu" to="." method="_on_ArcPopupMenu_item_selected"]

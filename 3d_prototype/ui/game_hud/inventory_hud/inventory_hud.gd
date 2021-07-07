@@ -1,18 +1,16 @@
 class_name InventoryHUD
-extends PanelContainer
+extends Popup
 
 
 export var _animation_distance: float = 200.0
 export var _animation_duration: float = 0.3
 
-onready var _item_slots := $GridContainer.get_children()
+onready var _item_slots := $MarginContainer/GridContainer.get_children()
 onready var _tween: Tween = $Tween
 
 
 
 func _ready():
-	visible = false
-	
 	var error := Events.hud.connect("inventory_updated", self, "_on_inventory_updated")
 	assert(error == OK)
 	error = Events.hud.connect("inventory_hud_toggled", self, "_on_inventory_hud_toggled")
@@ -56,7 +54,7 @@ func _on_item_stack_dropped(item_stack: ItemStack, position: Vector2, sender: In
 
 
 func _show_panel() -> void:
-	visible = true
+	popup()
 	# warning-ignore:return_value_discarded
 	_tween.interpolate_property(self, "modulate:a", 0.0, 1.0, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	# warning-ignore:return_value_discarded
@@ -74,5 +72,5 @@ func _hide_panel() -> void:
 	# warning-ignore:return_value_discarded
 	_tween.start()
 	yield(_tween, "tween_all_completed")
-	visible = false
+	hide()
 	rect_position.x = previous_position
