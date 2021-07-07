@@ -3,6 +3,6 @@ class_name ItemStack
 var item: ItemResource
 var amount: int
 
-func _init(new_item: ItemResource, new_amount: int = 1) -> void:
+func _init(new_item: ItemResource) -> void:
 	item = new_item
-	amount = new_amount
+	amount = 1

@@ -127,7 +127,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Inventory",
 "language": "GDScript",
-"path": "res://characters/inventory.gd"
+"path": "res://characters/inventories/inventory.gd"
+}, {
+"base": "Resource",
+"class": "InventoryAttributesResource",
+"language": "GDScript",
+"path": "res://characters/inventories/inventory_attributes_resource.gd"
 }, {
 "base": "Popup",
 "class": "InventoryHUD",
@@ -329,6 +334,7 @@ _global_script_class_icons={
 "HorizontalMoveActionResource": "",
 "InteractionArea": "",
 "Inventory": "",
+"InventoryAttributesResource": "",
 "InventoryHUD": "",
 "IsAttackingConditionResource": "",
 "IsGroundedConditionResource": "",
