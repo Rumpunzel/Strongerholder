@@ -5,7 +5,7 @@
 [ext_resource path="res://prototype_assets/structures/bell_tower.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game_world/grid_maps/prototype.tres" type="MeshLibrary" id=4]
 [ext_resource path="res://prototype_assets/structures/campfire.tscn" type="PackedScene" id=5]
-[ext_resource path="res://prototype_assets/collectalbe_items/axe.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prototype_assets/collectable_items/axe.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prototype_assets/structures/tree.tscn" type="PackedScene" id=7]
 
 [sub_resource type="NavigationMesh" id=1]

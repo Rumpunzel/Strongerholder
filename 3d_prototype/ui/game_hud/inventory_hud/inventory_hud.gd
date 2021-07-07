@@ -11,12 +11,16 @@ onready var _tween: Tween = $Tween
 
 
 func _ready():
+	visible = false
+	
 	var error := Events.hud.connect("inventory_updated", self, "_on_inventory_updated")
 	assert(error == OK)
 	error = Events.hud.connect("inventory_hud_toggled", self, "_on_inventory_hud_toggled")
 	assert(error == OK)
 	
-	visible = false
+	for item_slot in _item_slots:
+		error = item_slot.connect("item_stack_dropped", self, "_on_item_stack_dropped")
+		assert(error == OK)
 
 
 
@@ -26,10 +30,10 @@ func _on_inventory_updated(inventory: Inventory) -> void:
 		var stack: ItemStack = contents[slot]
 		
 		if stack:
-			var item_slot: ItemSlot = _item_slots[slot]
+			var item_slot: InventorySlot = _item_slots[slot]
 			item_slot.add(stack)
 		else:
-			var item_slot: ItemSlot = _item_slots[slot]
+			var item_slot: InventorySlot = _item_slots[slot]
 			item_slot.remove()
 
 
@@ -38,6 +42,17 @@ func _on_inventory_hud_toggled() -> void:
 		_hide_panel()
 	else:
 		_show_panel()
+
+
+func _on_item_stack_dropped(item_stack: ItemStack, position: Vector2, sender: InventorySlot) -> void:
+	for item_slot in _item_slots:
+		if item_slot.get_global_rect().has_point(position):
+			if item_slot == sender:
+				return
+			
+			item_slot.add(item_stack)
+			sender.remove()
+			return
 
 
 func _show_panel() -> void:

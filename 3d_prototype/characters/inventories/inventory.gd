@@ -96,7 +96,6 @@ func _remove_from_stack(item: ItemResource, count: int, slot: int) -> int:
 		emit_signal("item_removed", item)
 		
 		if stack.amount <= 0:
-			stack.free()
 			_item_slots[slot] = null
 			break
 	
