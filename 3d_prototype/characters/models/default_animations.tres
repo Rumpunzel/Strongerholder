@@ -56,4 +56,4 @@ nodes/walk/node = SubResource( 8 )
 nodes/walk/position = Vector2( -300, 260 )
 nodes/walk_speed/node = SubResource( 9 )
 nodes/walk_speed/position = Vector2( -20, 260 )
-node_connections = [ "output", 0, "grounded", "pick_up", 0, "idle_walk", "pick_up", 1, "Animation", "grounded", 0, "pick_up", "grounded", 1, "jump", "idle_walk", 0, "idle", "idle_walk", 1, "walk_speed", "walk_speed", 0, "walk", "walk_speed", 1, "run" ]
+node_connections = [ "output", 0, "grounded", "grounded", 0, "pick_up", "grounded", 1, "jump", "idle_walk", 0, "idle", "idle_walk", 1, "walk_speed", "pick_up", 0, "idle_walk", "pick_up", 1, "Animation", "walk_speed", 0, "walk", "walk_speed", 1, "run" ]

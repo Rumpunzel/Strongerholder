@@ -7,6 +7,7 @@ enum GradientType {LINEAR, RADIAL, RECTANGULAR}
 # Workaround for manual texture update
 # because updating it while editing the gradient doesn't work well
 enum Btn {ClickToUpdateTexture}
+# warning-ignore:unused_class_variable
 export(bool) var click_to_update_texture = null setget _update_texture
 
 export(GradientType) var type = GradientType.LINEAR setget set_type

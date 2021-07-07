@@ -21,7 +21,9 @@ class ReadMouseMovementAction extends StateAction:
 	
 	func on_update(_delta: float) -> void:
 		if Input.is_action_pressed("mouse_movement"):
-			var world_position := CameraSystem.mouse_as_world_point(_navigation)
+			var camera_ray := CameraSystem.mouse_as_world_point()
+			var navigation_point := _navigation.get_closest_point_to_segment(camera_ray.from, camera_ray.to)
+			
 			# HACK: fixed Navigation always returning a point 0.4 over ground
-			world_position.y = 0.0
-			_inputs.destination_input = world_position
+			navigation_point.y = 0.0
+			_inputs.destination_input = navigation_point
