@@ -7,6 +7,7 @@ export(Texture) var _unequip_icon
 
 var _inventory: Inventory
 var _equipments := [ ]
+var _unequip: ToolResource
 
 var _radial_menu: RadialMenu
 
@@ -37,7 +38,8 @@ func _on_equipment_updated(inventoy: Inventory) -> void:
 	_radial_menu.set_items([ ])
 	
 	_radial_menu.add_icon_item(_unequip_icon, UNEQUIP, 0)
-	_equipments.append(UNEQUIP)
+	_unequip = ToolResource.new()
+	_equipments.append(_unequip)
 	
 	for index in current_equipments.size():
 		var equipment: ToolResource = current_equipments[index]
@@ -53,5 +55,8 @@ func _on_equipment_hud_toggled() -> void:
 
 
 func _on_item_selected(index: int, _position: Vector2) -> void:
-	var equipped := _inventory.equip(_equipments[index])
-	assert(equipped)
+	var equipment: ToolResource = _equipments[index]
+	if equipment == _unequip:
+		_inventory.unequip()
+	else:
+		_inventory.equip(equipment)

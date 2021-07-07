@@ -51,6 +51,7 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="CylinderShape" id=6]
+radius = 0.5
 
 [sub_resource type="SphereShape" id=7]
 radius = 5.0

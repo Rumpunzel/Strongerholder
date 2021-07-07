@@ -23,6 +23,7 @@ _transition_table_resource = ExtResource( 4 )
 
 [node name="Inventory" parent="." index="4"]
 _inventory_attributes = ExtResource( 5 )
+_hand_position = NodePath("../Wizard/CharacterArmature/Skeleton/BoneAttachment3/HandPosition")
 
 [node name="Wizard" parent="." index="6" instance=ExtResource( 2 )]
 

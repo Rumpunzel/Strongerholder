@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 name = "Axe"
 icon = ExtResource( 2 )
-scene = "res://prototype_assets/axe.tscn"
+_scene = "res://prototype_assets/collectable_items/axe.tscn"
 stack_size = 1
 used_on = [ "Tree" ]
 damage = 1.0
