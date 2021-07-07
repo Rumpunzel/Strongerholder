@@ -17,8 +17,8 @@ class ReadInventoryAction extends StateAction:
 	
 	func on_update(_delta: float) -> void:
 		if Input.is_action_just_released("open_inventory"):
-			Events.emit_signal("inventory_hud_toggled")
+			Events.hud.emit_signal("inventory_hud_toggled")
 	
 	
 	func _on_item_added(_item: ItemResource) -> void:
-		Events.emit_signal("inventory_updated", _inventory)
+		Events.hud.emit_signal("inventory_updated", _inventory)

@@ -8,18 +8,18 @@ onready var _ray_cast: RayCast = $RayCast
 
 
 func _enter_tree() -> void:
-	var error := Events.connect("scene_loaded", self, "_on_scene_loaded")
+	var error := Events.gameplay.connect("scene_loaded", self, "_on_scene_loaded")
 	assert(error == OK)
 
 func _exit_tree() -> void:
-	Events.disconnect("scene_loaded", self, "_on_scene_loaded")
+	Events.gameplay.disconnect("scene_loaded", self, "_on_scene_loaded")
 
 
 
 func _on_scene_loaded() -> void:
 	var player_instance := _instantiate_scene(_player_scene)
 	
-	Events.emit_signal("player_instantiated", player_instance)
+	Events.player.emit_signal("player_instantiated", player_instance)
 
 
 func _instantiate_scene(scene_path: String) -> Spatial:

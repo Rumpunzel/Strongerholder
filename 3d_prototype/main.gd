@@ -3,30 +3,26 @@ extends Node
 
 #const SAVE_LOCATION := "user://savegame.save"
 
-#export var _time_to_pause: float = 0.2
-
-#onready var _tween: Tween = $Tween
-
 
 
 func _enter_tree() -> void:
 	randomize()
 	
-	var error := Events.connect("game_paused", self, "_on_game_paused")
+	var error := Events.main.connect("game_paused", self, "_on_game_paused")
 	assert(error == OK)
 	
-	error = Events.connect("game_unpaused", self, "_on_game_unpaused")
+	error = Events.main.connect("game_unpaused", self, "_on_game_unpaused")
 	assert(error == OK)
 	
-	error = Events.connect("game_started", self, "_on_game_started")
+	error = Events.main.connect("game_started", self, "_on_game_started")
 	assert(error == OK)
 	
-	error = Events.connect("game_quit", self, "_on_game_quit")
+	error = Events.main.connect("game_quit", self, "_on_game_quit")
 	assert(error == OK)
 
 func _ready() -> void:
-	Events.emit_signal("game_started")
-#	Events.emit_signal("main_menu_requested")
+	Events.main.emit_signal("game_started")
+#	Events.hud.emit_signal("main_menu_requested")
 
 
 
@@ -65,20 +61,10 @@ func _ready() -> void:
 
 
 func _on_game_paused() -> void:
-	# warning-ignore:return_value_discarded
-	#_tween.interpolate_property(Engine, "time_scale", 1.0, 0.0, _time_to_pause, Tween.TRANS_QUAD, Tween.EASE_IN)
-	# warning-ignore:return_value_discarded
-	#_tween.start()
-	#yield(_tween, "tween_all_completed")
 	get_tree().paused = true
-	#Engine.time_scale = 1.0
 
 func _on_game_unpaused() -> void:
 	get_tree().paused = false
-	# warning-ignore:return_value_discarded
-	#_tween.interpolate_property(Engine, "time_scale", 0.0, 1.0, _time_to_pause, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	# warning-ignore:return_value_discarded
-	#_tween.start()
 
 
 func _on_game_started() -> void:

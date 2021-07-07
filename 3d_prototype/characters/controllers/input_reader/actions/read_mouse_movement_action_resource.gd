@@ -25,5 +25,3 @@ class ReadMouseMovementAction extends StateAction:
 			# HACK: fixed Navigation always returning a point 0.4 over ground
 			world_position.y = 0.0
 			_inputs.destination_input = world_position
-			
-			Events.emit_signal("clicked_to_move", world_position)

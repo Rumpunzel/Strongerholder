@@ -9,11 +9,11 @@ onready var _menu_container: Control = $VBoxContainer/MenuContainer
 
 
 func _enter_tree() -> void:
-	var error := Events.connect("main_menu_requested", self, "_on_main_menu_requested")
+	var error := Events.menu.connect("main_menu_requested", self, "_on_main_menu_requested")
 	assert(error == OK)
 
 func _exit_tree() -> void:
-	Events.disconnect("main_menu_requested", self, "_on_main_menu_requested")
+	Events.menu.disconnect("main_menu_requested", self, "_on_main_menu_requested")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -30,11 +30,11 @@ func _on_main_menu_requested() -> void:
 
 func _on_continue_pressed() -> void:
 	hide_menu()
-	Events.emit_signal("game_started")
+	Events.main.emit_signal("game_started")
 
 func _on_restart_pressed():
 	get_tree().reload_current_scene()
-	Events.emit_signal("game_started")
+	Events.main.emit_signal("game_started")
 
 func _on_quit_pressed() -> void:
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
@@ -45,21 +45,21 @@ func _on_quit_pressed() -> void:
 	# warning-ignore:return_value_discarded
 	dialog.get_cancel().connect("pressed", dialog, "queue_free")
 	# warning-ignore:return_value_discarded
-	dialog.connect("confirmed", Events, "emit_signal", [ "game_quit" ])
+	dialog.connect("confirmed", Events.main, "emit_signal", [ "game_quit" ])
 	
 	add_child(dialog)
 	dialog.popup_centered()
 
 
 func _show_menu() -> void:
-	Events.emit_signal("game_paused")
+	Events.main.emit_signal("game_paused")
 	# warning-ignore:return_value_discarded
 	_tween.interpolate_property(_menu_container, "rect_position:x", rect_position.x - _animation_distance, rect_position.x, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	._show_menu()
 
 
 func _hide_menu() -> void:
-	Events.emit_signal("game_unpaused")
+	Events.main.emit_signal("game_unpaused")
 	var previous_position := _menu_container.rect_position.x
 	# warning-ignore:return_value_discarded
 	_tween.interpolate_property(_menu_container, "rect_position:x", previous_position, previous_position - _animation_distance, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_IN)

@@ -5,9 +5,9 @@ onready var _item_list: ItemList = $ItemList
 
 
 func _ready():
-	var error := Events.connect("inventory_updated", self, "_on_inventory_updated")
+	var error := Events.hud.connect("inventory_updated", self, "_on_inventory_updated")
 	assert(error == OK)
-	error =Events.connect("inventory_hud_toggled", self, "_on_inventory_hud_toggled")
+	error = Events.hud.connect("inventory_hud_toggled", self, "_on_inventory_hud_toggled")
 	assert(error == OK)
 
 

@@ -6,13 +6,13 @@ var current_camera: GameCamera setget set_current_camera
 
 
 func _enter_tree() -> void:
-	var error := Events.connect("player_instantiated", self, "_on_player_instantiated")
+	var error := Events.player.connect("player_instantiated", self, "_on_player_instantiated")
 	assert(error == OK)
 	
 	set_current_camera($MainCamera)
 
 func _exit_tree() -> void:
-	Events.disconnect("player_instantiated", self, "_on_player_instantiated")
+	Events.player.disconnect("player_instantiated", self, "_on_player_instantiated")
 
 
 func frame_node(node: Spatial) -> void:
@@ -52,7 +52,7 @@ func set_current_camera(new_camera: GameCamera) -> void:
 	current_camera = new_camera
 	current_camera.current = true
 	
-	Events.emit_signal("camera_changed", current_camera)
+	Events.player.emit_signal("camera_changed", current_camera)
 	
 	if follow_node:
 		current_camera.follow_node = follow_node
