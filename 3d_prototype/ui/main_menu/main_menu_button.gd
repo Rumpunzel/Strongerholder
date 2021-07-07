@@ -4,7 +4,8 @@ tool
 onready var _label: Label = $Label
 
 
-func _ready() -> void:
+
+func _enter_tree() -> void:
 	# warning-ignore-all:return_value_discarded
 	connect("focus_entered", self, "_set_hover")
 	connect("focus_exited", self, "_set_default")
@@ -12,9 +13,20 @@ func _ready() -> void:
 	connect("mouse_exited", self, "_set_default")
 	connect("button_down", self, "_set_pressed")
 	connect("button_up", self, "_set_default")
-	
+
+func _exit_tree() -> void:
+	disconnect("focus_entered", self, "_set_hover")
+	disconnect("focus_exited", self, "_set_default")
+	disconnect("mouse_entered", self, "_set_hover")
+	disconnect("mouse_exited", self, "_set_default")
+	disconnect("button_down", self, "_set_pressed")
+	disconnect("button_up", self, "_set_default")
+
+
+func _ready() -> void:
 	set_text(text)
 	set_disabled(disabled)
+
 
 
 func set_text(new_text: String) -> void:

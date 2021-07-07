@@ -18,10 +18,13 @@ class ReadEquipmentAction extends StateAction:
 		assert(error == OK)
 	
 	
+	func on_state_enter() -> void:
+		_on_equipment_changed()
+	
 	func on_update(_delta: float) -> void:
 		if Input.is_action_just_released("open_equipment_menu"):
 			Events.hud.emit_signal("equipment_hud_toggled")
 	
 	
-	func _on_equipment_changed(_item: ItemResource) -> void:
-		Events.hud.emit_signal("equipment_updated", _inventory.equipments())
+	func _on_equipment_changed(_item: ItemResource = null) -> void:
+		Events.hud.emit_signal("equipment_updated", _inventory)

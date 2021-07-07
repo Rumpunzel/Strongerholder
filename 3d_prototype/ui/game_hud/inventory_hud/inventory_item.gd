@@ -7,20 +7,31 @@ var item_stack: ItemStack
 
 var _dragging := false
 
-onready var _inventory_item: Control = $InventoryItem
-onready var _icon: TextureRect = $InventoryItem/Icon
-onready var _amount: Label = $InventoryItem/Amount
-onready var _highlight: TextureRect = $InventoryItem/Highlight
+var _inventory_item: Control
+var _icon: TextureRect
+var _amount: Label
+var _highlight: TextureRect
 
 
 
-func _ready() -> void:
-	remove()
+func _enter_tree() -> void:
 	# warning-ignore-all:return_value_discarded
 	connect("focus_entered", self, "_set_hover")
 	connect("focus_exited", self, "_set_default")
 	connect("mouse_entered", self, "_set_hover")
 	connect("mouse_exited", self, "_set_default")
+	
+	_inventory_item = $InventoryItem
+	_icon = $InventoryItem/Icon
+	_amount = $InventoryItem/Amount
+	_highlight = $InventoryItem/Highlight
+
+
+func _exit_tree() -> void:
+	disconnect("focus_entered", self, "_set_hover")
+	disconnect("focus_exited", self, "_set_default")
+	disconnect("mouse_entered", self, "_set_hover")
+	disconnect("mouse_exited", self, "_set_default")
 
 
 func _process(_delta: float):

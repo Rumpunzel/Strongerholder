@@ -168,7 +168,7 @@ func _create_subtree():
 		tween.connect("tween_all_completed", self, "_on_Tween_tween_all_completed")
 
 			
-func _ready():		
+func _enter_tree():
 	ready = true
 	item_angle = circle_coverage * 2.0 * PI / menu_items.size()	
 	_create_subtree()

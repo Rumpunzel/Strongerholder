@@ -18,10 +18,13 @@ class ReadInventoryAction extends StateAction:
 		assert(error == OK)
 	
 	
+	func on_state_enter() -> void:
+		_on_item_changed()
+	
 	func on_update(_delta: float) -> void:
 		if Input.is_action_just_released("open_inventory"):
 			Events.hud.emit_signal("inventory_hud_toggled")
 	
 	
-	func _on_item_changed(_item: ItemResource) -> void:
+	func _on_item_changed(_item: ItemResource = null) -> void:
 		Events.hud.emit_signal("inventory_updated", _inventory.contents(false))

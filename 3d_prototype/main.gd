@@ -10,15 +10,19 @@ func _enter_tree() -> void:
 	
 	var error := Events.main.connect("game_paused", self, "_on_game_paused")
 	assert(error == OK)
-	
 	error = Events.main.connect("game_unpaused", self, "_on_game_unpaused")
 	assert(error == OK)
-	
 	error = Events.main.connect("game_started", self, "_on_game_started")
 	assert(error == OK)
-	
 	error = Events.main.connect("game_quit", self, "_on_game_quit")
 	assert(error == OK)
+
+func _exit_tree() -> void:
+	Events.main.disconnect("game_paused", self, "_on_game_paused")
+	Events.main.disconnect("game_unpaused", self, "_on_game_unpaused")
+	Events.main.disconnect("game_started", self, "_on_game_started")
+	Events.main.disconnect("game_quit", self, "_on_game_quit")
+
 
 func _ready() -> void:
 	Events.main.emit_signal("game_started")

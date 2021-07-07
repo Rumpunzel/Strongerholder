@@ -5,37 +5,53 @@ const UNEQUIP = "Unequip"
 
 export(Texture) var _unequip_icon
 
+var _inventory: Inventory
 var _equipments := [ ]
 
-onready var _radial_menu: RadialMenu = $RadialMenu
+var _radial_menu: RadialMenu
 
 
-func _ready():
-	_on_equipment_updated([ ])
-	
+
+func _enter_tree() -> void:
 	var error := Events.hud.connect("equipment_updated", self, "_on_equipment_updated")
 	assert(error == OK)
 	error = Events.hud.connect("equipment_hud_toggled", self, "_on_equipment_hud_toggled")
 	assert(error == OK)
 	
-#	for item_slot in _item_slots:
-#		error = item_slot.connect("item_stack_dropped", self, "_on_item_stack_dropped")
-#		assert(error == OK) item_selected
+	_radial_menu = $RadialMenu
+	
+	error = _radial_menu.connect("item_selected", self, "_on_item_selected")
+	assert(error == OK)
 
 
-func _on_equipment_updated(equipments: Array) -> void:
-	_equipments = equipments
+func _exit_tree() -> void:
+	Events.hud.disconnect("equipment_updated", self, "_on_equipment_updated")
+	Events.hud.disconnect("equipment_hud_toggled", self, "_on_equipment_hud_toggled")
+
+
+
+func _on_equipment_updated(inventoy: Inventory) -> void:
+	_inventory = inventoy
+	var current_equipments = _inventory.equipments()
+	_equipments.clear()
 	_radial_menu.set_items([ ])
 	
-	for index in _equipments.size():
-		var equipment: ToolResource = _equipments[index]
-		_radial_menu.add_icon_item(equipment.icon, equipment.name, index)
+	_radial_menu.add_icon_item(_unequip_icon, UNEQUIP, 0)
+	_equipments.append(UNEQUIP)
 	
-	_radial_menu.add_icon_item(_unequip_icon, UNEQUIP, _equipments.size() + 1)
+	for index in current_equipments.size():
+		var equipment: ToolResource = current_equipments[index]
+		_radial_menu.add_icon_item(equipment.icon, equipment.name, index + 1)
+		_equipments.append(equipment)
 
 
 func _on_equipment_hud_toggled() -> void:
 	if _radial_menu.visible:
 		_radial_menu.close_menu()
-	else:
+	elif _equipments.size() > 1:
 		_radial_menu.open_menu(rect_size * 0.5)
+
+
+func _on_item_selected(index: int, _position: Vector2) -> void:
+	var equipped := _inventory.equip(_equipments[index])
+	assert(equipped)

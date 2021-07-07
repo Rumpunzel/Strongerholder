@@ -5,20 +5,28 @@ extends Popup
 export var _animation_distance: float = 200.0
 export var _animation_duration: float = 0.3
 
-onready var _item_slots := $MarginContainer/GridContainer.get_children()
-onready var _tween: Tween = $Tween
+var _item_slots: Array
+var _tween: Tween
 
 
 
-func _ready():
+func _enter_tree() -> void:
 	var error := Events.hud.connect("inventory_updated", self, "_on_inventory_updated")
 	assert(error == OK)
 	error = Events.hud.connect("inventory_hud_toggled", self, "_on_inventory_hud_toggled")
 	assert(error == OK)
 	
+	_item_slots = $MarginContainer/GridContainer.get_children()
+	_tween = $Tween
+	
 	for item_slot in _item_slots:
 		error = item_slot.connect("item_stack_dropped", self, "_on_item_stack_dropped")
 		assert(error == OK)
+
+
+func _exit_tree() -> void:
+	Events.hud.disconnect("inventory_updated", self, "_on_inventory_updated")
+	Events.hud.disconnect("inventory_hud_toggled", self, "_on_inventory_hud_toggled")
 
 
 

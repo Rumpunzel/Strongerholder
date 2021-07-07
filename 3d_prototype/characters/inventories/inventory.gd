@@ -12,7 +12,7 @@ var _item_slots: Array = [ ]
 
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	_item_slots.resize(_inventory_attributes.inventory_size)
 	for slot in _item_slots.size():
 		_item_slots[slot] = null
@@ -87,6 +87,12 @@ func equipments() -> Array:
 			equipments.append(stack.item)
 	
 	return equipments
+
+
+func equip(equipment: ToolResource) -> bool:
+	assert(equipments().has(equipment))
+	
+	return true
 
 
 
