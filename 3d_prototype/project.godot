@@ -434,7 +434,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Strongherholder"
+config/name="Strongerholder"
 run/main_scene="res://main.tscn"
 config/icon="res://prototype_assets/fantasy_icon_pack/128/hammer.png"
 config/version="0.0.1-alpha"
