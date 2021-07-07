@@ -1,8 +1,7 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://items/tool_resource.gd" type="Script" id=1]
 [ext_resource path="res://quaternius/Ultimate RPG Items Pack/Icons/Axe_Small.png" type="Texture" id=2]
-[ext_resource path="res://structures/resources/nature/tree.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
@@ -10,5 +9,5 @@ name = "Axe"
 icon = ExtResource( 2 )
 scene = "res://prototype_assets/axe.tscn"
 stack_size = 1
-used_on = [ ExtResource( 3 ) ]
+used_on = [ "Tree" ]
 damage = 1.0
