@@ -3,6 +3,8 @@ extends Node
 
 signal item_added(item)
 signal item_removed(item)
+signal equipment_added(equipment)
+signal equipment_removed(equipment)
 
 export(Resource) var _inventory_attributes
 
@@ -78,12 +80,23 @@ func contents(return_only_non_empty := true) -> Array:
 	return item_stacks
 
 
+func equipments() -> Array:
+	var equipments := [ ]
+	for stack in _item_slots:
+		if stack and stack.item is ToolResource:
+			equipments.append(stack.item)
+	
+	return equipments
+
+
 
 func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 	while count > 0 and stack.amount < item.stack_size:
 		stack.amount += 1
 		count -= 1
 		emit_signal("item_added", item)
+		if item is ToolResource:
+			emit_signal("equipment_added", item)
 	
 	return count
 
@@ -94,6 +107,8 @@ func _remove_from_stack(item: ItemResource, count: int, slot: int) -> int:
 		stack.amount -= 1
 		count -= 1
 		emit_signal("item_removed", item)
+		if item is ToolResource:
+			emit_signal("equipment_removed", item)
 		
 		if stack.amount <= 0:
 			_item_slots[slot] = null

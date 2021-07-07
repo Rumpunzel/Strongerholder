@@ -1,5 +1,6 @@
-tool
+class_name RadialMenu
 extends Popup
+tool
 """
 (c) 2021 Pascal Schuppli
 

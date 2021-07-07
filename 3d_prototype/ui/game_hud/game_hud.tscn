@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/game_hud/game_hud.gd" type="Script" id=2]
 [ext_resource path="res://prototype_assets/gui/gui_theme.tres" type="Theme" id=3]
 [ext_resource path="res://ui/game_hud/inventory_hud/inventory_hud.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/game_hud/equipment_hud/equipment_hud.tscn" type="PackedScene" id=5]
 
 [node name="GameHUD" type="Control"]
 anchor_right = 1.0
@@ -17,6 +18,7 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 custom_constants/margin_right = 20
 custom_constants/margin_top = 16
 custom_constants/margin_left = 20
@@ -49,5 +51,7 @@ margin_left = -243.605
 margin_top = -330.399
 margin_right = -179.605
 margin_bottom = -266.399
+
+[node name="EquipmentHUD" parent="." instance=ExtResource( 5 )]
 
 [node name="Tween" type="Tween" parent="."]

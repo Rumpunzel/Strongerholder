@@ -37,3 +37,6 @@ class PlayerChannel:
 class HUDChannel:
 	signal inventory_updated(inventory)
 	signal inventory_hud_toggled()
+	
+	signal equipment_updated(equipment)
+	signal equipment_hud_toggled()

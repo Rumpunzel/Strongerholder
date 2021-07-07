@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/game_hud/equipment_hud/equipment_hud.gd" type="Script" id=1]
+[ext_resource path="res://addons/RadialMenu/RadialMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prototype_assets/fantasy_icon_pack/64/x.png" type="Texture" id=3]
+
+[node name="EquipmentHUD" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_unequip_icon = ExtResource( 3 )
+
+[node name="RadialMenu" parent="." instance=ExtResource( 2 )]
+margin_left = 720.0
+margin_top = 300.0
+margin_right = 1200.0
+margin_bottom = 780.0
+rect_min_size = Vector2( 480, 480 )
+rect_pivot_offset = Vector2( 240, 240 )
+radius = 240
+width = 96
+center_radius = 0
+circle_coverage = 1.0
+center_angle = 1.571
+icon_scale = 1.0

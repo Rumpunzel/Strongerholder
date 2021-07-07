@@ -22,8 +22,7 @@ func _ready():
 
 
 
-func _on_inventory_updated(inventory: Inventory) -> void:
-	var contents := inventory.contents(false)
+func _on_inventory_updated(contents: Array) -> void:
 	for slot in contents.size():
 		var stack: ItemStack = contents[slot]
 		
