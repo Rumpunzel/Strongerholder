@@ -1,31 +1,26 @@
-class_name AnimatorParameterActionResource
-extends StateActionResource
+class_name AnimationConditionResource
+extends StateConditionResource
 
 enum ParameterType { Bool, Int, Float }
 
 export(ParameterType) var _paramter_type
 export var _parameter_name: String
 
-export var _bool_value: bool
-export var _int_value: int
-export var _float_value: float
-
-export(StateAction.SpecificMoment) var _when_to_run = StateAction.SpecificMoment.ON_STATE_ENTER
+export var _expected_bool_value: bool
+export var _expected_int_value: int
+export var _expected_float_value: float
 
 
-func _create_action() -> StateAction:
-	return AnimatorParameterAction.new(
+func _create_action() -> StateCondition:
+	return AnimationCondition.new(
 			_paramter_type,
 			_parameter_name,
-			_bool_value,
-			_int_value,
-			_float_value,
-			_when_to_run
+			_expected_bool_value,
+			_expected_int_value,
+			_expected_float_value
 	)
 
-
-
-class AnimatorParameterAction extends StateAction:
+class AnimationCondition extends StateCondition:
 	enum { Bool, Int, Float }
 	
 	var _animation_tree: AnimationTree
@@ -36,8 +31,6 @@ class AnimatorParameterAction extends StateAction:
 	var _bool_value: bool
 	var _int_value: int
 	var _float_value: float
-
-	var _when_to_run: int
 	
 	
 	func _init(
@@ -45,8 +38,7 @@ class AnimatorParameterAction extends StateAction:
 			parameter_name: String,
 			bool_value: bool,
 			int_value: int,
-			float_value: float,
-			when_to_run: int
+			float_value: float
 	):
 		_parameter_type = parameter_type
 		_parameter_name = "parameters/%s" % parameter_name
@@ -54,8 +46,6 @@ class AnimatorParameterAction extends StateAction:
 		_bool_value = bool_value
 		_int_value = int_value
 		_float_value = float_value
-		
-		_when_to_run = when_to_run
 	
 	
 	func awake(state_machine) -> void:
@@ -63,16 +53,7 @@ class AnimatorParameterAction extends StateAction:
 		assert(_animation_tree)
 	
 	
-	func on_state_enter() -> void:
-		if _when_to_run == StateAction.SpecificMoment.ON_STATE_ENTER:
-			_set_parameter()
-	
-	func on_state_exit() -> void:
-		if _when_to_run == StateAction.SpecificMoment.ON_STATE_EXIT:
-			_set_parameter()
-	
-	
-	func _set_parameter():
+	func _statement() -> bool:
 		var value
 		match _parameter_type:
 			Bool:
@@ -82,4 +63,4 @@ class AnimatorParameterAction extends StateAction:
 			Float:
 				value = _float_value as float
 		
-		_animation_tree.set(_parameter_name, value)
+		return _animation_tree.get(_parameter_name) == value

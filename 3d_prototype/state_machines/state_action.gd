@@ -1,13 +1,7 @@
 class_name StateAction
 extends StateComponent
 
-
-enum SpecificMoment {
-	ON_STATE_ENTER,
-	ON_STATE_EXIT,
-	ON_UPDATE,
-}
-
+enum SpecificMoment { ON_STATE_ENTER, ON_STATE_EXIT, ON_UPDATE }
 
 # warning-ignore:unused_class_variable
 var origin_resource: Resource
