@@ -6,7 +6,7 @@ func _create_action() -> StateAction:
 
 
 class ReadEquipmentAction extends StateAction:
-	var _inventory: Inventory
+	var _inventory: CharacterInvetory
 	
 	
 	func awake(state_machine) -> void:

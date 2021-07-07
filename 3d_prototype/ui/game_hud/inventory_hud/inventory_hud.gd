@@ -30,7 +30,8 @@ func _exit_tree() -> void:
 
 
 
-func _on_inventory_updated(contents: Array) -> void:
+func _on_inventory_updated(inventory: Inventory) -> void:
+	var contents := inventory.contents(false)
 	for slot in contents.size():
 		var stack: ItemStack = contents[slot]
 		

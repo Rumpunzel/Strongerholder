@@ -2,6 +2,7 @@ class_name InteractionArea
 extends Area
 
 signal item_picked_up(item)
+signal attacked()
 
 enum InteractionType {
 	NONE,
@@ -18,6 +19,7 @@ var current_interaction: Interaction
 
 var _character: Spatial
 var _inputs: CharacterMovementInputs
+var _equipped_item: CharacterInvetory.EquippedItem
 
 
 
@@ -28,17 +30,21 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	_nearest_interaction = null
 	if Input.is_action_pressed("interact"):
 		_interact_with_nearest()
 	
 	if Input.is_action_just_released("interact"):
-		if current_interaction and not current_interaction.type == InteractionType.NONE:
-			_inputs.destination_input = _character.translation
+		_inputs.destination_input = _character.translation
+	
+#	if current_interaction and not current_interaction.type == InteractionType.NONE:
+#		_character.look_position = current_interaction.node.translation
 
 
 
 func _interact_with_nearest() -> void:
+	if current_interaction and not current_interaction.type == InteractionType.NONE:
+		return
+	
 	_nearest_interaction = _find_nearest_interaction(_objects_in_interaction_range)
 	if _nearest_interaction:
 		current_interaction = _nearest_interaction
@@ -56,12 +62,18 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 	var closest_distance: float = INF
 	
 	for object in objects:
+		if object == owner:
+			continue
+		
 		var potential_interaction := Interaction.new(object)
 		
 		if object.is_in_group("Item"):
 			potential_interaction.type = InteractionType.PICK_UP
-		elif object.is_in_group("Tree"):
-			potential_interaction.type = InteractionType.ATTACK
+		elif _equipped_item:
+			for use in _equipped_item.item_resource.used_on:
+				if object.is_in_group(use):
+					potential_interaction.type = InteractionType.ATTACK
+					break
 		
 		if potential_interaction.type == InteractionType.NONE:
 			continue
@@ -77,11 +89,18 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 func _collect() -> void:
 	var item_node: CollectableItem = current_interaction.node as CollectableItem
 	var item: ItemResource = item_node.item_resource
-	emit_signal("item_picked_up", item)
 	
 	current_interaction = null
+	emit_signal("item_picked_up", item)
+	
 	# HACK: properly destroy here
 	item_node.queue_free()
+
+
+func _attack(started: bool) -> void:
+	current_interaction = null
+	_equipped_item.node.attack(started)
+	emit_signal("attacked")
 
 
 
@@ -97,6 +116,14 @@ func _on_body_entered_interaction_area(body: Node) -> void:
 
 func _on_body_exited_interaction_area(body: Node) -> void:
 	_objects_in_interaction_range.erase(body)
+
+
+func _on_item_equipped(equipment: CharacterInvetory.EquippedItem):
+	_equipped_item = equipment
+
+func _on_item_unequipped(equipment: CharacterInvetory.EquippedItem):
+	if _equipped_item == equipment:
+		_equipped_item = null
 
 
 

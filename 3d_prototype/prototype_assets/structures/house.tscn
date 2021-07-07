@@ -6,6 +6,7 @@
 extents = Vector3( 3, 5, 3 )
 
 [node name="House" type="StaticBody"]
+collision_layer = 8
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )

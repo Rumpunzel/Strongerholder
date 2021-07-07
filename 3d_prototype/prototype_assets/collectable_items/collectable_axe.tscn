@@ -5,7 +5,7 @@
 [ext_resource path="res://quaternius/Ultimate RPG Items Pack/OBJ/Axe_small.obj" type="ArrayMesh" id=3]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.15, 0.38, 0.03 )
+extents = Vector3( 0.15, 0.38, 0.05 )
 
 [node name="Axe" instance=ExtResource( 1 )]
 item_resource = ExtResource( 2 )

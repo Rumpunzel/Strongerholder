@@ -40,6 +40,7 @@ rings = 8
 
 [node name="Campfire" type="StaticBody"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+collision_layer = 8
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

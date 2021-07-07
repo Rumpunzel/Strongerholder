@@ -11,7 +11,7 @@ export var _expected_int_value: int
 export var _expected_float_value: float
 
 
-func _create_action() -> StateCondition:
+func create_condition() -> StateCondition:
 	return AnimationCondition.new(
 			_paramter_type,
 			_parameter_name,

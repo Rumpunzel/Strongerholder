@@ -6,7 +6,7 @@ func _create_action() -> StateAction:
 
 
 class ReadInventoryAction extends StateAction:
-	var _inventory: Inventory
+	var _inventory: CharacterInvetory
 	
 	
 	func awake(state_machine) -> void:
@@ -27,4 +27,4 @@ class ReadInventoryAction extends StateAction:
 	
 	
 	func _on_item_changed(_item: ItemResource = null) -> void:
-		Events.hud.emit_signal("inventory_updated", _inventory.contents(false))
+		Events.hud.emit_signal("inventory_updated", _inventory)

@@ -5,7 +5,7 @@ const UNEQUIP = "Unequip"
 
 export(Texture) var _unequip_icon
 
-var _inventory: Inventory
+var _inventory: CharacterInvetory
 var _equipments := [ ]
 var _unequip: ToolResource
 

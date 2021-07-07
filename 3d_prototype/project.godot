@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/character.gd"
 }, {
+"base": "Inventory",
+"class": "CharacterInvetory",
+"language": "GDScript",
+"path": "res://characters/inventories/character_inventory.gd"
+}, {
 "base": "Node",
 "class": "CharacterMovementActions",
 "language": "GDScript",
@@ -133,6 +138,11 @@ _global_script_classes=[ {
 "class": "HasHitHeadConditionResource",
 "language": "GDScript",
 "path": "res://characters/state_machine_scripts/conditions/has_hit_head_condition_resource.gd"
+}, {
+"base": "Area",
+"class": "HitBox",
+"language": "GDScript",
+"path": "res://structures/hit_box.gd"
 }, {
 "base": "StateActionResource",
 "class": "HorizontalMoveActionResource",
@@ -339,6 +349,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://state_machines/resources/transition_table_resource.gd"
 }, {
+"base": "Resource",
+"class": "VitalsResource",
+"language": "GDScript",
+"path": "res://object_resources/vitals_resource.gd"
+}, {
 "base": "Navigation",
 "class": "WorldScene",
 "language": "GDScript",
@@ -352,6 +367,7 @@ _global_script_class_icons={
 "ApplyMovementVectorActionResource": "",
 "AscendActionResource": "",
 "Character": "",
+"CharacterInvetory": "",
 "CharacterMovementActions": "",
 "CharacterMovementInputs": "",
 "CharacterMovementStatsResource": "",
@@ -370,6 +386,7 @@ _global_script_class_icons={
 "GameVersion": "",
 "GroundGravityActionResource": "",
 "HasHitHeadConditionResource": "",
+"HitBox": "",
 "HorizontalMoveActionResource": "",
 "InteractionArea": "",
 "Inventory": "",
@@ -411,6 +428,7 @@ _global_script_class_icons={
 "TopDownCameraAttributes": "",
 "TransitionItemResource": "",
 "TransitionTableResource": "",
+"VitalsResource": "",
 "WorldScene": ""
 }
 
@@ -1645,6 +1663,8 @@ open_equipment_menu={
 3d_physics/layer_2="Characters"
 3d_physics/layer_3="Items"
 3d_physics/layer_4="Structures"
+3d_physics/layer_12="CharacterAreas"
+3d_physics/layer_14="StructureAreas"
 
 [node]
 

@@ -3,7 +3,7 @@
 [ext_resource path="res://characters/state_machine_resources/states/idle.tres" type="Resource" id=1]
 [ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=2]
 [ext_resource path="res://characters/state_machine_resources/states/attack.tres" type="Resource" id=3]
-[ext_resource path="res://characters/state_machine_resources/transitions/condition_usages/timer_attack_animation_true.tres" type="Resource" id=4]
+[ext_resource path="res://characters/state_machine_resources/transitions/condition_usages/attack_animation_finished_true.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 2 )

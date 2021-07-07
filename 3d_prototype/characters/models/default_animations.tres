@@ -1,9 +1,11 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=10 format=2]
+[gd_resource type="AnimationNodeBlendTree" load_steps=12 format=2]
 
-[sub_resource type="AnimationNodeAnimation" id=1]
-animation = "PickUp"
+[sub_resource type="AnimationNodeOneShot" id=1]
 
-[sub_resource type="AnimationNodeTransition" id=2]
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "Staff_Attack"
+
+[sub_resource type="AnimationNodeTransition" id=3]
 input_count = 2
 xfade_time = 0.2
 input_0/name = "grounded"
@@ -11,10 +13,10 @@ input_0/auto_advance = false
 input_1/name = "airborne"
 input_1/auto_advance = false
 
-[sub_resource type="AnimationNodeAnimation" id=3]
+[sub_resource type="AnimationNodeAnimation" id=4]
 animation = "Idle"
 
-[sub_resource type="AnimationNodeTransition" id=4]
+[sub_resource type="AnimationNodeTransition" id=5]
 input_count = 2
 xfade_time = 0.2
 input_0/name = "idle"
@@ -22,38 +24,45 @@ input_0/auto_advance = false
 input_1/name = "walk"
 input_1/auto_advance = false
 
-[sub_resource type="AnimationNodeAnimation" id=5]
+[sub_resource type="AnimationNodeAnimation" id=6]
 animation = "Spell1"
 
-[sub_resource type="AnimationNodeOneShot" id=6]
-
-[sub_resource type="AnimationNodeAnimation" id=7]
-animation = "Run"
+[sub_resource type="AnimationNodeOneShot" id=7]
 
 [sub_resource type="AnimationNodeAnimation" id=8]
+animation = "PickUp"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "Run"
+
+[sub_resource type="AnimationNodeBlend2" id=10]
+
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "Walk"
 
-[sub_resource type="AnimationNodeBlend2" id=9]
-
 [resource]
-graph_offset = Vector2( -599, 29 )
-nodes/Animation/node = SubResource( 1 )
-nodes/Animation/position = Vector2( 280, 300 )
-nodes/grounded/node = SubResource( 2 )
+graph_offset = Vector2( -479, -22 )
+nodes/attack/node = SubResource( 1 )
+nodes/attack/position = Vector2( 1000, 240 )
+nodes/attack_anim/node = SubResource( 2 )
+nodes/attack_anim/position = Vector2( 780, 400 )
+nodes/grounded/node = SubResource( 3 )
 nodes/grounded/position = Vector2( 780, 160 )
-nodes/idle/node = SubResource( 3 )
-nodes/idle/position = Vector2( -200, 120 )
-nodes/idle_walk/node = SubResource( 4 )
+nodes/idle_anim/node = SubResource( 4 )
+nodes/idle_anim/position = Vector2( -200, 120 )
+nodes/idle_walk/node = SubResource( 5 )
 nodes/idle_walk/position = Vector2( 240, 80 )
-nodes/jump/node = SubResource( 5 )
-nodes/jump/position = Vector2( 520, 360 )
-nodes/output/position = Vector2( 1120, 140 )
-nodes/pick_up/node = SubResource( 6 )
+nodes/jump_anim/node = SubResource( 6 )
+nodes/jump_anim/position = Vector2( 520, 360 )
+nodes/output/position = Vector2( 1260, 240 )
+nodes/pick_up/node = SubResource( 7 )
 nodes/pick_up/position = Vector2( 460, 60 )
-nodes/run/node = SubResource( 7 )
-nodes/run/position = Vector2( -260, 380 )
-nodes/walk/node = SubResource( 8 )
-nodes/walk/position = Vector2( -300, 260 )
-nodes/walk_speed/node = SubResource( 9 )
+nodes/pick_up_anim/node = SubResource( 8 )
+nodes/pick_up_anim/position = Vector2( 280, 300 )
+nodes/running_anim/node = SubResource( 9 )
+nodes/running_anim/position = Vector2( -260, 380 )
+nodes/walk_speed/node = SubResource( 10 )
 nodes/walk_speed/position = Vector2( -20, 260 )
-node_connections = [ "output", 0, "grounded", "idle_walk", 0, "idle", "idle_walk", 1, "walk_speed", "pick_up", 0, "idle_walk", "pick_up", 1, "Animation", "walk_speed", 0, "walk", "walk_speed", 1, "run", "grounded", 0, "pick_up", "grounded", 1, "jump" ]
+nodes/walking_anim/node = SubResource( 11 )
+nodes/walking_anim/position = Vector2( -300, 260 )
+node_connections = [ "output", 0, "attack", "idle_walk", 0, "idle_anim", "idle_walk", 1, "walk_speed", "pick_up", 0, "idle_walk", "pick_up", 1, "pick_up_anim", "walk_speed", 0, "walking_anim", "walk_speed", 1, "running_anim", "grounded", 0, "pick_up", "grounded", 1, "jump_anim", "attack", 0, "grounded", "attack", 1, "attack_anim" ]

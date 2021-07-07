@@ -4,7 +4,7 @@
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
 [ext_resource path="res://characters/character.gd" type="Script" id=3]
 [ext_resource path="res://characters/controllers/character_movement_inputs.gd" type="Script" id=4]
-[ext_resource path="res://characters/inventories/inventory.gd" type="Script" id=5]
+[ext_resource path="res://characters/inventories/character_inventory.gd" type="Script" id=5]
 [ext_resource path="res://characters/controllers/character_movement_actions.gd" type="Script" id=6]
 [ext_resource path="res://characters/state_machine_resources/default_character_state_machine.tres" type="Resource" id=7]
 
@@ -51,13 +51,13 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="CylinderShape" id=6]
-radius = 0.5
 
 [sub_resource type="SphereShape" id=7]
 radius = 5.0
 
 [node name="Character" type="KinematicBody"]
 collision_layer = 2
+collision_mask = 15
 script = ExtResource( 3 )
 
 [node name="GroundCheck" type="RayCast" parent="."]
