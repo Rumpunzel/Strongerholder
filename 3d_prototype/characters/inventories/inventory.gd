@@ -6,25 +6,32 @@ signal item_removed(item)
 
 export(Resource) var _inventory_attributes
 
-var _item_stacks: Array = [ ]
+var _item_slots: Array = [ ]
+
+
+
+func _ready() -> void:
+	_item_slots.resize(_inventory_attributes.inventory_size)
+	for slot in _item_slots.size():
+		_item_slots[slot] = null
 
 
 
 func add(item: ItemResource, count: int = 1) -> bool:
-	for stack in _item_stacks:
-		if item == stack.item:
+	for slot in _item_slots.size():
+		var stack: ItemStack = _item_slots[slot]
+		if stack:
+			if item == stack.item:
+				count = _add_to_stack(item, count, stack)
+				if count <= 0:
+					return true
+		else:
+			stack = ItemStack.new(item)
+			_item_slots[slot] = stack
+			
 			count = _add_to_stack(item, count, stack)
 			if count <= 0:
 				return true
-	
-	if _item_stacks.size() < _inventory_attributes.inventory_size:
-		var new_stack := ItemStack.new(item)
-		_item_stacks.append(new_stack)
-		emit_signal("item_added", item)
-		
-		count = _add_to_stack(item, count, new_stack)
-		if count <= 0:
-			return true
 	
 	# TODO: drop the remaining items
 	return false
@@ -33,33 +40,42 @@ func add(item: ItemResource, count: int = 1) -> bool:
 func remove(item: ItemResource, count: int = 1) -> bool:
 	assert(count > 0)
 	
-	for stack in _item_stacks:
-		if stack.item == item:
-			count = _remove_from_stack(item, count, stack)
+	for slot in _item_slots.size():
+		var stack: ItemStack = _item_slots[slot]
+		if stack and stack.item == item:
+			count = _remove_from_stack(item, count, slot)
 			if count <= 0:
-				return true
+				break
 	
-	return false
+	return count <= 0
 
 
 func contains(item: ItemResource) -> bool:
-	for stack in _item_stacks:
-		if stack.item == item:
+	for stack in _item_slots:
+		if stack and stack.item == item:
 			return true
 	return false
 
 
 func count(item: ItemResource) -> int:
 	var item_count := 0
-	for stack in _item_stacks:
-		if stack.item == item:
+	for stack in _item_slots:
+		if stack and stack.item == item:
 			item_count += stack.amount
 	
 	return item_count
 
 
-func contents() -> Array:
-	return _item_stacks
+func contents(return_only_non_empty := true) -> Array:
+	if not return_only_non_empty:
+		return _item_slots
+	
+	var item_stacks := [ ]
+	for stack in _item_slots:
+		if stack:
+			item_stacks.append(stack)
+	
+	return item_stacks
 
 
 
@@ -72,14 +88,16 @@ func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 	return count
 
 
-func _remove_from_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
+func _remove_from_stack(item: ItemResource, count: int, slot: int) -> int:
+	var stack: ItemStack = _item_slots[slot]
 	while count > 0:
 		stack.amount -= 1
 		count -= 1
 		emit_signal("item_removed", item)
 		
 		if stack.amount <= 0:
-			_item_stacks.erase(stack)
+			stack.free()
+			_item_slots[slot] = null
 			break
 	
 	return count

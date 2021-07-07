@@ -33,6 +33,7 @@ func _on_continue_pressed() -> void:
 	Events.main.emit_signal("game_started")
 
 func _on_restart_pressed():
+	# warning-ignore:return_value_discarded
 	get_tree().reload_current_scene()
 	Events.main.emit_signal("game_started")
 

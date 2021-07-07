@@ -1,23 +1,80 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/game_hud/inventory_hud/inventory_hud.gd" type="Script" id=1]
+[ext_resource path="res://ui/game_hud/inventory_hud/item_slot.tscn" type="PackedScene" id=3]
 
-[node name="InventoryHUD" type="Popup"]
+[node name="InventoryHUD" type="PanelContainer"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -230.0
-margin_top = -115.0
-margin_bottom = 115.0
-rect_min_size = Vector2( 230, 230 )
+margin_left = -214.0
+margin_top = -107.0
+margin_bottom = 107.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_animation_distance = -200.0
+_animation_duration = 0.1
 
-[node name="ItemList" type="ItemList" parent="."]
-margin_left = -141.516
-margin_top = -10.7029
-margin_right = 88.4844
-margin_bottom = 219.297
-max_columns = 3
-same_column_width = true
-fixed_icon_size = Vector2( 64, 64 )
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 207.0
+margin_bottom = 207.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+columns = 3
+
+[node name="ItemSlot_0" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_right = 64.0
+
+[node name="ItemSlot_1" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 68.0
+margin_right = 132.0
+
+[node name="ItemSlot_2" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 136.0
+margin_right = 200.0
+
+[node name="ItemSlot_3" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 68.0
+margin_right = 64.0
+margin_bottom = 132.0
+
+[node name="ItemSlot_4" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 68.0
+margin_top = 68.0
+margin_right = 132.0
+margin_bottom = 132.0
+
+[node name="ItemSlot_5" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 136.0
+margin_top = 68.0
+margin_right = 200.0
+margin_bottom = 132.0
+
+[node name="ItemSlot_6" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 136.0
+margin_right = 64.0
+margin_bottom = 200.0
+
+[node name="ItemSlot_7" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 68.0
+margin_top = 136.0
+margin_right = 132.0
+margin_bottom = 200.0
+
+[node name="ItemSlot_8" parent="GridContainer" instance=ExtResource( 3 )]
+margin_left = 136.0
+margin_top = 136.0
+margin_right = 200.0
+margin_bottom = 200.0
+
+[node name="Tween" type="Tween" parent="."]

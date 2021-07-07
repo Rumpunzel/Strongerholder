@@ -5,3 +5,7 @@ extends Resource
 export var name: String
 export(Texture) var icon
 export(String, FILE, "*.tscn") var scene
+
+
+func _to_string() -> String:
+	return "Name: %s, Icon: %s, Scene: %s" % [ name, icon, scene ]

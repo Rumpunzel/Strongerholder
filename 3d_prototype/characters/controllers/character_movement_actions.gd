@@ -16,6 +16,7 @@ var _path_node: int = 0
 
 
 func _ready() -> void:
+	# warning-ignore:unsafe_method_access
 	_navigation = owner.get_navigation()
 
 #func _process(_delta: float) -> void:
@@ -47,15 +48,19 @@ func _set_horizontal_movement_vector(new_vector: Vector2) -> void:
 
 func _set_destination_point(new_point: Vector3) -> void:
 	destination_point = new_point
-	#print("destination_point: %s" % destination_point)
+	# warning-ignore:unsafe_property_access
 	_set_path(_navigation.get_simple_path(owner.translation, destination_point))
+	
+	# warning-ignore:unsafe_property_access
 	$MovementDingle.translation = destination_point
 
 func _set_path(new_path: Array) -> void:
 	path = new_path
 	_path_node = 1
-	#moving_to_destination = path.size() > 1
+	
+	# warning-ignore:unsafe_property_access
 	$Line.draw_path(path)
+	# warning-ignore:unsafe_property_access
 	$MovementDingle.visible = path.size() > 1
 
 func _set_moving_to_destination(is_moving: bool) -> void:

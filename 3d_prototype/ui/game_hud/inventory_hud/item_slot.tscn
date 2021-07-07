@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/game_hud/inventory_hud/item_slot.gd" type="Script" id=1]
+[ext_resource path="res://quaternius/Ultimate RPG Items Pack/Icons/Axe_Small.png" type="Texture" id=2]
+
+[node name="ItemSlot" type="PanelContainer"]
+margin_left = 38.0
+margin_right = 102.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryItem" type="MarginContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 57.0
+margin_bottom = 57.0
+
+[node name="Icon" type="TextureRect" parent="InventoryItem"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="InventoryItem"]
+margin_left = 34.0
+margin_top = 36.0
+margin_right = 50.0
+margin_bottom = 50.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "69"
+__meta__ = {
+"_edit_use_anchors_": false
+}

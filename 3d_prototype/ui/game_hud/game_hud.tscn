@@ -45,5 +45,9 @@ size_flags_vertical = 8
 text = "PLACEHOLDER ART"
 
 [node name="InventoryHUD" parent="." instance=ExtResource( 4 )]
+margin_left = -243.605
+margin_top = -330.399
+margin_right = -179.605
+margin_bottom = -266.399
 
 [node name="Tween" type="Tween" parent="."]

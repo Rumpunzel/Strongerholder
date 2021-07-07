@@ -23,6 +23,7 @@ var _inputs: CharacterMovementInputs
 
 func _ready() -> void:
 	_character = owner
+	# warning-ignore:unsafe_method_access
 	_inputs = _character.get_inputs()
 
 

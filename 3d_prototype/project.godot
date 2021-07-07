@@ -134,7 +134,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/inventories/inventory_attributes_resource.gd"
 }, {
-"base": "Popup",
+"base": "PanelContainer",
 "class": "InventoryHUD",
 "language": "GDScript",
 "path": "res://ui/game_hud/inventory_hud/inventory_hud.gd"
@@ -168,6 +168,11 @@ _global_script_classes=[ {
 "class": "ItemResource",
 "language": "GDScript",
 "path": "res://items/item_resource.gd"
+}, {
+"base": "PanelContainer",
+"class": "ItemSlot",
+"language": "GDScript",
+"path": "res://ui/game_hud/inventory_hud/item_slot.gd"
 }, {
 "base": "Reference",
 "class": "ItemStack",
@@ -342,6 +347,7 @@ _global_script_class_icons={
 "IsMovingConditionResource": "",
 "IsPickingUpConditionResource": "",
 "ItemResource": "",
+"ItemSlot": "",
 "ItemStack": "",
 "Main": "",
 "MainMenu": "",
@@ -1587,7 +1593,7 @@ mouse_movement={
 }
 open_inventory={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
