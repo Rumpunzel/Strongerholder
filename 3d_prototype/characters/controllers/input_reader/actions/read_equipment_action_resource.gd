@@ -22,7 +22,7 @@ class ReadEquipmentAction extends StateAction:
 		_on_equipment_changed()
 	
 	func on_update(_delta: float) -> void:
-		if Input.is_action_just_released("open_equipment_menu"):
+		if Input.is_action_just_pressed("open_equipment_menu"):
 			Events.hud.emit_signal("equipment_hud_toggled")
 	
 	

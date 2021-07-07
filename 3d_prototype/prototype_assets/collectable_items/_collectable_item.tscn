@@ -9,4 +9,4 @@ collision_layer = 4
 continuous_cd = true
 script = ExtResource( 1 )
 
-[node name="HandlePosition" type="Position3D" parent="."]
+[node name="CollisionShape" type="CollisionShape" parent="."]

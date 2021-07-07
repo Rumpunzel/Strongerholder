@@ -1,5 +1,5 @@
-class_name CollectableItem
-extends RigidBody
+class_name EquippableItem
+extends Spatial
 
 export(Resource) var item_resource
 
