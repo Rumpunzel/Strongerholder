@@ -149,14 +149,14 @@ func _draw():
 		var coords = Draw.calc_ring_segment(inner, outer, start_angle + i * item_angle, start_angle + (i + 1) * item_angle, center_offset)
 		if i == selected:
 			if not menu_items[i].get('disabled', false):
-				Draw.draw_ring_segment(self, coords, _get_color("Selected Background"), _get_color("Selected Stroke"), 0.5, true)
+				Draw.draw_ring_segment(self, coords, _get_color("Selected Background"), _get_color("Stroke Disabled"), 0.5, true)
 			else:
-				Draw.draw_ring_segment(self, coords, _get_color("Selected Background Disabled"), _get_color("Selected Stroke Disabled"), 0.5, true)
+				Draw.draw_ring_segment(self, coords, _get_color("Selected Background Disabled"), _get_color("Stroke Disabled"), 0.5, true)
 		else:
 			if not menu_items[i].get('disabled', false):
-				Draw.draw_ring_segment(self, coords, _get_color("Background"), _get_color("Stroke"), 0.5, true)
+				Draw.draw_ring_segment(self, coords, _get_color("Background"), _get_color("Stroke Disabled"), 0.5, true)
 			else:
-				Draw.draw_ring_segment(self, coords, _get_color("Background Disabled"), _get_color("Stroke"), 0.5, true)
+				Draw.draw_ring_segment(self, coords, _get_color("Background Disabled"), _get_color("Stroke Disabled"), 0.5, true)
 	
 	# draw decorator ring segment
 	if decorator_ring_position == Position.outside:
