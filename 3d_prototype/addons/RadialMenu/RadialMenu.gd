@@ -27,7 +27,7 @@ const BACK_TEXTURE = preload("icons/Back.svg")
 const CLOSE_TEXTURE = preload("icons/Close.svg")
 
 const JOY_DEADZONE = 0.2
-const JOY_AXIS_RESCALE = 1.0/(1.0-JOY_DEADZONE)
+const JOY_AXIS_RESCALE = 1.0 / (1.0 - JOY_DEADZONE)
 
 const ITEM_ICONS_NAME = "ItemIcons"
 const TWEEN_NAME = "Tween"
@@ -48,7 +48,7 @@ export(Position) var selector_position = Position.inside setget _set_selector_po
 export(Position) var decorator_ring_position = Position.inside setget _set_decorator_ring_position
 
 export(float, 0.01, 1.0, 0.001) var circle_coverage = 0.66 setget _set_circle_coverage
-export(float, -1.578, 4.712, 0.001) var center_angle = -PI/2 setget _set_center_angle
+export(float, -1.578, 4.712, 0.001) var center_angle = -PI / 2 setget _set_center_angle
 
 export var show_animation := true
 
@@ -130,19 +130,19 @@ func _input(event):
 
 
 func _draw():
-	var count = menu_items.size()	
-	if item_angle*count > 2*PI:
-		item_angle = 2*PI/count
-					
-	var start_angle = center_angle - item_angle * (count/2.0)
+	var count = menu_items.size()
+	if item_angle * count > 2.0 * PI:
+		item_angle = 2.0 * PI / count
+	
+	var start_angle = center_angle - item_angle * (count / 2.0)
 	
 	var inout = get_inner_outer()
 	var inner = inout[0]
 	var outer = inout[1]
 	
 	# Draw the background for each menu item
-	for i in range(count):	
-		var coords = Draw.calc_ring_segment(inner, outer, start_angle+i*item_angle, start_angle+(i+1)*item_angle, center_offset)
+	for i in range(count):
+		var coords = Draw.calc_ring_segment(inner, outer, start_angle + i * item_angle, start_angle + (i + 1) * item_angle, center_offset)
 		if i == selected: 
 			Draw.draw_ring_segment(self, coords, _get_color("Selected Background"), _get_color("Selected Stroke"), 0.5, true)
 		else:
@@ -151,23 +151,23 @@ func _draw():
 	# draw decorator ring segment
 	if decorator_ring_position == Position.outside:
 		var rw = _get_constant("Decorator Ring Width")
-		var coords = Draw.calc_ring_segment(outer, outer + rw, start_angle, start_angle+count*item_angle, center_offset)		
+		var coords = Draw.calc_ring_segment(outer, outer + rw, start_angle, start_angle + count * item_angle, center_offset)
 		Draw.draw_ring_segment(self, coords, _get_color("Ring Background"), null, 0, true)
 	elif decorator_ring_position == Position.inside:
 		var rw = _get_constant("Decorator Ring Width")
-		var coords = Draw.calc_ring_segment(inner-rw, inner, start_angle, start_angle+count*item_angle, center_offset)
+		var coords = Draw.calc_ring_segment(inner-rw, inner, start_angle, start_angle + count * item_angle, center_offset)
 		Draw.draw_ring_segment(self, coords, _get_color("Ring Background"), null, 0, true)
 	
 	# draw selection ring segment
 	if selected != -1 and not has_open_submenu():
-		var selector_size = _get_constant("Selector Segment Width")		
+		var selector_size = _get_constant("Selector Segment Width")
 		var select_coords
 		if selector_position == Position.outside:
-			select_coords = Draw.calc_ring_segment(outer, outer+selector_size, start_angle+selected*item_angle, start_angle+(selected+1)*item_angle, center_offset)			
-			Draw.draw_ring_segment(self, select_coords, _get_color("Selector Segment"), null, 0, true)	
+			select_coords = Draw.calc_ring_segment(outer, outer + selector_size, start_angle + selected * item_angle, start_angle + (selected + 1) * item_angle, center_offset)
+			Draw.draw_ring_segment(self, select_coords, _get_color("Selector Segment"), null, 0, true)
 		elif selector_position == Position.inside:
-			select_coords = Draw.calc_ring_segment(inner-selector_size, inner, start_angle+selected*item_angle, start_angle+(selected+1)*item_angle, center_offset)
-			Draw.draw_ring_segment(self, select_coords, _get_color("Selector Segment"), null, 0, true)	
+			select_coords = Draw.calc_ring_segment(inner-selector_size, inner, start_angle + selected * item_angle, start_angle + (selected + 1) * item_angle, center_offset)
+			Draw.draw_ring_segment(self, select_coords, _get_color("Selector Segment"), null, 0, true)
 	
 	if center_radius != 0:
 		_draw_center()
@@ -199,7 +199,7 @@ func open_menu(center_position: Vector2):
 	"""
 	
 	rect_position.x = center_position.x - center_offset.x
-	rect_position.y = center_position.y - center_offset.y	
+	rect_position.y = center_position.y - center_offset.y
 	item_angle = circle_coverage*2*PI/menu_items.size()
 	_calc_new_geometry()
 	popup()
@@ -247,7 +247,7 @@ func open_submenu(submenu, idx):
 	if show_animation:
 		state = MenuState.moving
 		$Tween.interpolate_property(self, "rect_position", rect_position, rect_position+move, animation_speed_factor, Tween.TRANS_SINE, Tween.EASE_IN)
-		$Tween.start()		
+		$Tween.start()
 	else: 
 		moved_to_position += move
 		rect_position = moved_to_position - center_offset

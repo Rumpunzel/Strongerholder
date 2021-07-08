@@ -1,84 +1,122 @@
 class_name InventoryHUD
-extends Popup
+extends CenterContainer
 
+const UNEQUIP = "Unequip"
 
-export var _animation_distance: float = 200.0
-export var _animation_duration: float = 0.3
+enum InventoryMode { INVENTORY, EQUIPMENT }
 
-var _item_slots: Array
-var _tween: Tween
+export(Texture) var _unequip_icon
+
+var _radial_menu: RadialMenu
+var _inventory: CharacterInvetory
+
+var _mode: int
+var _items := [ ]
+var _equipments := [ ]
+var _unequip := ToolResource.new()
 
 
 
 func _enter_tree() -> void:
 	var error := Events.hud.connect("inventory_updated", self, "_on_inventory_updated")
 	assert(error == OK)
-	error = Events.hud.connect("inventory_hud_toggled", self, "_on_inventory_hud_toggled")
+	error = Events.hud.connect("inventory_hud_toggled", self, "_on_toggled", [ InventoryMode.INVENTORY ])
 	assert(error == OK)
 	
-	_item_slots = $MarginContainer/GridContainer.get_children()
-	_tween = $Tween
+	error = Events.hud.connect("equipment_updated", self, "_on_equipment_updated")
+	assert(error == OK)
+	error = Events.hud.connect("equipment_hud_toggled", self, "_on_toggled", [ InventoryMode.EQUIPMENT ])
+	assert(error == OK)
 	
-	for item_slot in _item_slots:
-		error = item_slot.connect("item_stack_dropped", self, "_on_item_stack_dropped")
-		assert(error == OK)
+	_radial_menu = $RadialMenu
+	
+	error = _radial_menu.connect("item_selected", self, "_on_item_selected")
+	assert(error == OK)
 
 
 func _exit_tree() -> void:
 	Events.hud.disconnect("inventory_updated", self, "_on_inventory_updated")
-	Events.hud.disconnect("inventory_hud_toggled", self, "_on_inventory_hud_toggled")
+	Events.hud.disconnect("inventory_hud_toggled", self, "_on_toggled")
+	
+	Events.hud.disconnect("equipment_updated", self, "_on_equipment_updated")
+	Events.hud.disconnect("equipment_hud_toggled", self, "_on_toggled")
 
 
 
 func _on_inventory_updated(inventory: Inventory) -> void:
+	_inventory = inventory
 	var contents := inventory.contents(false)
-	for slot in contents.size():
-		var stack: ItemStack = contents[slot]
-		
+	_items.clear()
+	
+	for index in contents.size():
+		var stack: ItemStack = contents[index]
 		if stack:
-			var item_slot: InventorySlot = _item_slots[slot]
-			item_slot.add(stack)
+			_items.append(stack)
 		else:
-			var item_slot: InventorySlot = _item_slots[slot]
-			item_slot.remove()
+			_items.append(null)
 
 
-func _on_inventory_hud_toggled() -> void:
-	if visible:
-		_hide_panel()
-	else:
-		_show_panel()
+func _on_equipment_updated(inventory: Inventory) -> void:
+	_inventory = inventory
+	var current_equipments = _inventory.equipments()
+	_equipments.clear()
+	_equipments.append(_unequip)
+	
+	for index in current_equipments.size():
+		var equipment: ToolResource = current_equipments[index]
+		_equipments.append(equipment)
 
 
-func _on_item_stack_dropped(item_stack: ItemStack, position: Vector2, sender: InventorySlot) -> void:
-	for item_slot in _item_slots:
-		if item_slot.get_global_rect().has_point(position):
-			if item_slot == sender:
-				return
+func _on_toggled(mode = _mode) -> void:
+	var open_menu := false
+	
+	if not (mode == _mode and _radial_menu.visible):
+		_mode = mode
+		
+		match _mode:
+			InventoryMode.INVENTORY:
+				_on_inventory_updated(_inventory)
+				
+				_radial_menu.center_angle = PI * 0.5 - PI / float(_inventory.size())
+				_radial_menu.set_items([ ])
+				
+				for index in _items.size():
+					var stack: ItemStack = _items[index]
+					if stack:
+						_radial_menu.add_icon_item(stack.item.icon, str(stack.amount), index)
+					else:
+						_radial_menu.add_icon_item(null, "Nothing", index)
+				
+				open_menu = true
 			
-			item_slot.add(item_stack)
-			sender.remove()
-			return
+			InventoryMode.EQUIPMENT:
+				_on_equipment_updated(_inventory)
+				
+				if _equipments.size() > 1:
+					# TODO: set the correct angle here
+					_radial_menu.center_angle = PI
+					_radial_menu.set_items([ ])
+					_radial_menu.add_icon_item(_unequip_icon, UNEQUIP, 0)
+					
+					for index in range(1, _equipments.size()):
+						var equipment: ToolResource = _equipments[index]
+						_radial_menu.add_icon_item(equipment.icon, equipment.name, index)
+					
+					open_menu = true
+	
+	if open_menu:
+		_radial_menu.open_menu(rect_size * 0.5)
+	else:
+		_radial_menu.close_menu()
 
 
-func _show_panel() -> void:
-	popup()
-	# warning-ignore:return_value_discarded
-	_tween.interpolate_property(self, "modulate:a", 0.0, 1.0, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	# warning-ignore:return_value_discarded
-	_tween.interpolate_property(self, "rect_position:x", rect_position.x - _animation_distance, rect_position.x, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	# warning-ignore:return_value_discarded
-	_tween.start()
-
-
-func _hide_panel() -> void:
-	# warning-ignore:return_value_discarded
-	_tween.interpolate_property(self, "modulate:a", 1.0, 0.0, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_IN)
-	var previous_position := rect_position.x
-	# warning-ignore:return_value_discarded
-	_tween.interpolate_property(self, "rect_position:x", previous_position, previous_position - _animation_distance, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_IN)
-	# warning-ignore:return_value_discarded
-	_tween.start()
-	yield(_tween, "tween_all_completed")
-	hide()
-	rect_position.x = previous_position
+func _on_item_selected(index: int, _position: Vector2) -> void:
+	match _mode:
+		InventoryMode.INVENTORY:
+			pass
+		InventoryMode.EQUIPMENT:
+			var equipment: ToolResource = _equipments[index]
+			if equipment == _unequip:
+				_inventory.unequip()
+			else:
+				_inventory.equip(equipment)

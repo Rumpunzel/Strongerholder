@@ -1,4 +1,4 @@
-class_name InventorySlot
+class_name DEPRECATED_InventorySlot
 extends Button
 
 signal item_stack_dropped(item_stack, position, sender)

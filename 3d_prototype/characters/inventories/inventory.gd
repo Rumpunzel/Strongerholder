@@ -82,6 +82,10 @@ func contents(return_only_non_empty := true) -> Array:
 	return item_stacks
 
 
+func size() -> int:
+	return _inventory_attributes.inventory_size
+
+
 
 func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 	while count > 0 and stack.amount < item.stack_size:
