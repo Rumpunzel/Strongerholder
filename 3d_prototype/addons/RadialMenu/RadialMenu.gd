@@ -225,18 +225,21 @@ func close_menu():
 		is_submenu = false
 	else:
 		state = MenuState.closing
-		orig_item_angle = item_angle	
+		orig_item_angle = item_angle
 		$Tween.interpolate_property(self, "item_angle", item_angle, 0.01, animation_speed_factor, Tween.TRANS_SINE, Tween.EASE_IN)
 		$Tween.start()
 
 
 func open_submenu(submenu: RadialMenu, idx: int):
+	var old_submenu = get_open_submenu()
+	if old_submenu:
+		close_submenu(old_submenu)
+	
 	active_submenu_idx = idx
 	update()
 	
 	var ring_width = submenu.get_total_ring_width()
 	
-	#submenu.close_on_select = close_submenu_on_select
 	submenu.decorator_ring_position = decorator_ring_position
 	submenu.center_angle = idx * item_angle - PI + center_angle + item_angle / 2.0
 	submenu.radius = radius + ring_width
@@ -266,7 +269,7 @@ func open_submenu(submenu: RadialMenu, idx: int):
 
 func close_submenu(submenu := get_open_submenu()) -> void:
 	_disconnect_submenu_signals(submenu)
-	get_open_submenu().close_menu()
+	submenu.close_menu()
 	active_submenu_idx = -1
 
 
@@ -285,6 +288,38 @@ func add_icon_item(texture : Texture, title: String, id, disabled: bool, submenu
 	
 	if visible:
 		update()
+
+
+func update_item_icons():
+	if not _item_children_present:
+		_create_item_icons()
+		return
+	
+	var r = get_icon_radius()
+	var n = menu_items.size()
+	var start_angle = center_angle - item_angle * n * 0.5 + item_angle * 0.5
+	
+	# a heuristic - hide icons when they tend to outgrow their segment
+#	if item_angle < 0.01 or r * (item_angle / TAU) < width * icon_scale:
+#		$ItemIcons.hide()
+#	else:
+#		$ItemIcons.show()
+	
+	var coords = Draw.calc_ring_segment_centers(r, n,  start_angle, start_angle + n * item_angle, center_offset)
+	var i = 0
+	var ni = 0
+	var item_nodes = $ItemIcons.get_children()
+	
+	while i < n:
+		var item = menu_items[i]
+		if item != null:
+			var sprite = item_nodes[ni]
+			ni += 1
+			sprite.position = coords[i]
+			sprite.scale = Vector2(icon_scale, icon_scale)
+			sprite.modulate = _get_color("Icon Modulation") if not item.get('disabled', false) else _get_color("Icon Modulation Disabled")
+		
+		i += 1
 
 
 func setup_gamepad(deviceid : int, xaxis : int, yaxis: int, deadzone : float = JOY_DEADZONE):
@@ -399,7 +434,7 @@ func set_item_icon(idx: int, texture: Texture):
 	"""
 	if idx < menu_items.size():
 		menu_items[idx].texture = texture
-		_update_item_icons()
+		update_item_icons()
 	else:
 		print_debug("Invalid index {} in set_item_texture" % idx)
 
@@ -413,7 +448,7 @@ func set_item_text(idx: int, text: String):
 	"""
 	if idx < menu_items.size():
 		menu_items[idx].title = text
-		_update_item_icons()
+		update_item_icons()
 	else:
 		print_debug("Invalid index {} in set_item_text" % idx)
 
@@ -429,7 +464,7 @@ func set_item_id(idx: int, id):
 	"""
 	if idx < menu_items.size():
 		menu_items[idx].id = id
-		_update_item_icons()
+		update_item_icons()
 	else:
 		print_debug("Invalid index {} in set_item_id" % idx)
 
@@ -710,7 +745,7 @@ func _calc_new_geometry():
 	rect_size = rect_min_size
 	rect_pivot_offset = -aabb.position
 	center_offset = -aabb.position
-	_update_item_icons()
+	update_item_icons()
 
 
 func _connect_submenu_signals(submenu):
@@ -770,8 +805,7 @@ func _create_item_icons():
 	
 	var r = get_icon_radius()
 	
-	var coords = Draw.calc_ring_segment_centers(r, n, 
-		start_angle + half_angle, start_angle + half_angle + n * item_angle, center_offset)
+	var coords = Draw.calc_ring_segment_centers(r, n, start_angle + half_angle, start_angle + half_angle + n * item_angle, center_offset)
 	
 	for i in range(n):
 		var item = menu_items[i]
@@ -782,43 +816,10 @@ func _create_item_icons():
 			sprite.centered = true
 			sprite.texture = item.texture
 			sprite.scale = Vector2(icon_scale, icon_scale)
-			sprite.modulate = _get_color("Icon Modulation") if item.get('disabled', false) else _get_color("Icon Modulation Disabled")
+			sprite.modulate = _get_color("Icon Modulation") if not item.get('disabled', false) else _get_color("Icon Modulation Disabled")
 			$ItemIcons.add_child(sprite)
 	
 	_item_children_present = true
-
-
-func _update_item_icons():
-	if not _item_children_present:
-		_create_item_icons()
-		return
-	
-	var r = get_icon_radius()
-	var n = menu_items.size()
-	var start_angle = center_angle - item_angle * n * 0.5 + item_angle * 0.5
-	
-	# a heuristic - hide icons when they tend to outgrow their segment
-	if item_angle < 0.01 or r*(item_angle/2*PI) < width * icon_scale:
-		$ItemIcons.hide()
-	else:
-		$ItemIcons.show()
-	
-	var coords = Draw.calc_ring_segment_centers(r, n, 
-		start_angle, start_angle+n*item_angle, center_offset)
-	var i = 0
-	var ni = 0
-	var item_nodes = $ItemIcons.get_children()
-	
-	while i < n:
-		var item = menu_items[i]
-		if item != null:
-			var sprite = item_nodes[ni]
-			ni += 1
-			sprite.position = coords[i]
-			sprite.scale = Vector2(icon_scale, icon_scale)
-			sprite.modulate = _get_color("Icon Modulation")
-		
-		i=i+1
 
 
 func _clear_items():
@@ -882,7 +883,7 @@ func _on_submenu_item_selected(id: int, submenu_id, position: Vector2):
 	if close_submenu_on_select:
 		var submenu = get_open_submenu()
 		_disconnect_submenu_signals(submenu)
-		active_submenu_idx = -1
+		close_submenu(submenu)
 		
 		if close_on_submenu_select:
 			close_menu()
@@ -901,7 +902,8 @@ func _on_submenu_cancelled():
 	
 	if selected == -1 or selected == active_submenu_idx:
 		get_tree().set_input_as_handled()
-	active_submenu_idx = -1
+	
+	close_submenu(submenu)
 	update()
 
 
@@ -927,7 +929,7 @@ func _set_selector_position(new_position):
 
 func _set_icon_scale(new_scale : float):
 	icon_scale = new_scale
-	_update_item_icons()
+	update_item_icons()
 	update()
 
 func _set_item_angle(new_angle: float):

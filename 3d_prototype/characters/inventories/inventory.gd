@@ -5,6 +5,9 @@ tool
 signal item_added(item)
 signal item_removed(item)
 
+signal equipment_added(equipment)
+signal equipment_removed(equipment)
+
 export(Resource) var _inventory_attributes
 
 var _item_slots := [ ]
@@ -25,6 +28,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	for item in _inventory_attributes.starting_items:
+		# warning-ignore:return_value_discarded
 		add(item)
 
 
@@ -89,12 +93,15 @@ func drop_stack(stack: ItemStack) -> int:
 	
 	var amount := stack.amount
 	for _i in range(amount):
+		# warning-ignore:return_value_discarded
 		drop(stack.item)
+	
 	return amount
 
 
 func drop_everything() -> void:
 	for stack in contents():
+		# warning-ignore:return_value_discarded
 		drop_stack(stack)
 
 
@@ -171,6 +178,7 @@ func _spawn_item(item: ItemResource) -> void:
 	spawn_position.x += (randf() - 0.5) * size.x
 	spawn_position.z += (randf() - 0.5) * size.z
 	
+	# warning-ignore:return_value_discarded
 	item.drop_at(spawn_position)
 
 

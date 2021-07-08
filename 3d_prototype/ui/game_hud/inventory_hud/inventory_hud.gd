@@ -41,7 +41,6 @@ func _enter_tree() -> void:
 	error = Events.main.connect("game_paused", self, "_on_toggled", [ -1 ])
 	
 	_radial_menu = $RadialMenu
-	
 	error = _radial_menu.connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)
 
@@ -49,7 +48,6 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	Events.hud.disconnect("inventory_updated", self, "_on_inventory_updated")
 	Events.hud.disconnect("inventory_hud_toggled", self, "_on_toggled")
-	
 	Events.hud.disconnect("equipment_updated", self, "_on_equipment_updated")
 	Events.hud.disconnect("equipment_hud_toggled", self, "_on_toggled")
 
@@ -118,7 +116,7 @@ func _fill_items() -> void:
 		if stack:
 			var item := stack.item
 			var equipped := _inventory.currently_equipped and item == _inventory.currently_equipped.item_resource
-			_radial_menu.add_icon_item(item.icon, str(stack.amount), index, false, _create_submenu(item, equipped))
+			_radial_menu.add_icon_item(item.icon, str(stack.amount), index, equipped, _create_submenu(item, equipped))
 		else:
 			_radial_menu.add_icon_item(null, "Nothing", index, true, null)
 
@@ -148,14 +146,17 @@ func _on_item_selected(index: int, submenu_index, _position: Vector2) -> void:
 				SubMenuModes.DROP:
 					_drop_item(stack.item, submenu)
 				SubMenuModes.EQUIP:
-					_equip_item(stack.item, submenu)
+					var new_submenu := _equip_item(stack.item, submenu)
+					_radial_menu.menu_items[index]['submenu'] = new_submenu
 				SubMenuModes.UNEQUIP:
-					_equip_item(_unequip, submenu)
+					var new_submenu := _equip_item(_unequip, submenu)
+					_radial_menu.menu_items[index]['submenu'] = new_submenu
 			
 			if _inventory.empty():
 				_radial_menu.close_menu()
 		
 		InventoryMode.EQUIPMENT:
+			# warning-ignore:return_value_discarded
 			_equip_item(_equipments[index], submenu)
 			_radial_menu.close_menu()
 
@@ -199,29 +200,33 @@ func _use_item(item: ItemResource, submenu: RadialMenu) -> void:
 	var items_left_in_stack := _inventory.remove(item)
 	if items_left_in_stack <= 0:
 		_radial_menu.close_submenu(submenu)
-		submenu.close_menu()
 	
+	# warning-ignore:return_value_discarded
 	_on_inventory_updated(_inventory)
 
 
 func _drop_item(item: ItemResource, submenu: RadialMenu) -> void:
 	var equipped := _inventory.currently_equipped and item == _inventory.currently_equipped.item_resource
 	if equipped:
+		# warning-ignore:return_value_discarded
 		_inventory.unequip()
 	
 	var items_left_in_stack := _inventory.drop(item)
 	if items_left_in_stack <= 0:
 		_radial_menu.close_submenu(submenu)
-		submenu.close_menu()
 	
+	# warning-ignore:return_value_discarded
 	_on_inventory_updated(_inventory)
 
 
-func _equip_item(equipment: ToolResource, submenu: RadialMenu) -> void:
+func _equip_item(equipment: ToolResource, submenu: RadialMenu) -> RadialMenu:
 	var equipped := equipment == _unequip
 	if not equipped:
 		_inventory.equip(equipment)
 	else:
+		# warning-ignore:return_value_discarded
 		_inventory.unequip()
 	
-	submenu = _create_submenu(equipment, not equipped)
+	_on_inventory_updated(_inventory)
+	_radial_menu.close_submenu(submenu)
+	return _create_submenu(equipment, not equipped)

@@ -99,7 +99,8 @@ func _collect() -> void:
 
 func _attack(started: bool) -> void:
 	current_interaction = null
-	_equipped_item.node.attack(started)
+	var equipment: EquippableItem = _equipped_item.node
+	equipment.attack(started)
 	emit_signal("attacked")
 
 

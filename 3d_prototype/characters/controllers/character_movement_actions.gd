@@ -57,6 +57,7 @@ func _set_path(new_path: Array) -> void:
 	path = new_path
 	_path_node = 1
 	
+	# warning-ignore:unsafe_method_access
 	$Line.draw_path(path)
 	$MovementDingle.visible = path.size() > 1
 

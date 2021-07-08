@@ -1,9 +1,6 @@
 class_name CharacterInvetory
 extends Inventory
 
-signal equipment_added(equipment)
-signal equipment_removed(equipment)
-
 signal item_equipped(equipment)
 signal item_unequipped(equipment)
 
@@ -26,6 +23,7 @@ func equip(equipment: ToolResource) -> void:
 	assert(equipments().has(equipment))
 	assert(get_node(_hand_position))
 	
+	# warning-ignore:return_value_discarded
 	unequip()
 	
 	currently_equipped = EquippedItem.new(
