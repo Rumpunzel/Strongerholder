@@ -35,11 +35,11 @@ animation = "PickUp"
 [sub_resource type="AnimationNodeAnimation" id=9]
 animation = "Run"
 
-[sub_resource type="AnimationNodeTimeScale" id=12]
+[sub_resource type="AnimationNodeTimeScale" id=10]
 
-[sub_resource type="AnimationNodeBlend2" id=10]
+[sub_resource type="AnimationNodeBlend2" id=11]
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "Walk"
 
 [resource]
@@ -63,10 +63,10 @@ nodes/pick_up_anim/node = SubResource( 8 )
 nodes/pick_up_anim/position = Vector2( -100, 560 )
 nodes/running_anim/node = SubResource( 9 )
 nodes/running_anim/position = Vector2( -260, 380 )
-nodes/speed_up_old_man/node = SubResource( 12 )
+nodes/speed_up_old_man/node = SubResource( 10 )
 nodes/speed_up_old_man/position = Vector2( 220, 440 )
-nodes/walk_speed/node = SubResource( 10 )
+nodes/walk_speed/node = SubResource( 11 )
 nodes/walk_speed/position = Vector2( -20, 260 )
-nodes/walking_anim/node = SubResource( 11 )
+nodes/walking_anim/node = SubResource( 12 )
 nodes/walking_anim/position = Vector2( -300, 260 )
-node_connections = [ "output", 0, "attack", "attack", 0, "grounded", "attack", 1, "attack_anim", "speed_up_old_man", 0, "pick_up_anim", "idle_walk", 0, "idle_anim", "idle_walk", 1, "walk_speed", "walk_speed", 0, "walking_anim", "walk_speed", 1, "running_anim", "pick_up", 0, "idle_walk", "pick_up", 1, "speed_up_old_man", "grounded", 0, "pick_up", "grounded", 1, "jump_anim" ]
+node_connections = [ "output", 0, "attack", "attack", 0, "grounded", "attack", 1, "attack_anim", "speed_up_old_man", 0, "pick_up_anim", "grounded", 0, "pick_up", "grounded", 1, "jump_anim", "pick_up", 0, "idle_walk", "pick_up", 1, "speed_up_old_man", "idle_walk", 0, "idle_anim", "idle_walk", 1, "walk_speed", "walk_speed", 0, "walking_anim", "walk_speed", 1, "running_anim" ]

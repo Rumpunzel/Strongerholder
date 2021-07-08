@@ -9,4 +9,4 @@ name = "Wood"
 icon = ExtResource( 2 )
 _scene = "res://prototype_assets/collectable_items/collectable_wood.tscn"
 _equipped_scene = ""
-stack_size = 2
+stack_size = 3
