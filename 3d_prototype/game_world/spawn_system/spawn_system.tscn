@@ -1,20 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://game_world/spawn_system/spawn_system.gd" type="Script" id=1]
-[ext_resource path="res://tools/editor/editor_gizmo.tscn" type="PackedScene" id=3]
-
-[sub_resource type="ViewportTexture" id=1]
-viewport_path = NodePath("EditorGizmo/Viewport")
-
-[sub_resource type="SpatialMaterial" id=2]
-flags_transparent = true
-flags_unshaded = true
-flags_no_depth_test = true
-flags_do_not_receive_shadows = true
-flags_disable_ambient_light = true
-params_cull_mode = 2
-params_billboard_mode = 1
-albedo_texture = SubResource( 1 )
 
 [node name="SpawnSystem" type="Position3D"]
 pause_mode = 2
@@ -24,20 +10,3 @@ _player_scene = "res://characters/player/player.tscn"
 [node name="RayCast" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 cast_to = Vector3( 0, -32, 0 )
-
-[node name="EditorGizmo" parent="." instance=ExtResource( 3 )]
-
-[node name="PanelContainer" parent="EditorGizmo/Viewport/CanvasLayer/CenterContainer" index="0"]
-margin_left = 136.0
-margin_right = 264.0
-
-[node name="Label" parent="EditorGizmo/Viewport/CanvasLayer/CenterContainer/PanelContainer" index="0"]
-margin_right = 120.0
-text = "PlayerSpawnPoint"
-
-[node name="Sprite3D" parent="EditorGizmo" index="1"]
-material_override = SubResource( 2 )
-pixel_size = 0.02
-texture = SubResource( 1 )
-
-[editable path="EditorGizmo"]
