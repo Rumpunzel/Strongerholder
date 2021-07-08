@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://items/item_resource.gd" type="Script" id=1]
+[ext_resource path="res://prototype_assets/gui/game_icons/items/log.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Wood"
+icon = ExtResource( 2 )
+_scene = "res://prototype_assets/collectable_items/collectable_wood.tscn"
+_equipped_scene = ""
+stack_size = 3

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://quaternius/Survival Pack/OBJ/WoodLog.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://prototype_assets/collectable_items/_collectable_item.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.25
+height = 1.5
+
+[node name="Wood" instance=ExtResource( 2 )]
+
+[node name="CollisionShape" parent="." index="0"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="WoodLog" type="MeshInstance" parent="." index="1"]
+transform = Transform( -0.5, 0, 0, 0, -0.5, 0, 0, 0, -0.5, 0, 0.22, -0.02 )
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
