@@ -109,7 +109,7 @@ static func calc_ring_segment_AABB(inner, outer, start_angle, end_angle, center=
 	return i_aabb.merge(o_aabb)
 
 
-static func draw_ring_segment(canvas : CanvasItem, coords : PoolVector2Array, fill_color, stroke_color=null, width=1.0, antialiased=true):
+static func draw_ring_segment(canvas : CanvasItem, coords : PoolVector2Array, fill_color, stroke_color = null, width = 1.0, antialiased = true):
 	"""
 	Draws a segment of a ring. The ring coordinates must be passed in; they can be
 	generated with calc_ring_segment.

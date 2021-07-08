@@ -1,11 +1,21 @@
 class_name InventoryHUD
-extends CenterContainer
+extends Control
 
 const UNEQUIP = "Unequip"
 
 enum InventoryMode { INVENTORY, EQUIPMENT }
+enum SubMenuModes {
+	USE,
+	DROP,
+	EQUIP,
+	UNEQUIP,
+}
 
+export(Texture) var _use_icon
+export(Texture) var _drop_icon
+export(Texture) var _equip_icon
 export(Texture) var _unequip_icon
+export var _submenu_icon_width := 0.07
 
 var _radial_menu: RadialMenu
 var _inventory: CharacterInvetory
@@ -43,7 +53,7 @@ func _exit_tree() -> void:
 
 
 
-func _on_inventory_updated(inventory: Inventory) -> void:
+func _on_inventory_updated(inventory: Inventory) -> bool:
 	_inventory = inventory
 	var contents := inventory.contents(false)
 	_items.clear()
@@ -54,9 +64,15 @@ func _on_inventory_updated(inventory: Inventory) -> void:
 			_items.append(stack)
 		else:
 			_items.append(null)
+	
+	if _mode == InventoryMode.INVENTORY:
+		_fill_items()
+		return true
+	
+	return false
 
 
-func _on_equipment_updated(inventory: Inventory) -> void:
+func _on_equipment_updated(inventory: Inventory) -> bool:
 	_inventory = inventory
 	var current_equipments = _inventory.equipments()
 	_equipments.clear()
@@ -65,58 +81,125 @@ func _on_equipment_updated(inventory: Inventory) -> void:
 	for index in current_equipments.size():
 		var equipment: ToolResource = current_equipments[index]
 		_equipments.append(equipment)
+	
+	if _mode == InventoryMode.EQUIPMENT and _equipments.size() > 1:
+		_fill_equipments()
+		return true
+	
+	return false
 
 
 func _on_toggled(mode = _mode) -> void:
 	var open_menu := false
+	_radial_menu.close_menu()
 	
 	if not (mode == _mode and _radial_menu.visible):
 		_mode = mode
 		
 		match _mode:
 			InventoryMode.INVENTORY:
-				_on_inventory_updated(_inventory)
-				
-				_radial_menu.center_angle = PI * 0.5 - PI / float(_inventory.size())
-				_radial_menu.set_items([ ])
-				
-				for index in _items.size():
-					var stack: ItemStack = _items[index]
-					if stack:
-						_radial_menu.add_icon_item(stack.item.icon, str(stack.amount), index)
-					else:
-						_radial_menu.add_icon_item(null, "Nothing", index)
-				
-				open_menu = true
+				open_menu = _on_inventory_updated(_inventory)
 			
 			InventoryMode.EQUIPMENT:
-				_on_equipment_updated(_inventory)
-				
-				if _equipments.size() > 1:
-					# TODO: set the correct angle here
-					_radial_menu.center_angle = PI
-					_radial_menu.set_items([ ])
-					_radial_menu.add_icon_item(_unequip_icon, UNEQUIP, 0)
-					
-					for index in range(1, _equipments.size()):
-						var equipment: ToolResource = _equipments[index]
-						_radial_menu.add_icon_item(equipment.icon, equipment.name, index)
-					
-					open_menu = true
+				open_menu = _on_equipment_updated(_inventory)
 	
 	if open_menu:
 		_radial_menu.open_menu(rect_size * 0.5)
-	else:
-		_radial_menu.close_menu()
 
 
-func _on_item_selected(index: int, _position: Vector2) -> void:
+func _fill_items() -> void:
+	_radial_menu.center_angle = PI * 0.5 - PI / float(_inventory.size())
+	_radial_menu.set_items([ ])
+	
+	for index in _items.size():
+		var stack: ItemStack = _items[index]
+		if stack:
+			var item := stack.item
+			var equipped := _inventory.currently_equipped and item == _inventory.currently_equipped.item_resource
+			_radial_menu.add_icon_item(item.icon, str(stack.amount), index, false, _create_submenu(item, equipped))
+		else:
+			_radial_menu.add_icon_item(null, "Nothing", index, true, null)
+
+
+func _fill_equipments() -> void:
+	# TODO: set the correct angle here
+	_radial_menu.center_angle = -PI * 0.5 - PI / float(_equipments.size())
+	_radial_menu.set_items([ ])
+	_radial_menu.add_icon_item(_unequip_icon, UNEQUIP, 0, not _inventory.currently_equipped, null)
+	
+	for index in range(1, _equipments.size()):
+		var equipment: ToolResource = _equipments[index]
+		var equipped := _inventory.currently_equipped and equipment == _inventory.currently_equipped.item_resource
+		_radial_menu.add_icon_item(equipment.icon, equipment.name, index, equipped, null)
+
+
+func _on_item_selected(index: int, submenu_index, _position: Vector2) -> void:
 	match _mode:
 		InventoryMode.INVENTORY:
-			pass
+			var stack: ItemStack = _items[index]
+			
+			match submenu_index:
+				SubMenuModes.USE:
+					var item: ItemResource = stack.item
+					item.use()
+					_inventory.remove(item)
+					_on_inventory_updated(_inventory)
+				SubMenuModes.DROP:
+					var item: ItemResource = stack.item
+					# TODO: call dropping
+					print("Dropped %s" % item)
+				SubMenuModes.EQUIP:
+					_equip_item(stack.item)
+					_radial_menu.menu_items[index].submenu = _create_submenu(stack.item, true)
+				SubMenuModes.UNEQUIP:
+					_equip_item(_unequip)
+					_radial_menu.menu_items[index].submenu = _create_submenu(stack.item, false)
+		
 		InventoryMode.EQUIPMENT:
-			var equipment: ToolResource = _equipments[index]
-			if equipment == _unequip:
-				_inventory.unequip()
-			else:
-				_inventory.equip(equipment)
+			_equip_item(_equipments[index])
+
+
+func _create_submenu(item: ItemResource, equipped: bool) -> RadialMenu:
+	# create a new radial menu
+	var submenu := RadialMenu.new()
+	# copy some important properties from the parent menu
+	submenu.width = _radial_menu.width
+	submenu.default_theme = _radial_menu.default_theme
+	submenu.set_items([ ])
+	
+	var submenu_modes := [ ]
+	if item is ToolResource:
+		submenu_modes += [ SubMenuModes.EQUIP if not equipped else SubMenuModes.UNEQUIP, SubMenuModes.DROP ]
+	else:
+		submenu_modes += [ SubMenuModes.USE, SubMenuModes.DROP ]
+	
+	for mode in submenu_modes:
+		var icon: Texture
+		
+		match mode:
+			SubMenuModes.USE:
+				icon = _use_icon
+			SubMenuModes.DROP:
+				icon = _drop_icon
+			SubMenuModes.EQUIP:
+				icon = _equip_icon
+			SubMenuModes.UNEQUIP:
+				icon = _unequip_icon
+		
+		submenu.add_icon_item(icon, SubMenuModes.keys()[mode], mode, false, null)
+	
+	submenu.circle_coverage = (_submenu_icon_width * submenu_modes.size()) / _radial_menu.circle_coverage
+	return submenu
+
+
+func _equip_item(equipment: ToolResource) -> void:
+	_radial_menu.close_menu()
+	
+	if equipment == _unequip:
+		_inventory.unequip()
+	else:
+		_inventory.equip(equipment)
+
+
+func _drop_item(item: ItemResource) -> void:
+	_radial_menu.close_menu(true)

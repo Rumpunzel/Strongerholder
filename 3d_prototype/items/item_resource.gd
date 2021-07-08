@@ -6,6 +6,11 @@ export(String, FILE, "*.tscn") var _equipped_scene
 export(int, 0, 64) var stack_size = 1
 
 
+func use() -> void:
+	# TODO: implement use function
+	print("Used %s" % name)
+
+
 func attach_to(node: Spatial) -> Spatial:
 	var loaded_scene := load(_equipped_scene) as PackedScene
 	var spawned_node := loaded_scene.instance() as Spatial

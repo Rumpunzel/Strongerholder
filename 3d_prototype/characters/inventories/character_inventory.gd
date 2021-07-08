@@ -10,7 +10,7 @@ signal item_unequipped(equipment)
 
 export(NodePath) var _hand_position
 
-var _currently_equipped: EquippedItem = null
+var currently_equipped: EquippedItem = null
 
 
 func equipments() -> Array:
@@ -28,19 +28,19 @@ func equip(equipment: ToolResource) -> void:
 	
 	unequip()
 	
-	_currently_equipped = EquippedItem.new(
+	currently_equipped = EquippedItem.new(
 			equipment,
 			equipment.attach_to(get_node(_hand_position))
 	)
 	
-	emit_signal("item_equipped", _currently_equipped)
+	emit_signal("item_equipped", currently_equipped)
 
 
 func unequip() -> bool:
-	if _currently_equipped:
-		_currently_equipped.node.queue_free()
-		emit_signal("item_unequipped", _currently_equipped)
-		_currently_equipped = null
+	if currently_equipped:
+		currently_equipped.node.queue_free()
+		emit_signal("item_unequipped", currently_equipped)
+		currently_equipped = null
 		return true
 	
 	return false
