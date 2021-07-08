@@ -25,6 +25,8 @@ class MenuChannel:
 class GameplayChannel:
 	signal scene_loaded()
 	signal scene_unloaded()
+	
+	signal node_spawned(node, position)
 
 
 class PlayerChannel:

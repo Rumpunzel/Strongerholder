@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://game_world/scenes/_base_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prototype_assets/structures/house.tscn" type="PackedScene" id=2]
@@ -16,6 +16,9 @@ sample_partition_type/sample_partition_type = 1
 cell/size = 0.25
 agent/max_climb = 0.1
 region/min_size = 32.0
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 32, 4, 32 )
 
 [node name="WorldScene" instance=ExtResource( 1 )]
 
@@ -45,13 +48,12 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0, 
 [node name="Tree" parent="NavigationMeshInstance" index="4" instance=ExtResource( 7 )]
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 6, 0, -10 )
 
-[node name="PlaneCollider" type="CSGBox" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
-visible = false
-use_collision = true
-width = 512.0
-height = 4.0
-depth = 512.0
+[node name="Floor" type="StaticBody" parent="." index="2"]
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
+shape = SubResource( 2 )
 
 [node name="Axe" parent="." index="3" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -2, 1, 3 )

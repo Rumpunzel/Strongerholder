@@ -8,5 +8,5 @@ script = ExtResource( 1 )
 _player_scene = "res://characters/player/player.tscn"
 
 [node name="RayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
-cast_to = Vector3( 0, -32, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+cast_to = Vector3( 0, -8, 0 )

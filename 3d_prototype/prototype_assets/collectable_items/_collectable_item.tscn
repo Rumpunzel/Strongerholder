@@ -6,6 +6,7 @@
 "Item",
 ]]
 collision_layer = 4
+collision_mask = 5
 continuous_cd = true
 script = ExtResource( 1 )
 

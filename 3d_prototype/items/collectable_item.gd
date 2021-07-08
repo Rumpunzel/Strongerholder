@@ -1,5 +1,6 @@
 class_name CollectableItem
 extends RigidBody
+tool
 
 export(Resource) var item_resource
 

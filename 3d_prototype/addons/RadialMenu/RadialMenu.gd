@@ -47,9 +47,9 @@ export var center_radius := 20 setget _set_center_radius
 export(Position) var selector_position = Position.inside setget _set_selector_position
 export(Position) var decorator_ring_position = Position.inside setget _set_decorator_ring_position
 
-export var close_on_select := true
-export var close_on_submenu_select := true
-export var close_submenu_on_select := true
+export var close_on_select := false
+export var close_on_submenu_select := false
+export var close_submenu_on_select := false
 
 export(float, 0.01, 1.0, 0.001) var circle_coverage = 0.66 setget _set_circle_coverage
 export(float, -1.578, 4.712, 0.001) var center_angle = -PI / 2.0 setget _set_center_angle
@@ -210,15 +210,9 @@ func open_menu(center_position: Vector2):
 	moved_to_position = rect_position + center_offset
 
 
-func close_menu(close_only_submenu := false):
+func close_menu():
 	if get_open_submenu():
-		var submenu = get_open_submenu()
-		_disconnect_submenu_signals(submenu)
-		get_open_submenu().close_menu()
-		active_submenu_idx = -1
-		
-		if close_only_submenu:
-			return
+		close_submenu()
 	
 	if state != MenuState.open:
 		return
@@ -242,7 +236,7 @@ func open_submenu(submenu: RadialMenu, idx: int):
 	
 	var ring_width = submenu.get_total_ring_width()
 	
-	submenu.close_on_select = close_submenu_on_select
+	#submenu.close_on_select = close_submenu_on_select
 	submenu.decorator_ring_position = decorator_ring_position
 	submenu.center_angle = idx * item_angle - PI + center_angle + item_angle / 2.0
 	submenu.radius = radius + ring_width
@@ -268,6 +262,12 @@ func open_submenu(submenu: RadialMenu, idx: int):
 		rect_position = moved_to_position - center_offset
 		update()
 		submenu.open_menu(moved_to_position)
+
+
+func close_submenu(submenu := get_open_submenu()) -> void:
+	_disconnect_submenu_signals(submenu)
+	get_open_submenu().close_menu()
+	active_submenu_idx = -1
 
 
 func add_icon_item(texture : Texture, title: String, id, disabled: bool, submenu: RadialMenu):

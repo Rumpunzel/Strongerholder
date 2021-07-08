@@ -159,7 +159,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/interaction_area.gd"
 }, {
-"base": "Node",
+"base": "Area",
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://characters/inventories/inventory.gd"
@@ -1669,8 +1669,6 @@ open_equipment_menu={
 3d_physics/layer_2="Characters"
 3d_physics/layer_3="Items"
 3d_physics/layer_4="Structures"
-3d_physics/layer_12="CharacterAreas"
-3d_physics/layer_14="StructureAreas"
 
 [node]
 

@@ -34,6 +34,7 @@ parameters/attack/active = false
 parameters/grounded/current = 0
 parameters/idle_walk/current = 0
 parameters/pick_up/active = false
+parameters/speed_up_old_man/scale = 2.0
 parameters/walk_speed/blend_amount = 0.0
 
 [connection signal="item_equipped" from="Inventory" to="InteractionArea" method="_on_item_equipped"]

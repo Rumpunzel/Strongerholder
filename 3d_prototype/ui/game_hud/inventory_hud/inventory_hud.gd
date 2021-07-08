@@ -136,29 +136,28 @@ func _fill_equipments() -> void:
 
 
 func _on_item_selected(index: int, submenu_index, _position: Vector2) -> void:
+	var submenu: RadialMenu = _radial_menu.menu_items[index].submenu
+	
 	match _mode:
 		InventoryMode.INVENTORY:
 			var stack: ItemStack = _items[index]
 			
 			match submenu_index:
 				SubMenuModes.USE:
-					var item: ItemResource = stack.item
-					item.use()
-					_inventory.remove(item)
-					_on_inventory_updated(_inventory)
+					_use_item(stack.item, submenu)
 				SubMenuModes.DROP:
-					var item: ItemResource = stack.item
-					# TODO: call dropping
-					print("Dropped %s" % item)
+					_drop_item(stack.item, submenu)
 				SubMenuModes.EQUIP:
-					_equip_item(stack.item)
-					_radial_menu.menu_items[index].submenu = _create_submenu(stack.item, true)
+					_equip_item(stack.item, submenu)
 				SubMenuModes.UNEQUIP:
-					_equip_item(_unequip)
-					_radial_menu.menu_items[index].submenu = _create_submenu(stack.item, false)
+					_equip_item(_unequip, submenu)
+			
+			if _inventory.empty():
+				_radial_menu.close_menu()
 		
 		InventoryMode.EQUIPMENT:
-			_equip_item(_equipments[index])
+			_equip_item(_equipments[index], submenu)
+			_radial_menu.close_menu()
 
 
 func _create_submenu(item: ItemResource, equipped: bool) -> RadialMenu:
@@ -194,14 +193,35 @@ func _create_submenu(item: ItemResource, equipped: bool) -> RadialMenu:
 	return submenu
 
 
-func _equip_item(equipment: ToolResource) -> void:
-	_radial_menu.close_menu()
+func _use_item(item: ItemResource, submenu: RadialMenu) -> void:
+	item.use()
 	
-	if equipment == _unequip:
+	var items_left_in_stack := _inventory.remove(item)
+	if items_left_in_stack <= 0:
+		_radial_menu.close_submenu(submenu)
+		submenu.close_menu()
+	
+	_on_inventory_updated(_inventory)
+
+
+func _drop_item(item: ItemResource, submenu: RadialMenu) -> void:
+	var equipped := _inventory.currently_equipped and item == _inventory.currently_equipped.item_resource
+	if equipped:
 		_inventory.unequip()
-	else:
+	
+	var items_left_in_stack := _inventory.drop(item)
+	if items_left_in_stack <= 0:
+		_radial_menu.close_submenu(submenu)
+		submenu.close_menu()
+	
+	_on_inventory_updated(_inventory)
+
+
+func _equip_item(equipment: ToolResource, submenu: RadialMenu) -> void:
+	var equipped := equipment == _unequip
+	if not equipped:
 		_inventory.equip(equipment)
-
-
-func _drop_item(item: ItemResource) -> void:
-	_radial_menu.close_menu(true)
+	else:
+		_inventory.unequip()
+	
+	submenu = _create_submenu(equipment, not equipped)

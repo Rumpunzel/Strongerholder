@@ -19,9 +19,11 @@ func attach_to(node: Spatial) -> Spatial:
 	return spawned_node
 
 
-func drop_at(position: Vector3) -> void:
+func drop_at(position: Vector3, random_rotation := true) -> Spatial:
 	var spawned_node := spawn()
-	# TODO: actually add the item to the scene tree
+	print(spawned_node.name + " spawned")
+	Events.gameplay.emit_signal("node_spawned", spawned_node, position, random_rotation)
+	return spawned_node
 
 
 
