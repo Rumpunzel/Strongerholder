@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/main_menu/main_menu_button.gd" type="Script" id=1]
+[ext_resource path="res://prototype_assets/gui/other_stuff/banner.png" type="Texture" id=2]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 2000, 903 )
+expand_margin_left = 64.0
+expand_margin_right = 96.0
+expand_margin_top = 36.0
+expand_margin_bottom = 44.0
 
 [node name="Continue" type="Button"]
 self_modulate = Color( 1, 1, 1, 0 )
@@ -11,12 +20,26 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+_background_fade_time = 0.1
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Text"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tween" type="Tween" parent="."]

@@ -1,7 +1,12 @@
+class_name MainMenuButton
 extends Button
 tool
 
+export var _background_fade_time := 0.05
+
 onready var _label: Label = $Label
+onready var _background: Panel = $Panel
+onready var _tween: Tween = $Tween
 
 
 
@@ -47,11 +52,15 @@ func _set_default() -> void:
 	if disabled:
 		return
 	_label.add_color_override("font_color", get_color("font_color"))
+	_tween.interpolate_property(_background, "modulate:a", 1.0, 0.0, _background_fade_time)
+	_tween.start()
 
 func _set_hover() -> void:
 	if disabled:
 		return
 	_label.add_color_override("font_color", get_color("font_color_hover"))
+	_tween.interpolate_property(_background, "modulate:a", 0.0, 1.0, _background_fade_time)
+	_tween.start()
 
 func _set_pressed() -> void:
 	if disabled:
@@ -60,3 +69,5 @@ func _set_pressed() -> void:
 
 func _set_disabled() -> void:
 	_label.add_color_override("font_color", get_color("font_color_disabled"))
+	_tween.interpolate_property(_background, "modulate:a", 1.0, 0.0, _background_fade_time)
+	_tween.start()
