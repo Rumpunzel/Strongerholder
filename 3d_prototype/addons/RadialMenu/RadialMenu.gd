@@ -44,6 +44,8 @@ export var radius := 150 setget _set_radius
 export var width := 50 setget _set_width
 export var center_radius := 20 setget _set_center_radius
 
+export(PackedScene) var item_scene
+
 export(Position) var selector_position = Position.inside setget _set_selector_position
 export(Position) var decorator_ring_position = Position.inside setget _set_decorator_ring_position
 
@@ -240,6 +242,7 @@ func open_submenu(submenu: RadialMenu, idx: int):
 	
 	var ring_width = submenu.get_total_ring_width()
 	
+	submenu.item_scene = item_scene
 	submenu.decorator_ring_position = decorator_ring_position
 	submenu.center_angle = idx * item_angle - PI + center_angle + item_angle / 2.0
 	submenu.radius = radius + ring_width
@@ -313,11 +316,11 @@ func update_item_icons():
 	while i < n:
 		var item = menu_items[i]
 		if item != null:
-			var sprite = item_nodes[ni]
+			var item_node = item_nodes[ni]
 			ni += 1
-			sprite.position = coords[i]
-			sprite.scale = Vector2(icon_scale, icon_scale)
-			sprite.modulate = _get_color("Icon Modulation") if not item.get('disabled', false) else _get_color("Icon Modulation Disabled")
+			item_node.rect_position = coords[i]
+			item_node.rect_scale = Vector2(icon_scale, icon_scale)
+			item_node.modulate = _get_color("Icon Modulation") if not item.get('disabled', false) else _get_color("Icon Modulation Disabled")
 		
 		i += 1
 
@@ -811,13 +814,13 @@ func _create_item_icons():
 		var item = menu_items[i]
 		
 		if item != null:
-			var sprite = Sprite.new()
-			sprite.position = coords[i]
-			sprite.centered = true
-			sprite.texture = item.texture
-			sprite.scale = Vector2(icon_scale, icon_scale)
-			sprite.modulate = _get_color("Icon Modulation") if not item.get('disabled', false) else _get_color("Icon Modulation Disabled")
-			$ItemIcons.add_child(sprite)
+			var item_node: InventoryHUDItem = item_scene.instance()
+			$ItemIcons.add_child(item_node)
+			item_node.configure(item.texture, int(item.title))
+			item_node.rect_position = coords[i]
+			item_node.rect_scale = Vector2(icon_scale, icon_scale)
+			item_node.modulate = _get_color("Icon Modulation") if not item.get('disabled', false) else _get_color("Icon Modulation Disabled")
+			
 	
 	_item_children_present = true
 

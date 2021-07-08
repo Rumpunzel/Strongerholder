@@ -147,9 +147,13 @@ func _on_item_selected(index: int, submenu_index, _position: Vector2) -> void:
 					_drop_item(stack.item, submenu)
 				SubMenuModes.EQUIP:
 					var new_submenu := _equip_item(stack.item, submenu)
+					_on_inventory_updated(_inventory)
+					_radial_menu.close_submenu(submenu)
 					_radial_menu.menu_items[index]['submenu'] = new_submenu
 				SubMenuModes.UNEQUIP:
 					var new_submenu := _equip_item(_unequip, submenu)
+					_on_inventory_updated(_inventory)
+					_radial_menu.close_submenu(submenu)
 					_radial_menu.menu_items[index]['submenu'] = new_submenu
 			
 			if _inventory.empty():
@@ -195,9 +199,7 @@ func _create_submenu(item: ItemResource, equipped: bool) -> RadialMenu:
 
 
 func _use_item(item: ItemResource, submenu: RadialMenu) -> void:
-	item.use()
-	
-	var items_left_in_stack := _inventory.remove(item)
+	var items_left_in_stack := _inventory.use(item)
 	if items_left_in_stack <= 0:
 		_radial_menu.close_submenu(submenu)
 	
@@ -227,6 +229,4 @@ func _equip_item(equipment: ToolResource, submenu: RadialMenu) -> RadialMenu:
 		# warning-ignore:return_value_discarded
 		_inventory.unequip()
 	
-	_on_inventory_updated(_inventory)
-	_radial_menu.close_submenu(submenu)
 	return _create_submenu(equipment, not equipped)
