@@ -29,6 +29,9 @@ func _exit_tree() -> void:
 
 
 func _ready() -> void:
+	set("custom_fonts/font", get_font("font", "MainMenuButton"))
+	_label.set("custom_fonts/font", get_font("font", "MainMenuButton"))
+	
 	set_text(text)
 	set_disabled(disabled)
 

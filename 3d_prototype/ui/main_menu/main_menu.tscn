@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://prototype_assets/gui/fonts/title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/game_title.gd" type="Script" id=2]
 [ext_resource path="res://ui/game_version.gd" type="Script" id=3]
 [ext_resource path="res://ui/main_menu/main_menu.gd" type="Script" id=4]
-[ext_resource path="res://prototype_assets/gui/main_menu_buttons_theme.tres" type="Theme" id=5]
 [ext_resource path="res://prototype_assets/gui/gui_theme.tres" type="Theme" id=6]
 [ext_resource path="res://ui/main_menu/main_menu_button.tscn" type="PackedScene" id=7]
 
@@ -53,7 +52,7 @@ custom_constants/margin_left = 160
 margin_left = 160.0
 margin_top = 240.0
 margin_right = 646.0
-margin_bottom = 560.0
+margin_bottom = 518.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 72
@@ -63,6 +62,8 @@ margin_right = 486.0
 margin_bottom = 102.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
 text = "Strongerholder"
@@ -71,28 +72,31 @@ script = ExtResource( 2 )
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MenuContainer/MenuContent"]
 margin_top = 174.0
 margin_right = 486.0
-margin_bottom = 320.0
+margin_bottom = 278.0
 custom_constants/margin_left = 16
 
 [node name="MenuButtons" type="VBoxContainer" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer"]
 margin_left = 16.0
-margin_right = 150.0
-margin_bottom = 146.0
+margin_right = 92.0
+margin_bottom = 104.0
 size_flags_horizontal = 0
-theme = ExtResource( 5 )
 custom_constants/separation = 16
 
 [node name="Continue" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+margin_right = 76.0
+margin_bottom = 24.0
 text = "Continue"
 
 [node name="Restart" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
-margin_top = 54.0
-margin_bottom = 92.0
+margin_top = 40.0
+margin_right = 76.0
+margin_bottom = 64.0
 text = "Restart"
 
 [node name="Quit" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
-margin_top = 108.0
-margin_bottom = 146.0
+margin_top = 80.0
+margin_right = 76.0
+margin_bottom = 104.0
 text = "Quit"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]

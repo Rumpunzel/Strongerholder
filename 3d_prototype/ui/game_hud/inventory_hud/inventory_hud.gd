@@ -38,6 +38,8 @@ func _enter_tree() -> void:
 	error = Events.hud.connect("equipment_hud_toggled", self, "_on_toggled", [ InventoryMode.EQUIPMENT ])
 	assert(error == OK)
 	
+	error = Events.main.connect("game_paused", self, "_on_toggled", [ -1 ])
+	
 	_radial_menu = $RadialMenu
 	
 	error = _radial_menu.connect("item_selected", self, "_on_item_selected")
@@ -89,7 +91,7 @@ func _on_equipment_updated(inventory: Inventory) -> bool:
 	return false
 
 
-func _on_toggled(mode = _mode) -> void:
+func _on_toggled(mode := _mode) -> void:
 	var open_menu := false
 	_radial_menu.close_menu()
 	
