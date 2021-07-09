@@ -816,7 +816,6 @@ func _create_item_icons():
 		if item != null:
 			var item_node: InventoryHUDItem = item_scene.instance()
 			$ItemIcons.add_child(item_node)
-			item_node.configure(item.texture, int(item.title))
 			item_node.rect_position = coords[i]
 			item_node.rect_scale = Vector2(icon_scale, icon_scale)
 			item_node.modulate = _get_color("Icon Modulation") if not item.get('disabled', false) else _get_color("Icon Modulation Disabled")

@@ -1,32 +1,38 @@
 class_name RadialMenuItem
 extends TextureRect
 
-var submenu
+export var _scale_on_selection := Vector2(1.2, 1.2)
+export var _animation_time := 0.1
+
+# Array of RadialMenuItems
+var submenu_items := [ ]
 var disabled := false setget _set_disabled
 
+var _tween: Tween
 
+
+func _enter_tree() -> void:
+	_tween = Tween.new()
+	add_child(_tween)
+
+
+func highlight(is_highlighted: bool) -> void:
+	var highlighted := false
+	if is_highlighted and rect_scale == Vector2(1.0, 1.0):
+		_tween.interpolate_property(self, "rect_scale", Vector2(1.0, 1.0), _scale_on_selection, _animation_time)
+		highlighted = true
+	elif not is_highlighted and not rect_scale == Vector2(1.0, 1.0):
+		_tween.interpolate_property(self, "rect_scale", _scale_on_selection, Vector2(1.0, 1.0), _animation_time)
+		highlighted = true
+	
+	if highlighted:
+		_tween.start()
+
+
+func set_texture(new_texture: Texture) -> void:
+	.set_texture(new_texture)
+	rect_pivot_offset = texture.get_size() / 2.0
 
 func _set_disabled(is_disabled: bool) -> void:
+	highlight(false)
 	disabled = is_disabled
-	# TODO: find out why this does not work
-	#modulate = _get_color("icon_modulation") if not disabled else _get_color("icon_modulation_disabled")
-
-
-func _set_font(font_name: String) -> void:
-	set("custom_fonts/%s" % font_name, _get_font(font_name))
-
-func _set_color(color_name: String) -> void:
-	set("custom_colors/%s" % color_name, _get_color(color_name))
-
-func _set_constant(constant_name: String) -> void:
-	set("constants/%s" % constant_name, _get_constant(constant_name))
-
-
-func _get_font(font_name: String) -> Font:
-	return get_font(font_name, "RadialMenu2")
-
-func _get_color(color_name: String) -> Color:
-	return get_color(color_name, "RadialMenu2")
-
-func _get_constant(constant_name: String):
-	return get_constant(constant_name, "RadialMenu2")

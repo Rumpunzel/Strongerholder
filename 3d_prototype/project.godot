@@ -45,7 +45,7 @@ _global_script_classes=[ {
 "path": "res://characters/character.gd"
 }, {
 "base": "Inventory",
-"class": "CharacterInvetory",
+"class": "CharacterInventory",
 "language": "GDScript",
 "path": "res://characters/inventories/character_inventory.gd"
 }, {
@@ -402,7 +402,7 @@ _global_script_class_icons={
 "ApplyMovementVectorActionResource": "",
 "AscendActionResource": "",
 "Character": "",
-"CharacterInvetory": "",
+"CharacterInventory": "",
 "CharacterMovementActions": "",
 "CharacterMovementInputs": "",
 "CharacterMovementStatsResource": "",

@@ -19,7 +19,7 @@ var current_interaction: Interaction
 
 var _character: Spatial
 var _inputs: CharacterMovementInputs
-var _equipped_item: CharacterInvetory.EquippedItem
+var _equipped_item: CharacterInventory.EquippedItem
 
 
 
@@ -119,10 +119,10 @@ func _on_body_exited_interaction_area(body: Node) -> void:
 	_objects_in_interaction_range.erase(body)
 
 
-func _on_item_equipped(equipment: CharacterInvetory.EquippedItem):
+func _on_item_equipped(equipment: CharacterInventory.EquippedItem):
 	_equipped_item = equipment
 
-func _on_item_unequipped(equipment: CharacterInvetory.EquippedItem):
+func _on_item_unequipped(equipment: CharacterInventory.EquippedItem):
 	if _equipped_item == equipment:
 		_equipped_item = null
 

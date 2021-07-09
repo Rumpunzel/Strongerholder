@@ -18,7 +18,7 @@ export(Texture) var _unequip_icon
 export var _submenu_icon_width := 0.07
 
 var _radial_menu: RadialMenu
-var _inventory: CharacterInvetory
+var _inventory: CharacterInventory
 
 var _mode: int
 var _items := [ ]

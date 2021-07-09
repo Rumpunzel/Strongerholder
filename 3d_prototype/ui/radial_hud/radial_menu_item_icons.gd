@@ -3,6 +3,29 @@ extends Control
 tool
 
 
+func update_item_icon(
+		menu_items: Array,
+		selected_item: RadialMenuItem,
+		count: int
+) -> void:
+	
+	var items := get_children()
+	for i in range(count):
+		var item: RadialMenuItem = menu_items[i]
+		var icon_modulate := _get_color("icon_modulate_disabled")
+		
+		if not item.disabled:
+			if item == selected_item:
+				icon_modulate = _get_color("icon_modulate_selected")
+				item.highlight(true)
+			else:
+				icon_modulate = _get_color("icon_modulate")
+				item.highlight(false)
+		
+		var item_node: RadialMenuItem = items[i]
+		item_node.modulate = icon_modulate
+
+
 func create_item_icons(
 		menu_items: Array,
 		center_angle: float,
@@ -16,6 +39,9 @@ func create_item_icons(
 	clear_items()
 	
 	var item_count := menu_items.size()
+	if item_count == 0:
+		return
+	
 	var start_angle := center_angle - item_angle * (item_count >> 1) 
 	var half_angle: float
 	
@@ -24,7 +50,6 @@ func create_item_icons(
 	else:
 		half_angle = 0.0
 	
-	#var icon_radius := _get_icon_radius()
 	var coords := DrawLibrary.calc_ring_segment_centers(icon_radius, item_count, start_angle + half_angle, start_angle + half_angle + item_count * item_angle, center_offset)
 	
 	for i in menu_items.size():
@@ -68,3 +93,18 @@ func clear_items() -> void:
 	assert(is_inside_tree())
 	for node in get_children():
 		remove_child(node)
+
+
+
+func _set_color(color_name: String) -> void:
+	set("custom_colors/%s" % color_name, _get_color(color_name))
+
+func _set_constant(constant_name: String) -> void:
+	set("constants/%s" % constant_name, _get_constant(constant_name))
+
+
+func _get_color(color_name: String) -> Color:
+	return get_color(color_name, "RadialMenu2")
+
+func _get_constant(constant_name: String):
+	return get_constant(constant_name, "RadialMenu2")

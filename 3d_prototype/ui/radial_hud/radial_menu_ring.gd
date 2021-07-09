@@ -26,18 +26,18 @@ func draw_item_backgrounds(
 		if item == selected_item:
 			if not item.disabled:
 				background_color = _get_color("selected_background")
+				stroke_color = _get_color("selected_background")
 			else:
 				background_color = _get_color("selected_background_disabled")
 		elif item.disabled:
 			background_color = _get_color("background_disabled")
 		
-		DrawLibrary.draw_ring_segment(canvas, coords, background_color, stroke_color, 0.5, true)
+		DrawLibrary.draw_ring_segment(canvas, coords, background_color, stroke_color)
 
 
 func draw_decorator_ring(
 		canvas: CanvasItem,
 		decorator_ring_position: int,
-		selected_item: RadialMenuItem,
 		item_angle: float,
 		center_offset: Vector2,
 		inner: float,
@@ -48,23 +48,21 @@ func draw_decorator_ring(
 	
 	var ring_width: float = _get_constant("decorator_ring_width")
 	var coords: PoolVector2Array
-	var ring_background_color := _get_color("ring_background")
+	var ring_background_color := _get_color("selected_background")
 	
 	if decorator_ring_position == Position.OUTSIDE:
 		coords = DrawLibrary.calc_ring_segment(outer, outer + ring_width, start_angle, start_angle + count * item_angle, center_offset)
-		if selected_item.disabled:
-			ring_background_color = _get_color("ring_background_disabled")
 	elif decorator_ring_position == Position.INSIDE:
 		coords = DrawLibrary.calc_ring_segment(inner - ring_width, inner, start_angle, start_angle + count * item_angle, center_offset)
 	
-	DrawLibrary.draw_ring_segment(canvas, coords, ring_background_color, Color.transparent, 0, true)
+	DrawLibrary.draw_ring_segment(canvas, coords, ring_background_color)
 
 
 func draw_selections_ring_segment(
 		canvas: CanvasItem,
 		menu_items: Array,
 		selected_item: RadialMenuItem,
-		active_sub_menu: Control,
+		active_sub_menu: RadialMenuItem,
 		selector_position: int,
 		item_angle: float,
 		center_offset: Vector2,
@@ -73,20 +71,21 @@ func draw_selections_ring_segment(
 		start_angle: float
 ) -> void:
 	
-	if selected_item and not active_sub_menu:
+	if selected_item:# and not active_sub_menu:
+		if selected_item.disabled:
+			return
+		
 		var selected := menu_items.find(selected_item)
 		var selector_size: float = _get_constant("selector_segment_width")
 		var select_coords: PoolVector2Array
-		var selector_segment_color := _get_color("selector_segment")
-		if selected_item.disabled:
-			selector_segment_color = _get_color("selector_segment_disabled")
+		var selector_segment_color := _get_color("selected_background")
 		
 		if selector_position == Position.OUTSIDE:
 			select_coords = DrawLibrary.calc_ring_segment(outer, outer + selector_size, start_angle + selected * item_angle, start_angle + (selected + 1) * item_angle, center_offset)
 		elif selector_position == Position.INSIDE:
 			select_coords = DrawLibrary.calc_ring_segment(inner - selector_size, inner, start_angle + selected * item_angle, start_angle + (selected + 1) * item_angle, center_offset)
 		
-		DrawLibrary.draw_ring_segment(canvas, select_coords, selector_segment_color, Color.transparent, 0, true)
+		DrawLibrary.draw_ring_segment(canvas, select_coords, selector_segment_color)
 
 
 

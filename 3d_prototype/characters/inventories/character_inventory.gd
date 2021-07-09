@@ -1,4 +1,4 @@
-class_name CharacterInvetory
+class_name CharacterInventory
 extends Inventory
 
 signal item_equipped(equipment)
@@ -14,13 +14,13 @@ func equipments() -> Array:
 	var equipments := [ ]
 	for stack in _item_slots:
 		if stack and stack.item is ToolResource:
-			equipments.append(stack.item)
+			equipments.append(stack)
 	
 	return equipments
 
 
 func equip(equipment: ToolResource) -> void:
-	assert(equipments().has(equipment))
+	#assert(equipments().has(equipment))
 	assert(get_node(_hand_position))
 	
 	# warning-ignore:return_value_discarded
@@ -34,6 +34,11 @@ func equip(equipment: ToolResource) -> void:
 	emit_signal("item_equipped", currently_equipped)
 
 
+func equip_item_from_stack(stack: ItemStack) -> void:
+	# TODO: Check if this is the proper implementation of this
+	equip(stack.item)
+
+
 func unequip() -> bool:
 	if currently_equipped:
 		currently_equipped.node.queue_free()
@@ -42,6 +47,11 @@ func unequip() -> bool:
 		return true
 	
 	return false
+
+
+func has_equipped(equipment: ToolResource) -> bool:
+	# TODO: make this a nicer check
+	return currently_equipped and equipment.name == currently_equipped.item_resource.name
 
 
 
