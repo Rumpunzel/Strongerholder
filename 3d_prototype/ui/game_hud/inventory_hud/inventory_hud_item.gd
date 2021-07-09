@@ -1,19 +1,15 @@
 class_name InventoryHUDItem
-extends CenterContainer
-
-var _icon: TextureRect
-var _amount: Label
+extends RadialMenuItem
 
 
-func _enter_tree() -> void:
-	_icon = $Icon
-	_amount = $Icon/MarginContainer/Amount
-
-
-func configure(texture: Texture, amount: int) -> void:
-	_icon.texture = texture
+func configure(new_texture: Texture, amount: int, is_disabled := false) -> void:
+	texture = new_texture
+	
+	var _amount: Label  = $MarginContainer/Amount
 	if amount > 1:
 		_amount.visible = true
 		_amount.text = ("%d" % amount)
 	else:
 		_amount.visible = false
+	
+	_set_disabled(is_disabled)

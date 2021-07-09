@@ -13,6 +13,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 _use_icon = ExtResource( 5 )
 _drop_icon = ExtResource( 3 )
 _equip_icon = ExtResource( 4 )

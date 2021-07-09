@@ -1,16 +1,15 @@
-class_name GameTitle
-extends Label
-tool
+class_name RadialMenuItem
+extends TextureRect
+
+var submenu
+var disabled := false setget _set_disabled
 
 
-func _ready():
-	_set_font("font")
-	_set_color("font_color")
-	_set_color("font_color_shadow")
-	_set_constant("shadow_offset_x")
-	_set_constant("shadow_offset_y")
-	
-	text = ProjectSettings.get("application/config/name")
+
+func _set_disabled(is_disabled: bool) -> void:
+	disabled = is_disabled
+	# TODO: find out why this does not work
+	#modulate = _get_color("icon_modulation") if not disabled else _get_color("icon_modulation_disabled")
 
 
 func _set_font(font_name: String) -> void:
@@ -24,10 +23,10 @@ func _set_constant(constant_name: String) -> void:
 
 
 func _get_font(font_name: String) -> Font:
-	return get_font(font_name, "GameTitle")
+	return get_font(font_name, "RadialMenu2")
 
 func _get_color(color_name: String) -> Color:
-	return get_color(color_name, "GameTitle")
+	return get_color(color_name, "RadialMenu2")
 
 func _get_constant(constant_name: String):
-	return get_color(constant_name, "GameTitle")
+	return get_constant(constant_name, "RadialMenu2")

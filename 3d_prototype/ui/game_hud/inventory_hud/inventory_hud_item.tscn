@@ -14,41 +14,34 @@ expand_margin_right = 2.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
-[node name="InventoryHUDItem" type="CenterContainer"]
+[node name="InventoryHUDItem" type="TextureRect"]
 margin_right = 40.0
 margin_bottom = 40.0
-use_top_left = true
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="."]
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-texture = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MarginContainer" type="MarginContainer" parent="Icon"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_right = 2
-custom_constants/margin_top = 2
-custom_constants/margin_left = 2
-custom_constants/margin_bottom = 2
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Amount" type="Label" parent="Icon/MarginContainer"]
-margin_left = 46.0
-margin_top = 48.0
-margin_right = 62.0
-margin_bottom = 62.0
+[node name="Amount" type="Label" parent="MarginContainer"]
+margin_left = 44.0
+margin_top = 46.0
+margin_right = 60.0
+margin_bottom = 60.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "69"
@@ -58,7 +51,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="Icon/MarginContainer/Amount"]
+[node name="Panel" type="Panel" parent="MarginContainer/Amount"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0

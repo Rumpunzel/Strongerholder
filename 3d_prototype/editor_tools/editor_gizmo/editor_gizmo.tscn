@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://tools/editor/editor_gizmo.gd" type="Script" id=1]
+[ext_resource path="res://editor_tools/editor_gizmo/editor_gizmo.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0862745, 0.576471, 0, 1 )
