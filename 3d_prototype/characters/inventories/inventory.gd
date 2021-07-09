@@ -10,7 +10,7 @@ signal equipment_removed(equipment)
 
 export(Resource) var _inventory_attributes
 
-var _item_slots := [ ]
+var item_slots := [ ]
 
 onready var _drop_area: CollisionShape = $CollisionShape
 onready var _drop_shape: BoxShape = _drop_area.shape
@@ -21,9 +21,9 @@ func _enter_tree() -> void:
 	if Engine.editor_hint:
 		return
 	
-	_item_slots.resize(_inventory_attributes.inventory_size)
-	for slot in _item_slots.size():
-		_item_slots[slot] = null
+	item_slots.resize(_inventory_attributes.inventory_size)
+	for slot in item_slots.size():
+		item_slots[slot] = null
 
 
 func _ready() -> void:
@@ -36,8 +36,8 @@ func _ready() -> void:
 # Returns how many items were dropped because the inventory was full
 func add(item: ItemResource, count := 1) -> int:
 	assert(count > 0)
-	for slot in _item_slots.size():
-		var stack: ItemStack = _item_slots[slot]
+	for slot in item_slots.size():
+		var stack: ItemStack = item_slots[slot]
 		if stack:
 			if item == stack.item:
 				count = _add_to_stack(item, count, stack)
@@ -45,7 +45,7 @@ func add(item: ItemResource, count := 1) -> int:
 					break
 		else:
 			stack = ItemStack.new(item)
-			_item_slots[slot] = stack
+			item_slots[slot] = stack
 			
 			count = _add_to_stack(item, count, stack)
 			if count <= 0:
@@ -60,8 +60,8 @@ func add(item: ItemResource, count := 1) -> int:
 # Returns how many are left in the stack
 func remove(item: ItemResource) -> int:
 	var left_in_stack := -1
-	for slot in _item_slots.size():
-		var stack: ItemStack = _item_slots[slot]
+	for slot in item_slots.size():
+		var stack: ItemStack = item_slots[slot]
 		if stack and stack.item == item:
 			left_in_stack = _remove_from_stack(item, 1, slot)
 			break
@@ -72,8 +72,8 @@ func remove(item: ItemResource) -> int:
 # Returns how many are left in the stack
 func use(item: ItemResource) -> int:
 	var left_in_stack := -1
-	for slot in _item_slots.size():
-		var stack: ItemStack = _item_slots[slot]
+	for slot in item_slots.size():
+		var stack: ItemStack = item_slots[slot]
 		if stack and stack.item == item:
 			left_in_stack = _remove_from_stack(item, 1, slot)
 			break
@@ -89,8 +89,8 @@ func use(item: ItemResource) -> int:
 # Returns how many are left in the stack
 func drop(item: ItemResource) -> int:
 	var left_in_stack := -1
-	for slot in _item_slots.size():
-		var stack: ItemStack = _item_slots[slot]
+	for slot in item_slots.size():
+		var stack: ItemStack = item_slots[slot]
 		if stack and stack.item == item:
 			left_in_stack = _remove_from_stack(item, 1, slot)
 			break
@@ -105,7 +105,7 @@ func drop(item: ItemResource) -> int:
 
 # Returns how many items were dropped
 func drop_stack(stack: ItemStack) -> int:
-	if not _item_slots.has(stack):
+	if not item_slots.has(stack):
 		return 0
 	
 	var amount := stack.amount
@@ -123,7 +123,7 @@ func drop_everything() -> void:
 
 
 func contains(item: ItemResource) -> ItemStack:
-	for stack in _item_slots:
+	for stack in item_slots:
 		if stack and stack.item == item:
 			return stack
 	
@@ -132,7 +132,7 @@ func contains(item: ItemResource) -> ItemStack:
 
 func count(item: ItemResource) -> int:
 	var item_count := 0
-	for stack in _item_slots:
+	for stack in item_slots:
 		if stack and stack.item == item:
 			item_count += stack.amount
 	
@@ -141,10 +141,10 @@ func count(item: ItemResource) -> int:
 
 func contents(return_only_non_empty := true) -> Array:
 	if not return_only_non_empty:
-		return _item_slots
+		return item_slots
 	
 	var item_stacks := [ ]
-	for stack in _item_slots:
+	for stack in item_slots:
 		if stack:
 			item_stacks.append(stack)
 	
@@ -173,7 +173,7 @@ func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 
 # Return how many are left in the stack
 func _remove_from_stack(item: ItemResource, count: int, slot: int) -> int:
-	var stack: ItemStack = _item_slots[slot]
+	var stack: ItemStack = item_slots[slot]
 	while count > 0 and stack.amount > 0:
 		stack.amount -= 1
 		count -= 1
@@ -182,7 +182,7 @@ func _remove_from_stack(item: ItemResource, count: int, slot: int) -> int:
 			emit_signal("equipment_removed", item)
 		
 		if stack.amount <= 0:
-			_item_slots[slot] = null
+			item_slots[slot] = null
 			break
 	
 	return stack.amount

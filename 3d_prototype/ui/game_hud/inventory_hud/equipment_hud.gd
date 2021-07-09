@@ -17,7 +17,7 @@ func _enter_tree() -> void:
 	error = Events.hud.connect("equipment_hud_toggled", self, "_on_toggled")
 	assert(error == OK)
 	
-	error = Events.main.connect("game_paused", self, "_on_toggled", [ -1 ])
+	error = Events.main.connect("game_paused", self, "_on_toggled")
 	
 	error = connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)

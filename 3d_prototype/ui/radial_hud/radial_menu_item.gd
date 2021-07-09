@@ -1,7 +1,7 @@
 class_name RadialMenuItem
 extends TextureRect
 
-export var _scale_on_selection := Vector2(1.2, 1.2)
+export var _scale_on_selection := Vector2(1.1, 1.1)
 export var _animation_time := 0.1
 
 # Array of RadialMenuItems

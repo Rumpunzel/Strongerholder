@@ -12,7 +12,7 @@ var currently_equipped: EquippedItem = null
 
 func equipments() -> Array:
 	var equipments := [ ]
-	for stack in _item_slots:
+	for stack in item_slots:
 		if stack and stack.item is ToolResource:
 			equipments.append(stack)
 	
