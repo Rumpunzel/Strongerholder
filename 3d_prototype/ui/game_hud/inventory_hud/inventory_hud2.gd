@@ -43,26 +43,29 @@ func _exit_tree() -> void:
 func _on_inventory_updated(inventory: CharacterInventory) -> void:
 	_inventory = inventory
 	var contents := inventory.item_slots
+	var size := contents.size()
 	_items.clear()
+	_items.resize(size)
 	
-	for stack in contents:
+	for i in range(size):
+		var stack: ItemStack = contents[i]
+		var new_item: InventoryHUDItem = _item_scene.instance()
+		
 		if stack:
-			var new_item: InventoryHUDItem = _item_scene.instance()
 			var equipped := _inventory.currently_equipped and _inventory.has_equipped(stack.item)
 			new_item.item_stack = stack
 			new_item.equipped = equipped
 			new_item.submenu_items = _create_submenu(stack.item, equipped)
-			_items.append(new_item)
 		else:
-			var new_item: InventoryHUDItem = _item_scene.instance()
 			new_item.disabled = true
-			_items.append(new_item)
+		
+		var instert_index := int(size / 2.0 + i) % size
+		_items[i] = new_item
 	
 	_fill_items()
 
 
 func _fill_items() -> void:
-	center_angle2 = -180.0 / float(_inventory.size())
 	_set_items(_items)
 
 

@@ -1,7 +1,7 @@
 class_name RadialMenuItem
 extends TextureRect
 
-export var _scale_on_selection := Vector2(1.1, 1.1)
+export var _scale_on_selection := Vector2(1.2, 1.2)
 export var _animation_time := 0.1
 
 # Array of RadialMenuItems
@@ -31,7 +31,7 @@ func highlight(is_highlighted: bool) -> void:
 
 func set_texture(new_texture: Texture) -> void:
 	.set_texture(new_texture)
-	rect_pivot_offset = texture.get_size() / 2.0
+	rect_pivot_offset = rect_min_size / 2.0
 
 func _set_disabled(is_disabled: bool) -> void:
 	highlight(false)

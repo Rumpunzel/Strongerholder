@@ -51,7 +51,7 @@ func unequip() -> bool:
 
 func has_equipped(equipment: ToolResource) -> bool:
 	# TODO: make this a nicer check
-	return currently_equipped and equipment.name == currently_equipped.item_resource.name
+	return equipment and currently_equipped and equipment.name == currently_equipped.item_resource.name
 
 
 

@@ -25,6 +25,7 @@ export var ring_width := 100.0 setget _set_ring_width
 
 export(float, 0.01, 1.0) var circle_coverage := 1.0 setget _set_circle_coverage
 export(float, -360.0, 360.0) var center_angle2 := 0.0 setget _set_center_angle
+export var clock_wise := true
 
 export var icon_size := Vector2(64.0, 64.0)
 
@@ -100,15 +101,17 @@ func _draw() -> void:
 	
 	if _item_angle * count > TAU:
 		_item_angle = TAU / float(count)
+	elif _item_angle * count < -TAU:
+		_item_angle = -TAU / float(count)
 	
 	var start_angle := deg2rad(center_angle2) - _item_angle * (count / 2.0)
 	var inout := get_inner_outer()
 	var inner := inout[0]
 	var outer := inout[1]
 	
-	_ring.draw_selections_ring_segment(self, menu_items, selected_item, active_sub_menu, selector_position, _item_angle, center_offset, inner, outer, start_angle)
-	_ring.draw_decorator_ring(self, decorator_ring_position, _item_angle, center_offset, inner, outer, start_angle, count)
-	_ring.draw_item_backgrounds(self, menu_items, selected_item, _item_angle, center_offset, inner, outer, start_angle, count)
+	_ring.draw_selections_ring_segment(self, menu_items, selected_item, active_sub_menu, selector_position, _item_angle, center_offset, inner, outer, start_angle, clock_wise)
+	_ring.draw_decorator_ring(self, decorator_ring_position, _item_angle * (-1.0 if clock_wise else 1.0), center_offset, inner, outer, start_angle, count)
+	_ring.draw_item_backgrounds(self, menu_items, selected_item, _item_angle, center_offset, inner, outer, start_angle, clock_wise, count)
 	
 	_item_icons.update_item_icon(menu_items, selected_item, count)
 
@@ -118,6 +121,8 @@ func open_menu(center_position: Vector2) -> void:
 	assert(not menu_items.empty())
 	rect_position = center_position - center_offset
 	_item_angle = circle_coverage * TAU / menu_items.size()
+	if clock_wise:
+		_item_angle *= -1
 	_calc_new_geometry()
 	popup()
 	_moved_to_position = rect_position + center_offset
@@ -454,7 +459,7 @@ func _about_to_show() -> void:
 	
 	if show_animation:
 		_original_item_angle = _item_angle
-		_item_angle = 0.01
+		_item_angle = -0.01 if clock_wise else 0.01
 		_calc_new_geometry()
 		update()
 
@@ -464,11 +469,15 @@ func _on_tween_all_completed() -> void:
 		_state = MenuState.CLOSED
 		hide()
 		_item_angle = (circle_coverage * TAU / float(menu_items.size())) if not menu_items.empty() else 0.01
+		if clock_wise:
+			_item_angle *= -1
 		_calc_new_geometry()
 		update()
 	elif _state == MenuState.OPENING:
 		_state = MenuState.OPEN
 		_item_angle = (circle_coverage * TAU / float(menu_items.size())) if not menu_items.empty() else 0.01
+		if clock_wise:
+			_item_angle *= -1
 		_calc_new_geometry()
 		update()
 	elif _state == MenuState.MOVING:
@@ -492,6 +501,8 @@ func _set_ring_width(new_width: float) -> void:
 
 func _set_circle_coverage(new_coverage: float) -> void:
 	_item_angle = (new_coverage * TAU / float(menu_items.size())) if not menu_items.empty() else 0.01
+	if clock_wise:
+		_item_angle *= -1
 	circle_coverage = new_coverage
 	if is_inside_tree():
 		_calc_new_geometry()
@@ -499,6 +510,8 @@ func _set_circle_coverage(new_coverage: float) -> void:
 
 func _set_center_angle(new_angle: float) -> void:
 	_item_angle = (circle_coverage * TAU / float(menu_items.size())) if not menu_items.empty() else 0.01
+	if clock_wise:
+		_item_angle *= -1
 	center_angle2 = new_angle
 	if is_inside_tree():
 		_calc_new_geometry()
@@ -569,7 +582,7 @@ func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:
 	vector.
 	"""
 	var item_count := menu_items.size()
-	var start_angle := deg2rad(center_angle2) - _item_angle * item_count / 2.0
+	var start_angle := deg2rad(center_angle2) + _item_angle * item_count / 2.0
 	var end_angle := start_angle + item_count * _item_angle
 	
 	var angle := vector.angle_to(Vector2(sin(start_angle), cos(start_angle)))
@@ -577,7 +590,7 @@ func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:
 		angle += TAU
 	
 	var section := end_angle - start_angle
-	var idx := int(angle / section * item_count) % item_count
+	var idx := (int(angle / section * item_count) - (1 if clock_wise else 0)) % item_count
 	
 	return menu_items[idx]
 

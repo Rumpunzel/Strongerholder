@@ -35,16 +35,21 @@ func _exit_tree() -> void:
 
 func _on_equipment_updated(inventory: CharacterInventory) -> bool:
 	_inventory = inventory
-	var current_equipment_stacks = _inventory.equipments()
+	var current_equipment_stacks := _inventory.equipments()
+	var size := current_equipment_stacks.size()
 	_equipments.clear()
+	_equipments.resize(size)
 	
-	for stack in current_equipment_stacks:
+	for i in range(size):
+		var stack: ItemStack = current_equipment_stacks[i]
 		var new_item: InventoryHUDItem = _item_scene.instance()
 		var equipped := _inventory.currently_equipped and _inventory.has_equipped(stack.item)
 		new_item.item_stack = stack
 		new_item.disabled = equipped
 		new_item.equipped = equipped
-		_equipments.append(new_item)
+		
+		var instert_index := int(size / 2.0 + ceil(i / 2.0) * (1 if i % 2 == 0 else -1))
+		_equipments[instert_index] = new_item
 	
 	var unequip_item: InventoryHUDItem = _item_scene.instance()
 	unequip_item.item_stack = _unequip
@@ -59,7 +64,7 @@ func _on_equipment_updated(inventory: CharacterInventory) -> bool:
 
 
 func _fill_equipments() -> void:
-	center_angle2 = 360 / float(_equipments.size())
+	center_angle2 = 180.0#(360.0 / float(_equipments.size())) * (1.0 if clock_wise else -1.0)
 	_set_items(_equipments)
 
 

@@ -14,12 +14,13 @@ func draw_item_backgrounds(
 		inner: float,
 		outer: float,
 		start_angle: float,
+		clock_wise: bool,
 		count: int
 ) -> void:
 	
 	for i in range(count):
 		var item: RadialMenuItem = menu_items[i]
-		var coords := DrawLibrary.calc_ring_segment(inner, outer, start_angle + i * item_angle, start_angle + (i + 1) * item_angle, center_offset)
+		var coords := DrawLibrary.calc_ring_segment(inner, outer, start_angle + (i + (1 if clock_wise else 0)) * item_angle, start_angle + (i + (0 if clock_wise else 1)) * item_angle, center_offset)
 		var background_color := _get_color("background")
 		var stroke_color := Color.transparent
 		
@@ -75,7 +76,8 @@ func draw_selections_ring_segment(
 		center_offset: Vector2,
 		inner: float,
 		outer: float,
-		start_angle: float
+		start_angle: float,
+		clock_wise: bool
 ) -> void:
 	
 	if selected_item and not active_sub_menu:
@@ -91,9 +93,9 @@ func draw_selections_ring_segment(
 			selector_segment_color = _get_color("icon_modulate_selected")
 		
 		if selector_position == Position.OUTSIDE:
-			select_coords = DrawLibrary.calc_ring_segment(outer, outer + selector_size, start_angle + selected * item_angle, start_angle + (selected + 1) * item_angle, center_offset)
+			select_coords = DrawLibrary.calc_ring_segment(outer, outer + selector_size, start_angle + (selected + (1 if clock_wise else 0)) * item_angle, start_angle + (selected + (0 if clock_wise else 1)) * item_angle, center_offset)
 		elif selector_position == Position.INSIDE:
-			select_coords = DrawLibrary.calc_ring_segment(inner - selector_size, inner, start_angle + selected * item_angle, start_angle + (selected + 1) * item_angle, center_offset)
+			select_coords = DrawLibrary.calc_ring_segment(inner - selector_size, inner, start_angle + (selected + (1 if clock_wise else 0)) * item_angle, start_angle + (selected + (0 if clock_wise else 1)) * item_angle, center_offset)
 		
 		DrawLibrary.draw_ring_segment(canvas, select_coords, selector_segment_color)
 
