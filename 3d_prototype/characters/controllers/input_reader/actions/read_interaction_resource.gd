@@ -20,8 +20,12 @@ class ReadInteraction extends StateAction:
 	
 	
 	func on_update(_delta: float) -> void:
-		if Input.is_action_pressed("interact"):
+		if Input.is_action_pressed("smart_interact"):
 			_interaction_area.interact_with_nearest()
 		
-		if Input.is_action_just_released("interact"):
+		if Input.is_action_just_released("smart_interact"):
 			_inputs.destination_input = _character.translation
+		
+		if Input.is_action_pressed("attack"):
+			if _inventory.currently_equipped:
+				_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK)

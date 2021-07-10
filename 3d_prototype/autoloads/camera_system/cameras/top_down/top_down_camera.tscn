@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://autoloads/camera_system/cameras/top_down/resources/top_down_camera_attributes.tres" type="Resource" id=1]
+[ext_resource path="res://autoloads/camera_system/cameras/top_down/resources/player_camera_attributes.tres" type="Resource" id=1]
 [ext_resource path="res://autoloads/camera_system/cameras/top_down/top_down_camera.gd" type="Script" id=2]
 
 [node name="TopDownCamera" type="Camera"]

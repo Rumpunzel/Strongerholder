@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://autoloads/camera_system/cameras/top_down/top_down_attributes.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+fov = 20.0
+shoulder_height = 1.0
+distance_off_ground = 60.0
+distance_from_follow = 60.0
+camera_angle_offset = 45.0
+camera_turn_angle = 90.0
+camera_turn_smoothing = 0.02
+camera_min_Zoom = 1.0
+camera_max_zoom = 16.0
+camera_scroll_speed = 0.02

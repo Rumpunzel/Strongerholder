@@ -24,6 +24,9 @@ func _exit_tree() -> void:
 
 func _on_equipment_updated(inventory: CharacterInventory) -> bool:
 	_inventory = inventory
+	if not _inventory:
+		return false
+	
 	var current_equipment_stacks := _inventory.equipments()
 	var size := current_equipment_stacks.size()
 	_equipments.clear()

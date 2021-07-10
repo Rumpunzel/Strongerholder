@@ -1,7 +1,7 @@
 class_name TopDownCamera
 extends GameCamera
 
-export(Resource) var _attributes
+export(Resource) var _attributes setget _set_attributes
 
 
 var _position: Vector3 = Vector3()
@@ -17,16 +17,8 @@ var _zoom: float = 1.0
 
 
 
-func _ready() -> void:
-	_angle_offset = deg2rad(_attributes.camera_angle_offset)
-	_turn_angle = deg2rad(_attributes.camera_turn_angle)
-	
-	_angle = _attributes.camera_angle_offset
-
-
 func _process(_delta: float) -> void:
 	fov = _attributes.fov
-	
 	if follow_node:
 		_frame_node(follow_node)
 
@@ -50,3 +42,12 @@ func _frame_node(node: Spatial) -> void:
 	
 	translation = _position
 	look_at(Vector3(node.translation.x, _attributes.shoulder_height, node.translation.z), Vector3.UP)
+
+
+func _set_attributes(new_attributes: TopDownCameraAttributes) -> void:
+	_attributes = new_attributes
+	
+	_angle_offset = deg2rad(_attributes.camera_angle_offset)
+	_turn_angle = deg2rad(_attributes.camera_turn_angle)
+	
+	_angle = _attributes.camera_angle_offset
