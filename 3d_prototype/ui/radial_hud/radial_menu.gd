@@ -38,7 +38,7 @@ export(float, 0, 10, 0.5) var inside_selection_factor := 0.5
 export(float, 0, 10, 0.5) var outside_selection_factor := 0.5
 
 # defines how long you have to wait before releasing a mouse button will close the menu.
-export var mouse_release_timeout := 400.0
+#export var mouse_release_timeout := 400.0
 
 
 var menu_items := [ ] setget _set_items
@@ -77,15 +77,18 @@ func _enter_tree() -> void:
 	
 	_tween = Tween.new()
 	add_child(_tween)
-	_tween.connect("tween_all_completed", self, "_on_tween_all_completed")
+	var error := _tween.connect("tween_all_completed", self, "_on_tween_all_completed")
+	assert(error == OK)
 	
 	_submenu = get_node_or_null(submenu_node)
 	if _submenu:
 		_original_submenu_circle_coverage = _submenu.circle_coverage
 		_connect_submenu_signals(_submenu)
 	
-	connect("about_to_show", self, "_about_to_show")
-	connect("visibility_changed", self, "_on_visibility_changed")
+	error = connect("about_to_show", self, "_about_to_show")
+	assert(error == OK)
+	error = connect("visibility_changed", self, "_on_visibility_changed")
+	assert(error == OK)
 
 
 func _input(event: InputEvent) -> void:
@@ -128,7 +131,7 @@ func open_menu(center_position: Vector2) -> void:
 	_moved_to_position = rect_position + center_offset
 
 
-func open_submenu_on(menu_item: RadialMenuItem, skip_animation := false) -> void:
+func open_submenu_on(menu_item: RadialMenuItem) -> void:
 	assert(menu_item)
 	
 	active_sub_menu = menu_item
@@ -152,7 +155,9 @@ func open_submenu_on(menu_item: RadialMenuItem, skip_animation := false) -> void
 	
 	if show_animation:
 		_state = MenuState.MOVING
+		# warning-ignore:return_value_discarded
 		_tween.interpolate_property(self, "rect_position", rect_position, rect_position + move, animation_speed_factor, Tween.TRANS_SINE, Tween.EASE_IN)
+		# warning-ignore:return_value_discarded
 		_tween.start()
 	else: 
 		_moved_to_position += move
@@ -174,7 +179,9 @@ func close_menu(skip_animation := false) -> void:
 	
 	_state = MenuState.CLOSING
 	_original_item_angle = _item_angle
+	# warning-ignore:return_value_discarded
 	_tween.interpolate_property(self, "_item_angle", _item_angle, 0.01, animation_speed_factor, Tween.TRANS_SINE, Tween.EASE_IN)
+	# warning-ignore:return_value_discarded
 	_tween.start()
 
 
@@ -202,7 +209,7 @@ func get_selected_by_mouse() -> RadialMenuItem:
 	if distance_squared < inner_limit or distance_squared > outer_limit:
 		# being outside the selection limit only cancels your selection if you've
 		# moved the mouse outside since having made the selection...
-		if true or _has_left_center:
+		if _has_left_center:
 			selected = null
 	else:
 		_has_left_center = true
@@ -398,9 +405,6 @@ func _select_prev() -> void:
 
 
 func _activate_selected() -> void:
-	#print("_activate_selected: %s" % selected_item)
-	#print("_activate_selected: %s" % active_sub_menu)
-	#assert(not selected_item == null)
 	if selected_item and not selected_item.disabled and not selected_item.submenu_items.empty():
 		open_submenu_on(selected_item)
 	else:
@@ -414,17 +418,40 @@ func _signal_id() -> void:
 		emit_signal("cancelled")
 
 
+func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:
+	"""
+	Given a vector that originates in the center of the radial menu, 
+	this will return the index of the menu item that lies along that
+	vector.
+	"""
+	var item_count := menu_items.size()
+	var start_angle := deg2rad(center_angle) + _item_angle * item_count / 2.0
+	var end_angle := start_angle + item_count * _item_angle
+	
+	var angle := vector.angle_to(Vector2(sin(start_angle), cos(start_angle)))
+	if angle < 0:
+		angle += TAU
+	
+	var section := end_angle - start_angle
+	var idx := (int(angle / section * item_count) - (1 if clock_wise else 0)) % item_count
+	
+	return menu_items[idx]
+
+
 func _connect_submenu_signals(submenu: RadialMenu):
-	submenu.connect("item_hovered", self, "_on_submenu_item_hovered")
-	submenu.connect("item_selected", self, "_on_submenu_item_selected")
-	submenu.connect("cancelled", self, "_on_submenu_cancelled")
+	var error := submenu.connect("item_hovered", self, "_on_submenu_item_hovered")
+	assert(error == OK)
+	error = submenu.connect("item_selected", self, "_on_submenu_item_selected")
+	assert(error == OK)
+	error =submenu.connect("cancelled", self, "_on_submenu_cancelled")
+	assert(error == OK)
 
 
 
 func _on_submenu_item_hovered(item: RadialMenuItem) -> void:
 	_set_selected_item(item)
 
-func _on_submenu_item_selected(item: RadialMenuItem, submenu_item: RadialMenuItem) -> void:
+func _on_submenu_item_selected(item: RadialMenuItem, _submenu_item: RadialMenuItem) -> void:
 	emit_signal("item_selected", item, selected_item)
 
 func _on_submenu_cancelled() -> void:
@@ -442,7 +469,9 @@ func _on_visibility_changed() -> void:
 		_state = MenuState.CLOSED
 	elif show_animation and _state == MenuState.CLOSED:
 		_state = MenuState.OPENING
+		# warning-ignore:return_value_discarded
 		_tween.interpolate_property(self, "_item_angle", 0.01, _original_item_angle, animation_speed_factor, Tween.TRANS_SINE, Tween.EASE_IN)
+		# warning-ignore:return_value_discarded
 		_tween.start()
 	else:
 		_state = MenuState.OPEN
@@ -482,6 +511,28 @@ func _on_tween_all_completed() -> void:
 		_submenu.open_menu(_moved_to_position)
 
 
+
+func _set_items(items: Array) -> void:
+	_item_icons.clear_items()
+	menu_items = items
+	_item_icons.create_item_icons(menu_items, deg2rad(center_angle), _item_angle, _get_icon_radius(), center_offset, icon_size)
+	
+	if visible:
+		update()
+
+func _set_selected_item(new_item: RadialMenuItem) -> void:
+	if active_sub_menu and not new_item == active_sub_menu and new_item and not new_item.submenu_items.empty() and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
+		open_submenu_on(new_item)
+	
+	if selected_item == new_item:
+		return
+	
+	selected_item = new_item
+	
+	if selected_item:
+		emit_signal("item_hovered", selected_item)
+	
+	update()
 
 func _set_ring_radius(new_radius: float) -> void:
 	ring_radius = new_radius
@@ -525,28 +576,6 @@ func _set_decorator_ring_position(new_position: int) -> void:
 		_calc_new_geometry()
 		update()
 
-func _set_items(items: Array) -> void:
-	_item_icons.clear_items()
-	menu_items = items
-	_item_icons.create_item_icons(menu_items, deg2rad(center_angle), _item_angle, _get_icon_radius(), center_offset, icon_size)
-	
-	if visible:
-		update()
-
-func _set_selected_item(new_item: RadialMenuItem) -> void:
-	if active_sub_menu and not new_item == active_sub_menu and new_item and not new_item.submenu_items.empty() and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
-		open_submenu_on(new_item, true)
-	
-	if selected_item == new_item:
-		return
-	
-	selected_item = new_item
-	#assert(not selected_item == null)
-	if selected_item:
-		emit_signal("item_hovered", selected_item)
-	
-	update()
-
 func _set_item_angle(new_angle: float) -> void:
 	_item_angle = new_angle
 	_calc_new_geometry()
@@ -573,25 +602,6 @@ func _get_icon_radius() -> float:
 		selector_segment_width = _get_constant("selector_segment_width")
 	
 	return ring_radius - ring_width / 2.0 - max(selector_segment_width, decorator_ring_width)
-
-func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:
-	"""
-	Given a vector that originates in the center of the radial menu, 
-	this will return the index of the menu item that lies along that
-	vector.
-	"""
-	var item_count := menu_items.size()
-	var start_angle := deg2rad(center_angle) + _item_angle * item_count / 2.0
-	var end_angle := start_angle + item_count * _item_angle
-	
-	var angle := vector.angle_to(Vector2(sin(start_angle), cos(start_angle)))
-	if angle < 0:
-		angle += TAU
-	
-	var section := end_angle - start_angle
-	var idx := (int(angle / section * item_count) - (1 if clock_wise else 0)) % item_count
-	
-	return menu_items[idx]
 
 func _is_wheel_button(event: InputEventMouseButton) -> bool:
 	return event.button_index in [ BUTTON_WHEEL_UP, BUTTON_WHEEL_DOWN, BUTTON_WHEEL_LEFT, BUTTON_WHEEL_RIGHT ]

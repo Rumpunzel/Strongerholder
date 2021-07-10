@@ -70,6 +70,8 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 		if object.is_in_group("Item"):
 			potential_interaction.type = InteractionType.PICK_UP
 		elif _equipped_item:
+			# TODO: remove this unnecessary thing after 4.0
+			# warning-ignore-all:unsafe_property_access
 			for use in _equipped_item.item_resource.used_on:
 				if object.is_in_group(use):
 					potential_interaction.type = InteractionType.ATTACK
@@ -88,6 +90,8 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 
 func _collect() -> void:
 	var item_node: CollectableItem = current_interaction.node as CollectableItem
+	# TODO: remove this unnecessary thing after 4.0
+	# warning-ignore-all:unsafe_property_access
 	var item: ItemResource = item_node.item_resource
 	
 	current_interaction = null

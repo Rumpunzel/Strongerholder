@@ -5,6 +5,7 @@ export var _scale_on_selection := Vector2(1.2, 1.2)
 export var _animation_time := 0.1
 
 # Array of RadialMenuItems
+# warning-ignore:unused_class_variable
 var submenu_items := [ ]
 var disabled := false setget _set_disabled
 
@@ -19,13 +20,16 @@ func _enter_tree() -> void:
 func highlight(is_highlighted: bool) -> void:
 	var highlighted := false
 	if is_highlighted and rect_scale == Vector2(1.0, 1.0):
+		# warning-ignore:return_value_discarded
 		_tween.interpolate_property(self, "rect_scale", Vector2(1.0, 1.0), _scale_on_selection, _animation_time)
 		highlighted = true
 	elif not is_highlighted and not rect_scale == Vector2(1.0, 1.0):
+		# warning-ignore:return_value_discarded
 		_tween.interpolate_property(self, "rect_scale", _scale_on_selection, Vector2(1.0, 1.0), _animation_time)
 		highlighted = true
 	
 	if highlighted:
+		# warning-ignore:return_value_discarded
 		_tween.start()
 
 

@@ -1,6 +1,7 @@
 class_name ItemHUDBASE
 extends RadialMenu
 
+# warning-ignore:unused_class_variable
 export(PackedScene) var _item_scene: PackedScene = null   
 export(Texture) var _unequip_icon            
 
@@ -13,6 +14,8 @@ func _enter_tree() -> void:
 	assert(error == OK)
 	
 	var unequip_resource := ToolResource.new()
+	# TODO: remove this unnecessary thing after 4.0
+	# warning-ignore-all:unsafe_property_access
 	unequip_resource.icon = _unequip_icon
 	_unequip = ItemStack.new(unequip_resource)
 

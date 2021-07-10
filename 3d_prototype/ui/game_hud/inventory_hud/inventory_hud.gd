@@ -51,7 +51,6 @@ func _on_inventory_updated(inventory: CharacterInventory) -> void:
 		else:
 			new_item.disabled = true
 		
-		var instert_index := int(size / 2.0 + i) % size
 		_items[i] = new_item
 	
 	_set_items(_items)

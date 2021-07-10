@@ -4,11 +4,14 @@ extends RadialMenuItem
 var item_stack: ItemStack setget _set_item_stack
 var equipped: bool setget _set_equipped
 var amount: int setget _set_amount
+# warning-ignore:unused_class_variable
 var use := -1
 
 
 func _set_item_stack(new_stack: ItemStack) -> void:
 	item_stack = new_stack
+	# TODO: remove this unnecessary thing after 4.0
+	# warning-ignore-all:unsafe_property_access
 	set_texture(item_stack.item.icon)
 	_set_amount(item_stack.amount)
 

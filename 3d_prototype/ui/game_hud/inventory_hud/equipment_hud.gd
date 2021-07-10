@@ -61,7 +61,7 @@ func _on_toggled() -> void:
 		close_menu()
 
 
-func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: InventoryHUDItem) -> void:
+func _on_item_selected(inventory_item: InventoryHUDItem, _submenu_item: InventoryHUDItem) -> void:
 	# warning-ignore:return_value_discarded
 	_equip_item_from_stack(inventory_item.item_stack)
 	close_menu()
