@@ -85,6 +85,8 @@ func _enter_tree() -> void:
 		_original_submenu_circle_coverage = _submenu.circle_coverage
 		_connect_submenu_signals(_submenu)
 	
+	error = connect("cancelled", self, "close_menu")
+	assert(error == OK)
 	error = connect("about_to_show", self, "_about_to_show")
 	assert(error == OK)
 	error = connect("visibility_changed", self, "_on_visibility_changed")
@@ -311,8 +313,8 @@ func _radial_input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseButton:
 		_handle_mouse_buttons(event)
-	else:
-		_handle_actions(event)
+	
+	_handle_actions(event)
 
 
 func _calc_new_geometry() -> void:
@@ -358,13 +360,13 @@ func _handle_mouse_buttons(event: InputEventMouseButton) -> void:
 	if event.pressed:
 		if event.button_index == BUTTON_WHEEL_DOWN:
 			_select_next()
+			get_tree().set_input_as_handled()
 		elif event.button_index == BUTTON_WHEEL_UP:
 			_select_prev()
+			get_tree().set_input_as_handled()
 		else:
-			if true or not is_submenu:
-				get_tree().set_input_as_handled()
-			
 			_activate_selected()
+			get_tree().set_input_as_handled()
 #	elif _state == MenuState.OPEN and not _is_wheel_button(event):
 #		var msecs_since_opened := OS.get_ticks_msec() - _msecs_at_opened
 #		if msecs_since_opened > mouse_release_timeout:
@@ -373,17 +375,23 @@ func _handle_mouse_buttons(event: InputEventMouseButton) -> void:
 
 
 func _handle_actions(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("radial_ui_cancel"):
 		get_tree().set_input_as_handled()
 		selected_item = null
 		_activate_selected()
-	elif event.is_action_pressed("ui_down") or event.is_action_pressed("ui_right") or event.is_action_pressed("ui_focus_next"):
-		_select_next()
+	elif event.is_action_pressed("radial_ui_down") or event.is_action_pressed("radial_ui_right") or event.is_action_pressed("radial_ui_focus_next"):
+		if clock_wise:
+			_select_next()
+		else:
+			_select_prev()
 		get_tree().set_input_as_handled()
-	elif event.is_action_pressed("ui_up") or event.is_action_pressed("ui_left") or event.is_action_pressed("ui_focus_prev"):
-		_select_prev()
+	elif event.is_action_pressed("radial_ui_up") or event.is_action_pressed("radial_ui_left") or event.is_action_pressed("radial_ui_focus_prev"):
+		if clock_wise:
+			_select_prev()
+		else:
+			_select_next()
 		get_tree().set_input_as_handled()
-	elif event.is_action_pressed("ui_accept"):
+	elif event.is_action_pressed("radial_ui_accept"):
 		get_tree().set_input_as_handled()
 		_activate_selected()
 
@@ -443,7 +451,7 @@ func _connect_submenu_signals(submenu: RadialMenu):
 	assert(error == OK)
 	error = submenu.connect("item_selected", self, "_on_submenu_item_selected")
 	assert(error == OK)
-	error =submenu.connect("cancelled", self, "_on_submenu_cancelled")
+	error = submenu.connect("cancelled", self, "_on_submenu_cancelled")
 	assert(error == OK)
 
 
