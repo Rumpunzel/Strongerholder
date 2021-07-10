@@ -69,14 +69,12 @@ func _fill_equipments() -> void:
 
 
 func _on_toggled() -> void:
-	var open_menu := false
-	close_menu()
-	
-	if not visible:
-		open_menu = _on_equipment_updated(_inventory)
-	
-	if open_menu:
-		open_menu(get_viewport_rect().size / 2.0)
+	if _state == MenuState.CLOSED:
+		var open_menu := _on_equipment_updated(_inventory)
+		if open_menu:
+			open_menu(get_viewport_rect().size / 2.0)
+	elif _state == MenuState.OPEN:
+		close_menu()
 
 
 func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: InventoryHUDItem) -> void:

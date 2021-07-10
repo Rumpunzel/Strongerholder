@@ -100,11 +100,11 @@ func _create_submenu(item: ItemResource, equipped: bool) -> Array:
 
 
 func _on_toggled() -> void:
-	close_menu()
-	
-	if not visible:
+	if _state == MenuState.CLOSED:
 		_on_inventory_updated(_inventory)
 		open_menu(get_viewport_rect().size / 2.0)
+	elif _state == MenuState.OPEN:
+		close_menu()
 
 
 func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: InventoryHUDItem) -> void:

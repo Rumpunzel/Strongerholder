@@ -83,10 +83,8 @@ func _enter_tree() -> void:
 		_original_submenu_circle_coverage = _submenu.circle_coverage
 		_connect_submenu_signals(_submenu)
 	
-	if not is_submenu:
-		# (submenus get their signals connected and disconnected elsewhere)
-		connect("about_to_show", self, "_about_to_show")
-		connect("visibility_changed", self, "_on_visibility_changed")
+	connect("about_to_show", self, "_about_to_show")
+	connect("visibility_changed", self, "_on_visibility_changed")
 
 
 func _input(event: InputEvent) -> void:
@@ -161,22 +159,22 @@ func open_submenu_on(menu_item: RadialMenuItem) -> void:#
 		_submenu.open_menu(_moved_to_position)
 
 
-func close_menu() -> void:
+func close_menu(skip_animation := false) -> void:
 	#if active_sub_menu:
 	close_submenu()
+	
+	_has_left_center = false
+	if not show_animation or skip_animation:
+		_state = MenuState.CLOSED
+		hide()
 	
 	if _state != MenuState.OPEN:
 		return
 	
-	_has_left_center = false
-	if not show_animation:
-		_state = MenuState.CLOSED
-		hide()
-	else:
-		_state = MenuState.CLOSING
-		_original_item_angle = _item_angle
-		_tween.interpolate_property(self, "_item_angle", _item_angle, 0.01, animation_speed_factor, Tween.TRANS_SINE, Tween.EASE_IN)
-		_tween.start()
+	_state = MenuState.CLOSING
+	_original_item_angle = _item_angle
+	_tween.interpolate_property(self, "_item_angle", _item_angle, 0.01, animation_speed_factor, Tween.TRANS_SINE, Tween.EASE_IN)
+	_tween.start()
 
 
 func close_submenu() -> void:
@@ -419,8 +417,6 @@ func _signal_id() -> void:
 
 
 func _connect_submenu_signals(submenu: RadialMenu2):
-	submenu.connect("about_to_show", submenu, "_about_to_show")
-	submenu.connect("visibility_changed", submenu, "_on_visibility_changed")
 	submenu.connect("item_hovered", self, "_on_submenu_item_hovered")
 	submenu.connect("item_selected", self, "_on_submenu_item_selected")
 	submenu.connect("cancelled", self, "_on_submenu_cancelled")
@@ -466,6 +462,8 @@ func _about_to_show() -> void:
 
 func _on_tween_all_completed() -> void:
 	if _state == MenuState.CLOSING:
+		if _submenu:
+			_submenu.close_menu(true)
 		_state = MenuState.CLOSED
 		hide()
 		_item_angle = (circle_coverage * TAU / float(menu_items.size())) if not menu_items.empty() else 0.01
