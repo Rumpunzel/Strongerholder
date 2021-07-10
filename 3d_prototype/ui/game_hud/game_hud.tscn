@@ -72,8 +72,8 @@ __meta__ = {
 }
 center_angle = 180.0
 clock_wise = false
-_unequip_icon = ExtResource( 5 )
 _item_scene = ExtResource( 8 )
+_unequip_icon = ExtResource( 5 )
 
 [node name="InventoryHUD" type="Popup" parent="."]
 anchor_left = 0.5
@@ -92,11 +92,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 submenu_node = NodePath("SubMenu")
+_item_scene = ExtResource( 8 )
+_unequip_icon = ExtResource( 5 )
+_equip_icon = ExtResource( 9 )
 _use_icon = ExtResource( 10 )
 _drop_icon = ExtResource( 11 )
-_equip_icon = ExtResource( 9 )
-_unequip_icon = ExtResource( 5 )
-_item_scene = ExtResource( 8 )
 
 [node name="SubMenu" type="Popup" parent="InventoryHUD"]
 anchor_left = 0.5

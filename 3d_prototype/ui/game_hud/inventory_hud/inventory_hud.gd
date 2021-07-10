@@ -1,22 +1,19 @@
 class_name InventoryHUD
-extends RadialMenu
+extends ItemHUDBASE
 
 enum SubMenuModes {
+	UNEQUIP,
+	EQUIP,
 	USE,
 	DROP,
-	EQUIP,
-	UNEQUIP,
 }
 
+export(Texture) var _equip_icon
 export(Texture) var _use_icon
 export(Texture) var _drop_icon
-export(Texture) var _equip_icon
-export(Texture) var _unequip_icon
-export(PackedScene) var _item_scene: PackedScene = null
 
-var _inventory: CharacterInventory
+
 var _items := [ ]
-var _unequip: ItemStack
 
 
 func _enter_tree() -> void:
@@ -25,14 +22,8 @@ func _enter_tree() -> void:
 	error = Events.hud.connect("inventory_hud_toggled", self, "_on_toggled")
 	assert(error == OK)
 	
-	error = Events.main.connect("game_paused", self, "close_menu")
-	
 	error = connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)
-	
-	var unequip_resource := ToolResource.new()
-	unequip_resource.icon = _unequip_icon
-	_unequip = ItemStack.new(unequip_resource)
 
 
 func _exit_tree() -> void:
@@ -63,10 +54,6 @@ func _on_inventory_updated(inventory: CharacterInventory) -> void:
 		var instert_index := int(size / 2.0 + i) % size
 		_items[i] = new_item
 	
-	_fill_items()
-
-
-func _fill_items() -> void:
 	_set_items(_items)
 
 
@@ -83,14 +70,14 @@ func _create_submenu(item: ItemResource, equipped: bool) -> Array:
 		var icon: Texture
 		
 		match mode:
+			SubMenuModes.UNEQUIP:
+				icon = _unequip_icon
+			SubMenuModes.EQUIP:
+				icon = _equip_icon
 			SubMenuModes.USE:
 				icon = _use_icon
 			SubMenuModes.DROP:
 				icon = _drop_icon
-			SubMenuModes.EQUIP:
-				icon = _equip_icon
-			SubMenuModes.UNEQUIP:
-				icon = _unequip_icon
 		
 		var new_item: InventoryHUDItem = _item_scene.instance()
 		new_item.texture = icon
@@ -126,6 +113,11 @@ func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: Inventory
 		close_menu()
 
 
+func _equip_item_from_stack(stack: ItemStack) -> void:
+	._equip_item_from_stack(stack)
+	close_submenu()
+
+
 func _use_item_from_stack(item: ItemStack) -> void:
 	var items_left_in_stack := _inventory.use_item_from_stack(item)
 	if items_left_in_stack <= 0:
@@ -142,15 +134,3 @@ func _drop_item_from_stack(item: ItemStack) -> void:
 	
 	if items_left_in_stack <= 0:
 		close_submenu()
-
-
-
-func _equip_item_from_stack(stack: ItemStack) -> void:
-	var equipped := stack == _unequip
-	if not equipped:
-		_inventory.equip_item_from_stack(stack)
-	else:
-		# warning-ignore:return_value_discarded
-		_inventory.unequip()
-	
-	close_submenu()

@@ -1,14 +1,8 @@
 class_name EquipmentHUD
-extends RadialMenu
+extends ItemHUDBASE
 
-const UNEQUIP = "Unequip"
 
-export(Texture) var _unequip_icon
-export(PackedScene) var _item_scene: PackedScene = null
-
-var _inventory: CharacterInventory
 var _equipments := [ ]
-var _unequip: ItemStack
 
 
 
@@ -18,14 +12,8 @@ func _enter_tree() -> void:
 	error = Events.hud.connect("equipment_hud_toggled", self, "_on_toggled")
 	assert(error == OK)
 	
-	error = Events.main.connect("game_paused", self, "close_menu")
-	
 	error = connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)
-	
-	var unequip_resource := ToolResource.new()
-	unequip_resource.icon = _unequip_icon
-	_unequip = ItemStack.new(unequip_resource)
 
 
 func _exit_tree() -> void:
@@ -58,14 +46,10 @@ func _on_equipment_updated(inventory: CharacterInventory) -> bool:
 	_equipments.append(unequip_item)
 	
 	if _equipments.size() > 1:
-		_fill_equipments()
+		_set_items(_equipments)
 		return true
 	
 	return false
-
-
-func _fill_equipments() -> void:
-	_set_items(_equipments)
 
 
 func _on_toggled() -> void:
@@ -81,12 +65,3 @@ func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: Inventory
 	# warning-ignore:return_value_discarded
 	_equip_item_from_stack(inventory_item.item_stack)
 	close_menu()
-
-
-func _equip_item_from_stack(stack: ItemStack) -> void:
-	var equipped := stack == _unequip
-	if not equipped:
-		_inventory.equip_item_from_stack(stack)
-	else:
-		# warning-ignore:return_value_discarded
-		_inventory.unequip()
