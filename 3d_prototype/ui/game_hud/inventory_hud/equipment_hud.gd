@@ -17,7 +17,7 @@ func _enter_tree() -> void:
 	error = Events.hud.connect("equipment_hud_toggled", self, "_on_toggled")
 	assert(error == OK)
 	
-	error = Events.main.connect("game_paused", self, "_on_toggled")
+	error = Events.main.connect("game_paused", self, "close_menu")
 	
 	error = connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)
@@ -64,7 +64,6 @@ func _on_equipment_updated(inventory: CharacterInventory) -> bool:
 
 
 func _fill_equipments() -> void:
-	center_angle2 = 180.0#(360.0 / float(_equipments.size())) * (1.0 if clock_wise else -1.0)
 	_set_items(_equipments)
 
 

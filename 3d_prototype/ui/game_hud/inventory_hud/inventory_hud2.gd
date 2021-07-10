@@ -24,7 +24,7 @@ func _enter_tree() -> void:
 	error = Events.hud.connect("inventory_hud_toggled", self, "_on_toggled")
 	assert(error == OK)
 	
-	error = Events.main.connect("game_paused", self, "_on_toggled")
+	error = Events.main.connect("game_paused", self, "close_menu")
 	
 	error = connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)
@@ -119,9 +119,10 @@ func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: Inventory
 			_equip_item_from_stack(stack)
 		SubMenuModes.UNEQUIP:
 			_equip_item_from_stack(_unequip)
-			
-			if _inventory.empty():
-				close_menu()
+	
+	_on_inventory_updated(_inventory)
+	if _inventory.empty():
+		close_menu()
 
 
 func _use_item_from_stack(item: ItemStack) -> void:
@@ -137,7 +138,7 @@ func _drop_item_from_stack(item: ItemStack) -> void:
 		_inventory.unequip()
 	
 	var items_left_in_stack := _inventory.drop_item_from_stack(item)
-	_on_inventory_updated(_inventory)
+	
 	if items_left_in_stack <= 0:
 		close_submenu()
 
@@ -152,4 +153,3 @@ func _equip_item_from_stack(stack: ItemStack) -> void:
 		_inventory.unequip()
 	
 	close_submenu()
-	_on_inventory_updated(_inventory)

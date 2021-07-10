@@ -70,6 +70,7 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+center_angle2 = 180.0
 clock_wise = false
 _unequip_icon = ExtResource( 5 )
 _item_scene = ExtResource( 8 )
