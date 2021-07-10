@@ -270,11 +270,6 @@ _global_script_classes=[ {
 "path": "res://ui/radial_hud/radial_menu_ring.gd"
 }, {
 "base": "StateActionResource",
-"class": "ReadEquipmentActionResource",
-"language": "GDScript",
-"path": "res://characters/controllers/input_reader/actions/read_equipment_action_resource.gd"
-}, {
-"base": "StateActionResource",
 "class": "ReadInventoryActionResource",
 "language": "GDScript",
 "path": "res://characters/controllers/input_reader/actions/read_inventory_action_resource.gd"
@@ -452,7 +447,6 @@ _global_script_class_icons={
 "RadialMenuItem": "",
 "RadialMenuItemIcons": "",
 "RadialMenuRing": "",
-"ReadEquipmentActionResource": "",
 "ReadInventoryActionResource": "",
 "ReadJumpActionResource": "",
 "ReadMouseMovementActionResource": "",
