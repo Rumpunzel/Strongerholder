@@ -1,9 +1,6 @@
 class_name InventoryHUD
-extends Control
+extends RadialMenu
 
-const UNEQUIP = "Unequip"
-
-enum InventoryMode { INVENTORY, EQUIPMENT }
 enum SubMenuModes {
 	USE,
 	DROP,
@@ -15,165 +12,68 @@ export(Texture) var _use_icon
 export(Texture) var _drop_icon
 export(Texture) var _equip_icon
 export(Texture) var _unequip_icon
-export var _submenu_icon_width := 0.07
+export(PackedScene) var _item_scene: PackedScene = null
 
-var _radial_menu: RadialMenu
 var _inventory: CharacterInventory
-
-var _mode: int
 var _items := [ ]
-var _equipments := [ ]
-var _unequip := ToolResource.new()
-
+var _unequip: ItemStack
 
 
 func _enter_tree() -> void:
 	var error := Events.hud.connect("inventory_updated", self, "_on_inventory_updated")
 	assert(error == OK)
-	error = Events.hud.connect("inventory_hud_toggled", self, "_on_toggled", [ InventoryMode.INVENTORY ])
+	error = Events.hud.connect("inventory_hud_toggled", self, "_on_toggled")
 	assert(error == OK)
 	
-	error = Events.hud.connect("equipment_updated", self, "_on_equipment_updated")
-	assert(error == OK)
-	error = Events.hud.connect("equipment_hud_toggled", self, "_on_toggled", [ InventoryMode.EQUIPMENT ])
+	error = Events.main.connect("game_paused", self, "close_menu")
+	
+	error = connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)
 	
-	error = Events.main.connect("game_paused", self, "_on_toggled", [ -1 ])
-	
-	_radial_menu = $RadialMenu
-	error = _radial_menu.connect("item_selected", self, "_on_item_selected")
-	assert(error == OK)
+	var unequip_resource := ToolResource.new()
+	unequip_resource.icon = _unequip_icon
+	_unequip = ItemStack.new(unequip_resource)
 
 
 func _exit_tree() -> void:
 	Events.hud.disconnect("inventory_updated", self, "_on_inventory_updated")
 	Events.hud.disconnect("inventory_hud_toggled", self, "_on_toggled")
-	Events.hud.disconnect("equipment_updated", self, "_on_equipment_updated")
-	Events.hud.disconnect("equipment_hud_toggled", self, "_on_toggled")
 
 
 
-func _on_inventory_updated(inventory: Inventory) -> bool:
+func _on_inventory_updated(inventory: CharacterInventory) -> void:
 	_inventory = inventory
-	var contents := inventory.contents(false)
+	var contents := inventory.item_slots
+	var size := contents.size()
 	_items.clear()
+	_items.resize(size)
 	
-	for index in contents.size():
-		var stack: ItemStack = contents[index]
-		if stack:
-			_items.append(stack)
-		else:
-			_items.append(null)
-	
-	if _mode == InventoryMode.INVENTORY:
-		_fill_items()
-		return true
-	
-	return false
-
-
-func _on_equipment_updated(inventory: Inventory) -> bool:
-	_inventory = inventory
-	var current_equipments = _inventory.equipments()
-	_equipments.clear()
-	_equipments.append(_unequip)
-	
-	for index in current_equipments.size():
-		var equipment: ToolResource = current_equipments[index]
-		_equipments.append(equipment)
-	
-	if _mode == InventoryMode.EQUIPMENT and _equipments.size() > 1:
-		_fill_equipments()
-		return true
-	
-	return false
-
-
-func _on_toggled(mode := _mode) -> void:
-	var open_menu := false
-	_radial_menu.close_menu()
-	
-	if not (mode == _mode and _radial_menu.visible):
-		_mode = mode
+	for i in range(size):
+		var stack: ItemStack = contents[i]
+		var new_item: InventoryHUDItem = _item_scene.instance()
 		
-		match _mode:
-			InventoryMode.INVENTORY:
-				open_menu = _on_inventory_updated(_inventory)
-			
-			InventoryMode.EQUIPMENT:
-				open_menu = _on_equipment_updated(_inventory)
+		if stack:
+			var equipped := _inventory.currently_equipped and _inventory.has_equipped(stack.item)
+			new_item.item_stack = stack
+			new_item.equipped = equipped
+			new_item.submenu_items = _create_submenu(stack.item, equipped)
+		else:
+			new_item.disabled = true
+		
+		var instert_index := int(size / 2.0 + i) % size
+		_items[i] = new_item
 	
-	if open_menu:
-		_radial_menu.open_menu(rect_size * 0.5)
+	_fill_items()
 
 
 func _fill_items() -> void:
-	_radial_menu.center_angle = PI * 0.5 - PI / float(_inventory.size())
-	_radial_menu.set_items([ ])
-	
-	for index in _items.size():
-		var stack: ItemStack = _items[index]
-		if stack:
-			var item := stack.item
-			var equipped := _inventory.currently_equipped and item == _inventory.currently_equipped.item_resource
-			_radial_menu.add_icon_item(item.icon, str(stack.amount), index, equipped, _create_submenu(item, equipped))
-		else:
-			_radial_menu.add_icon_item(null, "Nothing", index, true, null)
+	_set_items(_items)
 
 
-func _fill_equipments() -> void:
-	# TODO: set the correct angle here
-	_radial_menu.center_angle = -PI * 0.5 - PI / float(_equipments.size())
-	_radial_menu.set_items([ ])
-	_radial_menu.add_icon_item(_unequip_icon, UNEQUIP, 0, not _inventory.currently_equipped, null)
-	
-	for index in range(1, _equipments.size()):
-		var equipment: ToolResource = _equipments[index]
-		var equipped := _inventory.currently_equipped and equipment == _inventory.currently_equipped.item_resource
-		_radial_menu.add_icon_item(equipment.icon, equipment.name, index, equipped, null)
-
-
-func _on_item_selected(index: int, submenu_index, _position: Vector2) -> void:
-	var submenu: RadialMenu = _radial_menu.menu_items[index].submenu
-	
-	match _mode:
-		InventoryMode.INVENTORY:
-			var stack: ItemStack = _items[index]
-			
-			match submenu_index:
-				SubMenuModes.USE:
-					_use_item(stack.item, submenu)
-				SubMenuModes.DROP:
-					_drop_item(stack.item, submenu)
-				SubMenuModes.EQUIP:
-					var new_submenu := _equip_item(stack.item, submenu)
-					_on_inventory_updated(_inventory)
-					_radial_menu.close_submenu(submenu)
-					_radial_menu.menu_items[index]['submenu'] = new_submenu
-				SubMenuModes.UNEQUIP:
-					var new_submenu := _equip_item(_unequip, submenu)
-					_on_inventory_updated(_inventory)
-					_radial_menu.close_submenu(submenu)
-					_radial_menu.menu_items[index]['submenu'] = new_submenu
-			
-			if _inventory.empty():
-				_radial_menu.close_menu()
-		
-		InventoryMode.EQUIPMENT:
-			# warning-ignore:return_value_discarded
-			_equip_item(_equipments[index], submenu)
-			_radial_menu.close_menu()
-
-
-func _create_submenu(item: ItemResource, equipped: bool) -> RadialMenu:
-	# create a new radial menu
-	var submenu := RadialMenu.new()
-	# copy some important properties from the parent menu
-	submenu.width = _radial_menu.width
-	submenu.default_theme = _radial_menu.default_theme
-	submenu.set_items([ ])
-	
+func _create_submenu(item: ItemResource, equipped: bool) -> Array:
+	var submenu := [ ]
 	var submenu_modes := [ ]
+	
 	if item is ToolResource:
 		submenu_modes += [ SubMenuModes.EQUIP if not equipped else SubMenuModes.UNEQUIP, SubMenuModes.DROP ]
 	else:
@@ -192,41 +92,65 @@ func _create_submenu(item: ItemResource, equipped: bool) -> RadialMenu:
 			SubMenuModes.UNEQUIP:
 				icon = _unequip_icon
 		
-		submenu.add_icon_item(icon, SubMenuModes.keys()[mode], mode, false, null)
+		var new_item: InventoryHUDItem = _item_scene.instance()
+		new_item.texture = icon
+		new_item.use = mode
+		submenu.append(new_item)
 	
-	submenu.circle_coverage = (_submenu_icon_width * submenu_modes.size()) / _radial_menu.circle_coverage
 	return submenu
 
 
-func _use_item(item: ItemResource, submenu: RadialMenu) -> void:
-	var items_left_in_stack := _inventory.use(item)
-	if items_left_in_stack <= 0:
-		_radial_menu.close_submenu(submenu)
+func _on_toggled() -> void:
+	if _state == MenuState.CLOSED:
+		_on_inventory_updated(_inventory)
+		open_menu(get_viewport_rect().size / 2.0)
+	elif _state == MenuState.OPEN:
+		close_menu()
+
+
+func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: InventoryHUDItem) -> void:
+	var stack: ItemStack = submenu_item.item_stack
 	
-	# warning-ignore:return_value_discarded
+	match inventory_item.use:
+		SubMenuModes.USE:
+			_use_item_from_stack(stack)
+		SubMenuModes.DROP:
+			_drop_item_from_stack(stack)
+		SubMenuModes.EQUIP:
+			_equip_item_from_stack(stack)
+		SubMenuModes.UNEQUIP:
+			_equip_item_from_stack(_unequip)
+	
 	_on_inventory_updated(_inventory)
+	if _inventory.empty():
+		close_menu()
 
 
-func _drop_item(item: ItemResource, submenu: RadialMenu) -> void:
+func _use_item_from_stack(item: ItemStack) -> void:
+	var items_left_in_stack := _inventory.use_item_from_stack(item)
+	if items_left_in_stack <= 0:
+		close_submenu()
+
+
+func _drop_item_from_stack(item: ItemStack) -> void:
 	var equipped := _inventory.currently_equipped and item == _inventory.currently_equipped.item_resource
 	if equipped:
 		# warning-ignore:return_value_discarded
 		_inventory.unequip()
 	
-	var items_left_in_stack := _inventory.drop(item)
-	if items_left_in_stack <= 0:
-		_radial_menu.close_submenu(submenu)
+	var items_left_in_stack := _inventory.drop_item_from_stack(item)
 	
-	# warning-ignore:return_value_discarded
-	_on_inventory_updated(_inventory)
+	if items_left_in_stack <= 0:
+		close_submenu()
 
 
-func _equip_item(equipment: ToolResource, submenu: RadialMenu) -> RadialMenu:
-	var equipped := equipment == _unequip
+
+func _equip_item_from_stack(stack: ItemStack) -> void:
+	var equipped := stack == _unequip
 	if not equipped:
-		_inventory.equip(equipment)
+		_inventory.equip_item_from_stack(stack)
 	else:
 		# warning-ignore:return_value_discarded
 		_inventory.unequip()
 	
-	return _create_submenu(equipment, not equipped)
+	close_submenu()

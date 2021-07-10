@@ -126,7 +126,7 @@ func _set_constant(constant_name: String) -> void:
 
 
 func _get_color(color_name: String) -> Color:
-	return get_color(color_name, "RadialMenu2")
+	return get_color(color_name, "RadialMenu")
 
 func _get_constant(constant_name: String):
-	return get_constant(constant_name, "RadialMenu2")
+	return get_constant(constant_name, "RadialMenu")

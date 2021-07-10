@@ -1,4 +1,5 @@
-extends RadialMenu2
+class_name EquipmentHUD
+extends RadialMenu
 
 const UNEQUIP = "Unequip"
 

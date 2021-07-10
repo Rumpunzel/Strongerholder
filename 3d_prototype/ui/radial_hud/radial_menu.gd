@@ -1,4 +1,4 @@
-class_name RadialMenu2
+class_name RadialMenu
 extends Popup
 tool
 
@@ -24,7 +24,7 @@ export var ring_radius := 250.0 setget _set_ring_radius
 export var ring_width := 100.0 setget _set_ring_width
 
 export(float, 0.01, 1.0) var circle_coverage := 1.0 setget _set_circle_coverage
-export(float, -360.0, 360.0) var center_angle2 := 0.0 setget _set_center_angle
+export(float, -360.0, 360.0) var center_angle := 0.0 setget _set_center_angle
 export var clock_wise := true
 
 export var icon_size := Vector2(64.0, 64.0)
@@ -64,7 +64,7 @@ var _has_left_center := false
 var _ring: RadialMenuRing
 var _item_icons: RadialMenuItemIcons
 var _tween: Tween
-var _submenu: RadialMenu2
+var _submenu: RadialMenu
 
 
 
@@ -103,7 +103,7 @@ func _draw() -> void:
 	elif _item_angle * count < -TAU:
 		_item_angle = -TAU / float(count)
 	
-	var start_angle := deg2rad(center_angle2) - _item_angle * (count / 2.0)
+	var start_angle := deg2rad(center_angle) - _item_angle * (count / 2.0)
 	var inout := get_inner_outer()
 	var inner := inout[0]
 	var outer := inout[1]
@@ -138,7 +138,7 @@ func open_submenu_on(menu_item: RadialMenuItem, skip_animation := false) -> void
 	var item_id := menu_items.find(menu_item)
 	
 	assert(_submenu.is_submenu)
-	_submenu.center_angle2 = rad2deg(item_id * _item_angle - PI + deg2rad(center_angle2) + _item_angle / 2.0)
+	_submenu.center_angle = rad2deg(item_id * _item_angle - PI + deg2rad(center_angle) + _item_angle / 2.0)
 	_submenu.ring_radius = ring_radius + width
 	_submenu.rect_position = _moved_to_position - _submenu.center_offset
 	_submenu.circle_coverage = menu_item.submenu_items.size() * circle_coverage * _original_submenu_circle_coverage
@@ -313,17 +313,17 @@ func _calc_new_geometry() -> void:
 	
 	var item_count := menu_items.size()
 	var angle_per_item := (TAU * circle_coverage) / float(item_count) if not menu_items.empty() else 0.01
-	var start_angle := deg2rad(center_angle2) - 0.5 * item_count * angle_per_item
+	var start_angle := deg2rad(center_angle) - 0.5 * item_count * angle_per_item
 	var axis_aligned_bounding_box := DrawLibrary.calc_ring_segment_AABB(ring_radius - get_total_ring_width(), ring_radius, start_angle, start_angle + item_count * angle_per_item)
 	
 	rect_min_size = axis_aligned_bounding_box.size
 	rect_size = rect_min_size
 	rect_pivot_offset = -axis_aligned_bounding_box.position
 	#center_offset = axis_aligned_bounding_box.position
-	_item_icons.update_item_nodes(menu_items, deg2rad(center_angle2), _item_angle, _get_icon_radius(), center_offset, icon_size)
+	_item_icons.update_item_nodes(menu_items, deg2rad(center_angle), _item_angle, _get_icon_radius(), center_offset, icon_size)
 
 
-func _calc_move_to_fit(submenu: RadialMenu2) -> Vector2:
+func _calc_move_to_fit(submenu: RadialMenu) -> Vector2:
 	var parent_size := get_parent_area_size()
 	var parent_rect := Rect2(Vector2.ZERO, parent_size)
 	var sub_rect := submenu.get_rect()
@@ -414,7 +414,7 @@ func _signal_id() -> void:
 		emit_signal("cancelled")
 
 
-func _connect_submenu_signals(submenu: RadialMenu2):
+func _connect_submenu_signals(submenu: RadialMenu):
 	submenu.connect("item_hovered", self, "_on_submenu_item_hovered")
 	submenu.connect("item_selected", self, "_on_submenu_item_selected")
 	submenu.connect("cancelled", self, "_on_submenu_cancelled")
@@ -508,7 +508,7 @@ func _set_center_angle(new_angle: float) -> void:
 	_item_angle = (circle_coverage * TAU / float(menu_items.size())) if not menu_items.empty() else 0.01
 	if clock_wise:
 		_item_angle *= -1
-	center_angle2 = new_angle
+	center_angle = new_angle
 	if is_inside_tree():
 		_calc_new_geometry()
 		update()
@@ -528,7 +528,7 @@ func _set_decorator_ring_position(new_position: int) -> void:
 func _set_items(items: Array) -> void:
 	_item_icons.clear_items()
 	menu_items = items
-	_item_icons.create_item_icons(menu_items, deg2rad(center_angle2), _item_angle, _get_icon_radius(), center_offset, icon_size)
+	_item_icons.create_item_icons(menu_items, deg2rad(center_angle), _item_angle, _get_icon_radius(), center_offset, icon_size)
 	
 	if visible:
 		update()
@@ -557,7 +557,7 @@ func _set_constant(constant_name: String) -> void:
 
 
 func _get_constant(constant_name: String):
-	return get_constant(constant_name, "RadialMenu2")
+	return get_constant(constant_name, "RadialMenu")
 
 func _get_icon_radius() -> float:
 	"""
@@ -581,7 +581,7 @@ func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:
 	vector.
 	"""
 	var item_count := menu_items.size()
-	var start_angle := deg2rad(center_angle2) + _item_angle * item_count / 2.0
+	var start_angle := deg2rad(center_angle) + _item_angle * item_count / 2.0
 	var end_angle := start_angle + item_count * _item_angle
 	
 	var angle := vector.angle_to(Vector2(sin(start_angle), cos(start_angle)))

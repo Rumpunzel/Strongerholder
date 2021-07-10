@@ -3,7 +3,7 @@
 [ext_resource path="res://ui/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/game_hud/game_hud.gd" type="Script" id=2]
 [ext_resource path="res://prototype_assets/gui/gui_theme.tres" type="Theme" id=3]
-[ext_resource path="res://ui/game_hud/inventory_hud/inventory_hud2.gd" type="Script" id=4]
+[ext_resource path="res://ui/game_hud/inventory_hud/inventory_hud.gd" type="Script" id=4]
 [ext_resource path="res://prototype_assets/gui/game_icons/unequip.png" type="Texture" id=5]
 [ext_resource path="res://ui/radial_hud/radial_menu.gd" type="Script" id=6]
 [ext_resource path="res://ui/game_hud/inventory_hud/equipment_hud.gd" type="Script" id=7]
@@ -70,7 +70,7 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-center_angle2 = 180.0
+center_angle = 180.0
 clock_wise = false
 _unequip_icon = ExtResource( 5 )
 _item_scene = ExtResource( 8 )
