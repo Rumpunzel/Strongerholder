@@ -34,7 +34,8 @@ export(float, 0.01, 1.0, 0.01) var animation_speed_factor := 0.2
 
 export(Position) var selector_position := Position.OUTSIDE setget _set_selector_position
 export(Position) var decorator_ring_position := Position.INSIDE setget _set_decorator_ring_position
-export(float, 0, 10, 0.5) var outside_selection_factor := 3.0
+export(float, 0, 10, 0.5) var inside_selection_factor := 0.5
+export(float, 0, 10, 0.5) var outside_selection_factor := 0.5
 
 # defines how long you have to wait before releasing a mouse button will close the menu.
 export var mouse_release_timeout := 400.0
@@ -119,16 +120,17 @@ func open_menu(center_position: Vector2) -> void:
 	assert(not menu_items.empty())
 	rect_position = center_position - center_offset
 	_item_angle = circle_coverage * TAU / menu_items.size()
+	
 	if clock_wise:
 		_item_angle *= -1
-	_calc_new_geometry()
+	
 	popup()
 	_moved_to_position = rect_position + center_offset
 
 
-func open_submenu_on(menu_item: RadialMenuItem) -> void:#
+func open_submenu_on(menu_item: RadialMenuItem, skip_animation := false) -> void:
 	assert(menu_item)
-	#print(menu_item)
+	
 	active_sub_menu = menu_item
 	update()
 	
@@ -160,7 +162,6 @@ func open_submenu_on(menu_item: RadialMenuItem) -> void:#
 
 
 func close_menu(skip_animation := false) -> void:
-	#if active_sub_menu:
 	close_submenu()
 	
 	_has_left_center = false
@@ -187,28 +188,27 @@ func get_selected_by_mouse() -> RadialMenuItem:
 	if active_sub_menu and _submenu.get_selected_by_mouse():
 		return active_sub_menu
 	
-	var selected: RadialMenuItem = null
+	var selected: RadialMenuItem = selected_item
 	var mouse_position := get_local_mouse_position() - center_offset
 	var distance_squared := mouse_position.length_squared()
-	var inner_limit := min((ring_radius - ring_width) * (ring_radius - ring_width), 400.0)
+	
+	var inner_limit := (ring_radius - ring_width * (inside_selection_factor +  1.0)) * (ring_radius - ring_width * (inside_selection_factor +  1.0))
 	var outer_limit := (ring_radius + ring_width * outside_selection_factor) * (ring_radius + ring_width * outside_selection_factor)
 	
 	if is_submenu:
 		inner_limit = pow(get_inner_outer()[0], 2)
-	#print("get_selected_by_mouse 1: %s" % selected)
+	
 	# make selection ring wider than the actual ring of items
 	if distance_squared < inner_limit or distance_squared > outer_limit:
 		# being outside the selection limit only cancels your selection if you've
 		# moved the mouse outside since having made the selection...
-		if _has_left_center:
+		if true or _has_left_center:
 			selected = null
 	else:
-		#print("get_selected_by_mouse 2: %s" % selected)
-		#print("here")
 		_has_left_center = true
 		selected = _get_item_from_vector(mouse_position)
-	#assert(selected)
-	return selected if selected else selected_item
+	
+	return selected
 
 
 func get_selected_by_joypad() -> RadialMenuItem:
@@ -398,8 +398,6 @@ func _select_prev() -> void:
 
 
 func _activate_selected() -> void:
-	#	if active_sub_menu and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
-#		close_submenu()
 	#print("_activate_selected: %s" % selected_item)
 	#print("_activate_selected: %s" % active_sub_menu)
 	#assert(not selected_item == null)
@@ -536,6 +534,9 @@ func _set_items(items: Array) -> void:
 		update()
 
 func _set_selected_item(new_item: RadialMenuItem) -> void:
+	if active_sub_menu and not new_item == active_sub_menu and new_item and not new_item.submenu_items.empty() and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
+		open_submenu_on(new_item, true)
+	
 	if selected_item == new_item:
 		return
 	

@@ -113,6 +113,8 @@ __meta__ = {
 }
 is_submenu = true
 circle_coverage = 0.064
+inside_selection_factor = 1.0
+outside_selection_factor = 1.0
 
 [connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
 [connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
