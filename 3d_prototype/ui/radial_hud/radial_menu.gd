@@ -34,8 +34,8 @@ export(float, 0.01, 1.0, 0.01) var animation_speed_factor := 0.2
 
 export(Position) var selector_position := Position.OUTSIDE setget _set_selector_position
 export(Position) var decorator_ring_position := Position.INSIDE setget _set_decorator_ring_position
-export(float, 0, 10, 0.5) var inside_selection_factor := 0.5
-export(float, 0, 10, 0.5) var outside_selection_factor := 0.5
+export(float, 0, 10, 0.5) var inside_selection_factor := 0.0
+export(float, 0, 10, 0.5) var outside_selection_factor := 0.0
 
 # defines how long you have to wait before releasing a mouse button will close the menu.
 #export var mouse_release_timeout := 400.0
@@ -135,7 +135,6 @@ func open_menu(center_position: Vector2) -> void:
 
 func open_submenu_on(menu_item: RadialMenuItem) -> void:
 	assert(menu_item)
-	
 	active_sub_menu = menu_item
 	update()
 	
@@ -319,7 +318,6 @@ func _radial_input(event: InputEvent) -> void:
 
 func _calc_new_geometry() -> void:
 	assert(_item_icons)
-	
 	var item_count := menu_items.size()
 	var angle_per_item := (TAU * circle_coverage) / float(item_count) if not menu_items.empty() else 0.01
 	var start_angle := deg2rad(center_angle) - 0.5 * item_count * angle_per_item
@@ -441,9 +439,9 @@ func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:
 		angle += TAU
 	
 	var section := end_angle - start_angle
-	var idx := (int(angle / section * item_count) - (1 if clock_wise else 0)) % item_count
+	var idx := int(angle / section * item_count) + ((item_count - 1) if clock_wise else 0)
 	
-	return menu_items[idx]
+	return menu_items[idx] if idx >= 0 and idx < item_count else null
 
 
 func _connect_submenu_signals(submenu: RadialMenu):
