@@ -20,16 +20,23 @@ func draw_item_backgrounds(
 	
 	for i in range(count):
 		var item: RadialMenuItem = menu_items[i]
-		var coords := DrawLibrary.calc_ring_segment(inner, outer, start_angle + (i + (1 if clock_wise else 0)) * item_angle, start_angle + (i + (0 if clock_wise else 1)) * item_angle, center_offset)
+		
+		var adjusted_start_angle := start_angle + (i + (1 if clock_wise else 0)) * item_angle
+		var end_angle := start_angle + (i + (0 if clock_wise else 1)) * item_angle
+		var coords := DrawLibrary.calc_ring_segment(inner, outer, adjusted_start_angle, end_angle, center_offset)
+		
 		var background_color := _get_color("background")
 		var stroke_color := Color.transparent
+		var stroke_width := 1.0
 		
 		if item == selected_item:
 			if item.disabled:
 				background_color = _get_color("selected_background_disabled")
 				stroke_color = background_color
 			elif item.is_modified():
-				background_color = _get_color("icon_modulate_selected")
+				background_color = _get_color("selected_background_disabled")
+				stroke_color = _get_color("selected_background")
+				stroke_width = _get_constant("equipped_stroke_width_selected")
 			else:
 				background_color = _get_color("selected_background")
 		else:
@@ -37,10 +44,11 @@ func draw_item_backgrounds(
 				background_color = _get_color("background_disabled")
 				stroke_color = background_color
 			elif item.is_modified():
-				background_color = _get_color("icon_modulate")
-				stroke_color = background_color
+				background_color = _get_color("selected_background_disabled")
+				stroke_color = _get_color("selected_background")
+				stroke_width = _get_constant("equipped_stroke_width")
 		
-		DrawLibrary.draw_ring_segment(canvas, coords, background_color, stroke_color)
+		DrawLibrary.draw_ring_segment(canvas, coords, background_color, stroke_color, stroke_width)
 
 
 func draw_decorator_ring(
@@ -51,6 +59,7 @@ func draw_decorator_ring(
 		inner: float,
 		outer: float,
 		start_angle: float,
+		clock_wise: bool,
 		count: int
 ) -> void:
 	
@@ -58,11 +67,19 @@ func draw_decorator_ring(
 	var coords: PoolVector2Array
 	var ring_background_color := _get_color("selected_background")
 	
-	if decorator_ring_position == Position.OUTSIDE:
-		coords = DrawLibrary.calc_ring_segment(outer, outer + ring_width, start_angle, start_angle + count * item_angle, center_offset)
-	elif decorator_ring_position == Position.INSIDE:
-		coords = DrawLibrary.calc_ring_segment(inner - ring_width, inner, start_angle, start_angle + count * item_angle, center_offset)
+	var inner_radius: float
+	var outer_radius: float
+	var adjusted_start_angle := start_angle + (count * item_angle if clock_wise else 0.0)
+	var end_angle := start_angle + (0.0 if clock_wise else count * item_angle)
 	
+	if decorator_ring_position == Position.OUTSIDE:
+		inner_radius = outer
+		outer_radius = outer + ring_width
+	elif decorator_ring_position == Position.INSIDE:
+		inner_radius = inner - ring_width
+		outer_radius = inner
+		
+	coords = DrawLibrary.calc_ring_segment(inner_radius, outer_radius, adjusted_start_angle, end_angle, center_offset)
 	DrawLibrary.draw_ring_segment(canvas, coords, ring_background_color)
 
 
@@ -89,13 +106,13 @@ func draw_selections_ring_segment(
 		var select_coords: PoolVector2Array
 		var selector_segment_color := _get_color("selected_background")
 		
-		if selected_item.is_modified():
-			selector_segment_color = _get_color("icon_modulate_selected")
+		var adjusted_start_angle := start_angle + (selected + (1 if clock_wise else 0)) * item_angle
+		var end_angle := start_angle + (selected + (0 if clock_wise else 1)) * item_angle
 		
 		if selector_position == Position.OUTSIDE:
-			select_coords = DrawLibrary.calc_ring_segment(outer, outer + selector_size, start_angle + (selected + (1 if clock_wise else 0)) * item_angle, start_angle + (selected + (0 if clock_wise else 1)) * item_angle, center_offset)
+			select_coords = DrawLibrary.calc_ring_segment(outer, outer + selector_size, adjusted_start_angle, end_angle, center_offset)
 		elif selector_position == Position.INSIDE:
-			select_coords = DrawLibrary.calc_ring_segment(inner - selector_size, inner, start_angle + (selected + (1 if clock_wise else 0)) * item_angle, start_angle + (selected + (0 if clock_wise else 1)) * item_angle, center_offset)
+			select_coords = DrawLibrary.calc_ring_segment(inner - selector_size, inner, adjusted_start_angle, end_angle, center_offset)
 		
 		DrawLibrary.draw_ring_segment(canvas, select_coords, selector_segment_color)
 

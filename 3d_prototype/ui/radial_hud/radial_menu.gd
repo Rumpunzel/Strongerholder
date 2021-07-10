@@ -110,7 +110,7 @@ func _draw() -> void:
 	var outer := inout[1]
 	
 	_ring.draw_selections_ring_segment(self, menu_items, selected_item, active_sub_menu, selector_position, _item_angle, center_offset, inner, outer, start_angle, clock_wise)
-	_ring.draw_decorator_ring(self, decorator_ring_position, _item_angle * (-1.0 if clock_wise else 1.0), center_offset, inner, outer, start_angle, count)
+	_ring.draw_decorator_ring(self, decorator_ring_position, _item_angle, center_offset, inner, outer, start_angle, clock_wise, count)
 	_ring.draw_item_backgrounds(self, menu_items, selected_item, _item_angle, center_offset, inner, outer, start_angle, clock_wise, count)
 	
 	_item_icons.update_item_icon(menu_items, selected_item, count)
