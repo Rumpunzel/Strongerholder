@@ -10,7 +10,7 @@ var use := -1
 
 func _set_item_stack(new_stack: ItemStack) -> void:
 	item_stack = new_stack
-	# TODO: remove this unnecessary thing after 4.0
+	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore-all:unsafe_property_access
 	set_texture(item_stack.item.icon)
 	_set_amount(item_stack.amount)

@@ -184,7 +184,7 @@ func empty() -> bool:
 
 
 func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
-	# TODO: remove this unnecessary thing after 4.0
+	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore-all:unsafe_property_access
 	while count > 0 and stack.amount < item.stack_size:
 		stack.amount += 1

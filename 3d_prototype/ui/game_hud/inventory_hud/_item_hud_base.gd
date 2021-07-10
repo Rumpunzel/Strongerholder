@@ -14,7 +14,7 @@ func _enter_tree() -> void:
 	assert(error == OK)
 	
 	var unequip_resource := ToolResource.new()
-	# TODO: remove this unnecessary thing after 4.0
+	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore-all:unsafe_property_access
 	unequip_resource.icon = _unequip_icon
 	_unequip = ItemStack.new(unequip_resource)
