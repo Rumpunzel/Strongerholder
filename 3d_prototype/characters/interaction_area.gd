@@ -29,19 +29,13 @@ func _ready() -> void:
 	_inputs = _character.get_inputs()
 
 
-func _process(_delta: float) -> void:
-	if Input.is_action_pressed("interact"):
-		_interact_with_nearest()
-	
-	if Input.is_action_just_released("interact"):
-		_inputs.destination_input = _character.translation
-	
+#func _process(_delta: float) -> void:
 #	if current_interaction and not current_interaction.type == InteractionType.NONE:
 #		_character.look_position = current_interaction.node.translation
 
 
 
-func _interact_with_nearest() -> void:
+func interact_with_nearest() -> void:
 	if current_interaction and not current_interaction.type == InteractionType.NONE:
 		return
 	
@@ -55,6 +49,7 @@ func _interact_with_nearest() -> void:
 	if _nearest_interaction:
 		_inputs.destination_input = _nearest_interaction.node.translation
 		return
+
 
 
 func _find_nearest_interaction(objects: Array) -> Interaction:
