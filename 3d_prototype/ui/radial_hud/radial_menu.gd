@@ -31,7 +31,7 @@ export var icon_size := Vector2(64.0, 64.0)
 export var show_animation := true
 export(float, 0.01, 1.0, 0.01) var animation_speed_factor := 0.2
 
-export(Position) var selector_position := Position.OFF setget _set_selector_position
+export(Position) var selector_position := Position.OUTSIDE setget _set_selector_position
 export(Position) var decorator_ring_position := Position.INSIDE setget _set_decorator_ring_position
 export(float, 0, 10, 0.5) var outside_selection_factor := 3.0
 
@@ -106,9 +106,9 @@ func _draw() -> void:
 	var inner := inout[0]
 	var outer := inout[1]
 	
-	_ring.draw_item_backgrounds(self, menu_items, selected_item, _item_angle, center_offset, inner, outer, start_angle, count)
-	_ring.draw_decorator_ring(self, decorator_ring_position, _item_angle, center_offset, inner, outer, start_angle, count)
 	_ring.draw_selections_ring_segment(self, menu_items, selected_item, active_sub_menu, selector_position, _item_angle, center_offset, inner, outer, start_angle)
+	_ring.draw_decorator_ring(self, decorator_ring_position, _item_angle, center_offset, inner, outer, start_angle, count)
+	_ring.draw_item_backgrounds(self, menu_items, selected_item, _item_angle, center_offset, inner, outer, start_angle, count)
 	
 	_item_icons.update_item_icon(menu_items, selected_item, count)
 
@@ -125,18 +125,18 @@ func open_menu(center_position: Vector2) -> void:
 
 func open_submenu_on(menu_item: RadialMenuItem) -> void:#
 	assert(menu_item)
-	print(menu_item)
+	#print(menu_item)
 	active_sub_menu = menu_item
 	update()
 	
-	var width := _submenu.get_total_ring_width()
+	var width := _submenu.get_total_ring_width(false)
 	var item_id := menu_items.find(menu_item)
 	
 	assert(_submenu.is_submenu)
 	_submenu.center_angle2 = rad2deg(item_id * _item_angle - PI + deg2rad(center_angle2) + _item_angle / 2.0)
 	_submenu.ring_radius = ring_radius + width
 	_submenu.rect_position = _moved_to_position - _submenu.center_offset
-	_submenu.circle_coverage = (1.0 / float(menu_item.submenu_items.size())) * circle_coverage * _original_submenu_circle_coverage
+	_submenu.circle_coverage = menu_item.submenu_items.size() * circle_coverage * _original_submenu_circle_coverage
 	_submenu.menu_items = menu_item.submenu_items
 	
 	# now make sure we have room to display the menu
@@ -157,8 +157,8 @@ func open_submenu_on(menu_item: RadialMenuItem) -> void:#
 
 
 func close_menu() -> void:
-	if active_sub_menu:
-		close_submenu()
+	#if active_sub_menu:
+	close_submenu()
 	
 	if _state != MenuState.OPEN:
 		return
@@ -175,8 +175,9 @@ func close_menu() -> void:
 
 
 func close_submenu() -> void:
-	_submenu.close_menu()
-	active_sub_menu = null
+	if _submenu:
+		_submenu.close_menu()
+		active_sub_menu = null
 
 
 func get_selected_by_mouse() -> RadialMenuItem:
@@ -240,7 +241,7 @@ func get_selected_by_joypad() -> RadialMenuItem:
 	return selected if selected else selected_item
 
 
-func get_total_ring_width() -> float:
+func get_total_ring_width(with_selector := true) -> float:
 	"""
 	Returns the total width of the ring (with decorator and selector)
 	"""
@@ -257,7 +258,7 @@ func get_total_ring_width() -> float:
 	elif selector_position == Position.OFF:
 		return ring_width + decorator_ring_width
 	else:
-		return ring_width + selector_segment_width + decorator_ring_width
+		return ring_width + (selector_segment_width if with_selector else 0.0) + decorator_ring_width
 
 
 func get_inner_outer() -> Vector2:
@@ -350,15 +351,15 @@ func _handle_mouse_buttons(event: InputEventMouseButton) -> void:
 		elif event.button_index == BUTTON_WHEEL_UP:
 			_select_prev()
 		else:
-			if not is_submenu:
+			if true or not is_submenu:
 				get_tree().set_input_as_handled()
 			
 			_activate_selected()
-	elif _state == MenuState.OPEN and not _is_wheel_button(event):
-		var msecs_since_opened := OS.get_ticks_msec() - _msecs_at_opened
-		if msecs_since_opened > mouse_release_timeout:
-			get_tree().set_input_as_handled()
-			_activate_selected()
+#	elif _state == MenuState.OPEN and not _is_wheel_button(event):
+#		var msecs_since_opened := OS.get_ticks_msec() - _msecs_at_opened
+#		if msecs_since_opened > mouse_release_timeout:
+#			get_tree().set_input_as_handled()
+#			_activate_selected()
 
 
 func _handle_actions(event: InputEvent) -> void:
@@ -396,11 +397,11 @@ func _select_prev() -> void:
 func _activate_selected() -> void:
 	#	if active_sub_menu and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
 #		close_submenu()
-	print("_activate_selected: %s" % selected_item)
-	print("_activate_selected: %s" % active_sub_menu)
+	#print("_activate_selected: %s" % selected_item)
+	#print("_activate_selected: %s" % active_sub_menu)
 	#assert(not selected_item == null)
 	if selected_item and not selected_item.disabled and not selected_item.submenu_items.empty():
-		pass#open_submenu_on(selected_item)
+		open_submenu_on(selected_item)
 	else:
 		_signal_id()
 
@@ -424,8 +425,8 @@ func _connect_submenu_signals(submenu: RadialMenu2):
 func _on_submenu_item_hovered(item: RadialMenuItem) -> void:
 	_set_selected_item(item)
 
-func _on_submenu_item_selected(item: RadialMenuItem, submenu: RadialMenu2) -> void:
-	emit_signal("item_selected", item, submenu)
+func _on_submenu_item_selected(item: RadialMenuItem, submenu_item: RadialMenuItem) -> void:
+	emit_signal("item_selected", item, selected_item)
 
 func _on_submenu_cancelled() -> void:
 	_set_selected_item(get_selected_by_mouse())
@@ -479,13 +480,15 @@ func _on_tween_all_completed() -> void:
 
 func _set_ring_radius(new_radius: float) -> void:
 	ring_radius = new_radius
-	_calc_new_geometry()
-	update()
+	if is_inside_tree():
+		_calc_new_geometry()
+		update()
 
 func _set_ring_width(new_width: float) -> void:
 	ring_width = new_width
-	_calc_new_geometry()
-	update()
+	if is_inside_tree():
+		_calc_new_geometry()
+		update()
 
 func _set_circle_coverage(new_coverage: float) -> void:
 	_item_angle = (new_coverage * TAU / float(menu_items.size())) if not menu_items.empty() else 0.01
@@ -497,18 +500,21 @@ func _set_circle_coverage(new_coverage: float) -> void:
 func _set_center_angle(new_angle: float) -> void:
 	_item_angle = (circle_coverage * TAU / float(menu_items.size())) if not menu_items.empty() else 0.01
 	center_angle2 = new_angle
-	_calc_new_geometry()
-	update()
+	if is_inside_tree():
+		_calc_new_geometry()
+		update()
 
 func _set_selector_position(new_position: int) -> void:
 	selector_position = new_position
-	_calc_new_geometry()
-	update()
+	if is_inside_tree():
+		_calc_new_geometry()
+		update()
 
 func _set_decorator_ring_position(new_position: int) -> void:
 	decorator_ring_position = new_position
-	_calc_new_geometry()
-	update()
+	if is_inside_tree():
+		_calc_new_geometry()
+		update()
 
 func _set_items(items: Array) -> void:
 	_item_icons.clear_items()

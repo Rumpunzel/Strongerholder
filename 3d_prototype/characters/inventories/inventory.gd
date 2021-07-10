@@ -63,7 +63,7 @@ func remove(item: ItemResource) -> int:
 	for slot in item_slots.size():
 		var stack: ItemStack = item_slots[slot]
 		if stack and stack.item == item:
-			left_in_stack = _remove_from_stack(item, 1, slot)
+			left_in_stack = _remove_from_stack(stack, 1)
 			break
 	
 	return left_in_stack
@@ -75,7 +75,7 @@ func use(item: ItemResource) -> int:
 	for slot in item_slots.size():
 		var stack: ItemStack = item_slots[slot]
 		if stack and stack.item == item:
-			left_in_stack = _remove_from_stack(item, 1, slot)
+			left_in_stack = _remove_from_stack(stack, 1)
 			break
 	
 	if left_in_stack < 0:
@@ -87,12 +87,24 @@ func use(item: ItemResource) -> int:
 
 
 # Returns how many are left in the stack
+func use_item_from_stack(stack: ItemStack) -> int:
+	var left_in_stack := _remove_from_stack(stack, 1)
+	
+	if left_in_stack < 0:
+		printerr("Tried to use [ %s ] from %s but there were none in inventory." % [ stack.item, owner.name ])
+		return left_in_stack
+	
+	stack.item.use()
+	return left_in_stack
+
+
+# Returns how many are left in the stack
 func drop(item: ItemResource) -> int:
 	var left_in_stack := -1
 	for slot in item_slots.size():
 		var stack: ItemStack = item_slots[slot]
 		if stack and stack.item == item:
-			left_in_stack = _remove_from_stack(item, 1, slot)
+			left_in_stack = _remove_from_stack(stack, 1)
 			break
 	
 	if left_in_stack < 0:
@@ -100,6 +112,17 @@ func drop(item: ItemResource) -> int:
 		return left_in_stack
 	
 	_spawn_item(item)
+	return left_in_stack
+
+
+# Returns how many are left in the stack
+func drop_item_from_stack(stack: ItemStack) -> int:
+	if stack.amount <= 0:
+		printerr("Tried to drop [ %s ] from %s but there were none in inventory." % [ stack.item, owner.name ])
+		return stack.amount
+	
+	var left_in_stack := _remove_from_stack(stack, 1)
+	_spawn_item(stack.item)
 	return left_in_stack
 
 
@@ -171,18 +194,17 @@ func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 	return count
 
 
-# Return how many are left in the stack
-func _remove_from_stack(item: ItemResource, count: int, slot: int) -> int:
-	var stack: ItemStack = item_slots[slot]
+# Returns how many are left in the stack
+func _remove_from_stack(stack: ItemStack, count: int) -> int:
 	while count > 0 and stack.amount > 0:
 		stack.amount -= 1
 		count -= 1
-		emit_signal("item_removed", item)
-		if item is ToolResource:
-			emit_signal("equipment_removed", item)
+		emit_signal("item_removed", stack.item)
+		if stack.item is ToolResource:
+			emit_signal("equipment_removed", stack.item)
 		
 		if stack.amount <= 0:
-			item_slots[slot] = null
+			item_slots[item_slots.find(stack)] = null
 			break
 	
 	return stack.amount

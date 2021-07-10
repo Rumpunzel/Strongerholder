@@ -21,16 +21,23 @@ func draw_item_backgrounds(
 		var item: RadialMenuItem = menu_items[i]
 		var coords := DrawLibrary.calc_ring_segment(inner, outer, start_angle + i * item_angle, start_angle + (i + 1) * item_angle, center_offset)
 		var background_color := _get_color("background")
-		var stroke_color := _get_color("background")
+		var stroke_color := Color.transparent
 		
 		if item == selected_item:
-			if not item.disabled:
-				background_color = _get_color("selected_background")
-				stroke_color = _get_color("selected_background")
-			else:
+			if item.disabled:
 				background_color = _get_color("selected_background_disabled")
-		elif item.disabled:
-			background_color = _get_color("background_disabled")
+				stroke_color = background_color
+			elif item.is_modified():
+				background_color = _get_color("icon_modulate_selected")
+			else:
+				background_color = _get_color("selected_background")
+		else:
+			if item.disabled:
+				background_color = _get_color("background_disabled")
+				stroke_color = background_color
+			elif item.is_modified():
+				background_color = _get_color("icon_modulate")
+				stroke_color = background_color
 		
 		DrawLibrary.draw_ring_segment(canvas, coords, background_color, stroke_color)
 
@@ -71,7 +78,7 @@ func draw_selections_ring_segment(
 		start_angle: float
 ) -> void:
 	
-	if selected_item:# and not active_sub_menu:
+	if selected_item and not active_sub_menu:
 		if selected_item.disabled:
 			return
 		
@@ -79,6 +86,9 @@ func draw_selections_ring_segment(
 		var selector_size: float = _get_constant("selector_segment_width")
 		var select_coords: PoolVector2Array
 		var selector_segment_color := _get_color("selected_background")
+		
+		if selected_item.is_modified():
+			selector_segment_color = _get_color("icon_modulate_selected")
 		
 		if selector_position == Position.OUTSIDE:
 			select_coords = DrawLibrary.calc_ring_segment(outer, outer + selector_size, start_angle + selected * item_angle, start_angle + (selected + 1) * item_angle, center_offset)

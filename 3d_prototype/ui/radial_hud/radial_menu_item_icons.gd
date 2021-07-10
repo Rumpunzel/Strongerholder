@@ -21,6 +21,9 @@ func update_item_icon(
 			else:
 				icon_modulate = _get_color("icon_modulate")
 				item.highlight(false)
+			
+			if item.is_modified():
+				icon_modulate = _get_color("selected_background")
 		
 		var item_node: RadialMenuItem = items[i]
 		item_node.modulate = icon_modulate

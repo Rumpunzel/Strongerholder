@@ -15,6 +15,7 @@ export(PackedScene) var _item_scene: PackedScene = null
 
 var _inventory: CharacterInventory
 var _items := [ ]
+var _unequip: ItemStack
 
 
 func _enter_tree() -> void:
@@ -27,6 +28,10 @@ func _enter_tree() -> void:
 	
 	error = connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)
+	
+	var unequip_resource := ToolResource.new()
+	unequip_resource.icon = _unequip_icon
+	_unequip = ItemStack.new(unequip_resource)
 
 
 func _exit_tree() -> void:
@@ -46,6 +51,7 @@ func _on_inventory_updated(inventory: CharacterInventory) -> void:
 			var equipped := _inventory.currently_equipped and _inventory.has_equipped(stack.item)
 			new_item.item_stack = stack
 			new_item.equipped = equipped
+			new_item.submenu_items = _create_submenu(stack.item, equipped)
 			_items.append(new_item)
 		else:
 			var new_item: InventoryHUDItem = _item_scene.instance()
@@ -56,8 +62,38 @@ func _on_inventory_updated(inventory: CharacterInventory) -> void:
 
 
 func _fill_items() -> void:
-	#_radial_menu.center_angle = PI * 0.5 - PI / float(_inventory.size())
+	center_angle2 = -180.0 / float(_inventory.size())
 	_set_items(_items)
+
+
+func _create_submenu(item: ItemResource, equipped: bool) -> Array:
+	var submenu := [ ]
+	var submenu_modes := [ ]
+	
+	if item is ToolResource:
+		submenu_modes += [ SubMenuModes.EQUIP if not equipped else SubMenuModes.UNEQUIP, SubMenuModes.DROP ]
+	else:
+		submenu_modes += [ SubMenuModes.USE, SubMenuModes.DROP ]
+	
+	for mode in submenu_modes:
+		var icon: Texture
+		
+		match mode:
+			SubMenuModes.USE:
+				icon = _use_icon
+			SubMenuModes.DROP:
+				icon = _drop_icon
+			SubMenuModes.EQUIP:
+				icon = _equip_icon
+			SubMenuModes.UNEQUIP:
+				icon = _unequip_icon
+		
+		var new_item: InventoryHUDItem = _item_scene.instance()
+		new_item.texture = icon
+		new_item.use = mode
+		submenu.append(new_item)
+	
+	return submenu
 
 
 func _on_toggled() -> void:
@@ -69,29 +105,48 @@ func _on_toggled() -> void:
 
 
 func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: InventoryHUDItem) -> void:
-	pass
-#			var stack: ItemStack = _items[index]
-#
-#	match submenu_index:
-#		SubMenuModes.USE:
-#			_use_item(stack.item, submenu)
-#		SubMenuModes.DROP:
-#			_drop_item(stack.item, submenu)
-#		SubMenuModes.EQUIP:
-#			var new_submenu := _equip_item(stack.item, submenu)
-#			_on_inventory_updated(_inventory)
-#			_radial_menu.close_submenu(submenu)
-#			_radial_menu.menu_items[index]['submenu'] = new_submenu
-#		SubMenuModes.UNEQUIP:
-#			var new_submenu := _equip_item(_unequip, submenu)
-#			_on_inventory_updated(_inventory)
-#			_radial_menu.close_submenu(submenu)
-#			_radial_menu.menu_items[index]['submenu'] = new_submenu
-#
-#			if _inventory.empty():
-#				_radial_menu.close_menu()
-#
-#		InventoryMode.EQUIPMENT:
-#			# warning-ignore:return_value_discarded
-#			_equip_item(_equipments[index], submenu)
-#			_radial_menu.close_menu()
+	var stack: ItemStack = submenu_item.item_stack
+	
+	match inventory_item.use:
+		SubMenuModes.USE:
+			_use_item_from_stack(stack)
+		SubMenuModes.DROP:
+			_drop_item_from_stack(stack)
+		SubMenuModes.EQUIP:
+			_equip_item_from_stack(stack)
+		SubMenuModes.UNEQUIP:
+			_equip_item_from_stack(_unequip)
+			
+			if _inventory.empty():
+				close_menu()
+
+
+func _use_item_from_stack(item: ItemStack) -> void:
+	var items_left_in_stack := _inventory.use_item_from_stack(item)
+	if items_left_in_stack <= 0:
+		close_submenu()
+
+
+func _drop_item_from_stack(item: ItemStack) -> void:
+	var equipped := _inventory.currently_equipped and item == _inventory.currently_equipped.item_resource
+	if equipped:
+		# warning-ignore:return_value_discarded
+		_inventory.unequip()
+	
+	var items_left_in_stack := _inventory.drop_item_from_stack(item)
+	_on_inventory_updated(_inventory)
+	if items_left_in_stack <= 0:
+		close_submenu()
+
+
+
+func _equip_item_from_stack(stack: ItemStack) -> void:
+	var equipped := stack == _unequip
+	if not equipped:
+		_inventory.equip_item_from_stack(stack)
+	else:
+		# warning-ignore:return_value_discarded
+		_inventory.unequip()
+	
+	close_submenu()
+	_on_inventory_updated(_inventory)

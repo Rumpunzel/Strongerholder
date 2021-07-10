@@ -36,3 +36,7 @@ func set_texture(new_texture: Texture) -> void:
 func _set_disabled(is_disabled: bool) -> void:
 	highlight(false)
 	disabled = is_disabled
+
+
+func is_modified() -> bool:
+	return false

@@ -38,17 +38,18 @@ func _on_equipment_updated(inventory: CharacterInventory) -> bool:
 	var current_equipment_stacks = _inventory.equipments()
 	_equipments.clear()
 	
-	var unequip_item: InventoryHUDItem = _item_scene.instance()
-	unequip_item.item_stack = _unequip
-	unequip_item.disabled = not _inventory.currently_equipped
-	_equipments.append(unequip_item)
-	
 	for stack in current_equipment_stacks:
 		var new_item: InventoryHUDItem = _item_scene.instance()
 		var equipped := _inventory.currently_equipped and _inventory.has_equipped(stack.item)
 		new_item.item_stack = stack
+		new_item.disabled = equipped
 		new_item.equipped = equipped
 		_equipments.append(new_item)
+	
+	var unequip_item: InventoryHUDItem = _item_scene.instance()
+	unequip_item.item_stack = _unequip
+	unequip_item.disabled = not _inventory.currently_equipped
+	_equipments.append(unequip_item)
 	
 	if _equipments.size() > 1:
 		_fill_equipments()
@@ -58,8 +59,7 @@ func _on_equipment_updated(inventory: CharacterInventory) -> bool:
 
 
 func _fill_equipments() -> void:
-	# TODO: set the correct angle here
-	#center_angle = -PI * 0.5 - PI / float(_equipments.size())
+	center_angle2 = 360 / float(_equipments.size())
 	_set_items(_equipments)
 
 

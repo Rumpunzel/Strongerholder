@@ -4,6 +4,7 @@ extends RadialMenuItem
 var item_stack: ItemStack setget _set_item_stack
 var equipped: bool setget _set_equipped
 var amount: int setget _set_amount
+var use := -1
 
 
 func _set_item_stack(new_stack: ItemStack) -> void:
@@ -13,7 +14,6 @@ func _set_item_stack(new_stack: ItemStack) -> void:
 
 func _set_equipped(is_equipped: bool) -> void:
 	equipped = is_equipped
-	self_modulate = Color("e61972c2") if equipped else Color.white
 
 func _set_amount(new_amount: int) -> void:
 	var _amount: Label = $MarginContainer/Amount
@@ -24,3 +24,7 @@ func _set_amount(new_amount: int) -> void:
 		_amount.text = ("%d" % amount)
 	else:
 		_amount.visible = false
+
+
+func is_modified() -> bool:
+	return equipped

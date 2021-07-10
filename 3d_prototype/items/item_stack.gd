@@ -1,4 +1,5 @@
 class_name ItemStack
+extends Resource
 
 var item: ItemResource
 var amount: int

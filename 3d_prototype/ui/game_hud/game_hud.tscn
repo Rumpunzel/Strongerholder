@@ -70,6 +70,7 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+submenu_node = NodePath("SubMenu")
 _use_icon = ExtResource( 10 )
 _drop_icon = ExtResource( 11 )
 _equip_icon = ExtResource( 9 )
@@ -91,7 +92,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 is_submenu = true
-circle_coverage = 0.5
+circle_coverage = 0.064
 
 [node name="EquipmentHUD" type="Popup" parent="."]
 anchor_left = 0.5
@@ -111,3 +112,6 @@ __meta__ = {
 }
 _unequip_icon = ExtResource( 5 )
 _item_scene = ExtResource( 8 )
+
+[connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
+[connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
