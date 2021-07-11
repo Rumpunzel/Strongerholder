@@ -13,14 +13,22 @@ class ReadInventoryAction extends StateAction:
 		var character: Character = state_machine.owner
 		_inventory = character.get_inventory()
 		
-		var error := _inventory.connect("item_stack_added", self, "_on_item_changed")
+		var error := _inventory.connect("item_stack_added", self, "_on_item_stack_changed")
 		assert(error == OK)
-		error = _inventory.connect("item_stack_removed", self, "_on_item_changed")
+		error = _inventory.connect("item_stack_removed", self, "_on_item_stack_changed")
+		assert(error == OK)
+		error = _inventory.connect("item_added", self, "_on_item_changed")
+		assert(error == OK)
+		error = _inventory.connect("item_removed", self, "_on_item_changed")
 		assert(error == OK)
 		
-		error = _inventory.connect("equipment_stack_added", self, "_on_equipment_changed")
+		error = _inventory.connect("equipment_stack_added", self, "_on_equipment_stack_changed")
 		assert(error == OK)
-		error = _inventory.connect("equipment_stack_removed", self, "_on_equipment_changed")
+		error = _inventory.connect("equipment_stack_removed", self, "_on_equipment_stack_changed")
+		assert(error == OK)
+		error = _inventory.connect("equipment_added", self, "_on_equipment_changed")
+		assert(error == OK)
+		error = _inventory.connect("equipment_removed", self, "_on_equipment_changed")
 		assert(error == OK)
 	
 	
@@ -32,8 +40,14 @@ class ReadInventoryAction extends StateAction:
 			Events.hud.emit_signal("equipment_hud_toggled", _inventory)
 	
 	
-	func _on_item_changed(_stack: ItemStack = null) -> void:
+	func _on_item_stack_changed(_stack: ItemStack = null) -> void:
+		Events.hud.emit_signal("inventory_stacks_updated", _inventory)
+	
+	func _on_item_changed(_item: ItemResource = null) -> void:
 		Events.hud.emit_signal("inventory_updated", _inventory)
 	
-	func _on_equipment_changed(_stack: ItemStack = null) -> void:
+	func _on_equipment_stack_changed(_stack: ItemStack = null) -> void:
+		Events.hud.emit_signal("equipment_stacks_updated", _inventory)
+	
+	func _on_equipment_changed(_item: ItemResource = null) -> void:
 		Events.hud.emit_signal("equipment_updated", _inventory)

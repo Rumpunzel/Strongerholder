@@ -67,7 +67,7 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 		elif _equipped_item:
 			# WAITFORUPDATE: remove this unnecessary thing after 4.0
 			# warning-ignore-all:unsafe_property_access
-			for use in _equipped_item.item_resource.used_on:
+			for use in _equipped_item.stack.item.used_on:
 				if object.is_in_group(use):
 					potential_interaction.type = InteractionType.ATTACK
 					break

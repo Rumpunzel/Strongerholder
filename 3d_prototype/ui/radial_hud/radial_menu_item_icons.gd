@@ -14,10 +14,10 @@ func update_item_icon(
 		var item: RadialMenuItem = menu_items[i]
 		var icon_modulate := _get_color("icon_modulate_disabled")
 		
-		if not item.disabled:
+		if item.is_modified() or not item.disabled:
 			if item == selected_item:
 				icon_modulate = _get_color("icon_modulate_selected")
-				item.highlight(true)
+				item.highlight(not item.disabled)
 			else:
 				icon_modulate = _get_color("icon_modulate")
 				item.highlight(false)

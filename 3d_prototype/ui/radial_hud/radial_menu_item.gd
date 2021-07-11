@@ -6,7 +6,7 @@ export var _animation_time := 0.1
 
 # Array of RadialMenuItems
 # warning-ignore:unused_class_variable
-var submenu_items := [ ]
+var submenu_items := [ ] setget _set_submenu_items
 var disabled := false setget _set_disabled
 
 var _tween: Tween
@@ -36,6 +36,12 @@ func highlight(is_highlighted: bool) -> void:
 func set_texture(new_texture: Texture) -> void:
 	.set_texture(new_texture)
 	rect_pivot_offset = rect_min_size / 2.0
+
+func _set_submenu_items(new_submenu: Array) -> void:
+	for item in submenu_items:
+		item.queue_free()
+	
+	submenu_items = new_submenu
 
 func _set_disabled(is_disabled: bool) -> void:
 	highlight(false)

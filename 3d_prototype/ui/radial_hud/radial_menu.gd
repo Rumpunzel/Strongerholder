@@ -585,8 +585,9 @@ func _set_decorator_ring_position(new_position: int) -> void:
 
 func _set_item_angle(new_angle: float) -> void:
 	_item_angle = new_angle
-	_calc_new_geometry()
-	update()
+	if is_inside_tree():
+		_calc_new_geometry()
+		update()
 
 func _set_constant(constant_name: String) -> void:
 	set("constants/%s" % constant_name, _get_constant(constant_name))
