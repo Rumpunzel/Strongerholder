@@ -93,7 +93,6 @@ func clear_items() -> void:
 	assert(is_inside_tree())
 	for node in get_children():
 		remove_child(node)
-		node.queue_free()
 
 
 

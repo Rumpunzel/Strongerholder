@@ -14,13 +14,14 @@ var _tween: Tween
 
 
 func _enter_tree() -> void:
-	_tween = Tween.new()
-	add_child(_tween)
+	if not _tween:
+		_tween = Tween.new()
+		add_child(_tween)
 
 func _exit_tree() -> void:
 	for item in possible_submenu_items.values():
 		item.queue_free()
-	
+
 	for item in active_submenu_items:
 		item.queue_free()
 

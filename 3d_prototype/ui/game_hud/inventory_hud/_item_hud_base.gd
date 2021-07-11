@@ -1,12 +1,10 @@
 class_name ItemHUDBASE
 extends RadialMenu
 
-
 export(PackedScene) var _item_scene: PackedScene = null            
 
 var _inventory: CharacterInventory
 var _items := [ ]
-
 
 
 func _enter_tree() -> void:
@@ -15,14 +13,11 @@ func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	Events.main.connect("game_paused", self, "close_menu")
 
-
 func _exit_tree() -> void:
 	Events.main.disconnect("game_paused", self, "close_menu")
 	
 	for item in _items:
-		print(item)
 		item.queue_free()
-
 
 
 func _on_toggled(new_inventory: CharacterInventory) -> void:

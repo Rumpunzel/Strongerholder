@@ -22,7 +22,7 @@ func equipments() -> Array:
 
 
 func equip_item_stack(equipment_stack: ItemStack) -> void:
-	#assert(equipments().has(equipment))
+	assert(equipments().has(equipment_stack))
 	assert(get_node(_hand_position))
 	
 	# warning-ignore:return_value_discarded

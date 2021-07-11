@@ -69,21 +69,25 @@ var _submenu: RadialMenu
 
 
 func _enter_tree() -> void:
-	_ring = RadialMenuRing.new()
-	add_child(_ring)
+	if not _ring:
+		_ring = RadialMenuRing.new()
+		add_child(_ring)
 	
-	_item_icons = RadialMenuItemIcons.new()
-	add_child(_item_icons)
+	if not _item_icons:
+		_item_icons = RadialMenuItemIcons.new()
+		add_child(_item_icons)
 	
-	_tween = Tween.new()
-	add_child(_tween)
-	# warning-ignore:return_value_discarded
-	_tween.connect("tween_all_completed", self, "_on_tween_all_completed")
+	if not _tween:
+		_tween = Tween.new()
+		add_child(_tween)
+		# warning-ignore:return_value_discarded
+		_tween.connect("tween_all_completed", self, "_on_tween_all_completed")
 	
-	_submenu = get_node_or_null(submenu_node)
-	if _submenu:
-		_original_submenu_circle_coverage = _submenu.circle_coverage
-		_connect_submenu_signals(_submenu)
+	if not _submenu:
+		_submenu = get_node_or_null(submenu_node)
+		if _submenu:
+			_original_submenu_circle_coverage = _submenu.circle_coverage
+			_connect_submenu_signals(_submenu)
 	
 	# warning-ignore:return_value_discarded
 	connect("cancelled", self, "close_menu")

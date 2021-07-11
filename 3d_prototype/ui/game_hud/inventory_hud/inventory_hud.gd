@@ -22,16 +22,10 @@ func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	Events.hud.connect("inventory_hud_toggled", self, "_on_toggled")
 
-
 func _exit_tree() -> void:
 	Events.hud.disconnect("inventory_stacks_updated", self, "_on_inventory_stacks_updated")
 	Events.hud.disconnect("inventory_updated", self, "_update_items")
 	Events.hud.disconnect("inventory_hud_toggled", self, "_on_toggled")
-
-
-
-func _on_inventory_stacks_updated(new_inventory: CharacterInventory) -> void:
-	._on_inventory_stacks_updated(new_inventory)
 
 
 func _initialize_items(new_inventory: CharacterInventory) -> void:
