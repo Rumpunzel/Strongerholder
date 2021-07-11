@@ -12,8 +12,14 @@ func _set_item_stack(new_stack: ItemStack) -> void:
 	item_stack = new_stack
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore-all:unsafe_property_access
-	set_texture(item_stack.item.icon)
-	_set_amount(item_stack.amount)
+	if item_stack and item_stack.item:
+		set_texture(item_stack.item.icon)
+		_set_amount(item_stack.amount)
+	else:
+		_set_disabled(true)
+		_set_equipped(false)
+		set_texture(null)
+		_set_amount(0)
 
 func _set_equipped(is_equipped: bool) -> void:
 	equipped = is_equipped

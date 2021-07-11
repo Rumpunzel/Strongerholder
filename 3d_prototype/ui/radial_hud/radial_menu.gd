@@ -418,8 +418,9 @@ func _activate_selected() -> void:
 
 
 func _signal_id() -> void:
-	if selected_item and not selected_item.disabled:
-		emit_signal("item_selected", selected_item, null)
+	if selected_item:
+		if not selected_item.disabled:
+			emit_signal("item_selected", selected_item, null)
 	else:
 		emit_signal("cancelled")
 

@@ -11,9 +11,6 @@ func _enter_tree() -> void:
 	assert(error == OK)
 	error = Events.hud.connect("equipment_hud_toggled", self, "_on_toggled")
 	assert(error == OK)
-	
-	error = connect("item_selected", self, "_on_item_selected")
-	assert(error == OK)
 
 
 func _exit_tree() -> void:
@@ -55,7 +52,9 @@ func _on_equipment_updated(inventory: CharacterInventory) -> bool:
 	return false
 
 
-func _on_toggled() -> void:
+func _on_toggled(new_inventory: CharacterInventory) -> void:
+	._on_toggled(new_inventory)
+	
 	if _state == MenuState.CLOSED:
 		var open_menu := _on_equipment_updated(_inventory)
 		if open_menu:

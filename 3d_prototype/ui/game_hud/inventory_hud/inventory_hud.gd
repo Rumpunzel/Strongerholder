@@ -13,16 +13,10 @@ export(Texture) var _use_icon
 export(Texture) var _drop_icon
 
 
-var _items := [ ]
-
-
 func _enter_tree() -> void:
 	var error := Events.hud.connect("inventory_updated", self, "_on_inventory_updated")
 	assert(error == OK)
 	error = Events.hud.connect("inventory_hud_toggled", self, "_on_toggled")
-	assert(error == OK)
-	
-	error = connect("item_selected", self, "_on_item_selected")
 	assert(error == OK)
 
 
@@ -32,28 +26,27 @@ func _exit_tree() -> void:
 
 
 
-func _on_inventory_updated(inventory: CharacterInventory) -> void:
-	_inventory = inventory
-	var contents := inventory.item_slots
-	var size := contents.size()
-	_items.clear()
-	_items.resize(size)
+func _on_inventory_updated(new_inventory: CharacterInventory) -> void:
+	._on_inventory_updated(new_inventory)
 	
-	for i in range(size):
+	var contents := _inventory.item_slots
+	
+	for i in contents.size():
 		var stack: ItemStack = contents[i]
-		var new_item: InventoryHUDItem = _item_scene.instance()
+		var hud_item: InventoryHUDItem = _items[i]
 		
-		if stack:
+		if stack.item:
+			hud_item.disabled = false
 			var equipped := _inventory.currently_equipped and _inventory.has_equipped(stack.item)
-			new_item.item_stack = stack
-			new_item.equipped = equipped
-			new_item.submenu_items = _create_submenu(stack.item, equipped)
+			hud_item.item_stack = stack
+			hud_item.equipped = equipped
+			hud_item.submenu_items = _create_submenu(stack.item, equipped)
 		else:
-			new_item.disabled = true
+			hud_item.disabled = true
 		
-		_items[i] = new_item
+		hud_item.item_stack = stack
 	
-	_set_items(_items)
+	update()
 
 
 func _create_submenu(item: ItemResource, equipped: bool) -> Array:
@@ -86,9 +79,11 @@ func _create_submenu(item: ItemResource, equipped: bool) -> Array:
 	return submenu
 
 
-func _on_toggled() -> void:
+func _on_toggled(new_inventory: CharacterInventory) -> void:
+	._on_toggled(new_inventory)
+	
 	if _state == MenuState.CLOSED:
-		_on_inventory_updated(_inventory)
+		#_on_inventory_updated(_inventory)
 		open_menu(get_viewport_rect().size / 2.0)
 	elif _state == MenuState.OPEN:
 		close_menu()
@@ -104,17 +99,14 @@ func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: Inventory
 			_drop_item_from_stack(stack)
 		SubMenuModes.EQUIP:
 			_equip_item_from_stack(stack)
+			close_submenu()
 		SubMenuModes.UNEQUIP:
 			_equip_item_from_stack(_unequip)
+			close_submenu()
 	
-	_on_inventory_updated(_inventory)
-	if _inventory.empty():
-		close_menu()
-
-
-func _equip_item_from_stack(stack: ItemStack) -> void:
-	._equip_item_from_stack(stack)
-	close_submenu()
+	#_on_inventory_updated(_inventory)
+#	if _inventory.empty():
+#		close_menu()
 
 
 func _use_item_from_stack(item: ItemStack) -> void:

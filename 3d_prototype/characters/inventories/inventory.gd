@@ -5,8 +5,14 @@ tool
 signal item_added(item)
 signal item_removed(item)
 
+signal item_stack_added(item_stack)
+signal item_stack_removed(item_stack)
+
 signal equipment_added(equipment)
 signal equipment_removed(equipment)
+
+signal equipment_stack_added(equipment_stack)
+signal equipment_stack_removed(equipment_stack)
 
 export(Resource) var _inventory_attributes
 
@@ -23,7 +29,7 @@ func _enter_tree() -> void:
 	
 	item_slots.resize(_inventory_attributes.inventory_size)
 	for slot in item_slots.size():
-		item_slots[slot] = null
+		item_slots[slot] = ItemStack.new(null)
 
 
 func _ready() -> void:
@@ -38,14 +44,16 @@ func add(item: ItemResource, count := 1) -> int:
 	assert(count > 0)
 	for slot in item_slots.size():
 		var stack: ItemStack = item_slots[slot]
-		if stack:
+		if stack.item:
 			if item == stack.item:
 				count = _add_to_stack(item, count, stack)
 				if count <= 0:
 					break
 		else:
-			stack = ItemStack.new(item)
-			item_slots[slot] = stack
+			stack.item = item
+			emit_signal("item_stack_added", stack)
+			if item is ToolResource:
+				emit_signal("equipment_stack_added", stack)
 			
 			count = _add_to_stack(item, count, stack)
 			if count <= 0:
@@ -206,7 +214,10 @@ func _remove_from_stack(stack: ItemStack, count: int) -> int:
 			emit_signal("equipment_removed", stack.item)
 		
 		if stack.amount <= 0:
-			item_slots[item_slots.find(stack)] = null
+			stack.item = null
+			emit_signal("item_stack_removed", stack)
+			if stack.item is ToolResource:
+				emit_signal("equipment_stack_removed", stack)
 			break
 	
 	return stack.amount
