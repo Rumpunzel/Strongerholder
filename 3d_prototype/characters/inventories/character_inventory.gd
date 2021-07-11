@@ -1,13 +1,15 @@
 class_name CharacterInventory
 extends Inventory
 
+
 signal item_equipped(equipment)
 signal item_unequipped(equipment)
 
-
 export(NodePath) var _hand_position
+export var _equip_first_item := true
 
 var currently_equipped: EquippedItem = null
+
 
 
 func equipments() -> Array:
@@ -19,7 +21,7 @@ func equipments() -> Array:
 	return equipments
 
 
-func equip(equipment_stack: ItemStack) -> void:
+func equip_item_stack(equipment_stack: ItemStack) -> void:
 	#assert(equipments().has(equipment))
 	assert(get_node(_hand_position))
 	
@@ -32,11 +34,6 @@ func equip(equipment_stack: ItemStack) -> void:
 	)
 	
 	emit_signal("item_equipped", currently_equipped)
-
-
-func equip_item_stack(stack: ItemStack) -> void:
-	# TODO: Check if this is the proper implementation of this
-	equip(stack)
 
 
 func unequip() -> bool:
@@ -55,6 +52,11 @@ func has_equipped(equipment_stack: ItemStack) -> bool:
 
 
 
+func _on_equipment_stack_added(new_equipment_stack: ItemStack) -> void:
+	if _equip_first_item and not currently_equipped:
+		equip_item_stack(new_equipment_stack)
+
+
 func _get_configuration_warning() -> String:
 	var warning := ._get_configuration_warning()
 	
@@ -62,7 +64,6 @@ func _get_configuration_warning() -> String:
 		warning = "HandPosition path is required"
 	
 	return warning
-
 
 
 
