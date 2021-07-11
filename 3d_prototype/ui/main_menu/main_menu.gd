@@ -9,8 +9,8 @@ onready var _menu_container: Control = $VBoxContainer/MenuContainer
 
 
 func _enter_tree() -> void:
-	var error := Events.menu.connect("main_menu_requested", self, "_on_main_menu_requested")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	Events.menu.connect("main_menu_requested", self, "_on_main_menu_requested")
 
 func _exit_tree() -> void:
 	Events.menu.disconnect("main_menu_requested", self, "_on_main_menu_requested")

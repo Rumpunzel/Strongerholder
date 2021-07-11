@@ -13,23 +13,23 @@ class ReadInventoryAction extends StateAction:
 		var character: Character = state_machine.owner
 		_inventory = character.get_inventory()
 		
-		var error := _inventory.connect("item_stack_added", self, "_on_item_stack_changed")
-		assert(error == OK)
-		error = _inventory.connect("item_stack_removed", self, "_on_item_stack_changed")
-		assert(error == OK)
-		error = _inventory.connect("item_added", self, "_on_item_changed")
-		assert(error == OK)
-		error = _inventory.connect("item_removed", self, "_on_item_changed")
-		assert(error == OK)
+		# warning-ignore:return_value_discarded
+		_inventory.connect("item_stack_added", self, "_on_item_stack_changed")
+		# warning-ignore:return_value_discarded
+		_inventory.connect("item_stack_removed", self, "_on_item_stack_changed")
+		# warning-ignore:return_value_discarded
+		_inventory.connect("item_added", self, "_on_item_changed")
+		# warning-ignore:return_value_discarded
+		_inventory.connect("item_removed", self, "_on_item_changed")
 		
-		error = _inventory.connect("equipment_stack_added", self, "_on_equipment_stack_changed")
-		assert(error == OK)
-		error = _inventory.connect("equipment_stack_removed", self, "_on_equipment_stack_changed")
-		assert(error == OK)
-		error = _inventory.connect("equipment_added", self, "_on_equipment_changed")
-		assert(error == OK)
-		error = _inventory.connect("equipment_removed", self, "_on_equipment_changed")
-		assert(error == OK)
+		# warning-ignore:return_value_discarded
+		_inventory.connect("equipment_stack_added", self, "_on_equipment_stack_changed")
+		# warning-ignore:return_value_discarded
+		_inventory.connect("equipment_stack_removed", self, "_on_equipment_stack_changed")
+		# warning-ignore:return_value_discarded
+		_inventory.connect("equipment_added", self, "_on_equipment_changed")
+		# warning-ignore:return_value_discarded
+		_inventory.connect("equipment_removed", self, "_on_equipment_changed")
 	
 	
 	func on_update(_delta: float) -> void:

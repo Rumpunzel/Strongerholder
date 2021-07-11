@@ -8,8 +8,8 @@ onready var _ray_cast: RayCast = $RayCast
 
 
 func _enter_tree() -> void:
-	var error := Events.gameplay.connect("scene_loaded", self, "_on_scene_loaded")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	Events.gameplay.connect("scene_loaded", self, "_on_scene_loaded")
 
 func _exit_tree() -> void:
 	Events.gameplay.disconnect("scene_loaded", self, "_on_scene_loaded")

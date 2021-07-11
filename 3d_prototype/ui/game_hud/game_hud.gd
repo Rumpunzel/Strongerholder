@@ -3,8 +3,8 @@ extends GUILayerBase
 
 
 func _enter_tree() -> void:
-	var error := Events.main.connect("game_started", self, "_on_game_started")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	Events.main.connect("game_started", self, "_on_game_started")
 
 func _exit_tree() -> void:
 	Events.main.disconnect("game_started", self, "_on_game_started")

@@ -3,8 +3,8 @@ extends Navigation
 
 
 func _enter_tree() -> void:
-	var error := Events.gameplay.connect("node_spawned", self, "_on_node_spawned")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	Events.gameplay.connect("node_spawned", self, "_on_node_spawned")
 
 func _exit_tree() -> void:
 	Events.gameplay.disconnect("node_spawned", self, "_on_node_spawned")

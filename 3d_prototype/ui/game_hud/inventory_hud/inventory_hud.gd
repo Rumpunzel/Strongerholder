@@ -15,12 +15,12 @@ export(Texture) var _drop_icon
 
 
 func _enter_tree() -> void:
-	var error := Events.hud.connect("inventory_stacks_updated", self, "_on_inventory_stacks_updated")
-	assert(error == OK)
-	error = Events.hud.connect("inventory_updated", self, "_update_items")
-	assert(error == OK)
-	error = Events.hud.connect("inventory_hud_toggled", self, "_on_toggled")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	Events.hud.connect("inventory_stacks_updated", self, "_on_inventory_stacks_updated")
+	# warning-ignore:return_value_discarded
+	Events.hud.connect("inventory_updated", self, "_update_items")
+	# warning-ignore:return_value_discarded
+	Events.hud.connect("inventory_hud_toggled", self, "_on_toggled")
 
 
 func _exit_tree() -> void:

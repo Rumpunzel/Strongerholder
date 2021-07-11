@@ -10,11 +10,10 @@ var _items := [ ]
 
 
 func _enter_tree() -> void:
-	var error := connect("item_selected", self, "_on_item_selected")
-	assert(error == OK)
-		
-	error = Events.main.connect("game_paused", self, "close_menu")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	connect("item_selected", self, "_on_item_selected")
+	# warning-ignore:return_value_discarded
+	Events.main.connect("game_paused", self, "close_menu")
 
 
 func _exit_tree() -> void:

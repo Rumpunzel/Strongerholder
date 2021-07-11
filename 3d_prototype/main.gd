@@ -8,14 +8,14 @@ extends Node
 func _enter_tree() -> void:
 	randomize()
 	
-	var error := Events.main.connect("game_paused", self, "_on_game_paused")
-	assert(error == OK)
-	error = Events.main.connect("game_unpaused", self, "_on_game_unpaused")
-	assert(error == OK)
-	error = Events.main.connect("game_started", self, "_on_game_started")
-	assert(error == OK)
-	error = Events.main.connect("game_quit", self, "_on_game_quit")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	Events.main.connect("game_paused", self, "_on_game_paused")
+	# warning-ignore:return_value_discarded
+	Events.main.connect("game_unpaused", self, "_on_game_unpaused")
+	# warning-ignore:return_value_discarded
+	Events.main.connect("game_started", self, "_on_game_started")
+	# warning-ignore:return_value_discarded
+	Events.main.connect("game_quit", self, "_on_game_quit")
 
 func _exit_tree() -> void:
 	Events.main.disconnect("game_paused", self, "_on_game_paused")

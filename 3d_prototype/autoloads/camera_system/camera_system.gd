@@ -8,8 +8,8 @@ var current_camera: GameCamera setget set_current_camera
 
 
 func _enter_tree() -> void:
-	var error := Events.player.connect("player_instantiated", self, "_on_player_instantiated")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	Events.player.connect("player_instantiated", self, "_on_player_instantiated")
 	
 	set_current_camera($MainCamera)
 

@@ -77,20 +77,20 @@ func _enter_tree() -> void:
 	
 	_tween = Tween.new()
 	add_child(_tween)
-	var error := _tween.connect("tween_all_completed", self, "_on_tween_all_completed")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	_tween.connect("tween_all_completed", self, "_on_tween_all_completed")
 	
 	_submenu = get_node_or_null(submenu_node)
 	if _submenu:
 		_original_submenu_circle_coverage = _submenu.circle_coverage
 		_connect_submenu_signals(_submenu)
 	
-	error = connect("cancelled", self, "close_menu")
-	assert(error == OK)
-	error = connect("about_to_show", self, "_about_to_show")
-	assert(error == OK)
-	error = connect("visibility_changed", self, "_on_visibility_changed")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	connect("cancelled", self, "close_menu")
+	# warning-ignore:return_value_discarded
+	connect("about_to_show", self, "_about_to_show")
+	# warning-ignore:return_value_discarded
+	connect("visibility_changed", self, "_on_visibility_changed")
 
 
 func _input(event: InputEvent) -> void:
@@ -447,12 +447,12 @@ func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:
 
 
 func _connect_submenu_signals(submenu: RadialMenu):
-	var error := submenu.connect("item_hovered", self, "_on_submenu_item_hovered")
-	assert(error == OK)
-	error = submenu.connect("item_selected", self, "_on_submenu_item_selected")
-	assert(error == OK)
-	error = submenu.connect("cancelled", self, "_on_submenu_cancelled")
-	assert(error == OK)
+	# warning-ignore:return_value_discarded
+	submenu.connect("item_hovered", self, "_on_submenu_item_hovered")
+	# warning-ignore:return_value_discarded
+	submenu.connect("item_selected", self, "_on_submenu_item_selected")
+	# warning-ignore:return_value_discarded
+	submenu.connect("cancelled", self, "_on_submenu_cancelled")
 
 
 
