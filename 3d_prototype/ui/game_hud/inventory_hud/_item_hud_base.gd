@@ -2,12 +2,10 @@ class_name ItemHUDBASE
 extends RadialMenu
 
 
-export(PackedScene) var _item_scene: PackedScene = null   
-export(Texture) var _unequip_icon            
+export(PackedScene) var _item_scene: PackedScene = null            
 
 var _inventory: CharacterInventory
 var _items := [ ]
-var _unequip: InventoryHUDItem
 
 
 
@@ -17,17 +15,14 @@ func _enter_tree() -> void:
 		
 	error = Events.main.connect("game_paused", self, "close_menu")
 	assert(error == OK)
-	
-	var unequip_resource := ToolResource.new()
-	unequip_resource.icon = _unequip_icon
-	_unequip = _item_scene.instance()
-	_unequip.item_stack = ItemStack.new(unequip_resource)
-	
-	# WAITFORUPDATE: remove this unnecessary thing after 4.0
-	# warning-ignore-all:unsafe_property_access
+
 
 func _exit_tree() -> void:
 	Events.main.disconnect("game_paused", self, "close_menu")
+	
+	for item in _items:
+		print(item)
+		item.queue_free()
 
 
 

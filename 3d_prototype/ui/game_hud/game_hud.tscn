@@ -52,8 +52,6 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "PLACEHOLDER ART"
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="EquipmentHUD" type="Popup" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -73,7 +71,6 @@ __meta__ = {
 center_angle = 180.0
 clock_wise = false
 _item_scene = ExtResource( 8 )
-_unequip_icon = ExtResource( 5 )
 
 [node name="InventoryHUD" type="Popup" parent="."]
 anchor_left = 0.5
@@ -93,9 +90,9 @@ __meta__ = {
 }
 submenu_node = NodePath("SubMenu")
 _item_scene = ExtResource( 8 )
-_unequip_icon = ExtResource( 5 )
-_equip_icon = ExtResource( 9 )
 _use_icon = ExtResource( 10 )
+_equip_icon = ExtResource( 9 )
+_unequip_icon = ExtResource( 5 )
 _drop_icon = ExtResource( 11 )
 
 [node name="SubMenu" type="Popup" parent="InventoryHUD"]
@@ -115,6 +112,8 @@ __meta__ = {
 is_submenu = true
 circle_coverage = 0.064
 animation_speed_factor = 0.1
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
 [connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]

@@ -96,14 +96,12 @@ func use(item: ItemResource) -> int:
 
 # Returns how many are left in the stack
 func use_item_from_stack(stack: ItemStack) -> int:
-	var left_in_stack := _remove_from_stack(stack, 1)
-	
-	if left_in_stack < 0:
+	if stack.amount <= 0:
 		printerr("Tried to use [ %s ] from %s but there were none in inventory." % [ stack.item, owner.name ])
-		return left_in_stack
+		return stack.amount
 	
 	stack.item.use()
-	return left_in_stack
+	return _remove_from_stack(stack, 1)
 
 
 # Returns how many are left in the stack
@@ -129,9 +127,8 @@ func drop_item_from_stack(stack: ItemStack) -> int:
 		printerr("Tried to drop [ %s ] from %s but there were none in inventory." % [ stack.item, owner.name ])
 		return stack.amount
 	
-	var left_in_stack := _remove_from_stack(stack, 1)
 	_spawn_item(stack.item)
-	return left_in_stack
+	return _remove_from_stack(stack, 1)
 
 
 # Returns how many items were dropped

@@ -54,7 +54,7 @@ var _gamepad_axis_y := 1
 var _gamepad_deadzone := _JOY_DEADZONE
 
 var _state: int = MenuState.CLOSED
-var _item_angle := PI / 6.0 setget _set_item_angle
+var _item_angle: float setget _set_item_angle
 var _original_item_angle := 0.0
 var _original_submenu_circle_coverage: float
 var _msecs_at_opened := 0.0
@@ -124,7 +124,7 @@ func _draw() -> void:
 func open_menu(center_position: Vector2) -> void:
 	assert(not menu_items.empty())
 	rect_position = center_position - center_offset
-	_item_angle = circle_coverage * TAU / menu_items.size()
+	_item_angle = circle_coverage * TAU / float(menu_items.size())
 	
 	if clock_wise:
 		_item_angle *= -1
@@ -145,8 +145,8 @@ func open_submenu_on(menu_item: RadialMenuItem) -> void:
 	_submenu.center_angle = rad2deg(item_id * _item_angle - PI + deg2rad(center_angle) + _item_angle / 2.0)
 	_submenu.ring_radius = ring_radius + width
 	_submenu.rect_position = _moved_to_position - _submenu.center_offset
-	_submenu.circle_coverage = menu_item.submenu_items.size() * circle_coverage * _original_submenu_circle_coverage
-	_submenu.menu_items = menu_item.submenu_items
+	_submenu.circle_coverage = menu_item.active_submenu_items.size() * circle_coverage * _original_submenu_circle_coverage
+	_submenu.menu_items = menu_item.active_submenu_items
 	
 	# now make sure we have room to display the menu
 	var move := _calc_move_to_fit(_submenu)
@@ -327,6 +327,7 @@ func _calc_new_geometry() -> void:
 	rect_size = rect_min_size
 	rect_pivot_offset = -axis_aligned_bounding_box.position
 	#center_offset = axis_aligned_bounding_box.position
+	
 	_item_icons.update_item_nodes(menu_items, deg2rad(center_angle), _item_angle, _get_icon_radius(), center_offset, icon_size)
 
 
@@ -411,7 +412,7 @@ func _select_prev() -> void:
 
 
 func _activate_selected() -> void:
-	if selected_item and not selected_item.disabled and not selected_item.submenu_items.empty():
+	if _submenu and selected_item and not selected_item.disabled and not selected_item.active_submenu_items.empty():
 		open_submenu_on(selected_item)
 	else:
 		_signal_id()
@@ -520,7 +521,6 @@ func _on_tween_all_completed() -> void:
 
 
 func _set_items(items: Array) -> void:
-	_item_icons.clear_items()
 	menu_items = items
 	_item_icons.create_item_icons(menu_items, deg2rad(center_angle), _item_angle, _get_icon_radius(), center_offset, icon_size)
 	
@@ -528,7 +528,7 @@ func _set_items(items: Array) -> void:
 		update()
 
 func _set_selected_item(new_item: RadialMenuItem) -> void:
-	if active_sub_menu and not new_item == active_sub_menu and new_item and not new_item.submenu_items.empty() and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
+	if active_sub_menu and not new_item == active_sub_menu and new_item and not new_item.active_submenu_items.empty() and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
 		open_submenu_on(new_item)
 	
 	if selected_item == new_item:

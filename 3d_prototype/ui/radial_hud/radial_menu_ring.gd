@@ -20,7 +20,6 @@ func draw_item_backgrounds(
 	
 	for i in range(count):
 		var item: RadialMenuItem = menu_items[i]
-		
 		var adjusted_start_angle := start_angle + (i + (1 if clock_wise else 0)) * item_angle
 		var end_angle := start_angle + (i + (0 if clock_wise else 1)) * item_angle
 		var coords := DrawLibrary.calc_ring_segment(inner, outer, adjusted_start_angle, end_angle, center_offset)

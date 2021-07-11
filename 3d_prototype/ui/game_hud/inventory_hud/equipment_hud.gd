@@ -26,7 +26,7 @@ func _on_toggled(new_inventory: CharacterInventory) -> void:
 	_update_items()
 	
 	if _state == MenuState.CLOSED:
-		if _equipments.size() > 1:
+		if not _equipments.empty():
 			open_menu(get_viewport_rect().size / 2.0)
 	elif _state == MenuState.OPEN:
 		close_menu()
@@ -53,13 +53,10 @@ func _update_items(_new_item: ItemResource = null) -> void:
 			_equipments[instert_index] = hud_item
 			equipment_counter += 1
 	
-	_unequip.disabled = not _inventory.currently_equipped
-	_equipments.append(_unequip)
-	
 	_set_items(_equipments)
 
 func _on_item_selected(inventory_item: InventoryHUDItem, _submenu_item: InventoryHUDItem) -> void:
-	if inventory_item == _unequip:
+	if inventory_item == selected_item:
 		# warning-ignore:return_value_discarded
 		_inventory.unequip()
 	else:
