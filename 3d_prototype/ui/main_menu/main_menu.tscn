@@ -53,7 +53,7 @@ custom_constants/margin_left = 160
 margin_left = 160.0
 margin_top = 240.0
 margin_right = 646.0
-margin_bottom = 560.0
+margin_bottom = 668.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 72
@@ -73,29 +73,46 @@ script = ExtResource( 2 )
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MenuContainer/MenuContent"]
 margin_top = 174.0
 margin_right = 486.0
-margin_bottom = 320.0
+margin_bottom = 428.0
 custom_constants/margin_left = 16
 
 [node name="MenuButtons" type="VBoxContainer" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer"]
 margin_left = 16.0
-margin_right = 150.0
-margin_bottom = 146.0
+margin_right = 132.0
+margin_bottom = 254.0
 size_flags_horizontal = 0
 custom_constants/separation = 16
 
-[node name="Continue" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+[node name="Start" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+margin_right = 116.0
 custom_fonts/font = ExtResource( 5 )
-text = "Continue"
+text = "Start"
 
 [node name="Restart" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
 margin_top = 54.0
+margin_right = 116.0
 margin_bottom = 92.0
 custom_fonts/font = ExtResource( 5 )
 text = "Restart"
 
-[node name="Quit" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+[node name="Save" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
 margin_top = 108.0
+margin_right = 116.0
 margin_bottom = 146.0
+custom_fonts/font = ExtResource( 5 )
+text = "Save"
+
+[node name="Load" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+margin_top = 162.0
+margin_right = 116.0
+margin_bottom = 200.0
+custom_fonts/font = ExtResource( 5 )
+text = "Load"
+
+[node name="Quit" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+margin_top = 216.0
+margin_right = 116.0
+margin_bottom = 254.0
 custom_fonts/font = ExtResource( 5 )
 text = "Quit"
 
@@ -115,11 +132,22 @@ margin_right = 172.0
 margin_bottom = 34.0
 size_flags_horizontal = 0
 size_flags_vertical = 8
-text = "VERSION-0.0.1-alpha"
+text = "version 0.0.1 alpha"
 script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer"]
+margin_left = 1836.0
+margin_top = 16.0
+margin_right = 1900.0
+margin_bottom = 34.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "by Jamal"
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Quit" to="." method="_on_quit_pressed"]
