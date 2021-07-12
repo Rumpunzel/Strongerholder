@@ -21,15 +21,15 @@ var item_slots := [ ]
 onready var _drop_area: CollisionShape = $CollisionShape
 onready var _drop_shape: BoxShape = _drop_area.shape
 
+var _initialized := false
+
 
 
 func _enter_tree() -> void:
 	if Engine.editor_hint:
 		return
 	
-	item_slots.resize(_inventory_attributes.inventory_size)
-	for slot in item_slots.size():
-		item_slots[slot] = ItemStack.new(null)
+	_initialize(_inventory_attributes.inventory_size)
 
 
 func _ready() -> void:
@@ -187,6 +187,32 @@ func empty() -> bool:
 	return contents(true).empty()
 
 
+func save_to_var(save_file: File) -> void:
+	# Store item_slots size
+	save_file.store_var(item_slots.size())
+	for stack in item_slots:
+		# Store as data
+		stack.save_to_var(save_file)
+
+func load_from_var(save_file: File) -> void:
+	# Resize array
+	_initialize(save_file.get_var())
+	for stack in item_slots:
+		# Load as data
+		stack.load_from_var(save_file)
+
+
+
+func _initialize(size: int) -> void:
+	if _initialized:
+		return
+	
+	item_slots.resize(size)
+	for slot in item_slots.size():
+		item_slots[slot] = ItemStack.new(null)
+	
+	_initialized = true
+
 
 func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
@@ -211,10 +237,10 @@ func _remove_from_stack(stack: ItemStack, count: int) -> int:
 			emit_signal("equipment_removed", stack.item)
 		
 		if stack.amount <= 0:
-			stack.item = null
 			emit_signal("item_stack_removed", stack)
 			if stack.item is ToolResource:
 				emit_signal("equipment_stack_removed", stack)
+			stack.reset()
 			break
 	
 	return stack.amount

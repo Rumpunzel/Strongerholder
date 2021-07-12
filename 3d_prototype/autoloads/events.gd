@@ -10,9 +10,14 @@ var hud: HUDChannel = HUDChannel.new()
 
 # warning-ignore-all:unused_signal
 class MainChannel:
+	# Emited whenever gameplay commences for the first time
 	signal game_started()
-	signal continued()
 	signal game_quit()
+	
+	signal game_save_started()
+	signal game_save_finished()
+	signal game_load_started()
+	signal game_load_finished()
 	
 	signal game_paused()
 	signal game_unpaused()
@@ -23,6 +28,8 @@ class MenuChannel:
 
 
 class GameplayChannel:
+	signal new_game()
+	
 	signal scene_loaded()
 	signal scene_unloaded()
 	

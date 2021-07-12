@@ -10,9 +10,12 @@ onready var _menu_container: Control = $VBoxContainer/MenuContainer
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
+	Events.main.connect("game_load_finished", self, "_on_game_load_finished")
+	# warning-ignore:return_value_discarded
 	Events.menu.connect("main_menu_requested", self, "_on_main_menu_requested")
 
 func _exit_tree() -> void:
+	Events.main.disconnect("game_load_finished", self, "_on_game_load_finished")
 	Events.menu.disconnect("main_menu_requested", self, "_on_main_menu_requested")
 
 
@@ -20,7 +23,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("pause_game"):
 		get_tree().set_input_as_handled()
 		if visible:
-			_on_continue_pressed()
+			_on_start_pressed()
 		else:
 			show_menu()
 
@@ -28,14 +31,18 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_main_menu_requested() -> void:
 	show_menu()
 
-func _on_continue_pressed() -> void:
+func _on_start_pressed() -> void:
 	hide_menu()
-	Events.main.emit_signal("game_started")
+	Events.main.emit_signal("game_unpaused")
 
 func _on_restart_pressed():
-	# warning-ignore:return_value_discarded
-	get_tree().reload_current_scene()
-	Events.main.emit_signal("game_started")
+	Events.main.emit_signal("game_load_started", true)
+
+func _on_save_pressed():
+	Events.main.emit_signal("game_save_started")
+
+func _on_load_pressed():
+	Events.main.emit_signal("game_load_started")
 
 func _on_quit_pressed() -> void:
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
@@ -50,6 +57,11 @@ func _on_quit_pressed() -> void:
 	
 	add_child(dialog)
 	dialog.popup_centered()
+
+
+func _on_game_load_finished() -> void:
+	hide_menu()
+	Events.main.emit_signal("game_unpaused")
 
 
 func _show_menu() -> void:

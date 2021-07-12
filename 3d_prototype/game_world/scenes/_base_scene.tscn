@@ -5,7 +5,9 @@
 
 [sub_resource type="MeshLibrary" id=1]
 
-[node name="WorldScene" type="Navigation"]
+[node name="WorldScene" type="Navigation" groups=[
+"Persist",
+]]
 pause_mode = 1
 script = ExtResource( 4 )
 

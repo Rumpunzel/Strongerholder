@@ -8,7 +8,7 @@ signal item_unequipped(equipment)
 export(NodePath) var _hand_position
 export var _equip_first_item := true
 
-var currently_equipped: EquippedItem = null
+var currently_equipped := EquippedItem.new()
 
 
 
@@ -28,11 +28,7 @@ func equip_item_stack(equipment_stack: ItemStack) -> void:
 	# warning-ignore:return_value_discarded
 	unequip()
 	
-	currently_equipped = EquippedItem.new(
-			equipment_stack,
-			equipment_stack.item.attach_to(get_node(_hand_position))
-	)
-	
+	currently_equipped.set_stack(equipment_stack, get_node(_hand_position))
 	emit_signal("item_equipped", currently_equipped)
 
 
@@ -40,7 +36,8 @@ func unequip() -> bool:
 	if currently_equipped:
 		currently_equipped.node.queue_free()
 		emit_signal("item_unequipped", currently_equipped)
-		currently_equipped = null
+		currently_equipped.stack.reset()
+		currently_equipped.node = null
 		return true
 	
 	return false
@@ -68,9 +65,16 @@ func _get_configuration_warning() -> String:
 
 
 class EquippedItem:
-	var stack: ItemStack
-	var node: Spatial
+	var stack: ItemStack = ItemStack.new(null)
+	var node: Spatial = null
 	
-	func _init(new_stack: ItemStack, new_node: Spatial) -> void:
+	func set_stack(new_stack: ItemStack, hand_position: Spatial) -> void:
+		assert(new_stack)
+		assert(hand_position)
 		stack = new_stack
-		node = new_node
+		print("new stack: %s" % stack)
+		if stack.item:
+			node = stack.item.attach_to(hand_position)
+		elif node:
+			node.queue_free()
+			node = null

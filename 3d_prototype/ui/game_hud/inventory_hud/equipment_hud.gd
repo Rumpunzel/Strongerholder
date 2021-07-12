@@ -50,7 +50,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 			hud_item.disabled = equipped
 			hud_item.equipped = equipped
 			
-			var insert_index := int(size / 2.0 + ceil(equipment_counter / 2.0) * (equipment_counter if i % 2 == 0 else -1))
+			var insert_index := int(size / 2.0 + ceil(equipment_counter / 2.0) * (1 if i % 2 == 0 else -1))
 			_equipments[insert_index] = hud_item
 			equipment_counter += 1
 	

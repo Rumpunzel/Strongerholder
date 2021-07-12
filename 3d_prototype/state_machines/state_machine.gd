@@ -2,12 +2,9 @@ class_name StateMachine
 extends Node
 tool
 
-
 export(Resource) var _transition_table_resource
 
-
 var _current_state: State
-
 
 
 func _ready():
@@ -45,6 +42,18 @@ func _transition(transition_state: State) -> void:
 	_current_state.on_state_exit()
 	_current_state = transition_state
 	_current_state.on_state_enter()
+
+
+func save_to_var(save_file: File) -> void:
+	# Store resource path
+	save_file.store_var(_transition_table_resource.resource_path)
+
+func load_from_var(save_file: File) -> void:
+	# Load as resource
+	var resource_path: String = save_file.get_var()
+	var loaded_table: TransitionTableResource = load(resource_path)
+	assert(loaded_table)
+	_transition_table_resource = loaded_table
 
 
 func set_transition_table_resource(new_table: Resource) -> void:

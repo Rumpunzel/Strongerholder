@@ -9,16 +9,17 @@ onready var _ray_cast: RayCast = $RayCast
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.gameplay.connect("scene_loaded", self, "_on_scene_loaded")
+	Events.gameplay.connect("new_game", self, "_on_new_game")
 
 func _exit_tree() -> void:
-	Events.gameplay.disconnect("scene_loaded", self, "_on_scene_loaded")
+	Events.gameplay.disconnect("new_game", self, "_on_new_game")
 
 
 
-func _on_scene_loaded() -> void:
+func _on_new_game() -> void:
 	var player_instance := _instantiate_scene(_player_scene)
-	
+	# warning-ignore:return_value_discarded
+	player_instance.connect("tree_exiting", Events.player, "emit_signal", [ "player_freed" ])
 	Events.player.emit_signal("player_instantiated", player_instance)
 
 

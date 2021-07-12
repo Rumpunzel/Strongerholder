@@ -10,16 +10,17 @@ var current_camera: GameCamera setget set_current_camera
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	Events.player.connect("player_instantiated", self, "_on_player_instantiated")
-	
+	# warning-ignore:return_value_discarded
+	Events.player.connect("player_freed", self, "_on_player_freed")
 	set_current_camera($MainCamera)
 
 func _exit_tree() -> void:
 	Events.player.disconnect("player_instantiated", self, "_on_player_instantiated")
+	Events.player.disconnect("player_freed", self, "_on_player_freed")
 
 
 
 func frame_node(node: Spatial) -> void:
-	assert(node)
 	current_camera.follow_node = node
 
 
@@ -44,6 +45,9 @@ func get_adjusted_movement(input_vector: Vector2) -> Vector3:
 func _on_player_instantiated(player_node: Spatial) -> void:
 	assert(player_node)
 	frame_node(player_node)
+
+func _on_player_freed() -> void:
+	frame_node(null)
 
 
 

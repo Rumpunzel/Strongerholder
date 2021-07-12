@@ -4,11 +4,11 @@ extends GUILayerBase
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_started", self, "_on_game_started")
+	Events.main.connect("game_unpaused", self, "_on_game_unpaused")
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_started", self, "_on_game_started")
+	Events.main.disconnect("game_unpaused", self, "_on_game_unpaused")
 
 
-func _on_game_started() -> void:
+func _on_game_unpaused() -> void:
 	show_menu()

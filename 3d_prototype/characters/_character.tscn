@@ -58,7 +58,9 @@ extents = Vector3( 1, 0.75, 1 )
 [sub_resource type="SphereShape" id=8]
 radius = 5.0
 
-[node name="Character" type="KinematicBody"]
+[node name="Character" type="KinematicBody" groups=[
+"Persist",
+]]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 3 )
@@ -73,7 +75,9 @@ collision_mask = 9
 script = ExtResource( 1 )
 _transition_table_resource = ExtResource( 7 )
 
-[node name="Controller" type="Node" parent="."]
+[node name="Controller" type="Node" parent="." groups=[
+"PersistData",
+]]
 script = ExtResource( 1 )
 
 [node name="MovementInputs" type="Node" parent="Controller"]
@@ -96,7 +100,9 @@ mesh = SubResource( 4 )
 material/0 = null
 script = SubResource( 5 )
 
-[node name="Inventory" type="Area" parent="."]
+[node name="Inventory" type="Area" parent="." groups=[
+"PersistData",
+]]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 5 )
