@@ -33,7 +33,7 @@ func _exit_tree() -> void:
 func _on_inventory_updated(inventory: Inventory) -> void:
 	var contents := inventory.contents(false)
 	for slot in contents.size():
-		var stack: ItemStack = contents[slot]
+		var stack: Inventory.ItemStack = contents[slot]
 		
 		if stack:
 			var item_slot: InventorySlot = _item_slots[slot]
@@ -50,7 +50,7 @@ func _on_inventory_hud_toggled() -> void:
 		_show_panel()
 
 
-func _on_item_stack_dropped(item_stack: ItemStack, position: Vector2, sender: InventorySlot) -> void:
+func _on_item_stack_dropped(item_stack: Inventory.ItemStack, position: Vector2, sender: InventorySlot) -> void:
 	for item_slot in _item_slots:
 		if item_slot.get_global_rect().has_point(position):
 			if item_slot == sender:

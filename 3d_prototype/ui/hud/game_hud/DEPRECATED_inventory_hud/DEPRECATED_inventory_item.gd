@@ -3,7 +3,7 @@ extends Button
 
 signal item_stack_dropped(item_stack, position, sender)
 
-var item_stack: ItemStack
+var item_stack: Inventory.ItemStack
 
 var _dragging := false
 
@@ -40,7 +40,7 @@ func _process(_delta: float):
 
 
 
-func add(new_item_stack: ItemStack) -> void:
+func add(new_item_stack: Inventory.ItemStack) -> void:
 	item_stack = new_item_stack
 	var amount := item_stack.amount
 	

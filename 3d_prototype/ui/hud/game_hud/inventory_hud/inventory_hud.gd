@@ -69,7 +69,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 	var contents := _inventory.item_slots
 	
 	for i in contents.size():
-		var stack: ItemStack = contents[i]
+		var stack: Inventory.ItemStack = contents[i]
 		var hud_item: InventoryHUDItem = _items[i]
 		hud_item.item_stack = stack
 		
@@ -86,7 +86,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 
 func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: InventoryHUDItem) -> void:
 	if submenu_item:
-		var stack: ItemStack = submenu_item.item_stack
+		var stack: Inventory.ItemStack = submenu_item.item_stack
 		
 		match inventory_item.use:
 			SubMenuModes.USE:
@@ -115,13 +115,13 @@ func _active_submenus(item: ItemResource, equipped: bool) -> Array:
 	return submenu_modes
 
 
-func _use_item_from_stack(stack: ItemStack) -> void:
+func _use_item_from_stack(stack: Inventory.ItemStack) -> void:
 	var items_left_in_stack := _inventory.use_item_from_stack(stack)
 	if items_left_in_stack <= 0:
 		close_submenu()
 
 
-func _drop_item_from_stack(stack: ItemStack) -> void:
+func _drop_item_from_stack(stack: Inventory.ItemStack) -> void:
 	if _inventory.currently_equipped and stack == _inventory.currently_equipped.stack:
 		# warning-ignore:return_value_discarded
 		_inventory.unequip()

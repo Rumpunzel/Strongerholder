@@ -234,11 +234,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://items/item_resource.gd"
 }, {
-"base": "Reference",
-"class": "ItemStack",
-"language": "GDScript",
-"path": "res://items/item_stack.gd"
-}, {
 "base": "Node",
 "class": "Main",
 "language": "GDScript",
@@ -465,7 +460,6 @@ _global_script_class_icons={
 "IsPickingUpConditionResource": "",
 "ItemHUDBASE": "",
 "ItemResource": "",
-"ItemStack": "",
 "Main": "",
 "MainMenu": "",
 "MainMenuButton": "",
@@ -521,7 +515,6 @@ default_bus_layout="res://assets/sounds/default_bus_layout.tres"
 [autoload]
 
 Events="*res://autoloads/events.gd"
-CameraSystem="*res://autoloads/camera_system/camera_system.tscn"
 
 [debug]
 

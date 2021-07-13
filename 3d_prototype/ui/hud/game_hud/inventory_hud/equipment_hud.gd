@@ -37,7 +37,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 	_equipments.resize(size)
 	
 	for i in contents.size():
-		var stack: ItemStack = contents[i]
+		var stack: Inventory.ItemStack = contents[i]
 		
 		if not stack.item is ToolResource:
 			continue

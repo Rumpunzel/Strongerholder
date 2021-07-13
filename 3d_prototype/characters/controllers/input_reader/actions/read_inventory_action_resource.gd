@@ -40,13 +40,13 @@ class ReadInventoryAction extends StateAction:
 			Events.hud.emit_signal("equipment_hud_toggled", _inventory)
 	
 	
-	func _on_item_stack_changed(_stack: ItemStack = null) -> void:
+	func _on_item_stack_changed(_stack: Inventory.ItemStack = null) -> void:
 		Events.hud.emit_signal("inventory_stacks_updated", _inventory)
 	
 	func _on_item_changed(_item: ItemResource = null) -> void:
 		Events.hud.emit_signal("inventory_updated", _inventory)
 	
-	func _on_equipment_stack_changed(_stack: ItemStack = null) -> void:
+	func _on_equipment_stack_changed(_stack: Inventory.ItemStack = null) -> void:
 		Events.hud.emit_signal("equipment_stacks_updated", _inventory)
 	
 	func _on_equipment_changed(_item: ItemResource = null) -> void:

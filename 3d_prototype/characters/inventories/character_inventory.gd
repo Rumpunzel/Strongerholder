@@ -21,7 +21,7 @@ func equipments() -> Array:
 	return equipments
 
 
-func equip_item_stack(equipment_stack: ItemStack) -> void:
+func equip_item_stack(equipment_stack: Inventory.ItemStack) -> void:
 	assert(equipments().has(equipment_stack))
 	assert(get_node(_hand_position))
 	
@@ -43,13 +43,13 @@ func unequip() -> bool:
 	return false
 
 
-func has_equipped(equipment_stack: ItemStack) -> bool:
+func has_equipped(equipment_stack: Inventory.ItemStack) -> bool:
 	# TODO: make this a nicer check
 	return equipment_stack and currently_equipped and equipment_stack == currently_equipped.stack
 
 
 
-func _on_equipment_stack_added(new_equipment_stack: ItemStack) -> void:
+func _on_equipment_stack_added(new_equipment_stack: Inventory.ItemStack) -> void:
 	if _equip_first_item and not currently_equipped:
 		equip_item_stack(new_equipment_stack)
 
@@ -65,10 +65,10 @@ func _get_configuration_warning() -> String:
 
 
 class EquippedItem:
-	var stack: ItemStack = ItemStack.new(null)
+	var stack: Inventory.ItemStack = Inventory.ItemStack.new(null)
 	var node: Spatial = null
 	
-	func set_stack(new_stack: ItemStack, hand_position: Spatial) -> void:
+	func set_stack(new_stack: Inventory.ItemStack, hand_position: Spatial) -> void:
 		assert(new_stack)
 		assert(hand_position)
 		stack = new_stack
