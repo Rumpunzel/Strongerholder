@@ -13,7 +13,7 @@ func _exit_tree() -> void:
 
 
 func _on_node_spawned(node: Spatial, position: Vector3, random_rotation: bool) -> void:
-	add_child(node)
+	add_child(node, true)
 	node.translation = position
 	
 	if random_rotation:

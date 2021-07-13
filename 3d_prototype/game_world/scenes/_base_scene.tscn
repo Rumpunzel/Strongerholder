@@ -7,7 +7,7 @@
 [sub_resource type="MeshLibrary" id=1]
 
 [node name="WorldScene" type="Navigation" groups=[
-"Persist",
+"PersistLevel",
 ]]
 pause_mode = 1
 script = ExtResource( 4 )
@@ -28,4 +28,3 @@ __meta__ = {
 }
 
 [node name="TopDownCamera" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 44, 61, 45 )

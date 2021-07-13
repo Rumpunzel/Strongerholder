@@ -31,7 +31,7 @@ func _instantiate_scene(scene_path: String) -> Spatial:
 	
 	_ray_cast.enabled = true
 	_ray_cast.force_raycast_update()
-	owner.add_child(new_scene)
+	owner.add_child(new_scene, true)
 	
 	new_scene.translation = _ray_cast.get_collision_point() if _ray_cast.get_collider() else translation
 	new_scene.rotation = rotation

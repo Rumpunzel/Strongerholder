@@ -2,9 +2,10 @@ class_name SavingAndLoading
 extends Node
 
 const SAVE_LOCATION := "res://test.save"#"user://savegame.save"
+const PERSIST_LEVEL := "PersistLevel"
 const PERSIST_GROUP := "Persist"
 const PERSIST_DATA_GROUP := "PersistData"
-const CHILDREN_BEGIN := "|"
+const SEPARATOR := "|"
 
 export(String, FILE, "*.tscn") var _default_scene
 
@@ -27,19 +28,34 @@ func _on_game_save_started() -> void:
 	var error := save_file.open(SAVE_LOCATION, File.WRITE)
 	assert(error == OK)
 	
-	var nodes_to_save := get_tree().get_nodes_in_group(PERSIST_GROUP)
-	
 	_store_version(save_file)
-	var children_to_save := _store_persist(nodes_to_save, save_file)
-	save_file.store_var(CHILDREN_BEGIN)
-	_store_data(children_to_save, save_file)
+	
+	var nodes_to_save := [ ]
+	var child_nodes_to_save := { }
+	
+	# Store level structure
+	nodes_to_save = get_tree().get_nodes_in_group(PERSIST_LEVEL)
+	_store_persist(nodes_to_save, save_file, child_nodes_to_save)
+	
+	save_file.store_var(SEPARATOR)
+	
+	# Store object structure
+	nodes_to_save = get_tree().get_nodes_in_group(PERSIST_GROUP)
+	_store_persist(nodes_to_save, save_file, child_nodes_to_save)
+	
+	save_file.store_var(SEPARATOR)
+	
+	# Store data
+	_store_data(child_nodes_to_save, save_file)
 	
 	save_file.close()
 	Events.main.emit_signal("game_save_finished")
 
 
 func _on_game_load_started(start_new_game := false) -> void:
-	var save_nodes := get_tree().get_nodes_in_group(PERSIST_GROUP)
+	var save_nodes := get_tree().get_nodes_in_group(PERSIST_LEVEL)
+	save_nodes += get_tree().get_nodes_in_group(PERSIST_GROUP)
+	
 	for node in save_nodes:
 		node.get_parent().remove_child(node)
 		node.queue_free()
@@ -67,9 +83,7 @@ func _on_game_load_started(start_new_game := false) -> void:
 
 
 
-func _store_persist(nodes_to_save: Array, save_file: File) -> Dictionary:
-	var child_nodes_to_save := { }
-	
+func _store_persist(nodes_to_save: Array, save_file: File, child_nodes_to_save: Dictionary) -> void:
 	for node in nodes_to_save:
 		# Check the node is an instanced scene so it can be instanced again during load.
 		if node.filename.empty():
@@ -90,8 +104,6 @@ func _store_persist(nodes_to_save: Array, save_file: File) -> Dictionary:
 		var children_to_save := _get_children_in_group(node, PERSIST_DATA_GROUP, PERSIST_GROUP)
 		if not children_to_save.empty():
 			child_nodes_to_save[node] = children_to_save
-	
-	return child_nodes_to_save
 
 func _store_scene_data(node: Node, save_file: File) -> void:
 	save_file.store_var(node.get_filename())
@@ -124,7 +136,15 @@ func _load_data(save_file: File) -> void:
 	var length := save_file.get_len()
 	while save_file.get_position() < length:
 		var next_var = save_file.get_var()
-		if next_var is String and next_var == CHILDREN_BEGIN:
+		print(next_var)
+		if next_var is String and next_var == SEPARATOR:
+			break
+		
+		_load_next_scene(next_var, save_file, true)
+	
+	while save_file.get_position() < length:
+		var next_var = save_file.get_var()
+		if next_var is String and next_var == SEPARATOR:
 			break
 		
 		_load_next_scene(next_var, save_file)
@@ -134,15 +154,13 @@ func _load_data(save_file: File) -> void:
 		_load_next_child(next_var, save_file)
 
 
-func _load_next_scene(scene_path: String, save_file: File) -> void:
+func _load_next_scene(scene_path: String, save_file: File, is_level := false) -> void:
 	assert(save_file.file_exists(scene_path))
-	
+	print(scene_path)
 	var scene: PackedScene = load(scene_path)
 	var node: Node = scene.instance()
 	
 	var node_name: String = save_file.get_var()
-	node.name = node_name
-	
 	var parent_path: String = save_file.get_var()
 	
 	if node is Spatial:
@@ -153,7 +171,14 @@ func _load_next_scene(scene_path: String, save_file: File) -> void:
 		assert(node.has_method("load_from_var"))
 		node.call("load_from_var", save_file)
 	
+	if is_level:
+		for child in node.get_children():
+			if child.is_in_group(PERSIST_GROUP):
+				node.remove_child(child)
+				child.queue_free()
+	
 	get_node(parent_path).add_child(node)
+	node.name = node_name
 
 
 func _load_next_child(parent_path: String, save_file: File) -> void:
