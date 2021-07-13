@@ -53,30 +53,41 @@ func _on_game_save_started() -> void:
 
 
 func _on_game_load_started(start_new_game := false) -> void:
-	var save_nodes := get_tree().get_nodes_in_group(PERSIST_LEVEL)
-	save_nodes += get_tree().get_nodes_in_group(PERSIST_GROUP)
-	
-	for node in save_nodes:
-		node.get_parent().remove_child(node)
-		node.queue_free()
-	
 	var save_file := File.new()
-	if not start_new_game and save_file.file_exists(SAVE_LOCATION):
-		var error := save_file.open(SAVE_LOCATION, File.READ)
-		assert(error == OK)
+	
+	if save_file.file_exists(SAVE_LOCATION):
+		# Delete the current loaded persistent objects
+		var save_nodes := get_tree().get_nodes_in_group(PERSIST_LEVEL)
+		save_nodes += get_tree().get_nodes_in_group(PERSIST_GROUP)
 		
-		_load_version(save_file)
-		_load_data(save_file)
+		for node in save_nodes:
+			node.get_parent().remove_child(node)
+			node.queue_free()
 		
-		print("Game loaded from %s" % SAVE_LOCATION)
+		if not start_new_game:
+			# Load from the save file
+			var error := save_file.open(SAVE_LOCATION, File.READ)
+			assert(error == OK)
+			
+			_load_version(save_file)
+			_load_data(save_file)
+			
+			print("Game loaded from %s" % SAVE_LOCATION)
+		
+		else:
+			# Load the default scene
+			var packed_scene: PackedScene = load(_default_scene)
+			assert(packed_scene)
+			
+			var scene: WorldScene = packed_scene.instance()
+			Events.gameplay.emit_signal("scene_loaded", scene)
+			
+			Events.gameplay.emit_signal("new_game")
+	
 	else:
-		var packed_scene: PackedScene = load(_default_scene)
-		assert(packed_scene)
-		
-		var scene: WorldScene = packed_scene.instance()
-		Events.gameplay.emit_signal("scene_loaded", scene)
-		
+		# Simply start the already loaded scene
 		Events.gameplay.emit_signal("new_game")
+	
 	
 	save_file.close()
 	Events.main.emit_signal("game_load_finished")
