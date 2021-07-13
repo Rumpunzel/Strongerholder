@@ -46,6 +46,17 @@ func has_equipped(equipment_stack: Inventory.ItemStack) -> bool:
 	return equipment_stack and equipment_stack == currently_equipped.stack
 
 
+func save_to_var(save_file: File) -> void:
+	.save_to_var(save_file)
+	# Save as data
+	currently_equipped.stack.save_to_var(save_file)
+
+func load_from_var(save_file: File) -> void:
+	.load_from_var(save_file)
+	# Load as data
+	currently_equipped.stack.load_from_var(save_file)
+	currently_equipped.set_stack(currently_equipped.stack, get_node(_hand_position))
+
 
 func _on_equipment_stack_added(new_equipment_stack: Inventory.ItemStack) -> void:
 	if _equip_first_item and not currently_equipped.stack.item:
