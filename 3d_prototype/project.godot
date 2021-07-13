@@ -973,6 +973,11 @@ _global_script_classes=[ {
 "class": "_TestSuiteScanner",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/_TestSuiteScanner.gd"
+}, {
+"base": "GdUnitTestSuite",
+"class": "controllerTest",
+"language": "GDScript",
+"path": "res://test/characters/controllerTests/controllerTest.gd"
 } ]
 _global_script_class_icons={
 "AlwaysFalseConditionResource": "",
@@ -1167,7 +1172,8 @@ _global_script_class_icons={
 "WorldGrid": "",
 "WorldScene": "",
 "_TestCase": "",
-"_TestSuiteScanner": ""
+"_TestSuiteScanner": "",
+"controllerTest": ""
 }
 
 [application]
