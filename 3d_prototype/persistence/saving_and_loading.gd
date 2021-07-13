@@ -1,14 +1,10 @@
 class_name SavingAndLoading
 extends Node
 
-
 const SAVE_LOCATION := "res://test.save"#"user://savegame.save"
 const PERSIST_GROUP := "Persist"
 const PERSIST_DATA_GROUP := "PersistData"
-const OBJECT_TERMINATOR := "|"
-const CHILDREN_BEGIN := "<"
-const CHILDREN_END := ">"
-
+const CHILDREN_BEGIN := "|"
 
 export(String, FILE, "*.tscn") var _default_scene
 
@@ -34,7 +30,9 @@ func _on_game_save_started() -> void:
 	var nodes_to_save := get_tree().get_nodes_in_group(PERSIST_GROUP)
 	
 	_store_version(save_file)
-	_store_data(nodes_to_save, save_file, true)
+	var children_to_save := _store_persist(nodes_to_save, save_file)
+	save_file.store_var(CHILDREN_BEGIN)
+	_store_data(children_to_save, save_file)
 	
 	save_file.close()
 	Events.main.emit_signal("game_save_finished")
@@ -58,6 +56,7 @@ func _on_game_load_started(start_new_game := false) -> void:
 	else:
 		var packed_scene: PackedScene = load(_default_scene)
 		assert(packed_scene)
+		
 		var scene: WorldScene = packed_scene.instance()
 		Events.gameplay.emit_signal("scene_loaded", scene)
 		
@@ -67,52 +66,85 @@ func _on_game_load_started(start_new_game := false) -> void:
 	Events.main.emit_signal("game_load_finished")
 
 
-func _store_data(nodes_to_save: Array, save_file: File, on_scene_layer := false) -> void:
+
+func _store_persist(nodes_to_save: Array, save_file: File) -> Dictionary:
+	var child_nodes_to_save := { }
+	
 	for node in nodes_to_save:
 		# Check the node is an instanced scene so it can be instanced again during load.
-		if on_scene_layer:
-			if node.filename.empty():
-				printerr("persistent node '%s' is not an instanced scene, skipped" % node.name)
-				continue
-			
-			_store_scene_data(node, save_file)
-		else:
-			save_file.store_var(node.owner.get_path_to(node))
+		if node.filename.empty():
+			printerr("persistent node '%s' is not an instanced scene, skipped" % node.name)
+			continue
+		
+		_store_scene_data(node, save_file)
 		
 		# Check the node has a save function.
 		if node.has_method("save_to_var"):
+			assert(node.has_method("load_from_var"))
 			# Call the node's save function.
 			node.call("save_to_var", save_file)
 		else:
-			print("persistent node '%s' is missing a save() function, only essentials will be saved" % node.name)
+			print("persistent node '%s' is missing a save_to_var() function, only essentials will be saved" % node.name)
 		
 		
 		var children_to_save := _get_children_in_group(node, PERSIST_DATA_GROUP, PERSIST_GROUP)
 		if not children_to_save.empty():
-			save_file.store_var(CHILDREN_BEGIN)
-			_store_data(children_to_save, save_file)
-			save_file.store_var(CHILDREN_END)
-		elif on_scene_layer:
-			save_file.store_var(OBJECT_TERMINATOR)
+			child_nodes_to_save[node] = children_to_save
+	
+	return child_nodes_to_save
 
 func _store_scene_data(node: Node, save_file: File) -> void:
 	save_file.store_var(node.get_filename())
+	save_file.store_var(node.name)
 	save_file.store_var(node.get_parent().get_path())
+	
 	if node is Spatial:
 		save_file.store_var((node as Spatial).transform)
+
+
+func _store_data(children_to_save: Dictionary, save_file: File) -> void:
+	for node in children_to_save.keys():
+		for child in children_to_save[node]:
+			# Check the node has a save function.
+			if child.has_method("save_to_var"):
+				assert(child.has_method("load_from_var"))
+				
+				save_file.store_var(node.get_path())
+				save_file.store_var(node.get_path_to(child))
+				
+				# Call the node's save function.
+				child.call("save_to_var", save_file)
+			else:
+				print("persistent child node '%s' is missing a save_to_var() function, skipped" % child.name)
+				continue
+
 
 
 func _load_data(save_file: File) -> void:
 	var length := save_file.get_len()
 	while save_file.get_position() < length:
-		_load_next_scene(save_file.get_var(), save_file)
+		var next_var = save_file.get_var()
+		if next_var is String and next_var == CHILDREN_BEGIN:
+			break
+		
+		_load_next_scene(next_var, save_file)
+	
+	while save_file.get_position() < length:
+		var next_var = save_file.get_var()
+		_load_next_child(next_var, save_file)
+
 
 func _load_next_scene(scene_path: String, save_file: File) -> void:
 	assert(save_file.file_exists(scene_path))
 	
 	var scene: PackedScene = load(scene_path)
 	var node: Node = scene.instance()
-	var path_of_parent: String = save_file.get_var()
+	
+	var node_name: String = save_file.get_var()
+	node.name = node_name
+	
+	var parent_path: String = save_file.get_var()
+	
 	if node is Spatial:
 		var transform: Transform = save_file.get_var()
 		(node as Spatial).transform = transform
@@ -121,23 +153,21 @@ func _load_next_scene(scene_path: String, save_file: File) -> void:
 		assert(node.has_method("load_from_var"))
 		node.call("load_from_var", save_file)
 	
-	var next_var = save_file.get_var()
-	if  next_var is String and next_var == CHILDREN_BEGIN:
-		_load_children(node, save_file)
+	get_node(parent_path).add_child(node)
+
+
+func _load_next_child(parent_path: String, save_file: File) -> void:
+	var parent_node: Node = get_node(parent_path)
+	assert(parent_node)
 	
-	get_node(path_of_parent).add_child(node)
-
-func _load_children(node: Node, save_file: File) -> void:
-	var next_var = save_file.get_var()
-	while not (next_var is String and next_var == CHILDREN_END):
-		_load_next_child(node, next_var, save_file)
-		next_var = save_file.get_var()
-
-func _load_next_child(node: Node, node_path: String, save_file: File) -> void:
-	var child_node := node.get_node_or_null(node_path)
+	var node_path: String = save_file.get_var()
+	
+	var child_node := parent_node.get_node(node_path)
 	assert(child_node)
+	
 	assert(child_node.has_method("load_from_var"))
 	child_node.call("load_from_var", save_file)
+
 
 
 func _store_version(save_file: File) -> void:
@@ -155,6 +185,7 @@ func _load_version(save_file: File) -> void:
 	assert(major == GameVersion.major_version())
 	assert(minor == GameVersion.minor_version())
 	assert(patch == GameVersion.patch_version())
+
 
 
 func _get_children_in_group(parent: Node, group: String, terminate_on_group: String) -> Array:

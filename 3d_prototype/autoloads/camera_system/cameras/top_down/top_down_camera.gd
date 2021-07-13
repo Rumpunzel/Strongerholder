@@ -31,6 +31,20 @@ func rotate_right() -> void:
 	_turnIndex += 1
 
 
+func save_to_var(save_file: File) -> void:
+	.save_to_var(save_file)
+	# Store resource path
+	save_file.store_var(_attributes.resource_path)
+
+func load_from_var(save_file: File) -> void:
+	.load_from_var(save_file)
+	# Load as resource
+	var resource_path: String = save_file.get_var()
+	var loaded_attributes: TopDownCameraAttributes = load(resource_path)
+	assert(loaded_attributes)
+	_attributes = loaded_attributes
+
+
 func _frame_node(node: Spatial) -> void:
 	_angle = _turnIndex * _turn_angle + _angle_offset
 	
