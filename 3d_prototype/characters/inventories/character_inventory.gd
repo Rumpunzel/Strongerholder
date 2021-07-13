@@ -58,7 +58,7 @@ func load_from_var(save_file: File) -> void:
 	.load_from_var(save_file)
 	# Load as data and equip
 	var current_stack_id: int = save_file.get_8()
-	if current_stack_id >= 0:
+	if current_stack_id >= 0 and current_stack_id < item_slots.size():
 		equip_item_stack(item_slots[current_stack_id])
 
 

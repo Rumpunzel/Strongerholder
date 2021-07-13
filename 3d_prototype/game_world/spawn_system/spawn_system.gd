@@ -20,7 +20,7 @@ func _on_new_game() -> void:
 	var player_instance := _instantiate_scene(_player_scene)
 	# warning-ignore:return_value_discarded
 	player_instance.connect("tree_exiting", Events.player, "emit_signal", [ "player_freed" ])
-	Events.player.emit_signal("player_instantiated", player_instance)
+	#Events.player.emit_signal("player_instantiated", player_instance)
 
 
 func _instantiate_scene(scene_path: String) -> Spatial:

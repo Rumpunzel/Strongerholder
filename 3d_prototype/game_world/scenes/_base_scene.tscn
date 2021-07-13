@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://game_world/spawn_system/spawn_system.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game_world/cameras/top_down/top_down_camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_world/scenes/world_scene.gd" type="Script" id=4]
 
@@ -11,8 +10,6 @@
 ]]
 pause_mode = 1
 script = ExtResource( 4 )
-
-[node name="SpawnSystem" parent="." instance=ExtResource( 1 )]
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="."]
 

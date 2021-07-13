@@ -9,13 +9,13 @@ var follow_node: Spatial setget set_follow_node
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.player.connect("player_instantiated", self, "_on_player_instantiated")
+	Events.player.connect("player_registered", self, "_on_player_registered")
 	# warning-ignore:return_value_discarded
-	Events.player.connect("player_freed", self, "_on_player_freed")
+	Events.player.connect("player_unregistered", self, "_on_player_unregistered")
 
 func _exit_tree() -> void:
-	Events.player.disconnect("player_instantiated", self, "_on_player_instantiated")
-	Events.player.disconnect("player_freed", self, "_on_player_freed")
+	Events.player.disconnect("player_registered", self, "_on_player_registered")
+	Events.player.disconnect("player_unregistered", self, "_on_player_unregistered")
 
 
 
@@ -52,12 +52,13 @@ func set_follow_node(node: Spatial) -> void:
 		_frame_node(follow_node)
 
 
-func _on_player_instantiated(player_node: Spatial) -> void:
+func _on_player_registered(player_node: Character) -> void:
 	assert(player_node)
 	set_follow_node(player_node)
 
-func _on_player_freed() -> void:
-	set_follow_node(null)
+func player_unregistered(player_node: Character) -> void:
+	if follow_node == player_node:
+		set_follow_node(null)
 
 
 func _frame_node(_node: Spatial) -> void:

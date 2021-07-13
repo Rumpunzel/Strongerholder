@@ -37,8 +37,8 @@ class GameplayChannel:
 
 
 class PlayerChannel:
-	signal player_instantiated(player_node)
-	signal player_freed()
+	signal player_registered(player_node)
+	signal player_unregistered(player_node)
 	
 	signal camera_changed(camera_node)
 
