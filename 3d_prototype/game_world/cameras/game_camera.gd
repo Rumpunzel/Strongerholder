@@ -3,7 +3,7 @@ extends Camera
 
 const _ray_length := 1000.0
 
-var follow_node: Spatial setget set_follow_node
+var follow_node: Spatial
 
 
 
@@ -46,22 +46,17 @@ func get_adjusted_movement(input_vector: Vector2) -> Vector3:
 #	set_follow_node(get_node_or_null(node_path))
 
 
-func set_follow_node(node: Spatial) -> void:
-	follow_node = node
-	if follow_node:
-		_frame_node(follow_node)
-
 
 func _on_player_registered(player_node: Character) -> void:
 	assert(player_node)
-	set_follow_node(player_node)
+	follow_node = player_node
 
-func player_unregistered(player_node: Character) -> void:
+func _on_player_unregistered(player_node: Character) -> void:
 	if follow_node == player_node:
-		set_follow_node(null)
+		follow_node = null
 
 
-func _frame_node(_node: Spatial) -> void:
+func _frame_node(_node: Spatial, _delta: float) -> void:
 	assert(false)
 
 

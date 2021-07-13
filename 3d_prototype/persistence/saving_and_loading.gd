@@ -55,7 +55,7 @@ func _on_game_save_started() -> void:
 func _on_game_load_started(start_new_game := false) -> void:
 	var save_file := File.new()
 	
-	if save_file.file_exists(SAVE_LOCATION):
+	if save_file.file_exists(SAVE_LOCATION) or start_new_game:
 		# Delete the current loaded persistent objects
 		var save_nodes := get_tree().get_nodes_in_group(PERSIST_LEVEL)
 		save_nodes += get_tree().get_nodes_in_group(PERSIST_GROUP)

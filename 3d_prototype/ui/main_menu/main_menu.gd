@@ -25,7 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if visible:
 			_on_start_pressed()
 		else:
-			show_menu()
+			Events.main.emit_signal("game_pause_requested")
 
 
 func _on_game_paused() -> void:
@@ -36,7 +36,6 @@ func _on_game_continued() -> void:
 
 
 func _on_start_pressed() -> void:
-	hide_menu()
 	Events.main.emit_signal("game_continue_requested")
 
 func _on_restart_pressed():
