@@ -33,11 +33,9 @@ func equip_item_stack(equipment_stack: Inventory.ItemStack) -> void:
 
 
 func unequip() -> bool:
-	if currently_equipped:
-		currently_equipped.node.queue_free()
+	if currently_equipped.stack.item:
 		emit_signal("item_unequipped", currently_equipped)
-		currently_equipped.stack.reset()
-		currently_equipped.node = null
+		currently_equipped.unequip()
 		return true
 	
 	return false
@@ -45,12 +43,12 @@ func unequip() -> bool:
 
 func has_equipped(equipment_stack: Inventory.ItemStack) -> bool:
 	# TODO: make this a nicer check
-	return equipment_stack and currently_equipped and equipment_stack == currently_equipped.stack
+	return equipment_stack and equipment_stack == currently_equipped.stack
 
 
 
 func _on_equipment_stack_added(new_equipment_stack: Inventory.ItemStack) -> void:
-	if _equip_first_item and not currently_equipped:
+	if _equip_first_item and not currently_equipped.stack.item:
 		equip_item_stack(new_equipment_stack)
 
 
@@ -68,11 +66,17 @@ class EquippedItem:
 	var stack: Inventory.ItemStack = Inventory.ItemStack.new(null)
 	var node: Spatial = null
 	
+	func unequip() -> void:
+		stack = Inventory.ItemStack.new(null)
+		if node:
+			node.queue_free()
+			node = null
+	
 	func set_stack(new_stack: Inventory.ItemStack, hand_position: Spatial) -> void:
 		assert(new_stack)
 		assert(hand_position)
 		stack = new_stack
-		print("new stack: %s" % stack)
+		
 		if stack.item:
 			node = stack.item.attach_to(hand_position)
 		elif node:

@@ -221,6 +221,7 @@ func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 		stack.amount += 1
 		count -= 1
 		emit_signal("item_added", item)
+		
 		if item is ToolResource:
 			emit_signal("equipment_added", item)
 	
@@ -233,13 +234,16 @@ func _remove_from_stack(stack: ItemStack, count: int) -> int:
 		stack.amount -= 1
 		count -= 1
 		emit_signal("item_removed", stack.item)
+		
 		if stack.item is ToolResource:
 			emit_signal("equipment_removed", stack.item)
 		
 		if stack.amount <= 0:
 			emit_signal("item_stack_removed", stack)
+			
 			if stack.item is ToolResource:
 				emit_signal("equipment_stack_removed", stack)
+			
 			stack.reset()
 			break
 	
@@ -250,6 +254,7 @@ func _spawn_item(item: ItemResource) -> void:
 	var center_position := _drop_area.global_transform.origin
 	var size := _drop_shape.extents
 	var spawn_position := center_position
+	
 	spawn_position.x += (randf() - 0.5) * size.x
 	spawn_position.z += (randf() - 0.5) * size.z
 	
@@ -279,16 +284,13 @@ class ItemStack extends Reference:
 	var item: ItemResource
 	var amount: int
 	
-	
 	func _init(new_item: ItemResource) -> void:
 		item = new_item
 		amount = 0
 	
-	
 	func reset() -> void:
 		item = null
 		amount = 0
-	
 	
 	func save_to_var(save_file: File) -> void:
 		if item:
@@ -307,7 +309,6 @@ class ItemStack extends Reference:
 		
 		item = loaded_item
 		amount = save_file.get_var()
-	
 	
 	func _to_string() -> String:
 		return "Item: [ %s ], Amount: %d" % [ item, amount ]

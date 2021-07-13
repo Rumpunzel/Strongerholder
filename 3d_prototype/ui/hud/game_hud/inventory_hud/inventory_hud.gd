@@ -74,7 +74,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 		hud_item.item_stack = stack
 		
 		if stack.item:
-			var equipped := _inventory.currently_equipped and _inventory.has_equipped(stack)
+			var equipped := _inventory.has_equipped(stack)
 			hud_item.disabled = false
 			hud_item.equipped = equipped
 			hud_item.set_submenu_items(_active_submenus(stack.item, equipped))

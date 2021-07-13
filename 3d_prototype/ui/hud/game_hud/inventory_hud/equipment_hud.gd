@@ -47,7 +47,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 		
 		if stack.item:
 			var equipped := _inventory.currently_equipped and _inventory.has_equipped(stack)
-			hud_item.disabled = equipped
+			hud_item.disabled = false
 			hud_item.equipped = equipped
 			
 			var insert_index := int(size / 2.0 + ceil(equipment_counter / 2.0) * (1 if i % 2 == 0 else -1))
@@ -58,7 +58,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 
 
 func _on_item_selected(inventory_item: InventoryHUDItem, _submenu_item: InventoryHUDItem) -> void:
-	if inventory_item == selected_item:
+	if _inventory.has_equipped(inventory_item.item_stack):
 		# warning-ignore:return_value_discarded
 		_inventory.unequip()
 	else:

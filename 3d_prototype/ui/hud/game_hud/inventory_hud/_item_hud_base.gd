@@ -30,11 +30,6 @@ func _on_inventory_stacks_updated(new_inventory: CharacterInventory) -> void:
 
 
 func _initialize_items(new_inventory: CharacterInventory) -> void:
-#	if _inventory:
-#		for child in get_children():
-#			remove_child(child)
-#			child.queue_free()
-	
 	_free_items()
 	
 	_inventory = new_inventory
