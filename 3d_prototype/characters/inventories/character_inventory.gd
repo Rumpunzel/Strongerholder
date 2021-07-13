@@ -8,7 +8,7 @@ signal item_unequipped(equipment)
 export(NodePath) var _hand_position
 export var _equip_first_item := true
 
-var currently_equipped := EquippedItem.new()
+var _currently_equipped := EquippedItem.new()
 
 
 
@@ -28,14 +28,14 @@ func equip_item_stack(equipment_stack: Inventory.ItemStack) -> void:
 	# warning-ignore:return_value_discarded
 	unequip()
 	
-	currently_equipped.set_stack(equipment_stack, get_node(_hand_position))
-	emit_signal("item_equipped", currently_equipped)
+	_currently_equipped.set_stack(item_slots.find(equipment_stack), equipment_stack, get_node(_hand_position))
+	emit_signal("item_equipped", _currently_equipped)
 
 
 func unequip() -> bool:
-	if currently_equipped.stack.item:
-		emit_signal("item_unequipped", currently_equipped)
-		currently_equipped.unequip()
+	if _currently_equipped.stack_id >= 0:
+		emit_signal("item_unequipped", _currently_equipped)
+		_currently_equipped.unequip()
 		return true
 	
 	return false
@@ -43,23 +43,27 @@ func unequip() -> bool:
 
 func has_equipped(equipment_stack: Inventory.ItemStack) -> bool:
 	# TODO: make this a nicer check
-	return equipment_stack and equipment_stack == currently_equipped.stack
+	return equipment_stack and equipment_stack == item_slots[_currently_equipped.stack_id]
+
+func has_something_equipped() -> bool:
+	return _currently_equipped.stack_id >= 0
 
 
 func save_to_var(save_file: File) -> void:
 	.save_to_var(save_file)
 	# Save as data
-	currently_equipped.stack.save_to_var(save_file)
+	save_file.store_var(_currently_equipped.stack_id)
 
 func load_from_var(save_file: File) -> void:
 	.load_from_var(save_file)
-	# Load as data
-	currently_equipped.stack.load_from_var(save_file)
-	currently_equipped.set_stack(currently_equipped.stack, get_node(_hand_position))
+	# Load as data and equip
+	var current_stack_id: int = save_file.get_var()
+	if current_stack_id >= 0:
+		equip_item_stack(item_slots[current_stack_id])
 
 
 func _on_equipment_stack_added(new_equipment_stack: Inventory.ItemStack) -> void:
-	if _equip_first_item and not currently_equipped.stack.item:
+	if _equip_first_item and _currently_equipped.stack_id < 0:
 		equip_item_stack(new_equipment_stack)
 
 
@@ -74,20 +78,23 @@ func _get_configuration_warning() -> String:
 
 
 class EquippedItem:
+	var stack_id: int = -1
 	var stack: Inventory.ItemStack = Inventory.ItemStack.new(null)
 	var node: Spatial = null
 	
 	func unequip() -> void:
+		stack_id = -1
 		stack = Inventory.ItemStack.new(null)
 		if node:
 			node.queue_free()
 			node = null
 	
-	func set_stack(new_stack: Inventory.ItemStack, hand_position: Spatial) -> void:
+	func set_stack(new_stack_id: int, new_stack: Inventory.ItemStack, hand_position: Spatial) -> void:
 		assert(new_stack)
 		assert(hand_position)
-		stack = new_stack
+		stack_id = new_stack_id
 		
+		stack = new_stack
 		if stack.item:
 			node = stack.item.attach_to(hand_position)
 		elif node:

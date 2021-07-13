@@ -122,7 +122,7 @@ func _use_item_from_stack(stack: Inventory.ItemStack) -> void:
 
 
 func _drop_item_from_stack(stack: Inventory.ItemStack) -> void:
-	if _inventory.currently_equipped and stack == _inventory.currently_equipped.stack:
+	if _inventory.has_equipped(stack):
 		# warning-ignore:return_value_discarded
 		_inventory.unequip()
 	

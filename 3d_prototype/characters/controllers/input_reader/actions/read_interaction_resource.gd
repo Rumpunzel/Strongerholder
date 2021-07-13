@@ -27,5 +27,5 @@ class ReadInteraction extends StateAction:
 			_inputs.destination_input = _character.translation
 		
 		if Input.is_action_pressed("attack"):
-			if _inventory.currently_equipped:
+			if _inventory.has_something_equipped():
 				_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK)
