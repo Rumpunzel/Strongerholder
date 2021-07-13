@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game_world/spawn_system/spawn_system.tscn" type="PackedScene" id=1]
+[ext_resource path="res://autoloads/camera_system/cameras/top_down/top_down_camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_world/scenes/world_scene.gd" type="Script" id=4]
 
 [sub_resource type="MeshLibrary" id=1]
@@ -25,3 +26,5 @@ data = {
 __meta__ = {
 "_editor_clip_": 0
 }
+
+[node name="TopDownCamera" parent="." instance=ExtResource( 2 )]

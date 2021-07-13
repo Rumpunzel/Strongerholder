@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://autoloads/camera_system/cameras/top_down/resources/build_camera_attributes.tres" type="Resource" id=1]
 [ext_resource path="res://autoloads/camera_system/cameras/top_down/top_down_camera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://autoloads/camera_system/camera_system.gd" type="Script" id=4]
 
@@ -10,4 +9,3 @@ script = ExtResource( 4 )
 
 [node name="MainCamera" parent="." instance=ExtResource( 3 )]
 far = 8192.0
-_attributes = ExtResource( 1 )

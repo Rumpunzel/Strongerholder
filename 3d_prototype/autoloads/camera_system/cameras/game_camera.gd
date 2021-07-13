@@ -1,7 +1,40 @@
 class_name GameCamera
 extends Camera
 
+const _ray_length := 1000.0
+
 var follow_node: Spatial setget set_follow_node
+
+
+
+func _enter_tree() -> void:
+	# warning-ignore:return_value_discarded
+	Events.player.connect("player_instantiated", self, "_on_player_instantiated")
+	# warning-ignore:return_value_discarded
+	Events.player.connect("player_freed", self, "_on_player_freed")
+
+func _exit_tree() -> void:
+	Events.player.disconnect("player_instantiated", self, "_on_player_instantiated")
+	Events.player.disconnect("player_freed", self, "_on_player_freed")
+
+
+
+func mouse_as_world_point() -> CameraRay:
+	var mouse_position := get_viewport().get_mouse_position()
+	var from := project_ray_origin(mouse_position)
+	var to := from + project_ray_normal(mouse_position) * _ray_length
+	return CameraRay.new(from, to)
+
+
+func get_adjusted_movement(input_vector: Vector2) -> Vector3:
+	var ajusted_movement: Vector3
+	var camera_forward: Vector3 = transform.basis.z
+	camera_forward.y = 0.0
+	var camera_right: Vector3 = transform.basis.x
+	camera_right.y = 0.0
+	ajusted_movement = camera_right.normalized() * input_vector.x + camera_forward.normalized() * input_vector.y
+	return ajusted_movement
+
 
 
 func set_follow_node(node: Spatial) -> void:
@@ -10,5 +43,23 @@ func set_follow_node(node: Spatial) -> void:
 		_frame_node(follow_node)
 
 
+func _on_player_instantiated(player_node: Spatial) -> void:
+	assert(player_node)
+	set_follow_node(player_node)
+
+func _on_player_freed() -> void:
+	set_follow_node(null)
+
+
 func _frame_node(_node: Spatial) -> void:
 	assert(false)
+
+
+
+class CameraRay:
+	var from: Vector3
+	var to: Vector3
+	
+	func _init(new_from: Vector3, new_to: Vector3) -> void:
+		from = new_from
+		to = new_to
