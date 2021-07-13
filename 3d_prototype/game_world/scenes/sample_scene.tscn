@@ -45,12 +45,15 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0, 
 [node name="Tree" parent="NavigationMeshInstance/WorldGrid" index="3" instance=ExtResource( 7 )]
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 6, 0, -10 )
 
-[node name="Floor" type="StaticBody" parent="." index="2"]
+[node name="TopDownCamera" parent="." index="2"]
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 44, 61, 45 )
+
+[node name="Floor" type="StaticBody" parent="." index="3"]
 collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
 shape = SubResource( 1 )
 
-[node name="Axe" parent="." index="3" instance=ExtResource( 6 )]
+[node name="Axe" parent="." index="4" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -2, 1, 3 )
