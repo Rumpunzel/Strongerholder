@@ -16,6 +16,7 @@ height = 3.0
 [sub_resource type="BoxShape" id=3]
 
 [node name="Tree" type="StaticBody" groups=[
+"Persist",
 "Tree",
 ]]
 collision_layer = 8

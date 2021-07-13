@@ -136,7 +136,6 @@ func _load_data(save_file: File) -> void:
 	var length := save_file.get_len()
 	while save_file.get_position() < length:
 		var next_var = save_file.get_var()
-		print(next_var)
 		if next_var is String and next_var == SEPARATOR:
 			break
 		
@@ -156,7 +155,7 @@ func _load_data(save_file: File) -> void:
 
 func _load_next_scene(scene_path: String, save_file: File, is_level := false) -> void:
 	assert(save_file.file_exists(scene_path))
-	print(scene_path)
+	
 	var scene: PackedScene = load(scene_path)
 	var node: Node = scene.instance()
 	
@@ -171,11 +170,13 @@ func _load_next_scene(scene_path: String, save_file: File, is_level := false) ->
 		assert(node.has_method("load_from_var"))
 		node.call("load_from_var", save_file)
 	
+	# HACK: currently this just deletes all the persistent nodes from the level
+	#	consider implementing this by instead loading a base level
+	#	  with only static scenes when loading a level
 	if is_level:
-		for child in node.get_children():
-			if child.is_in_group(PERSIST_GROUP):
-				node.remove_child(child)
-				child.queue_free()
+		for child in _get_children_in_group(node, PERSIST_GROUP, ""):
+			child.get_parent().remove_child(child)
+			child.queue_free()
 	
 	get_node(parent_path).add_child(node)
 	node.name = node_name
@@ -220,7 +221,7 @@ func _get_children_in_group(parent: Node, group: String, terminate_on_group: Str
 		if child.is_in_group(terminate_on_group):
 			continue
 		
-		if child.is_in_group(PERSIST_DATA_GROUP):
+		if child.is_in_group(group):
 			children_in_group.append(child)
 		
 		children_in_group += _get_children_in_group(child, group, terminate_on_group)

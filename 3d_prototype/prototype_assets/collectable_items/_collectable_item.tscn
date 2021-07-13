@@ -4,6 +4,7 @@
 
 [node name="CollectableItem" type="RigidBody" groups=[
 "Item",
+"Persist",
 ]]
 collision_layer = 4
 collision_mask = 5
