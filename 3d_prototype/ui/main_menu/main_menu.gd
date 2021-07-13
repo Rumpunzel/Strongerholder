@@ -5,7 +5,7 @@ const QUIT_GAME_QUESTION: String = "Quit The Game?"
 
 export var _animation_distance: float = 200.0
 
-onready var _menu_container: Control = $VBoxContainer/MenuContainer
+onready var _menu_container: Control = $MenuContainer
 
 
 func _enter_tree() -> void:

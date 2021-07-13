@@ -30,8 +30,8 @@ class MenuChannel:
 class GameplayChannel:
 	signal new_game()
 	
-	signal scene_loaded()
-	signal scene_unloaded()
+	signal scene_loaded(scene)
+	signal scene_unloaded(scene)
 	
 	signal node_spawned(node, position)
 

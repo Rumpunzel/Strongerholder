@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://prototype_assets/gui/fonts/title_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://ui/game_title.gd" type="Script" id=2]
-[ext_resource path="res://ui/game_version.gd" type="Script" id=3]
+[ext_resource path="res://ui/gui/game_title.gd" type="Script" id=2]
+[ext_resource path="res://ui/gui/game_version.gd" type="Script" id=3]
 [ext_resource path="res://ui/main_menu/main_menu.gd" type="Script" id=4]
 [ext_resource path="res://prototype_assets/gui/fonts/main_menu_button_font.tres" type="DynamicFont" id=5]
 [ext_resource path="res://prototype_assets/gui/gui_theme.tres" type="Theme" id=6]
@@ -34,22 +34,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MenuContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MenuContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_right = 1920.0
-margin_bottom = 1026.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_top = 240
 custom_constants/margin_left = 160
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="MenuContent" type="VBoxContainer" parent="VBoxContainer/MenuContainer"]
+[node name="MenuContent" type="VBoxContainer" parent="MenuContainer"]
 margin_left = 160.0
 margin_top = 240.0
 margin_right = 646.0
@@ -58,7 +55,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 72
 
-[node name="GameTitle" type="Label" parent="VBoxContainer/MenuContainer/MenuContent"]
+[node name="GameTitle" type="Label" parent="MenuContainer/MenuContent"]
 margin_right = 486.0
 margin_bottom = 102.0
 size_flags_horizontal = 4
@@ -70,84 +67,87 @@ custom_constants/shadow_offset_y = 4
 text = "Strongerholder"
 script = ExtResource( 2 )
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MenuContainer/MenuContent"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/MenuContent"]
 margin_top = 174.0
 margin_right = 486.0
 margin_bottom = 428.0
 custom_constants/margin_left = 16
 
-[node name="MenuButtons" type="VBoxContainer" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer"]
+[node name="MenuButtons" type="VBoxContainer" parent="MenuContainer/MenuContent/MarginContainer"]
 margin_left = 16.0
 margin_right = 132.0
 margin_bottom = 254.0
 size_flags_horizontal = 0
 custom_constants/separation = 16
 
-[node name="Start" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+[node name="Start" parent="MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
 margin_right = 116.0
 custom_fonts/font = ExtResource( 5 )
 text = "Start"
 
-[node name="Restart" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+[node name="Restart" parent="MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
 margin_top = 54.0
 margin_right = 116.0
 margin_bottom = 92.0
 custom_fonts/font = ExtResource( 5 )
 text = "Restart"
 
-[node name="Save" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+[node name="Save" parent="MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
 margin_top = 108.0
 margin_right = 116.0
 margin_bottom = 146.0
 custom_fonts/font = ExtResource( 5 )
 text = "Save"
 
-[node name="Load" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+[node name="Load" parent="MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
 margin_top = 162.0
 margin_right = 116.0
 margin_bottom = 200.0
 custom_fonts/font = ExtResource( 5 )
 text = "Load"
 
-[node name="Quit" parent="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
+[node name="Quit" parent="MenuContainer/MenuContent/MarginContainer/MenuButtons" instance=ExtResource( 7 )]
 margin_top = 216.0
 margin_right = 116.0
 margin_bottom = 254.0
 custom_fonts/font = ExtResource( 5 )
 text = "Quit"
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_top = 1030.0
-margin_right = 1920.0
-margin_bottom = 1080.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 custom_constants/margin_right = 20
 custom_constants/margin_top = 16
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="GameVersion" type="Label" parent="VBoxContainer/MarginContainer"]
+[node name="GameVersion" type="Label" parent="MarginContainer"]
 margin_left = 20.0
-margin_top = 16.0
+margin_top = 1046.0
 margin_right = 172.0
-margin_bottom = 34.0
+margin_bottom = 1064.0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "version 0.0.1 alpha"
 script = ExtResource( 3 )
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer"]
 margin_left = 1836.0
-margin_top = 16.0
+margin_top = 1046.0
 margin_right = 1900.0
-margin_bottom = 34.0
+margin_bottom = 1064.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "by Jamal"
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Load" to="." method="_on_load_pressed"]
-[connection signal="pressed" from="VBoxContainer/MenuContainer/MenuContent/MarginContainer/MenuButtons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MenuContainer/MenuContent/MarginContainer/MenuButtons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MenuContainer/MenuContent/MarginContainer/MenuButtons/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="MenuContainer/MenuContent/MarginContainer/MenuButtons/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="MenuContainer/MenuContent/MarginContainer/MenuButtons/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="MenuContainer/MenuContent/MarginContainer/MenuButtons/Quit" to="." method="_on_quit_pressed"]

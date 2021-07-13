@@ -8,11 +8,7 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	Events.gameplay.disconnect("node_spawned", self, "_on_node_spawned")
-	Events.gameplay.emit_signal("scene_unloaded")
-
-
-func _ready() -> void:
-	Events.gameplay.emit_signal("scene_loaded")
+	Events.gameplay.emit_signal("scene_unloaded", self)
 
 
 

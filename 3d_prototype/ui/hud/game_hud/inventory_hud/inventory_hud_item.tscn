@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://ui/game_hud/inventory_hud/inventory_hud_item.gd" type="Script" id=2]
+[ext_resource path="res://ui/hud/game_hud/inventory_hud/inventory_hud_item.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.12549, 0.12549, 0.12549, 0.901961 )

@@ -1,6 +1,7 @@
 class_name SavingAndLoading
 extends Node
 
+
 const SAVE_LOCATION := "res://test.save"#"user://savegame.save"
 const PERSIST_GROUP := "Persist"
 const PERSIST_DATA_GROUP := "PersistData"
@@ -8,7 +9,7 @@ const OBJECT_TERMINATOR := "|"
 const CHILDREN_BEGIN := "<"
 const CHILDREN_END := ">"
 
-export(NodePath) var _main_node
+
 export(String, FILE, "*.tscn") var _default_scene
 
 
@@ -55,9 +56,10 @@ func _on_game_load_started(start_new_game := false) -> void:
 		
 		print("Game loaded from %s" % SAVE_LOCATION)
 	else:
-		assert(_main_node)
-		var scene: PackedScene = load(_default_scene)
-		get_node(_main_node).add_child(scene.instance())
+		var packed_scene: PackedScene = load(_default_scene)
+		assert(packed_scene)
+		var scene: WorldScene = packed_scene.instance()
+		Events.gameplay.emit_signal("scene_loaded", scene)
 		
 		Events.gameplay.emit_signal("new_game")
 	
