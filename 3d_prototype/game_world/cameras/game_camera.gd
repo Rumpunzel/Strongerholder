@@ -36,14 +36,14 @@ func get_adjusted_movement(input_vector: Vector2) -> Vector3:
 	return ajusted_movement
 
 
-func save_to_var(save_file: File) -> void:
-	# Store node path
-	save_file.store_var(follow_node.get_path())
+#func save_to_var(save_file: File) -> void:
+#	# Store node path
+#	save_file.store_var(follow_node.get_path())
 
-func load_from_var(save_file: File) -> void:
-	# Load as node path
-	var node_path: String = save_file.get_var()
-	set_follow_node(get_node_or_null(node_path))
+#func load_from_var(save_file: File) -> void:
+#	# Load as node path
+#	var node_path: String = save_file.get_var()
+#	set_follow_node(get_node_or_null(node_path))
 
 
 func set_follow_node(node: Spatial) -> void:

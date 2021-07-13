@@ -2,7 +2,6 @@ extends Node
 
 # warning-ignore-all:unused_class_variable
 var main: MainChannel = MainChannel.new()
-var menu: MenuChannel = MenuChannel.new()
 var gameplay: GameplayChannel = GameplayChannel.new()
 var player: PlayerChannel = PlayerChannel.new()
 var hud: HUDChannel = HUDChannel.new()
@@ -19,12 +18,11 @@ class MainChannel:
 	signal game_load_started()
 	signal game_load_finished()
 	
+	signal game_pause_requested()
+	signal game_continue_requested()
+	
 	signal game_paused()
-	signal game_unpaused()
-
-
-class MenuChannel:
-	signal main_menu_requested()
+	signal game_continued()
 
 
 class GameplayChannel:

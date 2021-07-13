@@ -11,10 +11,10 @@ func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	connect("item_selected", self, "_on_item_selected")
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_paused", self, "close_menu")
+	Events.main.connect("game_pause_requested", self, "close_menu")
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_paused", self, "close_menu")
+	Events.main.disconnect("game_pause_requested", self, "close_menu")
 	
 	_free_items()
 

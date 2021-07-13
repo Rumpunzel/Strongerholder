@@ -10,13 +10,13 @@ onready var _menu_container: Control = $MenuContainer
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_load_finished", self, "_on_game_load_finished")
+	Events.main.connect("game_paused", self, "_on_game_paused")
 	# warning-ignore:return_value_discarded
-	Events.menu.connect("main_menu_requested", self, "_on_main_menu_requested")
+	Events.main.connect("game_continued", self, "_on_game_continued")
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_load_finished", self, "_on_game_load_finished")
-	Events.menu.disconnect("main_menu_requested", self, "_on_main_menu_requested")
+	Events.main.disconnect("game_paused", self, "_on_game_paused")
+	Events.main.disconnect("game_continued", self, "_on_game_continued")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -28,12 +28,16 @@ func _unhandled_input(event: InputEvent) -> void:
 			show_menu()
 
 
-func _on_main_menu_requested() -> void:
+func _on_game_paused() -> void:
 	show_menu()
+
+func _on_game_continued() -> void:
+	hide_menu()
+
 
 func _on_start_pressed() -> void:
 	hide_menu()
-	Events.main.emit_signal("game_unpaused")
+	Events.main.emit_signal("game_continue_requested")
 
 func _on_restart_pressed():
 	Events.main.emit_signal("game_load_started", true)
@@ -59,20 +63,13 @@ func _on_quit_pressed() -> void:
 	dialog.popup_centered()
 
 
-func _on_game_load_finished() -> void:
-	hide_menu()
-	Events.main.emit_signal("game_unpaused")
-
-
 func _show_menu() -> void:
-	Events.main.emit_signal("game_paused")
 	# warning-ignore:return_value_discarded
 	_tween.interpolate_property(_menu_container, "rect_position:x", rect_position.x - _animation_distance, rect_position.x, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	._show_menu()
 
 
 func _hide_menu() -> void:
-	Events.main.emit_signal("game_unpaused")
 	var previous_position := _menu_container.rect_position.x
 	# warning-ignore:return_value_discarded
 	_tween.interpolate_property(_menu_container, "rect_position:x", previous_position, previous_position - _animation_distance, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_IN)
