@@ -70,7 +70,7 @@ func _frame_node(node: Spatial, _delta: float) -> void:
 	_offset.z = _attributes.distance_from_follow * sin(_angle) * zoom
 	
 	_position = node.translation + _offset
-	_position.y = _attributes.shoulder_height + _attributes.distance_off_ground * inverse_zoom
+	_position.y = _attributes.distance_off_ground * inverse_zoom
 	
 	translation = _position
 	
@@ -94,7 +94,7 @@ func _set_zoom(new_zoom: float) -> void:
 	
 	if _zoom >= _attributes.camera_min_zoom:
 		# warning-ignore:return_value_discarded
-		_tween.interpolate_property(self, "_zoom", null, new_zoom, _attributes.camera_scroll_time, Tween.TRANS_QUAD, Tween.EASE_IN if new_zoom > _zoom else Tween.EASE_OUT)
+		_tween.interpolate_property(self, "_zoom", null, new_zoom, _attributes.camera_scroll_time, Tween.TRANS_QUAD, Tween.EASE_OUT)
 		# warning-ignore:return_value_discarded
 		_tween.start()
 	else:
