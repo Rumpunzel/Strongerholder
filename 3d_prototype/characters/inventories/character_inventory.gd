@@ -52,12 +52,12 @@ func has_something_equipped() -> bool:
 func save_to_var(save_file: File) -> void:
 	.save_to_var(save_file)
 	# Save as data
-	save_file.store_var(_currently_equipped.stack_id)
+	save_file.store_8(_currently_equipped.stack_id)
 
 func load_from_var(save_file: File) -> void:
 	.load_from_var(save_file)
 	# Load as data and equip
-	var current_stack_id: int = save_file.get_var()
+	var current_stack_id: int = save_file.get_8()
 	if current_stack_id >= 0:
 		equip_item_stack(item_slots[current_stack_id])
 

@@ -189,14 +189,14 @@ func empty() -> bool:
 
 func save_to_var(save_file: File) -> void:
 	# Store item_slots size
-	save_file.store_var(item_slots.size())
+	save_file.store_8(item_slots.size())
 	for stack in item_slots:
 		# Store as data
 		stack.save_to_var(save_file)
 
 func load_from_var(save_file: File) -> void:
 	# Resize array
-	_initialize(save_file.get_var())
+	_initialize(save_file.get_8())
 	for stack in item_slots:
 		# Load as data
 		stack.load_from_var(save_file)
@@ -298,7 +298,7 @@ class ItemStack extends Reference:
 			save_file.store_var(item.resource_path)
 		else:
 			save_file.store_var(null)
-		save_file.store_var(amount)
+		save_file.store_8(amount)
 	
 	func load_from_var(save_file: File) -> void:
 		# Load as resource
@@ -308,7 +308,7 @@ class ItemStack extends Reference:
 			loaded_item = load(stored_item)
 		
 		item = loaded_item
-		amount = save_file.get_var()
+		amount = save_file.get_8()
 	
 	func _to_string() -> String:
 		return "Item: [ %s ], Amount: %d" % [ item, amount ]

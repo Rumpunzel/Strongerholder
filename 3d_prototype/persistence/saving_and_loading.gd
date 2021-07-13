@@ -214,14 +214,14 @@ func _load_next_child(parent_path: String, save_file: File) -> void:
 
 
 func _store_version(save_file: File) -> void:
-	save_file.store_var(GameVersion.major_version())
-	save_file.store_var(GameVersion.minor_version())
-	save_file.store_var(GameVersion.patch_version())
+	save_file.store_16(GameVersion.major_version())
+	save_file.store_16(GameVersion.minor_version())
+	save_file.store_16(GameVersion.patch_version())
 
 func _load_version(save_file: File) -> void:
-	var major: int = save_file.get_var()
-	var minor: int = save_file.get_var()
-	var patch: int = save_file.get_var()
+	var major: int = save_file.get_16()
+	var minor: int = save_file.get_16()
+	var patch: int = save_file.get_16()
 	print("----------GAME VERSION----------")
 	print("version %d.%d.%d" % [ major, minor, patch ])
 	print("--------------------------------")
