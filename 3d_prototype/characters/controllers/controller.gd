@@ -1,4 +1,4 @@
-class_name Controller
+class_name Controller, "res://editor_tools/class_icons/nodes/icon_brain.svg"
 extends StateMachine
 
 

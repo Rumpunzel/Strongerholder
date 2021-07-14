@@ -1,4 +1,4 @@
-class_name StateMachine
+class_name StateMachine, "res://editor_tools/class_icons/nodes/icon_gears.svg"
 extends Node
 tool
 

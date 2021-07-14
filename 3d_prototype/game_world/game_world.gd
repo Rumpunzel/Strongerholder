@@ -1,4 +1,4 @@
-class_name GameWorld
+class_name GameWorld, "res://editor_tools/class_icons/nodes/icon_world.svg"
 extends Node
 
 

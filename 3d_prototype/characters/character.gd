@@ -1,4 +1,4 @@
-class_name Character
+class_name Character, "res://editor_tools/class_icons/spatials/icon_barbute.svg"
 extends KinematicBody
 tool
 

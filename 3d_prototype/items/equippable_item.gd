@@ -1,4 +1,4 @@
-class_name EquippableItem
+class_name EquippableItem, "res://editor_tools/class_icons/spatials/icon_thor_hammer.svg"
 extends Spatial
 
 export(Resource) var item_resource

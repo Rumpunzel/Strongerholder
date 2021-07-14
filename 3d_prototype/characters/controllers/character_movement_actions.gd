@@ -1,4 +1,4 @@
-class_name CharacterMovementActions
+class_name CharacterMovementActions, "res://editor_tools/class_icons/nodes/icon_expand.svg"
 extends Node
 
 # warning-ignore-all:unused_class_variable

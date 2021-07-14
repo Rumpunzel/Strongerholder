@@ -1,4 +1,4 @@
-class_name CharacterMovementInputs
+class_name CharacterMovementInputs, "res://editor_tools/class_icons/nodes/icon_contract.svg"
 extends Node
 
 # warning-ignore-all:unused_class_variable

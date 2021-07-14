@@ -1,4 +1,4 @@
-class_name Inventory
+class_name Inventory, "res://editor_tools/class_icons/spatials/icon_swap_bag.svg"
 extends Area
 tool
 

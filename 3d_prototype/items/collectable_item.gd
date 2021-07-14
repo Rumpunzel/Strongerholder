@@ -1,4 +1,4 @@
-class_name CollectableItem
+class_name CollectableItem, "res://editor_tools/class_icons/spatials/icon_fire_bottle.svg"
 extends RigidBody
 tool
 

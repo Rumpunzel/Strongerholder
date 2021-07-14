@@ -1,4 +1,4 @@
-class_name SavingAndLoading
+class_name SavingAndLoading, "res://editor_tools/class_icons/nodes/icon_save.svg"
 extends Node
 
 const SAVE_LOCATION := "res://test.save"#"user://savegame.save"

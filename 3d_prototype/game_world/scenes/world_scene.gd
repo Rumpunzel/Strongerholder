@@ -1,4 +1,4 @@
-class_name WorldScene
+class_name WorldScene, "res://editor_tools/class_icons/spatials/icon_treasure_map.svg"
 extends Navigation
 
 

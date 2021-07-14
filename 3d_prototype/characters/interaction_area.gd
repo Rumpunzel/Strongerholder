@@ -1,4 +1,4 @@
-class_name InteractionArea
+class_name InteractionArea, "res://editor_tools/class_icons/spatials/icon_slap.svg"
 extends Area
 
 signal item_picked_up(item)

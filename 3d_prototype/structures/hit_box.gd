@@ -1,4 +1,4 @@
-class_name HitBox
+class_name HitBox, "res://editor_tools/class_icons/spatials/icon_heart_beats.svg"
 extends Area
 
 signal died()
