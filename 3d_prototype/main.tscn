@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://persistence/saving_and_loading.gd" type="Script" id=2]
-[ext_resource path="res://game_world/game_world.gd" type="Script" id=3]
+[ext_resource path="res://game_world/game_world.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/gui/gui.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/hud/hud.gd" type="Script" id=5]
-[ext_resource path="res://ui/hud/game_hud/game_hud.tscn" type="PackedScene" id=6]
-[ext_resource path="res://game_world/scenes/sample_scene.tscn" type="PackedScene" id=7]
 
 [node name="Main" type="Node"]
 pause_mode = 2
@@ -16,15 +13,7 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 _default_scene = "res://game_world/scenes/sample_scene.tscn"
 
-[node name="GameWorld" type="Node" parent="."]
-script = ExtResource( 3 )
-
-[node name="HUD" type="CanvasLayer" parent="GameWorld"]
-layer = 4
-script = ExtResource( 5 )
-_game_hud_scene = ExtResource( 6 )
-
-[node name="WorldScene" parent="GameWorld" instance=ExtResource( 7 )]
+[node name="GameWorld" parent="." instance=ExtResource( 3 )]
 
 [node name="GUI" parent="." instance=ExtResource( 4 )]
 layer = 16
