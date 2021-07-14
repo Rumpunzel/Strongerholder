@@ -33,6 +33,9 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	if Engine.editor_hint:
+		return
+	
 	for item in _inventory_attributes.starting_items:
 		# warning-ignore:return_value_discarded
 		add(item)

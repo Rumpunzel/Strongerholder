@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/state_machine_scripts/actions/apply_movement_vector_action_resource.gd"
 }, {
+"base": "MeshInstance",
+"class": "ArrayMeshInstance",
+"language": "GDScript",
+"path": "res://structures/array_mesh_instance.gd"
+}, {
 "base": "StateActionResource",
 "class": "AscendActionResource",
 "language": "GDScript",
@@ -899,6 +904,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/fuzzers/StringFuzzer.gd"
 }, {
+"base": "StaticBody",
+"class": "Structure",
+"language": "GDScript",
+"path": "res://structures/structure.gd"
+}, {
 "base": "ObjectResource",
 "class": "StructureResource",
 "language": "GDScript",
@@ -993,6 +1003,7 @@ _global_script_class_icons={
 "AnyBuildInTypeArgumentMatcher": "",
 "AnyClazzArgumentMatcher": "",
 "ApplyMovementVectorActionResource": "",
+"ArrayMeshInstance": "",
 "AscendActionResource": "",
 "ChainedArgumentMatcher": "",
 "Character": "res://editor_tools/class_icons/spatials/icon_barbute.svg",
@@ -1163,6 +1174,7 @@ _global_script_class_icons={
 "StateTransition": "",
 "StopMovementActionResource": "",
 "StringFuzzer": "",
+"Structure": "",
 "StructureResource": "",
 "TimeElapsedConditionResource": "",
 "TimeElapsedRandomConditionResource": "",

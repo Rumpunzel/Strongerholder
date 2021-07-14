@@ -38,15 +38,18 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0, 
 
 [node name="Tree" parent="NavigationMeshInstance/WorldGrid" index="3" instance=ExtResource( 7 )]
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 6, 0, -10 )
+_mesh_index = 1
 
 [node name="Tree_2" parent="NavigationMeshInstance/WorldGrid" index="4" instance=ExtResource( 7 )]
 transform = Transform( -0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0, 0, 9 )
 
 [node name="Tree_3" parent="NavigationMeshInstance/WorldGrid" index="5" instance=ExtResource( 7 )]
 transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -13, 0, -5 )
+_mesh_index = 2
 
 [node name="Tree_4" parent="NavigationMeshInstance/WorldGrid" index="6" instance=ExtResource( 7 )]
 transform = Transform( 0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866026, 15, 0, 0 )
+_mesh_index = 3
 
 [node name="Floor" type="StaticBody" parent="." index="2"]
 collision_mask = 0
