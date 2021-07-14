@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://quaternius/Ultimate Nature Pack/GLB/CommonTree_5.glb" type="PackedScene" id=1]
+
+[node name="CommonTree_5" instance=ExtResource( 1 )]

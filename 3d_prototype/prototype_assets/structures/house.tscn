@@ -1,26 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://quaternius/Medieval Village Pack/Buildings/OBJ/House_1.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://structures/models/city/house_1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://structures/structure.gd" type="Script" id=2]
+[ext_resource path="res://structures/resources/city/house.tres" type="Resource" id=3]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 3, 5, 3 )
 
 [node name="House" type="StaticBody"]
 collision_layer = 8
+script = ExtResource( 2 )
+_structure_resource = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
 shape = SubResource( 1 )
 
-[node name="House_1" type="MeshInstance" parent="."]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-material/4 = null
-material/5 = null
-material/6 = null
-material/7 = null
-material/8 = null
+[node name="House_1" parent="." instance=ExtResource( 1 )]

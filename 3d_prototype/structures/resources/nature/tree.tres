@@ -1,8 +1,13 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://structures/structure_resource.gd" type="Script" id=1]
+[ext_resource path="res://prototype_assets/structures/icons/tree.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
 name = "Tree"
+icon = ExtResource( 2 )
 _scene = "res://prototype_assets/structures/tree.tscn"
+x_dimension = 1
+y_dimension = 1
+z_dimension = 1
