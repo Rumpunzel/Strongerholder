@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://ui/hud/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/game_hud/game_hud.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://prototype_assets/gui/game_icons/equip.png" type="Texture" id=9]
 [ext_resource path="res://prototype_assets/gui/game_icons/use.png" type="Texture" id=10]
 [ext_resource path="res://prototype_assets/gui/game_icons/drop.png" type="Texture" id=11]
+[ext_resource path="res://ui/hud/game_hud/build_hud/build_hud.gd" type="Script" id=12]
 
 [node name="GameHUD" type="Control"]
 anchor_right = 1.0
@@ -115,7 +116,25 @@ is_submenu = true
 circle_coverage = 0.064
 animation_speed_factor = 0.1
 
+[node name="BuildHUD" type="Popup" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 90.0
+margin_bottom = -20.0
+rect_min_size = Vector2( 110, 0 )
+rect_pivot_offset = Vector2( -140, 0 )
+popup_exclusive = true
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
 [connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
+[connection signal="about_to_show" from="BuildHUD" to="InventoryHUD" method="close_menu"]
