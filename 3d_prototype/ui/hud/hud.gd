@@ -3,8 +3,6 @@ extends CanvasLayer
 
 export(PackedScene) var _game_hud_scene
 
-var _game_hud: GameHUD
-
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
@@ -15,9 +13,9 @@ func _exit_tree() -> void:
 
 
 func _on_game_started() -> void:
-	if _game_hud:
-		remove_child(_game_hud)
-		_game_hud.queue_free()
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()
 	
-	_game_hud = _game_hud_scene.instance()
-	add_child(_game_hud)
+	var game_hud: GameHUD = _game_hud_scene.instance()
+	add_child(game_hud)

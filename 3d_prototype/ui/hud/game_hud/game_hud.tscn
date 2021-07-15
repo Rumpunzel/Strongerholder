@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://ui/hud/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/game_hud/game_hud.gd" type="Script" id=2]
@@ -12,6 +12,11 @@
 [ext_resource path="res://prototype_assets/gui/game_icons/use.png" type="Texture" id=10]
 [ext_resource path="res://prototype_assets/gui/game_icons/drop.png" type="Texture" id=11]
 [ext_resource path="res://ui/hud/game_hud/build_hud/build_hud.gd" type="Script" id=12]
+[ext_resource path="res://ui/hud/game_hud/build_hud/build_hud_item.tscn" type="PackedScene" id=13]
+[ext_resource path="res://structures/resources/city/house.tres" type="Resource" id=14]
+[ext_resource path="res://structures/resources/city/props/campfire.tres" type="Resource" id=15]
+[ext_resource path="res://structures/resources/nature/tree.tres" type="Resource" id=16]
+[ext_resource path="res://structures/resources/city/bell_tower.tres" type="Resource" id=17]
 
 [node name="GameHUD" type="Control"]
 anchor_right = 1.0
@@ -132,9 +137,14 @@ script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+_build_item_scene = ExtResource( 13 )
+_buildable_structures = [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 17 ) ]
 
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
+[connection signal="about_to_show" from="EquipmentHUD" to="BuildHUD" method="close_menu"]
 [connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
+[connection signal="about_to_show" from="InventoryHUD" to="BuildHUD" method="close_menu"]
+[connection signal="about_to_show" from="BuildHUD" to="EquipmentHUD" method="close_menu"]
 [connection signal="about_to_show" from="BuildHUD" to="InventoryHUD" method="close_menu"]

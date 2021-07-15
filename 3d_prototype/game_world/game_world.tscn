@@ -13,4 +13,6 @@ layer = 4
 script = ExtResource( 5 )
 _game_hud_scene = ExtResource( 1 )
 
+[node name="GameHUD" parent="HUD" instance=ExtResource( 1 )]
+
 [node name="SampleScene" parent="." instance=ExtResource( 2 )]
