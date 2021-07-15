@@ -1,13 +1,14 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://prototype_assets/structures/icons/house.png" type="Texture" id=1]
 [ext_resource path="res://structures/structure_resource.gd" type="Script" id=2]
+[ext_resource path="res://structures/resources/dimensions/3_5_3_dimension.tres" type="Shape" id=3]
+[ext_resource path="res://structures/models/city/house_1.tscn" type="PackedScene" id=4]
 
 [resource]
 script = ExtResource( 2 )
 name = "House"
 icon = ExtResource( 1 )
 _scene = "res://prototype_assets/structures/house.tscn"
-x_dimension = 3
-y_dimension = 5
-z_dimension = 3
+model = ExtResource( 4 )
+shape = ExtResource( 3 )

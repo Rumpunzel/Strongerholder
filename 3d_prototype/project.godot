@@ -69,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/hud/game_hud/build_hud/build_hud_item.gd"
 }, {
+"base": "Spatial",
+"class": "BuildingPlacer",
+"language": "GDScript",
+"path": "res://ui/hud/game_hud/build_hud/building_placer.gd"
+}, {
 "base": "GdUnitArgumentMatcher",
 "class": "ChainedArgumentMatcher",
 "language": "GDScript",
@@ -634,6 +639,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/asserts/GdUnitVector3AssertImpl.gd"
 }, {
+"base": "Spatial",
+"class": "GroundCheck",
+"language": "GDScript",
+"path": "res://ui/hud/game_hud/build_hud/ground_check.gd"
+}, {
 "base": "StateActionResource",
 "class": "GroundGravityActionResource",
 "language": "GDScript",
@@ -1022,6 +1032,7 @@ _global_script_class_icons={
 "AscendActionResource": "",
 "BuildHUD": "",
 "BuildHUDItem": "",
+"BuildingPlacer": "",
 "ChainedArgumentMatcher": "",
 "Character": "res://editor_tools/class_icons/spatials/icon_barbute.svg",
 "CharacterInventory": "res://editor_tools/class_icons/spatials/icon_knapsack.svg",
@@ -1135,6 +1146,7 @@ _global_script_class_icons={
 "GdUnitVector2AssertImpl": "",
 "GdUnitVector3Assert": "",
 "GdUnitVector3AssertImpl": "",
+"GroundCheck": "",
 "GroundGravityActionResource": "",
 "HUD": "",
 "HasHitHeadConditionResource": "",

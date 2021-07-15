@@ -367,9 +367,9 @@ func _handle_mouse_buttons(event: InputEventMouseButton) -> void:
 		elif event.button_index == BUTTON_WHEEL_UP:
 			_select_prev()
 			get_tree().set_input_as_handled()
-		else:
-			_activate_selected()
-			get_tree().set_input_as_handled()
+	else:
+		_activate_selected()
+		get_tree().set_input_as_handled()
 #	elif _state == MenuState.OPEN and not _is_wheel_button(event):
 #		var msecs_since_opened := OS.get_ticks_msec() - _msecs_at_opened
 #		if msecs_since_opened > mouse_release_timeout:

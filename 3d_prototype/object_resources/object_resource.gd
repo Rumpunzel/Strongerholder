@@ -3,7 +3,7 @@ extends Resource
 
 # warning-ignore-all:unused_class_variable
 export var name: String
-export(Texture) var icon
+export(Texture) var icon: Texture
 
 export(String, FILE, "*.tscn") var _scene
 

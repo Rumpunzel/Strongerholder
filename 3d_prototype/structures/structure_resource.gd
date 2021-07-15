@@ -1,8 +1,12 @@
 class_name StructureResource
 extends ObjectResource
 
-export(int, 1, 10) var x_dimension := 1
-export(int, 1, 10) var y_dimension := 1
-export(int, 1, 10) var z_dimension := 1
+export(PackedScene) var model: PackedScene
+export(BoxShape) var shape: BoxShape = preload("res://structures/resources/dimensions/1_1_1_dimension.tres")
 
-export(PackedScene) var model
+
+func place_at(position: Vector3, y_rotation := 0.0) -> Spatial:
+	var spawned_node := spawn()
+	print(spawned_node.name + " placed")
+	Events.gameplay.emit_signal("building_placed", spawned_node, position, y_rotation)
+	return spawned_node

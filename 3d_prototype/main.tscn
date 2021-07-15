@@ -9,11 +9,11 @@
 pause_mode = 2
 script = ExtResource( 1 )
 
-[node name="SavingAndLoading" type="Node" parent="."]
-script = ExtResource( 2 )
-_default_scene = "res://game_world/scenes/sample_scene.tscn"
-
 [node name="GameWorld" parent="." instance=ExtResource( 3 )]
 
 [node name="GUI" parent="." instance=ExtResource( 4 )]
 layer = 16
+
+[node name="SavingAndLoading" type="Node" parent="."]
+script = ExtResource( 2 )
+_default_scene = "res://game_world/scenes/sample_scene.tscn"

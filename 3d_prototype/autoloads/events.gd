@@ -36,7 +36,12 @@ class GameplayChannel:
 	signal scene_unloaded(scene)
 	
 	# Spawning
-	signal node_spawned(node, position)
+	signal node_spawned(node, position, random_rotation)
+	signal building_placed(structure, position, y_rotation)
+	
+	# Building
+	signal building_placement_confirmed()
+	signal building_placement_cancelled()
 
 
 class PlayerChannel:

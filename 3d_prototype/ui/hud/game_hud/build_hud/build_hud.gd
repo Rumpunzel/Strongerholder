@@ -6,6 +6,8 @@ export(Array, Resource) var _buildable_structures := [ ]
 
 var _items := [ ]
 
+onready var _placer: BuildingPlacer = $BuildingPlacer
+
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
@@ -39,8 +41,10 @@ func _initialize_items() -> void:
 	
 	_set_items(_items)
 
-func _on_item_selected(inventory_item: BuildHUDItem, submenu_item: BuildHUDItem) -> void:
-	print("building")
+func _on_item_selected(inventory_item: BuildHUDItem, _submenu_item: BuildHUDItem) -> void:
+	_placer.current_structure = inventory_item.structure_resource
+	close_menu()
+
 
 func _free_items() -> void:
 	for item in _items:

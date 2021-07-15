@@ -45,7 +45,9 @@ rings = 8
 [sub_resource type="SphereShape" id=7]
 radius = 5.0
 
-[node name="Campfire" type="StaticBody"]
+[node name="Campfire" type="StaticBody" groups=[
+"Persist",
+]]
 collision_layer = 8
 script = ExtResource( 2 )
 _structure_resource = ExtResource( 3 )
@@ -66,7 +68,6 @@ pause_mode = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 amount = 32
 lifetime = 2.0
-preprocess = 2.0
 visibility_aabb = AABB( -1.5, -0.1, -1.5, 3, 3, 3 )
 process_material = SubResource( 4 )
 draw_pass_1 = SubResource( 6 )

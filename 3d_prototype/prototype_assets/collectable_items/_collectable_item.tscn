@@ -7,7 +7,7 @@
 "Persist",
 ]]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 15
 continuous_cd = true
 script = ExtResource( 1 )
 

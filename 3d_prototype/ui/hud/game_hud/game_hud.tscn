@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://ui/hud/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/game_hud/game_hud.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://structures/resources/city/props/campfire.tres" type="Resource" id=15]
 [ext_resource path="res://structures/resources/nature/tree.tres" type="Resource" id=16]
 [ext_resource path="res://structures/resources/city/bell_tower.tres" type="Resource" id=17]
+[ext_resource path="res://ui/hud/game_hud/build_hud/building_placer.tscn" type="PackedScene" id=18]
 
 [node name="GameHUD" type="Control"]
 anchor_right = 1.0
@@ -140,11 +141,13 @@ __meta__ = {
 _build_item_scene = ExtResource( 13 )
 _buildable_structures = [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 17 ) ]
 
+[node name="BuildingPlacer" parent="BuildHUD" instance=ExtResource( 18 )]
+
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
 [connection signal="about_to_show" from="EquipmentHUD" to="BuildHUD" method="close_menu"]
-[connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
+[connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
 [connection signal="about_to_show" from="InventoryHUD" to="BuildHUD" method="close_menu"]
+[connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
 [connection signal="about_to_show" from="BuildHUD" to="EquipmentHUD" method="close_menu"]
 [connection signal="about_to_show" from="BuildHUD" to="InventoryHUD" method="close_menu"]
