@@ -78,6 +78,7 @@ func _set_current_structure(new_structure: StructureResource) -> void:
 	if _model:
 		remove_child(_model)
 		_model.queue_free()
+		_model = null
 	
 	if is_not_null:
 		var new_shape: BoxShape = current_structure.shape.duplicate()

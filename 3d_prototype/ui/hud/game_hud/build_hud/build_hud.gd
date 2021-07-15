@@ -29,6 +29,7 @@ func _on_toggled() -> void:
 		_initialize_items()
 	
 	if _state == MenuState.CLOSED:
+		Events.gameplay.emit_signal("building_placement_cancelled")
 		open_menu(get_viewport_rect().size / 2.0)
 	elif _state == MenuState.OPEN:
 		close_menu()
