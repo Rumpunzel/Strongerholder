@@ -7,16 +7,16 @@
 [sub_resource type="SphereShape" id=1]
 radius = 0.75
 
-[sub_resource type="SphereShape" id=7]
+[sub_resource type="SphereShape" id=2]
 radius = 5.0
 
-[sub_resource type="Curve" id=2]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -5.91505, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=3]
-curve = SubResource( 2 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=5]
 lifetime_randomness = 0.5
 emission_shape = 1
 emission_sphere_radius = 0.2
@@ -26,9 +26,9 @@ tangential_accel_random = 1.0
 damping = 9.2
 damping_random = 0.1
 scale_random = 0.5
-scale_curve = SubResource( 3 )
+scale_curve = SubResource( 4 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
 flags_do_not_receive_shadows = true
 albedo_color = Color( 1, 0.678431, 0.466667, 1 )
@@ -38,8 +38,8 @@ emission_energy = 5.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=6]
-material = SubResource( 5 )
+[sub_resource type="SphereMesh" id=7]
+material = SubResource( 6 )
 radius = 0.1
 height = 0.2
 radial_segments = 16
@@ -60,15 +60,15 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="HearthArea"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="OmniLight" type="OmniLight" parent="HearthArea"]
 pause_mode = 2
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.999999, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
 light_color = Color( 1, 0.45098, 0, 1 )
 light_energy = 5.0
 shadow_enabled = true
-omni_range = 16.0
+omni_range = 32.0
 
 [node name="Particles" type="Particles" parent="HearthArea"]
 pause_mode = 2
@@ -77,7 +77,7 @@ amount = 32
 lifetime = 2.0
 preprocess = 2.0
 visibility_aabb = AABB( -1.5, -0.1, -1.5, 3, 3, 3 )
-process_material = SubResource( 4 )
-draw_pass_1 = SubResource( 6 )
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 7 )
 
 [node name="Bonfire" parent="." instance=ExtResource( 1 )]

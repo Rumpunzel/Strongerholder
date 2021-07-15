@@ -1223,10 +1223,10 @@ _global_script_class_icons={
 config/name="Strongerholder"
 run/main_scene="res://main.tscn"
 config/icon="res://prototype_assets/fantasy_icon_pack/128/hammer.png"
-config/version_postfix="alpha"
-config/version_patch=1
 config/version_major=0
 config/version_minor=0
+config/version_patch=1
+config/version_postfix="alpha"
 
 [audio]
 

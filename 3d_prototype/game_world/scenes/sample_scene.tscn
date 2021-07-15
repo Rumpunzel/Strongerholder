@@ -52,7 +52,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -7 )
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0, 4 )
 
 [node name="Tree" parent="NavigationMeshInstance" index="4" instance=ExtResource( 7 )]
-transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 6, 0, -10 )
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1, 0, -3 )
 _mesh_index = 1
 
 [node name="Tree_2" parent="NavigationMeshInstance" index="5" instance=ExtResource( 7 )]
