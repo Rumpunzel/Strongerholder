@@ -7,6 +7,9 @@
 [sub_resource type="SphereShape" id=1]
 radius = 0.75
 
+[sub_resource type="SphereShape" id=7]
+radius = 5.0
+
 [sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -5.91505, 0.0, 0, 0 ]
 
@@ -42,9 +45,6 @@ height = 0.2
 radial_segments = 16
 rings = 8
 
-[sub_resource type="SphereShape" id=7]
-radius = 5.0
-
 [node name="Campfire" type="StaticBody" groups=[
 "Persist",
 ]]
@@ -55,7 +55,14 @@ _structure_resource = ExtResource( 3 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
-[node name="OmniLight" type="OmniLight" parent="."]
+[node name="HearthArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="HearthArea"]
+shape = SubResource( 7 )
+
+[node name="OmniLight" type="OmniLight" parent="HearthArea"]
 pause_mode = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.999999, 0 )
 light_color = Color( 1, 0.45098, 0, 1 )
@@ -63,20 +70,14 @@ light_energy = 5.0
 shadow_enabled = true
 omni_range = 16.0
 
-[node name="Particles" type="Particles" parent="."]
+[node name="Particles" type="Particles" parent="HearthArea"]
 pause_mode = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 amount = 32
 lifetime = 2.0
+preprocess = 2.0
 visibility_aabb = AABB( -1.5, -0.1, -1.5, 3, 3, 3 )
 process_material = SubResource( 4 )
 draw_pass_1 = SubResource( 6 )
-
-[node name="HearthArea" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="HearthArea"]
-shape = SubResource( 7 )
 
 [node name="Bonfire" parent="." instance=ExtResource( 1 )]

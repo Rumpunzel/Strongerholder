@@ -1,9 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://game_world/cameras/top_down/top_down_camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_world/scenes/world_scene.gd" type="Script" id=4]
-
-[sub_resource type="MeshLibrary" id=1]
 
 [node name="WorldScene" type="Navigation" groups=[
 "PersistLevel",
@@ -12,16 +10,5 @@ pause_mode = 1
 script = ExtResource( 4 )
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="."]
-
-[node name="GridMap" type="GridMap" parent="NavigationMeshInstance"]
-mesh_library = SubResource( 1 )
-cell_center_x = false
-cell_center_z = false
-data = {
-"cells": PoolIntArray(  )
-}
-__meta__ = {
-"_editor_clip_": 0
-}
 
 [node name="TopDownCamera" parent="." instance=ExtResource( 2 )]
