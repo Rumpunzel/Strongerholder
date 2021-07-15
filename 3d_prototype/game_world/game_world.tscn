@@ -6,6 +6,7 @@
 [ext_resource path="res://ui/hud/hud.gd" type="Script" id=5]
 
 [node name="GameWorld" type="Node"]
+pause_mode = 1
 script = ExtResource( 3 )
 
 [node name="HUD" type="CanvasLayer" parent="."]

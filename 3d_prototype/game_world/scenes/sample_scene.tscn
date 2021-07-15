@@ -26,6 +26,7 @@ uv1_scale = Vector3( 0.5, 0.5, 0.5 )
 uv1_triplanar = true
 
 [node name="SampleScene" instance=ExtResource( 1 )]
+pause_mode = 0
 
 [node name="NavigationMeshInstance" parent="." index="0"]
 navmesh = ExtResource( 10 )
