@@ -47,4 +47,4 @@ class ApplyMovementVectorAction extends StateAction:
 		_character.velocity = new_movement_vector
 		
 		if not horizontal_movement == Vector2.ZERO:
-			_character.look_position = new_movement_vector * 10.0 + _character.translation
+			_character.look_position = new_movement_vector * 100.0 + _character.translation
