@@ -1,16 +1,12 @@
 class_name WorldScene, "res://editor_tools/class_icons/spatials/icon_treasure_map.svg"
 extends Navigation
 
-var _world_grid: WorldGrid
-
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	Events.gameplay.connect("node_spawned", self, "_on_node_spawned")
 	# warning-ignore:return_value_discarded
 	Events.gameplay.connect("building_placed", self, "_on_building_placed")
-	
-	_world_grid = $NavigationMeshInstance/WorldGrid
 
 func _exit_tree() -> void:
 	Events.gameplay.disconnect("node_spawned", self, "_on_node_spawned")
@@ -31,6 +27,6 @@ func _on_node_spawned(node: Spatial, position: Vector3, random_rotation: bool) -
 
 
 func _on_building_placed(structure: Structure, position: Vector3, y_rotation: float) -> void:
-	_world_grid.add_child(structure, true)
+	add_child(structure, true)
 	structure.translation = position
 	structure.rotate_y(y_rotation)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://game_world/scenes/_base_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prototype_assets/structures/house.tscn" type="PackedScene" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://prototype_assets/structures/campfire.tscn" type="PackedScene" id=5]
 [ext_resource path="res://prototype_assets/collectable_items/collectable_axe.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prototype_assets/structures/tree.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game_world/world_grid.gd" type="Script" id=9]
 [ext_resource path="res://game_world/scenes/sample_scene_nav_mesh.tres" type="NavigationMesh" id=10]
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=11]
 
@@ -31,42 +30,39 @@ uv1_triplanar = true
 [node name="NavigationMeshInstance" parent="." index="0"]
 navmesh = ExtResource( 10 )
 
-[node name="WorldGrid" type="Spatial" parent="NavigationMeshInstance" index="0"]
-script = ExtResource( 9 )
-
-[node name="Floor" type="StaticBody" parent="NavigationMeshInstance/WorldGrid" index="0"]
+[node name="Floor" type="StaticBody" parent="NavigationMeshInstance" index="0"]
 collision_mask = 0
 physics_material_override = SubResource( 4 )
 
-[node name="CollisionShape" type="CollisionShape" parent="NavigationMeshInstance/WorldGrid/Floor" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="NavigationMeshInstance/Floor" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="NavigationMeshInstance/WorldGrid/Floor" index="1"]
+[node name="MeshInstance" type="MeshInstance" parent="NavigationMeshInstance/Floor" index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, -4, 1 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
-[node name="BellTower" parent="NavigationMeshInstance/WorldGrid" index="1" instance=ExtResource( 3 )]
+[node name="BellTower" parent="NavigationMeshInstance" index="1" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -7 )
 
-[node name="Campfire" parent="NavigationMeshInstance/WorldGrid" index="2" instance=ExtResource( 5 )]
+[node name="Campfire" parent="NavigationMeshInstance" index="2" instance=ExtResource( 5 )]
 
-[node name="House" parent="NavigationMeshInstance/WorldGrid" index="3" instance=ExtResource( 2 )]
+[node name="House" parent="NavigationMeshInstance" index="3" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 0, 4 )
 
-[node name="Tree" parent="NavigationMeshInstance/WorldGrid" index="4" instance=ExtResource( 7 )]
+[node name="Tree" parent="NavigationMeshInstance" index="4" instance=ExtResource( 7 )]
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 6, 0, -10 )
 _mesh_index = 1
 
-[node name="Tree_2" parent="NavigationMeshInstance/WorldGrid" index="5" instance=ExtResource( 7 )]
+[node name="Tree_2" parent="NavigationMeshInstance" index="5" instance=ExtResource( 7 )]
 transform = Transform( -0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0, 0, 11 )
 
-[node name="Tree_3" parent="NavigationMeshInstance/WorldGrid" index="6" instance=ExtResource( 7 )]
+[node name="Tree_3" parent="NavigationMeshInstance" index="6" instance=ExtResource( 7 )]
 transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -13, 0, -5 )
 _mesh_index = 2
 
-[node name="Tree_4" parent="NavigationMeshInstance/WorldGrid" index="7" instance=ExtResource( 7 )]
+[node name="Tree_4" parent="NavigationMeshInstance" index="7" instance=ExtResource( 7 )]
 transform = Transform( 0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866026, 15, 0, 0 )
 _mesh_index = 3
 

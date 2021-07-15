@@ -994,11 +994,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://object_resources/vitals_resource.gd"
 }, {
-"base": "Spatial",
-"class": "WorldGrid",
-"language": "GDScript",
-"path": "res://game_world/world_grid.gd"
-}, {
 "base": "Navigation",
 "class": "WorldScene",
 "language": "GDScript",
@@ -1217,7 +1212,6 @@ _global_script_class_icons={
 "Vector2Fuzzer": "",
 "Vector3Fuzzer": "",
 "VitalsResource": "",
-"WorldGrid": "",
 "WorldScene": "res://editor_tools/class_icons/spatials/icon_treasure_map.svg",
 "_TestCase": "",
 "_TestSuiteScanner": "",
