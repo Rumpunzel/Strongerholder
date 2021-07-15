@@ -120,12 +120,6 @@ func _store_scene_data(node: Node, save_file: File) -> void:
 	save_file.store_var(node.get_filename())
 	save_file.store_var(node.name)
 	save_file.store_var(node.get_parent().get_path())
-	
-	if node is Spatial:
-		save_file.store_var((node as Spatial).transform)
-	
-	if node is RigidBody:
-		save_file.store_var((node as RigidBody).linear_velocity)
 
 
 func _store_data(children_to_save: Dictionary, save_file: File) -> void:
@@ -175,13 +169,6 @@ func _load_next_scene(scene_path: String, save_file: File, is_level := false) ->
 	
 	var node_name: String = save_file.get_var()
 	var parent_path: String = save_file.get_var()
-	
-	if node is Spatial:
-		var transform: Transform = save_file.get_var()
-		(node as Spatial).transform = transform
-	
-	if node is RigidBody:
-		(node as RigidBody).linear_velocity = save_file.get_var()
 	
 	if node.has_method("save_to_var"):
 		assert(node.has_method("load_from_var"))
