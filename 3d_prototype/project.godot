@@ -69,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/hud/game_hud/build_hud/build_hud_item.gd"
 }, {
+"base": "EventChannelBaseResource",
+"class": "BuildingPlacedEventChannelResource",
+"language": "GDScript",
+"path": "res://event_system/building_placed_event_channel_resource.gd"
+}, {
 "base": "Spatial",
 "class": "BuildingPlacer",
 "language": "GDScript",
@@ -193,6 +198,11 @@ _global_script_classes=[ {
 "class": "EquippableItem",
 "language": "GDScript",
 "path": "res://items/equippable_item.gd"
+}, {
+"base": "Resource",
+"class": "EventChannelBaseResource",
+"language": "GDScript",
+"path": "res://event_system/_event_channel_base_resource.gd"
 }, {
 "base": "Label",
 "class": "FPSLabel",
@@ -754,6 +764,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/main_menu/main_menu_button.gd"
 }, {
+"base": "EventChannelBaseResource",
+"class": "NodeEventChannelResource",
+"language": "GDScript",
+"path": "res://event_system/node_event_channel_resource.gd"
+}, {
+"base": "EventChannelBaseResource",
+"class": "NodeSpawnedEventChannelResource",
+"language": "GDScript",
+"path": "res://event_system/node_spawned_event_channel_resource.gd"
+}, {
 "base": "Resource",
 "class": "ObjectResource",
 "language": "GDScript",
@@ -994,6 +1014,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://object_resources/vitals_resource.gd"
 }, {
+"base": "EventChannelBaseResource",
+"class": "VoidEventChannelResource",
+"language": "GDScript",
+"path": "res://event_system/void_event_channel_resource.gd"
+}, {
 "base": "Navigation",
 "class": "WorldScene",
 "language": "GDScript",
@@ -1027,6 +1052,7 @@ _global_script_class_icons={
 "AscendActionResource": "",
 "BuildHUD": "",
 "BuildHUDItem": "",
+"BuildingPlacedEventChannelResource": "",
 "BuildingPlacer": "",
 "ChainedArgumentMatcher": "",
 "Character": "res://editor_tools/class_icons/spatials/icon_barbute.svg",
@@ -1052,6 +1078,7 @@ _global_script_class_icons={
 "EqualsArgumentMatcher": "",
 "EquipmentHUD": "",
 "EquippableItem": "res://editor_tools/class_icons/spatials/icon_thor_hammer.svg",
+"EventChannelBaseResource": "",
 "FPSLabel": "",
 "Fuzzer": "",
 "FuzzerTool": "",
@@ -1164,6 +1191,8 @@ _global_script_class_icons={
 "Main": "",
 "MainMenu": "",
 "MainMenuButton": "",
+"NodeEventChannelResource": "",
+"NodeSpawnedEventChannelResource": "",
 "ObjectResource": "",
 "PushErrorMonitor": "",
 "RPC": "",
@@ -1212,6 +1241,7 @@ _global_script_class_icons={
 "Vector2Fuzzer": "",
 "Vector3Fuzzer": "",
 "VitalsResource": "",
+"VoidEventChannelResource": "",
 "WorldScene": "res://editor_tools/class_icons/spatials/icon_treasure_map.svg",
 "_TestCase": "",
 "_TestSuiteScanner": "",
@@ -1231,10 +1261,6 @@ config/version_postfix="alpha"
 [audio]
 
 default_bus_layout="res://assets/sounds/default_bus_layout.tres"
-
-[autoload]
-
-Events="*res://autoloads/events.gd"
 
 [debug]
 
