@@ -1,18 +1,22 @@
 class_name WorldScene, "res://editor_tools/class_icons/spatials/icon_treasure_map.svg"
 extends Navigation
 
+export(Resource) var _node_spawned_channel
+export(Resource) var _building_placed_channel
+export(Resource) var _scene_unloaded_channel
+
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.gameplay.connect("node_spawned", self, "_on_node_spawned")
+	_node_spawned_channel.connect("raised", self, "_on_node_spawned")
 	# warning-ignore:return_value_discarded
-	Events.gameplay.connect("building_placed", self, "_on_building_placed")
+	_building_placed_channel.connect("raised", self, "_on_building_placed")
 
 func _exit_tree() -> void:
-	Events.gameplay.disconnect("node_spawned", self, "_on_node_spawned")
-	Events.gameplay.disconnect("building_placed", self, "_on_building_placed")
+	_node_spawned_channel.disconnect("raised", self, "_on_node_spawned")
+	_building_placed_channel.disconnect("raised", self, "_on_building_placed")
 	
-	Events.gameplay.emit_signal("scene_unloaded", self)
+	_scene_unloaded_channel.raise(self)
 
 
 

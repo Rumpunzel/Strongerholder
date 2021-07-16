@@ -4,24 +4,33 @@ extends RadialMenu
 export(PackedScene) var _build_item_scene: PackedScene = null
 export(Array, Resource) var _buildable_structures := [ ]
 
+export(Resource) var _game_paused_channel
+
+export(Resource) var _building_hud_toggled_channel
+export(Resource) var _building_placement_cancelled_channel
+
+
 var _items := [ ]
 
+
 onready var _placer: BuildingPlacer = $BuildingPlacer
+
 
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	connect("item_selected", self, "_on_item_selected")
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_pause_requested", self, "close_menu")
+	_game_paused_channel.connect("raised", self, "close_menu")
 	# warning-ignore:return_value_discarded
-	Events.hud.connect("building_hud_toggled", self, "_on_toggled")
+	_building_hud_toggled_channel.connect("raised", self, "_on_toggled")
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_pause_requested", self, "close_menu")
-	Events.hud.disconnect("building_hud_toggled", self, "_on_toggled")
+	_game_paused_channel.disconnect("raised", self, "close_menu")
+	_building_hud_toggled_channel.disconnect("raised", self, "_on_toggled")
 	
 	_free_items()
+
 
 
 func _on_toggled() -> void:
@@ -29,7 +38,7 @@ func _on_toggled() -> void:
 		_initialize_items()
 	
 	if _state == MenuState.CLOSED:
-		Events.gameplay.emit_signal("building_placement_cancelled")
+		_building_placement_cancelled_channel.raise()
 		open_menu(get_viewport_rect().size / 2.0)
 	elif _state == MenuState.OPEN:
 		close_menu()

@@ -1,28 +1,26 @@
 class_name RegisterPlayerActionResource
 extends StateActionResource
 
-export var _unregister_on_exit := true
+export var unregister_on_exit := true
+
+export(Resource) var player_registered_channel
+export(Resource) var player_unregistered_channel
+
 
 func _create_action() -> StateAction:
-	return RegisterPlayerActions.new(_unregister_on_exit)
+	return RegisterPlayerActions.new()
+
 
 
 class RegisterPlayerActions extends StateAction:
 	var _character: Character
-	var _unregister_on_exit: bool
-	
-	
-	func _init(unregister_on_exit: bool) -> void:
-		_unregister_on_exit = unregister_on_exit
-	
 	
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
 	
-	
 	func on_state_enter() -> void:
-		Events.player.emit_signal("player_registered", _character)
+		origin_resource.player_registered_channel.raise(_character)
 	
 	func on_state_exit() -> void:
-		if _unregister_on_exit:
-			Events.player.emit_signal("player_unregistered", _character)
+		if origin_resource.unregister_on_exit:
+			origin_resource.player_unregistered_channel.raise(_character)

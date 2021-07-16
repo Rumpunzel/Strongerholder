@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://ui/hud/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/game_hud/game_hud.gd" type="Script" id=2]
@@ -18,6 +18,17 @@
 [ext_resource path="res://structures/resources/nature/tree.tres" type="Resource" id=16]
 [ext_resource path="res://structures/resources/city/bell_tower.tres" type="Resource" id=17]
 [ext_resource path="res://ui/hud/game_hud/build_hud/building_placer.tscn" type="PackedScene" id=18]
+[ext_resource path="res://event_system/resources/main/game_paused_channel.tres" type="Resource" id=19]
+[ext_resource path="res://event_system/resources/main/game_continued_channel.tres" type="Resource" id=20]
+[ext_resource path="res://event_system/resources/hud/inventory_hud_toggled_channel.tres" type="Resource" id=21]
+[ext_resource path="res://event_system/resources/hud/building_hud_toggled_channel.tres" type="Resource" id=22]
+[ext_resource path="res://event_system/resources/gameplay/building_placement_cancelled_channel.tres" type="Resource" id=23]
+[ext_resource path="res://event_system/resources/gameplay/building_placement_confirmed_channel.tres" type="Resource" id=24]
+[ext_resource path="res://event_system/resources/hud/inventory_stacks_updated_channel.tres" type="Resource" id=25]
+[ext_resource path="res://event_system/resources/hud/inventory_updated_channel.tres" type="Resource" id=26]
+[ext_resource path="res://event_system/resources/hud/equipment_hud_toggled_channel.tres" type="Resource" id=27]
+[ext_resource path="res://event_system/resources/hud/equipment_updated_channel.tres" type="Resource" id=28]
+[ext_resource path="res://event_system/resources/hud/equipment_stacks_updated_channel.tres" type="Resource" id=29]
 
 [node name="GameHUD" type="Control"]
 anchor_right = 1.0
@@ -27,6 +38,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+_game_paused_channel = ExtResource( 19 )
+_game_continued_channel = ExtResource( 20 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -80,6 +93,10 @@ __meta__ = {
 center_angle = 180.0
 clock_wise = false
 _item_scene = ExtResource( 8 )
+_game_paused_channel = ExtResource( 19 )
+_equipment_hud_toggled_channel = ExtResource( 27 )
+_equipment_stacks_updated_channel = ExtResource( 29 )
+_equipment_updated_channel = ExtResource( 28 )
 
 [node name="InventoryHUD" type="Popup" parent="."]
 anchor_left = 0.5
@@ -99,10 +116,14 @@ __meta__ = {
 }
 submenu_node = NodePath("SubMenu")
 _item_scene = ExtResource( 8 )
+_game_paused_channel = ExtResource( 19 )
 _use_icon = ExtResource( 10 )
 _equip_icon = ExtResource( 9 )
 _unequip_icon = ExtResource( 5 )
 _drop_icon = ExtResource( 11 )
+_inventory_hud_toggled_channel = ExtResource( 21 )
+_inventory_stacks_updated_channel = ExtResource( 25 )
+_inventory_updated_channel = ExtResource( 26 )
 
 [node name="SubMenu" type="Popup" parent="InventoryHUD"]
 anchor_left = 0.5
@@ -140,8 +161,13 @@ __meta__ = {
 }
 _build_item_scene = ExtResource( 13 )
 _buildable_structures = [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 17 ) ]
+_game_paused_channel = ExtResource( 19 )
+_building_hud_toggled_channel = ExtResource( 22 )
+_building_placement_cancelled_channel = ExtResource( 23 )
 
 [node name="BuildingPlacer" parent="BuildHUD" instance=ExtResource( 18 )]
+_building_placement_confirmed_channel = ExtResource( 24 )
+_building_placement_cancelled_channel = ExtResource( 23 )
 
 [node name="Tween" type="Tween" parent="."]
 

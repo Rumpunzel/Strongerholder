@@ -9,17 +9,26 @@ const SEPARATOR := "|"
 
 export(String, FILE, "*.tscn") var _default_scene
 
+export(Resource) var _game_save_started_channel
+export(Resource) var _game_save_finished_channel
+
+export(Resource) var _game_load_started_channel
+export(Resource) var _game_load_finished_channel
+
+export(Resource) var _scene_loaded_channel
+export(Resource) var _new_game_channel
+
 
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_save_started", self, "_on_game_save_started")
+	_game_save_started_channel.connect("raised", self, "_on_game_save_started")
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_load_started", self, "_on_game_load_started")
+	_game_load_started_channel.connect("raised", self, "_on_game_load_started")
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_save_started", self, "_on_game_save_started")
-	Events.main.disconnect("game_load_started", self, "_on_game_load_started")
+	_game_save_started_channel.disconnect("raised", self, "_on_game_save_started")
+	_game_load_started_channel.disconnect("raised", self, "_on_game_load_started")
 
 
 
@@ -49,10 +58,10 @@ func _on_game_save_started() -> void:
 	_store_data(child_nodes_to_save, save_file)
 	
 	save_file.close()
-	Events.main.emit_signal("game_save_finished")
+	_game_save_finished_channel.raise()
 
 
-func _on_game_load_started(start_new_game := false) -> void:
+func _on_game_load_started(start_new_game: bool) -> void:
 	var save_file := File.new()
 	
 	if save_file.file_exists(SAVE_LOCATION) or start_new_game:
@@ -80,17 +89,17 @@ func _on_game_load_started(start_new_game := false) -> void:
 			assert(packed_scene)
 			
 			var scene: WorldScene = packed_scene.instance()
-			Events.gameplay.emit_signal("scene_loaded", scene)
+			_scene_loaded_channel.raise(scene)
 			
-			Events.gameplay.emit_signal("new_game")
+			_new_game_channel.raise()
 	
 	else:
 		# Simply start the already loaded scene
-		Events.gameplay.emit_signal("new_game")
+		_new_game_channel.raise()
 	
 	
 	save_file.close()
-	Events.main.emit_signal("game_load_finished")
+	_game_load_finished_channel.raise()
 
 
 

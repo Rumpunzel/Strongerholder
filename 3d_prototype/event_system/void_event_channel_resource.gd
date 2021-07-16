@@ -3,8 +3,8 @@ extends EventChannelBaseResource
 
 signal raised()
 
-func raise_event() -> void:
+func raise() -> void:
 	if _has_connections(RAISED):
 		emit_signal(RAISED)
 	else:
-		printerr("signal %s on %s not connected to anything, emission skipped" % [ RAISED, resource_name ])
+		printerr("signal %s on %s not connected to anything, emission skipped" % [ RAISED, resource_path ])

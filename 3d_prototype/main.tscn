@@ -1,13 +1,33 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://persistence/saving_and_loading.gd" type="Script" id=2]
 [ext_resource path="res://game_world/game_world.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/gui/gui.tscn" type="PackedScene" id=4]
+[ext_resource path="res://event_system/resources/main/game_save_started_channel.tres" type="Resource" id=5]
+[ext_resource path="res://event_system/resources/main/game_save_finished_channel.tres" type="Resource" id=6]
+[ext_resource path="res://event_system/resources/main/game_load_started_channel.tres" type="Resource" id=7]
+[ext_resource path="res://event_system/resources/main/game_load_finished_channel.tres" type="Resource" id=8]
+[ext_resource path="res://event_system/resources/gameplay/new_game_channel.tres" type="Resource" id=9]
+[ext_resource path="res://event_system/resources/gameplay/scene_loaded_channel.tres" type="Resource" id=10]
+[ext_resource path="res://event_system/resources/main/game_pause_requested_channel.tres" type="Resource" id=11]
+[ext_resource path="res://event_system/resources/main/game_continue_requested_channel.tres" type="Resource" id=12]
+[ext_resource path="res://event_system/resources/main/game_paused_channel.tres" type="Resource" id=13]
+[ext_resource path="res://event_system/resources/main/game_started_channel.tres" type="Resource" id=14]
+[ext_resource path="res://event_system/resources/main/game_quit_channel.tres" type="Resource" id=15]
+[ext_resource path="res://event_system/resources/main/game_continued_channel.tres" type="Resource" id=16]
 
 [node name="Main" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
+_game_pause_requested_channel = ExtResource( 11 )
+_game_continue_requested_channel = ExtResource( 12 )
+_game_quit_channel = ExtResource( 15 )
+_game_load_started_channel = ExtResource( 7 )
+_game_load_finished_channel = ExtResource( 8 )
+_game_paused_channel = ExtResource( 13 )
+_game_continued_channel = ExtResource( 16 )
+_game_started_channel = ExtResource( 14 )
 
 [node name="GameWorld" parent="." instance=ExtResource( 3 )]
 
@@ -17,3 +37,9 @@ layer = 16
 [node name="SavingAndLoading" type="Node" parent="."]
 script = ExtResource( 2 )
 _default_scene = "res://game_world/scenes/sample_scene.tscn"
+_game_save_started_channel = ExtResource( 5 )
+_game_save_finished_channel = ExtResource( 6 )
+_game_load_started_channel = ExtResource( 7 )
+_game_load_finished_channel = ExtResource( 8 )
+_scene_loaded_channel = ExtResource( 10 )
+_new_game_channel = ExtResource( 9 )

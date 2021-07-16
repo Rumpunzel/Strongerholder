@@ -3,13 +3,15 @@ extends CanvasLayer
 
 export(PackedScene) var _game_hud_scene
 
+export(Resource) var _game_started_channel
+
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_started", self, "_on_game_started")
+	_game_started_channel.connect("raised", self, "_on_game_started")
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_started", self, "_on_game_started")
+	_game_started_channel.disconnect("raised", self, "_on_game_started")
 
 
 func _on_game_started() -> void:

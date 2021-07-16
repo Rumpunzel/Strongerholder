@@ -5,6 +5,8 @@ extends ObjectResource
 export(String, FILE, "*.tscn") var _equipped_scene
 export(int, 0, 64) var stack_size = 1
 
+export(Resource) var _node_spawned_channel
+
 
 func use() -> void:
 	# TODO: implement use function
@@ -22,7 +24,8 @@ func attach_to(node: Spatial) -> Spatial:
 func drop_at(position: Vector3, random_rotation := true) -> Spatial:
 	var spawned_node := spawn()
 	print(spawned_node.name + " spawned")
-	Events.gameplay.emit_signal("node_spawned", spawned_node, position, random_rotation)
+	_node_spawned_channel.raise(spawned_node, position, random_rotation)
+	
 	return spawned_node
 
 

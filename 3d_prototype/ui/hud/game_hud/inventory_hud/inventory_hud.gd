@@ -1,6 +1,7 @@
 class_name InventoryHUD
 extends ItemHUDBASE
 
+
 enum SubMenuModes {
 	USE,
 	EQUIP,
@@ -8,24 +9,31 @@ enum SubMenuModes {
 	DROP,
 }
 
+
 export(Texture) var _use_icon
 export(Texture) var _equip_icon
 export(Texture) var _unequip_icon   
 export(Texture) var _drop_icon
 
+export(Resource) var _inventory_hud_toggled_channel
+export(Resource) var _inventory_stacks_updated_channel
+export(Resource) var _inventory_updated_channel
+
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.hud.connect("inventory_stacks_updated", self, "_on_inventory_stacks_updated")
+	_inventory_hud_toggled_channel.connect("raised", self, "_on_toggled")
 	# warning-ignore:return_value_discarded
-	Events.hud.connect("inventory_updated", self, "_update_items")
+	_inventory_stacks_updated_channel.connect("raised", self, "_on_inventory_stacks_updated")
 	# warning-ignore:return_value_discarded
-	Events.hud.connect("inventory_hud_toggled", self, "_on_toggled")
+	_inventory_updated_channel.connect("raised", self, "_update_items")
+	
 
 func _exit_tree() -> void:
-	Events.hud.disconnect("inventory_stacks_updated", self, "_on_inventory_stacks_updated")
-	Events.hud.disconnect("inventory_updated", self, "_update_items")
-	Events.hud.disconnect("inventory_hud_toggled", self, "_on_toggled")
+	_inventory_hud_toggled_channel.disconnect("raised", self, "_on_toggled")
+	_inventory_stacks_updated_channel.disconnect("raised", self, "_on_inventory_stacks_updated")
+	_inventory_updated_channel.disconnect("raised", self, "_update_items")
+
 
 
 func _initialize_items(new_inventory: CharacterInventory) -> void:

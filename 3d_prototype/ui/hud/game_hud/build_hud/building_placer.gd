@@ -4,10 +4,15 @@ extends Spatial
 
 export var _grid_size := 2.0
 
+export(Resource) var _building_placement_confirmed_channel
+export(Resource) var _building_placement_cancelled_channel
+
+
 var current_structure: StructureResource setget _set_current_structure
 
 var _objects_area := [ ]
 var _model: Spatial = null
+
 
 onready var _building_area: Area = $BuildingArea
 onready var _collision_shape: CollisionShape = $BuildingArea/CollisionShape
@@ -20,13 +25,13 @@ onready var _tween: Tween = $Tween
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.gameplay.connect("building_placement_confirmed", self, "_on_building_placement_confirmed")
+	_building_placement_confirmed_channel.connect("raised", self, "_on_building_placement_confirmed")
 	# warning-ignore:return_value_discarded
-	Events.gameplay.connect("building_placement_cancelled", self, "_set_current_structure", [ null ])
+	_building_placement_cancelled_channel.connect("raised", self, "_set_current_structure", [ null ])
 
 func _exit_tree() -> void:
-	Events.gameplay.disconnect("building_placement_confirmed", self, "_on_building_placement_confirmed")
-	Events.gameplay.disconnect("building_placement_cancelled", self, "_set_current_structure")
+	_building_placement_confirmed_channel.disconnect("raised", self, "_on_building_placement_confirmed")
+	_building_placement_cancelled_channel.disconnect("raised", self, "_set_current_structure")
 
 
 func _ready() -> void:

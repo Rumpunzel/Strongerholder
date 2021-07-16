@@ -1,20 +1,30 @@
 class_name EquipmentHUD
 extends ItemHUDBASE
 
+
+export(Resource) var _equipment_hud_toggled_channel
+export(Resource) var _equipment_stacks_updated_channel
+export(Resource) var _equipment_updated_channel
+
+
 var _equipments := [ ]
+
 
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.hud.connect("equipment_stacks_updated", self, "_on_inventory_stacks_updated")
+	_equipment_hud_toggled_channel.connect("raised", self, "_on_toggled")
 	# warning-ignore:return_value_discarded
-	Events.hud.connect("equipment_updated", self, "_update_items")
+	_equipment_stacks_updated_channel.connect("raised", self, "_on_inventory_stacks_updated")
 	# warning-ignore:return_value_discarded
-	Events.hud.connect("equipment_hud_toggled", self, "_on_toggled")
+	_equipment_updated_channel.connect("raised", self, "_update_items")
+	
 
 func _exit_tree() -> void:
-	Events.hud.disconnect("equipment_stacks_updated", self, "_on_inventory_stacks_updated")
-	Events.hud.disconnect("equipment_hud_toggled", self, "_on_toggled")
+	_equipment_hud_toggled_channel.disconnect("raised", self, "_on_toggled")
+	_equipment_stacks_updated_channel.disconnect("raised", self, "_on_inventory_stacks_updated")
+	_equipment_updated_channel.disconnect("raised", self, "_update_items")
+
 
 
 func _on_toggled(new_inventory: CharacterInventory) -> void:

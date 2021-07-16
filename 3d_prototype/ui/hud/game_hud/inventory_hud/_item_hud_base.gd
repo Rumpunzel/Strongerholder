@@ -1,22 +1,28 @@
 class_name ItemHUDBASE
 extends RadialMenu
 
-export(PackedScene) var _item_scene: PackedScene = null            
+
+export(PackedScene) var _item_scene: PackedScene = null    
+
+export(Resource) var _game_paused_channel
+		
 
 var _inventory: CharacterInventory
 var _items := [ ]
+
 
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	connect("item_selected", self, "_on_item_selected")
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_pause_requested", self, "close_menu")
+	_game_paused_channel.connect("raised", self, "close_menu")
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_pause_requested", self, "close_menu")
+	_game_paused_channel.disconnect("raised", self, "close_menu")
 	
 	_free_items()
+
 
 
 func _on_toggled(new_inventory: CharacterInventory) -> void:

@@ -1,45 +1,57 @@
 class_name Main
 extends Node
 
+export(Resource) var _game_pause_requested_channel
+export(Resource) var _game_continue_requested_channel
+export(Resource) var _game_quit_channel
+
+export(Resource) var _game_load_started_channel
+export(Resource) var _game_load_finished_channel
+
+export(Resource) var _game_paused_channel
+export(Resource) var _game_continued_channel
+export(Resource) var _game_started_channel
+
+
 
 func _enter_tree() -> void:
 	randomize()
 	
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_pause_requested", self, "_on_game_pause_requested")
+	_game_pause_requested_channel.connect("raised", self, "_on_game_pause_requested")
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_continue_requested", self, "_on_game_continue_requested")
+	_game_continue_requested_channel.connect("raised", self, "_on_game_continue_requested")
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_quit", self, "_on_game_quit")
+	_game_quit_channel.connect("raised", self, "_on_game_quit")
 	
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_load_finished", self, "_on_game_load_finished")
+	_game_load_finished_channel.connect("raised", self, "_on_game_load_finished")
 
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_pause_requested", self, "_on_game_pause_requested")
-	Events.main.disconnect("game_continue_requested", self, "_on_game_continue_requested")
-	Events.main.disconnect("game_quit", self, "_on_game_quit")
-	Events.main.disconnect("game_load_finished", self, "_on_game_load_finished")
+	_game_pause_requested_channel.disconnect("raised", self, "_on_game_pause_requested")
+	_game_continue_requested_channel.disconnect("raised", self, "_on_game_continue_requested")
+	_game_quit_channel.disconnect("raised", self, "_on_game_quit")
+	_game_load_finished_channel.disconnect("raised", self, "_on_game_load_finished")
 
 
 func _ready() -> void:
-	Events.main.emit_signal("game_load_started")
+	_game_load_started_channel.raise(false)
 	_on_game_pause_requested()
 
 
 
 func _on_game_pause_requested() -> void:
 	get_tree().paused = true
-	Events.main.emit_signal("game_paused")
+	_game_paused_channel.raise()
 
 func _on_game_continue_requested() -> void:
 	get_tree().paused = false
-	Events.main.emit_signal("game_continued")
+	_game_continued_channel.raise()
 
 func _on_game_quit() -> void:
 	get_tree().quit()
 
 
 func _on_game_load_finished() -> void:
-	Events.main.emit_signal("game_started")
+	_game_started_channel.raise()

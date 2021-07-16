@@ -1,22 +1,38 @@
 class_name MainMenu
 extends GUILayerBase
 
+
 const QUIT_GAME_QUESTION: String = "Quit The Game?"
 
+
 export var _animation_distance: float = 200.0
+
+export(Resource) var _game_paused_channel
+export(Resource) var _game_continued_channel
+
+export(Resource) var _game_pause_requested_channel
+export(Resource) var _game_continue_requested_channel
+
+export(Resource) var _game_save_started_channel
+export(Resource) var _game_load_started_channel
+
+export(Resource) var _game_quit_channel
+
 
 onready var _menu_container: Control = $MenuContainer
 
 
+
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_paused", self, "_on_game_paused")
+	_game_paused_channel.connect("raised", self, "_on_game_paused")
 	# warning-ignore:return_value_discarded
-	Events.main.connect("game_continued", self, "_on_game_continued")
+	_game_continued_channel.connect("raised", self, "_on_game_continued")
 
 func _exit_tree() -> void:
-	Events.main.disconnect("game_paused", self, "_on_game_paused")
-	Events.main.disconnect("game_continued", self, "_on_game_continued")
+	_game_paused_channel.disconnect("raised", self, "_on_game_paused")
+	_game_continued_channel.disconnect("raised", self, "_on_game_continued")
+
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -25,7 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if visible:
 			_on_start_pressed()
 		else:
-			Events.main.emit_signal("game_pause_requested")
+			_game_pause_requested_channel.raise()
 
 
 func _on_game_paused() -> void:
@@ -36,16 +52,16 @@ func _on_game_continued() -> void:
 
 
 func _on_start_pressed() -> void:
-	Events.main.emit_signal("game_continue_requested")
+	_game_continue_requested_channel.raise()
 
 func _on_restart_pressed():
-	Events.main.emit_signal("game_load_started", true)
+	_game_load_started_channel.raise(true)
 
 func _on_save_pressed():
-	Events.main.emit_signal("game_save_started")
+	_game_save_started_channel.raise()
 
 func _on_load_pressed():
-	Events.main.emit_signal("game_load_started")
+	_game_load_started_channel.raise(false)
 
 func _on_quit_pressed() -> void:
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
@@ -56,7 +72,7 @@ func _on_quit_pressed() -> void:
 	# warning-ignore:return_value_discarded
 	dialog.get_cancel().connect("pressed", dialog, "queue_free")
 	# warning-ignore:return_value_discarded
-	dialog.connect("confirmed", Events.main, "emit_signal", [ "game_quit" ])
+	dialog.connect("confirmed", _game_quit_channel, "raise")
 	
 	add_child(dialog)
 	dialog.popup_centered()

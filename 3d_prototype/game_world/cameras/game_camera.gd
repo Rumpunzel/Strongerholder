@@ -3,19 +3,22 @@ extends Camera
 
 const _ray_length := 1000.0
 
+export(Resource) var _player_registered_channel
+export(Resource) var _player_unregistered_channel
+
 var follow_node: Spatial
 
 
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
-	Events.player.connect("player_registered", self, "_on_player_registered")
+	_player_registered_channel.connect("raised", self, "_on_player_registered")
 	# warning-ignore:return_value_discarded
-	Events.player.connect("player_unregistered", self, "_on_player_unregistered")
+	_player_unregistered_channel.connect("raised", self, "_on_player_unregistered")
 
 func _exit_tree() -> void:
-	Events.player.disconnect("player_registered", self, "_on_player_registered")
-	Events.player.disconnect("player_unregistered", self, "_on_player_unregistered")
+	_player_registered_channel.disconnect("raised", self, "_on_player_registered")
+	_player_unregistered_channel.disconnect("raised", self, "_on_player_unregistered")
 
 
 

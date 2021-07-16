@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://game_world/cameras/top_down/resources/build_camera_attributes.tres" type="Resource" id=1]
 [ext_resource path="res://game_world/cameras/top_down/top_down_camera.gd" type="Script" id=2]
+[ext_resource path="res://event_system/resources/player/player_unregistered_channel.tres" type="Resource" id=3]
+[ext_resource path="res://event_system/resources/player/player_registered_channel.tres" type="Resource" id=4]
 
 [node name="TopDownCamera" type="Camera"]
 pause_mode = 2
@@ -9,6 +11,8 @@ transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0
 fov = 20.0
 far = 1000.0
 script = ExtResource( 2 )
+_player_registered_channel = ExtResource( 4 )
+_player_unregistered_channel = ExtResource( 3 )
 _attributes = ExtResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
