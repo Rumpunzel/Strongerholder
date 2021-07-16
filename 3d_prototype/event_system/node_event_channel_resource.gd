@@ -4,7 +4,5 @@ extends EventChannelBaseResource
 signal raised(node)
 
 func raise(node: Node) -> void:
-	if _has_connections(RAISED):
-		emit_signal(RAISED, node)
-	else:
-		printerr("signal %s on %s not connected to anything, emission skipped" % [ RAISED, resource_path ])
+	if _has_connections("raised"):
+		emit_signal("raised", node)

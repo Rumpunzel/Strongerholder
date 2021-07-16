@@ -1,7 +1,9 @@
 class_name StructureResource
 extends ObjectResource
 
+# warning-ignore:unused_class_variable
 export(PackedScene) var model: PackedScene
+# warning-ignore:unused_class_variable
 export(BoxShape) var shape: BoxShape = preload("res://structures/resources/dimensions/1_1_1_dimension.tres")
 
 export(Resource) var _building_placed_channel

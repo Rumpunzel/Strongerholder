@@ -2,6 +2,7 @@ class_name Structure
 extends StaticBody
 tool
 
+# warning-ignore:unused_class_variable
 export(Resource) var _structure_resource
 export var _mesh_index := 0 setget _set_index
 
