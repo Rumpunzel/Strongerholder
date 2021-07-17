@@ -169,16 +169,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://assets/maujoe.custom_gradient_texture/custom_gradient_texture.gd"
 }, {
-"base": "Popup",
-"class": "DEPRECATED_InventoryHUD",
-"language": "GDScript",
-"path": "res://ui/hud/game_hud/DEPRECATED_inventory_hud/DEPRECATED_inventory_hud.gd"
-}, {
-"base": "Button",
-"class": "DEPRECATED_InventorySlot",
-"language": "GDScript",
-"path": "res://ui/hud/game_hud/DEPRECATED_inventory_hud/DEPRECATED_inventory_item.gd"
-}, {
 "base": "StateActionResource",
 "class": "DescendActionResource",
 "language": "GDScript",
@@ -1072,8 +1062,6 @@ _global_script_class_icons={
 "ConditionUsageResource": "",
 "Controller": "res://editor_tools/class_icons/nodes/icon_brain.svg",
 "CustomGradientTexture": "",
-"DEPRECATED_InventoryHUD": "",
-"DEPRECATED_InventorySlot": "",
 "DescendActionResource": "",
 "DrawLibrary": "",
 "EqualsArgumentMatcher": "",
