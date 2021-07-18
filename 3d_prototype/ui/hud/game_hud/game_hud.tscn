@@ -153,7 +153,7 @@ _grid_size = 1.0
 
 [connection signal="about_to_show" from="EquipmentHUD" to="BuildHUD" method="close_menu"]
 [connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
-[connection signal="about_to_show" from="InventoryHUD" to="BuildHUD" method="close_menu"]
 [connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
+[connection signal="about_to_show" from="InventoryHUD" to="BuildHUD" method="close_menu"]
 [connection signal="about_to_show" from="BuildHUD" to="EquipmentHUD" method="close_menu"]
 [connection signal="about_to_show" from="BuildHUD" to="InventoryHUD" method="close_menu"]
