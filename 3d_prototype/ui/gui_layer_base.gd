@@ -1,15 +1,15 @@
 class_name GUILayerBase
-extends Control
+extends Popup
 
 signal showed(layer)
 
 export var _animation_duration: float = 0.3
 
-onready var _tween: Tween = $Tween
+var _tween
 
 
-func _ready() -> void:
-	visible = false
+func _enter_tree() -> void:
+	_tween = $Tween
 
 
 func show_menu() -> void:
@@ -27,7 +27,7 @@ func hide_menu() -> void:
 
 
 func _show_menu() -> void:
-	visible = true
+	popup()
 	# warning-ignore:return_value_discarded
 	_tween.interpolate_property(self, "modulate:a", 0.0, 1.0, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	# warning-ignore:return_value_discarded
@@ -39,7 +39,7 @@ func _hide_menu() -> void:
 	# warning-ignore:return_value_discarded
 	_tween.start()
 	yield(_tween, "tween_all_completed")
-	visible = false
+	hide()
 
 
 func _get_configuration_warning() -> String:

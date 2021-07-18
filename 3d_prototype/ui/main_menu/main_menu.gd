@@ -34,14 +34,19 @@ func _exit_tree() -> void:
 	_game_continued_channel.disconnect("raised", self, "_on_game_continued")
 
 
+func _ready() -> void:
+	_game_pause_requested_channel.call_deferred("raise")
+
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("pause_game"):
-		get_tree().set_input_as_handled()
 		if visible:
 			_on_start_pressed()
 		else:
 			_game_pause_requested_channel.raise()
+		
+		get_tree().set_input_as_handled()
 
 
 func _on_game_paused() -> void:

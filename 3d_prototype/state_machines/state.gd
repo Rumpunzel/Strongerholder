@@ -34,6 +34,11 @@ func on_update(delta: float) -> void:
 		action.on_update(delta)
 
 
+func on_input(input: InputEvent) -> void:
+	for action in actions:
+		action.on_input(input)
+
+
 func on_state_exit():
 	for transition in transitions:
 		transition.on_state_exit()

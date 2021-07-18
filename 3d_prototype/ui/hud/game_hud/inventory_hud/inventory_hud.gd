@@ -1,14 +1,12 @@
 class_name InventoryHUD
 extends ItemHUDBASE
 
-
 enum SubMenuModes {
 	USE,
 	EQUIP,
 	UNEQUIP,
 	DROP,
 }
-
 
 export(Texture) var _use_icon
 export(Texture) var _equip_icon
@@ -18,6 +16,7 @@ export(Texture) var _drop_icon
 export(Resource) var _inventory_hud_toggled_channel
 export(Resource) var _inventory_stacks_updated_channel
 export(Resource) var _inventory_updated_channel
+
 
 
 func _enter_tree() -> void:

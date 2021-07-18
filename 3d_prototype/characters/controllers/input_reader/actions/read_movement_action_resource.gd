@@ -24,5 +24,5 @@ class ReadMovementAction extends StateAction:
 		
 		if Input.is_action_just_pressed("sprint"):
 			_inputs.is_running = true
-		if Input.is_action_just_released("sprint"):
+		elif Input.is_action_just_released("sprint"):
 			_inputs.is_running = false

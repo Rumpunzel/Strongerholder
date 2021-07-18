@@ -4,7 +4,7 @@ extends RadialMenu
 
 export(PackedScene) var _item_scene: PackedScene = null    
 
-export(Resource) var _game_paused_channel
+export(Resource) var _game_pause_requested_channel
 		
 
 var _inventory: CharacterInventory
@@ -16,10 +16,10 @@ func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	connect("item_selected", self, "_on_item_selected")
 	# warning-ignore:return_value_discarded
-	_game_paused_channel.connect("raised", self, "close_menu")
+	_game_pause_requested_channel.connect("raised", self, "close_menu")
 
 func _exit_tree() -> void:
-	_game_paused_channel.disconnect("raised", self, "close_menu")
+	_game_pause_requested_channel.disconnect("raised", self, "close_menu")
 	
 	_free_items()
 

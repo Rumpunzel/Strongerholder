@@ -37,7 +37,6 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	_game_load_started_channel.raise(false)
-	_on_game_pause_requested()
 
 
 

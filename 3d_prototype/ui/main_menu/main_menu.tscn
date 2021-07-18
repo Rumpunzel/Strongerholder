@@ -15,14 +15,12 @@ colors = PoolColorArray( 0, 0, 0, 0.784314, 0, 0, 0, 0.0392157, 0, 0, 0, 0 )
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Popup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 6 )
+popup_exclusive = true
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -71,6 +69,7 @@ script = ExtResource( 2 )
 margin_top = 174.0
 margin_right = 486.0
 margin_bottom = 428.0
+mouse_filter = 2
 custom_constants/margin_left = 16
 
 [node name="MenuButtons" type="VBoxContainer" parent="MenuContainer/MenuContent/MarginContainer"]

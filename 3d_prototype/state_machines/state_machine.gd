@@ -15,6 +15,7 @@ func _ready():
 		_start()
 	else:
 		set_process(false)
+		set_process_unhandled_input(false)
 
 
 func _process(delta: float):
@@ -51,6 +52,7 @@ func set_transition_table_resource(new_table: Resource) -> void:
 		return
 	_start()
 	set_process(true)
+	set_process_unhandled_input(true)
 
 
 func _get_configuration_warning() -> String:

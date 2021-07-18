@@ -97,7 +97,7 @@ func _enter_tree() -> void:
 	connect("visibility_changed", self, "_on_visibility_changed")
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if _state == MenuState.OPEN:
 		_radial_input(event)
 
@@ -172,7 +172,7 @@ func open_submenu_on(menu_item: RadialMenuItem) -> void:
 
 
 func close_menu(skip_animation := false) -> void:
-	close_submenu()
+	close_submenu(skip_animation)
 	
 	_has_left_center = false
 	if not show_animation or skip_animation:
@@ -190,9 +190,9 @@ func close_menu(skip_animation := false) -> void:
 	_tween.start()
 
 
-func close_submenu() -> void:
+func close_submenu(skip_animation := false) -> void:
 	if _submenu:
-		_submenu.close_menu()
+		_submenu.close_menu(skip_animation)
 		active_sub_menu = null
 
 
@@ -302,7 +302,6 @@ func get_inner_outer() -> Vector2:
 
 func _radial_input(event: InputEvent) -> void:
 	if _state == MenuState.OPENING or _state == MenuState.CLOSING:
-		get_tree().set_input_as_handled()
 		return
 	
 	if event is InputEventMouseMotion:
@@ -369,7 +368,6 @@ func _handle_mouse_buttons(event: InputEventMouseButton) -> void:
 			get_tree().set_input_as_handled()
 	else:
 		_activate_selected()
-		get_tree().set_input_as_handled()
 #	elif _state == MenuState.OPEN and not _is_wheel_button(event):
 #		var msecs_since_opened := OS.get_ticks_msec() - _msecs_at_opened
 #		if msecs_since_opened > mouse_release_timeout:
@@ -379,7 +377,6 @@ func _handle_mouse_buttons(event: InputEventMouseButton) -> void:
 
 func _handle_actions(event: InputEvent) -> void:
 	if event.is_action_pressed("radial_ui_cancel"):
-		get_tree().set_input_as_handled()
 		selected_item = null
 		_activate_selected()
 	elif event.is_action_pressed("radial_ui_down") or event.is_action_pressed("radial_ui_right") or event.is_action_pressed("radial_ui_focus_next"):
@@ -387,15 +384,12 @@ func _handle_actions(event: InputEvent) -> void:
 			_select_next()
 		else:
 			_select_prev()
-		get_tree().set_input_as_handled()
 	elif event.is_action_pressed("radial_ui_up") or event.is_action_pressed("radial_ui_left") or event.is_action_pressed("radial_ui_focus_prev"):
 		if clock_wise:
 			_select_prev()
 		else:
 			_select_next()
-		get_tree().set_input_as_handled()
 	elif event.is_action_pressed("radial_ui_accept"):
-		get_tree().set_input_as_handled()
 		_activate_selected()
 
 
@@ -405,6 +399,7 @@ func _select_next() -> void:
 		var next_selected: RadialMenuItem = menu_items[(menu_items.find(selected_item) + 1) % item_count]
 		_set_selected_item(next_selected)
 		_has_left_center = false
+		get_tree().set_input_as_handled()
 
 
 func _select_prev() -> void:
@@ -413,11 +408,13 @@ func _select_prev() -> void:
 		var next_selected: RadialMenuItem = menu_items[(menu_items.find(selected_item) - 1 + item_count) % item_count]
 		_set_selected_item(next_selected)
 		_has_left_center = false
+		get_tree().set_input_as_handled()
 
 
 func _activate_selected() -> void:
 	if _submenu and selected_item and not selected_item.disabled and not selected_item.active_submenu_items.empty():
 		open_submenu_on(selected_item)
+		get_tree().set_input_as_handled()
 	else:
 		_signal_id()
 
@@ -428,6 +425,8 @@ func _signal_id() -> void:
 			emit_signal("item_selected", selected_item, null)
 	else:
 		emit_signal("cancelled")
+	
+	get_tree().set_input_as_handled()
 
 
 func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:

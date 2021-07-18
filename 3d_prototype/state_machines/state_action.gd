@@ -16,5 +16,8 @@ func on_state_enter() -> void:
 func on_update(_delta: float) -> void:
 	pass
 
+func on_input(_input: InputEvent) -> void:
+	pass
+
 func on_state_exit() -> void:
 	pass

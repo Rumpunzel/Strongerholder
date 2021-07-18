@@ -1,11 +1,7 @@
 class_name BuildingPlacer
 extends Spatial
 
-
 export var _grid_size := 2.0
-
-export(Resource) var _building_placement_confirmed_channel
-export(Resource) var _building_placement_cancelled_channel
 
 
 var current_structure: StructureResource setget _set_current_structure
@@ -22,20 +18,9 @@ onready var _raycast: RayCast = $RayCast
 onready var _tween: Tween = $Tween
 
 
-
-func _enter_tree() -> void:
-	# warning-ignore:return_value_discarded
-	_building_placement_confirmed_channel.connect("raised", self, "_on_building_placement_confirmed")
-	# warning-ignore:return_value_discarded
-	_building_placement_cancelled_channel.connect("raised", self, "_set_current_structure", [ null ])
-
-func _exit_tree() -> void:
-	_building_placement_confirmed_channel.disconnect("raised", self, "_on_building_placement_confirmed")
-	_building_placement_cancelled_channel.disconnect("raised", self, "_set_current_structure")
-
-
 func _ready() -> void:
 	_set_current_structure(null)
+
 
 func _process(_delta: float) -> void:
 	var current_camera: GameCamera = get_viewport().get_camera()
@@ -55,16 +40,22 @@ func _process(_delta: float) -> void:
 	_model.visible = is_space_legal()
 
 
+# FIX: try do put this in _unhandled_input. dunno why this does not work ¯\_(ツ)_/¯
+func _input(event: InputEvent) -> void:
+	if not current_structure:
+		return
+	
+	if event.is_action_pressed("place_building"):
+		# warning-ignore:return_value_discarded
+		current_structure.place_at(_building_area.translation)
+		get_tree().set_input_as_handled()
+	elif event.is_action_pressed("place_building_cancel"):
+		_set_current_structure(null)
+		get_tree().set_input_as_handled()
+
 
 func is_space_legal() -> bool:
 	return _objects_area.empty() and _ground_check.is_valid()
-
-
-
-func _on_building_placement_confirmed() -> void:
-	if current_structure:
-		# warning-ignore:return_value_discarded
-		current_structure.place_at(_building_area.translation)
 
 
 func _on_body_entered(body: Node):
@@ -72,7 +63,6 @@ func _on_body_entered(body: Node):
 
 func _on_body_exited(body: Node):
 	_objects_area.erase(body)
-
 
 
 func _set_current_structure(new_structure: StructureResource) -> void:
