@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://state_machines/state_machine.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
@@ -61,6 +61,9 @@ extents = Vector3( 1, 0.75, 1 )
 
 [sub_resource type="CylinderShape" id=9]
 radius = 4.0
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 1, 1, 0.5 )
 
 [node name="Character" type="KinematicBody" groups=[
 "Persist",
@@ -137,6 +140,15 @@ collision_mask = 14
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 9 )
 
+[node name="HurtBox" type="Area" parent="InteractionArea"]
+collision_layer = 0
+collision_mask = 10
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionArea/HurtBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
+shape = SubResource( 10 )
+disabled = true
+
 [node name="AnimationTree" type="AnimationTree" parent="."]
 
 [connection signal="instantiated" from="." to="AnimationTree" method="set_active" binds= [ true ]]
@@ -145,3 +157,4 @@ shape = SubResource( 9 )
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_body_exited_interaction_area"]
 [connection signal="body_entered" from="InteractionArea/PerceptionArea" to="InteractionArea" method="_on_body_entered_perception_area"]
 [connection signal="body_exited" from="InteractionArea/PerceptionArea" to="InteractionArea" method="_on_body_exited_perception_area"]
+[connection signal="area_entered" from="InteractionArea/HurtBox" to="InteractionArea" method="_on_hurt_box_entered"]

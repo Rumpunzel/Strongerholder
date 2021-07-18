@@ -2,7 +2,7 @@ class_name InteractionArea, "res://editor_tools/class_icons/spatials/icon_slap.s
 extends Area
 
 signal item_picked_up(item)
-signal attacked()
+signal attacked(started)
 
 enum InteractionType {
 	NONE,
@@ -17,22 +17,17 @@ var _nearest_interaction: Interaction
 
 var current_interaction: Interaction
 
-var _character: Spatial
-var _inputs: CharacterMovementInputs
 var _equipped_item: CharacterInventory.EquippedItem
 
-
-
-func _ready() -> void:
-	_character = owner
-	# warning-ignore:unsafe_method_access
-	_inputs = _character.get_inputs()
+onready var _character: Spatial = owner
+# warning-ignore:unsafe_method_access
+onready var _inputs: CharacterMovementInputs = _character.get_inputs()
+onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
 
 #func _process(_delta: float) -> void:
 #	if current_interaction and not current_interaction.type == InteractionType.NONE:
 #		_character.look_position = current_interaction.node.translation
-
 
 
 func interact_with_nearest() -> void:
@@ -49,7 +44,6 @@ func interact_with_nearest() -> void:
 	if _nearest_interaction:
 		_inputs.destination_input = _nearest_interaction.node.translation
 		return
-
 
 
 func _find_nearest_interaction(objects: Array) -> Interaction:
@@ -98,9 +92,8 @@ func _collect() -> void:
 
 func _attack(started: bool) -> void:
 	current_interaction = null
-	var equipment: EquippableItem = _equipped_item.node
-	equipment.attack(started)
-	emit_signal("attacked")
+	_hurt_box_shape.disabled = not started
+	emit_signal("attacked", started)
 
 
 
@@ -116,6 +109,19 @@ func _on_body_entered_interaction_area(body: Node) -> void:
 
 func _on_body_exited_interaction_area(body: Node) -> void:
 	_objects_in_interaction_range.erase(body)
+
+
+func _on_hurt_box_entered(area: Area) -> void:
+	if not area is HitBox:
+		return
+	
+	var hit_box := area as HitBox
+	var equipped_tool: ToolResource = _equipped_item.stack.item
+	
+	for other_group in hit_box.owner.get_groups():
+		if equipped_tool.used_on.has(other_group):
+			# warning-ignore:return_value_discarded
+			hit_box.damage(equipped_tool.damage, self)
 
 
 func _on_item_equipped(equipment: CharacterInventory.EquippedItem):
