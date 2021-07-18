@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://characters/controllers/input_reader/actions/read_build_action_resource.gd" type="Script" id=1]
-[ext_resource path="res://event_system/resources/hud/building_hud_toggled_channel.tres" type="Resource" id=3]
+[ext_resource path="res://event_system/resources/hud/building_hud_toggled_channel.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
-building_hud_toggled_channel = ExtResource( 3 )
+building_hud_toggled_channel = ExtResource( 2 )
