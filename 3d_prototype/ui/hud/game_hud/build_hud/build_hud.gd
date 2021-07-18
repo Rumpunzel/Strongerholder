@@ -7,12 +7,9 @@ export(Array, Resource) var _buildable_structures := [ ]
 export(Resource) var _game_pause_requested_channel
 export(Resource) var _building_hud_toggled_channel
 
-
 var _items := [ ]
 
-
 onready var _placer: BuildingPlacer = $BuildingPlacer
-
 
 
 func _enter_tree() -> void:
@@ -28,7 +25,6 @@ func _exit_tree() -> void:
 	_building_hud_toggled_channel.disconnect("raised", self, "_on_toggled")
 	
 	_free_items()
-
 
 
 func _on_toggled() -> void:

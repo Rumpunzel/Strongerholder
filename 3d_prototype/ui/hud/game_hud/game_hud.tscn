@@ -73,16 +73,11 @@ by https://quaternius.com/"
 align = 2
 
 [node name="EquipmentHUD" type="Popup" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 90.0
-margin_bottom = -20.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 110, 0 )
 rect_pivot_offset = Vector2( -140, 0 )
+mouse_filter = 2
 popup_exclusive = true
 script = ExtResource( 7 )
 __meta__ = {
@@ -97,16 +92,11 @@ _equipment_stacks_updated_channel = ExtResource( 29 )
 _equipment_updated_channel = ExtResource( 28 )
 
 [node name="InventoryHUD" type="Popup" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 85.0
-margin_bottom = -20.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 105, 0 )
 rect_pivot_offset = Vector2( -145, 0 )
+mouse_filter = 2
 popup_exclusive = true
 script = ExtResource( 4 )
 __meta__ = {
@@ -124,14 +114,13 @@ _inventory_stacks_updated_channel = ExtResource( 25 )
 _inventory_updated_channel = ExtResource( 26 )
 
 [node name="SubMenu" type="Popup" parent="InventoryHUD"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -55.0
-margin_right = 55.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1810.0
+margin_bottom = -1080.0
 rect_min_size = Vector2( 110, 0 )
 rect_pivot_offset = Vector2( -140, 0 )
+mouse_filter = 2
 popup_exclusive = true
 script = ExtResource( 6 )
 __meta__ = {
@@ -142,16 +131,11 @@ circle_coverage = 0.064
 animation_speed_factor = 0.1
 
 [node name="BuildHUD" type="Popup" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 90.0
-margin_bottom = -20.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 110, 0 )
 rect_pivot_offset = Vector2( -140, 0 )
+mouse_filter = 2
 popup_exclusive = true
 script = ExtResource( 12 )
 __meta__ = {
@@ -163,12 +147,13 @@ _game_pause_requested_channel = ExtResource( 23 )
 _building_hud_toggled_channel = ExtResource( 22 )
 
 [node name="BuildingPlacer" parent="BuildHUD" instance=ExtResource( 18 )]
+_grid_size = 1.0
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
 [connection signal="about_to_show" from="EquipmentHUD" to="BuildHUD" method="close_menu"]
-[connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
+[connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
 [connection signal="about_to_show" from="InventoryHUD" to="BuildHUD" method="close_menu"]
+[connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
 [connection signal="about_to_show" from="BuildHUD" to="EquipmentHUD" method="close_menu"]
 [connection signal="about_to_show" from="BuildHUD" to="InventoryHUD" method="close_menu"]

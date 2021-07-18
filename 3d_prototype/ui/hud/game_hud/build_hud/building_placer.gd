@@ -34,13 +34,12 @@ func _process(_delta: float) -> void:
 	
 	_building_area.translation = raster_position
 	# warning-ignore:return_value_discarded
-	_tween.interpolate_property(_model, "translation", null, raster_position, 0.1, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	_tween.interpolate_property(_model, "translation", null, raster_position, 0.02, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	# warning-ignore:return_value_discarded
 	_tween.start()
 	_model.visible = is_space_legal()
 
 
-# FIX: try do put this in _unhandled_input. dunno why this does not work ¯\_(ツ)_/¯
 func _input(event: InputEvent) -> void:
 	if not current_structure:
 		return

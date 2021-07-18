@@ -97,7 +97,7 @@ func _enter_tree() -> void:
 	connect("visibility_changed", self, "_on_visibility_changed")
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if _state == MenuState.OPEN:
 		_radial_input(event)
 

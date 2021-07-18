@@ -18,7 +18,6 @@ export(Resource) var _inventory_stacks_updated_channel
 export(Resource) var _inventory_updated_channel
 
 
-
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	_inventory_hud_toggled_channel.connect("raised", self, "_on_toggled")
@@ -32,7 +31,6 @@ func _exit_tree() -> void:
 	_inventory_hud_toggled_channel.disconnect("raised", self, "_on_toggled")
 	_inventory_stacks_updated_channel.disconnect("raised", self, "_on_inventory_stacks_updated")
 	_inventory_updated_channel.disconnect("raised", self, "_update_items")
-
 
 
 func _initialize_items(new_inventory: CharacterInventory) -> void:
