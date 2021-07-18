@@ -8,8 +8,9 @@ export(Resource) var _vitals_resource
 onready var _health: float = _vitals_resource.starting_health
 
 
-func damage(value: float, _sender: Node) -> float:
+func damage(value: float, sender: Node) -> float:
 	_health -= value
+	print("%s damaged %s by %1.1f" % [ sender.owner.name, owner.name, value ])
 	_check_health()
 	
 	return value
@@ -20,5 +21,6 @@ func _check_health() -> void:
 		_die()
 
 func _die() -> void:
+	print("%s died" %  owner.name)
 	emit_signal("died")
 	owner.queue_free()
