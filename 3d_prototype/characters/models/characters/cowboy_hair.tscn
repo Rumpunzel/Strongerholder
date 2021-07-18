@@ -4,5 +4,6 @@
 
 [node name="Cowboy_Hair" instance=ExtResource( 1 )]
 
-[node name="HandPosition" type="Position3D" parent="CharacterArmature/Skeleton" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.8, 0 )
+[node name="HandPosition" type="BoneAttachment" parent="CharacterArmature/Skeleton" index="1"]
+transform = Transform( -0.971663, -0.0391314, -0.233107, 0.0114921, -0.992856, 0.118766, -0.236089, 0.112722, 0.965172, -0.505237, 0.888702, 0.0615318 )
+bone_name = "Fist.R"
