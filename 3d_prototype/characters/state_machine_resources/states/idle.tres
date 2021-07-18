@@ -1,10 +1,9 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://state_machines/resources/state_resource.gd" type="Script" id=1]
-[ext_resource path="res://characters/state_machine_resources/actions/apply_movement_vector.tres" type="Resource" id=2]
+[ext_resource path="res://characters/state_machine_resources/actions/stop_movement_on_update.tres" type="Resource" id=2]
 [ext_resource path="res://characters/state_machine_resources/actions/gravity_ground.tres" type="Resource" id=3]
-[ext_resource path="res://characters/state_machine_resources/actions/stop_movement.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
-_actions = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ]
+_actions = [ ExtResource( 2 ), ExtResource( 3 ) ]
