@@ -29,10 +29,10 @@ _game_paused_channel = ExtResource( 13 )
 _game_continued_channel = ExtResource( 16 )
 _game_started_channel = ExtResource( 14 )
 
-[node name="GameWorld" parent="." instance=ExtResource( 3 )]
-
 [node name="GUI" parent="." instance=ExtResource( 4 )]
 layer = 16
+
+[node name="GameWorld" parent="." instance=ExtResource( 3 )]
 
 [node name="SavingAndLoading" type="Node" parent="."]
 script = ExtResource( 2 )
