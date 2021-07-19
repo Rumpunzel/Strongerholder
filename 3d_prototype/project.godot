@@ -60,6 +60,11 @@ _global_script_classes=[ {
 "path": "res://characters/state_machine_scripts/actions/ascend_action_resource.gd"
 }, {
 "base": "EventChannelBaseResource",
+"class": "AudioEventChannelResource",
+"language": "GDScript",
+"path": "res://event_system/audio_event_channel_resource.gd"
+}, {
+"base": "EventChannelBaseResource",
 "class": "BoolEventChannelResource",
 "language": "GDScript",
 "path": "res://event_system/bool_event_channel_resource.gd"
@@ -884,6 +889,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://persistence/saving_and_loading.gd"
 }, {
+"base": "AudioStreamPlayer",
+"class": "SceneAtmosphere",
+"language": "GDScript",
+"path": "res://game_world/audio/scene_atmosphere.gd"
+}, {
 "base": "Resource",
 "class": "SignalHandler",
 "language": "GDScript",
@@ -1045,6 +1055,7 @@ _global_script_class_icons={
 "ApplyMovementVectorActionResource": "",
 "ArrayMeshInstance": "",
 "AscendActionResource": "",
+"AudioEventChannelResource": "",
 "BoolEventChannelResource": "",
 "BuildHUD": "",
 "BuildHUDItem": "",
@@ -1210,6 +1221,7 @@ _global_script_class_icons={
 "RegisterPlayerActionResource": "",
 "Result": "",
 "SavingAndLoading": "res://editor_tools/class_icons/nodes/icon_save.svg",
+"SceneAtmosphere": "",
 "SignalHandler": "",
 "SpawnSystem": "",
 "State": "",
@@ -1254,7 +1266,7 @@ config/version_postfix="alpha"
 
 [audio]
 
-default_bus_layout="res://assets/sounds/default_bus_layout.tres"
+default_bus_layout="res://audio/default_bus_layout.tres"
 
 [debug]
 

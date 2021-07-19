@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://event_system/resources/gameplay/node_spawned_channel.tres" type="Resource" id=1]
 [ext_resource path="res://game_world/cameras/top_down/top_down_camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://event_system/resources/gameplay/building_placed_channel.tres" type="Resource" id=3]
 [ext_resource path="res://game_world/scenes/world_scene.gd" type="Script" id=4]
 [ext_resource path="res://event_system/resources/gameplay/scene_unloaded_channel.tres" type="Resource" id=5]
+[ext_resource path="res://event_system/resources/audio/scene_atmosphere_started_channel.tres" type="Resource" id=6]
 
 [node name="WorldScene" type="Navigation" groups=[
 "PersistLevel",
@@ -14,6 +15,7 @@ script = ExtResource( 4 )
 _node_spawned_channel = ExtResource( 1 )
 _building_placed_channel = ExtResource( 3 )
 _scene_unloaded_channel = ExtResource( 5 )
+_scene_atmosphere_started_channel = ExtResource( 6 )
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="."]
 

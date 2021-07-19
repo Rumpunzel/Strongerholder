@@ -5,6 +5,9 @@ export(Resource) var _node_spawned_channel
 export(Resource) var _building_placed_channel
 export(Resource) var _scene_unloaded_channel
 
+export(AudioStream) var scene_atmosphere: AudioStream = null
+export(Resource) var _scene_atmosphere_started_channel
+
 
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
@@ -17,6 +20,11 @@ func _exit_tree() -> void:
 	_building_placed_channel.disconnect("raised", self, "_on_building_placed")
 	
 	_scene_unloaded_channel.raise(self)
+
+
+func _ready() -> void:
+	yield(get_tree(), "idle_frame")
+	_scene_atmosphere_started_channel.raise(scene_atmosphere)
 
 
 

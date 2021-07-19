@@ -5,7 +5,6 @@
 [ext_resource path="res://event_system/resources/main/game_started_channel.tres" type="Resource" id=5]
 
 [node name="HUD" type="CanvasLayer"]
-pause_mode = 2
 layer = 4
 script = ExtResource( 4 )
 _game_hud_scene = ExtResource( 1 )

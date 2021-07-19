@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://game_world/scenes/_base_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prototype_assets/structures/house.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://prototype_assets/collectable_items/collectable_axe.tscn" type="PackedScene" id=6]
 [ext_resource path="res://prototype_assets/structures/tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://characters/npc/npc.tscn" type="PackedScene" id=8]
+[ext_resource path="res://game_world/audio/scene_atmospheres/345852__hargissssound__spring-birds-loop-with-low-cut-new-jersey.wav" type="AudioStream" id=9]
 [ext_resource path="res://game_world/scenes/sample_scene_nav_mesh.tres" type="NavigationMesh" id=10]
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=11]
 
@@ -27,7 +28,7 @@ uv1_scale = Vector3( 0.5, 0.5, 0.5 )
 uv1_triplanar = true
 
 [node name="SampleScene" instance=ExtResource( 1 )]
-pause_mode = 0
+scene_atmosphere = ExtResource( 9 )
 
 [node name="NavigationMeshInstance" parent="." index="0"]
 navmesh = ExtResource( 10 )
