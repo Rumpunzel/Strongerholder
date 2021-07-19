@@ -1,16 +1,20 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://characters/_character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/models/characters/cowboy_hair.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/models/default_animations.tres" type="AnimationNodeBlendTree" id=3]
-[ext_resource path="res://characters/player/resources/player_movement_stats.tres" type="Resource" id=4]
-[ext_resource path="res://characters/player/resources/player_inventory_attributes.tres" type="Resource" id=5]
+[ext_resource path="res://characters/npc/resources/npc_inventory_attributes.tres" type="Resource" id=4]
+[ext_resource path="res://characters/npc/resources/npc_movement_stats.tres" type="Resource" id=5]
+[ext_resource path="res://characters/controllers/job_machine/wood_gathering_job_machine.tres" type="Resource" id=6]
 
 [node name="NPC" instance=ExtResource( 1 )]
-movement_stats = ExtResource( 4 )
+movement_stats = ExtResource( 5 )
+
+[node name="Controller" parent="." index="3"]
+_transition_table_resource = ExtResource( 6 )
 
 [node name="Inventory" parent="." index="4"]
-_inventory_attributes = ExtResource( 5 )
+_inventory_attributes = ExtResource( 4 )
 _hand_position = NodePath("../Cowboy_Hair/CharacterArmature/Skeleton/HandPosition")
 
 [node name="AnimationTree" parent="." index="6"]
@@ -24,8 +28,3 @@ parameters/speed_up_old_man/scale = 1.0
 parameters/walk_speed/blend_amount = 0
 
 [node name="Cowboy_Hair" parent="." index="8" instance=ExtResource( 2 )]
-
-[node name="HandPosition" parent="Cowboy_Hair/CharacterArmature/Skeleton" index="1"]
-transform = Transform( -0.979059, -0.0444499, -0.198663, 0.115304, -0.925328, -0.361211, -0.167772, -0.376554, 0.911076, -0.439828, 0.904279, -0.518335 )
-
-[editable path="Cowboy_Hair"]

@@ -4,18 +4,23 @@ extends Area
 signal item_picked_up(item)
 signal attacked(started)
 
+signal body_entered_interaction_area(body)
+signal body_exited_interaction_area(body)
+
+signal body_entered_perception_area(body)
+signal body_exited_perception_area(body)
+
 enum InteractionType {
 	NONE,
 	PICK_UP,
 	ATTACK,
 }
 
-var _objects_in_perception_range: Array = [ ]
-
-var _objects_in_interaction_range: Array = [ ]
-var _nearest_interaction: Interaction
-
+var objects_in_interaction_range := [ ]
+var objects_in_perception_range := [ ]
 var current_interaction: Interaction
+
+var _nearest_interaction: Interaction
 
 var _equipped_item: CharacterInventory.EquippedItem
 
@@ -30,28 +35,28 @@ onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 #		_character.look_position = current_interaction.node.translation
 
 
-func interact_with_nearest() -> void:
+func interact_with_nearest(item_resource: ItemResource = null) -> void:
 	if current_interaction and not current_interaction.type == InteractionType.NONE:
 		return
 	
-	_nearest_interaction = _find_nearest_interaction(_objects_in_interaction_range)
+	_nearest_interaction = _find_nearest_interaction(objects_in_interaction_range, item_resource)
 	if _nearest_interaction:
 		current_interaction = _nearest_interaction
 		_inputs.destination_input = _character.translation
 		return
 	
-	_nearest_interaction = _find_nearest_interaction(_objects_in_perception_range)
+	_nearest_interaction = _find_nearest_interaction(objects_in_perception_range, item_resource)
 	if _nearest_interaction:
 		_inputs.destination_input = _nearest_interaction.node.translation
 		return
 
 
-func _find_nearest_interaction(objects: Array) -> Interaction:
+func _find_nearest_interaction(objects: Array, item_resource: ItemResource) -> Interaction:
 	var nearest: Interaction = null
 	var closest_distance: float = INF
 	
 	for object in objects:
-		if object == owner:
+		if object == owner or (item_resource and object is CollectableItem and not object.item_resource == item_resource):
 			continue
 		
 		var potential_interaction := Interaction.new(object)
@@ -79,6 +84,10 @@ func _find_nearest_interaction(objects: Array) -> Interaction:
 
 func _collect() -> void:
 	var item_node: CollectableItem = current_interaction.node as CollectableItem
+	
+	if not item_node:
+		return
+	
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore-all:unsafe_property_access
 	var item: ItemResource = item_node.item_resource
@@ -98,17 +107,21 @@ func _attack(started: bool) -> void:
 
 
 func _on_body_entered_perception_area(body: Node) -> void:
-	_objects_in_perception_range.append(body)
+	objects_in_perception_range.append(body)
+	emit_signal("body_entered_perception_area", body)
 
 func _on_body_exited_perception_area(body: Node) -> void:
-	_objects_in_perception_range.erase(body)
+	objects_in_perception_range.erase(body)
+	emit_signal("body_exited_perception_area", body)
 
 
 func _on_body_entered_interaction_area(body: Node) -> void:
-	_objects_in_interaction_range.append(body)
+	objects_in_interaction_range.append(body)
+	emit_signal("body_entered_interaction_area", body)
 
 func _on_body_exited_interaction_area(body: Node) -> void:
-	_objects_in_interaction_range.erase(body)
+	objects_in_interaction_range.erase(body)
+	emit_signal("body_exited_interaction_area", body)
 
 
 func _on_hurt_box_entered(area: Area) -> void:

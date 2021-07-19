@@ -33,7 +33,10 @@ class IsMovingCondition extends StateCondition:
 		
 		if movement_length < _override_speed_threshold:
 			var destination: Vector3 = _inputs.destination_input
-			var distance: Vector3 = destination - _character.translation
+			destination.y = 0.0
+			var character_position := _character.translation
+			character_position.y = 0.0
+			var distance: Vector3 = destination - character_position
 			
 			if distance.length_squared() > _threshold:
 				_actions.moving_to_destination = true

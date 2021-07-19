@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://state_machines/resources/transition_table_resource.gd" type="Script" id=1]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/idle_to_gather_wood.tres" type="Resource" id=2]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/gather_wood_to_idle.tres" type="Resource" id=3]
+
+[resource]
+script = ExtResource( 1 )
+_transitions = [ ExtResource( 2 ), ExtResource( 3 ) ]

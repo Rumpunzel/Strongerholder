@@ -48,8 +48,10 @@ func _transition(transition_state: State) -> void:
 func set_transition_table_resource(new_table: Resource) -> void:
 	assert(new_table)
 	_transition_table_resource = new_table
+	
 	if Engine.editor_hint:
 		return
+	
 	_start()
 	set_process(true)
 	set_process_unhandled_input(true)

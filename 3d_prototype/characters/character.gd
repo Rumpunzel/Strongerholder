@@ -28,7 +28,6 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	velocity = move_and_slide(velocity)
-	#velocity = Vector3.ZERO
 	is_grounded = _ground_check.is_colliding()
 	
 	if abs(look_position.x) > 0.1 or abs(look_position.z) > 0.1:
