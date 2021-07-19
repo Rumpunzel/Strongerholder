@@ -28,7 +28,3 @@ parameters/speed_up_old_man/scale = 2.0
 parameters/walk_speed/blend_amount = 0.0
 
 [node name="Wizard" parent="." index="8" instance=ExtResource( 2 )]
-
-[connection signal="item_equipped" from="Inventory" to="InteractionArea" method="_on_item_equipped"]
-[connection signal="item_unequipped" from="Inventory" to="InteractionArea" method="_on_item_unequipped"]
-[connection signal="item_picked_up" from="InteractionArea" to="Inventory" method="add"]

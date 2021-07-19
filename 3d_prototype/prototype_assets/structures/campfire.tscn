@@ -50,7 +50,7 @@ rings = 8
 ]]
 collision_layer = 8
 script = ExtResource( 2 )
-_structure_resource = ExtResource( 3 )
+structure_resource = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

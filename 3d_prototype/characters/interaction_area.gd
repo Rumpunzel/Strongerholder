@@ -35,28 +35,29 @@ onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 #		_character.look_position = current_interaction.node.translation
 
 
-func interact_with_nearest(item_resource: ItemResource = null) -> void:
+func interact_with_nearest(object_resource: ObjectResource = null) -> void:
 	if current_interaction and not current_interaction.type == InteractionType.NONE:
 		return
 	
-	_nearest_interaction = _find_nearest_interaction(objects_in_interaction_range, item_resource)
+	_nearest_interaction = _find_nearest_interaction(objects_in_interaction_range, object_resource)
 	if _nearest_interaction:
 		current_interaction = _nearest_interaction
 		_inputs.destination_input = _character.translation
 		return
 	
-	_nearest_interaction = _find_nearest_interaction(objects_in_perception_range, item_resource)
+	_nearest_interaction = _find_nearest_interaction(objects_in_perception_range, object_resource)
 	if _nearest_interaction:
 		_inputs.destination_input = _nearest_interaction.node.translation
 		return
 
 
-func _find_nearest_interaction(objects: Array, item_resource: ItemResource) -> Interaction:
+func _find_nearest_interaction(objects: Array, object_resource: ObjectResource) -> Interaction:
 	var nearest: Interaction = null
 	var closest_distance: float = INF
 	
 	for object in objects:
-		if object == owner or (item_resource and object is CollectableItem and not object.item_resource == item_resource):
+		var object_does_not_fit: bool = object_resource and ((object is CollectableItem and not object.item_resource == object_resource) or (object is Structure and not object.structure_resource == object_resource))
+		if object == owner or object_does_not_fit:
 			continue
 		
 		var potential_interaction := Interaction.new(object)

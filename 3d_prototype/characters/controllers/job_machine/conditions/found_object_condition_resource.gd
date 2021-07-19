@@ -1,23 +1,23 @@
-class_name FoundItemConditionResource
+class_name FoundObjectConditionResource
 extends StateConditionResource
 
-export(Resource) var item_to_look_for
+export(Resource) var object_to_look_for
 
 func create_condition() -> StateCondition:
-	return FoundItemCondition.new(item_to_look_for)
+	return FoundObjectCondition.new(object_to_look_for)
 
 
-class FoundItemCondition extends StateCondition:
+class FoundObjectCondition extends StateCondition:
 	var _navigation: Navigation
 	var _inputs: CharacterMovementInputs
 	var _interaction_area: InteractionArea
 	
-	var _item_resource: ItemResource
+	var _object_resource: ObjectResource
 	var _found_item := false
 	
 	
-	func _init(item: ItemResource) -> void:
-		_item_resource = item
+	func _init(object: ObjectResource) -> void:
+		_object_resource = object
 	
 	
 	func awake(state_machine) -> void:
@@ -35,13 +35,16 @@ class FoundItemCondition extends StateCondition:
 	
 	
 	func _check_items(body: Node = null, body_exited := false) -> void:
-		# warning-ignore:unsafe_property_access
-		if not body_exited and body is CollectableItem and body.item_resource == _item_resource:
+		if body_exited:
+			return
+		
+		# warning-ignore-all:unsafe_property_access
+		if (body is CollectableItem and body.item_resource == _object_resource) or (body is Structure and body.structure_resource == _object_resource):
 			_found_item = true
 			return
 		
-		for item in _interaction_area.objects_in_perception_range:
-			if item is CollectableItem and item.item_resource == _item_resource:
+		for object in _interaction_area.objects_in_perception_range:
+			if (object is CollectableItem and object.item_resource == _object_resource) or (object is Structure and object.structure_resource == _object_resource):
 				_found_item = true
 				return
 		
@@ -49,4 +52,8 @@ class FoundItemCondition extends StateCondition:
 	
 	
 	func _statement() -> bool:
-		return _found_item
+		if _found_item:
+			_check_items()
+			return true
+		
+		return false

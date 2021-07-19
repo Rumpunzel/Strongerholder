@@ -12,7 +12,7 @@ extents = Vector3( 3, 7, 3 )
 ]]
 collision_layer = 8
 script = ExtResource( 2 )
-_structure_resource = ExtResource( 3 )
+structure_resource = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
