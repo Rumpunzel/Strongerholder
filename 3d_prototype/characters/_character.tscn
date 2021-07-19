@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://state_machines/state_machine.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
@@ -8,19 +8,9 @@
 [ext_resource path="res://characters/controllers/character_movement_actions.gd" type="Script" id=6]
 [ext_resource path="res://characters/state_machine_resources/default_character_state_machine.tres" type="Resource" id=7]
 [ext_resource path="res://characters/controllers/controller.gd" type="Script" id=8]
-[ext_resource path="res://audio/random_audio_player.gd" type="Script" id=9]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_10.wav" type="AudioStream" id=10]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_11.wav" type="AudioStream" id=11]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_04.wav" type="AudioStream" id=12]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_08.wav" type="AudioStream" id=13]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_02.wav" type="AudioStream" id=14]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_07.wav" type="AudioStream" id=15]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_01.wav" type="AudioStream" id=16]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_12.wav" type="AudioStream" id=17]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_09.wav" type="AudioStream" id=18]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_06.wav" type="AudioStream" id=19]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_03.wav" type="AudioStream" id=20]
-[ext_resource path="res://characters/audio/footsteps/footstep_dirt_walk_run_05.wav" type="AudioStream" id=21]
+[ext_resource path="res://audio/sfx_emitter.gd" type="Script" id=9]
+[ext_resource path="res://characters/audio/footsteps/footstep_sound.tscn" type="PackedScene" id=10]
+[ext_resource path="res://event_system/resources/audio/sfx_emitted_channel.tres" type="Resource" id=11]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -164,9 +154,10 @@ disabled = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 
-[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
+[node name="FootstepSounds" type="Spatial" parent="."]
 script = ExtResource( 9 )
-_streams = [ ExtResource( 16 ), ExtResource( 14 ), ExtResource( 20 ), ExtResource( 12 ), ExtResource( 21 ), ExtResource( 19 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 18 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 17 ) ]
+_sound_scene = ExtResource( 10 )
+_sfx_emitted_channel = ExtResource( 11 )
 
 [connection signal="instantiated" from="." to="AnimationTree" method="set_active" binds= [ true ]]
 [connection signal="equipment_stack_added" from="Inventory" to="Inventory" method="_on_equipment_stack_added"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://structures/audio/damage_sounds/tree/axe_hit_tree_stump_002.wav" type="AudioStream" id=1]
+[ext_resource path="res://structures/audio/damage_sounds/tree/axe_hit_tree_stump_001.wav" type="AudioStream" id=2]
+[ext_resource path="res://structures/audio/damage_sounds/tree/axe_hit_tree_stump_003.wav" type="AudioStream" id=3]
+[ext_resource path="res://audio/random_audio_player.gd" type="Script" id=4]
+
+[node name="TreeDamageSound" type="AudioStreamPlayer3D"]
+unit_size = 10.0
+bus = "SFX"
+script = ExtResource( 4 )
+_streams = [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ) ]

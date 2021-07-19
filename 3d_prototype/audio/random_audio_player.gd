@@ -10,3 +10,7 @@ func play_random() -> void:
 	
 	stream = _streams[randi() % _streams.size()]
 	play()
+	
+	yield(self, "finished")
+	
+	queue_free()
