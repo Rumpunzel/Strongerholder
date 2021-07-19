@@ -17,4 +17,3 @@ _scene_atmosphere_started_channel = ExtResource( 7 )
 [node name="HUD" parent="." instance=ExtResource( 1 )]
 
 [node name="SceneAtmosphere" parent="." instance=ExtResource( 4 )]
-volume_db = 0.0

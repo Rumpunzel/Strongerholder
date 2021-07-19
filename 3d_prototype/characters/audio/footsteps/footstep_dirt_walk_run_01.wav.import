@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/footstep_dirt_walk_run_01.wav-a13abc9567ed5b78fb960a93bd48d108.sample"
+
+[deps]
+
+source_file="res://characters/audio/footsteps/footstep_dirt_walk_run_01.wav"
+dest_files=[ "res://.import/footstep_dirt_walk_run_01.wav-a13abc9567ed5b78fb960a93bd48d108.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

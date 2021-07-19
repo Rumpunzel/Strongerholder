@@ -844,6 +844,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/hud/radial_hud/radial_menu_ring.gd"
 }, {
+"base": "AudioStreamPlayer3D",
+"class": "RandomAudioPlayer",
+"language": "GDScript",
+"path": "res://audio/random_audio_player.gd"
+}, {
 "base": "StateActionResource",
 "class": "ReadBuildActionResource",
 "language": "GDScript",
@@ -1212,6 +1217,7 @@ _global_script_class_icons={
 "RadialMenuItem": "",
 "RadialMenuItemIcons": "",
 "RadialMenuRing": "",
+"RandomAudioPlayer": "",
 "ReadBuildActionResource": "",
 "ReadInteractionResource": "",
 "ReadInventoryActionResource": "",

@@ -5,5 +5,5 @@
 [node name="Wizard" instance=ExtResource( 1 )]
 
 [node name="HandPosition" type="BoneAttachment" parent="CharacterArmature/Skeleton" index="1"]
-transform = Transform( -0.971663, -0.0391313, -0.233107, 0.0114921, -0.992856, 0.118766, -0.236089, 0.112722, 0.965172, -0.505237, 0.888702, 0.0615318 )
+transform = Transform( -0.936536, 0.174224, 0.304214, 0.0538104, -0.786041, 0.615827, 0.346417, 0.593114, 0.726781, -0.39929, 0.907317, 0.479916 )
 bone_name = "Fist.R"
