@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=9 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://state_machines/resources/transition_table_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/idle_to_gather_wood.tres" type="Resource" id=2]
@@ -8,7 +8,8 @@
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/chop_tree_to_deliver.tres" type="Resource" id=6]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/gather_wood_to_deliver.tres" type="Resource" id=7]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/idle_to_deliver.tres" type="Resource" id=8]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/chop_tree_to_gather_wood.tres" type="Resource" id=9]
 
 [resource]
 script = ExtResource( 1 )
-_transitions = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ) ]
+_transitions = [ ExtResource( 8 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 4 ) ]
