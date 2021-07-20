@@ -20,6 +20,7 @@
 *.obj filter=lfs diff=lfs merge=lfs -text
 *.blend filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text
+*.anim filter=lfs diff=lfs merge=lfs -text
 
 # Unity formats:
 *.sbsar filter=lfs diff=lfs merge=lfs -text
