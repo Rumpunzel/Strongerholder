@@ -715,6 +715,11 @@ _global_script_classes=[ {
 "path": "res://ui/hud/game_hud/inventory_hud/inventory_hud_item.gd"
 }, {
 "base": "StateConditionResource",
+"class": "InventoryHasItemConditionResource",
+"language": "GDScript",
+"path": "res://characters/controllers/job_machine/conditions/inventory_has_item_condition_resource.gd"
+}, {
+"base": "StateConditionResource",
 "class": "InventoryHasRoomConditionResource",
 "language": "GDScript",
 "path": "res://characters/controllers/job_machine/conditions/inventory_has_room_condition_resource.gd"
@@ -758,6 +763,11 @@ _global_script_classes=[ {
 "class": "LocalTime",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/LocalTime.gd"
+}, {
+"base": "StateActionResource",
+"class": "LookForWorkActionResource",
+"language": "GDScript",
+"path": "res://characters/controllers/job_machine/actions/look_for_work_action_resource.gd"
 }, {
 "base": "Node",
 "class": "Main",
@@ -893,6 +903,11 @@ _global_script_classes=[ {
 "class": "ReadMovementActionResource",
 "language": "GDScript",
 "path": "res://characters/controllers/input_reader/actions/read_movement_action_resource.gd"
+}, {
+"base": "EventChannelBaseResource",
+"class": "ReferenceEventChannelResource",
+"language": "GDScript",
+"path": "res://event_system/reference_event_channel_resource.gd"
 }, {
 "base": "StateActionResource",
 "class": "RegisterPlayerActionResource",
@@ -1064,6 +1079,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://event_system/void_event_channel_resource.gd"
 }, {
+"base": "Node",
+"class": "Workstation",
+"language": "GDScript",
+"path": "res://prototype_assets/structures/workstation.gd"
+}, {
 "base": "Navigation",
 "class": "WorldScene",
 "language": "GDScript",
@@ -1221,6 +1241,7 @@ _global_script_class_icons={
 "InventoryAttributesResource": "",
 "InventoryHUD": "",
 "InventoryHUDItem": "",
+"InventoryHasItemConditionResource": "",
 "InventoryHasRoomConditionResource": "",
 "IsAttackingConditionResource": "",
 "IsGroundedConditionResource": "",
@@ -1230,6 +1251,7 @@ _global_script_class_icons={
 "ItemHUDBASE": "",
 "ItemResource": "",
 "LocalTime": "",
+"LookForWorkActionResource": "",
 "Main": "",
 "MainMenu": "",
 "MainMenuButton": "",
@@ -1257,6 +1279,7 @@ _global_script_class_icons={
 "ReadJumpActionResource": "",
 "ReadMouseMovementActionResource": "",
 "ReadMovementActionResource": "",
+"ReferenceEventChannelResource": "",
 "RegisterPlayerActionResource": "",
 "Result": "",
 "SFXEmitter": "",
@@ -1291,6 +1314,7 @@ _global_script_class_icons={
 "Vector3Fuzzer": "",
 "VitalsResource": "",
 "VoidEventChannelResource": "",
+"Workstation": "",
 "WorldScene": "res://editor_tools/class_icons/spatials/icon_treasure_map.svg",
 "_TestCase": "",
 "_TestSuiteScanner": ""

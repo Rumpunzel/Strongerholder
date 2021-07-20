@@ -1,8 +1,23 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://structures/structure.gd" type="Script" id=1]
 [ext_resource path="res://structures/models/city/sawmill.tscn" type="PackedScene" id=2]
 [ext_resource path="res://structures/resources/dimensions/7_5_5_dimension.tres" type="Shape" id=3]
+[ext_resource path="res://prototype_assets/structures/workstation.gd" type="Script" id=4]
+[ext_resource path="res://event_system/resources/gameplay/register_worker_channel.tres" type="Resource" id=5]
+[ext_resource path="res://event_system/resources/gameplay/register_job_channel.tres" type="Resource" id=6]
+[ext_resource path="res://characters/controllers/job_machine/wood_gathering_job_machine.tres" type="Resource" id=7]
+[ext_resource path="res://items/resources/axe.tres" type="Resource" id=8]
+[ext_resource path="res://characters/inventories/inventory.gd" type="Script" id=9]
+[ext_resource path="res://characters/inventories/inventory_attributes_resource.gd" type="Script" id=10]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 10 )
+inventory_size = 12
+starting_items = [  ]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 3, 3, 4 )
 
 [node name="Sawmill" type="StaticBody"]
 script = ExtResource( 1 )
@@ -12,3 +27,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
 shape = ExtResource( 3 )
 
 [node name="Sawmill" parent="." instance=ExtResource( 2 )]
+
+[node name="Workstation" type="Node" parent="."]
+script = ExtResource( 4 )
+_available_job = ExtResource( 7 )
+_available_tool = ExtResource( 8 )
+_register_job_channel = ExtResource( 6 )
+_register_worker_channel = ExtResource( 5 )
+
+[node name="Inventory" type="Area" parent="."]
+script = ExtResource( 9 )
+_inventory_attributes = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Inventory"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 4, 0 )
+shape = SubResource( 1 )

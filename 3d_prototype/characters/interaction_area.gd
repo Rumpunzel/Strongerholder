@@ -92,7 +92,6 @@ func _collect() -> void:
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore-all:unsafe_property_access
 	var item: ItemResource = item_node.item_resource
-	
 	current_interaction = null
 	emit_signal("item_picked_up", item)
 	

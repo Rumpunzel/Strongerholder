@@ -1,14 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://characters/_character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/models/characters/cowboy_hair.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/models/default_animations.tres" type="AnimationNodeBlendTree" id=3]
 [ext_resource path="res://characters/npc/resources/npc_inventory_attributes.tres" type="Resource" id=4]
 [ext_resource path="res://characters/npc/resources/npc_movement_stats.tres" type="Resource" id=5]
-[ext_resource path="res://characters/controllers/job_machine/wood_gathering_job_machine.tres" type="Resource" id=6]
-
-[sub_resource type="CylinderShape" id=1]
-radius = 10.0
+[ext_resource path="res://characters/controllers/job_machine/idle_job_machine.tres" type="Resource" id=6]
 
 [node name="NPC" instance=ExtResource( 1 )]
 movement_stats = ExtResource( 5 )
@@ -19,9 +16,6 @@ _transition_table_resource = ExtResource( 6 )
 [node name="Inventory" parent="." index="4"]
 _inventory_attributes = ExtResource( 4 )
 _hand_position = NodePath("../Cowboy_Hair/CharacterArmature/Skeleton/HandPosition")
-
-[node name="CollisionShape" parent="InteractionArea/PerceptionArea" index="0"]
-shape = SubResource( 1 )
 
 [node name="AnimationTree" parent="." index="6"]
 tree_root = ExtResource( 3 )
