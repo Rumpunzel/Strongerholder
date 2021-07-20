@@ -19,8 +19,9 @@ _building_placed_channel = ExtResource( 3 )
 _scene_unloaded_channel = ExtResource( 5 )
 _scene_atmosphere_started_channel = ExtResource( 6 )
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
 [node name="TopDownCamera" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 44, 61, 45 )
 
 [node name="SFXLayer" type="Node" parent="."]
 script = ExtResource( 7 )
