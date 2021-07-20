@@ -176,7 +176,7 @@ func contents(return_only_non_empty := true) -> Array:
 	
 	var item_stacks := [ ]
 	for stack in item_slots:
-		if stack:
+		if stack and stack.item:
 			item_stacks.append(stack)
 	
 	return item_stacks
@@ -187,7 +187,16 @@ func size() -> int:
 
 
 func empty() -> bool:
-	return contents(true).empty()
+	return contents().empty()
+
+func full(specific_item_to_check: ItemResource = null) -> bool:
+	for slot in item_slots.size():
+		var stack: ItemStack = item_slots[slot]
+		if not stack.item or (stack.item == specific_item_to_check and stack.amount < stack.item.stack_size):
+			return false
+	
+	return true
+
 
 
 func save_to_var(save_file: File) -> void:
