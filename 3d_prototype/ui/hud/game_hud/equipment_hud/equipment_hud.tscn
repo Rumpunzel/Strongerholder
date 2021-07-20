@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://event_system/resources/hud/equipment_hud_toggled_channel.tres" type="Resource" id=1]
+[ext_resource path="res://event_system/resources/hud/equipment_stacks_updated_channel.tres" type="Resource" id=2]
+[ext_resource path="res://event_system/resources/hud/equipment_updated_channel.tres" type="Resource" id=3]
+[ext_resource path="res://event_system/resources/main/game_pause_requested_channel.tres" type="Resource" id=4]
+[ext_resource path="res://ui/hud/game_hud/inventory_hud/inventory_hud_item.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/hud/game_hud/equipment_hud/equipment_hud.gd" type="Script" id=6]
+
+[node name="EquipmentHUD" type="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 110, 0 )
+rect_pivot_offset = Vector2( -140, 0 )
+mouse_filter = 2
+popup_exclusive = true
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+center_angle = 180.0
+clock_wise = false
+_item_scene = ExtResource( 5 )
+_game_pause_requested_channel = ExtResource( 4 )
+_equipment_hud_toggled_channel = ExtResource( 1 )
+_equipment_stacks_updated_channel = ExtResource( 2 )
+_equipment_updated_channel = ExtResource( 3 )

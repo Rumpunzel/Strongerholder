@@ -192,7 +192,7 @@ _global_script_classes=[ {
 "base": "ItemHUDBASE",
 "class": "EquipmentHUD",
 "language": "GDScript",
-"path": "res://ui/hud/game_hud/inventory_hud/equipment_hud.gd"
+"path": "res://ui/hud/game_hud/equipment_hud/equipment_hud.gd"
 }, {
 "base": "Spatial",
 "class": "EquippableItem",
@@ -747,7 +747,7 @@ _global_script_classes=[ {
 "base": "RadialMenu",
 "class": "ItemHUDBASE",
 "language": "GDScript",
-"path": "res://ui/hud/game_hud/inventory_hud/_item_hud_base.gd"
+"path": "res://ui/hud/game_hud/_item_hud_base.gd"
 }, {
 "base": "ObjectResource",
 "class": "ItemResource",

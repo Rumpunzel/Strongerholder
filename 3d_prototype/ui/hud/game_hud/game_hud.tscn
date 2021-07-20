@@ -1,33 +1,13 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://ui/hud/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/game_hud/game_hud.gd" type="Script" id=2]
 [ext_resource path="res://prototype_assets/gui/gui_theme.tres" type="Theme" id=3]
-[ext_resource path="res://ui/hud/game_hud/inventory_hud/inventory_hud.gd" type="Script" id=4]
-[ext_resource path="res://prototype_assets/gui/game_icons/unequip.png" type="Texture" id=5]
-[ext_resource path="res://ui/hud/radial_hud/radial_menu.gd" type="Script" id=6]
-[ext_resource path="res://ui/hud/game_hud/inventory_hud/equipment_hud.gd" type="Script" id=7]
-[ext_resource path="res://ui/hud/game_hud/inventory_hud/inventory_hud_item.tscn" type="PackedScene" id=8]
-[ext_resource path="res://prototype_assets/gui/game_icons/equip.png" type="Texture" id=9]
-[ext_resource path="res://prototype_assets/gui/game_icons/use.png" type="Texture" id=10]
-[ext_resource path="res://prototype_assets/gui/game_icons/drop.png" type="Texture" id=11]
-[ext_resource path="res://ui/hud/game_hud/build_hud/build_hud.gd" type="Script" id=12]
-[ext_resource path="res://ui/hud/game_hud/build_hud/build_hud_item.tscn" type="PackedScene" id=13]
-[ext_resource path="res://structures/resources/city/house.tres" type="Resource" id=14]
-[ext_resource path="res://structures/resources/city/props/campfire.tres" type="Resource" id=15]
-[ext_resource path="res://structures/resources/nature/tree.tres" type="Resource" id=16]
-[ext_resource path="res://structures/resources/city/bell_tower.tres" type="Resource" id=17]
-[ext_resource path="res://ui/hud/game_hud/build_hud/building_placer.tscn" type="PackedScene" id=18]
+[ext_resource path="res://ui/hud/game_hud/inventory_hud/inventory_hud.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/hud/game_hud/build_hud/build_hud.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/hud/game_hud/equipment_hud/equipment_hud.tscn" type="PackedScene" id=7]
 [ext_resource path="res://event_system/resources/main/game_paused_channel.tres" type="Resource" id=19]
 [ext_resource path="res://event_system/resources/main/game_continued_channel.tres" type="Resource" id=20]
-[ext_resource path="res://event_system/resources/hud/inventory_hud_toggled_channel.tres" type="Resource" id=21]
-[ext_resource path="res://event_system/resources/hud/building_hud_toggled_channel.tres" type="Resource" id=22]
-[ext_resource path="res://event_system/resources/main/game_pause_requested_channel.tres" type="Resource" id=23]
-[ext_resource path="res://event_system/resources/hud/inventory_stacks_updated_channel.tres" type="Resource" id=25]
-[ext_resource path="res://event_system/resources/hud/inventory_updated_channel.tres" type="Resource" id=26]
-[ext_resource path="res://event_system/resources/hud/equipment_hud_toggled_channel.tres" type="Resource" id=27]
-[ext_resource path="res://event_system/resources/hud/equipment_updated_channel.tres" type="Resource" id=28]
-[ext_resource path="res://event_system/resources/hud/equipment_stacks_updated_channel.tres" type="Resource" id=29]
 
 [node name="GameHUD" type="Popup"]
 anchor_right = 1.0
@@ -72,88 +52,17 @@ text = "PLACEHOLDER ART
 by https://quaternius.com/"
 align = 2
 
-[node name="EquipmentHUD" type="Popup" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 110, 0 )
-rect_pivot_offset = Vector2( -140, 0 )
-mouse_filter = 2
-popup_exclusive = true
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-center_angle = 180.0
-clock_wise = false
-_item_scene = ExtResource( 8 )
-_game_pause_requested_channel = ExtResource( 23 )
-_equipment_hud_toggled_channel = ExtResource( 27 )
-_equipment_stacks_updated_channel = ExtResource( 29 )
-_equipment_updated_channel = ExtResource( 28 )
+[node name="EquipmentHUD" parent="." instance=ExtResource( 7 )]
 
-[node name="InventoryHUD" type="Popup" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 105, 0 )
-rect_pivot_offset = Vector2( -145, 0 )
-mouse_filter = 2
-popup_exclusive = true
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-submenu_node = NodePath("SubMenu")
-_item_scene = ExtResource( 8 )
-_game_pause_requested_channel = ExtResource( 23 )
-_use_icon = ExtResource( 10 )
-_equip_icon = ExtResource( 9 )
-_unequip_icon = ExtResource( 5 )
-_drop_icon = ExtResource( 11 )
-_inventory_hud_toggled_channel = ExtResource( 21 )
-_inventory_stacks_updated_channel = ExtResource( 25 )
-_inventory_updated_channel = ExtResource( 26 )
+[node name="InventoryHUD" parent="." instance=ExtResource( 4 )]
 
-[node name="SubMenu" type="Popup" parent="InventoryHUD"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1810.0
-margin_bottom = -1080.0
-rect_min_size = Vector2( 110, 0 )
-rect_pivot_offset = Vector2( -140, 0 )
-mouse_filter = 2
-popup_exclusive = true
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-is_submenu = true
-circle_coverage = 0.064
-animation_speed_factor = 0.1
-
-[node name="BuildHUD" type="Popup" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 110, 0 )
-rect_pivot_offset = Vector2( -140, 0 )
-mouse_filter = 2
-popup_exclusive = true
-script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-_build_item_scene = ExtResource( 13 )
-_buildable_structures = [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 17 ) ]
-_game_pause_requested_channel = ExtResource( 23 )
-_building_hud_toggled_channel = ExtResource( 22 )
-
-[node name="BuildingPlacer" parent="BuildHUD" instance=ExtResource( 18 )]
-_grid_size = 1.0
+[node name="BuildHUD" parent="." instance=ExtResource( 5 )]
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="about_to_show" from="EquipmentHUD" to="BuildHUD" method="close_menu"]
 [connection signal="about_to_show" from="EquipmentHUD" to="InventoryHUD" method="close_menu"]
-[connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
+[connection signal="about_to_show" from="EquipmentHUD" to="BuildHUD" method="close_menu"]
 [connection signal="about_to_show" from="InventoryHUD" to="BuildHUD" method="close_menu"]
-[connection signal="about_to_show" from="BuildHUD" to="EquipmentHUD" method="close_menu"]
+[connection signal="about_to_show" from="InventoryHUD" to="EquipmentHUD" method="close_menu"]
 [connection signal="about_to_show" from="BuildHUD" to="InventoryHUD" method="close_menu"]
+[connection signal="about_to_show" from="BuildHUD" to="EquipmentHUD" method="close_menu"]

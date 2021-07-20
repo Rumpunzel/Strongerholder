@@ -1,0 +1,52 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://event_system/resources/hud/inventory_hud_toggled_channel.tres" type="Resource" id=1]
+[ext_resource path="res://event_system/resources/main/game_pause_requested_channel.tres" type="Resource" id=2]
+[ext_resource path="res://event_system/resources/hud/inventory_stacks_updated_channel.tres" type="Resource" id=3]
+[ext_resource path="res://event_system/resources/hud/inventory_updated_channel.tres" type="Resource" id=4]
+[ext_resource path="res://ui/hud/game_hud/inventory_hud/inventory_hud_item.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/hud/radial_hud/radial_menu.gd" type="Script" id=6]
+[ext_resource path="res://ui/hud/game_hud/inventory_hud/inventory_hud.gd" type="Script" id=7]
+[ext_resource path="res://prototype_assets/gui/game_icons/unequip.png" type="Texture" id=8]
+[ext_resource path="res://prototype_assets/gui/game_icons/drop.png" type="Texture" id=9]
+[ext_resource path="res://prototype_assets/gui/game_icons/use.png" type="Texture" id=10]
+[ext_resource path="res://prototype_assets/gui/game_icons/equip.png" type="Texture" id=11]
+
+[node name="InventoryHUD" type="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 105, 0 )
+rect_pivot_offset = Vector2( -145, 0 )
+mouse_filter = 2
+popup_exclusive = true
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+submenu_node = NodePath("SubMenu")
+_item_scene = ExtResource( 5 )
+_game_pause_requested_channel = ExtResource( 2 )
+_use_icon = ExtResource( 10 )
+_equip_icon = ExtResource( 11 )
+_unequip_icon = ExtResource( 8 )
+_drop_icon = ExtResource( 9 )
+_inventory_hud_toggled_channel = ExtResource( 1 )
+_inventory_stacks_updated_channel = ExtResource( 3 )
+_inventory_updated_channel = ExtResource( 4 )
+
+[node name="SubMenu" type="Popup" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1810.0
+margin_bottom = -1080.0
+rect_min_size = Vector2( 110, 0 )
+rect_pivot_offset = Vector2( -140, 0 )
+mouse_filter = 2
+popup_exclusive = true
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+is_submenu = true
+circle_coverage = 0.064
+animation_speed_factor = 0.1
