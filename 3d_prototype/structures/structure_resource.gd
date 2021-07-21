@@ -1,4 +1,4 @@
-class_name StructureResource
+class_name StructureResource, "res://editor_tools/class_icons/resources/icon_stone_tower.svg"
 extends ObjectResource
 
 # warning-ignore:unused_class_variable

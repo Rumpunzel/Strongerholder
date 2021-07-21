@@ -1,4 +1,4 @@
-class_name ItemResource
+class_name ItemResource, "res://editor_tools/class_icons/resources/icon_fire_bottle.svg"
 extends ObjectResource
 
 # warning-ignore-all:unused_class_variable

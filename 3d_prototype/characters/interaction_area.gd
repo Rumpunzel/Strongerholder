@@ -14,6 +14,9 @@ enum InteractionType {
 	NONE,
 	PICK_UP,
 	ATTACK,
+	GIVE,
+	TAKE,
+	OPERATE,
 }
 
 var objects_in_interaction_range := [ ]
@@ -35,7 +38,7 @@ onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 #		_character.look_position = current_interaction.node.translation
 
 
-func interact_with_nearest(object_resource: ObjectResource = null) -> void:
+func smart_interact_with_nearest(object_resource: ObjectResource = null) -> void:
 	if current_interaction and not current_interaction.type == InteractionType.NONE:
 		return
 	
@@ -57,13 +60,21 @@ func _find_nearest_interaction(objects: Array, object_resource: ObjectResource) 
 	
 	for object in objects:
 		var object_does_not_fit: bool = object_resource and ((object is CollectableItem and not object.item_resource == object_resource) or (object is Structure and not object.structure_resource == object_resource))
-		if object == owner or object_does_not_fit:
+		if object == owner:
 			continue
 		
-		var potential_interaction := Interaction.new(object)
+		var potential_interaction := Interaction.new(object, InteractionType.NONE)
 		
-		if object.is_in_group("Item"):
-			potential_interaction.type = InteractionType.PICK_UP
+		if object is CollectableItem:
+			if not object_resource or object.item_resource == object_resource:
+				potential_interaction.type = InteractionType.PICK_UP
+		
+		elif object is Stash:
+			if object.item_to_store == object_resource:
+				potential_interaction.type = InteractionType.GIVE
+			elif object is Workstation:
+				pass
+		
 		elif _equipped_item:
 			# WAITFORUPDATE: remove this unnecessary thing after 4.0
 			# warning-ignore-all:unsafe_property_access
@@ -150,6 +161,6 @@ class Interaction:
 	var node: Spatial
 	var type: int
 	
-	func _init(new_node: Spatial, new_type: int = 0) -> void:
+	func _init(new_node: Spatial, new_type: int) -> void:
 		node = new_node
 		type = new_type

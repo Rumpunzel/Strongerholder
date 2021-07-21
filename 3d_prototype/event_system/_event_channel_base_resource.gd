@@ -1,4 +1,4 @@
-class_name EventChannelBaseResource
+class_name EventChannelBaseResource, "res://editor_tools/class_icons/resources/icon_aerial_signal.svg"
 extends Resource
 
 # warning-ignore:unused_class_variable

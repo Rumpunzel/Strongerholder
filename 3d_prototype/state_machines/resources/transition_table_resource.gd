@@ -1,4 +1,4 @@
-class_name TransitionTableResource
+class_name TransitionTableResource, "res://editor_tools/class_icons/resources/icon_choice.svg"
 extends Resource
 
 enum { CONDITIONS, RESULT_GROUPS }

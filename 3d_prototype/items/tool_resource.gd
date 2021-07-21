@@ -1,4 +1,4 @@
-class_name ToolResource
+class_name ToolResource, "res://editor_tools/class_icons/resources/icon_thor_hammer.svg"
 extends ItemResource
 
 # warning-ignore-all:unused_class_variable

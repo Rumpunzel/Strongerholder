@@ -1,4 +1,4 @@
-class_name CharacterMovementStatsResource
+class_name CharacterMovementStatsResource, "res://editor_tools/class_icons/resources/Icon_walk.svg"
 extends Resource
 
 # warning-ignore-all:unused_class_variable

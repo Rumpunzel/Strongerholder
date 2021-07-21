@@ -1,4 +1,4 @@
-class_name Structure
+class_name Structure, "res://editor_tools/class_icons/spatials/icon_stone_tower.svg"
 extends StaticBody
 tool
 

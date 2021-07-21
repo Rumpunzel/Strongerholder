@@ -24,7 +24,7 @@ class ReadInteraction extends StateAction:
 	
 	func on_update(_delta: float) -> void:
 		if _smart_interacting:
-			_interaction_area.interact_with_nearest()
+			_interaction_area.smart_interact_with_nearest()
 		
 		if _attacking and _inventory.has_something_equipped():
 			_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK)
