@@ -20,8 +20,8 @@ class StopMovementAction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
-		_inputs = _character.get_inputs()
-		_actions = _character.get_actions()
+		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
+		_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions)
 	
 	func on_state_enter() -> void:
 		if not _moment == StateAction.SpecificMoment.ON_STATE_EXIT:

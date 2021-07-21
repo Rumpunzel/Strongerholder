@@ -18,7 +18,7 @@ class GroundGravityAction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		var character: Character = state_machine.owner
-		_actions = character.get_actions()
+		_actions = Utils.find_node_of_type_in_children(character, CharacterMovementActions)
 	
 	func on_update(_delta: float) -> void:
 		_actions.vertical_velocity = _vertical_pull

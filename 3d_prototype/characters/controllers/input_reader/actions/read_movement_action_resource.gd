@@ -12,7 +12,7 @@ class ReadMovementAction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
-		_inputs = _character.get_inputs()
+		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
 	
 	
 	func on_update(_delta: float) -> void:

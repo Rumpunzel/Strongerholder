@@ -69,7 +69,7 @@ extents = Vector3( 1, 1, 0.5 )
 "Persist",
 ]]
 collision_layer = 2
-collision_mask = 11
+collision_mask = 15
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -149,7 +149,6 @@ script = ExtResource( 9 )
 _sound_scene = ExtResource( 10 )
 _sfx_emitted_channel = ExtResource( 11 )
 
-[connection signal="instantiated" from="." to="AnimationTree" method="set_active" binds= [ true ]]
 [connection signal="equipment_stack_added" from="Inventory" to="Inventory" method="_on_equipment_stack_added"]
 [connection signal="item_equipped" from="Inventory" to="InteractionArea" method="_on_item_equipped"]
 [connection signal="item_unequipped" from="Inventory" to="InteractionArea" method="_on_item_unequipped"]

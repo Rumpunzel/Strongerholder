@@ -11,7 +11,7 @@ class IsHoldingJumpCondition extends StateCondition:
 	
 	func awake(state_machine):
 		var character: Character = state_machine.owner
-		_inputs = character.get_inputs()
+		_inputs = Utils.find_node_of_type_in_children(character, CharacterMovementInputs)
 	
 	func _statement() -> bool:
 		return _inputs.jump_input

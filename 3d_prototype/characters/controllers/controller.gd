@@ -4,7 +4,7 @@ extends StateMachine
 var current_job = null setget _set_current_job
 
 # warning-ignore:unsafe_method_access
-onready var _inventory: CharacterInventory = owner.get_inventory()
+onready var _inventory: CharacterInventory = Utils.find_node_of_type_in_children(owner, CharacterInventory)
 
 
 func _unhandled_input(event: InputEvent) -> void:

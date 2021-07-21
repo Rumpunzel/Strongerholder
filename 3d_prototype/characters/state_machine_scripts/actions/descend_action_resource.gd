@@ -16,8 +16,8 @@ class DescendAction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		var character: Character = state_machine.owner
-		_inputs = character.get_inputs()
-		_actions = character.get_actions()
+		_inputs = Utils.find_node_of_type_in_children(character, CharacterMovementInputs)
+		_actions = Utils.find_node_of_type_in_children(character, CharacterMovementActions)
 		# warning-ignore:unsafe_property_access
 		_movement_stats = character.movement_stats
 	

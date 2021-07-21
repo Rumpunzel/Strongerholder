@@ -16,7 +16,7 @@ class ReadMouseMovementAction extends StateAction:
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
 		_navigation = _character.get_navigation()
-		_inputs = _character.get_inputs()
+		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
 	
 	
 	func enter_state() -> void:

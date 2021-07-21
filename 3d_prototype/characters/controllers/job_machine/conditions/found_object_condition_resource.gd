@@ -23,8 +23,8 @@ class FoundObjectCondition extends StateCondition:
 	func awake(state_machine) -> void:
 		var character: Character = state_machine.owner
 		_navigation = character.get_navigation()
-		_inputs = character.get_inputs()
-		_interaction_area = character.get_interaction_area()
+		_inputs = Utils.find_node_of_type_in_children(character, CharacterMovementInputs)
+		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
 		
 		# warning-ignore:return_value_discarded
 		_interaction_area.connect("body_entered_perception_area", self, "_check_items")

@@ -13,8 +13,8 @@ class HasHitHeadCondition extends StateCondition:
 	
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
-		_inputs = _character.get_inputs()
-		_actions = _character.get_actions()
+		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
+		_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions)
 	
 	
 	func _statement() -> bool:

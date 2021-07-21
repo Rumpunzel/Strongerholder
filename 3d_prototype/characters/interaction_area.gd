@@ -26,7 +26,7 @@ var _equipped_item: CharacterInventory.EquippedItem
 
 onready var _character: Spatial = owner
 # warning-ignore:unsafe_method_access
-onready var _inputs: CharacterMovementInputs = _character.get_inputs()
+onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
 onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
 

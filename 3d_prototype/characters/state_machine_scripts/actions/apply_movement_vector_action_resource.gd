@@ -13,7 +13,7 @@ class ApplyMovementVectorAction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
-		_actions = _character.get_actions()
+		_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions)
 		# warning-ignore:unsafe_property_access
 		_movement_stats = _character.movement_stats
 	

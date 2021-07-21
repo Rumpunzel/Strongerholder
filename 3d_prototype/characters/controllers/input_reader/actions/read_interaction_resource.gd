@@ -17,9 +17,9 @@ class ReadInteraction extends StateAction:
 	
 	func awake(state_machine) -> void:
 		_character = state_machine.owner
-		_inputs = _character.get_inputs()
-		_inventory = _character.get_inventory()
-		_interaction_area = _character.get_interaction_area()
+		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
+		_inventory = Utils.find_node_of_type_in_children(_character, CharacterInventory)
+		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
 	
 	
 	func on_update(_delta: float) -> void:

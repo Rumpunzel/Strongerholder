@@ -2,25 +2,17 @@ class_name Character, "res://editor_tools/class_icons/spatials/icon_barbute.svg"
 extends KinematicBody
 tool
 
-signal instantiated
-
 export(Resource) var movement_stats
 
 var velocity: Vector3
 var is_grounded: bool
 var look_position: Vector3 = Vector3.ZERO
 
-var _ground_check: RayCast
-
+onready var _ground_check: RayCast = $GroundCheck
 
 
 func _ready() -> void:
-	if Engine.editor_hint:
-		return
-	
 	set_axis_lock(PhysicsServer.BODY_AXIS_ANGULAR_Y, true)
-	_ground_check = $GroundCheck
-	emit_signal("instantiated")
 
 
 func _physics_process(delta: float) -> void:
@@ -34,29 +26,12 @@ func _physics_process(delta: float) -> void:
 		_turn_to_look_postion(delta)
 
 
-
 func save_to_var(save_file: File) -> void:
 	save_file.store_var(transform)
 
 func load_from_var(save_file: File) -> void:
 	transform = save_file.get_var()
 
-
-func get_inputs() -> CharacterMovementInputs:
-	assert($Controller/MovementInputs as CharacterMovementInputs)
-	return $Controller/MovementInputs as CharacterMovementInputs
-
-func get_actions() -> CharacterMovementActions:
-	assert($Controller/MovementActions as CharacterMovementActions)
-	return $Controller/MovementActions as CharacterMovementActions
-
-func get_interaction_area() -> InteractionArea:
-	assert($InteractionArea as InteractionArea)
-	return $InteractionArea as InteractionArea
-
-func get_inventory() -> CharacterInventory:
-	assert($Inventory as CharacterInventory)
-	return $Inventory as CharacterInventory
 
 func get_navigation() -> Navigation:
 	assert(get_parent() as Navigation)

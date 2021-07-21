@@ -11,7 +11,7 @@ class IsAttackingCondition extends StateCondition:
 	
 	func awake(state_machine):
 		var character: Character = state_machine.owner
-		_interaction_area = character.get_interaction_area()
+		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
 	
 	
 	func _statement() -> bool:

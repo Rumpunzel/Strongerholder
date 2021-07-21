@@ -20,7 +20,7 @@ class InventoryHasItemCondition extends StateCondition:
 	
 	func awake(state_machine) -> void:
 		var character: Character = state_machine.owner
-		_inventory = character.get_inventory()
+		_inventory = Utils.find_node_of_type_in_children(character, CharacterInventory)
 		# warning-ignore:return_value_discarded
 		_inventory.connect("item_added", self, "_check_items")
 		
