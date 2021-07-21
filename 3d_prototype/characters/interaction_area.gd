@@ -4,11 +4,11 @@ extends Area
 signal item_picked_up(item)
 signal attacked(started)
 
-signal body_entered_interaction_area(body)
-signal body_exited_interaction_area(body)
+signal object_entered_interaction_area(object)
+signal object_exited_interaction_area(object)
 
-signal body_entered_perception_area(body)
-signal body_exited_perception_area(body)
+signal object_entered_perception_area(object)
+signal object_exited_perception_area(object)
 
 enum InteractionType {
 	NONE,
@@ -135,22 +135,22 @@ func _attack(started: bool) -> void:
 
 
 
-func _on_body_entered_perception_area(body: Node) -> void:
-	objects_in_perception_range.append(body)
-	emit_signal("body_entered_perception_area", body)
+func _on_object_entered_perception_area(object: Node) -> void:
+	objects_in_perception_range.append(object)
+	emit_signal("object_entered_perception_area", object)
 
-func _on_body_exited_perception_area(body: Node) -> void:
-	objects_in_perception_range.erase(body)
-	emit_signal("body_exited_perception_area", body)
+func _on_object_exited_perception_area(object: Node) -> void:
+	objects_in_perception_range.erase(object)
+	emit_signal("object_exited_perception_area", object)
 
 
-func _on_body_entered_interaction_area(body: Node) -> void:
-	objects_in_interaction_range.append(body)
-	emit_signal("body_entered_interaction_area", body)
+func _on_object_entered_interaction_area(object: Node) -> void:
+	objects_in_interaction_range.append(object)
+	emit_signal("object_entered_interaction_area", object)
 
-func _on_body_exited_interaction_area(body: Node) -> void:
-	objects_in_interaction_range.erase(body)
-	emit_signal("body_exited_interaction_area", body)
+func _on_object_exited_interaction_area(object: Node) -> void:
+	objects_in_interaction_range.erase(object)
+	emit_signal("object_exited_interaction_area", object)
 
 
 func _on_hurt_box_entered(area: Area) -> void:
