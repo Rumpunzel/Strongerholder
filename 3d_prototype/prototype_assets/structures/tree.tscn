@@ -31,6 +31,10 @@ structure_resource = ExtResource( 12 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
 shape = SubResource( 1 )
 
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 4 )
+_inventory_attributes = ExtResource( 5 )
+
 [node name="HitBox" type="Area" parent="."]
 collision_layer = 8
 collision_mask = 0
@@ -45,10 +49,6 @@ shape = SubResource( 2 )
 script = ExtResource( 7 )
 _sound_scene = ExtResource( 8 )
 _sfx_emitted_channel = ExtResource( 9 )
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource( 4 )
-_inventory_attributes = ExtResource( 5 )
 
 [node name="CommonTree_1" parent="." instance=ExtResource( 1 )]
 
