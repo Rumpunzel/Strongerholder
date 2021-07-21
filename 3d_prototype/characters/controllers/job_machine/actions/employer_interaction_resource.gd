@@ -10,6 +10,7 @@ class EmployerInteraction extends StateAction:
 	var _interaction_area: InteractionArea
 	
 	func awake(state_machine: Node) -> void:
+		# warning-ignore:unsafe_property_access
 		_employer = state_machine.current_job.employer
 		_interaction_area = Utils.find_node_of_type_in_children(state_machine.owner, InteractionArea)
 	
