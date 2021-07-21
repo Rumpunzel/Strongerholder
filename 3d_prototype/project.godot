@@ -694,7 +694,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/interaction_area.gd"
 }, {
-"base": "Area",
+"base": "Node",
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://characters/inventories/inventory.gd"
@@ -1079,7 +1079,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://event_system/void_event_channel_resource.gd"
 }, {
-"base": "Node",
+"base": "Area",
 "class": "Workstation",
 "language": "GDScript",
 "path": "res://prototype_assets/structures/workstation.gd"
@@ -1118,7 +1118,7 @@ _global_script_class_icons={
 "BuildingPlacer": "",
 "ChainedArgumentMatcher": "",
 "Character": "res://editor_tools/class_icons/spatials/icon_barbute.svg",
-"CharacterInventory": "res://editor_tools/class_icons/spatials/icon_knapsack.svg",
+"CharacterInventory": "res://editor_tools/class_icons/nodes/icon_knapsack.svg",
 "CharacterMovementActions": "res://editor_tools/class_icons/nodes/icon_expand.svg",
 "CharacterMovementInputs": "res://editor_tools/class_icons/nodes/icon_contract.svg",
 "CharacterMovementStatsResource": "",
@@ -1237,7 +1237,7 @@ _global_script_class_icons={
 "HorizontalMoveActionResource": "",
 "IntFuzzer": "",
 "InteractionArea": "res://editor_tools/class_icons/spatials/icon_slap.svg",
-"Inventory": "res://editor_tools/class_icons/spatials/icon_swap_bag.svg",
+"Inventory": "res://editor_tools/class_icons/nodes/icon_swap_bag.svg",
 "InventoryAttributesResource": "",
 "InventoryHUD": "",
 "InventoryHUDItem": "",

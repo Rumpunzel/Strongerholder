@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_knapsack.svg-f7a97c321cdd4591694af0aa33912f2b.stex"
+path="res://.import/icon_swap_bag.svg-dc6549890b2af7e5e976cda86392a7cc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://editor_tools/class_icons/spatials/icon_knapsack.svg"
-dest_files=[ "res://.import/icon_knapsack.svg-f7a97c321cdd4591694af0aa33912f2b.stex" ]
+source_file="res://editor_tools/class_icons/nodes/icon_swap_bag.svg"
+dest_files=[ "res://.import/icon_swap_bag.svg-dc6549890b2af7e5e976cda86392a7cc.stex" ]
 
 [params]
 

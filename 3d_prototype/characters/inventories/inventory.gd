@@ -1,5 +1,5 @@
-class_name Inventory, "res://editor_tools/class_icons/spatials/icon_swap_bag.svg"
-extends Area
+class_name Inventory, "res://editor_tools/class_icons/nodes/icon_swap_bag.svg"
+extends Node
 tool
 
 signal item_added(item)
@@ -14,12 +14,10 @@ signal equipment_removed(equipment)
 signal equipment_stack_added(equipment_stack)
 signal equipment_stack_removed(equipment_stack)
 
+
 export(Resource) var _inventory_attributes
 
 var item_slots := [ ]
-
-onready var _drop_area: CollisionShape = $CollisionShape
-onready var _drop_shape: BoxShape = _drop_area.shape
 
 var _initialized := false
 
@@ -263,13 +261,7 @@ func _remove_from_stack(stack: ItemStack, count: int) -> int:
 
 
 func _spawn_item(item: ItemResource) -> void:
-	var center_position := _drop_area.global_transform.origin
-	var size := _drop_shape.extents
-	var spawn_position := center_position
-	
-	spawn_position.x += (randf() - 0.5) * size.x
-	spawn_position.z += (randf() - 0.5) * size.z
-	
+	var spawn_position: Vector3 = owner.translation + Vector3((randf() - 0.5) * 5.0, 2.0, (randf() - 0.5) * 5.0)
 	# warning-ignore:return_value_discarded
 	item.drop_at(spawn_position)
 

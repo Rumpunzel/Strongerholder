@@ -1,4 +1,4 @@
-class_name CharacterInventory, "res://editor_tools/class_icons/spatials/icon_knapsack.svg"
+class_name CharacterInventory, "res://editor_tools/class_icons/nodes/icon_knapsack.svg"
 extends Inventory
 
 

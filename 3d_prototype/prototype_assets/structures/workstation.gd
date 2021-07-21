@@ -1,5 +1,5 @@
 class_name Workstation
-extends Node
+extends Area
 
 
 export(Resource) var _available_job
