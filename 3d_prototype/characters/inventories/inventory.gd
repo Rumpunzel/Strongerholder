@@ -153,7 +153,7 @@ func drop_everything() -> void:
 
 func contains(item: ItemResource) -> ItemStack:
 	for stack in item_slots:
-		if stack and stack.item == item:
+		if stack.item == item and stack.amount > 0:
 			return stack
 	
 	return null
@@ -162,7 +162,7 @@ func contains(item: ItemResource) -> ItemStack:
 func count(item: ItemResource) -> int:
 	var item_count := 0
 	for stack in item_slots:
-		if stack and stack.item == item:
+		if stack.item == item:
 			item_count += stack.amount
 	
 	return item_count
@@ -261,7 +261,7 @@ func _remove_from_stack(stack: ItemStack, count: int) -> int:
 
 
 func _spawn_item(item: ItemResource) -> void:
-	var spawn_position: Vector3 = owner.translation + Vector3((randf() - 0.5) * 5.0, 2.0, (randf() - 0.5) * 5.0)
+	var spawn_position: Vector3 = owner.translation + Vector3((randf() - 0.5) * 1.0, 1.0, (randf() - 0.1) * 5.0)
 	# warning-ignore:return_value_discarded
 	item.drop_at(spawn_position)
 

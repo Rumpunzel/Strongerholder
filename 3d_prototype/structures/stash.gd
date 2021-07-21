@@ -8,4 +8,5 @@ onready var _inventory: Inventory = Utils.find_node_of_type_in_children(owner, I
 
 # Returns how many items were dropped because the inventory was full
 func stash(item: ItemResource, count := 1) -> int:
+	print("%s stashed" % item.name)
 	return _inventory.add(item, count)

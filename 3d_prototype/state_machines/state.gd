@@ -55,9 +55,6 @@ func try_get_transition() -> State:
 		if state:
 			break
 	
-	for transition in transitions:
-		transition.clear_conditions_cache()
-	
 	return state
 
 

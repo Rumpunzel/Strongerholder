@@ -58,7 +58,7 @@ func smart_interact_with_nearest(object_resource: ObjectResource = null) -> void
 		if objects_in_interaction_range.has(_nearest_interaction.node):
 			current_interaction = _nearest_interaction
 		# TODO: check what behaviour will be required to reset the behaviour
-		elif objects_in_perception_range.has(_nearest_interaction.node):
+		elif _nearest_interaction.node.is_inside_tree():#objects_in_perception_range.has(_nearest_interaction.node):
 			point_to_walk_to = _nearest_interaction.position()
 		else:
 			reset()
@@ -126,7 +126,6 @@ func _collect() -> void:
 	if not item_node:
 		return
 	
-	reset()
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore-all:unsafe_property_access
 	var item: ItemResource = item_node.item_resource
@@ -137,7 +136,6 @@ func _collect() -> void:
 
 
 func _attack(started: bool) -> void:
-	reset()
 	_hurt_box_shape.disabled = not started
 	emit_signal("attacked", started)
 
@@ -145,8 +143,7 @@ func _attack(started: bool) -> void:
 func _give() -> void:
 	var stash: Stash = current_interaction.node
 	var item: ItemResource = stash.item_to_store
-	
-	reset()
+	assert(_inventory.contains(item))
 	emit_signal("gave_item", item)
 	stash.stash(item)
 

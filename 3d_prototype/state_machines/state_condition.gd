@@ -1,16 +1,10 @@
 class_name StateCondition
 extends StateComponent
 
-
 var origin_resource: Resource
 
 
-var _is_cached := false
-var _cached_statement := false
-
-
-
-func awake(_state_machine) -> void:# StateMachine) -> void:
+func awake(_state_machine: Node) -> void:# StateMachine) -> void:
 	pass
 
 func on_state_enter() -> void:
@@ -21,15 +15,7 @@ func on_state_exit() -> void:
 
 
 func get_statement() -> bool:
-	if not _is_cached:
-		_is_cached = true
-		_cached_statement = _statement()
-	
-	return _cached_statement
-
-
-func clear_statement_cache() -> void:
-	_is_cached = false
+	return _statement()
 
 
 

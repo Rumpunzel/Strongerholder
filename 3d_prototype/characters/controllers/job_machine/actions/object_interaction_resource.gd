@@ -8,8 +8,6 @@ func _create_action() -> StateAction:
 
 
 class ObjectInteraction extends StateAction:
-	var _character: Character
-	var _inputs: CharacterMovementInputs
 	var _interaction_area: InteractionArea
 	
 	var _object_resource: ObjectResource
@@ -20,9 +18,7 @@ class ObjectInteraction extends StateAction:
 	
 	
 	func awake(state_machine: Node) -> void:
-		_character = state_machine.owner
-		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
-		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
+		_interaction_area = Utils.find_node_of_type_in_children(state_machine.owner, InteractionArea)
 	
 	
 	func on_update(_delta: float) -> void:

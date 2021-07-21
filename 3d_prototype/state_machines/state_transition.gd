@@ -41,10 +41,6 @@ func on_state_exit() -> void:
 func try_get_transition() -> State:
 	return _target_state if _should_transition() else null
 
-func clear_conditions_cache() -> void:
-	for condition in _conditions:
-		condition.condition.clear_statement_cache()
-
 
 
 func _should_transition() -> bool:
