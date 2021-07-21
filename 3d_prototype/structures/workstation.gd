@@ -1,5 +1,5 @@
 class_name Workstation
-extends Area
+extends Stash
 
 
 export(Resource) var _available_job
