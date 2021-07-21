@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://editor_tools/class_icons/icon_colors.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+spatial = Color( 0.980392, 0.607843, 0.607843, 1 )
+control = Color( 0.647059, 0.937255, 0.67451, 1 )

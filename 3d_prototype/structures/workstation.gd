@@ -1,4 +1,4 @@
-class_name Workstation
+class_name Workstation, "res://editor_tools/class_icons/spatials/icon_anvil.svg"
 extends Stash
 
 
