@@ -11,6 +11,8 @@ class StopMovementAction extends StateAction:
 	var _character: Character
 	var _inputs: CharacterMovementInputs
 	var _actions: CharacterMovementActions
+	var _interaction_area: InteractionArea
+	
 	var _moment: int
 	
 	
@@ -22,6 +24,7 @@ class StopMovementAction extends StateAction:
 		_character = state_machine.owner
 		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
 		_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions)
+		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
 	
 	func on_state_enter() -> void:
 		if not _moment == StateAction.SpecificMoment.ON_STATE_EXIT:
@@ -39,6 +42,7 @@ class StopMovementAction extends StateAction:
 	func _null_movement() -> void:
 		_inputs.destination_input = _character.translation
 		_actions.horizontal_movement_vector = Vector2.ZERO
+		_interaction_area.reset()
 		
 		var new_movement_vector := Vector3(0.0, _actions.vertical_velocity, 0.0)
 		_character.velocity = new_movement_vector

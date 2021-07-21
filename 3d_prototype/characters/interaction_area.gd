@@ -51,7 +51,7 @@ func smart_interact_with_nearest(object_resource: ObjectResource = null) -> void
 		if objects_in_interaction_range.has(_nearest_interaction.node):
 			current_interaction = _nearest_interaction
 		# TODO: check what behaviour will be required to reset the behaviour
-		elif true or objects_in_perception_range.has(_nearest_interaction.node):
+		elif objects_in_perception_range.has(_nearest_interaction.node):
 			point_to_walk_to = _nearest_interaction.node.translation
 		else:
 			reset()
@@ -79,23 +79,21 @@ func _find_nearest_interaction(objects: Array, object_resource: ObjectResource) 
 	var closest_distance: float = INF
 	
 	for object in objects:
-		var object_does_not_fit: bool = object_resource and ((object is CollectableItem and not object.item_resource == object_resource) or (object is Structure and not object.structure_resource == object_resource))
 		if object == owner:
 			continue
 		
 		var potential_interaction := Interaction.new(object, InteractionType.NONE)
 		
-		if object is CollectableItem:
-			if not object_resource or object.item_resource == object_resource:
-				potential_interaction.type = InteractionType.PICK_UP
+		if object is CollectableItem and (not object_resource or object.item_resource == object_resource):
+			potential_interaction.type = InteractionType.PICK_UP
 		
-		elif object is Stash:
-			if object.item_to_store == object_resource:
-				potential_interaction.type = InteractionType.GIVE
-			elif object is Workstation:
-				pass
+		elif object is Stash and object.item_to_store == object_resource:
+			potential_interaction.type = InteractionType.GIVE
 		
-		elif _equipped_item:
+		elif object is Workstation:
+			pass
+		
+		elif object is Structure and (not object_resource or object.structure_resource == object_resource) and _equipped_item:
 			# WAITFORUPDATE: remove this unnecessary thing after 4.0
 			# warning-ignore-all:unsafe_property_access
 			for use in _equipped_item.stack.item.used_on:
