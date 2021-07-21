@@ -1,6 +1,7 @@
 class_name InteractionArea, "res://editor_tools/class_icons/spatials/icon_slap.svg"
 extends Area
 
+
 signal item_picked_up(item)
 signal attacked(started)
 
@@ -9,6 +10,7 @@ signal object_exited_interaction_area(object)
 
 signal object_entered_perception_area(object)
 signal object_exited_perception_area(object)
+
 
 enum InteractionType {
 	NONE,
@@ -19,13 +21,15 @@ enum InteractionType {
 	OPERATE,
 }
 
+
 var objects_in_interaction_range := [ ]
 var objects_in_perception_range := [ ]
 var current_interaction: Interaction
 
-var _nearest_interaction: Interaction
 
+var _nearest_interaction: Interaction
 var _equipped_item: CharacterInventory.EquippedItem
+
 
 onready var _character: Spatial = owner
 # warning-ignore:unsafe_method_access
@@ -33,9 +37,11 @@ onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_childr
 onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
 
-#func _process(_delta: float) -> void:
-#	if current_interaction and not current_interaction.type == InteractionType.NONE:
-#		_character.look_position = current_interaction.node.translation
+
+func _process(_delta: float) -> void:
+	if current_interaction and not current_interaction.type == InteractionType.NONE and weakref(current_interaction.node).get_ref():
+		_character.look_position = current_interaction.position()
+
 
 
 func smart_interact_with_nearest(object_resource: ObjectResource = null) -> void:

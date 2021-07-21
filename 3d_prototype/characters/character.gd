@@ -39,9 +39,9 @@ func get_navigation() -> Navigation:
 
 
 func _turn_to_look_postion(delta: float) -> void:
-	look_position *= -1
 	look_position.y = translation.y
 	var new_transform := transform.looking_at(look_position, Vector3.UP)
+	new_transform.basis = new_transform.basis.rotated(Vector3.UP, PI)
 	transform = transform.interpolate_with(new_transform, movement_stats.turn_rate * delta)
 	look_position = Vector3.ZERO
 

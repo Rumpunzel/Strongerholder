@@ -16,6 +16,7 @@ radius = 0.5
 height = 2.5
 
 [sub_resource type="CylinderShape" id=2]
+radius = 0.5
 height = 2.5
 
 [node name="Tree" type="StaticBody" groups=[
