@@ -42,16 +42,36 @@ func smart_interact_with_nearest(object_resource: ObjectResource = null) -> void
 	if current_interaction and not current_interaction.type == InteractionType.NONE:
 		return
 	
-	_nearest_interaction = _find_nearest_interaction(objects_in_interaction_range, object_resource)
-	if _nearest_interaction:
-		current_interaction = _nearest_interaction
-		_inputs.destination_input = _character.translation
-		return
+	# Default is no movement at all
+	var point_to_walk_to := _character.translation
 	
-	_nearest_interaction = _find_nearest_interaction(objects_in_perception_range, object_resource)
-	if _nearest_interaction:
-		_inputs.destination_input = _nearest_interaction.node.translation
-		return
+	# If there is a current target
+	if _nearest_interaction and not _nearest_interaction.type == InteractionType.NONE:
+		# Check if we are in range
+		if objects_in_interaction_range.has(_nearest_interaction.node):
+			current_interaction = _nearest_interaction
+		# TODO: check what behaviour will be required to reset the behaviour
+		elif true or objects_in_perception_range.has(_nearest_interaction.node):
+			point_to_walk_to = _nearest_interaction.node.translation
+		else:
+			reset()
+	else:
+		# Check if there is an object in the immediate vicinity to interact with
+		_nearest_interaction = _find_nearest_interaction(objects_in_interaction_range, object_resource)
+		if _nearest_interaction:
+			current_interaction = _nearest_interaction
+		else:
+			# Check in the broader vicinity
+			_nearest_interaction = _find_nearest_interaction(objects_in_perception_range, object_resource)
+			if _nearest_interaction:
+				point_to_walk_to = _nearest_interaction.node.translation
+	
+	_inputs.destination_input = point_to_walk_to
+
+
+func reset() -> void:
+	current_interaction = null
+	_nearest_interaction = null
 
 
 func _find_nearest_interaction(objects: Array, object_resource: ObjectResource) -> Interaction:
@@ -100,10 +120,10 @@ func _collect() -> void:
 	if not item_node:
 		return
 	
+	reset()
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore-all:unsafe_property_access
 	var item: ItemResource = item_node.item_resource
-	current_interaction = null
 	emit_signal("item_picked_up", item)
 	
 	# HACK: properly destroy here
@@ -111,7 +131,7 @@ func _collect() -> void:
 
 
 func _attack(started: bool) -> void:
-	current_interaction = null
+	reset()
 	_hurt_box_shape.disabled = not started
 	emit_signal("attacked", started)
 

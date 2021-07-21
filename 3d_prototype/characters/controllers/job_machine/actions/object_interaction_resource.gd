@@ -29,4 +29,5 @@ class ObjectInteraction extends StateAction:
 		_interaction_area.smart_interact_with_nearest(_object_resource)
 	
 	func on_state_exit() -> void:
+		_interaction_area.reset()
 		_inputs.destination_input = _character.translation
