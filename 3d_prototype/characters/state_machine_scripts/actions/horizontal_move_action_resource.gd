@@ -23,10 +23,10 @@ class HorizontalMoveAction extends StateAction:
 		_movement_type = movement_type
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		var character: Character = state_machine.owner
-		_inputs = Utils.find_node_of_type_in_children(character, CharacterMovementInputs)
-		_actions = Utils.find_node_of_type_in_children(character, CharacterMovementActions)
+		_inputs = Utils.find_node_of_type_in_children(character, CharacterMovementInputs, true)
+		_actions = Utils.find_node_of_type_in_children(character, CharacterMovementActions, true)
 		# warning-ignore:unsafe_property_access
 		_movement_stats = character.movement_stats
 	

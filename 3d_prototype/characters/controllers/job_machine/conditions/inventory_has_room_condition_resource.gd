@@ -18,7 +18,7 @@ class InventoryHasRoomCondition extends StateCondition:
 		_item_resource = item
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		var character: Character = state_machine.owner
 		_inventory = Utils.find_node_of_type_in_children(character, CharacterInventory)
 		# warning-ignore:return_value_discarded

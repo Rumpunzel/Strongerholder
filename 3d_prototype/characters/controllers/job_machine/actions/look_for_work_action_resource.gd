@@ -21,7 +21,7 @@ class LookForWorkAction extends StateAction:
 		_register_job_channel = register_job_channel
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		_state_machine = state_machine
 	
 	

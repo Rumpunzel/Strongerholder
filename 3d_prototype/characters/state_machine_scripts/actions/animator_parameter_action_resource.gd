@@ -58,7 +58,7 @@ class AnimatorParameterAction extends StateAction:
 		_when_to_run = when_to_run
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		_animation_tree = state_machine.owner.get_node("AnimationTree")
 		assert(_animation_tree)
 	

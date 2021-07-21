@@ -9,7 +9,7 @@ class IsGroundedCondition extends StateCondition:
 	var _character: Character
 	
 	
-	func awake(state_machine):
+	func awake(state_machine: Node):
 		_character = state_machine.owner
 	
 	func _statement() -> bool:

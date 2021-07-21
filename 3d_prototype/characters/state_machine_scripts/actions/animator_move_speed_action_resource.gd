@@ -18,7 +18,7 @@ class AnimatorMoveSpeedAction extends StateAction:
 		_parameter_name = "parameters/%s" % parameter_name
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
 		# warning-ignore:unsafe_property_access
 		_movement_stats = _character.movement_stats

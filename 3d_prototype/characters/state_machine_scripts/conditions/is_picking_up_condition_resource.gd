@@ -9,7 +9,7 @@ class IsPickingUpCondition extends StateCondition:
 	var _interaction_area: InteractionArea
 	
 	
-	func awake(state_machine):
+	func awake(state_machine: Node):
 		var character: Character = state_machine.owner
 		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
 	

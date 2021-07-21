@@ -13,7 +13,7 @@ func _create_action() -> StateAction:
 class ReadBuildAction extends StateAction:
 	var _character: Character
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
 	
 	func on_input(input: InputEvent) -> void:

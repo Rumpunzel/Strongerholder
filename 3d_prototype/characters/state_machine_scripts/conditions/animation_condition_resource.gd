@@ -48,7 +48,7 @@ class AnimationCondition extends StateCondition:
 		_float_value = float_value
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		_animation_tree = state_machine.owner.get_node("AnimationTree")
 		assert(_animation_tree)
 	

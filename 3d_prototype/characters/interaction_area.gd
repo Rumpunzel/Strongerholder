@@ -29,7 +29,7 @@ var _equipped_item: CharacterInventory.EquippedItem
 
 onready var _character: Spatial = owner
 # warning-ignore:unsafe_method_access
-onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
+onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs, true)
 onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
 
@@ -52,7 +52,7 @@ func smart_interact_with_nearest(object_resource: ObjectResource = null) -> void
 			current_interaction = _nearest_interaction
 		# TODO: check what behaviour will be required to reset the behaviour
 		elif objects_in_perception_range.has(_nearest_interaction.node):
-			point_to_walk_to = _nearest_interaction.node.translation
+			point_to_walk_to = _nearest_interaction.position()
 		else:
 			reset()
 	else:
@@ -64,7 +64,7 @@ func smart_interact_with_nearest(object_resource: ObjectResource = null) -> void
 			# Check in the broader vicinity
 			_nearest_interaction = _find_nearest_interaction(objects_in_perception_range, object_resource)
 			if _nearest_interaction:
-				point_to_walk_to = _nearest_interaction.node.translation
+				point_to_walk_to = _nearest_interaction.position()
 	
 	_inputs.destination_input = point_to_walk_to
 
@@ -74,12 +74,13 @@ func reset() -> void:
 	_nearest_interaction = null
 
 
+
 func _find_nearest_interaction(objects: Array, object_resource: ObjectResource) -> Interaction:
 	var nearest: Interaction = null
 	var closest_distance: float = INF
 	
 	for object in objects:
-		if object == owner:
+		if object == owner or object.owner == owner:
 			continue
 		
 		var potential_interaction := Interaction.new(object, InteractionType.NONE)
@@ -93,23 +94,23 @@ func _find_nearest_interaction(objects: Array, object_resource: ObjectResource) 
 		elif object is Workstation:
 			pass
 		
-		elif object is Structure and (not object_resource or object.structure_resource == object_resource) and _equipped_item:
+		elif object is HitBox and _equipped_item:# and (not object_resource or object.structure_resource == object_resource):
+			var equipped_tool: ToolResource = _equipped_item.stack.item
 			# WAITFORUPDATE: remove this unnecessary thing after 4.0
 			# warning-ignore-all:unsafe_property_access
-			for use in _equipped_item.stack.item.used_on:
-				if object.is_in_group(use):
-					potential_interaction.type = InteractionType.ATTACK
-					break
+			if object.type & equipped_tool.used_on:
+				potential_interaction.type = InteractionType.ATTACK
 		
 		if potential_interaction.type == InteractionType.NONE:
 			continue
 		
-		var distance := translation.distance_squared_to(object.translation)
+		var distance := _character.translation.distance_squared_to(object.global_transform.origin)
 		if distance < closest_distance:
 			closest_distance = distance
 			nearest = potential_interaction
 	
 	return nearest
+
 
 
 func _collect() -> void:
@@ -132,7 +133,6 @@ func _attack(started: bool) -> void:
 	reset()
 	_hurt_box_shape.disabled = not started
 	emit_signal("attacked", started)
-
 
 
 func _on_object_entered_perception_area(object: Node) -> void:
@@ -160,10 +160,9 @@ func _on_hurt_box_entered(area: Area) -> void:
 	var hit_box := area as HitBox
 	var equipped_tool: ToolResource = _equipped_item.stack.item
 	
-	for other_group in hit_box.owner.get_groups():
-		if equipped_tool.used_on.has(other_group):
-			# warning-ignore:return_value_discarded
-			hit_box.damage(equipped_tool.damage, self)
+	if hit_box.type & equipped_tool.used_on:
+		# warning-ignore:return_value_discarded
+		hit_box.damage(equipped_tool.damage, self)
 
 
 func _on_item_equipped(equipment: CharacterInventory.EquippedItem):
@@ -182,3 +181,6 @@ class Interaction:
 	func _init(new_node: Spatial, new_type: int) -> void:
 		node = new_node
 		type = new_type
+	
+	func position() -> Vector3:
+		return node.global_transform.origin

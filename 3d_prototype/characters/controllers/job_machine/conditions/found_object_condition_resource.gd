@@ -20,10 +20,10 @@ class FoundObjectCondition extends StateCondition:
 		_object_resource = object
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		var character: Character = state_machine.owner
 		_navigation = character.get_navigation()
-		_inputs = Utils.find_node_of_type_in_children(character, CharacterMovementInputs)
+		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
 		
 		# warning-ignore:return_value_discarded

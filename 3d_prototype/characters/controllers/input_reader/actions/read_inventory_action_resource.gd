@@ -26,7 +26,7 @@ class ReadInventoryAction extends StateAction:
 	var _inventory: CharacterInventory
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
 		_inventory = Utils.find_node_of_type_in_children(_character, CharacterInventory)
 		

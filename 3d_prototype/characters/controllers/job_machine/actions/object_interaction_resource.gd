@@ -19,9 +19,9 @@ class ObjectInteraction extends StateAction:
 		_object_resource = object
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
-		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
+		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
 	
 	

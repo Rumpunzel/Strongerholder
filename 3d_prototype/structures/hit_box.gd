@@ -4,6 +4,8 @@ extends Area
 signal damaged()
 signal died()
 
+export(int, FLAGS, "Tree") var type := 0
+
 export(Resource) var _vitals_resource
 
 onready var _health: float = _vitals_resource.starting_health

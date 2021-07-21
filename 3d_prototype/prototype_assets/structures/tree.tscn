@@ -16,7 +16,6 @@ radius = 0.5
 height = 2.5
 
 [sub_resource type="CylinderShape" id=2]
-radius = 1.5
 height = 2.5
 
 [node name="Tree" type="StaticBody" groups=[
@@ -39,6 +38,7 @@ _inventory_attributes = ExtResource( 5 )
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 2 )
+type = 1
 _vitals_resource = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="HitBox"]

@@ -11,10 +11,10 @@ class HasHitHeadCondition extends StateCondition:
 	var _actions: CharacterMovementActions
 	
 	
-	func awake(state_machine) -> void:
+	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
-		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs)
-		_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions)
+		_inputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs, true)
+		_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions, true)
 	
 	
 	func _statement() -> bool:
