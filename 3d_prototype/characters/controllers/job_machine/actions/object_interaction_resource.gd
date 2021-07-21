@@ -22,4 +22,4 @@ class ObjectInteraction extends StateAction:
 	
 	
 	func on_update(_delta: float) -> void:
-		_interaction_area.smart_interact_with_nearest(_object_resource)
+		_interaction_area.interact_with_nearest_object_of_type(_object_resource)
