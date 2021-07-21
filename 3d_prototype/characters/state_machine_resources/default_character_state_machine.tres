@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=16 format=2]
+[gd_resource type="Resource" load_steps=19 format=2]
 
 [ext_resource path="res://state_machines/resources/transition_table_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_walking.tres" type="Resource" id=2]
@@ -7,15 +7,18 @@
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_pick_up.tres" type="Resource" id=5]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_jump_descending/jump_descending_to_idle.tres" type="Resource" id=6]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_idle.tres" type="Resource" id=7]
+[ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_give.tres" type="Resource" id=8]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_attack.tres" type="Resource" id=9]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_pick_up.tres" type="Resource" id=10]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_attack.tres" type="Resource" id=11]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_jump_descending.tres" type="Resource" id=12]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_jump_ascending.tres" type="Resource" id=13]
+[ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_give.tres" type="Resource" id=14]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_attack/attack_to_idle.tres" type="Resource" id=15]
+[ext_resource path="res://characters/state_machine_resources/transitions/from_give/give_to_idle.tres" type="Resource" id=16]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_pick_up/pick_up_to_idle.tres" type="Resource" id=18]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_jump_ascending/jump_ascending_to_jump_descending.tres" type="Resource" id=25]
 
 [resource]
 script = ExtResource( 1 )
-_transitions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 25 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 6 ) ]
+_transitions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 25 ), ExtResource( 6 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 16 ) ]

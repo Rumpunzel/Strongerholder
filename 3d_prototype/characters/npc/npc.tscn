@@ -21,11 +21,13 @@ _hand_position = NodePath("../Cowboy_Hair/CharacterArmature/Skeleton/HandPositio
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Cowboy_Hair/AnimationPlayer")
 active = true
+parameters/TimeScale/scale = 1.0
+"parameters/TimeScale 2/scale" = 1.0
 parameters/attack/active = false
+parameters/give/active = false
 parameters/grounded/current = 0
 parameters/idle_walk/current = 0
 parameters/pick_up/active = false
-parameters/speed_up_old_man/scale = 1.0
 parameters/walk_speed/blend_amount = 0
 
 [node name="Cowboy_Hair" parent="." index="8" instance=ExtResource( 2 )]

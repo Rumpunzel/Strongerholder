@@ -4,6 +4,7 @@ extends Area
 
 signal item_picked_up(item)
 signal attacked(started)
+signal gave_item(item)
 
 signal object_entered_interaction_area(object)
 signal object_exited_interaction_area(object)
@@ -32,8 +33,8 @@ var _equipped_item: CharacterInventory.EquippedItem
 
 
 onready var _character: Spatial = owner
-# warning-ignore:unsafe_method_access
 onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs, true)
+onready var _inventory: CharacterInventory = Utils.find_node_of_type_in_children(_character, CharacterInventory)
 onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
 
@@ -94,7 +95,7 @@ func _find_nearest_interaction(objects: Array, object_resource: ObjectResource) 
 		if object is CollectableItem and (not object_resource or object.item_resource == object_resource):
 			potential_interaction.type = InteractionType.PICK_UP
 		
-		elif object is Stash and object.item_to_store == object_resource:
+		elif object is Stash and _inventory.contains(object.item_to_store):
 			potential_interaction.type = InteractionType.GIVE
 		
 		elif object is Workstation:
@@ -139,6 +140,16 @@ func _attack(started: bool) -> void:
 	reset()
 	_hurt_box_shape.disabled = not started
 	emit_signal("attacked", started)
+
+
+func _give() -> void:
+	var stash: Stash = current_interaction.node
+	var item: ItemResource = stash.item_to_store
+	
+	reset()
+	emit_signal("gave_item", item)
+	stash.stash(item)
+
 
 
 func _on_object_entered_perception_area(object: Node) -> void:

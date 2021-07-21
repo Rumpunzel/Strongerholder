@@ -27,24 +27,24 @@ class FoundObjectCondition extends StateCondition:
 		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
 		
 		# warning-ignore:return_value_discarded
-		_interaction_area.connect("body_entered_perception_area", self, "_check_items")
+		_interaction_area.connect("object_entered_perception_area", self, "_check_items")
 		# warning-ignore:return_value_discarded
-		_interaction_area.connect("body_exited_perception_area", self, "_check_items", [ true ])
+		_interaction_area.connect("object_exited_perception_area", self, "_check_items", [ true ])
 		
 		_check_items()
 	
 	
-	func _check_items(body: Node = null, body_exited := false) -> void:
-		if body_exited:
+	func _check_items(object: Node = null, object_exited := false) -> void:
+		if object_exited:
 			return
 		
 		# warning-ignore-all:unsafe_property_access
-		if (body is CollectableItem and body.item_resource == _object_resource) or (body is Structure and body.structure_resource == _object_resource):
+		if (object is CollectableItem and object.item_resource == _object_resource) or (object is Structure and object.structure_resource == _object_resource):
 			_found_item = true
 			return
 		
-		for object in _interaction_area.objects_in_perception_range:
-			if (object is CollectableItem and object.item_resource == _object_resource) or (object is Structure and object.structure_resource == _object_resource):
+		for percieved_object in _interaction_area.objects_in_perception_range:
+			if (percieved_object is CollectableItem and percieved_object.item_resource == _object_resource) or (percieved_object is Structure and percieved_object.structure_resource == _object_resource):
 				_found_item = true
 				return
 		

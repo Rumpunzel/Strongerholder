@@ -33,6 +33,8 @@ func _on_toggled(new_inventory: CharacterInventory) -> void:
 func _on_inventory_stacks_updated(new_inventory: CharacterInventory) -> void:
 	if not _inventory == new_inventory:
 		_initialize_items(new_inventory)
+	
+	update()
 
 
 func _initialize_items(new_inventory: CharacterInventory) -> void:
@@ -44,6 +46,7 @@ func _initialize_items(new_inventory: CharacterInventory) -> void:
 		var new_item: InventoryHUDItem = _item_scene.instance()
 		new_item.item_stack = null
 		_items.append(new_item)
+
 
 func _free_items() -> void:
 	for item in _items:

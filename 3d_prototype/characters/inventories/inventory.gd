@@ -249,12 +249,12 @@ func _remove_from_stack(stack: ItemStack, count: int) -> int:
 			emit_signal("equipment_removed", stack.item)
 		
 		if stack.amount <= 0:
+			stack.reset()
 			emit_signal("item_stack_removed", stack)
 			
 			if stack.item is ToolResource:
 				emit_signal("equipment_stack_removed", stack)
 			
-			stack.reset()
 			break
 	
 	return stack.amount

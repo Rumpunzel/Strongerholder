@@ -1,11 +1,13 @@
-class_name IsPickingUpConditionResource
+class_name IsInteractingConditionResource
 extends StateConditionResource
 
+export(InteractionArea.InteractionType) var interaction_type
+
 func create_condition() -> StateCondition:
-	return IsPickingUpCondition.new()
+	return IsInteractingCondition.new()
 
 
-class IsPickingUpCondition extends StateCondition:
+class IsInteractingCondition extends StateCondition:
 	var _interaction_area: InteractionArea
 	
 	
@@ -15,7 +17,8 @@ class IsPickingUpCondition extends StateCondition:
 	
 	
 	func _statement() -> bool:
-		if not _interaction_area.current_interaction or not _interaction_area.current_interaction.type == InteractionArea.InteractionType.PICK_UP:
+		# warning-ignore:unsafe_property_access
+		if not _interaction_area.current_interaction or not _interaction_area.current_interaction.type == origin_resource.interaction_type:
 			return false
 		
 		_interaction_area.current_interaction.type = InteractionArea.InteractionType.NONE
