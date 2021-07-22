@@ -22,7 +22,7 @@ height = 2.5
 [node name="Tree" type="StaticBody" groups=[
 "Persist",
 ]]
-collision_layer = 8
+collision_layer = 2
 script = ExtResource( 6 )
 structure_resource = ExtResource( 12 )
 
@@ -37,7 +37,7 @@ _inventory_attributes = ExtResource( 5 )
 [node name="HitBox" type="Area" parent="." groups=[
 "Tree",
 ]]
-collision_layer = 8
+collision_layer = 64
 collision_mask = 0
 script = ExtResource( 2 )
 type = 1

@@ -10,7 +10,7 @@ extents = Vector3( 3, 7, 3 )
 [node name="BellTower" type="StaticBody" groups=[
 "Persist",
 ]]
-collision_layer = 8
+collision_layer = 2
 script = ExtResource( 2 )
 structure_resource = ExtResource( 3 )
 

@@ -7,7 +7,7 @@ func _create_action() -> StateAction:
 
 class ReadMouseMovementAction extends StateAction:
 	var _character: Character
-	var _navigation: Navigation
+	var _navigation: WorldScene
 	var _inputs: CharacterMovementInputs
 	
 	var _moving_to_point := false

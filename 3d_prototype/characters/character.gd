@@ -33,9 +33,9 @@ func load_from_var(save_file: File) -> void:
 	transform = save_file.get_var()
 
 
-func get_navigation() -> Navigation:
-	assert(get_parent() as Navigation)
-	return get_parent() as Navigation
+func get_navigation() -> WorldScene:
+	assert(get_parent() as WorldScene)
+	return get_parent() as WorldScene
 
 
 func _turn_to_look_postion(delta: float) -> void:

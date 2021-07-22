@@ -10,7 +10,7 @@ extents = Vector3( 3, 5, 4 )
 [node name="House" type="StaticBody" groups=[
 "Persist",
 ]]
-collision_layer = 8
+collision_layer = 2
 script = ExtResource( 2 )
 structure_resource = ExtResource( 3 )
 

@@ -11,7 +11,7 @@ var path: Array = [ ] setget _set_path
 var moving_to_destination: bool = false setget _set_moving_to_destination
 var target_speed: float = 1.0
 
-var _navigation: Navigation
+var _navigation: WorldScene
 var _path_node: int = 0
 
 

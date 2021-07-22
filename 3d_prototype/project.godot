@@ -680,6 +680,11 @@ _global_script_classes=[ {
 "path": "res://characters/state_machine_scripts/conditions/has_hit_head_condition_resource.gd"
 }, {
 "base": "Area",
+"class": "HearthArea",
+"language": "GDScript",
+"path": "res://structures/hearth_area.gd"
+}, {
+"base": "Area",
 "class": "HitBox",
 "language": "GDScript",
 "path": "res://structures/hit_box.gd"
@@ -1249,6 +1254,7 @@ _global_script_class_icons={
 "GroundGravityActionResource": "",
 "HUD": "",
 "HasHitHeadConditionResource": "",
+"HearthArea": "",
 "HitBox": "res://editor_tools/class_icons/spatials/icon_heart_beats.svg",
 "HorizontalMoveActionResource": "",
 "IconColors": "",
@@ -2624,9 +2630,13 @@ rotate_building_left={
 [layer_names]
 
 3d_physics/layer_1="World"
-3d_physics/layer_2="Characters"
-3d_physics/layer_3="Items"
-3d_physics/layer_4="Structures"
+3d_physics/layer_2="Structures"
+3d_physics/layer_3="Characters"
+3d_physics/layer_4="Items"
+3d_physics/layer_6="WorldAreas"
+3d_physics/layer_7="StructureAreas"
+3d_physics/layer_8="CharacterAreas"
+3d_physics/layer_9="ItemAreas"
 
 [node]
 
