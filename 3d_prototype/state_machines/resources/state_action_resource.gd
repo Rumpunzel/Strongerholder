@@ -3,7 +3,7 @@ extends Resource
 
 
 func get_action(
-		state_machine,#: StateMachine,
+		state_machine: Node,#: StateMachine,
 		created_instances: Dictionary
 ) -> StateAction:
 	

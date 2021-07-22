@@ -9,7 +9,7 @@ func _create_action() -> StateAction:
 
 
 class ObjectInteraction extends StateAction:
-	var _navigation: WorldScene
+	var _spotted_items: SpottedItems
 	var _interaction_area: InteractionArea
 	
 	var _object_resource: ObjectResource
@@ -23,7 +23,7 @@ class ObjectInteraction extends StateAction:
 	
 	func awake(state_machine: Node) -> void:
 		var character: Character = state_machine.owner
-		_navigation = character.get_navigation()
+		_spotted_items = character.get_navigation().spotted_items
 		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
 	
 	
@@ -32,6 +32,6 @@ class ObjectInteraction extends StateAction:
 		if _global_range:
 			array_to_search = _interaction_area.get_tree().get_nodes_in_group(_object_resource.name)
 		elif _object_resource is ItemResource:
-			array_to_search = _navigation.get_spotted(_object_resource)
+			array_to_search = _spotted_items.get_spotted(_object_resource, _interaction_area)
 		
 		_interaction_area.interact_with_nearest_object_of_type(_object_resource, array_to_search)

@@ -4,7 +4,7 @@ extends Resource
 export(Array, Resource) var _actions
 
 
-func get_state(state_machine, created_instances: Dictionary) -> State:
+func get_state(state_machine: Node, created_instances: Dictionary) -> State:
 	var state: State = created_instances.get(self)
 	
 	if state:
@@ -22,7 +22,7 @@ func get_state(state_machine, created_instances: Dictionary) -> State:
 	return state
 
 
-static func _get_actions(scriptable_actions: Array, state_machine, created_instances: Dictionary) -> Array:
+static func _get_actions(scriptable_actions: Array, state_machine: Node, created_instances: Dictionary) -> Array:
 	var actions := [ ]
 	
 	for action in scriptable_actions:

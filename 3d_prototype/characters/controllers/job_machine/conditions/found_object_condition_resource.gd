@@ -9,7 +9,7 @@ func create_condition() -> StateCondition:
 
 
 class FoundObjectCondition extends StateCondition:
-	var _navigation: WorldScene
+	var _spotted_items: SpottedItems
 	var _inputs: CharacterMovementInputs
 	var _interaction_area: InteractionArea
 	
@@ -24,7 +24,7 @@ class FoundObjectCondition extends StateCondition:
 	
 	func awake(state_machine: Node) -> void:
 		var character: Character = state_machine.owner
-		_navigation = character.get_navigation()
+		_spotted_items = character.get_navigation().spotted_items
 		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
 		
@@ -52,16 +52,15 @@ class FoundObjectCondition extends StateCondition:
 				if not item is CollectableItem or not item.called_dibs_by or item.called_dibs_by == _interaction_area:
 					return true
 		
-		elif _object_resource is ItemResource:
-			var spotted_items := _navigation.get_spotted(_object_resource)
+		if _object_resource is ItemResource:
+			var spotted_items := _spotted_items.get_spotted(_object_resource, _interaction_area)
 			for item in spotted_items:
 				if not item is CollectableItem or not item.called_dibs_by or item.called_dibs_by == _interaction_area:
 					return true
 		
-		else:
-			for percieved_object in _interaction_area.objects_in_perception_range:
-				if (percieved_object is CollectableItem and percieved_object.item_resource == _object_resource and (not percieved_object.called_dibs_by or percieved_object.called_dibs_by == _interaction_area)) or (percieved_object is Structure and percieved_object.structure_resource == _object_resource):
-					return true
+		for percieved_object in _interaction_area.objects_in_perception_range:
+			if (percieved_object is CollectableItem and percieved_object.item_resource == _object_resource and (not percieved_object.called_dibs_by or percieved_object.called_dibs_by == _interaction_area)) or (percieved_object is Structure and percieved_object.structure_resource == _object_resource):
+				return true
 		
 		return false
 	

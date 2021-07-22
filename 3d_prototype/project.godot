@@ -969,6 +969,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_world/spawn_system/spawn_system.gd"
 }, {
+"base": "Resource",
+"class": "SpottedItems",
+"language": "GDScript",
+"path": "res://game_world/spotted_items.gd"
+}, {
 "base": "Area",
 "class": "Stash",
 "language": "GDScript",
@@ -1317,6 +1322,7 @@ _global_script_class_icons={
 "SceneAtmosphere": "",
 "SignalHandler": "",
 "SpawnSystem": "",
+"SpottedItems": "",
 "Stash": "res://editor_tools/class_icons/spatials/icon_wooden_crate.svg",
 "State": "",
 "StateAction": "",

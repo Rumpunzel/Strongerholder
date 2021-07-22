@@ -35,7 +35,7 @@ var _equipped_item: CharacterInventory.EquippedItem
 
 onready var _character: Spatial = owner
 # warning-ignore:unsafe_method_access
-onready var _navigation: WorldScene = _character.get_navigation()
+onready var _spotted_items: SpottedItems = _character.get_navigation().spotted_items
 onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs, true)
 onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
@@ -43,13 +43,16 @@ onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
 func _ready() -> void:
 	# warning-ignore:return_value_discarded
-	connect("object_exited_perception_area", _navigation, "_on_item_spotted")
+	connect("object_exited_perception_area", _spotted_items, "_on_item_spotted", [ self ])
 	# warning-ignore:return_value_discarded
-	connect("item_picked_up", _navigation, "_on_item_picked_up")
+	connect("object_entered_perception_area", _spotted_items, "_on_item_approached", [ self ])
+	# warning-ignore:return_value_discarded
+	connect("item_picked_up", _spotted_items, "_on_item_picked_up")
 
 func _exit_tree() -> void:
-	disconnect("object_exited_perception_area", _navigation, "_on_item_spotted")
-	disconnect("item_picked_up", _navigation, "_on_item_picked_up")
+	disconnect("object_exited_perception_area", _spotted_items, "_on_item_spotted")
+	disconnect("object_entered_perception_area", _spotted_items, "_on_item_approached")
+	disconnect("item_picked_up", _spotted_items, "_on_item_picked_up")
 
 
 func _process(_delta: float) -> void:
