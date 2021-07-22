@@ -48,6 +48,7 @@ func _is_operation_complete() -> void:
 			# warning-ignore:return_value_discarded
 			_inventory.remove(item_to_store)
 		
+		_current_operation_steps = 0
 		_spawn_item(_produces)
 
 func _spawn_item(item: ItemResource) -> void:
