@@ -13,7 +13,7 @@ export(Resource) var _register_job_channel
 export(Resource) var _register_worker_channel
 
 
-var _current_worker: Controller = null
+var _current_worker: Node = null
 var _current_operation_steps := 0
 
 
@@ -29,7 +29,7 @@ func _process(_delta: float) -> void:
 
 
 
-func apply_for_job(worker: Controller) -> bool:
+func apply_for_job(worker: Node) -> bool:
 	if _current_worker:
 		return false
 	
@@ -81,7 +81,8 @@ func _register_job() -> void:
 	_register_job_channel.raise(self)
 
 func _unregister_job() -> void:
-	_register_worker_channel.disconnect("raised", self, "apply_for_job")
+	if _register_worker_channel.is_connected("raised", self, "apply_for_job"):
+		_register_worker_channel.disconnect("raised", self, "apply_for_job")
 
 
 func _set_available_job(new_job: TransitionTableResource) -> void:

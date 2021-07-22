@@ -7,19 +7,12 @@ export(Resource) var _transition_table_resource
 var _current_state: State
 
 
-func _ready():
-	if Engine.editor_hint:
-		return
-	
-	if _transition_table_resource:
+func _ready() -> void:
+	if _transition_table_resource and not _current_state:
 		_start()
-	else:
-		set_process(false)
-		set_process_unhandled_input(false)
 
-
-func _process(delta: float):
-	if Engine.editor_hint:
+func _process(delta: float) -> void:
+	if not _current_state:
 		return
 	
 	var transition_state: State = _current_state.try_get_transition()
@@ -43,18 +36,6 @@ func _transition(transition_state: State) -> void:
 	_current_state.on_state_exit()
 	_current_state = transition_state
 	_current_state.on_state_enter()
-
-
-func set_transition_table_resource(new_table: Resource) -> void:
-	assert(new_table)
-	_transition_table_resource = new_table
-	
-	if Engine.editor_hint:
-		return
-	
-	_start()
-	set_process(true)
-	set_process_unhandled_input(true)
 
 
 func _get_configuration_warning() -> String:

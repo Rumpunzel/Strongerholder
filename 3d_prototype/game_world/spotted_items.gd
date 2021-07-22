@@ -1,7 +1,18 @@
 class_name SpottedItems
 extends Resource
 
+# The format of this is as follows:
+#	Dictionary of ItemResources: {
+#		to a Dictionary of spotted Nodes: {
+#			to an Array of InteractionAreas who spotted the Node [ spotter_1, spotter_2 ]
+#		}
+#	}
 var _spotted_items := { }
+var _world_scene: Node
+
+
+func _init(world_scene: Node) -> void:
+	_world_scene = world_scene
 
 
 func get_spotted(item: ItemResource, spotter: Node) -> Array:
@@ -22,6 +33,52 @@ func get_spotted(item: ItemResource, spotter: Node) -> Array:
 			spotted.erase(item)
 	
 	return return_array
+
+
+func save_to_var(save_file: File) -> void:
+	for spotted_nodes in _spotted_items.values():
+		for node in spotted_nodes.keys():
+			if not weakref(node).get_ref() or not node.is_inside_tree():
+				spotted_nodes.erase(node)
+	
+	save_file.store_16(_spotted_items.size())
+	for item_key in _spotted_items.keys():
+		var item: ItemResource = item_key
+		save_file.store_var(item.resource_path)
+		
+		var spotted_nodes: Dictionary = _spotted_items[item]
+		save_file.store_16(spotted_nodes.size())
+		for node_key in spotted_nodes.keys():
+			var node: CollectableItem = node_key
+			save_file.store_var(_world_scene.get_path_to(node))
+			
+			var spotters: Array = spotted_nodes[node]
+			save_file.store_16(spotters.size())
+			for spotter_element in spotters:
+				var spotter: Node = spotter_element
+				save_file.store_var(_world_scene.get_path_to(spotter))
+
+# TODO: unit test this at some point
+func load_from_var(save_file: File) -> void:
+	var spotted_items_size := save_file.get_16()
+	for _spotted_item_index in range(spotted_items_size):
+		var item_path: String = save_file.get_var()
+		var item: ItemResource = load(item_path)
+		_spotted_items[item] = { }
+		
+		var spotted_nodes_size := save_file.get_16()
+		for _spotted_node_index in range(spotted_nodes_size):
+			var node_path: String = save_file.get_var()
+			var node: Node = _world_scene.get_node(node_path)
+			
+			var spotters_size := save_file.get_16()
+			var spotters := [ ]
+			for _spotter_index in range(spotters_size):
+				var spotter_path: String = save_file.get_var()
+				var spotter: Node = _world_scene.get_node(spotter_path)
+				spotters.append(spotter)
+			
+			_spotted_items[item][node] = spotters
 
 
 

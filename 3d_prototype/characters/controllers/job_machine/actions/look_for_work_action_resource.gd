@@ -9,12 +9,12 @@ func _create_action() -> StateAction:
 
 
 class LookForWorkAction extends StateAction:
-	var _state_machine#: Controller
-	var _register_worker_channel: ReferenceEventChannelResource
+	var _state_machine: Node#: Controller
+	var _register_worker_channel: NodeEventChannelResource
 	var _register_job_channel: NodeEventChannelResource
 	
 	
-	func _init(register_worker_channel: ReferenceEventChannelResource, register_job_channel: NodeEventChannelResource) -> void:
+	func _init(register_worker_channel: NodeEventChannelResource, register_job_channel: NodeEventChannelResource) -> void:
 		_register_worker_channel = register_worker_channel
 		_register_job_channel = register_job_channel
 	
@@ -33,7 +33,9 @@ class LookForWorkAction extends StateAction:
 	
 	
 	func _on_job_posted(workstation) -> void:
-		print(_state_machine)
+		if not weakref(_state_machine).get_ref():
+			return
+		
 		var got_a_job: bool = workstation.apply_for_job(_state_machine)
 		if got_a_job:
 			on_state_exit()

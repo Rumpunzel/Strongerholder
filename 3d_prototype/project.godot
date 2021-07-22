@@ -239,11 +239,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/Fuzzers.gd"
 }, {
-"base": "CanvasLayer",
-"class": "GUI",
-"language": "GDScript",
-"path": "res://ui/gui/gui.gd"
-}, {
 "base": "Popup",
 "class": "GUILayerBase",
 "language": "GDScript",
@@ -1176,7 +1171,6 @@ _global_script_class_icons={
 "Fuzzer": "",
 "FuzzerTool": "",
 "Fuzzers": "",
-"GUI": "",
 "GUILayerBase": "",
 "GameCamera": "",
 "GameHUD": "",
