@@ -4,6 +4,13 @@ tool
 
 export(Resource) var item_resource
 
+# warning-ignore:unused_class_variable
+var called_dibs_by: Node = null setget call_dibs
+
+
+func call_dibs(dibs: Node) -> void:
+	called_dibs_by = dibs
+
 
 func save_to_var(save_file: File) -> void:
 	save_file.store_var(transform)

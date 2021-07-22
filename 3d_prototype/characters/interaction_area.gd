@@ -89,8 +89,8 @@ func interact_with_specific_object(object: Node, inventory: CharacterInventory) 
 
 
 func reset() -> void:
-	current_interaction = null
-	_nearest_interaction = null
+	_set_current_interaction(null)
+	_set_nearest_interaction(null)
 
 
 
@@ -102,19 +102,19 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 	if _nearest_interaction and not _nearest_interaction.type == InteractionType.NONE:
 		# Check if we are in range
 		if interactable_objects.has(_nearest_interaction.node):
-			current_interaction = _nearest_interaction
+			_set_current_interaction(_nearest_interaction)
 		elif perceived_objects.has(_nearest_interaction.node):
 			point_to_walk_to = _nearest_interaction.position()
 		else:
 			reset()
 	else:
 		# Check if there is an object in the immediate vicinity to interact with
-		_nearest_interaction = _find_nearest_smart_interaction(interactable_objects, inventory)
+		_set_nearest_interaction(_find_nearest_smart_interaction(interactable_objects, inventory))
 		if _nearest_interaction:
-			current_interaction = _nearest_interaction
+			_set_current_interaction(_nearest_interaction)
 		else:
 			# Check in the broader vicinity
-			_nearest_interaction = _find_nearest_smart_interaction(perceived_objects, inventory)
+			_set_nearest_interaction(_find_nearest_smart_interaction(perceived_objects, inventory))
 			if _nearest_interaction:
 				point_to_walk_to = _nearest_interaction.position()
 	
@@ -126,7 +126,8 @@ func _find_nearest_smart_interaction(objects: Array, inventory: CharacterInvento
 	var closest_distance: float = INF
 	
 	for object in objects:
-		if object == owner or object.owner == owner:
+		# warning-ignore:unsafe_property_access
+		if object == owner or object.owner == owner or (object is CollectableItem and object.called_dibs_by and not object.called_dibs_by == self):
 			continue
 		
 		var potential_interaction := Interaction.new(object)
@@ -222,6 +223,30 @@ func _operate() -> void:
 	var workstation: Workstation = current_interaction.node
 	workstation.operate()
 	emit_signal("operated")
+
+
+
+func _set_current_interaction(new_interaction: Interaction) -> void:
+	if current_interaction and current_interaction.node is CollectableItem:
+		# warning-ignore:unsafe_method_access
+		current_interaction.node.call_dibs(null)
+		
+	current_interaction = new_interaction
+	
+	if current_interaction and current_interaction.node is CollectableItem:
+		# warning-ignore:unsafe_method_access
+		current_interaction.node.call_dibs(self)
+
+func _set_nearest_interaction(new_interaction: Interaction) -> void:
+	if _nearest_interaction and _nearest_interaction.node is CollectableItem:
+		# warning-ignore:unsafe_method_access
+		_nearest_interaction.node.call_dibs(null)
+	
+	_nearest_interaction = new_interaction
+	
+	if _nearest_interaction and _nearest_interaction.node is CollectableItem:
+		# warning-ignore:unsafe_method_access
+		_nearest_interaction.node.call_dibs(self)
 
 
 

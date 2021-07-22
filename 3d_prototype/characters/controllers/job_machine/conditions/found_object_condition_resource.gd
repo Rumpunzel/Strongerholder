@@ -45,21 +45,25 @@ class FoundObjectCondition extends StateCondition:
 #			_found_item = true
 #			return
 		
-		var found_item := false
 		
 		if _global_range:
-			if not _interaction_area.get_tree().get_nodes_in_group(_object_resource.name).empty():
-				found_item = true
+			var global_items := _interaction_area.get_tree().get_nodes_in_group(_object_resource.name)
+			for item in global_items:
+				if not item is CollectableItem or not item.called_dibs_by or item.called_dibs_by == _interaction_area:
+					return true
 		
-		elif _object_resource is ItemResource and not _navigation.get_spotted(_object_resource).empty():
-			found_item = true
+		elif _object_resource is ItemResource:
+			var spotted_items := _navigation.get_spotted(_object_resource)
+			for item in spotted_items:
+				if not item is CollectableItem or not item.called_dibs_by or item.called_dibs_by == _interaction_area:
+					return true
 		
 		else:
 			for percieved_object in _interaction_area.objects_in_perception_range:
-				if (percieved_object is CollectableItem and percieved_object.item_resource == _object_resource) or (percieved_object is Structure and percieved_object.structure_resource == _object_resource):
-					found_item = true
+				if (percieved_object is CollectableItem and percieved_object.item_resource == _object_resource and (not percieved_object.called_dibs_by or percieved_object.called_dibs_by == _interaction_area)) or (percieved_object is Structure and percieved_object.structure_resource == _object_resource):
+					return true
 		
-		return found_item
+		return false
 	
 	
 	func _statement() -> bool:
