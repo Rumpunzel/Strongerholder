@@ -9,4 +9,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item_resource = ExtResource( 3 )
 
 [node name="Axe_small" parent="." index="0" instance=ExtResource( 2 )]
-transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
+transform = Transform( 3.82138e-15, 8.74228e-08, 2, 2, -8.74228e-08, -7.19978e-21, 8.74228e-08, 2, -8.74228e-08, 0, 0, 0 )

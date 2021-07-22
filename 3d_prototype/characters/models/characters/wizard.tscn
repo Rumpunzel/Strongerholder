@@ -10,7 +10,7 @@
 bones/15/bound_children = [ NodePath("HandPosition") ]
 
 [node name="HandPosition" type="BoneAttachment" parent="CharacterArmature/Skeleton" index="1"]
-transform = Transform( -1.94333, -0.0782627, -0.466214, 0.0229845, -1.98571, 0.237532, -0.472178, 0.225443, 1.93034, -0.505237, 0.888702, 0.0615318 )
+transform = Transform( -0.971663, -0.0391314, -0.233107, 0.0114921, -0.992856, 0.118766, -0.236089, 0.112722, 0.965172, -0.505237, 0.888702, 0.0615318 )
 bone_name = "Fist.R"
 
 [node name="AnimationPlayer" parent="." index="1"]
