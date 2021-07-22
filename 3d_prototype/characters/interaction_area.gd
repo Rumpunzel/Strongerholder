@@ -52,12 +52,12 @@ func smart_interact_with_nearest(inventory: CharacterInventory) -> void:
 	_inputs.destination_input = point_to_walk_to
 
 
-func interact_with_nearest_object_of_type(item: ObjectResource) -> void:
+func interact_with_nearest_object_of_type(object_type: ObjectResource, global_range: bool) -> void:
 	if _occupied():
 		return
 	
-	var interaction_objects := _filter_array_for_type(objects_in_interaction_range, item)
-	var perception_objects := _filter_array_for_type(objects_in_perception_range, item)
+	var interaction_objects := _filter_array_for_type(objects_in_interaction_range, object_type)
+	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if not global_range else get_tree().get_nodes_in_group(object_type.name)
 	
 	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects)
 	_inputs.destination_input = point_to_walk_to

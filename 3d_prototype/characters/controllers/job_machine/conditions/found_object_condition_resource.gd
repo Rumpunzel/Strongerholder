@@ -1,10 +1,11 @@
 class_name FoundObjectConditionResource
 extends StateConditionResource
 
-export(Resource) var object_to_look_for
+export(Resource) var _object_to_look_for
+export var _global_range := false
 
 func create_condition() -> StateCondition:
-	return FoundObjectCondition.new(object_to_look_for)
+	return FoundObjectCondition.new(_object_to_look_for, _global_range)
 
 
 class FoundObjectCondition extends StateCondition:
@@ -13,11 +14,13 @@ class FoundObjectCondition extends StateCondition:
 	var _interaction_area: InteractionArea
 	
 	var _object_resource: ObjectResource
+	var _global_range: bool
 	var _found_item := false
 	
 	
-	func _init(object: ObjectResource) -> void:
+	func _init(object: ObjectResource, global_range: bool) -> void:
 		_object_resource = object
+		_global_range = global_range
 	
 	
 	func awake(state_machine: Node) -> void:
@@ -40,6 +43,10 @@ class FoundObjectCondition extends StateCondition:
 		
 		# warning-ignore-all:unsafe_property_access
 		if (object is CollectableItem and object.item_resource == _object_resource) or (object is Structure and object.structure_resource == _object_resource):
+			_found_item = true
+			return
+		
+		if _global_range and not _interaction_area.get_tree().get_nodes_in_group(_object_resource.name).empty():
 			_found_item = true
 			return
 		
