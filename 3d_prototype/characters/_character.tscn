@@ -112,9 +112,7 @@ mesh = SubResource( 5 )
 material/0 = null
 script = SubResource( 6 )
 
-[node name="Inventory" type="Node" parent="." groups=[
-"PersistData",
-]]
+[node name="Inventory" type="Node" parent="."]
 script = ExtResource( 5 )
 
 [node name="InteractionArea" type="Area" parent="."]

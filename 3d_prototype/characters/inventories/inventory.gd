@@ -24,6 +24,8 @@ var _initialized := false
 
 
 func _enter_tree() -> void:
+	add_to_group(SavingAndLoading.PERSIST_DATA_GROUP)
+	
 	if Engine.editor_hint:
 		return
 	

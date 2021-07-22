@@ -6,29 +6,37 @@ export(Resource) var _produces
 export var _needs_how_many := 1
 export var _operation_steps := 1
 
-export(Resource) var _available_job
+export(Resource) var _available_job setget _set_available_job
 export(Resource) var _available_tool
 
 export(Resource) var _register_job_channel
 export(Resource) var _register_worker_channel
 
 
-var _current_worker = null #: Controller
+var _current_worker: Controller = null
 var _current_operation_steps := 0
 
 
 
-func _ready() -> void:
-	_register_job()
+func _enter_tree() -> void:
+	add_to_group(SavingAndLoading.PERSIST_DATA_GROUP)
+
+func _process(_delta: float) -> void:
+	if _available_job and not _current_worker:
+		_register_job()
+	
+	set_process(false)
 
 
 
-func apply_for_job(worker) -> bool:
+func apply_for_job(worker: Controller) -> bool:
 	if _current_worker:
 		return false
 	
 	_unregister_job()
 	_current_worker = worker
+	# WAITFORUPDATE: remove this unnecessary thing after 4.0
+	# warning-ignore:unsafe_property_access
 	_current_worker.current_job = Job.new(self, _available_job, _available_tool)
 	return true
 
@@ -41,6 +49,15 @@ func operate() -> void:
 	_current_operation_steps += 1
 	print("Operated")
 	_is_operation_complete()
+
+
+func save_to_var(save_file: File) -> void:
+	save_file.store_8(_current_operation_steps)
+
+func load_from_var(save_file: File) -> void:
+	_current_operation_steps = save_file.get_8()
+
+
 
 func _is_operation_complete() -> void:
 	if _current_operation_steps >= _operation_steps:
@@ -66,6 +83,10 @@ func _register_job() -> void:
 func _unregister_job() -> void:
 	_register_worker_channel.disconnect("raised", self, "apply_for_job")
 
+
+func _set_available_job(new_job: TransitionTableResource) -> void:
+	_available_job = new_job
+	set_process(true)
 
 
 

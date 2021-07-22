@@ -33,6 +33,7 @@ class LookForWorkAction extends StateAction:
 	
 	
 	func _on_job_posted(workstation) -> void:
+		print(_state_machine)
 		var got_a_job: bool = workstation.apply_for_job(_state_machine)
 		if got_a_job:
 			on_state_exit()
