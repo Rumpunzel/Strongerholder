@@ -2,7 +2,7 @@
 
 [ext_resource path="res://prototype_assets/collectable_items/_collectable_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://items/resources/axe.tres" type="Resource" id=2]
-[ext_resource path="res://quaternius/Ultimate RPG Items Pack/OBJ/Axe_small.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://prototype_assets/collectable_items/models/Axe_small.tscn" type="PackedScene" id=3]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.15, 0.38, 0.05 )
@@ -14,10 +14,5 @@ item_resource = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, -0.22, 0 )
 shape = SubResource( 1 )
 
-[node name="Axe_small" type="MeshInstance" parent="." index="1"]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.1, -0.3, 0 )
-mesh = ExtResource( 3 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
+[node name="Axe_small" parent="." index="1" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.3, 0 )

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://quaternius/Survival Pack/OBJ/WoodLog.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://prototype_assets/collectable_items/models/WoodLog.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prototype_assets/collectable_items/_collectable_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://items/resources/wood.tres" type="Resource" id=3]
 
@@ -16,8 +16,5 @@ item_resource = ExtResource( 3 )
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[node name="WoodLog" type="MeshInstance" parent="." index="1"]
-transform = Transform( -0.5, 0, 0, 0, -0.5, 0, 0, 0, -0.5, 0, 0.22, -0.02 )
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
+[node name="WoodLog" parent="." index="1" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0.02 )
