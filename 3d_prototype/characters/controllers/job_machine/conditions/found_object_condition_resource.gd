@@ -49,18 +49,22 @@ class FoundObjectCondition extends StateCondition:
 		if _global_range:
 			var global_items := _interaction_area.get_tree().get_nodes_in_group(_object_resource.name)
 			for item in global_items:
-				if not item is CollectableItem or not item.called_dibs_by or item.called_dibs_by == _interaction_area:
+				if not item.has_method("is_dibbable") or item.is_dibbable(_interaction_area):
 					return true
 		
 		if _object_resource is ItemResource:
 			var spotted_items := _spotted_items.get_spotted(_object_resource, _interaction_area)
 			for item in spotted_items:
-				if not item is CollectableItem or not item.called_dibs_by or item.called_dibs_by == _interaction_area:
+				if not item.has_method("is_dibbable") or item.is_dibbable(_interaction_area):
 					return true
 		
 		for percieved_object in _interaction_area.objects_in_perception_range:
-			if (percieved_object is CollectableItem and percieved_object.item_resource == _object_resource and (not percieved_object.called_dibs_by or percieved_object.called_dibs_by == _interaction_area)) or (percieved_object is Structure and percieved_object.structure_resource == _object_resource):
-				return true
+			if not percieved_object.has_method("is_dibbable") or percieved_object.is_dibbable(_interaction_area):
+				if percieved_object is CollectableItem and percieved_object.item_resource == _object_resource:
+					return true
+				# HACK: fix this ugly implementation
+				elif percieved_object is HitBox and percieved_object.owner is Structure and percieved_object.owner.structure_resource == _object_resource:
+					return true
 		
 		return false
 	

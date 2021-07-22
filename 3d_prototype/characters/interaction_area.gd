@@ -130,7 +130,7 @@ func _find_nearest_smart_interaction(objects: Array, inventory: CharacterInvento
 	
 	for object in objects:
 		# warning-ignore:unsafe_property_access
-		if object == owner or object.owner == owner or (object is CollectableItem and object.called_dibs_by and not object.called_dibs_by == self):
+		if object == owner or object.owner == owner or (object.has_method("is_dibbable") and not object.is_dibbable(self)):
 			continue
 		
 		var potential_interaction := Interaction.new(object)
@@ -230,26 +230,29 @@ func _operate() -> void:
 
 
 func _set_current_interaction(new_interaction: Interaction) -> void:
-	if current_interaction and current_interaction.node is CollectableItem:
+	if current_interaction and _node_is_dibbable(current_interaction.node):
 		# warning-ignore:unsafe_method_access
-		current_interaction.node.call_dibs(null)
+		current_interaction.node.call_dibs(self, false)
 		
 	current_interaction = new_interaction
 	
-	if current_interaction and current_interaction.node is CollectableItem:
+	if current_interaction and _node_is_dibbable(current_interaction.node):
 		# warning-ignore:unsafe_method_access
-		current_interaction.node.call_dibs(self)
+		current_interaction.node.call_dibs(self, true)
 
 func _set_nearest_interaction(new_interaction: Interaction) -> void:
-	if _nearest_interaction and _nearest_interaction.node is CollectableItem:
+	if _nearest_interaction and _node_is_dibbable(_nearest_interaction.node):
 		# warning-ignore:unsafe_method_access
-		_nearest_interaction.node.call_dibs(null)
+		_nearest_interaction.node.call_dibs(self, false)
 	
 	_nearest_interaction = new_interaction
 	
-	if _nearest_interaction and _nearest_interaction.node is CollectableItem:
+	if _nearest_interaction and _node_is_dibbable(_nearest_interaction.node):
 		# warning-ignore:unsafe_method_access
-		_nearest_interaction.node.call_dibs(self)
+		_nearest_interaction.node.call_dibs(self, true)
+
+func _node_is_dibbable(node: Node) -> bool:
+	return not node == null and node.has_method("call_dibs")
 
 
 

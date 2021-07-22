@@ -11,6 +11,12 @@ export(Resource) var _vitals_resource
 
 onready var _health: float = _vitals_resource.starting_health
 
+var _called_dibs_by := [ ]
+
+
+func _enter_tree() -> void:
+	add_to_group(SavingAndLoading.PERSIST_DATA_GROUP)
+
 
 func damage(value: float, sender: Node) -> float:
 	_health -= value
@@ -19,6 +25,26 @@ func damage(value: float, sender: Node) -> float:
 	_check_health()
 	
 	return value
+
+func call_dibs(dibs: Node, dibbing: bool) -> void:
+	if dibbing:
+		if not _called_dibs_by.has(dibs):
+			_called_dibs_by.append(dibs)
+		assert(_called_dibs_by.size() <= _vitals_resource.maximum_attackers or _vitals_resource.maximum_attackers < 0)
+	else:
+		if _called_dibs_by.has(dibs):
+			_called_dibs_by.erase(dibs)
+
+func is_dibbable(dibs: Node) -> bool:
+	return _called_dibs_by.has(dibs) or _called_dibs_by.size() < _vitals_resource.maximum_attackers or _vitals_resource.maximum_attackers < 0
+
+
+func save_to_var(save_file: File) -> void:
+	save_file.store_var(_health)
+
+func load_from_var(save_file: File) -> void:
+	_health = save_file.get_var()
+	_check_health()
 
 
 func _check_health() -> void:
