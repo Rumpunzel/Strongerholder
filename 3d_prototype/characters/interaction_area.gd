@@ -33,9 +33,22 @@ var _equipped_item: CharacterInventory.EquippedItem
 
 
 onready var _character: Spatial = owner
+# warning-ignore-all:unsafe_method_access
+onready var _navigation: WorldScene = _character.get_navigation()
 onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs, true)
 onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
+
+
+func _ready() -> void:
+	# warning-ignore:return_value_discarded
+	connect("object_exited_perception_area", _navigation, "_on_item_spotted")
+	# warning-ignore:return_value_discarded
+	connect("item_picked_up", _navigation, "_on_item_picked_up")
+
+func _exit_tree() -> void:
+	disconnect("object_exited_perception_area", _navigation, "_on_item_spotted")
+	disconnect("item_picked_up", _navigation, "_on_item_picked_up")
 
 
 func _process(_delta: float) -> void:
@@ -52,12 +65,12 @@ func smart_interact_with_nearest(inventory: CharacterInventory) -> void:
 	_inputs.destination_input = point_to_walk_to
 
 
-func interact_with_nearest_object_of_type(object_type: ObjectResource, global_range: bool) -> void:
+func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_array_to_search := [ ]) -> void:
 	if _occupied():
 		return
 	
 	var interaction_objects := _filter_array_for_type(objects_in_interaction_range, object_type)
-	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if not global_range else get_tree().get_nodes_in_group(object_type.name)
+	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
 	
 	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects)
 	_inputs.destination_input = point_to_walk_to

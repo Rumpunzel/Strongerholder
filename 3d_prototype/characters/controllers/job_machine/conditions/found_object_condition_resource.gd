@@ -9,13 +9,12 @@ func create_condition() -> StateCondition:
 
 
 class FoundObjectCondition extends StateCondition:
-	var _navigation: Navigation
+	var _navigation: WorldScene
 	var _inputs: CharacterMovementInputs
 	var _interaction_area: InteractionArea
 	
 	var _object_resource: ObjectResource
 	var _global_range: bool
-	var _found_item := false
 	
 	
 	func _init(object: ObjectResource, global_range: bool) -> void:
@@ -30,37 +29,38 @@ class FoundObjectCondition extends StateCondition:
 		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
 		
 		# warning-ignore:return_value_discarded
-		_interaction_area.connect("object_entered_perception_area", self, "_check_items")
+		#_interaction_area.connect("object_entered_perception_area", self, "_check_items")
 		# warning-ignore:return_value_discarded
-		_interaction_area.connect("object_exited_perception_area", self, "_check_items", [ true ])
+		#_interaction_area.connect("object_exited_perception_area", self, "_check_items", [ true ])
 		
-		_check_items()
+		#_check_items()
 	
 	
-	func _check_items(object: Node = null, object_exited := false) -> void:
-		if object_exited:
-			return
+	func _check_items(_object: Node = null, _object_exited := false) -> bool:
+#		if object_exited:
+#			return
 		
 		# warning-ignore-all:unsafe_property_access
-		if (object is CollectableItem and object.item_resource == _object_resource) or (object is Structure and object.structure_resource == _object_resource):
-			_found_item = true
-			return
+#		if (object is CollectableItem and object.item_resource == _object_resource) or (object is Structure and object.structure_resource == _object_resource):
+#			_found_item = true
+#			return
 		
-		if _global_range and not _interaction_area.get_tree().get_nodes_in_group(_object_resource.name).empty():
-			_found_item = true
-			return
+		var found_item := false
 		
-		for percieved_object in _interaction_area.objects_in_perception_range:
-			if (percieved_object is CollectableItem and percieved_object.item_resource == _object_resource) or (percieved_object is Structure and percieved_object.structure_resource == _object_resource):
-				_found_item = true
-				return
+		if _global_range:
+			if not _interaction_area.get_tree().get_nodes_in_group(_object_resource.name).empty():
+				found_item = true
 		
-		_found_item = false
+		elif _object_resource is ItemResource and not _navigation.get_spotted(_object_resource).empty():
+			found_item = true
+		
+		else:
+			for percieved_object in _interaction_area.objects_in_perception_range:
+				if (percieved_object is CollectableItem and percieved_object.item_resource == _object_resource) or (percieved_object is Structure and percieved_object.structure_resource == _object_resource):
+					found_item = true
+		
+		return found_item
 	
 	
 	func _statement() -> bool:
-		if _found_item:
-			_check_items()
-			return true
-		
-		return false
+		return _check_items()
