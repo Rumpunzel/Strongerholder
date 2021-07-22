@@ -5,6 +5,7 @@ extends Area
 signal item_picked_up(item)
 signal attacked(started)
 signal gave_item(item)
+signal operated()
 
 signal object_entered_interaction_area(object)
 signal object_exited_interaction_area(object)
@@ -33,7 +34,7 @@ var _equipped_item: CharacterInventory.EquippedItem
 
 
 onready var _character: Spatial = owner
-# warning-ignore-all:unsafe_method_access
+# warning-ignore:unsafe_method_access
 onready var _navigation: WorldScene = _character.get_navigation()
 onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs, true)
 onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
@@ -53,6 +54,7 @@ func _exit_tree() -> void:
 
 func _process(_delta: float) -> void:
 	if current_interaction and not current_interaction.type == InteractionType.NONE and weakref(current_interaction.node).get_ref():
+		# warning-ignore:unsafe_property_access
 		_character.look_position = current_interaction.position()
 
 
@@ -72,17 +74,17 @@ func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_ar
 	var interaction_objects := _filter_array_for_type(objects_in_interaction_range, object_type)
 	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
 	
-	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects)
+	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects, null)
 	_inputs.destination_input = point_to_walk_to
 
 
-func interact_with_specific_object(object: Node) -> void:
+func interact_with_specific_object(object: Node, inventory: CharacterInventory) -> void:
 	if _occupied():
 		return
 	
 	var interaction_objects := [ object ] if objects_in_interaction_range.has(object) else [ ]
 	
-	var point_to_walk_to := _interact_with_nearest(interaction_objects, [ object ])
+	var point_to_walk_to := _interact_with_nearest(interaction_objects, [ object ], inventory)
 	_inputs.destination_input = point_to_walk_to
 
 
@@ -92,7 +94,7 @@ func reset() -> void:
 
 
 
-func _interact_with_nearest(interactable_objects: Array, perceived_objects: Array, inventory: CharacterInventory = null) -> Vector3:
+func _interact_with_nearest(interactable_objects: Array, perceived_objects: Array, inventory: CharacterInventory) -> Vector3:
 	# Default is no movement at all
 	var point_to_walk_to := _character.translation
 	
@@ -144,18 +146,25 @@ func _find_nearest_smart_interaction(objects: Array, inventory: CharacterInvento
 func _determine_interaction_type(object: Node, inventory: CharacterInventory) -> int:
 	var interaction_type: int = InteractionType.NONE
 	
+	
 	if object is CollectableItem:
 		interaction_type = InteractionType.PICK_UP
+	
+	# warning-ignore:unsafe_property_access
 	elif object is Stash and (not inventory or inventory.contains(object.item_to_store)):
 		interaction_type = InteractionType.GIVE
-	elif object is Workstation:
-		pass
+	
+	# warning-ignore:unsafe_method_access
+	elif object is Workstation and object.can_be_operated():
+		interaction_type = InteractionType.OPERATE
+	
 	elif object is HitBox and _equipped_item:
 		var equipped_tool: ToolResource = _equipped_item.stack.item
 		# WAITFORUPDATE: remove this unnecessary thing after 4.0
-		# warning-ignore-all:unsafe_property_access
+		# warning-ignore:unsafe_property_access
 		if object.type & equipped_tool.used_on:
 			interaction_type = InteractionType.ATTACK
+	
 	
 	return interaction_type
 
@@ -185,7 +194,7 @@ func _collect() -> void:
 		return
 	
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
-	# warning-ignore-all:unsafe_property_access
+	# warning-ignore:unsafe_property_access
 	var item: ItemResource = item_node.item_resource
 	emit_signal("item_picked_up", item)
 	
@@ -200,11 +209,19 @@ func _attack(started: bool) -> void:
 
 func _give() -> void:
 	var stash: Stash = current_interaction.node
+	# WAITFORUPDATE: remove this unnecessary thing after 4.0
+	# warning-ignore:unsafe_property_access
 	var item: ItemResource = stash.item_to_store
 	
-	emit_signal("gave_item", item)
 	# warning-ignore:return_value_discarded
 	stash.stash(item)
+	emit_signal("gave_item", item)
+
+
+func _operate() -> void:
+	var workstation: Workstation = current_interaction.node
+	workstation.operate()
+	emit_signal("operated")
 
 
 

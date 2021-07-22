@@ -9,7 +9,7 @@ func _set_structure_resource(new_structure: StructureResource) -> void:
 	
 	if structure_resource:
 		# WAITFORUPDATE: remove this unnecessary thing after 4.0
-		# warning-ignore-all:unsafe_property_access
+		# warning-ignore:unsafe_property_access
 		set_texture(structure_resource.icon)
 	else:
 		set_texture(null)

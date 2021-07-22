@@ -11,7 +11,7 @@ var use := -1
 func _set_item_stack(new_stack: Inventory.ItemStack) -> void:
 	item_stack = new_stack
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
-	# warning-ignore-all:unsafe_property_access
+	# warning-ignore:unsafe_property_access
 	if item_stack and item_stack.item:
 		set_texture(item_stack.item.icon)
 		_set_amount(item_stack.amount)

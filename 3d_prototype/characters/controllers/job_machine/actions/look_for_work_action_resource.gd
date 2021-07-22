@@ -4,10 +4,8 @@ extends StateActionResource
 export(Resource) var _register_worker_channel
 export(Resource) var _register_job_channel
 
-
 func _create_action() -> StateAction:
 	return LookForWorkAction.new(_register_worker_channel, _register_job_channel)
-
 
 
 class LookForWorkAction extends StateAction:

@@ -190,6 +190,8 @@ func empty() -> bool:
 func full(specific_item_to_check: ItemResource = null) -> bool:
 	for slot in item_slots.size():
 		var stack: ItemStack = item_slots[slot]
+		# WAITFORUPDATE: remove this unnecessary thing after 4.0
+		# warning-ignore:unsafe_property_access
 		if not stack.item or (stack.item == specific_item_to_check and stack.amount < stack.item.stack_size):
 			return false
 	
@@ -226,7 +228,7 @@ func _initialize(size: int) -> void:
 
 func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
-	# warning-ignore-all:unsafe_property_access
+	# warning-ignore:unsafe_property_access
 	while count > 0 and stack.amount < item.stack_size:
 		stack.amount += 1
 		count -= 1
@@ -261,7 +263,8 @@ func _remove_from_stack(stack: ItemStack, count: int) -> int:
 
 
 func _spawn_item(item: ItemResource) -> void:
-	var spawn_position: Vector3 = owner.translation + Vector3((randf() - 0.5) * 1.0, 1.0, (randf() - 0.1) * 5.0)
+	# warning-ignore:unsafe_property_access
+	var spawn_position: Vector3 = owner.translation + Vector3((randf() - 0.5) * 1.0, 1.0, (randf() - 0.1) * 1.0)
 	# warning-ignore:return_value_discarded
 	item.drop_at(spawn_position)
 
