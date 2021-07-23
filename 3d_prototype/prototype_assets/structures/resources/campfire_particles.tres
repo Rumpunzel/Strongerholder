@@ -1,12 +1,4 @@
-[gd_resource type="ParticlesMaterial" load_steps=5 format=2]
-
-[sub_resource type="Curve" id=1]
-min_value = -10.0
-max_value = 10.0
-_data = [ Vector2( 0, 7.93182 ), 0.0, -43.4067, 0, 0, Vector2( 0.997355, -7.15909 ), -6.24797, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=2]
-curve = SubResource( 1 )
+[gd_resource type="ParticlesMaterial" load_steps=3 format=2]
 
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -5.91505, 0.0, 0, 0 ]
@@ -19,11 +11,9 @@ lifetime_randomness = 0.5
 emission_shape = 1
 emission_sphere_radius = 0.2
 gravity = Vector3( 0, 9.8, 0 )
-radial_accel_random = 0.2
-radial_accel_curve = SubResource( 2 )
 tangential_accel = 1.0
 tangential_accel_random = 1.0
-damping = 8.0
-damping_random = 0.2
+damping = 9.2
+damping_random = 0.1
 scale_random = 0.5
 scale_curve = SubResource( 4 )
