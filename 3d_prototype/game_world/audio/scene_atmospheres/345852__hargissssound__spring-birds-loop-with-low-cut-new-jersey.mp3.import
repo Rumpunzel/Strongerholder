@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/345852__hargissssound__spring-birds-loop-with-low-cut-new-jersey.mp3-f88e77bca99f212fed68f6c3dca4cc78.mp3str"
+
+[deps]
+
+source_file="res://game_world/audio/scene_atmospheres/345852__hargissssound__spring-birds-loop-with-low-cut-new-jersey.mp3"
+dest_files=[ "res://.import/345852__hargissssound__spring-birds-loop-with-low-cut-new-jersey.mp3-f88e77bca99f212fed68f6c3dca4cc78.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
