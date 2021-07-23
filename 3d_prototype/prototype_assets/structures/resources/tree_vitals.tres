@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-starting_health = 3.0
+starting_health = 5.0
 maximum_attackers = 1
