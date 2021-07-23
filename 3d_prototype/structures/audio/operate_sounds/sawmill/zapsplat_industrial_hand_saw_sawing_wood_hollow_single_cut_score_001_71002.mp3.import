@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/zapsplat_industrial_hand_saw_sawing_wood_hollow_single_cut_score_001_71002.mp3-e7ffbdfe77b69fb66e854e6f3cc01b0e.mp3str"
+
+[deps]
+
+source_file="res://structures/audio/operate_sounds/sawmill/zapsplat_industrial_hand_saw_sawing_wood_hollow_single_cut_score_001_71002.mp3"
+dest_files=[ "res://.import/zapsplat_industrial_hand_saw_sawing_wood_hollow_single_cut_score_001_71002.mp3-e7ffbdfe77b69fb66e854e6f3cc01b0e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

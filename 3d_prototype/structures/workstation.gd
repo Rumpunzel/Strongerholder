@@ -1,6 +1,8 @@
 class_name Workstation, "res://editor_tools/class_icons/spatials/icon_anvil.svg"
 extends Stash
 
+signal operated()
+signal produced()
 
 export(Resource) var _produces
 export var _needs_how_many := 1
@@ -47,7 +49,8 @@ func can_be_operated() -> bool:
 func operate() -> void:
 	assert(can_be_operated())
 	_current_operation_steps += 1
-	print("Operated")
+	
+	emit_signal("operated")
 	_is_operation_complete()
 
 
@@ -67,6 +70,7 @@ func _is_operation_complete() -> void:
 		
 		_current_operation_steps = 0
 		_spawn_item(_produces)
+		emit_signal("produced")
 
 func _spawn_item(item: ItemResource) -> void:
 	# warning-ignore:unsafe_property_access
