@@ -7,3 +7,4 @@
 script = ExtResource( 1 )
 _object_to_look_for = ExtResource( 2 )
 _global_range = false
+_use_spotted_items = true

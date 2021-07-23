@@ -3,7 +3,7 @@
 [ext_resource path="res://characters/controllers/job_machine/resources/states/chop_tree.tres" type="Resource" id=1]
 [ext_resource path="res://characters/controllers/job_machine/resources/states/gather_wood.tres" type="Resource" id=2]
 [ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=3]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/condition_usages/found_wood_true.tres" type="Resource" id=4]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/condition_usages/found_local_wood_true.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 3 )

@@ -3,9 +3,10 @@ extends StateConditionResource
 
 export(Resource) var _object_to_look_for
 export var _global_range := false
+export var _use_spotted_items := true
 
 func create_condition() -> StateCondition:
-	return FoundObjectCondition.new(_object_to_look_for, _global_range)
+	return FoundObjectCondition.new(_object_to_look_for, _global_range, _use_spotted_items)
 
 
 class FoundObjectCondition extends StateCondition:
@@ -15,11 +16,13 @@ class FoundObjectCondition extends StateCondition:
 	
 	var _object_resource: ObjectResource
 	var _global_range: bool
+	var _use_spotted_items: bool
 	
 	
-	func _init(object: ObjectResource, global_range: bool) -> void:
+	func _init(object: ObjectResource, global_range: bool, use_spotted_items: bool) -> void:
 		_object_resource = object
 		_global_range = global_range
+		_use_spotted_items = use_spotted_items
 	
 	
 	func awake(state_machine: Node) -> void:
@@ -52,11 +55,12 @@ class FoundObjectCondition extends StateCondition:
 				if not item.has_method("is_dibbable") or item.is_dibbable(_interaction_area):
 					return true
 		
-		if _object_resource is ItemResource:
-			var spotted_items := _spotted_items.get_spotted(_object_resource, _interaction_area)
-			for item in spotted_items:
-				if not item.has_method("is_dibbable") or item.is_dibbable(_interaction_area):
-					return true
+		if _use_spotted_items:
+			if _object_resource is ItemResource:
+				var spotted_items := _spotted_items.get_spotted(_object_resource, _interaction_area)
+				for item in spotted_items:
+					if not item.has_method("is_dibbable") or item.is_dibbable(_interaction_area):
+						return true
 		
 		for percieved_object in _interaction_area.objects_in_perception_range:
 			if not percieved_object.has_method("is_dibbable") or percieved_object.is_dibbable(_interaction_area):
