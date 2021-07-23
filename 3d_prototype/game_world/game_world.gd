@@ -27,4 +27,4 @@ func _on_scene_loaded(scene: WorldScene) -> void:
 func _on_scene_atmosphere_started(stream: AudioStream) -> void:
 	assert(stream)
 	yield(get_tree(), "idle_frame")
-	_scene_atmosphere.play_atmosphere(stream)
+	_scene_atmosphere.play_atmosphere(stream, 0.0)
