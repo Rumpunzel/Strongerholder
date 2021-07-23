@@ -964,7 +964,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_world/spawn_system/spawn_system.gd"
 }, {
-"base": "Resource",
+"base": "Node",
 "class": "SpottedItems",
 "language": "GDScript",
 "path": "res://game_world/spotted_items.gd"

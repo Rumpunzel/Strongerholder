@@ -67,7 +67,7 @@ func _on_game_load_started(start_new_game: bool) -> void:
 	if save_file.file_exists(SAVE_LOCATION) or start_new_game:
 		# Delete the current loaded persistent objects
 		var save_nodes := get_tree().get_nodes_in_group(PERSIST_LEVEL)
-		save_nodes += get_tree().get_nodes_in_group(PERSIST_GROUP)
+		#save_nodes += get_tree().get_nodes_in_group(PERSIST_GROUP)
 		
 		for node in save_nodes:
 			node.get_parent().remove_child(node)
@@ -179,10 +179,6 @@ func _load_next_scene(scene_path: String, save_file: File, is_level := false) ->
 	var node_name: String = save_file.get_var()
 	var parent_path: String = save_file.get_var()
 	
-	if node.has_method("save_to_var"):
-		assert(node.has_method("load_from_var"))
-		node.call("load_from_var", save_file)
-	
 	# HACK: currently this just deletes all the persistent nodes from the level
 	#	consider implementing this by instead loading a base level
 	#	  with only static scenes when loading a level
@@ -190,6 +186,11 @@ func _load_next_scene(scene_path: String, save_file: File, is_level := false) ->
 		for child in _get_children_in_group(node, PERSIST_GROUP, ""):
 			child.get_parent().remove_child(child)
 			child.queue_free()
+	
+	
+	if node.has_method("save_to_var"):
+		assert(node.has_method("load_from_var"))
+		node.call("load_from_var", save_file)
 	
 	get_node(parent_path).add_child(node)
 	node.name = node_name

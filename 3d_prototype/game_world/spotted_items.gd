@@ -1,5 +1,5 @@
 class_name SpottedItems
-extends Resource
+extends Node
 
 # The format of this is as follows:
 #	Dictionary of ItemResources: {
@@ -8,11 +8,6 @@ extends Resource
 #		}
 #	}
 var _spotted_items := { }
-var _world_scene: Node
-
-
-func _init(world_scene: Node) -> void:
-	_world_scene = world_scene
 
 
 func get_spotted(item: ItemResource, spotter: Node) -> Array:
@@ -28,6 +23,8 @@ func get_spotted(item: ItemResource, spotter: Node) -> Array:
 					if item_spotter == spotter:
 						return_array.append(item)
 						break
+					elif not weakref(item_spotter).get_ref():
+						spotted[item].erase(item_spotter)
 		else:
 			# warning-ignore:return_value_discarded
 			spotted.erase(item)
@@ -50,13 +47,13 @@ func save_to_var(save_file: File) -> void:
 		save_file.store_16(spotted_nodes.size())
 		for node_key in spotted_nodes.keys():
 			var node: CollectableItem = node_key
-			save_file.store_var(_world_scene.get_path_to(node))
+			save_file.store_var(node.get_path())
 			
 			var spotters: Array = spotted_nodes[node]
 			save_file.store_16(spotters.size())
 			for spotter_element in spotters:
 				var spotter: Node = spotter_element
-				save_file.store_var(_world_scene.get_path_to(spotter))
+				save_file.store_var(spotter.get_path())
 
 # TODO: unit test this at some point
 func load_from_var(save_file: File) -> void:
@@ -69,13 +66,13 @@ func load_from_var(save_file: File) -> void:
 		var spotted_nodes_size := save_file.get_16()
 		for _spotted_node_index in range(spotted_nodes_size):
 			var node_path: String = save_file.get_var()
-			var node: Node = _world_scene.get_node(node_path)
+			var node: Node = get_node(node_path)
 			
 			var spotters_size := save_file.get_16()
 			var spotters := [ ]
 			for _spotter_index in range(spotters_size):
 				var spotter_path: String = save_file.get_var()
-				var spotter: Node = _world_scene.get_node(spotter_path)
+				var spotter: Node = get_node(spotter_path)
 				spotters.append(spotter)
 			
 			_spotted_items[item][node] = spotters

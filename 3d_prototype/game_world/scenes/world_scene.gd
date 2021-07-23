@@ -9,10 +9,12 @@ export(AudioStream) var scene_atmosphere: AudioStream = null
 export(Resource) var _scene_atmosphere_started_channel
 
 # warning-ignore:unused_class_variable
-var spotted_items := SpottedItems.new(self)
+var spotted_items: SpottedItems
 
 
 func _enter_tree() -> void:
+	spotted_items = $SpottedItems
+	
 	# warning-ignore:return_value_discarded
 	_node_spawned_channel.connect("raised", self, "_on_node_spawned")
 	# warning-ignore:return_value_discarded
@@ -26,13 +28,6 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	_scene_atmosphere_started_channel.raise(scene_atmosphere)
-
-
-func save_to_var(save_file: File) -> void:
-	spotted_items.save_to_var(save_file)
-
-func load_from_var(save_file: File) -> void:
-	spotted_items.load_from_var(save_file)
 
 
 func _on_node_spawned(node: Spatial, position: Vector3, random_rotation: bool) -> void:
