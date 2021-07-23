@@ -5,7 +5,7 @@
 [ext_resource path="res://structures/resources/city/bell_tower.tres" type="Resource" id=3]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 3, 7, 3 )
+extents = Vector3( 2.5, 7, 2.5 )
 
 [node name="BellTower" type="StaticBody" groups=[
 "Persist",
