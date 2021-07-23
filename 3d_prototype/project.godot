@@ -819,11 +819,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/monitor/PushErrorMonitor.gd"
 }, {
-"base": "Resource",
-"class": "QuarterMaster",
-"language": "GDScript",
-"path": "res://city/quartermaster/quartermaster.gd"
-}, {
 "base": "Reference",
 "class": "RPC",
 "language": "GDScript",
@@ -958,11 +953,6 @@ _global_script_classes=[ {
 "class": "SignalHandler",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/event/SignalHandler.gd"
-}, {
-"base": "Position3D",
-"class": "SpawnSystem",
-"language": "GDScript",
-"path": "res://game_world/spawn_system/spawn_system.gd"
 }, {
 "base": "Node",
 "class": "SpottedItems",
@@ -1287,7 +1277,6 @@ _global_script_class_icons={
 "ObjectInteractionResource": "",
 "ObjectResource": "",
 "PushErrorMonitor": "",
-"QuarterMaster": "",
 "RPC": "",
 "RPCClientConnect": "",
 "RPCClientDisconnect": "",
@@ -1315,7 +1304,6 @@ _global_script_class_icons={
 "SavingAndLoading": "res://editor_tools/class_icons/nodes/icon_save.svg",
 "SceneAtmosphere": "",
 "SignalHandler": "",
-"SpawnSystem": "",
 "SpottedItems": "",
 "Stash": "res://editor_tools/class_icons/spatials/icon_wooden_crate.svg",
 "State": "",

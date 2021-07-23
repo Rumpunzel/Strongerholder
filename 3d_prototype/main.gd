@@ -13,7 +13,6 @@ export(Resource) var _game_continued_channel
 export(Resource) var _game_started_channel
 
 
-
 func _enter_tree() -> void:
 	randomize()
 	
@@ -39,7 +38,6 @@ func _ready() -> void:
 	_game_load_started_channel.raise(false)
 
 
-
 func _on_game_pause_requested() -> void:
 	get_tree().paused = true
 	_game_paused_channel.raise()
@@ -50,7 +48,6 @@ func _on_game_continue_requested() -> void:
 
 func _on_game_quit() -> void:
 	get_tree().quit()
-
 
 func _on_game_load_finished() -> void:
 	_game_started_channel.raise()
