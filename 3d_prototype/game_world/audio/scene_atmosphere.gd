@@ -1,16 +1,8 @@
 class_name SceneAtmosphere
 extends AudioStreamPlayer
 
-export var looping := true
-
 onready var _tween: Tween = $Tween
 onready var _starting_volume := volume_db
-
-
-func _ready() -> void:
-	if looping:
-		# warning-ignore:return_value_discarded
-		connect("finished", self, "play")
 
 
 func play_atmosphere(audio: AudioStream, fade_in_duration := 1.0) -> void:
