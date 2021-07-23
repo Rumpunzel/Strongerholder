@@ -11,3 +11,6 @@ onready var _inventory: Inventory = Utils.find_node_of_type_in_children(owner, I
 func stash(item: ItemResource, count := 1) -> int:
 	print("%s stashed" % item.name)
 	return _inventory.add(item, count)
+
+func full() -> bool:
+	return _inventory.full(item_to_store)

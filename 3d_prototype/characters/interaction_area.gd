@@ -154,19 +154,19 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory) ->
 	if object is CollectableItem:
 		interaction_type = InteractionType.PICK_UP
 	
+	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
-	elif object is Stash and (not inventory or inventory.contains(object.item_to_store)):
+	elif object is Stash and not (object as Stash).full() and (not inventory or inventory.contains((object as Stash).item_to_store)):
 		interaction_type = InteractionType.GIVE
 	
-	# warning-ignore:unsafe_method_access
-	elif object is Workstation and object.can_be_operated():
+	elif object is Workstation and (object as Workstation).can_be_operated():
 		interaction_type = InteractionType.OPERATE
 	
 	elif object is HitBox and _equipped_item:
 		var equipped_tool: ToolResource = _equipped_item.stack.item
 		# WAITFORUPDATE: remove this unnecessary thing after 4.0
 		# warning-ignore:unsafe_property_access
-		if object.type & equipped_tool.used_on:
+		if (object as HitBox).type & equipped_tool.used_on:
 			interaction_type = InteractionType.ATTACK
 	
 	
