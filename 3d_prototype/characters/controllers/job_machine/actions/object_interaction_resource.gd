@@ -34,4 +34,4 @@ class ObjectInteraction extends StateAction:
 		elif _object_resource is ItemResource:
 			array_to_search = _spotted_items.get_spotted(_object_resource, _interaction_area)
 		
-		_interaction_area.interact_with_nearest_object_of_type(_object_resource, array_to_search)
+		_interaction_area.interact_with_nearest_object_of_type(_object_resource, array_to_search, false)

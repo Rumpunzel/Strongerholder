@@ -18,4 +18,4 @@ class EmployerInteraction extends StateAction:
 		_interaction_area = Utils.find_node_of_type_in_children(state_machine.owner, InteractionArea)
 	
 	func on_update(_delta: float) -> void:
-		_interaction_area.interact_with_specific_object(_employer, _inventory)
+		_interaction_area.interact_with_specific_object(_employer, _inventory, false)

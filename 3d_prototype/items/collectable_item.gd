@@ -9,7 +9,6 @@ var _called_dibs_by: Node = null
 
 
 func call_dibs(dibs: Node, dibbing: bool) -> void:
-	assert(not _called_dibs_by or not dibbing or _called_dibs_by == dibs)
 	_called_dibs_by = dibs if dibbing else null
 
 func is_dibbable(dibs: Node) -> bool:

@@ -62,32 +62,32 @@ func _process(_delta: float) -> void:
 
 
 
-func smart_interact_with_nearest(inventory: CharacterInventory) -> void:
+func smart_interact_with_nearest(inventory: CharacterInventory, overwrite_dibs: bool) -> void:
 	if _occupied():
 		return
 	
-	var point_to_walk_to := _interact_with_nearest(objects_in_interaction_range, objects_in_perception_range, inventory)
+	var point_to_walk_to := _interact_with_nearest(objects_in_interaction_range, objects_in_perception_range, inventory, overwrite_dibs)
 	_inputs.destination_input = point_to_walk_to
 
 
-func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_array_to_search := [ ]) -> void:
+func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_array_to_search: Array, overwrite_dibs: bool) -> void:
 	if _occupied():
 		return
 	
 	var interaction_objects := _filter_array_for_type(objects_in_interaction_range, object_type)
 	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
 	
-	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects, null)
+	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects, null, overwrite_dibs)
 	_inputs.destination_input = point_to_walk_to
 
 
-func interact_with_specific_object(object: Node, inventory: CharacterInventory) -> void:
+func interact_with_specific_object(object: Node, inventory: CharacterInventory, overwrite_dibs: bool) -> void:
 	if _occupied():
 		return
 	
 	var interaction_objects := [ object ] if objects_in_interaction_range.has(object) else [ ]
 	
-	var point_to_walk_to := _interact_with_nearest(interaction_objects, [ object ], inventory)
+	var point_to_walk_to := _interact_with_nearest(interaction_objects, [ object ], inventory, overwrite_dibs)
 	_inputs.destination_input = point_to_walk_to
 
 
@@ -97,7 +97,7 @@ func reset() -> void:
 
 
 
-func _interact_with_nearest(interactable_objects: Array, perceived_objects: Array, inventory: CharacterInventory) -> Vector3:
+func _interact_with_nearest(interactable_objects: Array, perceived_objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> Vector3:
 	# Default is no movement at all
 	var point_to_walk_to := _character.translation
 	
@@ -112,25 +112,25 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 			reset()
 	else:
 		# Check if there is an object in the immediate vicinity to interact with
-		_set_nearest_interaction(_find_nearest_smart_interaction(interactable_objects, inventory))
+		_set_nearest_interaction(_find_nearest_smart_interaction(interactable_objects, inventory, overwrite_dibs))
 		if _nearest_interaction:
 			_set_current_interaction(_nearest_interaction)
 		else:
 			# Check in the broader vicinity
-			_set_nearest_interaction(_find_nearest_smart_interaction(perceived_objects, inventory))
+			_set_nearest_interaction(_find_nearest_smart_interaction(perceived_objects, inventory, overwrite_dibs))
 			if _nearest_interaction:
 				point_to_walk_to = _nearest_interaction.position()
 	
 	return point_to_walk_to
 
 
-func _find_nearest_smart_interaction(objects: Array, inventory: CharacterInventory) -> Interaction:
+func _find_nearest_smart_interaction(objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> Interaction:
 	var nearest: Interaction = null
 	var closest_distance: float = INF
 	
 	for object in objects:
 		# warning-ignore:unsafe_property_access
-		if object == owner or object.owner == owner or (object.has_method("is_dibbable") and not object.is_dibbable(self)):
+		if object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
 			continue
 		
 		var potential_interaction := Interaction.new(object)

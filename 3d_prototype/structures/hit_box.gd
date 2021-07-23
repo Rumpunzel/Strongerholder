@@ -30,7 +30,6 @@ func call_dibs(dibs: Node, dibbing: bool) -> void:
 	if dibbing:
 		if not _called_dibs_by.has(dibs):
 			_called_dibs_by.append(dibs)
-		assert(_called_dibs_by.size() <= _vitals_resource.maximum_attackers or _vitals_resource.maximum_attackers < 0)
 	else:
 		if _called_dibs_by.has(dibs):
 			_called_dibs_by.erase(dibs)
