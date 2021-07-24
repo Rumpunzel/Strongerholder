@@ -1,8 +1,10 @@
 class_name ReadInteractionResource
 extends StateActionResource
 
+export(Resource) var _player_interaction_channel
+
 func _create_action() -> StateAction:
-	return ReadInteraction.new()
+	return ReadInteraction.new(_player_interaction_channel)
 
 
 class ReadInteraction extends StateAction:
@@ -10,9 +12,14 @@ class ReadInteraction extends StateAction:
 	var _inputs: CharacterMovementInputs
 	var _inventory: CharacterInventory
 	var _interaction_area: InteractionArea
+	var _player_interaction_channel: ReferenceEventChannelResource
 	
 	var _smart_interacting := false
 	var _attacking := false
+	
+	
+	func _init(player_interaction_channel: ReferenceEventChannelResource) -> void:
+		_player_interaction_channel = player_interaction_channel
 	
 	
 	func awake(state_machine: Node) -> void:
@@ -20,6 +27,9 @@ class ReadInteraction extends StateAction:
 		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 		_inventory = Utils.find_node_of_type_in_children(_character, CharacterInventory)
 		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
+		
+		# warning-ignore:return_value_discarded
+		_interaction_area.connect("nearest_interaction_changed", _player_interaction_channel, "raise")
 	
 	
 	func on_update(_delta: float) -> void:

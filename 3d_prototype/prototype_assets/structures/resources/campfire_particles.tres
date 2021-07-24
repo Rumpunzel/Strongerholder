@@ -1,10 +1,10 @@
 [gd_resource type="ParticlesMaterial" load_steps=3 format=2]
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -5.91505, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
-curve = SubResource( 3 )
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
 
 [resource]
 lifetime_randomness = 0.5
@@ -16,4 +16,4 @@ tangential_accel_random = 1.0
 damping = 9.2
 damping_random = 0.1
 scale_random = 0.5
-scale_curve = SubResource( 4 )
+scale_curve = SubResource( 2 )

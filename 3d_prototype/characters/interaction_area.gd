@@ -1,7 +1,6 @@
 class_name InteractionArea, "res://editor_tools/class_icons/spatials/icon_slap.svg"
 extends Area
 
-
 signal item_picked_up(item)
 signal attacked(started)
 signal gave_item(item)
@@ -12,6 +11,9 @@ signal object_exited_interaction_area(object)
 
 signal object_entered_perception_area(object)
 signal object_exited_perception_area(object)
+
+signal current_interaction_changed(interaction)
+signal nearest_interaction_changed(interaction)
 
 
 enum InteractionType {
@@ -230,22 +232,30 @@ func _operate() -> void:
 
 
 func _set_current_interaction(new_interaction: Interaction) -> void:
+	if current_interaction == new_interaction:
+		return
+	
 	if current_interaction and _node_is_dibbable(current_interaction.node):
 		# warning-ignore:unsafe_method_access
 		current_interaction.node.call_dibs(self, false)
 		
 	current_interaction = new_interaction
+	emit_signal("current_interaction_changed", current_interaction)
 	
 	if current_interaction and _node_is_dibbable(current_interaction.node):
 		# warning-ignore:unsafe_method_access
 		current_interaction.node.call_dibs(self, true)
 
 func _set_nearest_interaction(new_interaction: Interaction) -> void:
+	if _nearest_interaction == new_interaction:
+		return
+	
 	if _nearest_interaction and _node_is_dibbable(_nearest_interaction.node):
 		# warning-ignore:unsafe_method_access
 		_nearest_interaction.node.call_dibs(self, false)
 	
 	_nearest_interaction = new_interaction
+	emit_signal("nearest_interaction_changed", _nearest_interaction)
 	
 	if _nearest_interaction and _node_is_dibbable(_nearest_interaction.node):
 		# warning-ignore:unsafe_method_access
