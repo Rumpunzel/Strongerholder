@@ -18,6 +18,7 @@ var _shape: SphereShape
 
 var _current_burn_duration := 0.0
 var _current_burn_stage := 0
+var _previous_burn_stage := 0
 
 
 onready var _inventory: Inventory = Utils.find_node_of_type_in_children(owner, Inventory)
@@ -53,12 +54,11 @@ func load_from_var(save_file: File) -> void:
 
 
 func _burn(delta: float) -> void:
-	var previous_burn_stage := int(_current_burn_duration / _item_burn_duration)
+	_previous_burn_stage = _current_burn_stage
 	_current_burn_duration = max(_current_burn_duration - delta, 0.0)
-	_current_burn_stage = _inventory.count(_item_to_burn)
-	#print("previous_burn_stage: %d" % previous_burn_stage)
-	#print("_current_burn_stage: %d" % _current_burn_stage)
-	if previous_burn_stage < _current_burn_stage:
+	_current_burn_stage = int(ceil(_current_burn_duration / _item_burn_duration))
+	
+	if _previous_burn_stage > _current_burn_stage:
 		var left_in_stack := _inventory.use(_item_to_burn)
 		assert(left_in_stack >= 0)
 		_particles.amount = int(_value_from_range(_minimum_particles, _maximum_particles))
