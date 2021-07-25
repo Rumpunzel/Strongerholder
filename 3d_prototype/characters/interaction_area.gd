@@ -114,19 +114,19 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 			reset()
 	else:
 		# Check if there is an object in the immediate vicinity to interact with
-		_set_nearest_interaction(_find_nearest_smart_interaction(interactable_objects, inventory, overwrite_dibs))
+		_set_nearest_interaction(find_nearest_smart_interaction(interactable_objects, inventory, overwrite_dibs))
 		if _nearest_interaction:
 			_set_current_interaction(_nearest_interaction)
 		else:
 			# Check in the broader vicinity
-			_set_nearest_interaction(_find_nearest_smart_interaction(perceived_objects, inventory, overwrite_dibs))
+			_set_nearest_interaction(find_nearest_smart_interaction(perceived_objects, inventory, overwrite_dibs))
 			if _nearest_interaction:
 				point_to_walk_to = _nearest_interaction.position()
 	
 	return point_to_walk_to
 
 
-func _find_nearest_smart_interaction(objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> Interaction:
+func find_nearest_smart_interaction(objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> Interaction:
 	var nearest: Interaction = null
 	var closest_distance: float = INF
 	

@@ -14,6 +14,7 @@ class ReadInteraction extends StateAction:
 	var _interaction_area: InteractionArea
 	var _player_interaction_channel: ReferenceEventChannelResource
 	
+	var _nearest_interaction: InteractionArea.Interaction = null
 	var _smart_interacting := false
 	var _attacking := false
 	
@@ -29,7 +30,7 @@ class ReadInteraction extends StateAction:
 		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
 		
 		# warning-ignore:return_value_discarded
-		_interaction_area.connect("nearest_interaction_changed", _player_interaction_channel, "raise")
+		#_interaction_area.connect("nearest_interaction_changed", _player_interaction_channel, "raise")
 	
 	
 	func on_update(_delta: float) -> void:
@@ -38,6 +39,11 @@ class ReadInteraction extends StateAction:
 		
 		if _attacking and _inventory.has_something_equipped():
 			_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK)
+		
+		var new_nearest_interaction := _interaction_area.find_nearest_smart_interaction(_interaction_area.objects_in_perception_range, _inventory, true)
+		if not _nearest_interaction == new_nearest_interaction:
+			_nearest_interaction = new_nearest_interaction
+			_player_interaction_channel.raise(_nearest_interaction)
 	
 	
 	func on_input(input: InputEvent) -> void:

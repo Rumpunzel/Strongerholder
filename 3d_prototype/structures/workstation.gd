@@ -44,7 +44,7 @@ func apply_for_job(worker: Node) -> bool:
 
 
 func can_be_operated() -> bool:
-	return _inventory.count(item_to_store) >= _needs_how_many
+	return inventory.count(item_to_store) >= _needs_how_many
 
 func operate() -> void:
 	assert(can_be_operated())
@@ -66,7 +66,7 @@ func _is_operation_complete() -> void:
 	if _current_operation_steps >= _operation_steps:
 		for _i in range(_needs_how_many):
 			# warning-ignore:return_value_discarded
-			_inventory.remove(item_to_store)
+			inventory.remove(item_to_store)
 		
 		_current_operation_steps = 0
 		_spawn_item(_produces)
