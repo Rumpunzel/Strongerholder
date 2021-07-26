@@ -18,4 +18,5 @@ class EmployerInteraction extends StateAction:
 		_interaction_area = Utils.find_node_of_type_in_children(state_machine.owner, InteractionArea)
 	
 	func on_update(_delta: float) -> void:
-		_interaction_area.interact_with_specific_object(_employer, _inventory, false)
+		var interaction_objects := [ _employer ] if _interaction_area.objects_in_interaction_range.has(_employer) else [ ]
+		_interaction_area.interact_with_specific_object(_employer, interaction_objects, _inventory, false)

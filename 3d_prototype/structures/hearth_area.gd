@@ -37,11 +37,13 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	_shape = SphereShape.new()
 	_collision_shape.shape = _shape
-	_blaze()
+	_blaze(_current_burn_duration > 0.0)
 
 func _process(delta: float) -> void:
-	_burn(delta)
-	_blaze()
+	var burning := _current_burn_duration > 0.0
+	
+	_burn(burning, delta)
+	_blaze(burning)
 
 
 
@@ -53,7 +55,10 @@ func load_from_var(save_file: File) -> void:
 
 
 
-func _burn(delta: float) -> void:
+func _burn(burning: bool, delta: float) -> void:
+	if not burning:
+		return
+	
 	_previous_burn_stage = _current_burn_stage
 	_current_burn_duration = max(_current_burn_duration - delta, 0.0)
 	_current_burn_stage = int(ceil(_current_burn_duration / _item_burn_duration))
@@ -64,8 +69,7 @@ func _burn(delta: float) -> void:
 		_particles.amount = int(_value_from_range(_minimum_particles, _maximum_particles))
 
 
-func _blaze() -> void:
-	var burning := _current_burn_duration > 0.0
+func _blaze(burning: bool) -> void:
 	_light.visible = burning
 	_particles.emitting = burning
 	

@@ -2,25 +2,34 @@ class_name ReadInteractionResource
 extends StateActionResource
 
 export(Resource) var _player_interaction_channel
+export(Resource) var _player_item_interaction_channel
 
 func _create_action() -> StateAction:
-	return ReadInteraction.new(_player_interaction_channel)
+	return ReadInteraction.new(_player_interaction_channel, _player_item_interaction_channel)
 
 
 class ReadInteraction extends StateAction:
+	enum InteractionState { STARTED, CANCELLED, COMPLETED }
+	
 	var _character: Character
 	var _inputs: CharacterMovementInputs
 	var _inventory: CharacterInventory
 	var _interaction_area: InteractionArea
+	
 	var _player_interaction_channel: ReferenceEventChannelResource
+	var _player_item_interaction_channel: IntEventChannelResource
 	
 	var _nearest_interaction: InteractionArea.Interaction = null
+	var _current_interaction: InteractionArea.Interaction = null
+	var _current_interaction_node: Node = null
+	
 	var _smart_interacting := false
 	var _attacking := false
 	
 	
-	func _init(player_interaction_channel: ReferenceEventChannelResource) -> void:
+	func _init(player_interaction_channel: ReferenceEventChannelResource, player_item_interaction_channel: IntEventChannelResource) -> void:
 		_player_interaction_channel = player_interaction_channel
+		_player_item_interaction_channel = player_item_interaction_channel
 	
 	
 	func awake(state_machine: Node) -> void:
@@ -28,22 +37,38 @@ class ReadInteraction extends StateAction:
 		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 		_inventory = Utils.find_node_of_type_in_children(_character, CharacterInventory)
 		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
-		
-		# warning-ignore:return_value_discarded
-		#_interaction_area.connect("nearest_interaction_changed", _player_interaction_channel, "raise")
 	
+	
+	func on_state_enter() -> void:
+		# warning-ignore:return_value_discarded
+		_player_item_interaction_channel.connect("raised", self, "_on_player_item_interaction_completed")
 	
 	func on_update(_delta: float) -> void:
-		if _smart_interacting:
-			_interaction_area.smart_interact_with_nearest(_inventory, true)
-		
 		if _attacking and _inventory.has_something_equipped():
 			_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK)
 		
+		if _current_interaction:
+			_interaction_area.current_interaction = _current_interaction
+		
 		var new_nearest_interaction := _interaction_area.find_nearest_smart_interaction(_interaction_area.objects_in_perception_range, _inventory, true)
-		if not _nearest_interaction == new_nearest_interaction:
+		if (not _nearest_interaction or not new_nearest_interaction or not _nearest_interaction.node == new_nearest_interaction.node) and not _nearest_interaction == new_nearest_interaction:
 			_nearest_interaction = new_nearest_interaction
 			_player_interaction_channel.raise(_nearest_interaction)
+		
+		if _smart_interacting and _nearest_interaction:
+			var node := _nearest_interaction.node
+			if not _interaction_area.objects_in_interaction_range.has(node):
+				_interaction_area.interact_with_specific_object(node, [ ], _inventory, true)
+			elif not _current_interaction_node == node:
+				_current_interaction_node = node
+				_inputs.destination_input = _character.translation
+				_player_item_interaction_channel.raise(InteractionState.STARTED)
+		elif _current_interaction_node:
+			_current_interaction_node = null
+			_player_item_interaction_channel.raise(InteractionState.CANCELLED)
+	
+	func on_state_exit() -> void:
+		_player_item_interaction_channel.disconnect("raised", self, "_on_player_item_interaction_completed")
 	
 	
 	func on_input(input: InputEvent) -> void:
@@ -61,3 +86,18 @@ class ReadInteraction extends StateAction:
 		elif input.is_action_released("attack"):
 			_attacking = false
 			_character.get_tree().set_input_as_handled()
+	
+	
+	func _on_player_item_interaction_completed(state: int) -> void:
+		# TODO: check why this is necessary
+		if not weakref(_character).get_ref():
+			# warning-ignore:return_value_discarded
+			unreference()
+			return
+		
+		if not state == InteractionState.COMPLETED:
+			return
+		
+		var interaction_objects := [ _current_interaction_node ] if _interaction_area.objects_in_interaction_range.has(_current_interaction_node) else [ ]
+		_interaction_area.interact_with_specific_object(_current_interaction_node, interaction_objects, _inventory, true)
+		_current_interaction = _interaction_area.current_interaction

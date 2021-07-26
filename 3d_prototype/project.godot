@@ -699,6 +699,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://editor_tools/class_icons/icon_colors.gd"
 }, {
+"base": "EventChannelBaseResource",
+"class": "IntEventChannelResource",
+"language": "GDScript",
+"path": "res://event_system/int_event_channel_resource.gd"
+}, {
 "base": "Fuzzer",
 "class": "IntFuzzer",
 "language": "GDScript",
@@ -1258,6 +1263,7 @@ _global_script_class_icons={
 "HitBox": "res://editor_tools/class_icons/spatials/icon_heart_beats.svg",
 "HorizontalMoveActionResource": "",
 "IconColors": "",
+"IntEventChannelResource": "",
 "IntFuzzer": "",
 "InteractionArea": "res://editor_tools/class_icons/spatials/icon_slap.svg",
 "InteractionHUD": "",

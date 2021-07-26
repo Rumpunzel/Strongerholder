@@ -83,11 +83,9 @@ func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_ar
 	_inputs.destination_input = point_to_walk_to
 
 
-func interact_with_specific_object(object: Node, inventory: CharacterInventory, overwrite_dibs: bool) -> void:
+func interact_with_specific_object(object: Node, interaction_objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> void:
 	if _occupied():
 		return
-	
-	var interaction_objects := [ object ] if objects_in_interaction_range.has(object) else [ ]
 	
 	var point_to_walk_to := _interact_with_nearest(interaction_objects, [ object ], inventory, overwrite_dibs)
 	_inputs.destination_input = point_to_walk_to
@@ -114,12 +112,14 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 			reset()
 	else:
 		# Check if there is an object in the immediate vicinity to interact with
-		_set_nearest_interaction(find_nearest_smart_interaction(interactable_objects, inventory, overwrite_dibs))
+		var nearest_smart_interaction := find_nearest_smart_interaction(interactable_objects, inventory, overwrite_dibs)
+		_set_nearest_interaction(nearest_smart_interaction)
 		if _nearest_interaction:
 			_set_current_interaction(_nearest_interaction)
 		else:
 			# Check in the broader vicinity
-			_set_nearest_interaction(find_nearest_smart_interaction(perceived_objects, inventory, overwrite_dibs))
+			nearest_smart_interaction = find_nearest_smart_interaction(perceived_objects, inventory, overwrite_dibs)
+			_set_nearest_interaction(nearest_smart_interaction)
 			if _nearest_interaction:
 				point_to_walk_to = _nearest_interaction.position()
 	
@@ -132,7 +132,7 @@ func find_nearest_smart_interaction(objects: Array, inventory: CharacterInventor
 	
 	for object in objects:
 		# warning-ignore:unsafe_property_access
-		if object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
+		if not object or object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
 			continue
 		
 		var potential_interaction := Interaction.new(object)
@@ -214,7 +214,7 @@ func _attack(started: bool) -> void:
 
 
 func _give() -> void:
-	var stash: Stash = current_interaction.node
+	var stash: Stash = current_interaction.node 
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
 	var item: ItemResource = stash.item_to_store

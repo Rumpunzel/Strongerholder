@@ -71,6 +71,9 @@ func _on_toggled(new_inventory: CharacterInventory) -> void:
 
 
 func _update_items(_new_item: ItemResource = null) -> void:
+	if not _inventory:
+		return
+	
 	var contents := _inventory.item_slots
 	
 	for i in contents.size():
