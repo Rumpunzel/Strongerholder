@@ -47,6 +47,7 @@ func _hide_menu() -> void:
 
 func _update_size() -> void:
 	if visible:
+		# HACK: to get the popup to dynamically scale
 		hide()
 		popup()
 

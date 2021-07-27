@@ -61,6 +61,7 @@ func _set_default() -> void:
 func _set_hover() -> void:
 	if disabled:
 		return
+	grab_focus()
 	_label.add_color_override("font_color", get_color("font_color_hover"))
 	_tween.interpolate_property(_background, "modulate:a", 0.0, 1.0, _background_fade_time)
 	_tween.start()
