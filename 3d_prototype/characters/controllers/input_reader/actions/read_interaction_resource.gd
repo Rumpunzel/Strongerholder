@@ -45,27 +45,9 @@ class ReadInteraction extends StateAction:
 	
 	func on_update(_delta: float) -> void:
 		if _attacking and _inventory.has_something_equipped():
-			_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK)
-		
-		if _current_interaction:
-			_interaction_area.current_interaction = _current_interaction
-		
-		var new_nearest_interaction := _interaction_area.find_nearest_smart_interaction(_interaction_area.objects_in_perception_range, _inventory, true)
-		if (not _nearest_interaction or not new_nearest_interaction or not _nearest_interaction.node == new_nearest_interaction.node) and not _nearest_interaction == new_nearest_interaction:
-			_nearest_interaction = new_nearest_interaction
-			_player_interaction_channel.raise(_nearest_interaction)
-		
-		if _smart_interacting and _nearest_interaction:
-			var node := _nearest_interaction.node
-			if not _interaction_area.objects_in_interaction_range.has(node):
-				_interaction_area.interact_with_specific_object(node, [ ], _inventory, true)
-			elif not _current_interaction_node == node:
-				_current_interaction_node = node
-				_inputs.destination_input = _character.translation
-				_player_item_interaction_channel.raise(InteractionState.STARTED)
-		elif _current_interaction_node:
-			_current_interaction_node = null
-			_player_item_interaction_channel.raise(InteractionState.CANCELLED)
+			_attack_on_spot()
+		else:
+			_handle_interaction()
 	
 	func on_state_exit() -> void:
 		_player_item_interaction_channel.disconnect("raised", self, "_on_player_item_interaction_completed")
@@ -86,6 +68,56 @@ class ReadInteraction extends StateAction:
 		elif input.is_action_released("attack"):
 			_attacking = false
 			_character.get_tree().set_input_as_handled()
+	
+	
+	func _attack_on_spot() -> void:
+		_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK)
+	
+	
+	func _handle_interaction() -> void:
+		_find_nearest_interaction_for_hud_to_display()
+		
+		if _smart_interacting and _nearest_interaction:
+			_smart_interact()
+		elif _current_interaction_node:
+			_current_interaction_node = null
+			_player_item_interaction_channel.raise(InteractionState.CANCELLED)
+		
+		if _current_interaction:
+			_interaction_area.current_interaction = _current_interaction
+	
+	
+	func _smart_interact() -> void:
+		var node := _nearest_interaction.node
+		var has_to_wait_for_hud := false
+		var interaction_obects := [ node ] if _interaction_area.objects_in_interaction_range.has(node) else [ ]
+		
+		if node is Stash:
+			has_to_wait_for_hud = true
+		
+		if not has_to_wait_for_hud:
+			_interaction_area.interact_with_specific_object(node, interaction_obects, _inventory, true)
+		else:
+			if not _interaction_area.objects_in_interaction_range.has(node):
+				_interaction_area.interact_with_specific_object(node, [ ], _inventory, true)
+			elif not _current_interaction_node == node:
+				_current_interaction_node = node
+				_inputs.destination_input = _character.translation
+				_player_item_interaction_channel.raise(InteractionState.STARTED)
+	
+	
+	func _find_nearest_interaction_for_hud_to_display() -> void:
+		var new_nearest_interaction := _interaction_area.find_nearest_smart_interaction(_interaction_area.objects_in_perception_range, _inventory, true)
+		if (not _nearest_interaction or not new_nearest_interaction or not _nearest_interaction.node == new_nearest_interaction.node) and not _nearest_interaction == new_nearest_interaction:
+			_nearest_interaction = new_nearest_interaction
+			
+			if _nearest_interaction:
+				var node := _nearest_interaction.node
+				if node is Stash:
+					_player_interaction_channel.raise(_nearest_interaction)
+					return
+			
+			_player_interaction_channel.raise(null)
 	
 	
 	func _on_player_item_interaction_completed(state: int) -> void:

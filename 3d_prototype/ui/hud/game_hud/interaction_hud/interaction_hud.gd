@@ -4,6 +4,8 @@ extends Popup
 export(PackedScene) var _interaction_icon
 export var _empty_color := Color("bfbfbfbf")
 
+export var _animation_duration := 0.1
+
 export(Resource) var _player_interaction_channel
 export(Resource) var _player_item_interaction_channel
 
@@ -33,7 +35,7 @@ func _ready() -> void:
 	# warning-ignore:return_value_discarded
 	_tween.connect("tween_all_completed", self, "_on_completed")
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not _current_interaction:
 		return
 	
@@ -54,9 +56,9 @@ func _on_player_interaction_changed(interaction: InteractionArea.Interaction) ->
 		_tween.stop_all()
 		remove_child(_icon)
 	
-	for child in _icons.get_children():
-		_icons.remove_child(child)
-		child.queue_free()
+	if visible:
+		_hide()
+		_inventory = null
 	
 	if _current_interaction:
 		_interaction_node = _current_interaction.node
@@ -65,16 +67,11 @@ func _on_player_interaction_changed(interaction: InteractionArea.Interaction) ->
 		if _interaction_node is Stash:
 			_item_resource = _interaction_node.item_to_store
 		
-		if _item_resource:
+		if _item_resource and not _inventory == _interaction_node.inventory:
 			_inventory = _interaction_node.inventory
 			_set_items()
 			_update_items()
-			popup()
-			return
-	
-	if visible:
-		hide()
-		_inventory = null
+			_popup()
 
 
 func _on_player_item_interaction_started(state: int) -> void:
@@ -85,16 +82,16 @@ func _on_player_item_interaction_started(state: int) -> void:
 				return
 			
 			if not get_children().has(_icon):
-				var pos := Vector2()
+				var pos := Vector2.ZERO
 				for icon in _icons.get_children():
 					if icon is TextureRect and not icon.modulate == Color.white:
-						pos = icon.rect_position
+						pos += icon.rect_position
 						break
 				
 				add_child(_icon)
 				
 				# warning-ignore:return_value_discarded
-				_tween.interpolate_property(_icon, "rect_position", Vector2(0.0, 64.0), pos, 0.5)
+				_tween.interpolate_property(_icon, "rect_position", get_viewport_rect().size * 0.5 - rect_position - _icon.rect_pivot_offset, pos, 0.5)
 				# warning-ignore:return_value_discarded
 				_tween.start()
 		
@@ -110,6 +107,8 @@ func _on_completed() -> void:
 
 
 func _set_items() -> void:
+	_reset_icons()
+	
 	var contents := _inventory.contents(false)
 	var inventory_size := contents.size()
 	var stack_size: int = _item_resource.stack_size
@@ -146,3 +145,28 @@ func _update_items() -> void:
 			var stack: Inventory.ItemStack = contents[slot]
 			
 			icon.modulate = Color.white if stack.item and stack_index < stack.amount else _empty_color
+
+
+func _reset_icons() -> void:
+	for child in _icons.get_children():
+		_icons.remove_child(child)
+		child.queue_free()
+
+
+func _popup() -> void:
+	popup()
+	# warning-ignore:return_value_discarded
+	_tween.interpolate_property(self, "modulate:a", 0.0, 1.0, _animation_duration)
+	# warning-ignore:return_value_discarded
+	_tween.start()
+
+func _hide() -> void:
+	# warning-ignore:return_value_discarded
+	_tween.interpolate_property(self, "modulate:a", 1.0, 0.0, _animation_duration)
+	# warning-ignore:return_value_discarded
+	_tween.start()
+	
+	yield(_tween, "tween_all_completed")
+	
+	hide()
+	_reset_icons()

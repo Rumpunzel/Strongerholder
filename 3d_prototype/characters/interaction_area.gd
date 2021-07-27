@@ -206,6 +206,7 @@ func _collect() -> void:
 	
 	# HACK: properly destroy here
 	item_node.queue_free()
+	reset()
 
 
 func _attack(started: bool) -> void:
