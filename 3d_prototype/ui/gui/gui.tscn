@@ -11,6 +11,7 @@
 
 [node name="GUI" type="CanvasLayer"]
 pause_mode = 2
+layer = 8
 
 [node name="MainMenu" parent="." instance=ExtResource( 1 )]
 _game_paused_channel = ExtResource( 5 )
