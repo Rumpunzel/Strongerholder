@@ -94,6 +94,8 @@ class ReadInteraction extends StateAction:
 		
 		if node is Stash:
 			has_to_wait_for_hud = true
+		else:
+			_current_interaction = null
 		
 		if not has_to_wait_for_hud:
 			_interaction_area.interact_with_specific_object(node, interaction_obects, _inventory, true)
