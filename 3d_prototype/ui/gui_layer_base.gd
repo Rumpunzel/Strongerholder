@@ -46,7 +46,9 @@ func _hide_menu() -> void:
 
 
 func _update_size() -> void:
-	rect_size = get_viewport().size
+	if visible:
+		hide()
+		popup()
 
 
 func _get_configuration_warning() -> String:
