@@ -10,3 +10,6 @@ rect_pivot_offset = Vector2( 20, 20 )
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}

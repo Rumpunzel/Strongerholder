@@ -3,12 +3,13 @@ extends Popup
 
 
 export(PackedScene) var _interaction_icon
+
 export var _empty_color := Color("bfbfbfbf")
+export var _next_empty_color := Color("bfffffbf")
 
 export var _animation_duration := 0.1
 
 export(Resource) var _player_interaction_channel
-export(Resource) var _player_item_interaction_channel
 
 
 var _inventory: Inventory
@@ -19,7 +20,6 @@ var _interaction_node: Node
 
 
 onready var _icons: Control = $Icons
-onready var _icon: TextureRect = _interaction_icon.instance()
 onready var _tween: Tween = $Tween
 
 
@@ -27,18 +27,9 @@ onready var _tween: Tween = $Tween
 func _enter_tree() -> void:
 	# warning-ignore:return_value_discarded
 	_player_interaction_channel.connect("raised", self, "_on_player_interaction_changed")
-	# warning-ignore:return_value_discarded
-	_player_item_interaction_channel.connect("raised", self, "_on_player_item_interaction_started")
 
 func _exit_tree() -> void:
 	_player_interaction_channel.disconnect("raised", self, "_on_player_interaction_changed")
-	_player_item_interaction_channel.disconnect("raised", self, "_on_player_item_interaction_started")
-
-
-
-func _ready() -> void:
-	# warning-ignore:return_value_discarded
-	_tween.connect("tween_completed", self, "_on_completed")
 
 
 func _physics_process(_delta: float) -> void:
@@ -58,11 +49,6 @@ func _on_player_interaction_changed(interaction: InteractionArea.Interaction) ->
 	
 	_current_interaction = interaction
 	
-	if get_children().has(_icon):
-		# warning-ignore:return_value_discarded
-		_tween.stop_all()
-		remove_child(_icon)
-	
 	if visible:
 		_hide()
 		_inventory = null
@@ -81,42 +67,6 @@ func _on_player_interaction_changed(interaction: InteractionArea.Interaction) ->
 			_popup()
 
 
-func _on_player_item_interaction_started(state: int) -> void:
-	var pos := Vector2.ZERO
-	for icon in _icons.get_children():
-		if icon is TextureRect and not icon.modulate == Color.white:
-			pos = icon.rect_position
-			break
-	
-	match state:
-		ReadInteractionResource.ReadInteraction.InteractionState.STARTED:
-			if not _item_resource:
-				_on_completed(_icon)
-				return
-			
-			var start_pos := get_viewport_rect().size * 0.5 - rect_position - _icon.rect_pivot_offset
-			if not get_children().has(_icon):
-				add_child(_icon)
-				_icon.rect_position = start_pos
-			
-			if not _tween.is_active() and not _icon.rect_position == pos:
-				# warning-ignore:return_value_discarded
-				_tween.interpolate_property(_icon, "rect_position", start_pos, pos, 0.75)
-				# warning-ignore:return_value_discarded
-				_tween.start()
-		
-		ReadInteractionResource.ReadInteraction.InteractionState.CANCELLED:
-			if get_children().has(_icon):
-				# warning-ignore:return_value_discarded
-				_tween.stop_all()
-				remove_child(_icon)
-
-
-func _on_completed(object: Object, _key: NodePath = "") -> void:
-	if object == _icon:
-		_player_item_interaction_channel.raise(ReadInteractionResource.ReadInteraction.InteractionState.COMPLETED)
-
-
 func _set_items() -> void:
 	_reset_icons()
 	
@@ -128,7 +78,6 @@ func _set_items() -> void:
 		for stack_index in range(stack_size):
 			var icon: TextureRect = _interaction_icon.instance()
 			icon.texture = _item_resource.icon
-			_icon.texture = _item_resource.icon
 			
 			var half_amount := inventory_size * stack_size * 0.5
 			var index := slot * stack_size + stack_index + 0.5 - half_amount
@@ -148,6 +97,7 @@ func _update_items() -> void:
 	var inventory_size := contents.size()
 	var stack_size: int = _item_resource.stack_size
 	var icons := _icons.get_children()
+	var color := Color.white
 	
 	for slot in range(inventory_size):
 		for stack_index in range(stack_size):
@@ -155,7 +105,10 @@ func _update_items() -> void:
 			var icon: TextureRect = icons[i]
 			var stack: Inventory.ItemStack = contents[slot]
 			
-			icon.modulate = Color.white if stack.item and stack_index < stack.amount else _empty_color
+			if stack.item and stack_index >= stack.amount:
+				color = _next_empty_color if color == Color.white else _empty_color
+			
+			icon.modulate = color
 
 
 func _reset_icons() -> void:

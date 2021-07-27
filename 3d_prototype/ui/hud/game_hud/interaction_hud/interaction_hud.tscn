@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui/hud/game_hud/interaction_hud/interaction_hud.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/game_hud/interaction_hud/interaction_icon.tscn" type="PackedScene" id=2]
-[ext_resource path="res://event_system/resources/player/player_item_interaction_channel.tres" type="Resource" id=3]
 [ext_resource path="res://event_system/resources/player/player_interaction_channel.tres" type="Resource" id=5]
 
 [node name="InteractionHUD" type="Popup"]
@@ -23,10 +22,10 @@ __meta__ = {
 }
 _interaction_icon = ExtResource( 2 )
 _player_interaction_channel = ExtResource( 5 )
-_player_item_interaction_channel = ExtResource( 3 )
 
 [node name="Icons" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 
 [node name="Tween" type="Tween" parent="."]

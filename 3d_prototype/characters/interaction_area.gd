@@ -64,14 +64,6 @@ func _process(_delta: float) -> void:
 
 
 
-func smart_interact_with_nearest(inventory: CharacterInventory, overwrite_dibs: bool) -> void:
-	if _occupied():
-		return
-	
-	var point_to_walk_to := _interact_with_nearest(objects_in_interaction_range, objects_in_perception_range, inventory, overwrite_dibs)
-	_inputs.destination_input = point_to_walk_to
-
-
 func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_array_to_search: Array, overwrite_dibs: bool) -> void:
 	if _occupied():
 		return
@@ -152,7 +144,6 @@ func find_nearest_smart_interaction(objects: Array, inventory: CharacterInventor
 func _determine_interaction_type(object: Node, inventory: CharacterInventory) -> int:
 	var interaction_type: int = InteractionType.NONE
 	
-	
 	if object is CollectableItem:
 		interaction_type = InteractionType.PICK_UP
 	
@@ -170,7 +161,6 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory) ->
 		# warning-ignore:unsafe_property_access
 		if (object as HitBox).type & equipped_tool.used_on:
 			interaction_type = InteractionType.ATTACK
-	
 	
 	return interaction_type
 
