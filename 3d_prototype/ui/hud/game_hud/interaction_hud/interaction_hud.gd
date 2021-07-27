@@ -1,6 +1,7 @@
 class_name InteractionHUD
 extends Popup
 
+
 export(PackedScene) var _interaction_icon
 export var _empty_color := Color("bfbfbfbf")
 
@@ -9,15 +10,18 @@ export var _animation_duration := 0.1
 export(Resource) var _player_interaction_channel
 export(Resource) var _player_item_interaction_channel
 
+
 var _inventory: Inventory
 var _item_resource: ItemResource
 
 var _current_interaction: InteractionArea.Interaction
 var _interaction_node: Node
 
+
 onready var _icons: Control = $Icons
 onready var _icon: TextureRect = _interaction_icon.instance()
 onready var _tween: Tween = $Tween
+
 
 
 func _enter_tree() -> void:
@@ -31,9 +35,11 @@ func _exit_tree() -> void:
 	_player_item_interaction_channel.disconnect("raised", self, "_on_player_item_interaction_started")
 
 
+
 func _ready() -> void:
 	# warning-ignore:return_value_discarded
-	_tween.connect("tween_all_completed", self, "_on_completed")
+	_tween.connect("tween_completed", self, "_on_completed")
+
 
 func _physics_process(_delta: float) -> void:
 	if not _current_interaction:
@@ -43,6 +49,7 @@ func _physics_process(_delta: float) -> void:
 		# warning-ignore-all:unsafe_property_access
 		rect_position = get_viewport().get_camera().unproject_position(_interaction_node.global_transform.origin) - rect_pivot_offset
 		_update_items()
+
 
 
 func _on_player_interaction_changed(interaction: InteractionArea.Interaction) -> void:
@@ -84,7 +91,7 @@ func _on_player_item_interaction_started(state: int) -> void:
 	match state:
 		ReadInteractionResource.ReadInteraction.InteractionState.STARTED:
 			if not _item_resource:
-				_on_completed()
+				_on_completed(_icon)
 				return
 			
 			var start_pos := get_viewport_rect().size * 0.5 - rect_position - _icon.rect_pivot_offset
@@ -105,8 +112,9 @@ func _on_player_item_interaction_started(state: int) -> void:
 				remove_child(_icon)
 
 
-func _on_completed() -> void:
-	_player_item_interaction_channel.raise(ReadInteractionResource.ReadInteraction.InteractionState.COMPLETED)
+func _on_completed(object: Object, _key: NodePath = "") -> void:
+	if object == _icon:
+		_player_item_interaction_channel.raise(ReadInteractionResource.ReadInteraction.InteractionState.COMPLETED)
 
 
 func _set_items() -> void:
@@ -162,6 +170,7 @@ func _popup() -> void:
 	_tween.interpolate_property(self, "modulate:a", 0.0, 1.0, _animation_duration)
 	# warning-ignore:return_value_discarded
 	_tween.start()
+
 
 func _hide() -> void:
 	# warning-ignore:return_value_discarded
