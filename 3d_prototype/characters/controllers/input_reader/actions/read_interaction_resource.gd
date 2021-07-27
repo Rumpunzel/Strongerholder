@@ -114,8 +114,9 @@ class ReadInteraction extends StateAction:
 			if _nearest_interaction:
 				var node := _nearest_interaction.node
 				if node is Stash:
-					_player_interaction_channel.raise(_nearest_interaction)
-					return
+					if _nearest_interaction.type == InteractionArea.InteractionType.GIVE:
+						_player_interaction_channel.raise(_nearest_interaction)
+						return
 			
 			_player_interaction_channel.raise(null)
 	
