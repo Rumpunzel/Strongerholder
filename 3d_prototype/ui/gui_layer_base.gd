@@ -10,6 +10,9 @@ var _tween
 
 func _enter_tree() -> void:
 	_tween = $Tween
+	
+	# warning-ignore:return_value_discarded
+	get_viewport().connect("size_changed", self, "_update_size")
 
 
 func show_menu() -> void:
@@ -40,6 +43,10 @@ func _hide_menu() -> void:
 	_tween.start()
 	yield(_tween, "tween_all_completed")
 	hide()
+
+
+func _update_size() -> void:
+	rect_size = get_viewport().size
 
 
 func _get_configuration_warning() -> String:
