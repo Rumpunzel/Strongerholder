@@ -75,23 +75,26 @@ func _on_player_interaction_changed(interaction: InteractionArea.Interaction) ->
 
 
 func _on_player_item_interaction_started(state: int) -> void:
+	var pos := Vector2.ZERO
+	for icon in _icons.get_children():
+		if icon is TextureRect and not icon.modulate == Color.white:
+			pos = icon.rect_position
+			break
+	
 	match state:
 		ReadInteractionResource.ReadInteraction.InteractionState.STARTED:
 			if not _item_resource:
 				_on_completed()
 				return
 			
+			var start_pos := get_viewport_rect().size * 0.5 - rect_position - _icon.rect_pivot_offset
 			if not get_children().has(_icon):
-				var pos := Vector2.ZERO
-				for icon in _icons.get_children():
-					if icon is TextureRect and not icon.modulate == Color.white:
-						pos += icon.rect_position
-						break
-				
 				add_child(_icon)
-				
+				_icon.rect_position = start_pos
+			
+			if not _tween.is_active() and not _icon.rect_position == pos:
 				# warning-ignore:return_value_discarded
-				_tween.interpolate_property(_icon, "rect_position", get_viewport_rect().size * 0.5 - rect_position - _icon.rect_pivot_offset, pos, 0.5)
+				_tween.interpolate_property(_icon, "rect_position", start_pos, pos, 0.75)
 				# warning-ignore:return_value_discarded
 				_tween.start()
 		

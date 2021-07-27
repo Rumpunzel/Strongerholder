@@ -100,7 +100,7 @@ class ReadInteraction extends StateAction:
 		else:
 			if not _interaction_area.objects_in_interaction_range.has(node):
 				_interaction_area.interact_with_specific_object(node, [ ], _inventory, true)
-			elif not _current_interaction_node == node:
+			else:
 				_current_interaction_node = node
 				_inputs.destination_input = _character.translation
 				_player_item_interaction_channel.raise(InteractionState.STARTED)
