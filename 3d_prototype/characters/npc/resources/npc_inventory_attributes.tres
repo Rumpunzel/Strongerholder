@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-inventory_size = 2
+inventory_size = 6
 starting_items = [  ]

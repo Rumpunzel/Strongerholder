@@ -30,25 +30,9 @@ class FoundObjectCondition extends StateCondition:
 		_spotted_items = character.get_navigation().spotted_items
 		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
-		
-		# warning-ignore:return_value_discarded
-		#_interaction_area.connect("object_entered_perception_area", self, "_check_items")
-		# warning-ignore:return_value_discarded
-		#_interaction_area.connect("object_exited_perception_area", self, "_check_items", [ true ])
-		
-		#_check_items()
 	
 	
 	func _check_items(_object: Node = null, _object_exited := false) -> bool:
-#		if object_exited:
-#			return
-		
-		# warning-ignore-all:unsafe_property_access
-#		if (object is CollectableItem and object.item_resource == _object_resource) or (object is Structure and object.structure_resource == _object_resource):
-#			_found_item = true
-#			return
-		
-		
 		if _global_range:
 			var global_items := _interaction_area.get_tree().get_nodes_in_group(_object_resource.name)
 			for item in global_items:
