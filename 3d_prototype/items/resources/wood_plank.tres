@@ -1,14 +1,14 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://items/item_resource.gd" type="Script" id=1]
-[ext_resource path="res://prototype_assets/gui/game_icons/items/log.png" type="Texture" id=2]
+[ext_resource path="res://prototype_assets/gui/game_icons/items/wood_beam.png" type="Texture" id=2]
 [ext_resource path="res://event_system/resources/gameplay/node_spawned_channel.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
-name = "Wood"
+name = "Wood Plank"
 icon = ExtResource( 2 )
 _scene = "res://prototype_assets/collectable_items/collectable_wood.tscn"
 _equipped_scene = ""
-stack_size = 3
+stack_size = 12
 _node_spawned_channel = ExtResource( 3 )

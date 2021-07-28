@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://prototype_assets/equippable_items/_equippable_tool.tscn" type="PackedScene" id=1]
-[ext_resource path="res://prototype_assets/collectable_items/models/Axe_small.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prototype_assets/collectable_items/models/axe_small.tscn" type="PackedScene" id=2]
 [ext_resource path="res://items/resources/axe.tres" type="Resource" id=3]
 
 [node name="Axe" instance=ExtResource( 1 )]
