@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://structures/models/city/stockpile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://structures/structure_resource.gd" type="Script" id=2]
+[ext_resource path="res://prototype_assets/structures/icons/stockpile.png" type="Texture" id=3]
+[ext_resource path="res://structures/resources/dimensions/2_1_2_dimension.tres" type="Shape" id=4]
+[ext_resource path="res://event_system/resources/gameplay/building_placed_channel.tres" type="Resource" id=5]
+
+[resource]
+script = ExtResource( 2 )
+name = "Stockpile"
+icon = ExtResource( 3 )
+_scene = "res://prototype_assets/structures/stockpile.tscn"
+model = ExtResource( 1 )
+shape = ExtResource( 4 )
+_building_placed_channel = ExtResource( 5 )

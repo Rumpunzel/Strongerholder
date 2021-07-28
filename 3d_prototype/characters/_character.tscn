@@ -81,7 +81,7 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 enabled = true
 cast_to = Vector3( 0, -0.2, 0 )
-collision_mask = 9
+collision_mask = 3
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 1 )

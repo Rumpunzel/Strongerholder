@@ -83,6 +83,29 @@ func interact_with_specific_object(object: Node, interaction_objects: Array, inv
 	_inputs.destination_input = point_to_walk_to
 
 
+func find_nearest_smart_interaction(objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> Interaction:
+	var nearest: Interaction = null
+	var closest_distance: float = INF
+	
+	for object in objects:
+		# warning-ignore:unsafe_property_access
+		if not object or object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
+			continue
+		
+		var potential_interaction := Interaction.new(object)
+		_determine_interaction_type(object, inventory, potential_interaction)
+		
+		if potential_interaction.type == InteractionType.NONE:
+			continue
+		
+		var distance := _character.translation.distance_squared_to(object.global_transform.origin)
+		if distance < closest_distance:
+			closest_distance = distance
+			nearest = potential_interaction
+	
+	return nearest
+
+
 func reset() -> void:
 	_set_current_interaction(null)
 	_set_nearest_interaction(null)
@@ -118,38 +141,30 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 	return point_to_walk_to
 
 
-func find_nearest_smart_interaction(objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> Interaction:
-	var nearest: Interaction = null
-	var closest_distance: float = INF
-	
-	for object in objects:
-		# warning-ignore:unsafe_property_access
-		if not object or object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
-			continue
-		
-		var potential_interaction := Interaction.new(object)
-		potential_interaction.type = _determine_interaction_type(object, inventory)
-		
-		if potential_interaction.type == InteractionType.NONE:
-			continue
-		
-		var distance := _character.translation.distance_squared_to(object.global_transform.origin)
-		if distance < closest_distance:
-			closest_distance = distance
-			nearest = potential_interaction
-	
-	return nearest
-
-
-func _determine_interaction_type(object: Node, inventory: CharacterInventory) -> int:
+func _determine_interaction_type(object: Node, inventory: CharacterInventory, interaction: Interaction) -> void:
 	var interaction_type: int = InteractionType.NONE
+	var interaction_resource: ItemResource = null
+	var can_stash := false
+	
+	if object is Stash:
+		if not (object as Stash).full():
+			if not inventory:
+				can_stash = true
+			
+			for stack in inventory.contents(false):
+				var item: ItemResource = stack.item
+				if (object as Stash).stores(item):
+					can_stash = true
+					interaction_resource = item
+					break
+	
 	
 	if object is CollectableItem:
 		interaction_type = InteractionType.PICK_UP
 	
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
-	elif object is Stash and not (object as Stash).full() and (not inventory or inventory.contains((object as Stash).item_to_store)):
+	elif object is Stash and can_stash:
 		interaction_type = InteractionType.GIVE
 	
 	elif object is Workstation and (object as Workstation).can_be_operated():
@@ -162,7 +177,9 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory) ->
 		if (object as HitBox).type & equipped_tool.used_on:
 			interaction_type = InteractionType.ATTACK
 	
-	return interaction_type
+	
+	interaction.item_resource = interaction_resource
+	interaction.type = interaction_type
 
 
 func _filter_array_for_type(array: Array, object_type: ObjectResource) -> Array:
@@ -206,9 +223,7 @@ func _attack(started: bool) -> void:
 
 func _give() -> void:
 	var stash: Stash = current_interaction.node 
-	# WAITFORUPDATE: remove this unnecessary thing after 4.0
-	# warning-ignore:unsafe_property_access
-	var item: ItemResource = stash.item_to_store
+	var item: ItemResource = current_interaction.item_resource
 	
 	# warning-ignore:return_value_discarded
 	stash.stash(item)
@@ -299,10 +314,12 @@ func _on_item_unequipped(equipment: CharacterInventory.EquippedItem):
 class Interaction:
 	var node: Spatial
 	var type: int
+	var item_resource: ItemResource
 	
-	func _init(new_node: Spatial, new_type := 0) -> void:
+	func _init(new_node: Spatial, new_type := 0, new_resource: ItemResource = null) -> void:
 		node = new_node
 		type = new_type
+		item_resource = new_resource
 	
 	func position() -> Vector3:
 		return node.global_transform.origin

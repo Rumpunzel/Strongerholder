@@ -148,7 +148,7 @@ func drop_stack(stack: ItemStack) -> int:
 
 
 func drop_everything() -> void:
-	for stack in contents():
+	for stack in contents(true):
 		# warning-ignore:return_value_discarded
 		drop_stack(stack)
 
@@ -170,7 +170,7 @@ func count(item: ItemResource) -> int:
 	return item_count
 
 
-func contents(return_only_non_empty := true) -> Array:
+func contents(return_only_non_empty: bool) -> Array:
 	if not return_only_non_empty:
 		return item_slots
 	
@@ -187,7 +187,7 @@ func size() -> int:
 
 
 func empty() -> bool:
-	return contents().empty()
+	return contents(true).empty()
 
 func full(specific_item_to_check: ItemResource = null) -> bool:
 	for slot in item_slots.size():

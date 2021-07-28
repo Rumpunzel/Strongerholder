@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://structures/resources/city/house.tres" type="Resource" id=1]
 [ext_resource path="res://structures/resources/nature/tree.tres" type="Resource" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://ui/hud/game_hud/build_hud/building_placer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://ui/hud/game_hud/build_hud/build_hud_item.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/hud/game_hud/build_hud/build_hud.gd" type="Script" id=9]
+[ext_resource path="res://structures/resources/city/stockpile.tres" type="Resource" id=10]
 [ext_resource path="res://structures/resources/city/sawmill.tres" type="Resource" id=11]
 
 [node name="BuildHUD" type="Popup"]
@@ -24,7 +25,7 @@ __meta__ = {
 }
 center_angle = 180.0
 _build_item_scene = ExtResource( 8 )
-_buildable_structures = [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 11 ), ExtResource( 3 ) ]
+_buildable_structures = [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 11 ), ExtResource( 3 ), ExtResource( 10 ) ]
 _game_pause_requested_channel = ExtResource( 6 )
 _building_hud_toggled_channel = ExtResource( 5 )
 
