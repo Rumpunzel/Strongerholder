@@ -216,6 +216,8 @@ func load_from_var(save_file: File) -> void:
 	for stack in item_slots:
 		# Load as data
 		stack.load_from_var(save_file)
+		for _i in range(stack.amount):
+			emit_signal("item_added", stack.item)
 
 
 
