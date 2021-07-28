@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=1]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/condition_usages/inventory_has_logs_false.tres" type="Resource" id=2]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/idle.tres" type="Resource" id=3]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/deliver_logs.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+from_state = ExtResource( 4 )
+to_state = ExtResource( 3 )
+conditions = [ ExtResource( 2 ) ]

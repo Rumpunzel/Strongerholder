@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://prototype_assets/collectable_items/models/wood_log.tscn" type="PackedScene" id=1]
+[ext_resource path="res://prototype_assets/storable_items/_storable_item.tscn" type="PackedScene" id=2]
+[ext_resource path="res://items/resources/wood_log.tres" type="Resource" id=3]
+
+[node name="WoodLog" instance=ExtResource( 2 )]
+item_resource = ExtResource( 3 )
+
+[node name="WoodLog" parent="." index="0" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0.3 )

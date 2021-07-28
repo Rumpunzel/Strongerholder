@@ -16,7 +16,6 @@ signal equipment_stack_removed(equipment_stack)
 
 
 export(Resource) var _inventory_attributes
-export var _is_storage := false
 
 
 var item_slots := [ ]
@@ -197,7 +196,7 @@ func full(specific_item_to_check: ItemResource = null) -> bool:
 		var stack: ItemStack = item_slots[slot]
 		# WAITFORUPDATE: remove this unnecessary thing after 4.0
 		# warning-ignore:unsafe_property_access
-		if not stack.item or (stack.item == specific_item_to_check and not stack.full(_is_storage)):
+		if not stack.item or (stack.item == specific_item_to_check and not stack.full(_inventory_attributes.is_storage)):
 			return false
 	
 	return true
@@ -234,7 +233,7 @@ func _initialize(size: int) -> void:
 func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
-	while count > 0 and not stack.full(_is_storage):
+	while count > 0 and not stack.full(_inventory_attributes.is_storage):
 		stack.amount += 1
 		count -= 1
 		emit_signal("item_added", item)

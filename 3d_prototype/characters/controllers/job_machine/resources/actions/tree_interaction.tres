@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource( 1 )
 _object_to_interact_with = ExtResource( 2 )
+_interaction_type = 2
 _global_range = true

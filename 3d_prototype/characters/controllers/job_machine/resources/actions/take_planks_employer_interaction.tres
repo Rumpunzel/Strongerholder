@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://characters/controllers/job_machine/actions/employer_interaction_resource.gd" type="Script" id=1]
+[ext_resource path="res://items/resources/wood_plank.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+_interaction_type = 4
+_interaction_item = ExtResource( 2 )

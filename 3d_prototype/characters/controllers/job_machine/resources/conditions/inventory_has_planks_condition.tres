@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://items/resources/wood_plank.tres" type="Resource" id=1]
+[ext_resource path="res://characters/controllers/job_machine/conditions/inventory_has_item_condition_resource.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+_item = ExtResource( 1 )

@@ -1,21 +1,16 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://structures/structure.gd" type="Script" id=1]
 [ext_resource path="res://structures/stash.gd" type="Script" id=2]
 [ext_resource path="res://structures/models/city/stockpile.tscn" type="PackedScene" id=3]
 [ext_resource path="res://structures/resources/city/stockpile.tres" type="Resource" id=4]
-[ext_resource path="res://characters/inventories/inventory_attributes_resource.gd" type="Script" id=5]
+[ext_resource path="res://prototype_assets/structures/resources/stockpile_inventory.tres" type="Resource" id=5]
 [ext_resource path="res://structures/storage.gd" type="Script" id=6]
 [ext_resource path="res://characters/inventories/inventory.gd" type="Script" id=9]
 [ext_resource path="res://items/resources/wood_plank.tres" type="Resource" id=15]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 2, 0.2, 2 )
-
-[sub_resource type="Resource" id=3]
-script = ExtResource( 5 )
-inventory_size = 4
-starting_items = [  ]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 2, 1, 2 )
@@ -32,10 +27,11 @@ shape = SubResource( 1 )
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource( 9 )
-_inventory_attributes = SubResource( 3 )
-_is_storage = true
+_inventory_attributes = ExtResource( 5 )
 
-[node name="Stash" type="Area" parent="."]
+[node name="Stash" type="Area" parent="." groups=[
+"Stockpile",
+]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 collision_layer = 64
 collision_mask = 0
@@ -46,10 +42,7 @@ _item_to_store = ExtResource( 15 )
 shape = SubResource( 2 )
 
 [node name="Storage" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.22, -2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0 )
 script = ExtResource( 6 )
 
 [node name="Stockpile" parent="." instance=ExtResource( 3 )]
-
-[connection signal="item_added" from="Inventory" to="Storage" method="_on_item_added"]
-[connection signal="item_removed" from="Inventory" to="Storage" method="_on_item_removed"]

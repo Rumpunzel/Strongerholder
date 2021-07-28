@@ -79,7 +79,8 @@ func _is_operation_complete() -> void:
 		
 		var how_many: int = _produces_how_many_stacks * _produces.stack_size + _produces_how_many
 		for _i in range(how_many):
-			_spawn_item(_produces)
+			# warning-ignore:return_value_discarded
+			inventory.add(_produces)
 		
 		emit_signal("produced")
 

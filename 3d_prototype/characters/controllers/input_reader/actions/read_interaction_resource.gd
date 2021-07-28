@@ -66,7 +66,7 @@ class ReadInteraction extends StateAction:
 	func _smart_interact() -> void:
 		var node := _nearest_interaction.node
 		var interaction_obects := [ node ] if _interaction_area.objects_in_interaction_range.has(node) else [ ]
-		_interaction_area.interact_with_specific_object(node, interaction_obects, _inventory, true)
+		_interaction_area.smart_interact_with_specific_object(node, interaction_obects, _inventory, true)
 	
 	
 	func _find_nearest_interaction_for_hud_to_display() -> void:

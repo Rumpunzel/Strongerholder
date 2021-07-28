@@ -23,12 +23,14 @@ anim_player = NodePath("../Cowboy_Hair/AnimationPlayer")
 active = true
 parameters/TimeScale/scale = 2.0
 "parameters/TimeScale 2/scale" = 2.0
+"parameters/TimeScale 3/scale" = 2.0
 parameters/attack/active = false
 parameters/give/active = false
 parameters/grounded/current = 0
 parameters/idle_walk/current = 0
 parameters/operate/active = false
 parameters/pick_up/active = false
+parameters/take/active = false
 parameters/walk_speed/blend_amount = 0
 
 [node name="Cowboy_Hair" parent="." index="8" instance=ExtResource( 2 )]

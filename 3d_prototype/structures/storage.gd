@@ -8,12 +8,19 @@ export var z_extents := 2
 
 var _stacks := [ ]
 
+onready var _inventory: Inventory = Utils.find_node_of_type_in_children(owner, Inventory)
+
 
 
 func _ready() -> void:
 	_stacks.resize(x_extents * z_extents)
 	for i in _stacks.size():
 		_stacks[i] = StorageStack.new(null)
+	
+	# warning-ignore:return_value_discarded
+	_inventory.connect("item_added", self, "_on_item_added")
+	# warning-ignore:return_value_discarded
+	_inventory.connect("item_removed", self, "_on_item_removed")
 
 
 
@@ -34,12 +41,15 @@ func _on_item_added(item: ItemResource) -> void:
 	
 	
 	var node := item.store_in(self, active_stack.size(), SQUARE_SIZE)
-	node.transform.origin += Vector3(index % x_extents, 0.0, floor(index / float(z_extents))) * SQUARE_SIZE
+	node.transform.origin += Vector3((index % x_extents) - 1.0, 0.0, floor(index / float(z_extents)) - 1.0) * SQUARE_SIZE
 	active_stack.push(node)
 
 
 func _on_item_removed(item: ItemResource) -> void:
-	pass
+	for stack in _stacks:
+		if stack.item_resource == item:
+			stack.pop()
+			break
 
 
 
@@ -57,6 +67,8 @@ class StorageStack:
 	func pop() -> void:
 		var item: Spatial = items.pop_back()
 		item.queue_free()
+		if items.empty():
+			item_resource = null
 	
 	func size() -> int:
 		return items.size()

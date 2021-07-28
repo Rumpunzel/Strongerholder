@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=1]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/condition_usages/inventory_has_room_for_wood_false_or.tres" type="Resource" id=2]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/condition_usages/employer_could_be_operated_true_or.tres" type="Resource" id=3]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/gather_logs.tres" type="Resource" id=4]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/deliver_logs.tres" type="Resource" id=5]
+
+[resource]
+script = ExtResource( 1 )
+from_state = ExtResource( 4 )
+to_state = ExtResource( 5 )
+conditions = [ ExtResource( 2 ), ExtResource( 3 ) ]

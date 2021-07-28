@@ -7,3 +7,4 @@
 script = ExtResource( 1 )
 inventory_size = 1
 starting_items = [ ExtResource( 2 ) ]
+is_storage = false
