@@ -91,4 +91,4 @@ nodes/walk_speed/node = SubResource( 16 )
 nodes/walk_speed/position = Vector2( -20, 260 )
 nodes/walking_anim/node = SubResource( 17 )
 nodes/walking_anim/position = Vector2( -300, 260 )
-node_connections = [ "output", 0, "attack", "operate", 0, "give", "operate", 1, "Animation", "idle_walk", 0, "idle_anim", "idle_walk", 1, "walk_speed", "pick_up", 0, "idle_walk", "pick_up", 1, "TimeScale", "attack", 0, "grounded", "attack", 1, "attack_anim", "TimeScale", 0, "pick_up_anim", "TimeScale 2", 0, "give_anim", "give", 0, "pick_up", "give", 1, "TimeScale 2", "grounded", 0, "operate", "grounded", 1, "jump_anim", "walk_speed", 0, "walking_anim", "walk_speed", 1, "running_anim" ]
+node_connections = [ "output", 0, "attack", "operate", 0, "give", "operate", 1, "Animation", "TimeScale", 0, "pick_up_anim", "TimeScale 2", 0, "give_anim", "attack", 0, "grounded", "attack", 1, "attack_anim", "grounded", 0, "operate", "grounded", 1, "jump_anim", "give", 0, "pick_up", "give", 1, "TimeScale 2", "pick_up", 0, "idle_walk", "pick_up", 1, "TimeScale", "idle_walk", 0, "idle_anim", "idle_walk", 1, "walk_speed", "walk_speed", 0, "walking_anim", "walk_speed", 1, "running_anim" ]
