@@ -1,7 +1,7 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://structures/structure.gd" type="Script" id=1]
-[ext_resource path="res://structures/models/city/sawmill.tscn" type="PackedScene" id=2]
+[ext_resource path="res://structures/models/city/sawmill_saw.tscn" type="PackedScene" id=2]
 [ext_resource path="res://items/resources/wood_log.tres" type="Resource" id=3]
 [ext_resource path="res://structures/workstation.gd" type="Script" id=4]
 [ext_resource path="res://event_system/resources/gameplay/register_worker_channel.tres" type="Resource" id=5]
@@ -14,9 +14,10 @@
 [ext_resource path="res://structures/audio/operate_sounds/sawmill/sawmill_operate_sound.tscn" type="PackedScene" id=12]
 [ext_resource path="res://audio/sfx_emitter.gd" type="Script" id=13]
 [ext_resource path="res://event_system/resources/audio/sfx_emitted_channel.tres" type="Resource" id=14]
+[ext_resource path="res://items/resources/wood_plank.tres" type="Resource" id=15]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 4.5, 4, 3.5 )
+extents = Vector3( 0.5, 1, 2.5 )
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.5, 1, 0.5 )
@@ -29,7 +30,7 @@ script = ExtResource( 1 )
 structure_resource = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 1 )
 
 [node name="Inventory" type="Node" parent="."]
@@ -37,14 +38,16 @@ script = ExtResource( 9 )
 _inventory_attributes = ExtResource( 10 )
 
 [node name="Workstation" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0 )
 collision_layer = 64
 collision_mask = 0
 script = ExtResource( 4 )
 item_to_store = ExtResource( 3 )
-_produces = ExtResource( 8 )
 _needs_how_many = 3
 _operation_steps = 3
+_produces = ExtResource( 15 )
+_produces_how_many_stacks = 1
+_produces_how_many = 0
 _available_job = ExtResource( 7 )
 _available_tool = ExtResource( 8 )
 _register_job_channel = ExtResource( 6 )
@@ -60,6 +63,6 @@ script = ExtResource( 13 )
 _sound_scene = ExtResource( 12 )
 _sfx_emitted_channel = ExtResource( 14 )
 
-[node name="Sawmill" parent="." instance=ExtResource( 2 )]
+[node name="Sawmill_saw" parent="." instance=ExtResource( 2 )]
 
 [connection signal="operated" from="Workstation" to="Workstation/OperateSounds" method="emit"]

@@ -4,9 +4,13 @@ extends Stash
 signal operated()
 signal produced()
 
-export(Resource) var _produces
 export var _needs_how_many := 1
 export var _operation_steps := 1
+
+export(Resource) var _produces
+
+export var _produces_how_many_stacks := 0
+export var _produces_how_many := 1
 
 export(Resource) var _available_job setget _set_available_job
 export(Resource) var _available_tool
@@ -72,7 +76,11 @@ func _is_operation_complete() -> void:
 			inventory.remove(item_to_store)
 		
 		_current_operation_steps = 0
-		_spawn_item(_produces)
+		
+		var how_many: int = _produces_how_many_stacks * _produces.stack_size + _produces_how_many
+		for _i in range(how_many):
+			_spawn_item(_produces)
+		
 		emit_signal("produced")
 
 func _spawn_item(item: ItemResource) -> void:
