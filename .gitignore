@@ -22,3 +22,7 @@ data_*/
 # Visual Studio Code cache directory
 .vscode/
 *.save
+
+
+# Blender
+*.blend1
