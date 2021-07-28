@@ -7,5 +7,5 @@ script = ExtResource( 1 )
 x_size = 1
 z_size = 4
 y_size = 12
-item_height = 0.075
+item_height = 0.15
 alternate_rotation = true

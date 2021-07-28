@@ -514,6 +514,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://items/storable_item.gd"
 }, {
+"base": "Spatial",
+"class": "Storage",
+"language": "GDScript",
+"path": "res://structures/storage.gd"
+}, {
 "base": "StaticBody",
 "class": "Structure",
 "language": "GDScript",
@@ -686,6 +691,7 @@ _global_script_class_icons={
 "StockpileStackAttributes": "",
 "StopMovementActionResource": "",
 "StorableItem": "res://editor_tools/class_icons/spatials/icon_wood_beam.svg",
+"Storage": "",
 "Structure": "res://editor_tools/class_icons/spatials/icon_stone_tower.svg",
 "StructureResource": "res://editor_tools/class_icons/resources/icon_stone_tower.svg",
 "TimeElapsedConditionResource": "",

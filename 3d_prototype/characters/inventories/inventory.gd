@@ -16,8 +16,11 @@ signal equipment_stack_removed(equipment_stack)
 
 
 export(Resource) var _inventory_attributes
+export var _is_storage := false
+
 
 var item_slots := [ ]
+
 
 var _initialized := false
 
@@ -194,7 +197,7 @@ func full(specific_item_to_check: ItemResource = null) -> bool:
 		var stack: ItemStack = item_slots[slot]
 		# WAITFORUPDATE: remove this unnecessary thing after 4.0
 		# warning-ignore:unsafe_property_access
-		if not stack.item or (stack.item == specific_item_to_check and stack.amount < stack.item.stack_size):
+		if not stack.item or (stack.item == specific_item_to_check and not stack.full(_is_storage)):
 			return false
 	
 	return true
@@ -231,7 +234,7 @@ func _initialize(size: int) -> void:
 func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
-	while count > 0 and stack.amount < item.stack_size:
+	while count > 0 and not stack.full(_is_storage):
 		stack.amount += 1
 		count -= 1
 		emit_signal("item_added", item)
@@ -301,12 +304,20 @@ class ItemStack extends Reference:
 		item = null
 		amount = 0
 	
+	func stack_size(is_storage: bool) -> int:
+		return item.stockpile_stack_attributes.stack_size() if is_storage else item.stack_size
+	
+	func full(is_storage: bool) -> bool:
+		return amount >= stack_size(is_storage)
+	
+	
 	func save_to_var(save_file: File) -> void:
 		if item:
 			# Store resource path
 			save_file.store_var(item.resource_path)
 		else:
 			save_file.store_var(null)
+		
 		save_file.store_8(amount)
 	
 	func load_from_var(save_file: File) -> void:
@@ -318,6 +329,7 @@ class ItemStack extends Reference:
 		
 		item = loaded_item
 		amount = save_file.get_8()
+	
 	
 	func _to_string() -> String:
 		return "Item: [ %s ], Amount: %d" % [ item, amount ]

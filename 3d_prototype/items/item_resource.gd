@@ -20,16 +20,21 @@ func use() -> void:
 func attach_to(node: Spatial) -> Spatial:
 	var loaded_scene := load(_equipped_scene) as PackedScene
 	var spawned_node := loaded_scene.instance() as Spatial
-	
 	node.add_child(spawned_node)
 	return spawned_node
 
 
 func drop_at(position: Vector3, random_rotation := true) -> Spatial:
 	var spawned_node := spawn()
-	print(spawned_node.name + " spawned")
 	_node_spawned_channel.raise(spawned_node, position, random_rotation)
-	
+	return spawned_node
+
+
+func store_in(storage: Spatial, index: int, square_size: float) -> Spatial:
+	var loaded_scene := load(_stockpiled_scene) as PackedScene
+	var spawned_node := loaded_scene.instance() as Spatial
+	storage.add_child(spawned_node)
+	stockpile_stack_attributes.position_in_stack(spawned_node, index, square_size)
 	return spawned_node
 
 
