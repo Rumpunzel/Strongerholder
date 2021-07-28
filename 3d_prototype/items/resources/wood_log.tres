@@ -8,7 +8,8 @@
 script = ExtResource( 3 )
 name = "Wood Log"
 icon = ExtResource( 1 )
-_scene = "res://prototype_assets/collectable_items/collectable_wood.tscn"
-_equipped_scene = ""
+_scene = "res://prototype_assets/collectable_items/collectable_wood_log.tscn"
 stack_size = 3
+_equipped_scene = ""
+_stockpiled_scene = ""
 _node_spawned_channel = ExtResource( 2 )

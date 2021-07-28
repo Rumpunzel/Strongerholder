@@ -1,4 +1,4 @@
-class_name EquippableItem, "res://editor_tools/class_icons/spatials/icon_thor_hammer.svg"
+class_name StorableItem, "res://editor_tools/class_icons/spatials/icon_wood_beam.svg"
 extends Spatial
 tool
 

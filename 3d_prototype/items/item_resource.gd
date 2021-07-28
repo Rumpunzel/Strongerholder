@@ -2,8 +2,12 @@ class_name ItemResource, "res://editor_tools/class_icons/resources/icon_fire_bot
 extends ObjectResource
 
 # warning-ignore-all:unused_class_variable
+export(int, 0, 63) var stack_size = 1
+
 export(String, FILE, "*.tscn") var _equipped_scene
-export(int, 0, 64) var stack_size = 1
+export(String, FILE, "*.tscn") var _stockpiled_scene
+
+export(Resource) var stockpile_stack_attributes
 
 export(Resource) var _node_spawned_channel
 
