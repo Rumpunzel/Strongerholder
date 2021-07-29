@@ -2,12 +2,12 @@ class_name EmployerInteractionResource
 extends StateActionResource
 
 export(InteractionArea.InteractionType) var _interaction_type
-export(Resource) var _interaction_item
+export(Resource) var _override_interaction_item
 export var _how_many := 1
 export var _all := true
 
 func _create_action() -> StateAction:
-	return EmployerInteraction.new(_interaction_type, _interaction_item, _how_many, _all)
+	return EmployerInteraction.new(_interaction_type, _override_interaction_item, _how_many, _all)
 
 
 class EmployerInteraction extends StateAction:
@@ -31,8 +31,20 @@ class EmployerInteraction extends StateAction:
 	func awake(state_machine: Node) -> void:
 		# warning-ignore:unsafe_property_access
 		_employer = state_machine.current_job.employer
+		
+		if not _interaction_item:
+			match _interaction_type:
+				InteractionArea.InteractionType.GIVE:
+					# warning-ignore:unsafe_property_access
+					_interaction_item = state_machine.current_job.gathers
+				
+				InteractionArea.InteractionType.TAKE:
+					# warning-ignore:unsafe_property_access
+					_interaction_item = state_machine.current_job.delivers
+		
 		_inventory = Utils.find_node_of_type_in_children(state_machine.owner, CharacterInventory)
 		_interaction_area = Utils.find_node_of_type_in_children(state_machine.owner, InteractionArea)
+	
 	
 	func on_update(_delta: float) -> void:
 		var interaction_objects := [ _employer ] if _interaction_area.objects_in_interaction_range.has(_employer) else [ ]

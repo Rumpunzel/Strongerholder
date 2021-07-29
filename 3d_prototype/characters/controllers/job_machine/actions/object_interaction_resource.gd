@@ -1,22 +1,22 @@
 class_name ObjectInteractionResource
 extends StateActionResource
 
-export(Resource) var _object_to_interact_with
+export(Resource) var _override_object_to_interact_with
 export(InteractionArea.InteractionType) var _interaction_type
-export(Resource) var _interaction_item
+export(Resource) var _override_interaction_item
 export var _how_many := 1
 export var _all := true
 
 export var _global_range := false
 
 func _create_action() -> StateAction:
-	return ObjectInteraction.new(_object_to_interact_with, _interaction_type, _interaction_item, _how_many, _all, _global_range)
+	return ObjectInteraction.new(_override_object_to_interact_with, _interaction_type, _override_interaction_item, _how_many, _all, _global_range)
 
 
 class ObjectInteraction extends StateAction:
-	var _spotted_items: SpottedItems
 	var _inventory: CharacterInventory
 	var _interaction_area: InteractionArea
+	var _spotted_items: SpottedItems
 	
 	var _object_resource: ObjectResource
 	var _interaction_type: int
@@ -36,10 +36,33 @@ class ObjectInteraction extends StateAction:
 	
 	
 	func awake(state_machine: Node) -> void:
+		if not _object_resource:
+			match _interaction_type:
+				InteractionArea.InteractionType.ATTACK:
+					# warning-ignore:unsafe_property_access
+					_object_resource = state_machine.current_job.tool_resource.used_on
+				
+				InteractionArea.InteractionType.PICK_UP:
+					# warning-ignore:unsafe_property_access
+					_object_resource = state_machine.current_job.gathers
+		
+		
+		if not _interaction_item:
+			match _interaction_type:
+				InteractionArea.InteractionType.GIVE:
+					# warning-ignore:unsafe_property_access
+					_interaction_item = state_machine.current_job.delivers
+				
+				InteractionArea.InteractionType.PICK_UP:
+					# warning-ignore:unsafe_property_access
+					_interaction_item = state_machine.current_job.gathers
+		
+		
 		var character: Character = state_machine.owner
-		_spotted_items = character.get_navigation().spotted_items
 		_inventory = Utils.find_node_of_type_in_children(state_machine.owner, CharacterInventory)
 		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
+		
+		_spotted_items = character.get_navigation().spotted_items
 	
 	
 	func on_update(_delta: float) -> void:
