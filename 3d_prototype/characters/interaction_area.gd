@@ -262,7 +262,8 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory, in
 		var equipped_tool: ToolResource = _equipped_item.stack.item
 		# WAITFORUPDATE: remove this unnecessary thing after 4.0
 		# warning-ignore:unsafe_property_access
-		if (object as HitBox).type & equipped_tool.used_on:
+		# HACK: fix this ugly implementation
+		if object.owner is Structure and object.owner.structure_resource == equipped_tool.used_on:
 			interaction_type = InteractionType.ATTACK
 	
 	
