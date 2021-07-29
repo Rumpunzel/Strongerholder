@@ -1,22 +1,42 @@
 class_name EmployerHasItemConditionResource
 extends StateConditionResource
 
-export(Resource) var _item = null
+enum ActionType { GATHERS, DELIVERS }
+
+export(ActionType) var _action_type
+export(Resource) var _override_interaction_item = null
 
 func create_condition() -> StateCondition:
-	return InventoryHasItemCondition.new(_item)
+	return InventoryHasItemCondition.new(_action_type, _override_interaction_item)
 
 
 class InventoryHasItemCondition extends StateCondition:
-	var _employer: Workstation
-	var _item_resource: ItemResource
+	enum ActionType { GATHERS, DELIVERS }
 	
-	func _init(item: ItemResource) -> void:
-		_item_resource = item
+	var _employer: Workstation
+	var _action_type: int
+	var _interaction_item: ItemResource
+	
+	
+	func _init(action_type: int, item: ItemResource) -> void:
+		_action_type = action_type
+		_interaction_item = item
+	
 	
 	func awake(state_machine: Node) -> void:
 		# warning-ignore:unsafe_property_access
 		_employer = state_machine.current_job.employer
+		
+		if not _interaction_item:
+			match _action_type:
+				ActionType.GATHERS:
+					# warning-ignore:unsafe_property_access
+					_interaction_item = state_machine.current_job.gathers
+				
+				ActionType.DELIVERS:
+					# warning-ignore:unsafe_property_access
+					_interaction_item = state_machine.current_job.delivers
+	
 	
 	func _statement() -> bool:
-		return not _employer.contains(_item_resource) == null
+		return not _employer.contains(_interaction_item) == null

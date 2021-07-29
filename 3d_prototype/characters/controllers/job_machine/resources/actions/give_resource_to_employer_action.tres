@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://characters/controllers/job_machine/actions/employer_interaction_resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+_interaction_type = 3
+_how_many = 1
+_all = true

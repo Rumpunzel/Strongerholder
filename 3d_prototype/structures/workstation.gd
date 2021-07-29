@@ -42,7 +42,7 @@ func apply_for_job(worker: Node) -> bool:
 	_current_worker = worker
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
-	_current_worker.current_job = Job.new(self, _available_job, _available_tool)
+	_current_worker.current_job = Job.new(self, _available_job, _available_tool, _item_to_store, _produces)
 	return true
 
 
@@ -103,7 +103,13 @@ class Job:
 	var job_machine: TransitionTableResource
 	var tool_resource: ToolResource
 	
-	func _init(new_employer: Workstation, new_job_machine: TransitionTableResource, new_tool_resource: ToolResource) -> void:
-		employer = new_employer
-		job_machine = new_job_machine
-		tool_resource = new_tool_resource
+	var gathers: ItemResource
+	var delivers: ItemResource
+	
+	func _init(_employer: Workstation, _job_machine: TransitionTableResource, _tool_resource: ToolResource, _gathers: ItemResource, _delivers: ItemResource) -> void:
+		employer = _employer
+		job_machine = _job_machine
+		tool_resource = _tool_resource
+		
+		gathers = _gathers
+		delivers = _delivers

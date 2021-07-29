@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource( 1 )
 condition = ExtResource( 2 )
-expected_result = true
+expected_result = false
 operator = 0
