@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://structures/structure.gd" type="Script" id=1]
 [ext_resource path="res://structures/models/city/sawmill_saw.tscn" type="PackedScene" id=2]
@@ -16,7 +16,6 @@
 [ext_resource path="res://event_system/resources/audio/sfx_emitted_channel.tres" type="Resource" id=14]
 [ext_resource path="res://items/resources/wood_plank.tres" type="Resource" id=15]
 [ext_resource path="res://structures/storage.gd" type="Script" id=16]
-[ext_resource path="res://structures/models/city/stockpile.tscn" type="PackedScene" id=17]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 2.5 )
@@ -32,7 +31,7 @@ script = ExtResource( 1 )
 structure_resource = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
 shape = SubResource( 1 )
 
 [node name="Inventory" type="Node" parent="."]
@@ -40,7 +39,7 @@ script = ExtResource( 9 )
 _inventory_attributes = ExtResource( 10 )
 
 [node name="Workstation" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0 )
 collision_layer = 64
 collision_mask = 0
 script = ExtResource( 4 )
@@ -56,7 +55,7 @@ _register_job_channel = ExtResource( 6 )
 _register_worker_channel = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Workstation"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 shape = SubResource( 2 )
 
 [node name="OperateSounds" type="Spatial" parent="Workstation"]
@@ -66,12 +65,9 @@ _sound_scene = ExtResource( 12 )
 _sfx_emitted_channel = ExtResource( 14 )
 
 [node name="Storage" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.22, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.22, 0 )
 script = ExtResource( 16 )
 
 [node name="Sawmill_saw" parent="." instance=ExtResource( 2 )]
-
-[node name="Stockpile" parent="." instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0 )
 
 [connection signal="operated" from="Workstation" to="Workstation/OperateSounds" method="emit"]
