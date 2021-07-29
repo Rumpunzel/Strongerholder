@@ -5,12 +5,11 @@ signal operated()
 signal produced()
 
 export var _needs_how_many := 1
-export var _operation_steps := 1
+export var _operation_steps_per_item := 1
 
 export(Resource) var _produces
 
-export var _produces_how_many_stacks := 0
-export var _produces_how_many := 1
+export var _produces_how_many_per_step := 1
 
 export(Resource) var _available_job setget _set_available_job
 export(Resource) var _available_tool
@@ -48,17 +47,19 @@ func apply_for_job(worker: Node) -> bool:
 
 
 func can_be_operated() -> bool:
-	return inventory.count(_item_to_store) >= _needs_how_many
+	return _current_operation_steps > 0 or inventory.count(_item_to_store) >= _needs_how_many
 
 func could_be_operated(employee_inventory: CharacterInventory) -> bool:
-	return employee_inventory.count(_item_to_store) + inventory.count(_item_to_store) >= _needs_how_many
+	return can_be_operated() or employee_inventory.count(_item_to_store) + inventory.count(_item_to_store) >= _needs_how_many
 
 func operate() -> void:
-	assert(can_be_operated())
 	_current_operation_steps += 1
+	_produce()
+	
+	if _current_operation_steps >= _operation_steps_per_item * _needs_how_many:
+		_current_operation_steps = 0
 	
 	emit_signal("operated")
-	_is_operation_complete()
 
 
 func save_to_var(save_file: File) -> void:
@@ -69,26 +70,15 @@ func load_from_var(save_file: File) -> void:
 
 
 
-func _is_operation_complete() -> void:
-	if _current_operation_steps >= _operation_steps:
-		for _i in range(_needs_how_many):
-			# warning-ignore:return_value_discarded
-			inventory.remove(_item_to_store)
-		
-		_current_operation_steps = 0
-		
-		var how_many: int = _produces_how_many_stacks * _produces.stack_size + _produces_how_many
-		for _i in range(how_many):
-			# warning-ignore:return_value_discarded
-			inventory.add(_produces)
-		
-		emit_signal("produced")
-
-func _spawn_item(item: ItemResource) -> void:
-	# warning-ignore:unsafe_property_access
-	var spawn_position: Vector3 = owner.translation + Vector3((randf() - 0.5) * 5.0, 5.0, (randf() - 0.1) * 5.0)
+func _produce() -> void:
 	# warning-ignore:return_value_discarded
-	item.drop_at(spawn_position)
+	inventory.remove(_item_to_store)
+	
+	for _i in range(_produces_how_many_per_step):
+		# warning-ignore:return_value_discarded
+		inventory.add(_produces)
+	
+	emit_signal("produced")
 
 
 func _register_job() -> void:
@@ -104,6 +94,7 @@ func _unregister_job() -> void:
 func _set_available_job(new_job: TransitionTableResource) -> void:
 	_available_job = new_job
 	set_process(true)
+
 
 
 
