@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=15 format=2]
+[gd_resource type="Resource" load_steps=16 format=2]
 
 [ext_resource path="res://state_machines/resources/transition_table_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_chop_tree.tres" type="Resource" id=2]
@@ -12,9 +12,10 @@
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_operate.tres" type="Resource" id=10]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_gather_planks/gather_planks_to_deliver_planks.tres" type="Resource" id=11]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_deliver_planks/deliver_planks_to_idle.tres" type="Resource" id=12]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_operate/operate_to_gather_planks.tres" type="Resource" id=13]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_operate/operate_to_idle.tres" type="Resource" id=13]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_deliver_logs/deliver_logs_to_idle.tres" type="Resource" id=14]
+[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_gather_planks.tres" type="Resource" id=15]
 
 [resource]
 script = ExtResource( 1 )
-_transitions = [ ExtResource( 10 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 12 ) ]
+_transitions = [ ExtResource( 15 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 12 ) ]
