@@ -3,9 +3,9 @@
 [resource]
 flags_transparent = true
 flags_do_not_receive_shadows = true
-albedo_color = Color( 1, 0.678431, 0.466667, 1 )
+albedo_color = Color( 1, 0.678431, 0.466667, 0.623529 )
 emission_enabled = true
-emission = Color( 0.976471, 0.168627, 0.0627451, 1 )
+emission = Color( 0.866667, 0.211765, 0, 1 )
 emission_energy = 5.0
 emission_operator = 0
 emission_on_uv2 = false
