@@ -35,7 +35,7 @@ func _exit_tree() -> void:
 
 
 func _ready() -> void:
-	_game_pause_requested_channel.call_deferred("raise")
+	_game_pause_requested_channel.raise()
 
 
 

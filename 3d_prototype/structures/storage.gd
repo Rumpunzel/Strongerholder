@@ -22,8 +22,6 @@ onready var _inventory: Inventory = Utils.find_node_of_type_in_children(owner, I
 
 
 func _ready() -> void:
-	pause_mode = Node.PAUSE_MODE_PROCESS
-	
 	_stacks.resize(x_extents * z_extents)
 	for i in _stacks.size():
 		_stacks[i] = StorageStack.new(null)
@@ -37,7 +35,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_queue_ticker = min(_queue_ticker + delta, _ticker_amount)
 	
-	if not _command_queue.empty() and (get_tree().paused or _queue_ticker >= _ticker_amount):
+	if not _command_queue.empty() and _queue_ticker >= _ticker_amount:
 		_queue_ticker = 0.0
 		var command: Command = _command_queue.pop_front()
 		match command.type:
@@ -97,14 +95,20 @@ func _remove_item(item: ItemResource) -> void:
 
 
 func _on_item_added(item: ItemResource) -> void:
-	_command_queue.push_back(Command.new(item, CommandType.PUSH))
-	_ticker_amount = _max_animation_time / float(_command_queue.size())
-	_queue_ticker = _ticker_amount
+	if get_tree().paused:
+		_add_item(item)
+	else:
+		_command_queue.push_back(Command.new(item, CommandType.PUSH))
+		_ticker_amount = _max_animation_time / float(_command_queue.size())
+		_queue_ticker = _ticker_amount
 
 func _on_item_removed(item: ItemResource) -> void:
-	_command_queue.push_back(Command.new(item, CommandType.POP))
-	_ticker_amount = _max_animation_time / float(_command_queue.size())
-	_queue_ticker = _ticker_amount
+	if get_tree().paused:
+		_remove_item(item)
+	else:
+		_command_queue.push_back(Command.new(item, CommandType.POP))
+		_ticker_amount = _max_animation_time / float(_command_queue.size())
+		_queue_ticker = _ticker_amount
 
 
 

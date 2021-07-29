@@ -30,7 +30,7 @@ func hide_menu() -> void:
 
 
 func _show_menu() -> void:
-	popup()
+	call_deferred("popup")
 	# warning-ignore:return_value_discarded
 	_tween.interpolate_property(self, "modulate:a", 0.0, 1.0, _animation_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	# warning-ignore:return_value_discarded
