@@ -8,7 +8,7 @@ export(int, 1, 64) var y_size := 1
 
 export var item_height := 1.0
 
-export var alternate_rotation := true
+export var alternate_rotation := false
 
 
 func pallet_size() -> int:
@@ -24,7 +24,7 @@ func position_in_stack(item: Spatial, index: int, stack_rotated: bool, square_si
 		rotated = not rotated
 	
 	var x := (index % x_size) * (square_size / float(x_size))
-	var z := (index % z_size) * (square_size / float(z_size))
+	var z := (int(index / float(x_size)) % z_size) * (square_size / float(z_size))
 	var y := level * item_height
 	
 	var origin := Vector3(x, y, z) if not rotated else Vector3(square_size - z, y, x)

@@ -216,7 +216,7 @@ func _find_nearest_interaction(objects: Array, interaction_type: int, item: Item
 						valid = false
 					elif all:
 						# warning-ignore:unsafe_cast
-						amount = (object as Stash).count(item)
+						amount = int(min(how_many, (object as Stash).count(item)))
 		
 		if not valid:
 			continue
@@ -399,6 +399,7 @@ func _on_hurt_box_entered(area: Area) -> void:
 	var equipped_tool: ToolResource = _equipped_item.stack.item
 	
 	# HACK: fix this ugly implementation
+	# warning-ignore:unsafe_property_access
 	if hit_box.owner is Structure and hit_box.owner.structure_resource == equipped_tool.used_on:
 		# warning-ignore:return_value_discarded
 		hit_box.damage(equipped_tool.damage, self)

@@ -213,6 +213,20 @@ func full(specific_item_to_check: ItemResource = null) -> bool:
 	return true
 
 
+func space_for(item: ItemResource) -> int:
+	var space := 0
+	for slot in item_slots.size():
+		var stack: ItemStack = item_slots[slot]
+		# WAITFORUPDATE: remove this unnecessary thing after 4.0
+		# warning-ignore:unsafe_property_access
+		if stack.item == item:
+			space += stack.stack_size(_inventory_attributes.is_storage) - stack.amount
+		elif not stack.item:
+			space += item.stockpile_stack_attributes.stack_size() if _inventory_attributes.is_storage else item.stack_size
+	
+	return space
+
+
 
 func save_to_var(save_file: File) -> void:
 	# Store item_slots size
@@ -318,6 +332,7 @@ class ItemStack extends Reference:
 		amount = 0
 	
 	func stack_size(is_storage: bool) -> int:
+		# warning-ignore:unsafe_property_access
 		return item.stockpile_stack_attributes.stack_size() if is_storage else item.stack_size
 	
 	func full(is_storage: bool) -> bool:

@@ -50,7 +50,10 @@ class EmployerInteraction extends StateAction:
 		var interaction_objects := [ _employer ] if _interaction_area.objects_in_interaction_range.has(_employer) else [ ]
 		var amount := _how_many
 		
-		if _all and _interaction_type == InteractionArea.InteractionType.GIVE:
-			amount = _inventory.count(_interaction_item)
+		if _all:
+			if _interaction_type == InteractionArea.InteractionType.GIVE:
+				amount = _inventory.count(_interaction_item)
+			elif _interaction_type == InteractionArea.InteractionType.TAKE:
+				amount = _inventory.space_for(_interaction_item)
 		
 		_interaction_area.interact_with_specific_object(_employer, interaction_objects, _interaction_type, _interaction_item, amount, _all, false)

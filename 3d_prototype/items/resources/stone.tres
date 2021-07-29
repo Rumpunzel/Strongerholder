@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://items/resources/stone_stockpile_attributes.tres" type="Resource" id=1]
+[ext_resource path="res://event_system/resources/gameplay/node_spawned_channel.tres" type="Resource" id=2]
+[ext_resource path="res://items/item_resource.gd" type="Script" id=3]
+[ext_resource path="res://prototype_assets/gui/game_icons/items/stone_block.png" type="Texture" id=4]
+
+[resource]
+script = ExtResource( 3 )
+name = "Stone"
+icon = ExtResource( 4 )
+_scene = "res://prototype_assets/collectable_items/collectable_stone.tscn"
+stack_size = 3
+_equipped_scene = ""
+_stockpiled_scene = "res://prototype_assets/storable_items/storable_stone.tscn"
+stockpile_stack_attributes = ExtResource( 1 )
+_node_spawned_channel = ExtResource( 2 )

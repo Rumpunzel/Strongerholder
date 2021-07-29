@@ -5,7 +5,6 @@
 [ext_resource path="res://items/resources/axe.tres" type="Resource" id=3]
 
 [node name="Axe" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item_resource = ExtResource( 3 )
 
 [node name="Axe_small" parent="." index="0" instance=ExtResource( 2 )]

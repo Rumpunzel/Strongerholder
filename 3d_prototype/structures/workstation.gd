@@ -54,7 +54,9 @@ func could_be_operated(employee_inventory: CharacterInventory) -> bool:
 
 func operate() -> void:
 	_current_operation_steps += 1
-	_produce()
+	
+	if _current_operation_steps % _operation_steps_per_item == 0:
+		_produce()
 	
 	if _current_operation_steps >= _operation_steps_per_item * _needs_how_many:
 		_current_operation_steps = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://structures/structure.gd" type="Script" id=1]
 [ext_resource path="res://structures/stash.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://structures/resources/city/stockpile.tres" type="Resource" id=4]
 [ext_resource path="res://prototype_assets/structures/resources/stockpile_inventory.tres" type="Resource" id=5]
 [ext_resource path="res://structures/storage.gd" type="Script" id=6]
+[ext_resource path="res://items/resources/stone.tres" type="Resource" id=7]
 [ext_resource path="res://characters/inventories/inventory.gd" type="Script" id=9]
 [ext_resource path="res://items/resources/wood_plank.tres" type="Resource" id=15]
 
@@ -30,7 +31,7 @@ shape = SubResource( 1 )
 script = ExtResource( 9 )
 _inventory_attributes = ExtResource( 5 )
 
-[node name="Stash" type="Area" parent="." groups=[
+[node name="WoodPlankStash" type="Area" parent="." groups=[
 "Stockpile",
 ]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
@@ -39,7 +40,19 @@ collision_mask = 0
 script = ExtResource( 2 )
 _item_to_store = ExtResource( 15 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Stash"]
+[node name="CollisionShape" type="CollisionShape" parent="WoodPlankStash"]
+shape = SubResource( 2 )
+
+[node name="StoneStash" type="Area" parent="." groups=[
+"Stockpile",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+collision_layer = 64
+collision_mask = 0
+script = ExtResource( 2 )
+_item_to_store = ExtResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StoneStash"]
 shape = SubResource( 2 )
 
 [node name="Storage" type="Spatial" parent="."]

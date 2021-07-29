@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-x_size = 1
-z_size = 3
+x_size = 4
+z_size = 4
 y_size = 3
 item_height = 0.5
 alternate_rotation = false

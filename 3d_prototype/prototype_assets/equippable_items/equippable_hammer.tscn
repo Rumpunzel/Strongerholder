@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://prototype_assets/equippable_items/_equippable_tool.tscn" type="PackedScene" id=1]
+[ext_resource path="res://prototype_assets/collectable_items/models/hammer_double.tscn" type="PackedScene" id=2]
+[ext_resource path="res://items/resources/hammer.tres" type="Resource" id=3]
+
+[node name="Hammer" instance=ExtResource( 1 )]
+item_resource = ExtResource( 3 )
+
+[node name="Hammer_Double" parent="." index="0" instance=ExtResource( 2 )]
+transform = Transform( 3.82137e-15, 8.74228e-08, 2, 2, -8.74228e-08, 0, 8.74228e-08, 2, -8.74228e-08, 0, 0, 0 )
