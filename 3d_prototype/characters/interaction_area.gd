@@ -202,22 +202,23 @@ func _find_nearest_interaction(objects: Array, interaction_type: int, item: Item
 		if not object or object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
 			continue
 		
+		var valid := true
 		match interaction_type:
 			InteractionType.GIVE:
 				# warning-ignore:unsafe_cast
 				if object is Stash and (object as Stash).full():
-					interaction_type = InteractionType.NONE
+					valid = false
 			
 			InteractionType.TAKE:
 				# warning-ignore:unsafe_cast
 				if object is Stash:
 					if not (object as Stash).contains(item):
-						interaction_type = InteractionType.NONE
+						valid = false
 					elif all:
 						# warning-ignore:unsafe_cast
 						amount = (object as Stash).count(item)
 		
-		if interaction_type == InteractionType.NONE:
+		if not valid:
 			continue
 		
 		var distance := _character.translation.distance_squared_to(object.global_transform.origin)

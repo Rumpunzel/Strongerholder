@@ -11,9 +11,12 @@ export(Resource) var _scene_atmosphere_started_channel
 # warning-ignore:unused_class_variable
 var spotted_items: SpottedItems
 
+var _nav_mesh_instance: NavigationMeshInstance
+
 
 func _enter_tree() -> void:
 	spotted_items = $SpottedItems
+	_nav_mesh_instance = $NavigationMeshInstance
 	
 	# warning-ignore:return_value_discarded
 	_node_spawned_channel.connect("raised", self, "_on_node_spawned")
@@ -40,6 +43,6 @@ func _on_node_spawned(node: Spatial, position: Vector3, random_rotation: bool) -
 		node.rotate_z(randf() * TAU)
 
 func _on_building_placed(structure: Structure, position: Vector3, y_rotation: float) -> void:
-	add_child(structure, true)
+	_nav_mesh_instance.add_child(structure, true)
 	structure.translation = position
 	structure.rotate_y(y_rotation)

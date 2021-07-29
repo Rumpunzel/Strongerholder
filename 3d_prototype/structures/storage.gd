@@ -82,7 +82,7 @@ func _add_item(item: ItemResource) -> void:
 	
 	var node := item.store_in(self, active_stack.size(), stack_rotated, SQUARE_SIZE)
 	
-	node.transform.origin += Vector3(x_index - 1.0, 0.0, z_index - 1.0) * SQUARE_SIZE
+	node.transform.origin += Vector3(x_index - x_extents * 0.5, 0.0, z_index - z_extents * 0.5) * SQUARE_SIZE
 	active_stack.push(node)
 
 
