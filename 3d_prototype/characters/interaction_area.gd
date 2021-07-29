@@ -175,14 +175,14 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 			reset()
 	else:
 		# Check if there is an object in the immediate vicinity to interact with
-		var nearest_smart_interaction := _find_nearest_interaction(interactable_objects, interaction_type, item, overwrite_dibs)
-		_set_nearest_interaction(nearest_smart_interaction)
+		var nearest_interaction := _find_nearest_interaction(interactable_objects, interaction_type, item, overwrite_dibs)
+		_set_nearest_interaction(nearest_interaction)
 		if _nearest_interaction:
 			_set_current_interaction(_nearest_interaction)
 		else:
 			# Check in the broader vicinity
-			nearest_smart_interaction = _find_nearest_interaction(perceived_objects, interaction_type, item, overwrite_dibs)
-			_set_nearest_interaction(nearest_smart_interaction)
+			nearest_interaction = _find_nearest_interaction(perceived_objects, interaction_type, item, overwrite_dibs)
+			_set_nearest_interaction(nearest_interaction)
 			if _nearest_interaction:
 				point_to_walk_to = _nearest_interaction.position()
 	
@@ -198,6 +198,20 @@ func _find_nearest_interaction(objects: Array, interaction_type: int, item: Item
 	for object in objects:
 		# warning-ignore:unsafe_property_access
 		if not object or object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
+			continue
+		
+		match interaction_type:
+			InteractionType.GIVE:
+				# warning-ignore:unsafe_cast
+				if object is Stash and (object as Stash).full():
+					interaction_type = InteractionType.NONE
+			
+			InteractionType.TAKE:
+				# warning-ignore:unsafe_cast
+				if object is Stash and not (object as Stash).contains(item):
+					interaction_type = InteractionType.NONE
+		
+		if interaction_type == InteractionType.NONE:
 			continue
 		
 		var distance := _character.translation.distance_squared_to(object.global_transform.origin)
