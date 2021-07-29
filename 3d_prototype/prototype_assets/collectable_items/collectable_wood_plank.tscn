@@ -5,7 +5,7 @@
 [ext_resource path="res://items/resources/wood_plank.tres" type="Resource" id=3]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.88, 0.074, 0.23 )
+extents = Vector3( 0.99, 0.075, 0.175 )
 
 [node name="WoodPlank" instance=ExtResource( 2 )]
 angular_damp = 2.0
