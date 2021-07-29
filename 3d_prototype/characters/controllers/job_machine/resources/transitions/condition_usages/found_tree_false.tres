@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://state_machines/resources/condition_usage_resource.gd" type="Script" id=1]
-[ext_resource path="res://characters/controllers/job_machine/resources/conditions/found_tree_condition.tres" type="Resource" id=2]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/found_resource_source_condition.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )

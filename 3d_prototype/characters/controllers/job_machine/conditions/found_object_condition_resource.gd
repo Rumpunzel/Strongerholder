@@ -1,7 +1,7 @@
 class_name FoundObjectConditionResource
 extends StateConditionResource
 
-enum ActionType { GATHERS, DELIVERS }
+enum ActionType { GATHERS, GATHERS_SOURCE, DELIVERS }
 
 export(ActionType) var _action_type
 export(Resource) var _override_object_to_look_for = null
@@ -14,7 +14,7 @@ func create_condition() -> StateCondition:
 
 
 class FoundObjectCondition extends StateCondition:
-	enum ActionType { GATHERS, DELIVERS }
+	enum ActionType { GATHERS, GATHERS_SOURCE, DELIVERS }
 	
 	var _spotted_items: SpottedItems
 	var _inputs: CharacterMovementInputs
@@ -40,9 +40,14 @@ class FoundObjectCondition extends StateCondition:
 					# warning-ignore:unsafe_property_access
 					_object_to_look_for = state_machine.current_job.gathers
 				
+				ActionType.GATHERS_SOURCE:
+					# warning-ignore:unsafe_property_access
+					_object_to_look_for = state_machine.current_job.tool_resource.used_on
+				
 				ActionType.DELIVERS:
 					# warning-ignore:unsafe_property_access
 					_object_to_look_for = state_machine.current_job.delivers
+		
 		
 		var character: Character = state_machine.owner
 		_spotted_items = character.get_navigation().spotted_items

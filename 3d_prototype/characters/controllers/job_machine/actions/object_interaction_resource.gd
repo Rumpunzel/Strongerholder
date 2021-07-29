@@ -38,6 +38,10 @@ class ObjectInteraction extends StateAction:
 	func awake(state_machine: Node) -> void:
 		if not _object_resource:
 			match _interaction_type:
+				InteractionArea.InteractionType.ATTACK:
+					# warning-ignore:unsafe_property_access
+					_object_resource = state_machine.current_job.tool_resource.used_on
+				
 				InteractionArea.InteractionType.PICK_UP:
 					# warning-ignore:unsafe_property_access
 					_object_resource = state_machine.current_job.gathers

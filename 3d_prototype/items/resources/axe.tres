@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://items/tool_resource.gd" type="Script" id=1]
 [ext_resource path="res://quaternius/Ultimate RPG Items Pack/Icons/Axe_Small.png" type="Texture" id=2]
 [ext_resource path="res://event_system/resources/gameplay/node_spawned_channel.tres" type="Resource" id=3]
+[ext_resource path="res://structures/resources/nature/tree.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -13,5 +14,5 @@ stack_size = 1
 _equipped_scene = "res://prototype_assets/equippable_items/equippable_axe.tscn"
 _stockpiled_scene = ""
 _node_spawned_channel = ExtResource( 3 )
-used_on = 1
+used_on = ExtResource( 4 )
 damage = 1.0

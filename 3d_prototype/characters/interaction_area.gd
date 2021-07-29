@@ -397,7 +397,8 @@ func _on_hurt_box_entered(area: Area) -> void:
 	var hit_box := area as HitBox
 	var equipped_tool: ToolResource = _equipped_item.stack.item
 	
-	if hit_box.type & equipped_tool.used_on:
+	# HACK: fix this ugly implementation
+	if hit_box.owner is Structure and hit_box.owner.structure_resource == equipped_tool.used_on:
 		# warning-ignore:return_value_discarded
 		hit_box.damage(equipped_tool.damage, self)
 
