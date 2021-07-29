@@ -30,11 +30,11 @@ func drop_at(position: Vector3, random_rotation := true) -> Spatial:
 	return spawned_node
 
 
-func store_in(storage: Spatial, index: int, square_size: float) -> Spatial:
+func store_in(storage: Spatial, index: int, stack_rotated: bool, square_size: float) -> Spatial:
 	var loaded_scene := load(_stockpiled_scene) as PackedScene
 	var spawned_node := loaded_scene.instance() as Spatial
 	storage.add_child(spawned_node)
-	stockpile_stack_attributes.position_in_stack(spawned_node, index, square_size)
+	stockpile_stack_attributes.position_in_stack(spawned_node, index, stack_rotated, square_size)
 	return spawned_node
 
 

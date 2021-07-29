@@ -1,7 +1,8 @@
 class_name InteractionHUD
 extends Popup
 
-export var _animation_duration := 0.1
+export var _fade_in_duration := 0.1
+export var _fade_out_duration := 0.5
 
 export(Resource) var _player_interaction_channel
 
@@ -55,14 +56,14 @@ func _on_player_interaction_changed(interaction: InteractionArea.Interaction) ->
 func _popup() -> void:
 	popup()
 	# warning-ignore:return_value_discarded
-	_tween.interpolate_property(self, "modulate:a", 0.0, 1.0, _animation_duration)
+	_tween.interpolate_property(self, "modulate:a", 0.0, 1.0, _fade_in_duration)
 	# warning-ignore:return_value_discarded
 	_tween.start()
 
 
 func _hide() -> void:
 	# warning-ignore:return_value_discarded
-	_tween.interpolate_property(self, "modulate:a", 1.0, 0.0, _animation_duration)
+	_tween.interpolate_property(self, "modulate:a", 1.0, 0.0, _fade_out_duration)
 	# warning-ignore:return_value_discarded
 	_tween.start()
 	

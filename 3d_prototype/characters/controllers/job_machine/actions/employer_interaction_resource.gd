@@ -3,9 +3,11 @@ extends StateActionResource
 
 export(InteractionArea.InteractionType) var _interaction_type
 export(Resource) var _interaction_item
+export var _how_many := 1
+export var _all := true
 
 func _create_action() -> StateAction:
-	return EmployerInteraction.new(_interaction_type, _interaction_item)
+	return EmployerInteraction.new(_interaction_type, _interaction_item, _how_many, _all)
 
 
 class EmployerInteraction extends StateAction:
@@ -15,11 +17,15 @@ class EmployerInteraction extends StateAction:
 	
 	var _interaction_type: int
 	var _interaction_item: ItemResource
+	var _how_many: int
+	var _all: bool
 	
 	
-	func _init(interaction_type: int, interaction_item: ItemResource) -> void:
+	func _init(interaction_type: int, interaction_item: ItemResource, how_many: int, all: bool) -> void:
 		_interaction_type = interaction_type
 		_interaction_item = interaction_item
+		_how_many = how_many
+		_all = all
 	
 	
 	func awake(state_machine: Node) -> void:
@@ -30,4 +36,9 @@ class EmployerInteraction extends StateAction:
 	
 	func on_update(_delta: float) -> void:
 		var interaction_objects := [ _employer ] if _interaction_area.objects_in_interaction_range.has(_employer) else [ ]
-		_interaction_area.interact_with_specific_object(_employer, interaction_objects, _interaction_type, _interaction_item, false)
+		var amount := _how_many
+		
+		if _all and _interaction_type == InteractionArea.InteractionType.GIVE:
+			amount = _inventory.count(_interaction_item)
+		
+		_interaction_area.interact_with_specific_object(_employer, interaction_objects, _interaction_type, _interaction_item, amount, _all, false)

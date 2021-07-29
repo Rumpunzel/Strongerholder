@@ -7,4 +7,6 @@
 script = ExtResource( 2 )
 _object_to_interact_with = ExtResource( 1 )
 _interaction_type = 1
+_how_many = 1
+_all = true
 _global_range = false

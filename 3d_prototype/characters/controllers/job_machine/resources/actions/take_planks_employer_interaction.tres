@@ -7,3 +7,5 @@
 script = ExtResource( 1 )
 _interaction_type = 4
 _interaction_item = ExtResource( 2 )
+_how_many = 1
+_all = true

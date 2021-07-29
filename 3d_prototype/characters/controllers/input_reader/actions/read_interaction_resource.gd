@@ -60,7 +60,7 @@ class ReadInteraction extends StateAction:
 	
 	
 	func _attack_on_spot() -> void:
-		_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK)
+		_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK, null, 0)
 	
 	
 	func _smart_interact() -> void:

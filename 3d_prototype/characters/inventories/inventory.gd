@@ -51,7 +51,7 @@ func add(item: ItemResource, count := 1) -> int:
 		var stack: ItemStack = item_slots[slot]
 		if stack.item:
 			if item == stack.item:
-				count = _add_to_stack(item, count, stack)
+				count = _add_to_stack(stack, item, count)
 				if count <= 0:
 					break
 		else:
@@ -60,7 +60,7 @@ func add(item: ItemResource, count := 1) -> int:
 			if item is ToolResource:
 				emit_signal("equipment_stack_added", stack)
 			
-			count = _add_to_stack(item, count, stack)
+			count = _add_to_stack(stack, item, count)
 			if count <= 0:
 				break
 	
@@ -80,6 +80,17 @@ func remove(item: ItemResource) -> int:
 			break
 	
 	return left_in_stack
+
+
+# Returns how many were not removed
+func remove_many(item: ItemResource, count: int) -> int:
+	while count > 0:
+		var left_in_stack := remove(item)
+		if left_in_stack < 0:
+			break
+		count -= 1
+	
+	return count
 
 
 # Returns how many are left in the stack
@@ -232,7 +243,8 @@ func _initialize(size: int) -> void:
 	_initialized = true
 
 
-func _add_to_stack(item: ItemResource, count: int, stack: ItemStack) -> int:
+# Retuns how many were not added to stack because it was full
+func _add_to_stack(stack: ItemStack, item: ItemResource, count: int) -> int:
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
 	while count > 0 and not stack.full(_inventory_attributes.is_storage):

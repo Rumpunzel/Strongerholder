@@ -63,7 +63,7 @@ _sound_scene = ExtResource( 12 )
 _sfx_emitted_channel = ExtResource( 14 )
 
 [node name="Storage" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.22, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.4, 0 )
 script = ExtResource( 16 )
 
 [node name="Sawmill_saw" parent="." instance=ExtResource( 2 )]

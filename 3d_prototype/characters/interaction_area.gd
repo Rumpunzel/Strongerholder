@@ -3,7 +3,8 @@ extends Area
 
 signal item_picked_up(item)
 signal attacked(started)
-signal gave_item(item)
+signal gave_item(item, amount)
+signal took_item(item, amount)
 signal operated()
 
 signal object_entered_interaction_area(object)
@@ -75,14 +76,14 @@ func smart_interact_with_nearest_object_of_type(object_type: ObjectResource, cus
 	_inputs.destination_input = point_to_walk_to
 
 
-func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_array_to_search: Array, interaction_type: int, item: ItemResource, overwrite_dibs: bool) -> void:
+func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_array_to_search: Array, interaction_type: int, item: ItemResource, how_many: int, all: bool, overwrite_dibs: bool) -> void:
 	if _occupied():
 		return
 	
 	var interaction_objects := _filter_array_for_type(objects_in_interaction_range, object_type)
 	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
 	
-	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects, interaction_type, item, overwrite_dibs)
+	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects, interaction_type, item, how_many, all, overwrite_dibs)
 	_inputs.destination_input = point_to_walk_to
 
 
@@ -94,11 +95,11 @@ func smart_interact_with_specific_object(object: Node, interaction_objects: Arra
 	_inputs.destination_input = point_to_walk_to
 
 
-func interact_with_specific_object(object: Node, interaction_objects: Array, interaction_type: int, item: ItemResource, overwrite_dibs: bool) -> void:
+func interact_with_specific_object(object: Node, interaction_objects: Array, interaction_type: int, item: ItemResource, how_many: int, all: bool, overwrite_dibs: bool) -> void:
 	if _occupied():
 		return
 	
-	var point_to_walk_to := _interact_with_nearest(interaction_objects, [ object ], interaction_type, item, overwrite_dibs)
+	var point_to_walk_to := _interact_with_nearest(interaction_objects, [ object ], interaction_type, item, how_many, all, overwrite_dibs)
 	_inputs.destination_input = point_to_walk_to
 
 
@@ -111,7 +112,7 @@ func find_nearest_smart_interaction(objects: Array, inventory: CharacterInventor
 		if not object or object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
 			continue
 		
-		var potential_interaction := Interaction.new(object)
+		var potential_interaction := Interaction.new(object, InteractionType.NONE, null, 0)
 		_determine_interaction_type(object, inventory, potential_interaction)
 		
 		if potential_interaction.type == InteractionType.NONE:
@@ -160,7 +161,7 @@ func _smart_interact_with_nearest(interactable_objects: Array, perceived_objects
 	return point_to_walk_to
 
 
-func _interact_with_nearest(interactable_objects: Array, perceived_objects: Array, interaction_type: int, item: ItemResource, overwrite_dibs: bool) -> Vector3:
+func _interact_with_nearest(interactable_objects: Array, perceived_objects: Array, interaction_type: int, item: ItemResource, how_many: int, all: bool, overwrite_dibs: bool) -> Vector3:
 	# Default is no movement at all
 	var point_to_walk_to := _character.translation
 	
@@ -175,13 +176,13 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 			reset()
 	else:
 		# Check if there is an object in the immediate vicinity to interact with
-		var nearest_interaction := _find_nearest_interaction(interactable_objects, interaction_type, item, overwrite_dibs)
+		var nearest_interaction := _find_nearest_interaction(interactable_objects, interaction_type, item, how_many, all, overwrite_dibs)
 		_set_nearest_interaction(nearest_interaction)
 		if _nearest_interaction:
 			_set_current_interaction(_nearest_interaction)
 		else:
 			# Check in the broader vicinity
-			nearest_interaction = _find_nearest_interaction(perceived_objects, interaction_type, item, overwrite_dibs)
+			nearest_interaction = _find_nearest_interaction(perceived_objects, interaction_type, item, how_many, all, overwrite_dibs)
 			_set_nearest_interaction(nearest_interaction)
 			if _nearest_interaction:
 				point_to_walk_to = _nearest_interaction.position()
@@ -189,11 +190,12 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 	return point_to_walk_to
 
 
-func _find_nearest_interaction(objects: Array, interaction_type: int, item: ItemResource, overwrite_dibs: bool) -> Interaction:
+func _find_nearest_interaction(objects: Array, interaction_type: int, item: ItemResource, how_many: int, all: bool, overwrite_dibs: bool) -> Interaction:
 	assert(not interaction_type == InteractionType.NONE)
 	
 	var nearest: Interaction = null
 	var closest_distance: float = INF
+	var amount := how_many
 	
 	for object in objects:
 		# warning-ignore:unsafe_property_access
@@ -208,8 +210,12 @@ func _find_nearest_interaction(objects: Array, interaction_type: int, item: Item
 			
 			InteractionType.TAKE:
 				# warning-ignore:unsafe_cast
-				if object is Stash and not (object as Stash).contains(item):
-					interaction_type = InteractionType.NONE
+				if object is Stash:
+					if not (object as Stash).contains(item):
+						interaction_type = InteractionType.NONE
+					elif all:
+						# warning-ignore:unsafe_cast
+						amount = (object as Stash).count(item)
 		
 		if interaction_type == InteractionType.NONE:
 			continue
@@ -217,7 +223,7 @@ func _find_nearest_interaction(objects: Array, interaction_type: int, item: Item
 		var distance := _character.translation.distance_squared_to(object.global_transform.origin)
 		if distance < closest_distance:
 			closest_distance = distance
-			nearest = Interaction.new(object, interaction_type, item)
+			nearest = Interaction.new(object, interaction_type, item, amount)
 	
 	return nearest
 
@@ -259,8 +265,9 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory, in
 			interaction_type = InteractionType.ATTACK
 	
 	
-	interaction.item_resource = interaction_resource
 	interaction.type = interaction_type
+	interaction.item_resource = interaction_resource
+	interaction.item_amount = 1
 
 
 func _filter_array_for_type(array: Array, object_type: ObjectResource) -> Array:
@@ -304,20 +311,22 @@ func _attack(started: bool) -> void:
 
 func _give() -> void:
 	var stash: Stash = current_interaction.node 
-	var item: ItemResource = current_interaction.item_resource
+	var item := current_interaction.item_resource
+	var amount := current_interaction.item_amount
 	
 	# warning-ignore:return_value_discarded
-	stash.stash(item)
-	emit_signal("gave_item", item)
+	stash.stash(item, amount)
+	emit_signal("gave_item", item, amount)
 
 
 func _take() -> void:
 	var stash: Stash = current_interaction.node 
-	var item: ItemResource = current_interaction.item_resource
+	var item := current_interaction.item_resource
+	var amount := current_interaction.item_amount
 	
 	# warning-ignore:return_value_discarded
-	stash.take(item)
-	emit_signal("item_picked_up", item)
+	stash.take(item, amount)
+	emit_signal("took_item", item, amount)
 
 
 func _operate() -> void:
@@ -405,11 +414,13 @@ class Interaction:
 	var node: Spatial
 	var type: int
 	var item_resource: ItemResource
+	var item_amount: int
 	
-	func _init(new_node: Spatial, new_type := 0, new_resource: ItemResource = null) -> void:
+	func _init(new_node: Spatial, new_type: int, new_resource: ItemResource, new_item_amount: int) -> void:
 		node = new_node
 		type = new_type
 		item_resource = new_resource
+		item_amount = new_item_amount
 	
 	func position() -> Vector3:
 		return node.global_transform.origin

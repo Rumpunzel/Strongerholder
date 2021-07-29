@@ -7,18 +7,21 @@ onready var inventory: Inventory = Utils.find_node_of_type_in_children(owner, In
 
 
 # Returns how many items were dropped because the inventory was full
-func stash(item: ItemResource, count := 1) -> int:
+func stash(item: ItemResource, count: int) -> int:
 	return inventory.add(item, count)
 
-# Returns how many are left in the stack
-func take(item: ItemResource) -> int:
-	return inventory.remove(item)
+# Returns how many were not removed
+func take(item: ItemResource, count: int) -> int:
+	return inventory.remove_many(item, count)
 
 func stores(item: ItemResource) -> bool:
 	return item == _item_to_store
 
 func contains(item: ItemResource) -> Inventory.ItemStack:
 	return inventory.contains(item)
+
+func count(item: ItemResource) -> int:
+	return inventory.count(item)
 
 func full() -> bool:
 	return inventory.full(_item_to_store)

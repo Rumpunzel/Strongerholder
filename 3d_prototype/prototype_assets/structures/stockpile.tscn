@@ -23,6 +23,7 @@ script = ExtResource( 1 )
 structure_resource = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
 shape = SubResource( 1 )
 
 [node name="Inventory" type="Node" parent="."]
@@ -42,7 +43,7 @@ _item_to_store = ExtResource( 15 )
 shape = SubResource( 2 )
 
 [node name="Storage" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
 script = ExtResource( 6 )
 
 [node name="Stockpile" parent="." instance=ExtResource( 3 )]

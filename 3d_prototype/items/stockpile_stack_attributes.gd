@@ -17,9 +17,11 @@ func pallet_size() -> int:
 func stack_size() -> int:
 	return x_size * z_size * y_size
 
-func position_in_stack(item: Spatial, index: int, square_size: float) -> void:
+func position_in_stack(item: Spatial, index: int, stack_rotated: bool, square_size: float) -> void:
 	var level := int(index / float(pallet_size()))
-	var rotated := alternate_rotation and (level % 2 == 1)
+	var rotated := (alternate_rotation and (level % 2 == 1))
+	if alternate_rotation and stack_rotated:
+		rotated = not rotated
 	
 	var x := (index % x_size) * (square_size / float(x_size))
 	var z := (index % z_size) * (square_size / float(z_size))
