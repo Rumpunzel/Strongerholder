@@ -11,8 +11,8 @@ extents = Vector3( 0.99, 0.075, 0.175 )
 item_resource = ExtResource( 3 )
 
 [node name="CollisionShape" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.074, 0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.074, 0.25 )
 shape = SubResource( 1 )
 
 [node name="WoodPlank" parent="." index="1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.074, 0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.074, 0.25 )

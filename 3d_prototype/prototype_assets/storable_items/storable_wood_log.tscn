@@ -12,8 +12,8 @@ height = 1.5
 item_resource = ExtResource( 3 )
 
 [node name="CollisionShape" parent="." index="0"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0.25, 0.25 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0.25, 0.33 )
 shape = SubResource( 1 )
 
 [node name="WoodLog" parent="." index="1" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0.3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0.35 )
