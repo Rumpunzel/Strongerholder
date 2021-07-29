@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://game_world/scenes/_base_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prototype_assets/structures/house.tscn" type="PackedScene" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://game_world/audio/scene_atmospheres/345852__hargissssound__spring-birds-loop-with-low-cut-new-jersey.mp3" type="AudioStream" id=9]
 [ext_resource path="res://game_world/scenes/sample_scene_nav_mesh.tres" type="NavigationMesh" id=10]
 [ext_resource path="res://characters/player/player.tscn" type="PackedScene" id=11]
-[ext_resource path="res://prototype_assets/collectable_items/collectable_wood_log.tscn" type="PackedScene" id=12]
 [ext_resource path="res://game_world/environments/world_environment.tres" type="Environment" id=13]
 [ext_resource path="res://prototype_assets/structures/stockpile.tscn" type="PackedScene" id=14]
 
@@ -94,20 +93,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6 )
 [node name="NPC_3" parent="." index="9" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0 )
 
-[node name="Axe" parent="." index="10" instance=ExtResource( 6 )]
+[node name="NPC_4" parent="." index="10" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 4 )
+
+[node name="NPC_5" parent="." index="11" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12 )
+
+[node name="NPC_6" parent="." index="12" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -11 )
+
+[node name="NPC_7" parent="." index="13" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -8 )
+
+[node name="NPC_8" parent="." index="14" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3 )
+
+[node name="Axe" parent="." index="15" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, -2, 1, 3 )
-
-[node name="Wood" parent="." index="11" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 1 )
-
-[node name="Wood_2" parent="." index="12" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 1 )
-
-[node name="Wood_3" parent="." index="13" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 2 )
-
-[node name="Wood_4" parent="." index="14" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, -3 )
-
-[node name="Wood_5" parent="." index="15" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 4 )
