@@ -45,6 +45,7 @@ collision_mask = 0
 script = ExtResource( 4 )
 _item_to_store = ExtResource( 3 )
 _needs_how_many = 3
+_operation_steps_per_item = 3
 _produces = ExtResource( 15 )
 _produces_how_many_per_step = 4
 _available_job = ExtResource( 7 )

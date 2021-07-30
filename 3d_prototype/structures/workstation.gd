@@ -55,7 +55,10 @@ func could_be_operated(employee_inventory: CharacterInventory) -> bool:
 func operate() -> void:
 	_current_operation_steps += 1
 	
-	if _current_operation_steps % _operation_steps_per_item == 0:
+	if _current_operation_steps % _operation_steps_per_item == 1:
+		# warning-ignore:return_value_discarded
+		inventory.remove(_item_to_store)
+	elif _current_operation_steps % _operation_steps_per_item == 0:
 		_produce()
 	
 	if _current_operation_steps >= _operation_steps_per_item * _needs_how_many:
@@ -73,9 +76,6 @@ func load_from_var(save_file: File) -> void:
 
 
 func _produce() -> void:
-	# warning-ignore:return_value_discarded
-	inventory.remove(_item_to_store)
-	
 	for _i in range(_produces_how_many_per_step):
 		# warning-ignore:return_value_discarded
 		inventory.add(_produces)

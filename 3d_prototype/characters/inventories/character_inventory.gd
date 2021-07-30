@@ -1,7 +1,6 @@
 class_name CharacterInventory, "res://editor_tools/class_icons/nodes/icon_knapsack.svg"
 extends Inventory
 
-
 signal item_equipped(equipment)
 signal item_unequipped(equipment)
 
@@ -9,7 +8,6 @@ export(NodePath) var _hand_position
 export var _equip_first_item := true
 
 var _currently_equipped := EquippedItem.new()
-
 
 
 func equipments() -> Array:

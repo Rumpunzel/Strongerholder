@@ -17,9 +17,7 @@ signal equipment_stack_removed(equipment_stack)
 
 export(Resource) var _inventory_attributes
 
-
 var item_slots := [ ]
-
 
 var _initialized := false
 
