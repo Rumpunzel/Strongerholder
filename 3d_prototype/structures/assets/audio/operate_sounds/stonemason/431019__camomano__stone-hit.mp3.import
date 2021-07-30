@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/431019__camomano__stone-hit.mp3-323a0213dcb8027fd3b812d9311ee3ce.mp3str"
+
+[deps]
+
+source_file="res://structures/assets/audio/operate_sounds/stonemason/431019__camomano__stone-hit.mp3"
+dest_files=[ "res://.import/431019__camomano__stone-hit.mp3-323a0213dcb8027fd3b812d9311ee3ce.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

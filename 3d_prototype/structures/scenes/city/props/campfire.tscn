@@ -1,0 +1,144 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://structures/resources/city/props/campfire.tres" type="Resource" id=1]
+[ext_resource path="res://structures/hearth_area.gd" type="Script" id=2]
+[ext_resource path="res://items/resources/resources/wood_log.tres" type="Resource" id=3]
+[ext_resource path="res://structures/assets/resources/campfire_inventory.tres" type="Resource" id=4]
+[ext_resource path="res://structures/assets/models/city/props/bonfire.tscn" type="PackedScene" id=5]
+[ext_resource path="res://structures/assets/resources/campfire_particles.tres" type="Material" id=6]
+[ext_resource path="res://structures/assets/resources/campfire_particle_mesh.tres" type="SphereMesh" id=7]
+[ext_resource path="res://structures/stash.gd" type="Script" id=8]
+[ext_resource path="res://structures/structure.gd" type="Script" id=9]
+[ext_resource path="res://characters/inventories/inventory.gd" type="Script" id=10]
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.75
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+albedo_color = Color( 0.898039, 0.160784, 0.0509804, 0.564706 )
+emission_enabled = true
+emission = Color( 0.976471, 0.168627, 0.0627451, 1 )
+emission_energy = 2.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
+radius = 0.1
+height = 0.2
+radial_segments = 16
+rings = 8
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -5.91505, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+lifetime_randomness = 0.8
+emission_shape = 1
+emission_sphere_radius = 0.2
+spread = 60.0
+gravity = Vector3( 0, 9.8, 0 )
+tangential_accel = 1.0
+tangential_accel_random = 1.0
+damping = 9.2
+damping_random = 0.1
+scale_random = 0.5
+scale_curve = SubResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+albedo_color = Color( 0.388235, 0.384314, 0.384314, 0.635294 )
+
+[sub_resource type="SphereMesh" id=8]
+material = SubResource( 7 )
+radius = 0.1
+height = 0.2
+radial_segments = 16
+rings = 8
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 0.5, 1, 0.5 )
+
+[node name="Campfire" type="StaticBody" groups=[
+"Persist",
+]]
+collision_layer = 2
+script = ExtResource( 9 )
+structure_resource = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="HearthArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource( 2 )
+_item_to_burn = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="HearthArea"]
+
+[node name="Light" type="OmniLight" parent="HearthArea"]
+pause_mode = 2
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
+light_color = Color( 1, 0.45098, 0, 1 )
+light_energy = 5.0
+shadow_enabled = true
+omni_range = 16.0
+
+[node name="Embers" type="Particles" parent="HearthArea"]
+pause_mode = 2
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+cast_shadow = 0
+amount = 16
+explosiveness = 0.1
+visibility_aabb = AABB( -1.5, -0.1, -1.5, 3, 3, 3 )
+process_material = ExtResource( 6 )
+draw_pass_1 = SubResource( 3 )
+
+[node name="Smoke" type="Particles" parent="HearthArea"]
+pause_mode = 2
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+cast_shadow = 0
+amount = 16
+lifetime = 2.0
+explosiveness = 0.2
+visibility_aabb = AABB( -1.5, -0.1, -1.5, 3, 3, 3 )
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="Fire" type="Particles" parent="HearthArea"]
+pause_mode = 2
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
+cast_shadow = 0
+amount = 32
+lifetime = 2.0
+explosiveness = 0.1
+visibility_aabb = AABB( -1.5, -0.1, -1.5, 3, 3, 3 )
+process_material = ExtResource( 6 )
+draw_pass_1 = ExtResource( 7 )
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 10 )
+_inventory_attributes = ExtResource( 4 )
+
+[node name="Stash" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+collision_layer = 64
+collision_mask = 0
+script = ExtResource( 8 )
+_item_to_store = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Stash"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 9 )
+
+[node name="Bonfire" parent="." instance=ExtResource( 5 )]
+
+[connection signal="item_added" from="Inventory" to="HearthArea" method="_on_item_added"]
+[connection signal="item_removed" from="Inventory" to="HearthArea" method="_on_item_removed"]

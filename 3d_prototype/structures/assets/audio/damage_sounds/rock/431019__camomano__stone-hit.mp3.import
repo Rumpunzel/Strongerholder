@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/431019__camomano__stone-hit.mp3-02f670f2ba66e925467a1f77682acb43.mp3str"
+
+[deps]
+
+source_file="res://structures/assets/audio/damage_sounds/rock/431019__camomano__stone-hit.mp3"
+dest_files=[ "res://.import/431019__camomano__stone-hit.mp3-02f670f2ba66e925467a1f77682acb43.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

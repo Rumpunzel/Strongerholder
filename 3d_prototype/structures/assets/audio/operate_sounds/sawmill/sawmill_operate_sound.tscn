@@ -1,0 +1,14 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://structures/assets/audio/operate_sounds/sawmill/4_zapsplat_industrial_saw_small_sawing_wood_initial_cut_score_004_69977.mp3" type="AudioStream" id=1]
+[ext_resource path="res://structures/assets/audio/operate_sounds/sawmill/1_zapsplat_industrial_hand_saw_sawing_wood_hollow_single_cut_score_001_71002.mp3" type="AudioStream" id=2]
+[ext_resource path="res://structures/assets/audio/operate_sounds/sawmill/3_zapsplat_industrial_saw_small_sawing_wood_initial_cut_score_003_69976.mp3" type="AudioStream" id=3]
+[ext_resource path="res://audio/random_audio_player.gd" type="Script" id=4]
+[ext_resource path="res://structures/assets/audio/operate_sounds/sawmill/2_zapsplat_industrial_hand_saw_sawing_wood_hollow_single_cut_score_002_71003.mp3" type="AudioStream" id=5]
+[ext_resource path="res://structures/assets/audio/operate_sounds/sawmill/5_zapsplat_industrial_saw_small_sawing_wood_initial_cut_score_005_69978.mp3" type="AudioStream" id=6]
+
+[node name="SawmillOperateSound" type="AudioStreamPlayer3D"]
+unit_size = 3.0
+bus = "SFX"
+script = ExtResource( 4 )
+_streams = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 6 ) ]

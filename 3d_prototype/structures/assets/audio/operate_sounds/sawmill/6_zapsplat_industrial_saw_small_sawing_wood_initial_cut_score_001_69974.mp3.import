@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/6_zapsplat_industrial_saw_small_sawing_wood_initial_cut_score_001_69974.mp3-1cf0842dd8d11007007a7151a6538d18.mp3str"
+
+[deps]
+
+source_file="res://structures/assets/audio/operate_sounds/sawmill/6_zapsplat_industrial_saw_small_sawing_wood_initial_cut_score_001_69974.mp3"
+dest_files=[ "res://.import/6_zapsplat_industrial_saw_small_sawing_wood_initial_cut_score_001_69974.mp3-1cf0842dd8d11007007a7151a6538d18.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

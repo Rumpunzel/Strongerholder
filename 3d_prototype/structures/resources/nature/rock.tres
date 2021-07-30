@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://structures/structure_resource.gd" type="Script" id=1]
-[ext_resource path="res://structures/models/nature/rock_1.tscn" type="PackedScene" id=2]
-[ext_resource path="res://prototype_assets/structures/icons/menhir.png" type="Texture" id=3]
+[ext_resource path="res://structures/assets/models/nature/rock_1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://structures/assets/icons/menhir.png" type="Texture" id=3]
 [ext_resource path="res://event_system/resources/gameplay/building_placed_channel.tres" type="Resource" id=5]
 
 [sub_resource type="BoxShape" id=1]
@@ -12,7 +12,7 @@ extents = Vector3( 2, 3, 2 )
 script = ExtResource( 1 )
 name = "Rock"
 icon = ExtResource( 3 )
-_scene = "res://prototype_assets/structures/rock.tscn"
+_scene = "res://structures/scenes/nature/rock.tscn"
 model = ExtResource( 2 )
 shape = SubResource( 1 )
 _building_placed_channel = ExtResource( 5 )

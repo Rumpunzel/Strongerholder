@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://items/resources/resources/wood_log.tres" type="Resource" id=1]
+[ext_resource path="res://characters/inventories/inventory_attributes_resource.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+inventory_size = 1
+starting_items = [ ExtResource( 1 ) ]
+is_storage = true
