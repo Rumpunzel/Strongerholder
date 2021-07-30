@@ -29,7 +29,8 @@ class LookForWorkAction extends StateAction:
 		_register_worker_channel.raise(_state_machine)
 	
 	func on_state_exit() -> void:
-		_register_job_channel.disconnect("raised", self, "_on_job_posted")
+		if _register_job_channel.is_connected("raised", self, "_on_job_posted"):
+			_register_job_channel.disconnect("raised", self, "_on_job_posted")
 	
 	
 	func _on_job_posted(workstation) -> void:
