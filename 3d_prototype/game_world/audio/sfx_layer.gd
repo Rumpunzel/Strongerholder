@@ -12,6 +12,7 @@ func _exit_tree() -> void:
 
 
 func _on_sfx_emitted(audio_player: RandomAudioPlayer, position: Vector3) -> void:
-	add_child(audio_player)
-	audio_player.translation = position
-	audio_player.play_random()
+	if not get_tree().paused:
+		add_child(audio_player)
+		audio_player.translation = position
+		audio_player.play_random()

@@ -7,7 +7,7 @@
 [ext_resource path="res://prototype_assets/structures/resources/rock_inventory.tres" type="Resource" id=5]
 [ext_resource path="res://structures/structure.gd" type="Script" id=6]
 [ext_resource path="res://audio/sfx_emitter.gd" type="Script" id=7]
-[ext_resource path="res://structures/audio/damage_sounds/tree/tree_damage_sound.tscn" type="PackedScene" id=8]
+[ext_resource path="res://structures/audio/damage_sounds/rock/rock_damage_sound.tscn" type="PackedScene" id=8]
 [ext_resource path="res://event_system/resources/audio/sfx_emitted_channel.tres" type="Resource" id=9]
 [ext_resource path="res://structures/resources/nature/rock.tres" type="Resource" id=10]
 

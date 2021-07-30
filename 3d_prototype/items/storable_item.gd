@@ -4,6 +4,7 @@ tool
 
 export(Resource) var item_resource
 
+
 func _get_configuration_warning() -> String:
 	var warning := ""
 	

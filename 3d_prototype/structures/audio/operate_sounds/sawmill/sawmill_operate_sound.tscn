@@ -8,7 +8,7 @@
 [ext_resource path="res://structures/audio/operate_sounds/sawmill/5_zapsplat_industrial_saw_small_sawing_wood_initial_cut_score_005_69978.mp3" type="AudioStream" id=6]
 
 [node name="SawmillOperateSound" type="AudioStreamPlayer3D"]
-unit_size = 5.0
+unit_size = 3.0
 bus = "SFX"
 script = ExtResource( 4 )
 _streams = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 6 ) ]
