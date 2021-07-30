@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://event_system/resources/gameplay/node_spawned_channel.tres" type="Resource" id=1]
+[ext_resource path="res://items/assets/icons/wood_beam.png" type="Texture" id=2]
+[ext_resource path="res://items/resources/resources/wood_plank_stockpile_attributes.tres" type="Resource" id=3]
+[ext_resource path="res://items/item_resource.gd" type="Script" id=4]
+
+[resource]
+script = ExtResource( 4 )
+name = "Wood Plank"
+icon = ExtResource( 2 )
+_scene = "res://items/collectable_items/collectable_wood_plank.tscn"
+stack_size = 12
+_equipped_scene = ""
+_stockpiled_scene = "res://items/storable_items/storable_wood_plank.tscn"
+stockpile_stack_attributes = ExtResource( 3 )
+_node_spawned_channel = ExtResource( 1 )
