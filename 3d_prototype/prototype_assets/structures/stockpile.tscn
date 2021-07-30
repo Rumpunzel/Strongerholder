@@ -14,7 +14,7 @@
 extents = Vector3( 2, 0.2, 2 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 2, 1, 2 )
+extents = Vector3( 2.5, 1, 2.5 )
 
 [node name="Stockpile" type="StaticBody" groups=[
 "Persist",

@@ -202,7 +202,7 @@ func size() -> int:
 func empty() -> bool:
 	return contents(true).empty()
 
-func full(specific_item_to_check: ItemResource = null) -> bool:
+func full(specific_item_to_check: ItemResource) -> bool:
 	for slot in item_slots.size():
 		var stack: ItemStack = item_slots[slot]
 		# WAITFORUPDATE: remove this unnecessary thing after 4.0

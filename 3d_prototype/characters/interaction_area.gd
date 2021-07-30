@@ -206,7 +206,7 @@ func _find_nearest_interaction(objects: Array, interaction_type: int, item: Item
 		match interaction_type:
 			InteractionType.GIVE:
 				# warning-ignore:unsafe_cast
-				if object is Stash and (object as Stash).full():
+				if object is Stash and (object as Stash).full(item):
 					valid = false
 			
 			InteractionType.TAKE:
@@ -235,16 +235,17 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory, in
 	var can_stash := false
 	
 	if object is Stash:
-		if not (object as Stash).full():
+		# HACK: access to private member
+		if not (object as Stash).full(object._item_to_store):
 			if not inventory:
 				can_stash = true
-			
-			for stack in inventory.contents(false):
-				var item: ItemResource = stack.item
-				if (object as Stash).stores(item):
-					can_stash = true
-					interaction_resource = item
-					break
+			else:
+				for stack in inventory.contents(false):
+					var item: ItemResource = stack.item
+					if (object as Stash).stores(item):
+						can_stash = true
+						interaction_resource = item
+						break
 	
 	
 	if object is CollectableItem:
@@ -312,6 +313,9 @@ func _attack(started: bool) -> void:
 
 
 func _give() -> void:
+	if not current_interaction:
+		return
+	
 	var stash: Stash = current_interaction.node 
 	var item := current_interaction.item_resource
 	var amount := current_interaction.item_amount
