@@ -8,7 +8,7 @@ enum CommandType { PUSH = 1, POP }
 export var x_extents := 2
 export var z_extents := 2
 
-export var _max_animation_time := 1.0
+export var _max_animation_time := 0.5
 
 var _stacks := [ ]
 var _stacks_for_resources := { }
