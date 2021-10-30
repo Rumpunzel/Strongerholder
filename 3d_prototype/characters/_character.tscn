@@ -116,6 +116,7 @@ script = SubResource( 6 )
 script = ExtResource( 5 )
 
 [node name="InteractionArea" type="Area" parent="."]
+input_ray_pickable = false
 collision_layer = 0
 collision_mask = 200
 script = ExtResource( 2 )
@@ -125,6 +126,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 7 )
 
 [node name="PerceptionArea" type="Area" parent="InteractionArea"]
+input_ray_pickable = false
 collision_layer = 0
 collision_mask = 200
 
