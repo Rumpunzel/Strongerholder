@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ui/hud/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/game_hud/game_hud.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://ui/hud/game_hud/build_hud/build_hud.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/hud/game_hud/interaction_hud/interaction_hud.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/hud/game_hud/equipment_hud/equipment_hud.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/hud/game_hud/inspection_hud/inspection_hud.tscn" type="PackedScene" id=8]
 [ext_resource path="res://event_system/resources/main/game_paused_channel.tres" type="Resource" id=19]
 [ext_resource path="res://event_system/resources/main/game_continued_channel.tres" type="Resource" id=20]
 
@@ -63,6 +64,8 @@ align = 2
 [node name="InventoryHUD" parent="." instance=ExtResource( 4 )]
 
 [node name="BuildHUD" parent="." instance=ExtResource( 5 )]
+
+[node name="InspectionHUD" parent="." instance=ExtResource( 8 )]
 
 [node name="Tween" type="Tween" parent="."]
 

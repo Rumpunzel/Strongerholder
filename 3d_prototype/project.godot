@@ -249,6 +249,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://editor_tools/class_icons/icon_colors.gd"
 }, {
+"base": "PopupPanel",
+"class": "InspectionHUD",
+"language": "GDScript",
+"path": "res://ui/hud/game_hud/inspection_hud/inspection_hud.gd"
+}, {
 "base": "EventChannelBaseResource",
 "class": "IntEventChannelResource",
 "language": "GDScript",
@@ -653,6 +658,7 @@ _global_script_class_icons={
 "HitBox": "res://editor_tools/class_icons/spatials/icon_heart_beats.svg",
 "HorizontalMoveActionResource": "",
 "IconColors": "",
+"InspectionHUD": "",
 "IntEventChannelResource": "",
 "InteractionArea": "res://editor_tools/class_icons/spatials/icon_slap.svg",
 "InteractionHUD": "",
