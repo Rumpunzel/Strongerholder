@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://structures/assets/models/nature/common_tree_1.tscn" type="PackedScene" id=1]
 [ext_resource path="res://structures/hit_box.gd" type="Script" id=2]
@@ -9,16 +9,11 @@
 [ext_resource path="res://audio/sfx_emitter.gd" type="Script" id=7]
 [ext_resource path="res://structures/assets/audio/damage_sounds/tree/tree_damage_sound.tscn" type="PackedScene" id=8]
 [ext_resource path="res://event_system/resources/audio/sfx_emitted_channel.tres" type="Resource" id=9]
+[ext_resource path="res://structures/resources/nature/tree_hit_box.tres" type="Shape" id=10]
+[ext_resource path="res://user_interaction/click_box.gd" type="Script" id=11]
 [ext_resource path="res://structures/resources/nature/tree.tres" type="Resource" id=12]
-
-
-[sub_resource type="CylinderShape" id=1]
-radius = 0.5
-height = 2.5
-
-[sub_resource type="CylinderShape" id=2]
-radius = 0.5
-height = 2.5
+[ext_resource path="res://event_system/resources/hud/node_selected_channel.tres" type="Resource" id=13]
+[ext_resource path="res://user_interaction/selection_indicator.tscn" type="PackedScene" id=14]
 
 [node name="Tree" type="StaticBody" groups=[
 "Persist",
@@ -29,7 +24,7 @@ structure_resource = ExtResource( 12 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
-shape = SubResource( 1 )
+shape = ExtResource( 10 )
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -45,14 +40,25 @@ _vitals_resource = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="HitBox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
-shape = SubResource( 2 )
+shape = ExtResource( 10 )
 
 [node name="DamageSounds" type="Spatial" parent="HitBox"]
 script = ExtResource( 7 )
 _sound_scene = ExtResource( 8 )
 _sfx_emitted_channel = ExtResource( 9 )
 
+[node name="ClickBox" type="Area" parent="."]
+script = ExtResource( 11 )
+_node_selected_channel = ExtResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ClickBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0 )
+shape = ExtResource( 10 )
+
+[node name="SelectionIndicator" parent="." instance=ExtResource( 14 )]
+
 [node name="CommonTree_1" parent="." instance=ExtResource( 1 )]
 
 [connection signal="damaged" from="HitBox" to="HitBox/DamageSounds" method="emit"]
 [connection signal="died" from="HitBox" to="Inventory" method="_on_died"]
+[connection signal="selected" from="ClickBox" to="SelectionIndicator" method="_on_selected"]
