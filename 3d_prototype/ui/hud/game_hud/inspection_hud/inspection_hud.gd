@@ -1,9 +1,11 @@
 class_name InspectionHUD
-extends PopupPanel
+extends PanelContainer
+
 
 export(Resource) var _node_selected_channel
 
 var _selected_node: Node
+
 
 
 func _enter_tree() -> void:
