@@ -8,4 +8,4 @@ script = ExtResource( 1 )
 needs_how_many = 3
 produces_how_many_per_base = 4
 produces = ExtResource( 2 )
-steps_per_item = 4
+steps_per_item = 3
