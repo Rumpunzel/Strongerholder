@@ -50,7 +50,9 @@ func could_be_operated(employee_inventory: CharacterInventory) -> bool:
 
 func operate() -> void:
 	if _current_operation_steps == 0:
-		_current_operation_steps = _workstation_attributes.produces_how_many * _workstation_attributes.steps_per_item
+		_current_operation_steps = _workstation_attributes.needs_how_many * _workstation_attributes.produces_how_many_per_base * _workstation_attributes.steps_per_item
+	
+	if _current_operation_steps % (_workstation_attributes.produces_how_many_per_base * _workstation_attributes.steps_per_item) == 0:
 		# warning-ignore:return_value_discarded
 		inventory.remove(_item_to_store)
 	

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://structures/workstation_attributes_resource.gd" type="Script" id=1]
-[ext_resource path="res://items/resources/resources/wood_plank.tres" type="Resource" id=2]
+[ext_resource path="res://items/resources/resources/stone.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
-needs_how_many = 3
-produces_how_many_per_base = 4
+needs_how_many = 1
+produces_how_many_per_base = 3
 produces = ExtResource( 2 )
-steps_per_item = 4
+steps_per_item = 8
