@@ -4,12 +4,8 @@ extends Stash
 signal operated()
 signal produced()
 
-export var _needs_how_many := 1
-export var _operation_steps_per_item := 1
 
-export(Resource) var _produces
-
-export var _produces_how_many_per_step := 1
+export(Resource) var _workstation_attributes
 
 export(Resource) var _available_job setget _set_available_job
 export(Resource) var _available_tool
@@ -42,27 +38,26 @@ func apply_for_job(worker: Node) -> bool:
 	_current_worker = worker
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
-	_current_worker.current_job = Job.new(self, _available_job, _available_tool, _item_to_store, _produces)
+	_current_worker.current_job = Job.new(self, _available_job, _available_tool, _item_to_store, _workstation_attributes.produces)
 	return true
 
 
 func can_be_operated() -> bool:
-	return _current_operation_steps > 0 or inventory.count(_item_to_store) >= _needs_how_many
+	return _current_operation_steps > 0 or inventory.count(_item_to_store) >= _workstation_attributes.needs_how_many
 
 func could_be_operated(employee_inventory: CharacterInventory) -> bool:
-	return can_be_operated() or employee_inventory.count(_item_to_store) + inventory.count(_item_to_store) >= _needs_how_many
+	return can_be_operated() or employee_inventory.count(_item_to_store) + inventory.count(_item_to_store) >= _workstation_attributes.needs_how_many
 
 func operate() -> void:
-	_current_operation_steps += 1
-	
-	if _current_operation_steps % _operation_steps_per_item == 1:
+	if _current_operation_steps == 0:
+		_current_operation_steps = _workstation_attributes.produces_how_many * _workstation_attributes.steps_per_item
 		# warning-ignore:return_value_discarded
 		inventory.remove(_item_to_store)
-	elif _current_operation_steps % _operation_steps_per_item == 0:
-		_produce()
 	
-	if _current_operation_steps >= _operation_steps_per_item * _needs_how_many:
-		_current_operation_steps = 0
+	_current_operation_steps -= 1
+	
+	if _current_operation_steps % _workstation_attributes.steps_per_item == 0:
+		_produce()
 	
 	emit_signal("operated")
 
@@ -76,9 +71,8 @@ func load_from_var(save_file: File) -> void:
 
 
 func _produce() -> void:
-	for _i in range(_produces_how_many_per_step):
-		# warning-ignore:return_value_discarded
-		inventory.add(_produces)
+	# warning-ignore:return_value_discarded
+	inventory.add(_workstation_attributes.produces)
 	
 	emit_signal("produced")
 
