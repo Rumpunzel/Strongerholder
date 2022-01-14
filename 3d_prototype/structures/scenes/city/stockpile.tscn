@@ -2,7 +2,7 @@
 
 [ext_resource path="res://structures/storage.gd" type="Script" id=1]
 [ext_resource path="res://structures/resources/city/stockpile.tres" type="Resource" id=2]
-[ext_resource path="res://structures/assets/resources/stockpile_inventory.tres" type="Resource" id=3]
+[ext_resource path="res://structures/resources/city/stockpile_inventory.tres" type="Resource" id=3]
 [ext_resource path="res://items/resources/resources/stone.tres" type="Resource" id=4]
 [ext_resource path="res://items/resources/resources/wood_plank.tres" type="Resource" id=5]
 [ext_resource path="res://structures/assets/models/city/stockpile.tscn" type="PackedScene" id=6]
