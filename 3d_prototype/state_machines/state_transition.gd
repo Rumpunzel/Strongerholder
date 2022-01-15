@@ -20,7 +20,7 @@ func _init(
 	_conditions = conditions
 	
 	assert(_result_groups == null or _result_groups is Array)
-	_result_groups = result_groups if (not result_groups == null and not result_groups.empty()) else [1]
+	_result_groups = result_groups if (result_groups != null and not result_groups.empty()) else [1]
 	assert(_result_groups is Array)
 	
 	_results.resize(_result_groups.size())

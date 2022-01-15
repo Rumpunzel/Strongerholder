@@ -116,10 +116,10 @@ static func draw_ring_segment(canvas : CanvasItem, coords : PoolVector2Array, fi
 	if coords.empty():
 		return
 	
-	if not fill_color == Color.transparent:
+	if fill_color != Color.transparent:
 		canvas.draw_colored_polygon(coords, fill_color, PoolVector2Array(), null, null, antialiased)
 	
-	if not stroke_color == Color.transparent:
+	if stroke_color != Color.transparent:
 		canvas.draw_polyline(coords, stroke_color, width, antialiased)
 		canvas.draw_line(coords[-1], coords[0], stroke_color, width, antialiased)
 
@@ -127,7 +127,7 @@ static func draw_ring_segment(canvas : CanvasItem, coords : PoolVector2Array, fi
 static func draw_ring(canvas : CanvasItem, inner_radius : float, outer_radius : float, fill_color: Color, stroke_color := Color.transparent, width := 1.0, antialiased := true, offset := Vector2.ZERO) -> void:
 	"""
 	Draws a ring.
-		
+	
 	Caveat: If you draw an antialiased ring with a partially transparent fill_color
 			without a stroke, you will get an ugly seam where the polygon joins
 			itself.
@@ -158,7 +158,7 @@ static func draw_ring(canvas : CanvasItem, inner_radius : float, outer_radius : 
 		coords_inner.append(v + offset)
 		coords_all.append(v + offset)
 	
-	if not stroke_color == Color.transparent:
+	if stroke_color != Color.transparent:
 		canvas.draw_colored_polygon(coords_all, fill_color, PoolVector2Array(), null, null, false)
 		
 		canvas.draw_polyline(coords_inner, stroke_color, width, antialiased)

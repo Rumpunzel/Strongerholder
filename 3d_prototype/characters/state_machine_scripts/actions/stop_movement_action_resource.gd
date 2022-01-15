@@ -27,7 +27,7 @@ class StopMovementAction extends StateAction:
 		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
 	
 	func on_state_enter() -> void:
-		if not _moment == StateAction.SpecificMoment.ON_STATE_EXIT:
+		if _moment != StateAction.SpecificMoment.ON_STATE_EXIT:
 			_null_movement()
 	
 	func on_update(_delta: float) -> void:
@@ -35,7 +35,7 @@ class StopMovementAction extends StateAction:
 			_null_movement()
 	
 	func on_state_exit() -> void:
-		if not _moment == StateAction.SpecificMoment.ON_STATE_ENTER:
+		if _moment != StateAction.SpecificMoment.ON_STATE_ENTER:
 			_null_movement()
 	
 	

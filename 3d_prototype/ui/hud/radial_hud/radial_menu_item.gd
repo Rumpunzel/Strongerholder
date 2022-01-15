@@ -21,7 +21,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	for item in possible_submenu_items.values():
 		item.queue_free()
-
+	
 	for item in active_submenu_items:
 		item.queue_free()
 
@@ -36,7 +36,7 @@ func highlight(is_highlighted: bool) -> void:
 		# warning-ignore:return_value_discarded
 		_tween.interpolate_property(self, "rect_scale", Vector2(1.0, 1.0), _scale_on_selection, _animation_time)
 		highlighted = true
-	elif not is_highlighted and not rect_scale == Vector2(1.0, 1.0):
+	elif not is_highlighted and rect_scale != Vector2(1.0, 1.0):
 		# warning-ignore:return_value_discarded
 		_tween.interpolate_property(self, "rect_scale", _scale_on_selection, Vector2(1.0, 1.0), _animation_time)
 		highlighted = true

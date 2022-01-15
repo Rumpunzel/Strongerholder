@@ -65,9 +65,7 @@ rings = 8
 [sub_resource type="BoxShape" id=9]
 extents = Vector3( 0.5, 1, 0.5 )
 
-[node name="Campfire" type="StaticBody" groups=[
-"Persist",
-]]
+[node name="Campfire" type="StaticBody" groups=["Persist"]]
 collision_layer = 2
 script = ExtResource( 9 )
 structure_resource = ExtResource( 1 )

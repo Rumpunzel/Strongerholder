@@ -23,7 +23,7 @@ class IsInteractingCondition extends StateCondition:
 	
 	
 	func _statement() -> bool:
-		if not _interaction_area.current_interaction or not _interaction_area.current_interaction.type == _interaction_type:
+		if not _interaction_area.current_interaction or _interaction_area.current_interaction.type != _interaction_type:
 			return false
 		
 		_interaction_area.current_interaction.type = InteractionArea.InteractionType.NONE

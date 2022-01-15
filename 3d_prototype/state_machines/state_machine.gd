@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	var transition_state: State = _current_state.try_get_transition()
 	
 	if transition_state:
-		assert(not (transition_state == _current_state))
+		assert(transition_state != _current_state)
 		_transition(transition_state)
 	
 	_current_state.on_update(delta)

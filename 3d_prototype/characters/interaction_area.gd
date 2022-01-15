@@ -59,7 +59,7 @@ func _exit_tree() -> void:
 
 
 func _process(_delta: float) -> void:
-	if current_interaction and not current_interaction.type == InteractionType.NONE and weakref(current_interaction.node).get_ref():
+	if current_interaction and current_interaction.type != InteractionType.NONE and weakref(current_interaction.node).get_ref():
 		# warning-ignore:unsafe_property_access
 		_character.look_position = current_interaction.position()
 
@@ -137,7 +137,7 @@ func _smart_interact_with_nearest(interactable_objects: Array, perceived_objects
 	var point_to_walk_to := _character.translation
 	
 	# If there is a current target
-	if _nearest_interaction and not _nearest_interaction.type == InteractionType.NONE:
+	if _nearest_interaction and _nearest_interaction.type != InteractionType.NONE:
 		# Check if we are in range
 		if interactable_objects.has(_nearest_interaction.node):
 			_set_current_interaction(_nearest_interaction)
@@ -191,7 +191,7 @@ func _interact_with_nearest(interactable_objects: Array, perceived_objects: Arra
 
 
 func _find_nearest_interaction(objects: Array, interaction_type: int, item: ItemResource, how_many: int, all: bool, overwrite_dibs: bool) -> Interaction:
-	assert(not interaction_type == InteractionType.NONE)
+	assert(interaction_type != InteractionType.NONE)
 	
 	var nearest: Interaction = null
 	var closest_distance: float = INF
@@ -247,7 +247,6 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory, in
 						interaction_resource = item
 						break
 	
-	
 	if object is CollectableItem:
 		interaction_type = InteractionType.PICK_UP
 	
@@ -266,7 +265,6 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory, in
 		# HACK: fix this ugly implementation
 		if object.owner is Structure and object.owner.structure_resource == equipped_tool.used_on:
 			interaction_type = InteractionType.ATTACK
-	
 	
 	interaction.type = interaction_type
 	interaction.item_resource = interaction_resource
@@ -288,7 +286,7 @@ func _filter_array_for_type(array: Array, object_type: ObjectResource) -> Array:
 
 
 func _occupied() -> bool:
-	return current_interaction and not current_interaction.type == InteractionType.NONE
+	return current_interaction and current_interaction.type != InteractionType.NONE
 
 
 func _collect() -> void:
@@ -316,7 +314,7 @@ func _give() -> void:
 	if not current_interaction:
 		return
 	
-	var stash: Stash = current_interaction.node 
+	var stash: Stash = current_interaction.node
 	var item := current_interaction.item_resource
 	var amount := current_interaction.item_amount
 	
@@ -326,7 +324,7 @@ func _give() -> void:
 
 
 func _take() -> void:
-	var stash: Stash = current_interaction.node 
+	var stash: Stash = current_interaction.node
 	var item := current_interaction.item_resource
 	var amount := current_interaction.item_amount
 	
@@ -349,7 +347,7 @@ func _set_current_interaction(new_interaction: Interaction) -> void:
 	if current_interaction and _node_is_dibbable(current_interaction.node):
 		# warning-ignore:unsafe_method_access
 		current_interaction.node.call_dibs(self, false)
-		
+	
 	current_interaction = new_interaction
 	emit_signal("current_interaction_changed", current_interaction)
 	
@@ -373,7 +371,7 @@ func _set_nearest_interaction(new_interaction: Interaction) -> void:
 		_nearest_interaction.node.call_dibs(self, true)
 
 func _node_is_dibbable(node: Node) -> bool:
-	return not node == null and node.has_method("call_dibs")
+	return node != null and node.has_method("call_dibs")
 
 
 

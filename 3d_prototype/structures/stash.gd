@@ -24,13 +24,13 @@ func count(item: ItemResource) -> int:
 	return inventory.count(item)
 
 func full(item_to_check: ItemResource) -> bool:
-	if not item_to_check == _item_to_store:
+	if item_to_check != _item_to_store:
 		return true
 	
 	return inventory.full(_item_to_store)
 
 func empty_space(item_to_check: ItemResource) -> int:
-	if not item_to_check == _item_to_store:
+	if item_to_check != _item_to_store:
 		return 0
 	
 	return inventory.space_for(_item_to_store)

@@ -230,7 +230,7 @@ func _load_version(save_file: File) -> void:
 
 func _get_children_in_group(parent: Node, group: String, terminate_on_group: String) -> Array:
 	var children_in_group := [ ]
-
+	
 	for child in parent.get_children():
 		if child.is_in_group(terminate_on_group):
 			continue

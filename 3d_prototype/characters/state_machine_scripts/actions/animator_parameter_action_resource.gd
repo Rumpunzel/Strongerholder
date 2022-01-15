@@ -15,14 +15,13 @@ export(StateAction.SpecificMoment) var _when_to_run = StateAction.SpecificMoment
 
 func _create_action() -> StateAction:
 	return AnimatorParameterAction.new(
-			_paramter_type,
-			_parameter_name,
-			_bool_value,
-			_int_value,
-			_float_value,
-			_when_to_run
+		_paramter_type,
+		_parameter_name,
+		_bool_value,
+		_int_value,
+		_float_value,
+		_when_to_run
 	)
-
 
 
 class AnimatorParameterAction extends StateAction:
@@ -36,17 +35,17 @@ class AnimatorParameterAction extends StateAction:
 	var _bool_value: bool
 	var _int_value: int
 	var _float_value: float
-
+	
 	var _when_to_run: int
 	
 	
 	func _init(
-			parameter_type: int,
-			parameter_name: String,
-			bool_value: bool,
-			int_value: int,
-			float_value: float,
-			when_to_run: int
+		parameter_type: int,
+		parameter_name: String,
+		bool_value: bool,
+		int_value: int,
+		float_value: float,
+		when_to_run: int
 	):
 		_parameter_type = parameter_type
 		_parameter_name = "parameters/%s" % parameter_name

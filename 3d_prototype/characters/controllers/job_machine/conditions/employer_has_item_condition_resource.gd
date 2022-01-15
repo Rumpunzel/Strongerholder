@@ -39,4 +39,4 @@ class InventoryHasItemCondition extends StateCondition:
 	
 	
 	func _statement() -> bool:
-		return not _employer.contains(_interaction_item) == null
+		return _employer.contains(_interaction_item) != null

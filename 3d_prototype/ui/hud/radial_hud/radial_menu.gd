@@ -2,10 +2,10 @@ class_name RadialMenu
 extends Popup
 tool
 
+# Signal is sent when you hover over an item
 signal item_selected(selected_item, submenu)
-""" Signal is sent when you hover over an item """
+# Signal is sent when the menu is closed without anything being selected
 signal item_hovered(item)
-""" Signal is sent when the menu is closed without anything being selected """
 signal cancelled()
 
 
@@ -164,7 +164,7 @@ func open_submenu_on(menu_item: RadialMenuItem) -> void:
 		_tween.interpolate_property(self, "rect_position", rect_position, rect_position + move, animation_speed_factor, Tween.TRANS_SINE, Tween.EASE_IN)
 		# warning-ignore:return_value_discarded
 		_tween.start()
-	else: 
+	else:
 		_moved_to_position += move
 		rect_position = _moved_to_position - center_offset
 		update()
@@ -256,10 +256,8 @@ func get_selected_by_joypad() -> RadialMenuItem:
 	return selected if selected else selected_item
 
 
+# Returns the total width of the ring (with decorator and selector)
 func get_total_ring_width(with_selector := true) -> float:
-	"""
-	Returns the total width of the ring (with decorator and selector)
-	"""
 	var decorator_ring_width: float = _get_constant("decorator_ring_width")
 	var selector_segment_width: float = _get_constant("selector_segment_width")
 	
@@ -267,7 +265,7 @@ func get_total_ring_width(with_selector := true) -> float:
 		if decorator_ring_position == Position.OFF:
 			return ring_width
 		else:
-			return ring_width + max(selector_segment_width, decorator_ring_width) 
+			return ring_width + max(selector_segment_width, decorator_ring_width)
 	elif decorator_ring_position == Position.OFF:
 		return ring_width + selector_segment_width
 	elif selector_position == Position.OFF:
@@ -276,11 +274,8 @@ func get_total_ring_width(with_selector := true) -> float:
 		return ring_width + (selector_segment_width if with_selector else 0.0) + decorator_ring_width
 
 
+# Returns the inner and outer radius of the item ring (without selector and decorator)
 func get_inner_outer() -> Vector2:
-	"""
-	Returns the inner and outer radius of the item ring (without selector
-	and decorator)
-	"""
 	var inner: float
 	var outer: float
 	var decorator_ring_width := 0.0
@@ -290,7 +285,7 @@ func get_inner_outer() -> Vector2:
 	
 	if selector_position == Position.OUTSIDE:
 		var width := max(decorator_ring_width, _get_constant("selector_segment_width"))
-		inner = ring_radius - width - ring_width 
+		inner = ring_radius - width - ring_width
 		outer = ring_radius - width
 	else:
 		inner = ring_radius - decorator_ring_width - ring_width
@@ -354,7 +349,7 @@ func _calc_move_to_fit(submenu: RadialMenu) -> Vector2:
 			dy = -sub_rect.position.y
 		
 		return Vector2(dx, dy)
-	else: 
+	else:
 		return Vector2.ZERO
 
 
@@ -429,12 +424,9 @@ func _signal_id() -> void:
 	get_tree().set_input_as_handled()
 
 
+# Given a vector that originates in the center of the radial menu,
+# this will return the index of the menu item that lies along that vector.
 func _get_item_from_vector(vector: Vector2) -> RadialMenuItem:
-	"""
-	Given a vector that originates in the center of the radial menu, 
-	this will return the index of the menu item that lies along that
-	vector.
-	"""
 	var item_count := menu_items.size()
 	var start_angle := deg2rad(center_angle) + _item_angle * item_count / 2.0
 	var end_angle := start_angle + item_count * _item_angle
@@ -467,10 +459,10 @@ func _on_submenu_item_selected(item: RadialMenuItem, _submenu_item: RadialMenuIt
 
 func _on_submenu_cancelled() -> void:
 	_set_selected_item(get_selected_by_mouse())
-
+	
 	if selected_item == null or menu_items.has(selected_item):
 		get_tree().set_input_as_handled()
-
+	
 	close_submenu()
 	update()
 
@@ -531,7 +523,7 @@ func _set_items(items: Array) -> void:
 		update()
 
 func _set_selected_item(new_item: RadialMenuItem) -> void:
-	if active_sub_menu and not new_item == active_sub_menu and new_item and not new_item.active_submenu_items.empty() and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
+	if active_sub_menu and new_item != active_sub_menu and new_item and not new_item.active_submenu_items.empty() and not(_submenu.menu_items.has(selected_item) or selected_item == active_sub_menu):
 		open_submenu_on(new_item)
 	
 	if selected_item == new_item:
@@ -599,10 +591,8 @@ func _set_constant(constant_name: String) -> void:
 func _get_constant(constant_name: String):
 	return get_constant(constant_name, "RadialMenu")
 
+# Gets the radius at which the item icons are centered
 func _get_icon_radius() -> float:
-	"""
-	Gets the radius at which the item icons are centered
-	"""
 	var selector_segment_width := 0.0
 	var decorator_ring_width := 0.0
 	
