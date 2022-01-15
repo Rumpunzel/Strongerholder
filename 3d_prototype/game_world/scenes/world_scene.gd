@@ -12,7 +12,7 @@ export(Resource) var _scene_atmosphere_started_channel
 var spotted_items: SpottedItems
 
 var _nav_mesh_instance: NavigationMeshInstance
-var _nav_mesh_dirty := false
+var _nav_mesh_dirty := true
 var _currently_baking := false
 
 
@@ -35,8 +35,6 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	_scene_atmosphere_started_channel.raise(scene_atmosphere)
-	_nav_mesh_instance.bake_navigation_mesh()
-	_currently_baking = true
 
 func _process(_delta: float) -> void:
 	if _nav_mesh_dirty and not _currently_baking:
