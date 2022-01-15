@@ -12,7 +12,7 @@ export(Resource) var _scene_atmosphere_started_channel
 var spotted_items: SpottedItems
 
 var _nav_mesh_instance: NavigationMeshInstance
-var _nav_mesh_dirty := true
+var _nav_mesh_dirty := true setget _set_nav_mesh_dirty
 var _currently_baking := false
 
 
@@ -63,3 +63,7 @@ func _on_building_placed(structure: Structure, position: Vector3, y_rotation: fl
 	structure.rotate_y(y_rotation)
 	
 	_nav_mesh_dirty = true
+
+
+func _set_nav_mesh_dirty(new_status: bool) -> void:
+	_nav_mesh_dirty = new_status

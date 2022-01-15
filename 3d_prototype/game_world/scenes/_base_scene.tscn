@@ -31,3 +31,9 @@ script = ExtResource( 7 )
 _sfx_emitted_channel = ExtResource( 8 )
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="."]
+
+[node name="BakeTimer" type="Timer" parent="NavigationMeshInstance"]
+wait_time = 30.0
+autostart = true
+
+[connection signal="timeout" from="NavigationMeshInstance/BakeTimer" to="." method="_set_nav_mesh_dirty" binds= [ true ]]

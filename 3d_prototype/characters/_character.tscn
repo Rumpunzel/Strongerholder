@@ -87,7 +87,7 @@ radius = 0.5
 neighbor_dist = 16.0
 time_horizon = 2.0
 max_speed = 100.0
-path_max_distance = 5.0
+path_max_distance = 1.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 1 )
