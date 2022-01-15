@@ -290,7 +290,7 @@ func _occupied() -> bool:
 
 
 func _collect() -> void:
-	var item_node: CollectableItem = current_interaction.node as CollectableItem
+	var item_node: CollectableItem = current_interaction.node
 	
 	if not item_node:
 		return
