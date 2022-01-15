@@ -65,6 +65,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -5 )
 [node name="Sun" type="DirectionalLight" parent="." index="5"]
 transform = Transform( 0.965925, -0.183013, 0.183013, 0, 0.707107, 0.707107, -0.258819, -0.683012, 0.683012, 0, 16, 0 )
 shadow_enabled = true
+directional_shadow_max_distance = 128.0
 
 [node name="Player" parent="." index="6" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0 )

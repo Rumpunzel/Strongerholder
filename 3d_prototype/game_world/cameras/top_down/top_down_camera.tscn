@@ -9,7 +9,7 @@
 pause_mode = 2
 transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 44, 61, 45 )
 fov = 20.0
-far = 1000.0
+far = 8192.0
 script = ExtResource( 2 )
 _player_registered_channel = ExtResource( 4 )
 _player_unregistered_channel = ExtResource( 3 )

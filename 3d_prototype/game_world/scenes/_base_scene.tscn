@@ -12,7 +12,7 @@
 
 [node name="WorldScene" type="Navigation" groups=["PersistLevel"]]
 pause_mode = 1
-cell_size = 0.25
+cell_size = 0.1
 script = ExtResource( 4 )
 _node_spawned_channel = ExtResource( 1 )
 _building_placed_channel = ExtResource( 3 )
