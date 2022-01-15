@@ -12,12 +12,16 @@ export(Resource) var _scene_atmosphere_started_channel
 var spotted_items: SpottedItems
 
 var _nav_mesh_instance: NavigationMeshInstance
+var _nav_mesh_dirty := false
+var _currently_baking := false
 
 
 func _enter_tree() -> void:
 	spotted_items = $SpottedItems
 	_nav_mesh_instance = $NavigationMeshInstance
 	
+	# warning-ignore:return_value_discarded
+	_nav_mesh_instance.connect("bake_finished", self, "_on_bake_finished")
 	# warning-ignore:return_value_discarded
 	_node_spawned_channel.connect("raised", self, "_on_node_spawned")
 	# warning-ignore:return_value_discarded
@@ -31,7 +35,20 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	_scene_atmosphere_started_channel.raise(scene_atmosphere)
+	_nav_mesh_instance.bake_navigation_mesh()
+	_currently_baking = true
 
+func _process(_delta: float) -> void:
+	if _nav_mesh_dirty and not _currently_baking:
+		_nav_mesh_instance.bake_navigation_mesh()
+		_currently_baking = true
+		_nav_mesh_dirty = false
+		print("started baking new nav mesh")
+
+
+func _on_bake_finished() -> void:
+	_currently_baking = false
+	print("finished baking new nav mesh")
 
 func _on_node_spawned(node: Spatial, position: Vector3, random_rotation: bool) -> void:
 	add_child(node, true)
@@ -46,3 +63,5 @@ func _on_building_placed(structure: Structure, position: Vector3, y_rotation: fl
 	_nav_mesh_instance.add_child(structure, true)
 	structure.translation = position
 	structure.rotate_y(y_rotation)
+	
+	_nav_mesh_dirty = true

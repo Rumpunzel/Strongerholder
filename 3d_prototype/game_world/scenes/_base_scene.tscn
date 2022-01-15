@@ -10,10 +10,9 @@
 [ext_resource path="res://event_system/resources/audio/sfx_emitted_channel.tres" type="Resource" id=8]
 [ext_resource path="res://game_world/spotted_items.gd" type="Script" id=9]
 
-[node name="WorldScene" type="Navigation" groups=[
-"PersistLevel",
-]]
+[node name="WorldScene" type="Navigation" groups=["PersistLevel"]]
 pause_mode = 1
+cell_size = 0.25
 script = ExtResource( 4 )
 _node_spawned_channel = ExtResource( 1 )
 _building_placed_channel = ExtResource( 3 )
@@ -24,9 +23,7 @@ _scene_atmosphere_started_channel = ExtResource( 6 )
 
 [node name="TopDownCamera" parent="." instance=ExtResource( 2 )]
 
-[node name="SpottedItems" type="Node" parent="." groups=[
-"PersistData",
-]]
+[node name="SpottedItems" type="Node" parent="." groups=["PersistData"]]
 script = ExtResource( 9 )
 
 [node name="SFXLayer" type="Node" parent="."]

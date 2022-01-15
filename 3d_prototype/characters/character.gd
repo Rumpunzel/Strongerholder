@@ -37,6 +37,9 @@ func get_navigation() -> WorldScene:
 	assert(get_parent() as WorldScene)
 	return get_parent() as WorldScene
 
+func get_navigation_agent() -> NavigationAgent:
+	return $NavigationAgent as NavigationAgent
+
 
 func _turn_to_look_postion(delta: float) -> void:
 	look_position.y = translation.y

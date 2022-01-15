@@ -12,6 +12,7 @@ func _create_action() -> StateAction:
 class HorizontalMoveAction extends StateAction:
 	enum { ON_GROUND, IN_AIR }
 	
+	var _navigation_agent: NavigationAgent
 	var _inputs: CharacterMovementInputs
 	var _actions: CharacterMovementActions
 	var _movement_stats: CharacterMovementStatsResource
@@ -25,6 +26,7 @@ class HorizontalMoveAction extends StateAction:
 	
 	func awake(state_machine: Node) -> void:
 		var character: Character = state_machine.owner
+		_navigation_agent = character.get_navigation_agent()
 		_inputs = Utils.find_node_of_type_in_children(character, CharacterMovementInputs, true)
 		_actions = Utils.find_node_of_type_in_children(character, CharacterMovementActions, true)
 		# warning-ignore:unsafe_property_access
@@ -32,7 +34,7 @@ class HorizontalMoveAction extends StateAction:
 	
 	func on_update(_delta: float) -> void:
 		if _actions.moving_to_destination:
-			_actions.destination_point = _inputs.destination_input
+			_navigation_agent.set_target_location(_inputs.destination_input)
 		else:
 			var move_speed := _actions.target_speed * _movement_stats.move_speed
 			if _movement_type == IN_AIR:
