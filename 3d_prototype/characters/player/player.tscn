@@ -10,14 +10,14 @@
 [node name="Player" instance=ExtResource( 1 )]
 movement_stats = ExtResource( 8 )
 
-[node name="Controller" parent="." index="3"]
+[node name="Controller" parent="." index="4"]
 _transition_table_resource = ExtResource( 4 )
 
-[node name="Inventory" parent="." index="4"]
+[node name="Inventory" parent="." index="5"]
 _inventory_attributes = ExtResource( 5 )
 _hand_position = NodePath("../Wizard/CharacterArmature/Skeleton/HandPosition")
 
-[node name="AnimationTree" parent="." index="6"]
+[node name="AnimationTree" parent="." index="7"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Wizard/AnimationPlayer")
 active = true

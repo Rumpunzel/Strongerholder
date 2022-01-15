@@ -16,7 +16,6 @@ var _zoom: float = 1.0
 #var _tween: Tween
 
 
-
 #func _enter_tree() -> void:
 #	# warning-ignore:return_value_discarded
 #	Events.main.connect("game_continued", self, "_on_game_continued")
