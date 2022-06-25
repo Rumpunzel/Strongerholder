@@ -68,27 +68,28 @@ func add(item: ItemResource, count := 1) -> int:
 	return count
 
 
-# Returns how many are left in the stack
+# Returns how many were removed
 func remove(item: ItemResource) -> int:
-	var left_in_stack := -1
+	var amount_removed := 0
 	for slot in item_slots.size():
 		var stack: ItemStack = item_slots[slot]
 		if stack and stack.item == item:
-			left_in_stack = _remove_from_stack(stack, 1)
+			amount_removed += _remove_from_stack(stack, 1)
 			break
 	
-	return left_in_stack
+	return amount_removed
 
 
-# Returns how many were not removed
+# Returns how many were removed
 func remove_many(item: ItemResource, count: int) -> int:
-	while count > 0:
-		var left_in_stack := remove(item)
-		if left_in_stack < 0:
+	var amount_removed := 0
+	while amount_removed < count:
+		var removed_just_now := remove(item)
+		if removed_just_now <= 0:
 			break
-		count -= 1
+		amount_removed -= 1
 	
-	return count
+	return amount_removed
 
 
 # Returns how many are left in the stack
@@ -135,7 +136,7 @@ func drop(item: ItemResource) -> int:
 	return left_in_stack
 
 
-# Returns how many are left in the stack
+# Returns how many items were dropped
 func drop_item_from_stack(stack: ItemStack) -> int:
 	if stack.amount <= 0:
 		printerr("Tried to drop [ %s ] from %s but there were none in inventory." % [ stack.item, owner.name ])
@@ -255,7 +256,7 @@ func _initialize(size: int) -> void:
 	_initialized = true
 
 
-# Retuns how many were not added to stack because it was full
+# Returns how many were not added to stack because it was full
 func _add_to_stack(stack: ItemStack, item: ItemResource, count: int) -> int:
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0
 	# warning-ignore:unsafe_property_access
@@ -270,11 +271,12 @@ func _add_to_stack(stack: ItemStack, item: ItemResource, count: int) -> int:
 	return count
 
 
-# Returns how many are left in the stack
+# Returns how many items were removed
 func _remove_from_stack(stack: ItemStack, count: int) -> int:
-	while count > 0 and stack.amount > 0:
+	var items_removed := 0
+	while items_removed < count and stack.amount > 0:
 		stack.amount -= 1
-		count -= 1
+		items_removed += 1
 		emit_signal("item_removed", stack.item)
 		
 		if stack.item is ToolResource:
@@ -289,7 +291,7 @@ func _remove_from_stack(stack: ItemStack, count: int) -> int:
 			
 			break
 	
-	return stack.amount
+	return items_removed
 
 
 func _spawn_item(item: ItemResource) -> void:
