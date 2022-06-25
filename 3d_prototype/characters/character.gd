@@ -4,7 +4,7 @@ tool
 
 export(Resource) var movement_stats
 
-var velocity: Vector3
+var velocity: Vector3 setget set_velocity
 var is_grounded: bool
 var look_position: Vector3 = Vector3.ZERO
 
@@ -31,6 +31,10 @@ func save_to_var(save_file: File) -> void:
 
 func load_from_var(save_file: File) -> void:
 	transform = save_file.get_var()
+
+
+func set_velocity(new_velocity: Vector3) -> void:
+	velocity = new_velocity
 
 
 func get_navigation() -> WorldScene:

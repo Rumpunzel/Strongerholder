@@ -11,6 +11,8 @@ class ApplyMovementVectorAction extends StateAction:
 	var _actions: CharacterMovementActions
 	var _movement_stats: CharacterMovementStatsResource
 	
+	var _avoid_obstacles: bool
+	
 	
 	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
@@ -19,8 +21,12 @@ class ApplyMovementVectorAction extends StateAction:
 		# warning-ignore:unsafe_property_access
 		_movement_stats = _character.movement_stats
 		
-		# warning-ignore:return_value_discarded
-		_navigation_agent.connect("velocity_computed", self, "_on_velocity_computed")
+		if _navigation_agent.avoidance_enabled and _movement_stats.avoid_obstacles:
+			_avoid_obstacles = true
+			# warning-ignore:return_value_discarded
+			_navigation_agent.connect("velocity_computed", _character, "set_velocity")
+		else:
+			_avoid_obstacles = false
 	
 	func on_update(_delta: float) -> void:
 		var horizontal_movement: Vector2
@@ -44,18 +50,10 @@ class ApplyMovementVectorAction extends StateAction:
 			horizontal_movement.y
 		)
 		
-		if _actions.moving_to_destination:
+		if _avoid_obstacles and _actions.moving_to_destination:
 			_navigation_agent.set_velocity(new_movement_vector)
 		else:
 			_character.velocity = new_movement_vector
 		
-			if horizontal_movement != Vector2.ZERO:
-				_character.look_position = new_movement_vector * 100.0 + _character.translation
-	
-	
-	func _on_velocity_computed(safe_velocity: Vector3) -> void:
-		if _actions.moving_to_destination:
-			_character.velocity = safe_velocity
-			
-			if Vector2(safe_velocity.x, safe_velocity.z) != Vector2.ZERO:
-				_character.look_position = safe_velocity * 100.0 + _character.translation
+		if horizontal_movement != Vector2.ZERO:
+			_character.look_position = new_movement_vector * 100.0 + _character.translation

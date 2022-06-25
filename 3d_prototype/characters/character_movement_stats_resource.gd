@@ -17,6 +17,8 @@ export var gravity_ascend_multiplier: float = 2.0
 export var air_resistance: float = 5.0
 export var turn_rate: float = 10.0
 
+export var avoid_obstacles: bool = true
+
 export var _max_fall_speed: float = 50.0
 export var _max_rise_speed: float = 100.0
 

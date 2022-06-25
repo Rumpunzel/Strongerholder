@@ -11,7 +11,8 @@
 [ext_resource path="res://structures/structure.gd" type="Script" id=9]
 [ext_resource path="res://characters/inventories/inventory.gd" type="Script" id=10]
 
-[sub_resource type="SphereShape" id=1]
+[sub_resource type="CylinderShape" id=10]
+height = 1.0
 radius = 0.75
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -71,7 +72,8 @@ script = ExtResource( 9 )
 structure_resource = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+shape = SubResource( 10 )
 
 [node name="HearthArea" type="Area" parent="."]
 collision_layer = 0

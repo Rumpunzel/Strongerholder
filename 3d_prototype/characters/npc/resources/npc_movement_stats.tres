@@ -14,5 +14,6 @@ gravity_descend_multilpier = 4.0
 gravity_ascend_multiplier = 2.0
 air_resistance = 5.0
 turn_rate = 10.0
+avoid_obstacles = true
 _max_fall_speed = 50.0
 _max_rise_speed = 100.0
