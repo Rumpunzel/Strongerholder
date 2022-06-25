@@ -1,4 +1,4 @@
-class_name StateConditionResource
+class_name StateConditionResource, "res://editor_tools/class_icons/resources/icon_think.svg"
 extends Resource
 
 

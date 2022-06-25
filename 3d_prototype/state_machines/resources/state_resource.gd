@@ -1,4 +1,4 @@
-class_name StateResource
+class_name StateResource, "res://editor_tools/class_icons/resources/icon_cog.svg"
 extends Resource
 
 export(Array, Resource) var _actions

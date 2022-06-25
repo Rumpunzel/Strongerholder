@@ -1,4 +1,4 @@
-class_name TransitionItemResource
+class_name TransitionItemResource, "res://editor_tools/class_icons/resources/icon_plain_arrow.svg"
 extends Resource
 
 # warning-ignore-all:unused_class_variable

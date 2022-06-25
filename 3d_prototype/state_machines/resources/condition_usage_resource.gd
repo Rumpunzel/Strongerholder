@@ -1,4 +1,4 @@
-class_name ConditionUsageResource
+class_name ConditionUsageResource, "res://editor_tools/class_icons/resources/icon_choice.svg"
 extends Resource
 
 enum Operator { AND, OR }

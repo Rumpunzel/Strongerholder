@@ -1,4 +1,4 @@
-class_name StateActionResource
+class_name StateActionResource, "res://editor_tools/class_icons/resources/icon_hand.svg"
 extends Resource
 
 
