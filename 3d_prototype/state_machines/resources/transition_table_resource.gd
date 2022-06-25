@@ -3,6 +3,9 @@ extends Resource
 
 enum { CONDITIONS, RESULT_GROUPS }
 
+# warning-ignore:unused_class_variable
+export var use_physics_process := false
+
 export(Array, Resource) var _transitions
 
 

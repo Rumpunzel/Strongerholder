@@ -27,4 +27,5 @@
 
 [resource]
 script = ExtResource( 1 )
+use_physics_process = true
 _transitions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 23 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 22 ), ExtResource( 17 ), ExtResource( 25 ), ExtResource( 6 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 20 ) ]

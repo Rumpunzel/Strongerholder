@@ -8,10 +8,19 @@ var _current_state: State
 
 
 func _ready() -> void:
+	set_process(false)
+	set_physics_process(false)
+	
 	if _transition_table_resource and not _current_state:
 		_start()
 
 func _process(delta: float) -> void:
+	_on_process(delta)
+
+func _physics_process(delta: float) -> void:
+	_on_process(delta)
+
+func _on_process(delta: float) -> void:
 	if not _current_state:
 		return
 	
@@ -27,6 +36,9 @@ func _process(delta: float) -> void:
 func _start() -> void:
 	if Engine.editor_hint:
 		return
+	
+	set_process(not _transition_table_resource.use_physics_process)
+	set_physics_process(_transition_table_resource.use_physics_process)
 	
 	_current_state = _transition_table_resource.get_initial_state(self)
 	_current_state.on_state_enter()
