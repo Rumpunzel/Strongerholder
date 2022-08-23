@@ -30,6 +30,7 @@ func _on_item_changed(item: ItemResource) -> void:
 		return
 	
 	var new_amount := 0
+	#TODO: refactor this out into some kind of model
 	var stockpiles := get_tree().get_nodes_in_group(Stash.STOCKPILE_GROUP)
 	
 	for stash in stockpiles:
