@@ -26,3 +26,6 @@ data_*/
 
 # Blender
 *.blend1
+
+# Intellij
+.idea/
