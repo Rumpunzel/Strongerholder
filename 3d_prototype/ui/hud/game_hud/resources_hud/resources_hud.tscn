@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/hud/game_hud/resources_hud/resource_display.tscn" type="PackedScene" id=1]
+[ext_resource path="res://items/resources/resources/stone.tres" type="Resource" id=2]
+[ext_resource path="res://items/resources/resources/wood_plank.tres" type="Resource" id=3]
+
+[node name="ResourcesHUD" type="PanelContainer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -40.0
+margin_bottom = 40.0
+grow_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 357.0
+margin_bottom = 33.0
+custom_constants/margin_right = 8
+custom_constants/margin_left = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 8.0
+margin_right = 342.0
+margin_bottom = 26.0
+custom_constants/separation = 10
+
+[node name="WoodPlanks" parent="MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_right = 155.0
+_item_resource = ExtResource( 3 )
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+margin_left = 165.0
+margin_right = 169.0
+margin_bottom = 26.0
+
+[node name="Stone" parent="MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 179.0
+margin_right = 334.0
+_item_resource = ExtResource( 2 )

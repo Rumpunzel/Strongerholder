@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ui/hud/fps_label.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/game_hud/game_hud.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://ui/hud/game_hud/build_hud/build_hud.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/hud/game_hud/interaction_hud/interaction_hud.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/hud/game_hud/equipment_hud/equipment_hud.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/hud/game_hud/resources_hud/resources_hud.tscn" type="PackedScene" id=8]
 [ext_resource path="res://event_system/resources/main/game_paused_channel.tres" type="Resource" id=19]
 [ext_resource path="res://event_system/resources/main/game_continued_channel.tres" type="Resource" id=20]
 
@@ -17,9 +18,6 @@ mouse_filter = 2
 theme = ExtResource( 3 )
 popup_exclusive = true
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 _game_paused_channel = ExtResource( 19 )
 _game_continued_channel = ExtResource( 20 )
 
@@ -31,9 +29,6 @@ custom_constants/margin_right = 20
 custom_constants/margin_top = 16
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 16
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="FPS" type="Label" parent="MarginContainer"]
 margin_left = 20.0
@@ -55,6 +50,8 @@ size_flags_vertical = 8
 text = "PLACEHOLDER ART
 by https://quaternius.com/"
 align = 2
+
+[node name="ResourcesHUD" parent="." instance=ExtResource( 8 )]
 
 [node name="InteractionHUD" parent="." instance=ExtResource( 6 )]
 
