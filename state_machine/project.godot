@@ -8,10 +8,81 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Action1Resource",
+"language": "GDScript",
+"path": "res://addons/state_machine/demo/actions/action_2.gd"
+}, {
+"base": "StateActionResource",
+"class": "Action2Resource",
+"language": "GDScript",
+"path": "res://addons/state_machine/demo/actions/action_1.gd"
+}, {
+"base": "Resource",
+"class": "ConditionUsageResource",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/resources/condition_usage_resource.gd"
+}, {
+"base": "Reference",
+"class": "State",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/state.gd"
+}, {
+"base": "StateComponent",
+"class": "StateAction",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/state_action.gd"
+}, {
+"base": "Resource",
+"class": "StateActionResource",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/resources/state_action_resource.gd"
+}, {
+"base": "Reference",
+"class": "StateComponent",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/state_component.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/state_machine.gd"
+}, {
+"base": "Resource",
+"class": "StateResource",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/resources/state_resource.gd"
+}, {
+"base": "StateComponent",
+"class": "StateTransition",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/state_transition.gd"
+}, {
+"base": "Resource",
+"class": "TransitionTableResource",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/resources/transition_table.gd"
+} ]
+_global_script_class_icons={
+"Action1Resource": "",
+"Action2Resource": "",
+"ConditionUsageResource": "res://addons/state_machine/icons/icon_choice.svg",
+"State": "",
+"StateAction": "",
+"StateActionResource": "res://addons/state_machine/icons/icon_hand.svg",
+"StateComponent": "",
+"StateMachine": "res://addons/state_machine/icons/icon_gears.svg",
+"StateResource": "res://addons/state_machine/icons/icon_cog.svg",
+"StateTransition": "",
+"TransitionTableResource": "res://addons/state_machine/icons/icon_notebook.svg"
+}
+
 [application]
 
 config/name="state_machine"
-config/icon="res://icon.png"
+run/main_scene="res://addons/state_machine/editor.tscn"
+config/icon="res://addons/state_machine/icons/icon_gears.svg"
 
 [debug]
 
