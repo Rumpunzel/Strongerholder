@@ -1,6 +1,8 @@
 extends EditorProperty
 tool
 
+const StateMachineGraphEdit := preload("res://addons/state_machine/inspector/state_machine_graph_edit.gd")
+
 # The main control for editing the property.
 var property_control := Button.new()
 # An internal value of the property.
@@ -8,8 +10,17 @@ var current_value := [ ]
 # A guard against internal changes when the property is updated.
 var updating := false
 
+var _transition_table: TransitionTableResource = null
+var _graph_edit: StateMachineGraphEdit = null
 
-func _init() -> void:
+
+func _init(transition_table: TransitionTableResource, transitions_path: String, graph_edit: StateMachineGraphEdit) -> void:
+	_transition_table = transition_table
+	_graph_edit = graph_edit
+	for resource in transition_table._transitions:
+		var transition: TransitionItemResource = resource
+		#_graph_edit.add_transition(transition)
+	
 	# Add the control as a direct child of EditorProperty node.
 	add_child(property_control)
 	# Make sure the control is able to retain the focus.
