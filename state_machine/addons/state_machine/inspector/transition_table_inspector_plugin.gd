@@ -10,10 +10,11 @@ func can_handle(object: Object) -> bool:
 
 func parse_property(object: Object, type: int, path: String, hint: int, hint_text: String, usage: int) -> bool:
 	if path == "_transitions":
-		var graph_edit := StateMachineGraphEdit.new(object, path)
+		var graph_edit := StateMachineGraphEdit.new()
+		add_custom_control(graph_edit)
+		graph_edit.transition_table = object
 		var editor := TransitionTableEditor.new(object, path, graph_edit)
 		#add_property_editor(path, editor)
-		add_custom_control(graph_edit)
 		return false
 	else:
 		return false
