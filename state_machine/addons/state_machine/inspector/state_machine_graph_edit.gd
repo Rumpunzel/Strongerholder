@@ -15,7 +15,7 @@ var _state_graph_nodes := { } # StateResource -> StateGraphNode
 
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	rect_min_size = Vector2(400.0, 1000.0)
 	size_flags_horizontal = SIZE_EXPAND_FILL
 	size_flags_vertical = SIZE_EXPAND_FILL
