@@ -12,12 +12,10 @@ export var _max_animation_time := 0.5
 
 var _stacks := [ ]
 var _stacks_for_resources := { }
-
 var _command_queue := [ ]
-var _queue_ticker := 0.0
-var _ticker_amount := 0.1
 
 onready var _inventory: Inventory = Utils.find_node_of_type_in_children(owner, Inventory)
+onready var _tick_timer: Timer = Timer.new()
 
 
 
@@ -30,21 +28,11 @@ func _ready() -> void:
 	_inventory.connect("item_added", self, "_on_item_added")
 	# warning-ignore:return_value_discarded
 	_inventory.connect("item_removed", self, "_on_item_removed")
-
-
-func _process(delta: float) -> void:
-	_queue_ticker = min(_queue_ticker + delta, _ticker_amount)
 	
-	if not _command_queue.empty() and _queue_ticker >= _ticker_amount:
-		_queue_ticker = 0.0
-		var command: Command = _command_queue.pop_front()
-		match command.type:
-			CommandType.PUSH:
-				_add_item(command.item)
-			CommandType.POP:
-				_remove_item(command.item)
-			_:
-				assert(false)
+	# warning-ignore:return_value_discarded
+	_tick_timer.connect("timeout", self, "_parse_command")
+	add_child(_tick_timer)
+
 
 
 func _add_item(item: ItemResource) -> void:
@@ -99,17 +87,27 @@ func _on_item_added(item: ItemResource) -> void:
 		_add_item(item)
 	else:
 		_command_queue.push_back(Command.new(item, CommandType.PUSH))
-		_ticker_amount = _max_animation_time / float(_command_queue.size())
-		_queue_ticker = _ticker_amount
+		_tick_timer.start(_max_animation_time / float(_command_queue.size()))
 
 func _on_item_removed(item: ItemResource) -> void:
 	if get_tree().paused:
 		_remove_item(item)
 	else:
 		_command_queue.push_back(Command.new(item, CommandType.POP))
-		_ticker_amount = _max_animation_time / float(_command_queue.size())
-		_queue_ticker = _ticker_amount
+		_tick_timer.start(_max_animation_time / float(_command_queue.size()))
 
+
+func _parse_command() -> void:
+	var command: Command = _command_queue.pop_front()
+	if _command_queue.empty():
+		_tick_timer.stop()
+	match command.type:
+		CommandType.PUSH:
+			_add_item(command.item)
+		CommandType.POP:
+			_remove_item(command.item)
+		_:
+			assert(false)
 
 
 

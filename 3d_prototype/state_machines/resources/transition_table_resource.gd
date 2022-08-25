@@ -12,7 +12,7 @@ export(Array, Resource) var _transitions
 func get_initial_state(state_machine) -> State:# StateMachine) -> State:
 	var states := _initialize_states(state_machine)
 	
-	assert(not states.empty(), "State Machine has not states.")
+	assert(not states.empty(), "State Machine has no states!")
 	return states.front()
 
 
