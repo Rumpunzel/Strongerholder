@@ -44,6 +44,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/state_machine/machine/state_component.gd"
 }, {
+"base": "StateComponent",
+"class": "StateCondition",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/state_condition.gd"
+}, {
+"base": "Resource",
+"class": "StateConditionResource",
+"language": "GDScript",
+"path": "res://addons/state_machine/machine/resources/state_condition_resource.gd"
+}, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
@@ -77,6 +87,8 @@ _global_script_class_icons={
 "StateAction": "",
 "StateActionResource": "res://addons/state_machine/icons/icon_hand.svg",
 "StateComponent": "",
+"StateCondition": "",
+"StateConditionResource": "res://addons/state_machine/icons/icon_think.svg",
 "StateMachine": "res://addons/state_machine/icons/icon_gears.svg",
 "StateResource": "res://addons/state_machine/icons/icon_cog.svg",
 "StateTransition": "",
