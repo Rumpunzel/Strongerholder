@@ -1,7 +1,7 @@
 extends EditorPlugin
 tool
 
-var _transition_table_inspector := preload("res://addons/state_machine/transition_table_inspector_plugin.gd").new()
+var _transition_table_inspector := preload("res://addons/state_machine/inspector/transition_table_inspector_plugin.gd").new()
 
 
 func _enter_tree():

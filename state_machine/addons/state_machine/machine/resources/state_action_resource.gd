@@ -23,3 +23,6 @@ func get_action(
 func _create_action() -> StateAction:
 	assert(false)
 	return null
+
+func _to_string() -> String:
+	return resource_path.get_file().get_basename()

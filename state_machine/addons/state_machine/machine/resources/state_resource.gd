@@ -14,7 +14,7 @@ func get_state(state_machine: Node, created_instances: Dictionary) -> State:
 			self,
 			state_machine,
 			[ ],
-			_get_actions(_actions, state_machine, created_instances)
+			_get_actions(state_machine, created_instances)
 	)
 	
 	created_instances[self] = state
@@ -22,10 +22,11 @@ func get_state(state_machine: Node, created_instances: Dictionary) -> State:
 	return state
 
 
-static func _get_actions(scriptable_actions: Array, state_machine: Node, created_instances: Dictionary) -> Array:
+func _get_actions(state_machine: Node, created_instances: Dictionary) -> Array:
 	var actions := [ ]
 	
-	for action in scriptable_actions:
+	for resource in _actions:
+		var action: StateActionResource = resource
 		actions.append(action.get_action(state_machine, created_instances))
 	
 	return actions

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/transition_table.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/demo/transitions/demo_transition.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
 use_physics_process = false
-_transitions = [  ]
+_transitions = [ ExtResource( 2 ) ]
