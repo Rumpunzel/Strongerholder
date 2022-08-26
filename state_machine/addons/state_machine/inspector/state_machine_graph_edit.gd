@@ -11,7 +11,6 @@ export var _y_size := 300.0
 
 var transition_table: TransitionTableResource = null setget set_transition_table
 
-var _state_graph_nodes := { } # StateResource -> StateGraphNode
 
 
 func _add_transition(transition_item_resource: TransitionItemResource, offset: Vector2) -> TransitionItemGraphNode:
@@ -61,9 +60,9 @@ func _add_state(state_resource: StateResource, offset: Vector2) -> StateGraphNod
 	if not state_resource:
 		print("Tried to add State %s!" % state_resource)
 		return null
-	var existing_state: StateGraphNode = _state_graph_nodes.get(state_resource, null)
+	var existing_state := _has_state(state_resource)
 	if existing_state:
-		print("State %s is already in the graph!" % state_resource.resource_path.get_file().get_basename().capitalize())
+		print("State <%s> is already in the graph!" % state_resource.resource_path.get_file().get_basename().capitalize())
 		return existing_state
 	
 	var new_state_graph_node: StateGraphNode = StateGraphNodeScene.instance()
@@ -71,7 +70,6 @@ func _add_state(state_resource: StateResource, offset: Vector2) -> StateGraphNod
 	move_child(new_state_graph_node, 0)
 	new_state_graph_node.state_resource = state_resource
 	new_state_graph_node.offset = offset
-	_state_graph_nodes[state_resource] = new_state_graph_node
 	new_state_graph_node.connect("delete_requested", self, "_on_state_delete_requested", [ new_state_graph_node ])
 	$Node/StateFileDialog.current_dir = state_resource.resource_path.get_base_dir()
 	
@@ -125,6 +123,13 @@ func _disconnect_transition_item_outputs(transition_item_graph_node: TransitionI
 	for connection in get_connection_list():
 		if connection.from == transition_item_graph_node.name:
 			disconnect_node(connection.from, 0, connection.to, 0)
+
+
+func _has_state(state_resouce: StateResource) -> StateGraphNode:
+	for child in get_children():
+		if child is StateGraphNode and child.state_resource == state_resouce:
+			return child
+	return null
 
 
 func _on_state_delete_requested(state_graph_node: StateGraphNode) -> void:

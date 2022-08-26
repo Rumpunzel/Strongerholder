@@ -12,12 +12,8 @@ func set_condition_usage_resource(new_condition_usage_resource: ConditionUsageRe
 	
 	$Condition.text = condition_name
 	$ExpectedResult.pressed = expected_result
+	$Node/ConditionFileDialog.current_path = condition_usage_resource.condition.resource_path
 
-
-func _on_condition_button_pressed() -> void:
-	var file_dialog: FileDialog = $Node/ConditionFileDialog
-	file_dialog.current_path = condition_usage_resource.condition.resource_path
-	file_dialog.popup_centered()
 
 func _on_condition_file_selected(path: String) -> void:
 	var new_condition := load(path)

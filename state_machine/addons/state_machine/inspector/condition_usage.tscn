@@ -8,6 +8,7 @@ margin_top = 24.0
 margin_right = 108.0
 margin_bottom = 88.0
 size_flags_horizontal = 3
+size_flags_vertical = 0
 script = ExtResource( 2 )
 
 [node name="Condition" type="Button" parent="."]
@@ -48,7 +49,7 @@ margin_bottom = 58.0
 window_title = "Wrong Resource Type Selected!"
 dialog_text = "You need to select a StateConditionResource!"
 
-[connection signal="pressed" from="Condition" to="." method="_on_condition_button_pressed"]
+[connection signal="pressed" from="Condition" to="Node/ConditionFileDialog" method="popup_centered"]
 [connection signal="toggled" from="ExpectedResult" to="." method="_on_expected_result_changed"]
 [connection signal="file_selected" from="Node/ConditionFileDialog" to="." method="_on_condition_file_selected"]
 [connection signal="confirmed" from="Node/AcceptDialog" to="Node/ConditionFileDialog" method="popup_centered"]

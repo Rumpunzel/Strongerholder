@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/state_machine/inspector/state_machine_graph_edit.gd" type="Script" id=1]
-[ext_resource path="res://addons/state_machine/icons/icon_choice_32.png" type="Texture" id=5]
+[ext_resource path="res://addons/state_machine/icons/icon_plain_arrow_32.png" type="Texture" id=2]
 [ext_resource path="res://addons/state_machine/icons/icon_cog_32.png" type="Texture" id=6]
 
 [node name="StateMachineGraphEdit" type="GraphEdit"]
@@ -35,8 +35,8 @@ icon = ExtResource( 6 )
 margin_top = 42.0
 margin_right = 190.0
 margin_bottom = 80.0
-text = "Add Condition(s)"
-icon = ExtResource( 5 )
+text = "Add Transition"
+icon = ExtResource( 2 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 margin_top = 84.0
@@ -63,7 +63,9 @@ margin_top = -150.0
 margin_right = 200.0
 margin_bottom = 150.0
 window_title = "Open File(s)"
+dialog_text = "Selected one or more States to add to the editor."
 dialog_hide_on_ok = true
+dialog_autowrap = true
 mode = 1
 filters = PoolStringArray( "*.tres" )
 
@@ -81,7 +83,9 @@ margin_top = -150.0
 margin_right = 200.0
 margin_bottom = 150.0
 window_title = "Open File(s)"
+dialog_text = "Select one or more Conditions to construct a new Transition."
 dialog_hide_on_ok = true
+dialog_autowrap = true
 mode = 1
 filters = PoolStringArray( "*.tres" )
 
