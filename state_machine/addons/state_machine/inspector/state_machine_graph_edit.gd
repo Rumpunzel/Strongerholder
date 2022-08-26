@@ -6,8 +6,8 @@ const StateGraphNodeScene := preload("res://addons/state_machine/inspector/state
 const TransitionItemGraphNode := preload("res://addons/state_machine/inspector/transition_item_graph_node.gd")
 const TransitionItemGraphNodeScene := preload("res://addons/state_machine/inspector/transition_item_graph_node.tscn")
 
-export var _x_size := 700.0
-export var _y_size := 300.0
+export var _offset := Vector2(250.0, 0.0)
+export var _size := Vector2(750.0, 250.0)
 
 var transition_table: TransitionTableResource = null
 
@@ -17,20 +17,22 @@ func _add_transition(transition_item_resource: TransitionItemResource, offset: V
 	if not transition_table._transitions.has(transition_item_resource):
 		transition_table._transitions.append(transition_item_resource)
 	
+	offset += _offset
+	
 	var new_transition_item_graph_node: TransitionItemGraphNode = TransitionItemGraphNodeScene.instance()
 	add_child(new_transition_item_graph_node)
 	move_child(new_transition_item_graph_node, 0)
 	new_transition_item_graph_node.transition_item_resource = transition_item_resource
-	new_transition_item_graph_node.offset = offset + Vector2(_x_size, _y_size) * 0.5
+	new_transition_item_graph_node.offset = offset + _size * 0.5
 	new_transition_item_graph_node.connect("delete_requested", self, "_on_transition_item_delete_requested", [ new_transition_item_graph_node ])
 	
 	var from_state_resource: StateResource = transition_item_resource.from_state
-	var from_state := _add_state(from_state_resource, offset + Vector2(0.0, _y_size * 0.5))
+	var from_state := _add_state(from_state_resource, offset + Vector2(0.0, _size.y * 0.5))
 	if from_state:
 		connect_node(from_state.name, 0, new_transition_item_graph_node.name, 0)
 	
 	var to_state_resource: StateResource = transition_item_resource.to_state
-	var to_state := _add_state(to_state_resource, offset + Vector2(_x_size, _y_size * 0.5))
+	var to_state := _add_state(to_state_resource, offset + Vector2(_size.x, _size.y * 0.5))
 	if to_state:
 		connect_node(new_transition_item_graph_node.name, 0, to_state.name, 0)
 	
@@ -232,7 +234,7 @@ func _on_transitions_updated(new_transitions: Array) -> void:
 	
 	for i in new_transitions.size():
 		var transition_item: TransitionItemResource = new_transitions[i]
-		_add_transition(transition_item, Vector2(0.0, i * _y_size))
+		_add_transition(transition_item, Vector2(0.0, i * _size.y))
 	
 	_check_validity()
 
