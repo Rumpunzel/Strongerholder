@@ -3,11 +3,12 @@
 [ext_resource path="res://addons/state_machine/machine/resources/transition_item_resource.gd" type="Script" id=1]
 [ext_resource path="res://addons/state_machine/demo/states/demo_state_1.tres" type="Resource" id=2]
 [ext_resource path="res://addons/state_machine/demo/states/demo_state_2.tres" type="Resource" id=3]
-[ext_resource path="res://addons/state_machine/demo/transitions/condition_usages/demo_condition_usage_2.tres" type="Resource" id=4]
-[ext_resource path="res://addons/state_machine/demo/transitions/condition_usages/demo_condition_usage_1.tres" type="Resource" id=5]
+[ext_resource path="res://addons/state_machine/demo/transitions/condition_usages/demo_condition_usage_4.tres" type="Resource" id=4]
+[ext_resource path="res://addons/state_machine/demo/transitions/condition_usages/demo_condition_usage_3.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 1 )
 from_state = ExtResource( 2 )
 to_state = ExtResource( 3 )
 conditions = [ ExtResource( 5 ), ExtResource( 4 ) ]
+operator = 1
