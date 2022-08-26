@@ -4,8 +4,8 @@ tool
 signal value_changed(value)
 
 var _button_styles := {
-	ConditionUsageResource.Operator.AND: ButtonStyle.new("AND", Color.crimson),
-	ConditionUsageResource.Operator.OR: ButtonStyle.new("OR", Color.limegreen),
+	TransitionItemResource.Operator.AND: ButtonStyle.new("AND", Color.crimson),
+	TransitionItemResource.Operator.OR: ButtonStyle.new("OR", Color.limegreen),
 }
 
 var _value: int = 0
@@ -17,6 +17,7 @@ func update_style(new_value: int) -> void:
 	var new_style: ButtonStyle = _button_styles[_value]
 	text = new_style.button_text
 	modulate = new_style.button_modulate
+
 
 func _on_pressed() -> void:
 	update_style(_value + 1)
