@@ -28,11 +28,7 @@ func set_condition_usage_resource(new_condition_usage_resource: ConditionUsageRe
 	$HBoxContainer/ExpectedResult.pressed = expected_result
 	
 	var operator: int = condition_usage_resource.operator
-	$Operator.clear()
-	for index in ConditionUsageResource.Operator.values():
-		$Operator.add_item(ConditionUsageResource.Operator.keys()[index], index)
-	$Operator.select(operator)
-	$Operator._on_item_selected(operator)
+	$Operator.update_style(operator)
 
 
 func _on_condition_button_pressed() -> void:

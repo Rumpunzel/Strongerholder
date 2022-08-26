@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "StateActionResource",
+"base": "Reference",
 "class": "Action1Resource",
 "language": "GDScript",
 "path": "res://addons/state_machine/demo/actions/demo_action_2.gd"
