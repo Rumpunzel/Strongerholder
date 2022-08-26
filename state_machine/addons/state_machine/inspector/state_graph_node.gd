@@ -1,10 +1,5 @@
-extends GraphNode
+extends "res://addons/state_machine/inspector/grapgh_node.gd"
 tool
-
-enum SlotTypes {
-	TO_CONDITION,
-	TO_SLOT,
-}
 
 var state_resource: StateResource setget set_state_resource
 
@@ -34,7 +29,3 @@ func set_state_resource(new_state_resource: StateResource) -> void:
 		new_action_title.modulate = Color.cornflower
 		add_child(new_action_title)
 		_action_titles.append(new_action_title)
-
-
-func _on_deleted() -> void:
-	pass # Replace with function body.
