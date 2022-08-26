@@ -14,18 +14,24 @@ var transition_table: TransitionTableResource = null setget set_transition_table
 var _state_graph_nodes := { } # StateResource -> StateGraphNode
 
 
-func _add_transition(transition_item_resource: TransitionItemResource, x: int, y: int) -> TransitionItemGraphNode:
+func _add_transition(transition_item_resource: TransitionItemResource, offset: Vector2) -> TransitionItemGraphNode:
+	if not transition_table._transitions.has(transition_item_resource):
+		transition_table._transitions.append(transition_item_resource)
+	
 	var new_transition_item_graph_node: TransitionItemGraphNode = TransitionItemGraphNodeScene.instance()
 	add_child(new_transition_item_graph_node)
 	move_child(new_transition_item_graph_node, 0)
 	new_transition_item_graph_node.transition_item_resource = transition_item_resource
-	new_transition_item_graph_node.offset = Vector2(x + _x_size * 0.5, y + _y_size * 0.5)
+	new_transition_item_graph_node.offset = offset + Vector2(_x_size, _y_size) * 0.5
 	new_transition_item_graph_node.connect("delete_requested", self, "_on_transition_item_delete_requested", [ new_transition_item_graph_node ])
 	
-	var from_state := _add_state(transition_item_resource.from_state, x, y + _y_size * 0.5)
-	var to_state := _add_state(transition_item_resource.to_state, x + _x_size, y + _y_size * 0.5)
+	var from_state_resource: StateResource = transition_item_resource.from_state
+	var from_state := _add_state(from_state_resource, offset + Vector2(0.0, _y_size * 0.5))
 	if from_state:
 		connect_node(from_state.name, 0, new_transition_item_graph_node.name, 0)
+	
+	var to_state_resource: StateResource = transition_item_resource.to_state
+	var to_state := _add_state(to_state_resource, offset + Vector2(_x_size, _y_size * 0.5))
 	if to_state:
 		connect_node(new_transition_item_graph_node.name, 0, to_state.name, 0)
 	
@@ -51,7 +57,7 @@ func _check_state_node(state_node: StateGraphNode) -> void:
 	state_node.self_modulate = Color.crimson
 
 
-func _add_state(state_resource: StateResource, x: float, y: float) -> StateGraphNode:
+func _add_state(state_resource: StateResource, offset: Vector2) -> StateGraphNode:
 	if not state_resource:
 		print("Tried to add State %s!" % state_resource)
 		return null
@@ -64,7 +70,7 @@ func _add_state(state_resource: StateResource, x: float, y: float) -> StateGraph
 	add_child(new_state_graph_node)
 	move_child(new_state_graph_node, 0)
 	new_state_graph_node.state_resource = state_resource
-	new_state_graph_node.offset = Vector2(x, y)
+	new_state_graph_node.offset = offset
 	_state_graph_nodes[state_resource] = new_state_graph_node
 	new_state_graph_node.connect("delete_requested", self, "_on_state_delete_requested", [ new_state_graph_node ])
 	$Node/StateFileDialog.current_dir = state_resource.resource_path.get_base_dir()
@@ -134,6 +140,7 @@ func _on_state_delete_requested(state_graph_node: StateGraphNode) -> void:
 
 func _on_transition_item_delete_requested(transition_item_graph_node: TransitionItemGraphNode) -> void:
 	_disconnect_transition_item(transition_item_graph_node)
+	transition_table._transitions.erase(transition_item_graph_node.transition_item_resource)
 	_check_validity()
 	transition_item_graph_node.disconnect("delete_requested", self, "_on_transition_item_delete_requested")
 	remove_child(transition_item_graph_node)
@@ -151,13 +158,29 @@ func _on_state_file_selected(path: String) -> void:
 		return
 		
 	var spawn_position := scroll_offset + rect_size * 0.5
-	var new_state_node := _add_state(new_state, spawn_position.x, spawn_position.y)
+	var new_state_node := _add_state(new_state, spawn_position)
 	_check_state_node(new_state_node)
 
 
 func _on_condition_files_selected(paths: PoolStringArray) -> void:
+	var new_transition_item := TransitionItemResource.new()
+	new_transition_item.from_state = null
+	new_transition_item.to_state = null
+	
+	var new_condition_usages := [ ]
 	for path in paths:
-		_on_condition_file_selected(path)
+		var new_condition := load(path)
+		if not (new_condition and new_condition is StateConditionResource):
+			$Node/ConditionAcceptDialog.popup_centered()
+			return
+		
+		var new_condition_usage := ConditionUsageResource.new()
+		new_condition_usage.condition = new_condition
+		new_condition_usages.append(new_condition_usage)
+	
+	new_transition_item.conditions = new_condition_usages
+	var spawn_position := scroll_offset + rect_size * 0.5
+	_add_transition(new_transition_item, spawn_position)
 
 func _on_condition_file_selected(path: String) -> void:
 	var new_condition := load(path)
@@ -166,11 +189,13 @@ func _on_condition_file_selected(path: String) -> void:
 		return
 	
 	var new_transition_item := TransitionItemResource.new()
+	var new_condition_usage := ConditionUsageResource.new()
 	new_transition_item.from_state = null
 	new_transition_item.to_state = null
-	new_transition_item.conditions = [ ]
+	new_condition_usage.condition = new_condition
+	new_transition_item.conditions = [ new_condition_usage ]
 	var spawn_position := scroll_offset + rect_size * 0.5
-	_add_transition(new_transition_item, spawn_position.x, spawn_position.y)
+	_add_transition(new_transition_item, spawn_position)
 
 
 func _on_connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
@@ -192,8 +217,34 @@ func _on_disconnection_request(from: String, from_slot: int, to: String, to_slot
 	_check_validity()
 
 
+func _on_node_moved() -> void:
+	transition_table._transitions.sort_custom(self, "_sort_grap_nodes_by_y")
+
+
 func set_transition_table(new_transition_table: TransitionTableResource) -> void:
 	transition_table = new_transition_table
 	for i in transition_table._transitions.size():
-		_add_transition(transition_table._transitions[i], 0.0, i * _y_size)
+		var transition_item: TransitionItemResource = transition_table._transitions[i]
+		_add_transition(transition_item, Vector2(0.0, i * _y_size))
+	
 	_check_validity()
+
+
+func _sort_grap_nodes_by_y(resource_a: Resource, resource_b: Resource) -> bool:
+	var graph_node_a := _graph_node_for_resource(resource_a)
+	var graph_node_b := _graph_node_for_resource(resource_b)
+	
+	if graph_node_a.offset.y < graph_node_b.offset.y:
+		return true
+	elif graph_node_a.offset.y == graph_node_b.offset.y:
+		return graph_node_a.offset.x <= graph_node_b.offset.x
+	else:
+		return false
+
+func _graph_node_for_resource(resource: Resource) -> GraphNode:
+	for child in get_children():
+		if child is StateGraphNode and child.state_resource == resource:
+			return child
+		elif child is TransitionItemGraphNode and child.transition_item_resource == resource:
+			return child
+	return null

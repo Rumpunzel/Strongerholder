@@ -20,6 +20,12 @@ slot/1/left_color = Color( 1, 1, 1, 1 )
 slot/1/right_enabled = false
 slot/1/right_type = 0
 slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 2 )
 
 [node name="ConditionUsages" type="VBoxContainer" parent="."]
@@ -28,11 +34,17 @@ margin_top = 24.0
 margin_right = 85.0
 margin_bottom = 24.0
 
-[node name="Operator" type="Button" parent="."]
+[node name="HSeparator" type="HSeparator" parent="."]
 margin_left = 16.0
 margin_top = 25.0
 margin_right = 85.0
-margin_bottom = 45.0
+margin_bottom = 29.0
+
+[node name="Operator" type="Button" parent="."]
+margin_left = 16.0
+margin_top = 30.0
+margin_right = 85.0
+margin_bottom = 50.0
 text = "Operator"
 script = ExtResource( 1 )
 
