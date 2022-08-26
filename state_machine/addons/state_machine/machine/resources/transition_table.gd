@@ -36,7 +36,7 @@ func _initialize_states(state_machine) -> Array:
 		
 		for transition_item in from_states[from_state]:
 			var to_state: State = transition_item.to_state.get_state(state_machine, created_instances)
-			var result_dic := _proccess_condition_usages(state_machine, transition_item.conditions, created_instances)
+			var result_dic := _proccess_condition_usages(state_machine, transition_item.conditions, transition_item.operator, created_instances)
 			var conditions: Array = result_dic[CONDITIONS]
 			var result_groups: Array = result_dic[RESULT_GROUPS]
 			
@@ -50,6 +50,7 @@ func _initialize_states(state_machine) -> Array:
 func _proccess_condition_usages(
 	state_machine,#: StateMachine,
 	condition_usages: Array,
+	operator: int,
 	created_instances: Dictionary
 ) -> Dictionary:
 	
@@ -66,7 +67,7 @@ func _proccess_condition_usages(
 		var idx := result_groups.size()
 		result_groups.append(1)
 		
-		while i < count - 1 && condition_usages[i].operator == ConditionUsageResource.Operator.AND:
+		while i < count - 1 && operator == ConditionUsageResource.Operator.AND:
 			i += i
 			result_groups[idx] += 1
 	

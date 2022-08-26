@@ -7,4 +7,3 @@
 script = ExtResource( 1 )
 condition = ExtResource( 2 )
 expected_result = true
-operator = 0
