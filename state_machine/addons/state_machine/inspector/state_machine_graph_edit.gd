@@ -33,7 +33,7 @@ func _add_transition(transition_item_resource: TransitionItemResource, index: in
 	for i in range(conditions_count):
 		var x_offset := _x_size * 0.5
 		var y_offset := 0.0 if i * 2 + 1 == conditions_count else (float(i) / float(conditions_count - 1)) * _y_size
-		var condition := _add_condition(transition_item_resource.conditions[i], x + x_offset, y + y_offset)
+		var condition := _add_condition(transition_item_resource.conditions[i], x + x_offset, y + _y_size * 0.5 + y_offset)
 		connect_node(from_state.name, 0, condition.name, 0)
 		connect_node(condition.name, 0, to_state.name, 0)
 
@@ -48,6 +48,7 @@ func _add_state(state_resource: StateResource, x: float, y: float) -> StateGraph
 	new_state_graph_node.state_resource = state_resource
 	new_state_graph_node.offset = Vector2(x, y)
 	_state_graph_nodes[state_resource] = new_state_graph_node
+	new_state_graph_node.connect("delete_requested", self, "_on_state_delete_requested", [ new_state_graph_node ])
 	
 	return new_state_graph_node
 
@@ -57,6 +58,7 @@ func _add_condition(condition_usage_resource: ConditionUsageResource, x: float, 
 	add_child(new_condition_usage_graph_node)
 	new_condition_usage_graph_node.condition_usage_resource = condition_usage_resource
 	new_condition_usage_graph_node.offset = Vector2(x, y)
+	new_condition_usage_graph_node.connect("delete_requested", self, "_on_condition_usage_delete_requested", [ new_condition_usage_graph_node ])
 	
 	return new_condition_usage_graph_node
 
@@ -65,3 +67,36 @@ func set_transition_table(new_transition_table: TransitionTableResource) -> void
 	transition_table = new_transition_table
 	for i in transition_table._transitions.size():
 		_add_transition(transition_table._transitions[i], i)
+
+
+func _on_state_delete_requested(state_graph_node: StateGraphNode) -> void:
+	for connection in get_connection_list():
+		if connection.from == state_graph_node.name:
+			for resource in transition_table._transitions:
+				var transtion: TransitionItemResource = resource
+				if transtion.from_state == state_graph_node.state_resource:
+					transtion.from_state = null
+			disconnect_node(connection.from, 0, connection.to, 0)
+		elif connection.to == state_graph_node.name:
+			for resource in transition_table._transitions:
+				var transtion: TransitionItemResource = resource
+				if transtion.to_state == state_graph_node.state_resource:
+					transtion.to_state = null
+			disconnect_node(connection.from, 0, connection.to, 0)
+	
+	state_graph_node.disconnect("delete_requested", self, "_on_state_delete_requested")
+	remove_child(state_graph_node)
+	state_graph_node.queue_free()
+
+func _on_condition_usage_delete_requested(condition_usage_graph_node: ConditionUsageGraphNode) -> void:
+	for connection in get_connection_list():
+		if connection.from == condition_usage_graph_node.name or connection.to == condition_usage_graph_node.name:
+			for resource in transition_table._transitions:
+				var transtion: TransitionItemResource = resource
+				if transtion.conditions.has(condition_usage_graph_node.condition_usage_resource):
+					transtion.conditions.erase(condition_usage_graph_node.condition_usage_resource)
+			disconnect_node(connection.from, 0, connection.to, 0)
+	
+	condition_usage_graph_node.disconnect("delete_requested", self, "_on_condition_usage_delete_requested")
+	remove_child(condition_usage_graph_node)
+	condition_usage_graph_node.queue_free()
