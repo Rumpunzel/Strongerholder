@@ -15,10 +15,13 @@ var _state_graph_nodes := { } # StateResource -> StateGraphNode
 
 
 
-func _enter_tree() -> void:
-	rect_min_size = Vector2(400.0, 1000.0)
-	size_flags_horizontal = SIZE_EXPAND_FILL
-	size_flags_vertical = SIZE_EXPAND_FILL
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mouse_event: InputEventMouseButton = event
+		if mouse_event.button_index == BUTTON_RIGHT and not mouse_event.pressed:
+			var context_menu: PopupMenu = $Node/ContextMenu
+			context_menu.popup()
+			context_menu.rect_global_position = get_global_mouse_position()
 
 
 
@@ -50,6 +53,7 @@ func _add_state(state_resource: StateResource, x: float, y: float) -> StateGraph
 	new_state_graph_node.offset = Vector2(x, y)
 	_state_graph_nodes[state_resource] = new_state_graph_node
 	new_state_graph_node.connect("delete_requested", self, "_on_state_delete_requested", [ new_state_graph_node ])
+	$Node/StateFileDialog.current_dir = state_resource.resource_path.get_base_dir()
 	
 	return new_state_graph_node
 
@@ -60,6 +64,7 @@ func _add_condition(condition_usage_resource: ConditionUsageResource, x: float, 
 	new_condition_usage_graph_node.condition_usage_resource = condition_usage_resource
 	new_condition_usage_graph_node.offset = Vector2(x, y)
 	new_condition_usage_graph_node.connect("delete_requested", self, "_on_condition_usage_delete_requested", [ new_condition_usage_graph_node ])
+	$Node/ConditionFileDialog.current_dir = condition_usage_resource.condition.resource_path.get_base_dir()
 	
 	return new_condition_usage_graph_node
 
@@ -101,3 +106,24 @@ func _on_condition_usage_delete_requested(condition_usage_graph_node: ConditionU
 	condition_usage_graph_node.disconnect("delete_requested", self, "_on_condition_usage_delete_requested")
 	remove_child(condition_usage_graph_node)
 	condition_usage_graph_node.queue_free()
+
+
+func _on_state_file_selected(path: String) -> void:
+	var new_state := load(path)
+	if not (new_state and new_state is StateResource):
+		$Node/StateAcceptDialog.popup_centered()
+		return
+	
+	var mouse_position := get_global_mouse_position()
+	_add_state(new_state, mouse_position.x, mouse_position.y)
+
+func _on_condition_file_selected(path: String) -> void:
+	var new_condition := load(path)
+	if not (new_condition and new_condition is StateConditionResource):
+		$Node/ConditionAcceptDialog.popup_centered()
+		return
+	
+	var mouse_position := get_local_mouse_position()
+	var new_condition_usage := ConditionUsageResource.new()
+	new_condition_usage.condition = new_condition
+	_add_condition(new_condition_usage, mouse_position.x, mouse_position.y)
