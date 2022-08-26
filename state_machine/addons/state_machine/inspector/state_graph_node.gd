@@ -6,10 +6,6 @@ var state_resource: StateResource setget set_state_resource
 var _action_titles := [ ]
 
 
-func _enter_tree() -> void:
-	set_slot(0, true, SlotTypes.TO_CONDITION, Color.coral, true, SlotTypes.TO_SLOT, Color.cornflower)
-
-
 func set_state_resource(new_state_resource: StateResource) -> void:
 	state_resource = new_state_resource
 	var state_name: String = state_resource.resource_path.get_file().get_basename()

@@ -5,7 +5,7 @@
 
 [node name="ConditionUsageGraphNode" type="GraphNode"]
 margin_right = 124.0
-margin_bottom = 116.0
+margin_bottom = 96.0
 show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 1
@@ -25,37 +25,13 @@ slot/2/left_color = Color( 1, 1, 1, 1 )
 slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
-slot/3/left_enabled = false
-slot/3/left_type = 0
-slot/3/left_color = Color( 1, 1, 1, 1 )
-slot/3/right_enabled = false
-slot/3/right_type = 0
-slot/3/right_color = Color( 1, 1, 1, 1 )
-slot/4/left_enabled = false
-slot/4/left_type = 0
-slot/4/left_color = Color( 1, 1, 1, 1 )
-slot/4/right_enabled = false
-slot/4/right_type = 0
-slot/4/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 2 )
-
-[node name="Subtitle" type="Label" parent="."]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 108.0
-margin_bottom = 38.0
-
-[node name="HSeparator" type="HSeparator" parent="."]
-margin_left = 16.0
-margin_top = 39.0
-margin_right = 108.0
-margin_bottom = 43.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 16.0
-margin_top = 44.0
+margin_top = 24.0
 margin_right = 108.0
-margin_bottom = 84.0
+margin_bottom = 64.0
 
 [node name="Condition" type="Button" parent="HBoxContainer"]
 modulate = Color( 1, 0.498039, 0.313726, 1 )
@@ -70,15 +46,15 @@ margin_bottom = 40.0
 
 [node name="HSeparator2" type="HSeparator" parent="."]
 margin_left = 16.0
-margin_top = 85.0
+margin_top = 65.0
 margin_right = 108.0
-margin_bottom = 89.0
+margin_bottom = 69.0
 
 [node name="Operator" type="Button" parent="."]
 margin_left = 16.0
-margin_top = 90.0
+margin_top = 70.0
 margin_right = 108.0
-margin_bottom = 110.0
+margin_bottom = 90.0
 text = "Operator"
 script = ExtResource( 1 )
 
@@ -89,10 +65,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -196.5
-margin_top = -158.5
-margin_right = 196.5
-margin_bottom = 158.5
+margin_left = -200.0
+margin_top = -150.0
+margin_right = 200.0
+margin_bottom = 150.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 popup_exclusive = true
@@ -125,6 +101,6 @@ dialog_text = "Delete this ConditionUsage?"
 [connection signal="toggled" from="HBoxContainer/ExpectedResult" to="." method="_on_expected_result_changed"]
 [connection signal="pressed" from="Operator" to="Operator" method="_on_pressed"]
 [connection signal="value_changed" from="Operator" to="." method="_on_operator_changed"]
-[connection signal="file_selected" from="Node/ConditionFileDialog" to="." method="_on_condition_changed"]
+[connection signal="file_selected" from="Node/ConditionFileDialog" to="." method="_on_condition_file_selected"]
 [connection signal="confirmed" from="Node/AcceptDialog" to="Node/ConditionFileDialog" method="popup_centered"]
 [connection signal="confirmed" from="Node/DeleteConfirmationDialog" to="." method="_on_deleted"]
