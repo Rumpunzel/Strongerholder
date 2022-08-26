@@ -9,7 +9,7 @@ const TransitionItemGraphNodeScene := preload("res://addons/state_machine/inspec
 export var _x_size := 700.0
 export var _y_size := 300.0
 
-var transition_table: TransitionTableResource = null setget set_transition_table
+var transition_table: TransitionTableResource = null
 
 
 
@@ -222,17 +222,22 @@ func _on_disconnection_request(from: String, from_slot: int, to: String, to_slot
 	_check_validity()
 
 
-func _on_node_moved() -> void:
-	transition_table._transitions.sort_custom(self, "_sort_grap_nodes_by_y")
-
-
-func set_transition_table(new_transition_table: TransitionTableResource) -> void:
-	transition_table = new_transition_table
-	for i in transition_table._transitions.size():
-		var transition_item: TransitionItemResource = transition_table._transitions[i]
+func _on_transitions_updated(new_transitions: Array) -> void:
+	print("Drawing Graph!")
+	clear_connections()
+	for child in get_children():
+		if child is StateGraphNode or child is TransitionItemGraphNode:
+			remove_child(child)
+			child.queue_free()
+	
+	for i in new_transitions.size():
+		var transition_item: TransitionItemResource = new_transitions[i]
 		_add_transition(transition_item, Vector2(0.0, i * _y_size))
 	
 	_check_validity()
+
+func _on_node_moved() -> void:
+	transition_table._transitions.sort_custom(self, "_sort_grap_nodes_by_y")
 
 
 func _sort_grap_nodes_by_y(resource_a: Resource, resource_b: Resource) -> bool:
