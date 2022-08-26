@@ -20,6 +20,7 @@ func check_validity() -> void:
 
 
 func _update_style() -> void:
+	rect_size = Vector2()
 	var has_from_state: bool = transition_item_resource.from_state != null
 	var has_to_state: bool = transition_item_resource.to_state != null
 	
@@ -60,6 +61,7 @@ func _add_condition_usage_node(condition_usage_resource: ConditionUsageResource)
 	
 	condition_usages.add_child(new_hbox)
 	new_condition_usage_node.condition_usage_resource = condition_usage_resource
+	_update_style()
 	
 	return new_condition_usage_node
 
@@ -129,7 +131,7 @@ func _on_condition_deleted(index: int, node: HBoxContainer) -> void:
 	transition_item_resource.conditions.remove(index)
 	$ConditionUsages.remove_child(node)
 	node.queue_free()
-	rect_size = Vector2()
+	_update_style()
 
 
 func set_transition_item_resource(new_transition_item_resource: TransitionItemResource) -> void:
