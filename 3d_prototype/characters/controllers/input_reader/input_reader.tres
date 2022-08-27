@@ -9,8 +9,8 @@ script = ExtResource( 1 )
 entry_state_resource = ExtResource( 3 )
 _transitions = [ ExtResource( 2 ) ]
 _graph_offsets = {
-"EntryPoint": Vector2( 197.603, 68.4889 ),
+"EntryPoint": Vector2( 215, 114 ),
 "Zoom": 1.0,
-"res://characters/controllers/input_reader/resources/states/gameplay.tres": Vector2( 577.603, 348.489 ),
-"res://characters/controllers/input_reader/resources/transitions/dummy_gameplay.tres": Vector2( 597.603, 88.4889 )
+"res://characters/controllers/input_reader/resources/states/gameplay.tres": Vector2( 592.603, 382.489 ),
+"res://characters/controllers/input_reader/resources/transitions/dummy_gameplay.tres": Vector2( 620, 160 )
 }

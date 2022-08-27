@@ -8,6 +8,7 @@
 
 [resource]
 script = ExtResource( 1 )
-from_states =[ ExtResource( 5 )]
+from_states = [ ExtResource( 5 ) ]
 to_state = ExtResource( 2 )
 conditions = [ ExtResource( 3 ), ExtResource( 4 ) ]
+operator = 1

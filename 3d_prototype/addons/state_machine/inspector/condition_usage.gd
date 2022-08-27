@@ -10,7 +10,8 @@ func set_condition_usage_resource(new_condition_usage_resource: ConditionUsageRe
 	var condition_name: String = condition_usage_resource.condition.resource_path.get_file().get_basename()
 	var expected_result := condition_usage_resource.expected_result
 	
-	$Condition.text = condition_name
+	#$Condition.text = condition_name
+	$Condition.text = new_condition_usage_resource.resource_path.get_file().get_basename()
 	$ExpectedResult.pressed = expected_result
 	$Node/ConditionFileDialog.current_path = condition_usage_resource.condition.resource_path
 

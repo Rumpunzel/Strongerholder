@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 3 )
-from_states = [  ]
+from_states = [ ExtResource( 1 ) ]
 to_state = ExtResource( 1 )
 conditions = [ ExtResource( 2 ) ]
 operator = 0

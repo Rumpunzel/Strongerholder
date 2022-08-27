@@ -11,4 +11,4 @@ script = ExtResource( 1 )
 from_states = [ ExtResource( 4 ) ]
 to_state = ExtResource( 2 )
 conditions = [ ExtResource( 3 ), ExtResource( 5 ) ]
-operator = 0
+operator = 1
