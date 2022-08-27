@@ -189,6 +189,7 @@ func _on_state_delete_requested(state_graph_node: StateGraphNode) -> void:
 		_update_entry_node(null)
 	_check_validity()
 	state_graph_node.disconnect("delete_requested", self, "_on_state_delete_requested")
+	transition_table._graph_offsets.erase(state_graph_node.state_resource.resource_path)
 	remove_child(state_graph_node)
 	state_graph_node.queue_free()
 
@@ -197,6 +198,7 @@ func _on_transition_item_delete_requested(transition_item_graph_node: Transition
 	transition_table._transitions.erase(transition_item_graph_node.transition_item_resource)
 	_check_validity()
 	transition_item_graph_node.disconnect("delete_requested", self, "_on_transition_item_delete_requested")
+	transition_table._graph_offsets.erase(transition_item_graph_node.transition_item_resource.resource_path)
 	remove_child(transition_item_graph_node)
 	transition_item_graph_node.queue_free()
 
