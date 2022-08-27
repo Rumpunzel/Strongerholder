@@ -5,8 +5,12 @@ signal delete_requested()
 
 var state_resource: StateResource setget set_state_resource
 
-var _action_titles := [ ]
 
+func set_entry_status(is_entry_node: bool) -> void:
+	if is_entry_node:
+		overlay = OVERLAY_BREAKPOINT
+	else:
+		overlay = OVERLAY_DISABLED
 
 func set_state_resource(new_state_resource: StateResource) -> void:
 	state_resource = new_state_resource
