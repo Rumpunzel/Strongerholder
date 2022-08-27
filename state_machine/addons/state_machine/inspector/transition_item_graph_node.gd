@@ -1,5 +1,7 @@
-extends "res://addons/state_machine/inspector/grapgh_node.gd"
+extends GraphNode
 tool
+
+signal delete_requested()
 
 enum MenuButtons {
 	MOVE_UP,
@@ -132,6 +134,10 @@ func _on_condition_deleted(index: int, node: HBoxContainer) -> void:
 	$ConditionUsages.remove_child(node)
 	node.queue_free()
 	_update_style()
+
+
+func _on_deleted() -> void:
+	emit_signal("delete_requested")
 
 
 func set_transition_item_resource(new_transition_item_resource: TransitionItemResource) -> void:

@@ -1,32 +1,48 @@
-[gd_resource type="Resource" load_steps=12 format=2]
+[gd_resource type="Resource" load_steps=14 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/transition_table.gd" type="Script" id=1]
-[ext_resource path="res://addons/state_machine/demo/states/demo_state_2.tres" type="Resource" id=2]
-[ext_resource path="res://addons/state_machine/demo/transitions/demo_transition_2.tres" type="Resource" id=3]
-[ext_resource path="res://addons/state_machine/demo/conditions/demo_condition_2.tres" type="Resource" id=4]
+[ext_resource path="res://addons/state_machine/demo/conditions/demo_condition_1.tres" type="Resource" id=2]
+[ext_resource path="res://addons/state_machine/demo/conditions/demo_condition_2.tres" type="Resource" id=3]
+[ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=4]
 [ext_resource path="res://addons/state_machine/machine/resources/transition_item_resource.gd" type="Script" id=5]
-[ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=6]
-[ext_resource path="res://addons/state_machine/demo/states/demo_state_1.tres" type="Resource" id=7]
-[ext_resource path="res://addons/state_machine/demo/conditions/demo_condition_1.tres" type="Resource" id=8]
+[ext_resource path="res://addons/state_machine/demo/states/demo_state_1.tres" type="Resource" id=6]
+[ext_resource path="res://addons/state_machine/demo/states/demo_state_2.tres" type="Resource" id=7]
 
 [sub_resource type="Resource" id=1]
-script = ExtResource( 6 )
-condition = ExtResource( 8 )
+script = ExtResource( 4 )
+condition = ExtResource( 2 )
 expected_result = true
 
 [sub_resource type="Resource" id=2]
-script = ExtResource( 6 )
-condition = ExtResource( 4 )
+script = ExtResource( 4 )
+condition = ExtResource( 3 )
 expected_result = true
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 5 )
-from_state = ExtResource( 7 )
-to_state = ExtResource( 2 )
+from_states = [ ExtResource( 6 ) ]
+to_state = ExtResource( 7 )
 conditions = [ SubResource( 1 ), SubResource( 2 ) ]
 operator = 0
 
+[sub_resource type="Resource" id=4]
+script = ExtResource( 4 )
+condition = ExtResource( 2 )
+expected_result = false
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 4 )
+condition = ExtResource( 3 )
+expected_result = false
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 5 )
+from_states = [ ExtResource( 6 ) ]
+to_state = ExtResource( 7 )
+conditions = [ SubResource( 4 ), SubResource( 5 ) ]
+operator = 1
+
 [resource]
 script = ExtResource( 1 )
-use_physics_process = false
-_transitions = [ SubResource( 3 ), ExtResource( 3 ) ]
+entry_state_resource = ExtResource( 6 )
+_transitions = [ SubResource( 3 ), SubResource( 6 ) ]
