@@ -9,7 +9,7 @@ export(Array, Resource) var _transitions
 export var _graph_offsets := { }
 
 
-func initalize(state_machine) -> State:# StateMachine) -> State:
+func initialize(state_machine) -> State:# StateMachine) -> State:
 	assert(entry_state_resource, "TransitionTableResource <%s> has no entry_state_resource!" % resource_path)
 	var entry_state: State
 	var states := [ ]
@@ -58,7 +58,7 @@ func _proccess_condition_usages(
 	for i in range(count):
 		var idx := result_groups.size()
 		result_groups.append(1)
-		while i < count - 1 && operator == ConditionUsageResource.Operator.AND:
+		while i < count - 1 && operator == TransitionItemResource.Operator.AND:
 			i += i
 			result_groups[idx] += 1
 	

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=14 format=2]
+[gd_resource type="Resource" load_steps=17 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/transition_table.gd" type="Script" id=1]
 [ext_resource path="res://addons/state_machine/demo/conditions/demo_condition_1.tres" type="Resource" id=2]
@@ -20,7 +20,7 @@ expected_result = true
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 5 )
-from_states = [ ExtResource( 6 ) ]
+from_states = [ ExtResource( 6 ), ExtResource( 7 ) ]
 to_state = ExtResource( 7 )
 conditions = [ SubResource( 1 ), SubResource( 2 ) ]
 operator = 0
@@ -42,15 +42,34 @@ to_state = ExtResource( 7 )
 conditions = [ SubResource( 4 ), SubResource( 5 ) ]
 operator = 1
 
+[sub_resource type="Resource" id=7]
+script = ExtResource( 4 )
+condition = ExtResource( 2 )
+expected_result = false
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 4 )
+condition = ExtResource( 3 )
+expected_result = true
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 5 )
+from_states = [ ExtResource( 6 ) ]
+to_state = ExtResource( 7 )
+conditions = [ SubResource( 7 ), SubResource( 8 ) ]
+operator = 1
+
 [resource]
 script = ExtResource( 1 )
 entry_state_resource = ExtResource( 6 )
-_transitions = [ SubResource( 3 ), SubResource( 6 ) ]
+_transitions = [ SubResource( 3 ), SubResource( 6 ), SubResource( 9 ) ]
 _graph_offsets = {
-"EntryPoint": Vector2( 8.38397, 283.937 ),
+"": Vector2( 304.653, 7.15669 ),
+"EntryPoint": Vector2( -55.3466, 207.157 ),
 "Zoom": 1.0,
-"res://addons/state_machine/demo/demo_transition_table.tres::3": Vector2( 488.384, 83.9374 ),
-"res://addons/state_machine/demo/demo_transition_table.tres::6": Vector2( 508.384, 363.937 ),
-"res://addons/state_machine/demo/states/demo_state_1.tres": Vector2( 248.384, 403.937 ),
-"res://addons/state_machine/demo/states/demo_state_2.tres": Vector2( 848.384, 183.937 )
+"res://addons/state_machine/demo/demo_transition_table.tres::3": Vector2( 804.653, 27.1567 ),
+"res://addons/state_machine/demo/demo_transition_table.tres::6": Vector2( 703.037, 441.094 ),
+"res://addons/state_machine/demo/demo_transition_table.tres::9": Vector2( 375, 625 ),
+"res://addons/state_machine/demo/states/demo_state_1.tres": Vector2( 349.32, 324.24 ),
+"res://addons/state_machine/demo/states/demo_state_2.tres": Vector2( 1043.04, 261.094 )
 }
