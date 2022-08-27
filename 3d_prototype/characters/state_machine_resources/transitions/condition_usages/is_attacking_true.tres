@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=3 format=2]
-
-[ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
-[ext_resource path="res://characters/state_machine_resources/conditions/is_attacking.tres" type="Resource" id=2]
-
-[resource]
-script = ExtResource( 1 )
-condition = ExtResource( 2 )
-expected_result = true
