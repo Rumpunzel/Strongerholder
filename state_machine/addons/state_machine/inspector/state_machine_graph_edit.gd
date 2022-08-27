@@ -7,6 +7,7 @@ const TransitionItemGraphNode := preload("res://addons/state_machine/inspector/t
 const TransitionItemGraphNodeScene := preload("res://addons/state_machine/inspector/transition_item_graph_node.tscn")
 
 const _ENTRY_POINT := "EntryPoint"
+const _ZOOM := "Zoom"
 
 export var _size := Vector2(750.0, 250.0)
 
@@ -166,6 +167,7 @@ func _has_state(state_resouce: StateResource) -> StateGraphNode:
 
 func set_transition_table(new_table: TransitionTableResource) -> void:
 	transition_table = new_table
+
 	_on_transitions_updated(transition_table._transitions)
 	if transition_table.entry_state_resource:
 		var entry_node := _has_state(transition_table.entry_state_resource)
@@ -173,6 +175,7 @@ func set_transition_table(new_table: TransitionTableResource) -> void:
 	
 	$EntryPoint.offset = transition_table._graph_offsets.get(_ENTRY_POINT, Vector2())
 	$EntryPoint/Label.text = transition_table.resource_path.get_file().get_basename()
+	zoom = transition_table._graph_offsets.get(_ZOOM, 1.0)
 	_on_node_moved()
 
 
@@ -272,10 +275,11 @@ func _on_transitions_updated(new_transitions: Array) -> void:
 	_check_validity()
 
 func _on_node_moved() -> void:
+	transition_table._graph_offsets[_ZOOM] = zoom
 	for child in get_children():
 		if child == $EntryPoint:
-			transition_table._graph_offsets[_ENTRY_POINT] = child.offset
+			transition_table._graph_offsets[_ENTRY_POINT] = child.offset - scroll_offset
 		elif child is StateGraphNode:
-			transition_table._graph_offsets[child.state_resource.resource_path] = child.offset
+			transition_table._graph_offsets[child.state_resource.resource_path] = child.offset - scroll_offset
 		elif child is TransitionItemGraphNode:
-			transition_table._graph_offsets[child.transition_item_resource.resource_path] = child.offset
+			transition_table._graph_offsets[child.transition_item_resource.resource_path] = child.offset - scroll_offset

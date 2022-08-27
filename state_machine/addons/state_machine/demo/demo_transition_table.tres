@@ -47,9 +47,10 @@ script = ExtResource( 1 )
 entry_state_resource = ExtResource( 6 )
 _transitions = [ SubResource( 3 ), SubResource( 6 ) ]
 _graph_offsets = {
-"EntryPoint": Vector2( 180, 20 ),
-"res://addons/state_machine/demo/demo_transition_table.tres::3": Vector2( 600, -120 ),
-"res://addons/state_machine/demo/demo_transition_table.tres::6": Vector2( 640, 140 ),
-"res://addons/state_machine/demo/states/demo_state_1.tres": Vector2( 420, 120 ),
-"res://addons/state_machine/demo/states/demo_state_2.tres": Vector2( 1000, -120 )
+"EntryPoint": Vector2( 8.38397, 283.937 ),
+"Zoom": 1.0,
+"res://addons/state_machine/demo/demo_transition_table.tres::3": Vector2( 488.384, 83.9374 ),
+"res://addons/state_machine/demo/demo_transition_table.tres::6": Vector2( 508.384, 363.937 ),
+"res://addons/state_machine/demo/states/demo_state_1.tres": Vector2( 248.384, 403.937 ),
+"res://addons/state_machine/demo/states/demo_state_2.tres": Vector2( 848.384, 183.937 )
 }
