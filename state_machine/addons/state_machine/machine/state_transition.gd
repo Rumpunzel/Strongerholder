@@ -1,7 +1,6 @@
 class_name StateTransition
 extends StateComponent
 
-
 var _target_state: State
 var _conditions: Array
 var _result_groups: Array
@@ -9,13 +8,7 @@ var _result_groups: Array
 var _results := [ ]
 
 
-
-func _init(
-		target_state: State = null,
-		conditions: Array = [ ],
-		result_groups = null
-) -> void:
-	
+func _init(target_state: State = null, conditions: Array = [ ], result_groups = null) -> void:
 	_target_state = target_state
 	_conditions = conditions
 	
@@ -26,7 +19,6 @@ func _init(
 	_results.resize(_result_groups.size())
 	for i in _results.size():
 		_results[i] = false
-
 
 
 func on_state_enter() -> void:
@@ -42,21 +34,17 @@ func try_get_transition() -> State:
 	return _target_state if _should_transition() else null
 
 
-
 func _should_transition() -> bool:
 	var count := _result_groups.size()
 	var idx: int = 0
-	
 	for i in range(count):
 		if idx >= _conditions.size():
 			break
 		
 		for j in _result_groups[i]:
 			var is_met: bool = _conditions[idx].is_met()
-			
 			_results[i] = is_met if j == 0 else (_results[i] and is_met)
 			idx += 1
-	
 	
 	for result in _results:
 		if result:
