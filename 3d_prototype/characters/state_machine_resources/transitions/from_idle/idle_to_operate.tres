@@ -1,12 +1,14 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://characters/state_machine_resources/states/idle.tres" type="Resource" id=1]
-[ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=2]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_item_resource.gd" type="Script" id=2]
 [ext_resource path="res://characters/state_machine_resources/states/operate.tres" type="Resource" id=3]
 [ext_resource path="res://characters/state_machine_resources/transitions/condition_usages/is_operating_true.tres" type="Resource" id=4]
+[ext_resource path="res://characters/state_machine_resources/states/walking.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 2 )
-from_state = ExtResource( 1 )
+from_states = [ ExtResource( 1 ), ExtResource( 5 ) ]
 to_state = ExtResource( 3 )
 conditions = [ ExtResource( 4 ) ]
+operator = 0

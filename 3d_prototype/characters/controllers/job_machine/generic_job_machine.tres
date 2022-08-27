@@ -1,6 +1,6 @@
-[gd_resource type="Resource" load_steps=17 format=2]
+[gd_resource type="Resource" load_steps=18 format=2]
 
-[ext_resource path="res://state_machines/resources/transition_table_resource.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_table_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_mine_resource_source.tres" type="Resource" id=2]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_gather_resource/gather_resource_to_idle.tres" type="Resource" id=3]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_mine_resource_source/mine_resource_source_to_idle.tres" type="Resource" id=4]
@@ -16,8 +16,35 @@
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_deliver_resource/deliver_resource_to_idle.tres" type="Resource" id=14]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_gather_product.tres" type="Resource" id=15]
 [ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_deliver_product.tres" type="Resource" id=16]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/idle.tres" type="Resource" id=17]
 
 [resource]
 script = ExtResource( 1 )
-use_physics_process = false
+entry_state_resource = ExtResource( 17 )
 _transitions = [ ExtResource( 10 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 12 ) ]
+_graph_offsets = {
+"EntryPoint": Vector2( 102.707, 233.721 ),
+"Zoom": 0.482253,
+"res://characters/controllers/job_machine/resources/states/deliver_product.tres": Vector2( 1082.71, 693.721 ),
+"res://characters/controllers/job_machine/resources/states/deliver_resource.tres": Vector2( 2142.71, 913.721 ),
+"res://characters/controllers/job_machine/resources/states/gather_product.tres": Vector2( 1002.71, 493.721 ),
+"res://characters/controllers/job_machine/resources/states/gather_resource.tres": Vector2( 1022.71, 1093.72 ),
+"res://characters/controllers/job_machine/resources/states/idle.tres": Vector2( 342.707, 443.721 ),
+"res://characters/controllers/job_machine/resources/states/mine_resource_source.tres": Vector2( 1322.71, 1753.72 ),
+"res://characters/controllers/job_machine/resources/states/operate.tres": Vector2( 1122.71, 233.721 ),
+"res://characters/controllers/job_machine/resources/transitions/from_deliver_product/deliver_product_to_idle.tres": Vector2( -137.293, 553.721 ),
+"res://characters/controllers/job_machine/resources/transitions/from_deliver_resource/deliver_resource_to_idle.tres": Vector2( 1322.71, 53.7207 ),
+"res://characters/controllers/job_machine/resources/transitions/from_gather_product/gather_product_to_deliver_product.tres": Vector2( 1542.71, 753.721 ),
+"res://characters/controllers/job_machine/resources/transitions/from_gather_resource/gather_resource_to_deliver.tres": Vector2( 1402.71, 993.721 ),
+"res://characters/controllers/job_machine/resources/transitions/from_gather_resource/gather_resource_to_idle.tres": Vector2( -77.2926, 1033.72 ),
+"res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_deliver_product.tres": Vector2( 602.707, 633.721 ),
+"res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_deliver_resource.tres": Vector2( 642.707, 813.721 ),
+"res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_gather_product.tres": Vector2( 642.707, 433.721 ),
+"res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_gather_resource.tres": Vector2( 642.707, 1033.72 ),
+"res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_mine_resource_source.tres": Vector2( 682.707, 1313.72 ),
+"res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_operate.tres": Vector2( 662.707, 173.721 ),
+"res://characters/controllers/job_machine/resources/transitions/from_mine_resource_source/mine_resource_source_to_deliver_resource.tres": Vector2( 1582.71, 1233.72 ),
+"res://characters/controllers/job_machine/resources/transitions/from_mine_resource_source/mine_resource_source_to_gather_resource.tres": Vector2( 1262.71, 1453.72 ),
+"res://characters/controllers/job_machine/resources/transitions/from_mine_resource_source/mine_resource_source_to_idle.tres": Vector2( 662.707, 1513.72 ),
+"res://characters/controllers/job_machine/resources/transitions/from_operate/operate_to_idle.tres": Vector2( 1502.71, 593.721 )
+}

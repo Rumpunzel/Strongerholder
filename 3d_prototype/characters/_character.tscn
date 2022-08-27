@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://state_machines/state_machine.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/machine/state_machine.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
 [ext_resource path="res://characters/character.gd" type="Script" id=3]
 [ext_resource path="res://characters/controllers/character_movement_inputs.gd" type="Script" id=4]
@@ -93,6 +93,7 @@ max_speed = 100.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 1 )
+use_physics_process = true
 _transition_table_resource = ExtResource( 7 )
 
 [node name="Controller" type="Node" parent="." groups=["PersistData"]]

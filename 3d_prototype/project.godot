@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "StateActionResource",
+"class": "Action1Resource",
+"language": "GDScript",
+"path": "res://addons/state_machine/demo/actions/demo_action_2.gd"
+}, {
+"base": "StateActionResource",
+"class": "Action2Resource",
+"language": "GDScript",
+"path": "res://addons/state_machine/demo/actions/demo_action_1.gd"
+}, {
 "base": "StateConditionResource",
 "class": "AlwaysFalseConditionResource",
 "language": "GDScript",
@@ -109,10 +119,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://items/collectable_item.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "ConditionUsageResource",
 "language": "GDScript",
-"path": "res://state_machines/resources/condition_usage_resource.gd"
+"path": "res://addons/state_machine/machine/resources/condition_usage_resource.gd"
 }, {
 "base": "StateMachine",
 "class": "Controller",
@@ -492,47 +502,47 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "State",
 "language": "GDScript",
-"path": "res://state_machines/state.gd"
+"path": "res://addons/state_machine/machine/state.gd"
 }, {
-"base": "StateComponent",
+"base": "Reference",
 "class": "StateAction",
 "language": "GDScript",
-"path": "res://state_machines/state_action.gd"
+"path": "res://addons/state_machine/machine/state_action.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "StateActionResource",
 "language": "GDScript",
-"path": "res://state_machines/resources/state_action_resource.gd"
+"path": "res://addons/state_machine/machine/resources/state_action_resource.gd"
 }, {
 "base": "Reference",
 "class": "StateComponent",
 "language": "GDScript",
-"path": "res://state_machines/state_component.gd"
+"path": "res://addons/state_machine/machine/state_component.gd"
 }, {
-"base": "StateComponent",
+"base": "Reference",
 "class": "StateCondition",
 "language": "GDScript",
-"path": "res://state_machines/state_condition.gd"
+"path": "res://addons/state_machine/machine/state_condition.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "StateConditionResource",
 "language": "GDScript",
-"path": "res://state_machines/resources/state_condition_resource.gd"
+"path": "res://addons/state_machine/machine/resources/state_condition_resource.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://state_machines/state_machine.gd"
+"path": "res://addons/state_machine/machine/state_machine.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "StateResource",
 "language": "GDScript",
-"path": "res://state_machines/resources/state_resource.gd"
+"path": "res://addons/state_machine/machine/resources/state_resource.gd"
 }, {
-"base": "StateComponent",
+"base": "Reference",
 "class": "StateTransition",
 "language": "GDScript",
-"path": "res://state_machines/state_transition.gd"
+"path": "res://addons/state_machine/machine/state_transition.gd"
 }, {
 "base": "Resource",
 "class": "StockpileStackAttributes",
@@ -589,15 +599,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game_world/cameras/top_down/top_down_attributes.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "TransitionItemResource",
 "language": "GDScript",
-"path": "res://state_machines/resources/transition_item_resource.gd"
+"path": "res://addons/state_machine/machine/resources/transition_item_resource.gd"
 }, {
 "base": "Resource",
 "class": "TransitionTableResource",
 "language": "GDScript",
-"path": "res://state_machines/resources/transition_table_resource.gd"
+"path": "res://addons/state_machine/machine/resources/transition_table_resource.gd"
 }, {
 "base": "Reference",
 "class": "Utils",
@@ -630,6 +640,8 @@ _global_script_classes=[ {
 "path": "res://game_world/scenes/world_scene.gd"
 } ]
 _global_script_class_icons={
+"Action1Resource": "",
+"Action2Resource": "",
 "AlwaysFalseConditionResource": "",
 "AnimationConditionResource": "",
 "AnimatorMoveSpeedActionResource": "",
@@ -650,7 +662,7 @@ _global_script_class_icons={
 "CharacterMovementStatsResource": "res://editor_tools/class_icons/resources/Icon_walk.svg",
 "ClickBox": "",
 "CollectableItem": "res://editor_tools/class_icons/spatials/icon_fire_bottle.svg",
-"ConditionUsageResource": "res://editor_tools/class_icons/resources/icon_choice.svg",
+"ConditionUsageResource": "",
 "Controller": "res://editor_tools/class_icons/nodes/icon_brain.svg",
 "CustomGradientTexture": "",
 "DescendActionResource": "",
@@ -728,12 +740,12 @@ _global_script_class_icons={
 "Stash": "res://editor_tools/class_icons/spatials/icon_wooden_crate.svg",
 "State": "",
 "StateAction": "",
-"StateActionResource": "res://editor_tools/class_icons/resources/icon_hand.svg",
+"StateActionResource": "",
 "StateComponent": "",
 "StateCondition": "",
-"StateConditionResource": "res://editor_tools/class_icons/resources/icon_think.svg",
-"StateMachine": "res://editor_tools/class_icons/nodes/icon_gears.svg",
-"StateResource": "res://editor_tools/class_icons/resources/icon_cog.svg",
+"StateConditionResource": "",
+"StateMachine": "",
+"StateResource": "",
 "StateTransition": "",
 "StockpileStackAttributes": "",
 "StopMovementActionResource": "",
@@ -746,8 +758,8 @@ _global_script_class_icons={
 "ToolResource": "res://editor_tools/class_icons/resources/icon_thor_hammer.svg",
 "TopDownCamera": "",
 "TopDownCameraAttributes": "",
-"TransitionItemResource": "res://editor_tools/class_icons/resources/icon_plain_arrow.svg",
-"TransitionTableResource": "res://editor_tools/class_icons/resources/icon_notebook.svg",
+"TransitionItemResource": "",
+"TransitionTableResource": "res://addons/state_machine/icons/icon_notebook.svg",
 "Utils": "",
 "VitalsResource": "",
 "VoidEventChannelResource": "",
@@ -790,7 +802,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg", "res://addons/state_machine/plugin.cfg" )
 
 [importer_defaults]
 

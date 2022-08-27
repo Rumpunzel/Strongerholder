@@ -2,10 +2,11 @@
 
 [ext_resource path="res://characters/controllers/input_reader/resources/states/gameplay.tres" type="Resource" id=1]
 [ext_resource path="res://characters/controllers/input_reader/resources/transitions/condition_usages/never.tres" type="Resource" id=2]
-[ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=3]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_item_resource.gd" type="Script" id=3]
 
 [resource]
 script = ExtResource( 3 )
-from_state = ExtResource( 1 )
+from_states = [  ]
 to_state = ExtResource( 1 )
 conditions = [ ExtResource( 2 ) ]
+operator = 0

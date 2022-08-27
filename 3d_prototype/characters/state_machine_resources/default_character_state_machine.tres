@@ -1,6 +1,6 @@
-[gd_resource type="Resource" load_steps=25 format=2]
+[gd_resource type="Resource" load_steps=19 format=2]
 
-[ext_resource path="res://state_machines/resources/transition_table_resource.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_table_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_walking.tres" type="Resource" id=2]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_jump_ascending.tres" type="Resource" id=3]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_jump_descending.tres" type="Resource" id=4]
@@ -9,23 +9,53 @@
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_idle.tres" type="Resource" id=7]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_give.tres" type="Resource" id=8]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_attack.tres" type="Resource" id=9]
-[ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_pick_up.tres" type="Resource" id=10]
-[ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_attack.tres" type="Resource" id=11]
-[ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_jump_descending.tres" type="Resource" id=12]
-[ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_jump_ascending.tres" type="Resource" id=13]
-[ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_give.tres" type="Resource" id=14]
+[ext_resource path="res://characters/state_machine_resources/states/idle.tres" type="Resource" id=10]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_attack/attack_to_idle.tres" type="Resource" id=15]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_give/give_to_idle.tres" type="Resource" id=16]
-[ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_operate.tres" type="Resource" id=17]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_pick_up/pick_up_to_idle.tres" type="Resource" id=18]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_operate.tres" type="Resource" id=19]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_operate/operate_to_idle.tres" type="Resource" id=20]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_take/take_to_idle.tres" type="Resource" id=21]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_walking/walking_to_take.tres" type="Resource" id=22]
-[ext_resource path="res://characters/state_machine_resources/transitions/from_idle/idle_to_take.tres" type="Resource" id=23]
 [ext_resource path="res://characters/state_machine_resources/transitions/from_jump_ascending/jump_ascending_to_jump_descending.tres" type="Resource" id=25]
 
 [resource]
 script = ExtResource( 1 )
-use_physics_process = true
-_transitions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 23 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 22 ), ExtResource( 17 ), ExtResource( 25 ), ExtResource( 6 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 20 ) ]
+entry_state_resource = ExtResource( 10 )
+_transitions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 6 ), ExtResource( 18 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 20 ) ]
+_graph_offsets = {
+"EntryPoint": Vector2( 262.356, 334.437 ),
+"Zoom": 1.0,
+"res://characters/state_machine_resources/states/attack.tres": Vector2( 2264.85, 502.908 ),
+"res://characters/state_machine_resources/states/give.tres": Vector2( 3204.85, 642.908 ),
+"res://characters/state_machine_resources/states/idle.tres": Vector2( 764.847, 382.908 ),
+"res://characters/state_machine_resources/states/jump_ascending.tres": Vector2( 2484.85, -237.092 ),
+"res://characters/state_machine_resources/states/jump_descending.tres": Vector2( 2564.85, 162.908 ),
+"res://characters/state_machine_resources/states/operate.tres": Vector2( -115.153, 222.908 ),
+"res://characters/state_machine_resources/states/pick_up.tres": Vector2( 2604.85, 742.908 ),
+"res://characters/state_machine_resources/states/take.tres": Vector2( 1104.85, 1122.91 ),
+"res://characters/state_machine_resources/states/walking.tres": Vector2( 1444.85, -177.092 ),
+"res://characters/state_machine_resources/transitions/from_attack/attack_to_idle.tres": Vector2( 2144.85, 982.908 ),
+"res://characters/state_machine_resources/transitions/from_give/give_to_idle.tres": Vector2( 2804.85, 1222.91 ),
+"res://characters/state_machine_resources/transitions/from_idle/idle_to_attack.tres": Vector2( 1944.85, 442.908 ),
+"res://characters/state_machine_resources/transitions/from_idle/idle_to_give.tres": Vector2( 2064.85, 302.908 ),
+"res://characters/state_machine_resources/transitions/from_idle/idle_to_jump_ascending.tres": Vector2( 2064.85, -37.0923 ),
+"res://characters/state_machine_resources/transitions/from_idle/idle_to_jump_descending.tres": Vector2( 2104.85, 102.908 ),
+"res://characters/state_machine_resources/transitions/from_idle/idle_to_operate.tres": Vector2( 24.8469, -17.0923 ),
+"res://characters/state_machine_resources/transitions/from_idle/idle_to_pick_up.tres": Vector2( 1904.85, 662.908 ),
+"res://characters/state_machine_resources/transitions/from_idle/idle_to_take.tres": Vector2( -181.526, 638.077 ),
+"res://characters/state_machine_resources/transitions/from_idle/idle_to_walking.tres": Vector2( 984.847, -77.0923 ),
+"res://characters/state_machine_resources/transitions/from_jump_ascending/jump_ascending_to_jump_descending.tres": Vector2( 2844.85, -17.0923 ),
+"res://characters/state_machine_resources/transitions/from_jump_descending/jump_descending_to_idle.tres": Vector2( 844.847, -617.092 ),
+"res://characters/state_machine_resources/transitions/from_operate/operate_to_idle.tres": Vector2( -215.153, 502.908 ),
+"res://characters/state_machine_resources/transitions/from_pick_up/pick_up_to_idle.tres": Vector2( 2144.85, 1362.91 ),
+"res://characters/state_machine_resources/transitions/from_take/take_to_idle.tres": Vector2( 364.847, 1002.91 ),
+"res://characters/state_machine_resources/transitions/from_walking/walking_to_attack.tres": Vector2( 747.41, 362.825 ),
+"res://characters/state_machine_resources/transitions/from_walking/walking_to_give.tres": Vector2( 766.41, 317.825 ),
+"res://characters/state_machine_resources/transitions/from_walking/walking_to_idle.tres": Vector2( 1044.85, 82.9077 ),
+"res://characters/state_machine_resources/transitions/from_walking/walking_to_jump_ascending.tres": Vector2( 1775.6, 264.41 ),
+"res://characters/state_machine_resources/transitions/from_walking/walking_to_jump_descending.tres": Vector2( 844.41, 61.8246 ),
+"res://characters/state_machine_resources/transitions/from_walking/walking_to_operate.tres": Vector2( -435.326, -158.843 ),
+"res://characters/state_machine_resources/transitions/from_walking/walking_to_pick_up.tres": Vector2( 1236.41, -118.175 ),
+"res://characters/state_machine_resources/transitions/from_walking/walking_to_take.tres": Vector2( 844.847, 942.908 )
+}

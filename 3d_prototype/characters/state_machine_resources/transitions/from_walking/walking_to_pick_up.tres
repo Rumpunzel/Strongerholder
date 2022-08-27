@@ -1,12 +1,13 @@
 [gd_resource type="Resource" load_steps=5 format=2]
 
-[ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_item_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/state_machine_resources/states/walking.tres" type="Resource" id=2]
 [ext_resource path="res://characters/state_machine_resources/states/pick_up.tres" type="Resource" id=3]
 [ext_resource path="res://characters/state_machine_resources/transitions/condition_usages/is_picking_up_true.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
-from_state = ExtResource( 2 )
+from_states = [ ExtResource( 2 ) ]
 to_state = ExtResource( 3 )
 conditions = [ ExtResource( 4 ) ]
+operator = 0

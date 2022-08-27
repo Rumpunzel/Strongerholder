@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=7 format=2]
 
-[ext_resource path="res://state_machines/resources/transition_item_resource.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_item_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/state_machine_resources/states/jump_descending.tres" type="Resource" id=2]
 [ext_resource path="res://characters/state_machine_resources/states/jump_ascending.tres" type="Resource" id=3]
 [ext_resource path="res://characters/state_machine_resources/transitions/condition_usages/is_holding_jump_false_or.tres" type="Resource" id=4]
@@ -9,6 +9,7 @@
 
 [resource]
 script = ExtResource( 1 )
-from_state = ExtResource( 3 )
+from_states = [ ExtResource( 3 ) ]
 to_state = ExtResource( 2 )
 conditions = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ) ]
+operator = 0
