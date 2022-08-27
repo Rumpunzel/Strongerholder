@@ -6,7 +6,8 @@ const StateGraphNodeScene := preload("res://addons/state_machine/inspector/state
 const TransitionItemGraphNode := preload("res://addons/state_machine/inspector/transition_item_graph_node.gd")
 const TransitionItemGraphNodeScene := preload("res://addons/state_machine/inspector/transition_item_graph_node.tscn")
 
-export var _offset := Vector2(250.0, 0.0)
+const _ENTRY_POINT := "EntryPoint"
+
 export var _size := Vector2(750.0, 250.0)
 
 var transition_table: TransitionTableResource = null setget set_transition_table
@@ -18,22 +19,22 @@ func _add_transition(transition_item_resource: TransitionItemResource, offset: V
 	if not transition_table._transitions.has(transition_item_resource):
 		transition_table._transitions.append(transition_item_resource)
 	
-	offset += _offset
-	
 	var new_transition_item_graph_node: TransitionItemGraphNode = TransitionItemGraphNodeScene.instance()
 	add_child(new_transition_item_graph_node)
 	move_child(new_transition_item_graph_node, 0)
 	new_transition_item_graph_node.transition_item_resource = transition_item_resource
-	new_transition_item_graph_node.offset = offset + _size * 0.5
+	new_transition_item_graph_node.offset = offset
 	new_transition_item_graph_node.connect("delete_requested", self, "_on_transition_item_delete_requested", [ new_transition_item_graph_node ])
 	
 	for from_state_resource in transition_item_resource.from_states:
-		var from_state := _add_state(from_state_resource, offset + Vector2(0.0, _size.y * 0.5))
+		var from_state_offset: Vector2 = transition_table._graph_offsets.get(from_state_resource.resource_path, offset + Vector2(-_size.x, _size.y) * 0.5)
+		var from_state := _add_state(from_state_resource, from_state_offset)
 		if from_state:
 			connect_node(from_state.name, 0, new_transition_item_graph_node.name, 0)
 	
 	var to_state_resource: StateResource = transition_item_resource.to_state
-	var to_state := _add_state(to_state_resource, offset + Vector2(_size.x, _size.y * 0.5))
+	var to_state_offset: Vector2 = transition_table._graph_offsets.get(to_state_resource.resource_path, offset + Vector2(_size.x, _size.y) * 0.5)
+	var to_state := _add_state(to_state_resource, to_state_offset)
 	if to_state:
 		connect_node(new_transition_item_graph_node.name, 0, to_state.name, 0)
 	
@@ -54,7 +55,7 @@ func _check_validity() -> void:
 
 func _check_state_node(state_node: StateGraphNode) -> bool:
 	for connection in get_connection_list():
-		if connection.from == state_node.name or (connection.to == state_node.name and not connection.from == "EntryPoint"):
+		if connection.from == state_node.name or (connection.to == state_node.name and not connection.from == _ENTRY_POINT):
 			state_node.self_modulate = Color.white
 			return true
 	state_node.self_modulate = Color.crimson
@@ -169,7 +170,10 @@ func set_transition_table(new_table: TransitionTableResource) -> void:
 	if transition_table.entry_state_resource:
 		var entry_node := _has_state(transition_table.entry_state_resource)
 		_update_entry_node(entry_node)
+	
+	$EntryPoint.offset = transition_table._graph_offsets.get(_ENTRY_POINT, Vector2())
 	$EntryPoint/Label.text = transition_table.resource_path.get_file().get_basename()
+	_on_node_moved()
 
 
 func _on_state_delete_requested(state_graph_node: StateGraphNode) -> void:
@@ -262,9 +266,16 @@ func _on_transitions_updated(new_transitions: Array) -> void:
 	
 	for i in new_transitions.size():
 		var transition_item: TransitionItemResource = new_transitions[i]
-		_add_transition(transition_item, Vector2(0.0, i * _size.y))
+		var offset: Vector2 = transition_table._graph_offsets.get(transition_item.resource_path, Vector2(0.0, i * _size.y) + _size * 0.5)
+		_add_transition(transition_item, offset)
 	
 	_check_validity()
 
 func _on_node_moved() -> void:
-	pass#transition_table._transitions.sort_custom(self, "_sort_grap_nodes_by_y")
+	for child in get_children():
+		if child == $EntryPoint:
+			transition_table._graph_offsets[_ENTRY_POINT] = child.offset
+		elif child is StateGraphNode:
+			transition_table._graph_offsets[child.state_resource.resource_path] = child.offset
+		elif child is TransitionItemGraphNode:
+			transition_table._graph_offsets[child.transition_item_resource.resource_path] = child.offset

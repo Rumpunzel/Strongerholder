@@ -11,14 +11,13 @@ rect_min_size = Vector2( 800, 600 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 right_disconnects = true
-scroll_offset = Vector2( 0, -400 )
+show_zoom_label = true
 script = ExtResource( 1 )
 
 [node name="EntryPoint" type="GraphNode" parent="."]
 modulate = Color( 1, 0.498039, 0.313726, 1 )
-margin_top = 400.0
 margin_right = 116.0
-margin_bottom = 444.0
+margin_bottom = 45.0
 mouse_filter = 1
 title = "ENTRY POINT"
 comment = true

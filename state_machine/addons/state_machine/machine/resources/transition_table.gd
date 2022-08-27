@@ -6,6 +6,7 @@ enum { CONDITIONS, RESULT_GROUPS }
 export(Resource) var entry_state_resource
 
 export(Array, Resource) var _transitions
+export var _graph_offsets := { }
 
 
 func initalize(state_machine) -> State:# StateMachine) -> State:

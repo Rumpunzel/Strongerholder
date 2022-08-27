@@ -46,3 +46,10 @@ operator = 1
 script = ExtResource( 1 )
 entry_state_resource = ExtResource( 6 )
 _transitions = [ SubResource( 3 ), SubResource( 6 ) ]
+_graph_offsets = {
+"EntryPoint": Vector2( 180, 20 ),
+"res://addons/state_machine/demo/demo_transition_table.tres::3": Vector2( 600, -120 ),
+"res://addons/state_machine/demo/demo_transition_table.tres::6": Vector2( 640, 140 ),
+"res://addons/state_machine/demo/states/demo_state_1.tres": Vector2( 420, 120 ),
+"res://addons/state_machine/demo/states/demo_state_2.tres": Vector2( 1000, -120 )
+}
