@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/state_machine/inspector/condition_usage.gd" type="Script" id=2]
+
+[node name="ConditionUsage" type="HBoxContainer"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 108.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource( 2 )
+
+[node name="Condition" type="Button" parent="."]
+modulate = Color( 1, 0.498039, 0.313726, 1 )
+margin_right = 12.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+
+[node name="ExpectedResult" type="CheckButton" parent="."]
+margin_left = 16.0
+margin_right = 92.0
+margin_bottom = 64.0
+
+[node name="Node" type="Node" parent="."]
+
+[node name="ConditionFileDialog" type="FileDialog" parent="Node"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+window_title = "Open a File"
+resizable = true
+dialog_hide_on_ok = true
+dialog_autowrap = true
+mode = 0
+filters = PoolStringArray( "*.tres" )
+
+[node name="AcceptDialog" type="AcceptDialog" parent="Node"]
+margin_right = 83.0
+margin_bottom = 58.0
+window_title = "Wrong Resource Type Selected!"
+dialog_text = "You need to select a StateConditionResource!"
+
+[connection signal="pressed" from="Condition" to="Node/ConditionFileDialog" method="popup_centered"]
+[connection signal="toggled" from="ExpectedResult" to="." method="_on_expected_result_changed"]
+[connection signal="file_selected" from="Node/ConditionFileDialog" to="." method="_on_condition_file_selected"]
+[connection signal="confirmed" from="Node/AcceptDialog" to="Node/ConditionFileDialog" method="popup_centered"]

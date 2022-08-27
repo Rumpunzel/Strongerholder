@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/state_machine/machine/state_machine.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/demo/demo_transition_table.tres" type="Resource" id=2]
+
+[node name="StateMachine" type="Node"]
+script = ExtResource( 1 )
+_transition_table_resource = ExtResource( 2 )
