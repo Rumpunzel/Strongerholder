@@ -3,9 +3,11 @@ tool
 
 const CustomGraphNode := preload("res://addons/state_machine/inspector/graph_node.gd")
 const StateGraphNode := preload("res://addons/state_machine/inspector/state_graph_node.gd")
-const StateGraphNodeScene := preload("res://addons/state_machine/inspector/state_graph_node.tscn")
 const TransitionItemGraphNode := preload("res://addons/state_machine/inspector/transition_item_graph_node.gd")
+
+const StateGraphNodeScene := preload("res://addons/state_machine/inspector/state_graph_node.tscn")
 const TransitionItemGraphNodeScene := preload("res://addons/state_machine/inspector/transition_item_graph_node.tscn")
+const BackToEntryPointGraphNodeScene := preload("res://addons/state_machine/inspector/back_to_entry_point_graph_node.tscn")
 
 const _ENTRY_POINT := "EntryPoint"
 const _ZOOM := "Zoom"
@@ -16,6 +18,7 @@ var transition_table: TransitionTableResource = null setget set_transition_table
 
 var _entry_node: StateGraphNode = null
 var _selected_node: GraphNode = null
+var _highlighting_enabled := false setget set_highlighting_enabled
 
 
 func _add_transition(transition_item_resource: TransitionItemResource, offset: Vector2) -> TransitionItemGraphNode:
@@ -36,8 +39,13 @@ func _add_transition(transition_item_resource: TransitionItemResource, offset: V
 			connect_node(from_state.name, 0, new_transition_item_graph_node.name, 0)
 	
 	var to_state_resource: StateResource = transition_item_resource.to_state
-	var to_state_offset: Vector2 = transition_table._graph_offsets.get(to_state_resource.resource_path, offset + Vector2(_size.x, _size.y) * 0.5)
-	var to_state := _add_state(to_state_resource, to_state_offset)
+	var to_state: CustomGraphNode
+	if to_state_resource == transition_table.entry_state_resource:
+		var to_state_offset := offset + Vector2(_size.x * 0.6, _size.y * 0.25)
+		to_state = _add_back_to_entry_point_node(to_state_offset)
+	else:
+		var to_state_offset: Vector2 = transition_table._graph_offsets.get(to_state_resource.resource_path, offset + Vector2(_size.x, _size.y) * 0.5)
+		to_state = _add_state(to_state_resource, to_state_offset)
 	if to_state:
 		connect_node(new_transition_item_graph_node.name, 0, to_state.name, 0)
 	
@@ -46,23 +54,6 @@ func _add_transition(transition_item_resource: TransitionItemResource, offset: V
 		$Node/ConditionFileDialog.current_dir = condition_usages.front().condition.resource_path.get_base_dir()
 	
 	return new_transition_item_graph_node
-
-
-func _check_validity() -> void:
-	$EntryPoint.self_modulate = Color.coral if transition_table.entry_state_resource else Color.crimson
-	for child in get_children():
-		if child is StateGraphNode:
-			_check_state_node(child)
-		elif child is TransitionItemGraphNode:
-			child.check_validity()
-
-func _check_state_node(state_node: StateGraphNode) -> bool:
-	for connection in get_connection_list():
-		if connection.from == state_node.name or (connection.to == state_node.name and not connection.from == _ENTRY_POINT):
-			state_node.self_modulate = Color.white
-			return true
-	state_node.self_modulate = Color.crimson
-	return false
 
 
 func _add_state(state_resource: StateResource, offset: Vector2) -> StateGraphNode:
@@ -84,6 +75,17 @@ func _add_state(state_resource: StateResource, offset: Vector2) -> StateGraphNod
 	$Node/StateFileDialog.current_dir = state_resource.resource_path.get_base_dir()
 	return new_state_graph_node
 
+func _add_back_to_entry_point_node(offset: Vector2) -> CustomGraphNode:
+	var new_graph_node: CustomGraphNode = BackToEntryPointGraphNodeScene.instance()
+	add_child(new_graph_node)
+	move_child(new_graph_node, 0)
+	new_graph_node.offset = offset
+	#new_graph_node.connect("delete_requested", self, "_on_state_delete_requested", [ new_state_graph_node ])
+	
+	new_graph_node.get_node("Label").text = transition_table.entry_state_resource.resource_path.get_file().get_basename()
+	return new_graph_node
+
+
 func _update_entry_node(state_graph_node: StateGraphNode) -> void:
 	if state_graph_node == _entry_node:
 		return
@@ -102,6 +104,28 @@ func _update_entry_node(state_graph_node: StateGraphNode) -> void:
 	_entry_node = state_graph_node
 	if _entry_node:
 		connect_node(entry_point.name, 0, state_graph_node.name, 0)
+
+func _check_validity() -> void:
+	$EntryPoint.self_modulate = Color.coral if transition_table.entry_state_resource else Color.crimson
+	for child in get_children():
+		if child is StateGraphNode:
+			_check_state_node(child)
+		elif child is TransitionItemGraphNode:
+			child.check_validity()
+
+func _check_state_node(state_node: StateGraphNode) -> bool:
+	for connection in get_connection_list():
+		if connection.from == state_node.name or (connection.to == state_node.name and not connection.from == _ENTRY_POINT):
+			state_node.self_modulate = Color.cornflower
+			return true
+	state_node.self_modulate = Color.crimson
+	return false
+
+func _has_state(state_resouce: StateResource) -> StateGraphNode:
+	for child in get_children():
+		if child is StateGraphNode and child.state_resource == state_resouce:
+			return child
+	return null
 
 
 func _connect_state_item_from(state_graph_node_name: String, to_transition_item_graph_node_name: String) -> void:
@@ -160,16 +184,6 @@ func _disconnect_graph_node_outputs(graph_node_name: String) -> void:
 			disconnect_node(connection.from, 0, connection.to, 0)
 
 
-func _add_back_to_start() -> void:
-	pass # Replace with function body.
-
-func _has_state(state_resouce: StateResource) -> StateGraphNode:
-	for child in get_children():
-		if child is StateGraphNode and child.state_resource == state_resouce:
-			return child
-	return null
-
-
 func set_transition_table(new_table: TransitionTableResource) -> void:
 	transition_table = new_table
 
@@ -183,29 +197,28 @@ func set_transition_table(new_table: TransitionTableResource) -> void:
 	zoom = transition_table._graph_offsets.get(_ZOOM, 1.0)
 	_on_node_moved()
 
+func set_highlighting_enabled(new_status: bool) -> void:
+	_highlighting_enabled = new_status
+	if _highlighting_enabled:
+		_on_node_selected(_selected_node)
+	else:
+		_on_node_unselected(_selected_node)
 
-func _on_state_delete_requested(state_graph_node: StateGraphNode) -> void:
-	for connection in get_connection_list():
-		if connection.from == state_graph_node.name:
-			_disconnect_state_from(state_graph_node.name, connection.to)
-		elif connection.to == state_graph_node.name:
-			_disconnect_state_to(connection.from, state_graph_node.name)
-	if state_graph_node.state_resource == transition_table.entry_state_resource:
-		_update_entry_node(null)
-	_check_validity()
-	state_graph_node.disconnect("delete_requested", self, "_on_state_delete_requested")
-	transition_table._graph_offsets.erase(state_graph_node.state_resource.resource_path)
-	remove_child(state_graph_node)
-	state_graph_node.queue_free()
 
-func _on_transition_item_delete_requested(transition_item_graph_node: TransitionItemGraphNode) -> void:
-	_disconnect_graph_node(transition_item_graph_node.name)
-	transition_table._transitions.erase(transition_item_graph_node.transition_item_resource)
+func _on_transitions_updated(new_transitions: Array) -> void:
+	print("Drawing Graph!")
+	clear_connections()
+	for child in get_children():
+		if child is StateGraphNode or child is TransitionItemGraphNode:
+			remove_child(child)
+			child.queue_free()
+	
+	for i in new_transitions.size():
+		var transition_item: TransitionItemResource = new_transitions[i]
+		var offset: Vector2 = transition_table._graph_offsets.get(transition_item.resource_path, Vector2(0.0, i * _size.y) + _size * 0.5)
+		_add_transition(transition_item, offset)
+	
 	_check_validity()
-	transition_item_graph_node.disconnect("delete_requested", self, "_on_transition_item_delete_requested")
-	transition_table._graph_offsets.erase(transition_item_graph_node.transition_item_resource.resource_path)
-	remove_child(transition_item_graph_node)
-	transition_item_graph_node.queue_free()
 
 
 func _on_state_files_selected(paths: PoolStringArray) -> void:
@@ -266,20 +279,29 @@ func _on_disconnection_request(from: String, from_slot: int, to: String, to_slot
 	_check_validity()
 
 
-func _on_transitions_updated(new_transitions: Array) -> void:
-	print("Drawing Graph!")
-	clear_connections()
-	for child in get_children():
-		if child is StateGraphNode or child is TransitionItemGraphNode:
-			remove_child(child)
-			child.queue_free()
-	
-	for i in new_transitions.size():
-		var transition_item: TransitionItemResource = new_transitions[i]
-		var offset: Vector2 = transition_table._graph_offsets.get(transition_item.resource_path, Vector2(0.0, i * _size.y) + _size * 0.5)
-		_add_transition(transition_item, offset)
-	
+func _on_state_delete_requested(state_graph_node: StateGraphNode) -> void:
+	for connection in get_connection_list():
+		if connection.from == state_graph_node.name:
+			_disconnect_state_from(state_graph_node.name, connection.to)
+		elif connection.to == state_graph_node.name:
+			_disconnect_state_to(connection.from, state_graph_node.name)
+	if state_graph_node.state_resource == transition_table.entry_state_resource:
+		_update_entry_node(null)
 	_check_validity()
+	state_graph_node.disconnect("delete_requested", self, "_on_state_delete_requested")
+	transition_table._graph_offsets.erase(state_graph_node.state_resource.resource_path)
+	remove_child(state_graph_node)
+	state_graph_node.queue_free()
+
+func _on_transition_item_delete_requested(transition_item_graph_node: TransitionItemGraphNode) -> void:
+	_disconnect_graph_node(transition_item_graph_node.name)
+	transition_table._transitions.erase(transition_item_graph_node.transition_item_resource)
+	_check_validity()
+	transition_item_graph_node.disconnect("delete_requested", self, "_on_transition_item_delete_requested")
+	transition_table._graph_offsets.erase(transition_item_graph_node.transition_item_resource.resource_path)
+	remove_child(transition_item_graph_node)
+	transition_item_graph_node.queue_free()
+
 
 func _on_node_moved() -> void:
 	transition_table._graph_offsets[_ZOOM] = zoom
@@ -293,7 +315,7 @@ func _on_node_moved() -> void:
 
 
 func _on_node_selected(graph_node: Node) -> void:
-	if graph_node == _selected_node:
+	if not _highlighting_enabled or graph_node == _selected_node:
 		return
 	_selected_node = graph_node
 	_change_highlighting_of_all_nodes(false)

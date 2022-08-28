@@ -33,10 +33,8 @@ func _update_style() -> void:
 		to_state_name = transition_item_resource.to_state.resource_path.get_file().get_basename().capitalize()
 	
 	title = "%s -> %s" % [ from_state_names, to_state_name ]
-	if not (not transition_item_resource.from_states.empty() and has_to_state):
+	if not (not transition_item_resource.from_states.empty() and has_to_state) or transition_item_resource.conditions.empty():
 		self_modulate = Color.crimson
-	elif transition_item_resource.conditions.empty():
-		self_modulate = Color.coral
 	else:
 		self_modulate = Color.white
 
