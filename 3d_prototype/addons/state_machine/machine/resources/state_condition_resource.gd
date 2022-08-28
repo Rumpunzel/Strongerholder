@@ -1,4 +1,4 @@
-class_name StateConditionResource, "res://addons/state_machine/icons/icon_think.svg"
+class_name StateConditionResource , "res://addons/state_machine/icons/icon_choice.svg"
 extends Resource
 
 

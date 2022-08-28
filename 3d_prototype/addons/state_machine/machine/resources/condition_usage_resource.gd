@@ -1,4 +1,4 @@
-class_name ConditionUsageResource, "res://addons/state_machine/icons/icon_choice.svg"
+class_name ConditionUsageResource, "res://addons/state_machine/icons/icon_think.svg"
 extends Resource
 
 # warning-ignore-all:unused_class_variable

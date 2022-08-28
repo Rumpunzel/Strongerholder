@@ -25,7 +25,7 @@ func _update_transitions(new_transitions: Array) -> void:
 	print("Drawing Graph!")
 	clear_connections()
 	for child in get_children():
-		if child is StateGraphNode or child is TransitionItemGraphNode:
+		if child is CustomGraphNode and not child == $EntryPoint:
 			remove_child(child)
 			child.queue_free()
 	
@@ -204,7 +204,7 @@ func _disconnect_graph_node_outputs(graph_node_name: String) -> void:
 
 func set_transition_table(new_table: TransitionTableResource) -> void:
 	transition_table = new_table
-
+	
 	_update_transitions(transition_table._transitions)
 	if transition_table.entry_state_resource:
 		var entry_node := _has_state(transition_table.entry_state_resource)

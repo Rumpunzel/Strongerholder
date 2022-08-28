@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_cog_32.png-29fa1eaf85f1c7aa4bc023e2384fdb45.stex"
+path="res://.import/icon_fall_down.svg-6e3087e05bb68c4b320b8b8c4fcf1ecd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/state_machine/icons/icon_cog_32.png"
-dest_files=[ "res://.import/icon_cog_32.png-29fa1eaf85f1c7aa4bc023e2384fdb45.stex" ]
+source_file="res://addons/state_machine/icons/icon_fall_down.svg"
+dest_files=[ "res://.import/icon_fall_down.svg-6e3087e05bb68c4b320b8b8c4fcf1ecd.stex" ]
 
 [params]
 

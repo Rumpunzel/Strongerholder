@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_plain_arrow.svg-e079c56d17dcb1ddc7bc27c26a4396b0.stex"
+path="res://.import/icon_cog_16.png-a342befac37097e38760d2015fc45d4a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/state_machine/icons/icon_plain_arrow.svg"
-dest_files=[ "res://.import/icon_plain_arrow.svg-e079c56d17dcb1ddc7bc27c26a4396b0.stex" ]
+source_file="res://addons/state_machine/icons/icon_cog_16.png"
+dest_files=[ "res://.import/icon_cog_16.png-a342befac37097e38760d2015fc45d4a.stex" ]
 
 [params]
 

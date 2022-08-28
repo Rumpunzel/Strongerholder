@@ -1,4 +1,4 @@
-class_name TransitionItemResource, "res://addons/state_machine/icons/icon_plain_arrow.svg"
+class_name TransitionItemResource, "res://addons/state_machine/icons/icon_fall_down.svg"
 extends Resource
 
 enum Operator { AND, OR }
