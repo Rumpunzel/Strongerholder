@@ -1,14 +1,16 @@
-extends GraphNode
+extends "res://addons/state_machine/inspector/graph_node.gd"
 tool
 
 signal delete_requested()
 
 var state_resource: StateResource setget set_state_resource
+var entry_status := false setget set_entry_status
 
 
-func set_entry_status(is_entry_node: bool) -> void:
-	if is_entry_node:
-		overlay = OVERLAY_BREAKPOINT
+func set_entry_status(new_entry_node: bool) -> void:
+	entry_status = new_entry_node
+	if entry_status:
+		overlay = OVERLAY_POSITION
 	else:
 		overlay = OVERLAY_DISABLED
 
@@ -29,7 +31,6 @@ func set_state_resource(new_state_resource: StateResource) -> void:
 		new_action_title.text = action.resource_path.get_file().get_basename()
 		new_action_title.modulate = Color.cornflower
 		actions.add_child(new_action_title)
-
 
 func _on_deleted() -> void:
 	emit_signal("delete_requested")

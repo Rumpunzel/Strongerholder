@@ -1,13 +1,13 @@
-extends GraphNode
+extends "res://addons/state_machine/inspector/graph_node.gd"
 tool
-
-signal delete_requested()
 
 enum MenuButtons {
 	MOVE_UP,
 	MOVE_DOWN,
 	DELETE,
 }
+
+signal delete_requested()
 
 const ConditionUsage := preload("res://addons/state_machine/inspector/condition_usage.gd")
 const ConditionUsageScene := preload("res://addons/state_machine/inspector/condition_usage.tscn")
@@ -81,6 +81,28 @@ func _has_condition(condition: StateConditionResource) -> ConditionUsage:
 			return condition_usage
 	return null
 
+func _first_condition_path() -> String:
+	if transition_item_resource.conditions.empty():
+		return ""
+	return transition_item_resource.conditions.front().condition.resource_path
+
+
+func set_transition_item_resource(new_transition_item_resource: TransitionItemResource) -> void:
+	transition_item_resource = new_transition_item_resource
+	
+	var condition_usages := $ConditionUsages
+	for child in condition_usages.get_children():
+		condition_usages.remove_child(child)
+		child.queue_free()
+	
+	for condition_usage in transition_item_resource.conditions:
+		_add_condition_usage_node(condition_usage)
+	
+	$HBoxContainer/Operator.update_style(transition_item_resource.operator)
+	$Node/ConditionFileDialog.current_path = _first_condition_path()
+	_update_menu_buttons()
+	_update_style()
+
 
 func _on_operator_changed(new_operator: int) -> void:
 	transition_item_resource.operator = new_operator
@@ -134,29 +156,5 @@ func _on_condition_deleted(index: int, node: HBoxContainer) -> void:
 	node.queue_free()
 	_update_style()
 
-
 func _on_deleted() -> void:
 	emit_signal("delete_requested")
-
-
-func set_transition_item_resource(new_transition_item_resource: TransitionItemResource) -> void:
-	transition_item_resource = new_transition_item_resource
-	
-	var condition_usages := $ConditionUsages
-	for child in condition_usages.get_children():
-		condition_usages.remove_child(child)
-		child.queue_free()
-	
-	for condition_usage in transition_item_resource.conditions:
-		_add_condition_usage_node(condition_usage)
-	
-	$HBoxContainer/Operator.update_style(transition_item_resource.operator)
-	$Node/ConditionFileDialog.current_path = _first_condition_path()
-	_update_menu_buttons()
-	_update_style()
-
-
-func _first_condition_path() -> String:
-	if transition_item_resource.conditions.empty():
-		return ""
-	return transition_item_resource.conditions.front().condition.resource_path
