@@ -51,20 +51,20 @@ margin_right = 240.0
 margin_bottom = 68.0
 size_flags_vertical = 0
 
-[node name="Operator" type="Button" parent="HBoxContainer"]
-margin_right = 69.0
-margin_bottom = 38.0
-size_flags_horizontal = 3
-text = "Operator"
-script = ExtResource( 1 )
-
 [node name="AddCondition(s)" type="Button" parent="HBoxContainer"]
-margin_left = 73.0
-margin_right = 224.0
+margin_right = 151.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 text = "Add Condition(s)"
 icon = ExtResource( 3 )
+
+[node name="Operator" type="Button" parent="HBoxContainer"]
+margin_left = 155.0
+margin_right = 224.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+text = "Operator"
+script = ExtResource( 1 )
 
 [node name="Node" type="Node" parent="."]
 
@@ -115,9 +115,9 @@ margin_bottom = 35.0
 dialog_text = "Delete this ConditionUsage?"
 
 [connection signal="close_request" from="." to="Node/DeleteConfirmationDialog" method="popup_centered"]
+[connection signal="pressed" from="HBoxContainer/AddCondition(s)" to="Node/ConditionFileDialog" method="popup_centered"]
 [connection signal="pressed" from="HBoxContainer/Operator" to="HBoxContainer/Operator" method="_on_pressed"]
 [connection signal="value_changed" from="HBoxContainer/Operator" to="." method="_on_operator_changed"]
-[connection signal="pressed" from="HBoxContainer/AddCondition(s)" to="Node/ConditionFileDialog" method="popup_centered"]
 [connection signal="file_selected" from="Node/ConditionFileDialog" to="." method="_on_condition_file_selected"]
 [connection signal="files_selected" from="Node/ConditionFileDialog" to="." method="_on_condition_files_selected"]
 [connection signal="confirmed" from="Node/AcceptDialog" to="Node/ConditionFileDialog" method="popup_centered"]

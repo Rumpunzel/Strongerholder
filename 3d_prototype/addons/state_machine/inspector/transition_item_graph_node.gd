@@ -37,6 +37,8 @@ func _update_style() -> void:
 		self_modulate = Color.crimson
 	else:
 		self_modulate = Color.white
+	
+	$HBoxContainer/Operator.visible = transition_item_resource.conditions.size() > 1
 
 
 func _add_condition_usage_node(condition_usage_resource: ConditionUsageResource) -> ConditionUsage:
