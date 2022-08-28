@@ -1,6 +1,8 @@
 extends GraphNode
 tool
 
+export var entry_node := false
+
 var highlighted := false setget set_highlighted
 
 func set_highlighted(new_status: bool) -> void:

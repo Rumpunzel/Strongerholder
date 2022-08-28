@@ -24,8 +24,8 @@ entry_state_resource = ExtResource( 3 )
 _transitions = [ SubResource( 2 ) ]
 _graph_offsets = {
 "": Vector2( 383, 413 ),
-"EntryPoint": Vector2( 211, 183 ),
+"EntryPoint": Vector2( -11, 192 ),
 "Zoom": 1.0,
-"res://characters/controllers/job_machine/idle_job_machine.tres::2": Vector2( 431, 363 ),
-"res://characters/controllers/job_machine/resources/states/unemployed.tres": Vector2( 474, 196 )
+"res://characters/controllers/job_machine/idle_job_machine.tres::2": Vector2( 498, 229 ),
+"res://characters/controllers/job_machine/resources/states/unemployed.tres": Vector2( 252, 205 )
 }

@@ -24,7 +24,8 @@ entry_state_resource = ExtResource( 3 )
 _transitions = [ SubResource( 2 ) ]
 _graph_offsets = {
 "": Vector2( 455, 128 ),
-"EntryPoint": Vector2( 90, 82 ),
+"EntryPoint": Vector2( 14, 164 ),
 "Zoom": 1.0,
-"res://characters/controllers/input_reader/resources/states/gameplay.tres": Vector2( 467.603, 350.489 )
+"res://characters/controllers/input_reader/input_reader.tres::2": Vector2( 584, 202 ),
+"res://characters/controllers/input_reader/resources/states/gameplay.tres": Vector2( 284, 122 )
 }

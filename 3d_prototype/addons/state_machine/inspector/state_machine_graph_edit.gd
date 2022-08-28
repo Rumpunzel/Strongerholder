@@ -17,9 +17,24 @@ export var _size := Vector2(750.0, 250.0)
 var transition_table: TransitionTableResource = null setget set_transition_table
 
 var _entry_node: StateGraphNode = null
-var _selected_node: GraphNode = null
+var _selected_node: CustomGraphNode = null
 var _highlighting_enabled := false setget set_highlighting_enabled
 
+
+func _update_transitions(new_transitions: Array) -> void:
+	print("Drawing Graph!")
+	clear_connections()
+	for child in get_children():
+		if child is StateGraphNode or child is TransitionItemGraphNode:
+			remove_child(child)
+			child.queue_free()
+	
+	for i in new_transitions.size():
+		var transition_item: TransitionItemResource = new_transitions[i]
+		var offset: Vector2 = transition_table._graph_offsets.get(transition_item.resource_path, Vector2(0.0, i * _size.y) + _size * 0.5)
+		_add_transition(transition_item, offset)
+	
+	_check_validity()
 
 func _add_transition(transition_item_resource: TransitionItemResource, offset: Vector2) -> TransitionItemGraphNode:
 	if not transition_table._transitions.has(transition_item_resource):
@@ -90,7 +105,7 @@ func _update_entry_node(state_graph_node: StateGraphNode) -> void:
 	if state_graph_node == _entry_node:
 		return
 	
-	var entry_point: GraphNode = $EntryPoint
+	var entry_point: CustomGraphNode = $EntryPoint
 	if _entry_node:
 		_disconnect_graph_node_outputs(entry_point.name)
 		_entry_node.entry_status = false
@@ -104,6 +119,9 @@ func _update_entry_node(state_graph_node: StateGraphNode) -> void:
 	_entry_node = state_graph_node
 	if _entry_node:
 		connect_node(entry_point.name, 0, state_graph_node.name, 0)
+
+func _cleanup() -> void:
+	set_transition_table(transition_table)
 
 func _check_validity() -> void:
 	$EntryPoint.self_modulate = Color.coral if transition_table.entry_state_resource else Color.crimson
@@ -139,7 +157,7 @@ func _connect_state_item_from(state_graph_node_name: String, to_transition_item_
 
 func _connect_state_item_to(state_graph_node_name: String, from_graph_node_name: String) -> void:
 	var state_graph_node: StateGraphNode = get_node(state_graph_node_name)
-	var node_to_connect_to: GraphNode = get_node(from_graph_node_name)
+	var node_to_connect_to: CustomGraphNode = get_node(from_graph_node_name)
 	
 	if node_to_connect_to is TransitionItemGraphNode:
 		var transition: TransitionItemResource = node_to_connect_to.transition_item_resource
@@ -160,7 +178,7 @@ func _disconnect_state_from(state_graph_node_name: String, to_transition_item_gr
 		_update_entry_node(_entry_node)
 
 func _disconnect_state_to(state_graph_node_name: String, from_graph_node_name: String) -> void:
-	var node_to_connect_to: GraphNode = get_node(from_graph_node_name)
+	var node_to_connect_to: CustomGraphNode = get_node(from_graph_node_name)
 	if node_to_connect_to is TransitionItemGraphNode:
 		var transition: TransitionItemResource = node_to_connect_to.transition_item_resource
 		transition.to_state = null
@@ -187,7 +205,7 @@ func _disconnect_graph_node_outputs(graph_node_name: String) -> void:
 func set_transition_table(new_table: TransitionTableResource) -> void:
 	transition_table = new_table
 
-	_on_transitions_updated(transition_table._transitions)
+	_update_transitions(transition_table._transitions)
 	if transition_table.entry_state_resource:
 		var entry_node := _has_state(transition_table.entry_state_resource)
 		_update_entry_node(entry_node)
@@ -203,22 +221,6 @@ func set_highlighting_enabled(new_status: bool) -> void:
 		_on_node_selected(_selected_node)
 	else:
 		_on_node_unselected(_selected_node)
-
-
-func _on_transitions_updated(new_transitions: Array) -> void:
-	print("Drawing Graph!")
-	clear_connections()
-	for child in get_children():
-		if child is StateGraphNode or child is TransitionItemGraphNode:
-			remove_child(child)
-			child.queue_free()
-	
-	for i in new_transitions.size():
-		var transition_item: TransitionItemResource = new_transitions[i]
-		var offset: Vector2 = transition_table._graph_offsets.get(transition_item.resource_path, Vector2(0.0, i * _size.y) + _size * 0.5)
-		_add_transition(transition_item, offset)
-	
-	_check_validity()
 
 
 func _on_state_files_selected(paths: PoolStringArray) -> void:
@@ -261,8 +263,8 @@ func _on_condition_file_selected(path: String) -> void:
 
 
 func _on_connection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
-	var from_node: GraphNode = get_node(from)
-	var to_node: GraphNode = get_node(to)
+	var from_node: CustomGraphNode = get_node(from)
+	var to_node: CustomGraphNode = get_node(to)
 	if from_node is StateGraphNode:
 		_connect_state_item_from(from, to)
 	elif to_node is StateGraphNode:
@@ -270,8 +272,8 @@ func _on_connection_request(from: String, from_slot: int, to: String, to_slot: i
 	_check_validity()
 
 func _on_disconnection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
-	var from_node: GraphNode = get_node(from)
-	var to_node: GraphNode = get_node(to)
+	var from_node: CustomGraphNode = get_node(from)
+	var to_node: CustomGraphNode = get_node(to)
 	if from_node is StateGraphNode:
 		_disconnect_state_from(from, to)
 	elif to_node is StateGraphNode:
@@ -314,18 +316,35 @@ func _on_node_moved() -> void:
 			transition_table._graph_offsets[child.transition_item_resource.resource_path] = child.offset - scroll_offset
 
 
-func _on_node_selected(graph_node: Node) -> void:
+func _on_node_selected(graph_node: CustomGraphNode) -> void:
 	if not _highlighting_enabled or graph_node == _selected_node:
 		return
 	_selected_node = graph_node
 	_change_highlighting_of_all_nodes(false)
 	var connections := get_connection_list()
+	var highlight_entry := graph_node.entry_node
+	var highlight_exits := graph_node.entry_node
+	
 	for connection in connections:
 		if connection.from == graph_node.name or connection.to == graph_node.name:
-			get_node(connection.from).highlighted = true
-			get_node(connection.to).highlighted = true
+			var from_node: CustomGraphNode = get_node(connection.from)
+			var to_node: CustomGraphNode = get_node(connection.to)
+			from_node.highlighted = true
+			to_node.highlighted = true
+			
+			if to_node.entry_node:
+				highlight_entry = true
+			if from_node.entry_node:
+				highlight_exits = true
+	
+	if highlight_entry:
+		_entry_node.highlighted = true
+		$EntryPoint.highlighted = true
+	for child in get_children():
+		if highlight_exits and child is CustomGraphNode and child.entry_node:
+			child.highlighted = true
 
-func _on_node_unselected(graph_node: GraphNode) -> void:
+func _on_node_unselected(graph_node: CustomGraphNode) -> void:
 	if _selected_node == graph_node:
 		_change_highlighting_of_all_nodes(true)
 		_selected_node = null

@@ -8,7 +8,6 @@ margin_right = 176.0
 margin_bottom = 45.0
 mouse_filter = 1
 title = "BACK TO ENTRY POINT"
-comment = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color( 1, 0.498039, 0.313726, 1 )
@@ -16,6 +15,7 @@ slot/0/right_enabled = false
 slot/0/right_type = 0
 slot/0/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
+entry_node = true
 
 [node name="Label" type="Label" parent="."]
 margin_left = 16.0
