@@ -1,6 +1,7 @@
 extends GraphEdit
 tool
 
+const CustomGraphNode := preload("res://addons/state_machine/inspector/graph_node.gd")
 const StateGraphNode := preload("res://addons/state_machine/inspector/state_graph_node.gd")
 const StateGraphNodeScene := preload("res://addons/state_machine/inspector/state_graph_node.tscn")
 const TransitionItemGraphNode := preload("res://addons/state_machine/inspector/transition_item_graph_node.gd")
@@ -14,6 +15,7 @@ export var _size := Vector2(750.0, 250.0)
 var transition_table: TransitionTableResource = null setget set_transition_table
 
 var _entry_node: StateGraphNode = null
+var _selected_node: GraphNode = null
 
 
 func _add_transition(transition_item_resource: TransitionItemResource, offset: Vector2) -> TransitionItemGraphNode:
@@ -47,7 +49,7 @@ func _add_transition(transition_item_resource: TransitionItemResource, offset: V
 
 
 func _check_validity() -> void:
-	$EntryPoint.modulate = Color.coral if transition_table.entry_state_resource else Color.crimson
+	$EntryPoint.self_modulate = Color.coral if transition_table.entry_state_resource else Color.crimson
 	for child in get_children():
 		if child is StateGraphNode:
 			_check_state_node(child)
@@ -89,11 +91,11 @@ func _update_entry_node(state_graph_node: StateGraphNode) -> void:
 	var entry_point: GraphNode = $EntryPoint
 	if _entry_node:
 		_disconnect_graph_node_outputs(entry_point.name)
-		_entry_node.set_entry_status(false)
+		_entry_node.entry_status = false
 	
 	if state_graph_node and _check_state_node(state_graph_node):
 		transition_table.entry_state_resource = state_graph_node.state_resource
-		state_graph_node.set_entry_status(true)
+		state_graph_node.entry_status = true
 	else:
 		transition_table.entry_state_resource = null
 	
@@ -157,6 +159,9 @@ func _disconnect_graph_node_outputs(graph_node_name: String) -> void:
 		if connection.from == graph_node_name:
 			disconnect_node(connection.from, 0, connection.to, 0)
 
+
+func _add_back_to_start() -> void:
+	pass # Replace with function body.
 
 func _has_state(state_resouce: StateResource) -> StateGraphNode:
 	for child in get_children():
@@ -285,3 +290,25 @@ func _on_node_moved() -> void:
 			transition_table._graph_offsets[child.state_resource.resource_path] = child.offset - scroll_offset
 		elif child is TransitionItemGraphNode:
 			transition_table._graph_offsets[child.transition_item_resource.resource_path] = child.offset - scroll_offset
+
+
+func _on_node_selected(graph_node: Node) -> void:
+	if graph_node == _selected_node:
+		return
+	_selected_node = graph_node
+	_change_highlighting_of_all_nodes(false)
+	var connections := get_connection_list()
+	for connection in connections:
+		if connection.from == graph_node.name or connection.to == graph_node.name:
+			get_node(connection.from).highlighted = true
+			get_node(connection.to).highlighted = true
+
+func _on_node_unselected(graph_node: GraphNode) -> void:
+	if _selected_node == graph_node:
+		_change_highlighting_of_all_nodes(true)
+		_selected_node = null
+
+func _change_highlighting_of_all_nodes(new_status: bool) -> void:
+	for child in get_children():
+		if child is CustomGraphNode:
+			child.highlighted = new_status
