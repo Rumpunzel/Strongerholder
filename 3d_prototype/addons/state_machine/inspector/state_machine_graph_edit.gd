@@ -95,7 +95,7 @@ func _add_back_to_entry_point_node(offset: Vector2) -> CustomGraphNode:
 	add_child(new_graph_node)
 	move_child(new_graph_node, 0)
 	new_graph_node.offset = offset
-	#new_graph_node.connect("delete_requested", self, "_on_state_delete_requested", [ new_state_graph_node ])
+	new_graph_node.connect("close_request", self, "_on_jump_node_close_requested", [ new_graph_node ])
 	
 	new_graph_node.get_node("Label").text = transition_table.entry_state_resource.resource_path.get_file().get_basename()
 	return new_graph_node
@@ -178,12 +178,12 @@ func _disconnect_state_from(state_graph_node_name: String, to_transition_item_gr
 		_update_entry_node(_entry_node)
 
 func _disconnect_state_to(state_graph_node_name: String, from_graph_node_name: String) -> void:
-	var node_to_connect_to: CustomGraphNode = get_node(from_graph_node_name)
-	if node_to_connect_to is TransitionItemGraphNode:
-		var transition: TransitionItemResource = node_to_connect_to.transition_item_resource
+	var node_to_disconnect_from: CustomGraphNode = get_node(from_graph_node_name)
+	if node_to_disconnect_from is TransitionItemGraphNode:
+		var transition: TransitionItemResource = node_to_disconnect_from.transition_item_resource
 		transition.to_state = null
 		disconnect_node(from_graph_node_name, 0, state_graph_node_name, 0)
-	elif node_to_connect_to == $EntryPoint:
+	elif node_to_disconnect_from == $EntryPoint:
 		_update_entry_node(null)
 
 
@@ -274,10 +274,12 @@ func _on_connection_request(from: String, from_slot: int, to: String, to_slot: i
 func _on_disconnection_request(from: String, from_slot: int, to: String, to_slot: int) -> void:
 	var from_node: CustomGraphNode = get_node(from)
 	var to_node: CustomGraphNode = get_node(to)
+	
 	if from_node is StateGraphNode:
 		_disconnect_state_from(from, to)
 	elif to_node is StateGraphNode:
 		_disconnect_state_to(to, from)
+	
 	_check_validity()
 
 
@@ -303,6 +305,16 @@ func _on_transition_item_delete_requested(transition_item_graph_node: Transition
 	transition_table._graph_offsets.erase(transition_item_graph_node.transition_item_resource.resource_path)
 	remove_child(transition_item_graph_node)
 	transition_item_graph_node.queue_free()
+
+func _on_jump_node_close_requested(jump_node: CustomGraphNode) -> void:
+	for connection in get_connection_list():
+		if connection.to == jump_node.name:
+			_disconnect_state_to(jump_node.name, connection.from)
+			break
+	_check_validity()
+	jump_node.disconnect("close_request", self, "_on_jump_node_close_requested")
+	remove_child(jump_node)
+	jump_node.queue_free()
 
 
 func _on_node_moved() -> void:
