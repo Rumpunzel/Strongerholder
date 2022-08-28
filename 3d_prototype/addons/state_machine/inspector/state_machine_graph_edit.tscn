@@ -10,7 +10,7 @@
 [node name="StateMachineGraphEdit" type="GraphEdit"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 800, 600 )
+rect_min_size = Vector2( 800, 800 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 right_disconnects = true
@@ -142,7 +142,7 @@ margin_bottom = 58.0
 [connection signal="node_unselected" from="." to="." method="_on_node_unselected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddState(s)" to="Node/StateFileDialog" method="popup_centered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddTransition" to="Node/ConditionFileDialog" method="popup_centered"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/Highlighting" to="." method="set_highlighting_enabled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/Highlighting" to="." method="_set_highlighting_enabled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Cleanup" to="." method="_cleanup"]
 [connection signal="file_selected" from="Node/StateFileDialog" to="." method="_on_state_file_selected"]
 [connection signal="files_selected" from="Node/StateFileDialog" to="." method="_on_state_files_selected"]

@@ -18,7 +18,7 @@ var transition_table: TransitionTableResource = null setget set_transition_table
 
 var _entry_node: StateGraphNode = null
 var _selected_node: CustomGraphNode = null
-var _highlighting_enabled := false setget set_highlighting_enabled
+var _highlighting_enabled := false setget _set_highlighting_enabled
 
 
 func _update_transitions(new_transitions: Array) -> void:
@@ -215,13 +215,6 @@ func set_transition_table(new_table: TransitionTableResource) -> void:
 	zoom = transition_table._graph_offsets.get(_ZOOM, 1.0)
 	_on_node_moved()
 
-func set_highlighting_enabled(new_status: bool) -> void:
-	_highlighting_enabled = new_status
-	if _highlighting_enabled:
-		_on_node_selected(_selected_node)
-	else:
-		_on_node_unselected(_selected_node)
-
 
 func _on_state_files_selected(paths: PoolStringArray) -> void:
 	for path in paths:
@@ -329,9 +322,10 @@ func _on_node_moved() -> void:
 
 
 func _on_node_selected(graph_node: CustomGraphNode) -> void:
-	if not _highlighting_enabled or graph_node == _selected_node:
-		return
 	_selected_node = graph_node
+	if not _highlighting_enabled:
+		return
+	
 	_change_highlighting_of_all_nodes(false)
 	var connections := get_connection_list()
 	var highlight_entry := graph_node.entry_node
@@ -359,9 +353,15 @@ func _on_node_selected(graph_node: CustomGraphNode) -> void:
 func _on_node_unselected(graph_node: CustomGraphNode) -> void:
 	if _selected_node == graph_node:
 		_change_highlighting_of_all_nodes(true)
-		_selected_node = null
 
 func _change_highlighting_of_all_nodes(new_status: bool) -> void:
 	for child in get_children():
 		if child is CustomGraphNode:
 			child.highlighted = new_status
+
+func _set_highlighting_enabled(new_status: bool) -> void:
+	_highlighting_enabled = new_status
+	if _highlighting_enabled:
+		_on_node_selected(_selected_node)
+	else:
+		_on_node_unselected(_selected_node)

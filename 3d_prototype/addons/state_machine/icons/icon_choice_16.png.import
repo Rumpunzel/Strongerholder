@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_choice_32.png-98f8fd9a1be9f8886e749f3d8ba2ee72.stex"
+path="res://.import/icon_choice_16.png-cbad49980ec19ffeb2b8da01c4ad903f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/state_machine/icons/icon_choice_32.png"
-dest_files=[ "res://.import/icon_choice_32.png-98f8fd9a1be9f8886e749f3d8ba2ee72.stex" ]
+source_file="res://addons/state_machine/icons/icon_choice_16.png"
+dest_files=[ "res://.import/icon_choice_16.png-cbad49980ec19ffeb2b8da01c4ad903f.stex" ]
 
 [params]
 

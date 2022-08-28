@@ -21,5 +21,5 @@ entry_node = true
 [node name="Label" type="Label" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 160.0
+margin_right = 173.0
 margin_bottom = 38.0

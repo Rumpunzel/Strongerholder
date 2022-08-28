@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/state_machine/inspector/operator_button.gd" type="Script" id=1]
 [ext_resource path="res://addons/state_machine/inspector/transition_item_graph_node.gd" type="Script" id=2]
-[ext_resource path="res://addons/state_machine/icons/icon_choice_32.png" type="Texture" id=3]
+[ext_resource path="res://addons/state_machine/icons/icon_choice_16.png" type="Texture" id=3]
 
 [node name="TransitionItemGraphNode" type="GraphNode"]
 margin_top = 68.0
@@ -34,34 +34,34 @@ script = ExtResource( 2 )
 [node name="ConditionUsages" type="VBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 24.0
-margin_right = 240.0
+margin_right = 224.0
 margin_bottom = 24.0
 size_flags_vertical = 0
 
 [node name="HSeparator" type="HSeparator" parent="."]
 margin_left = 16.0
 margin_top = 25.0
-margin_right = 240.0
+margin_right = 224.0
 margin_bottom = 29.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 16.0
 margin_top = 30.0
-margin_right = 240.0
-margin_bottom = 68.0
+margin_right = 224.0
+margin_bottom = 52.0
 size_flags_vertical = 0
 
 [node name="AddCondition(s)" type="Button" parent="HBoxContainer"]
-margin_right = 151.0
-margin_bottom = 38.0
+margin_right = 135.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Add Condition(s)"
 icon = ExtResource( 3 )
 
 [node name="Operator" type="Button" parent="HBoxContainer"]
-margin_left = 155.0
-margin_right = 224.0
-margin_bottom = 38.0
+margin_left = 139.0
+margin_right = 208.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Operator"
 script = ExtResource( 1 )
