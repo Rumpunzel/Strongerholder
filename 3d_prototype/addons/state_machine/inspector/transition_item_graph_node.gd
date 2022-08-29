@@ -7,6 +7,7 @@ enum MenuButtons {
 	DELETE,
 }
 
+signal changed()
 signal delete_requested()
 
 const ConditionUsage := preload("res://addons/state_machine/inspector/condition_usage.gd")
@@ -17,8 +18,11 @@ const _MENU_BUTTON_NAME := "MenuButton"
 var transition_item_resource: TransitionItemResource setget set_transition_item_resource
 
 
-func check_validity() -> void:
+func check_validity(problems: Array) -> void:
 	_update_style()
+	for child in $ConditionUsages.get_children():
+		var condition_usage: ConditionUsage = child.get_node("ConditionUsage")
+		condition_usage.set_validity(not problems.has(condition_usage.condition_usage_resource))
 
 
 func _update_style() -> void:
@@ -33,7 +37,7 @@ func _update_style() -> void:
 		to_state_name = transition_item_resource.to_state.resource_path.get_file().get_basename().capitalize()
 	
 	title = "%s -> %s" % [ from_state_names, to_state_name ]
-	if not (not transition_item_resource.from_states.empty() and has_to_state) or transition_item_resource.conditions.empty():
+	if not (not transition_item_resource.from_states.empty() and has_to_state):
 		self_modulate = Color.crimson
 	else:
 		self_modulate = Color.white
@@ -60,9 +64,9 @@ func _add_condition_usage_node(condition_usage_resource: ConditionUsageResource)
 	menu_popup.add_icon_item(preload("res://addons/state_machine/icons/icon_trash_can_16.png"), "Delete", MenuButtons.DELETE)
 	menu_popup.connect("id_pressed", self, "_on_menu_button_pressed", [ new_hbox ])
 	
+	new_condition_usage_node.connect("changed", self, "emit_signal", [ "changed" ])
 	condition_usages.add_child(new_hbox)
 	new_condition_usage_node.condition_usage_resource = condition_usage_resource
-	_update_style()
 	
 	return new_condition_usage_node
 
@@ -106,6 +110,7 @@ func set_transition_item_resource(new_transition_item_resource: TransitionItemRe
 
 func _on_operator_changed(new_operator: int) -> void:
 	transition_item_resource.operator = new_operator
+	emit_signal("changed")
 
 
 func _on_condition_files_selected(paths: PoolStringArray) -> void:
@@ -130,6 +135,7 @@ func _on_condition_file_selected(path: String) -> void:
 	transition_item_resource.conditions.append(new_condition_usage)
 	_add_condition_usage_node(new_condition_usage)
 	_update_menu_buttons()
+	emit_signal("changed")
 
 
 func _on_menu_button_pressed(id: int, hbox: HBoxContainer) -> void:
@@ -154,7 +160,7 @@ func _on_condition_deleted(index: int, node: HBoxContainer) -> void:
 	transition_item_resource.conditions.remove(index)
 	$ConditionUsages.remove_child(node)
 	node.queue_free()
-	_update_style()
+	emit_signal("changed")
 
 func _on_deleted() -> void:
 	emit_signal("delete_requested")

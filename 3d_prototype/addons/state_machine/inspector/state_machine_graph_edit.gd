@@ -45,6 +45,7 @@ func _add_transition(transition_item_resource: TransitionItemResource, offset: V
 	move_child(new_transition_item_graph_node, 0)
 	new_transition_item_graph_node.transition_item_resource = transition_item_resource
 	new_transition_item_graph_node.offset = offset
+	new_transition_item_graph_node.connect("changed", self, "_check_validity")
 	new_transition_item_graph_node.connect("delete_requested", self, "_on_transition_item_delete_requested", [ new_transition_item_graph_node ])
 	
 	for from_state_resource in transition_item_resource.from_states:
@@ -125,11 +126,12 @@ func _cleanup() -> void:
 
 func _check_validity() -> void:
 	$EntryPoint.self_modulate = Color.coral if transition_table.entry_state_resource else Color.crimson
+	var problems: Array = transition_table.verify_table()
 	for child in get_children():
 		if child is StateGraphNode:
 			_check_state_node(child)
 		elif child is TransitionItemGraphNode:
-			child.check_validity()
+			child.check_validity(problems)
 
 func _check_state_node(state_node: StateGraphNode) -> bool:
 	for connection in get_connection_list():
@@ -294,6 +296,7 @@ func _on_transition_item_delete_requested(transition_item_graph_node: Transition
 	_disconnect_graph_node(transition_item_graph_node.name)
 	transition_table._transitions.erase(transition_item_graph_node.transition_item_resource)
 	_check_validity()
+	transition_item_graph_node.disconnect("changed", self, "_check_validity")
 	transition_item_graph_node.disconnect("delete_requested", self, "_on_transition_item_delete_requested")
 	transition_table._graph_offsets.erase(transition_item_graph_node.transition_item_resource.resource_path)
 	remove_child(transition_item_graph_node)
