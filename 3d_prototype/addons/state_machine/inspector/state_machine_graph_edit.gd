@@ -368,3 +368,6 @@ func _set_highlighting_enabled(new_status: bool) -> void:
 		_on_node_selected(_selected_node)
 	else:
 		_on_node_unselected(_selected_node)
+
+func _on_window_height_changed(value: float) -> void:
+	rect_min_size.y = value
