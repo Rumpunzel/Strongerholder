@@ -1,5 +1,7 @@
-extends "res://addons/state_machine/inspector/grapgh_node.gd"
+extends GraphNode
 tool
+
+signal delete_requested()
 
 enum MenuButtons {
 	MOVE_UP,
@@ -21,18 +23,17 @@ func check_validity() -> void:
 
 func _update_style() -> void:
 	rect_size = Vector2()
-	var has_from_state: bool = transition_item_resource.from_state != null
 	var has_to_state: bool = transition_item_resource.to_state != null
 	
-	var from_state_name := "[ ]"
-	var to_state_name := "[ ]"
-	if has_from_state:
-		from_state_name = transition_item_resource.from_state.resource_path.get_file().get_basename().capitalize()
+	var from_state_names := [ ]
+	var to_state_name := ""
+	for from_state in transition_item_resource.from_states:
+		from_state_names.append(from_state.resource_path.get_file().get_basename().capitalize())
 	if has_to_state:
 		to_state_name = transition_item_resource.to_state.resource_path.get_file().get_basename().capitalize()
 	
-	title = "%s -> %s" % [ from_state_name, to_state_name ]
-	if not (has_from_state and has_to_state):
+	title = "%s -> %s" % [ from_state_names, to_state_name ]
+	if not (not transition_item_resource.from_states.empty() and has_to_state):
 		self_modulate = Color.crimson
 	elif transition_item_resource.conditions.empty():
 		self_modulate = Color.coral
@@ -132,6 +133,10 @@ func _on_condition_deleted(index: int, node: HBoxContainer) -> void:
 	$ConditionUsages.remove_child(node)
 	node.queue_free()
 	_update_style()
+
+
+func _on_deleted() -> void:
+	emit_signal("delete_requested")
 
 
 func set_transition_item_resource(new_transition_item_resource: TransitionItemResource) -> void:

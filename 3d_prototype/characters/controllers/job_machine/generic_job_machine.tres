@@ -1,23 +1,218 @@
-[gd_resource type="Resource" load_steps=17 format=2]
+[gd_resource type="Resource" load_steps=49 format=2]
 
-[ext_resource path="res://state_machines/resources/transition_table_resource.gd" type="Script" id=1]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_mine_resource_source.tres" type="Resource" id=2]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_gather_resource/gather_resource_to_idle.tres" type="Resource" id=3]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_mine_resource_source/mine_resource_source_to_idle.tres" type="Resource" id=4]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_mine_resource_source/mine_resource_source_to_deliver_resource.tres" type="Resource" id=5]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_gather_resource/gather_resource_to_deliver.tres" type="Resource" id=6]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_deliver_resource.tres" type="Resource" id=7]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_gather_resource.tres" type="Resource" id=8]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_mine_resource_source/mine_resource_source_to_gather_resource.tres" type="Resource" id=9]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_operate.tres" type="Resource" id=10]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_gather_product/gather_product_to_deliver_product.tres" type="Resource" id=11]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_deliver_product/deliver_product_to_idle.tres" type="Resource" id=12]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_operate/operate_to_idle.tres" type="Resource" id=13]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_deliver_resource/deliver_resource_to_idle.tres" type="Resource" id=14]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_gather_product.tres" type="Resource" id=15]
-[ext_resource path="res://characters/controllers/job_machine/resources/transitions/from_idle/idle_to_deliver_product.tres" type="Resource" id=16]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_table_resource.gd" type="Script" id=1]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/inventory_has_resource.tres" type="Resource" id=2]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/mine_resource_source.tres" type="Resource" id=3]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/inventory_has_product.tres" type="Resource" id=4]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/gather_resource.tres" type="Resource" id=5]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/employer_could_be_operated.tres" type="Resource" id=6]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/found_local_resource.tres" type="Resource" id=7]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/found_resource_source.tres" type="Resource" id=8]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/inventory_has_room_for_resource.tres" type="Resource" id=9]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_item_resource.gd" type="Script" id=10]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/inventory_has_room_for_product.tres" type="Resource" id=11]
+[ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=12]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/operate.tres" type="Resource" id=13]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/employer_can_be_operated.tres" type="Resource" id=14]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/deliver_product.tres" type="Resource" id=15]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/found_resource.tres" type="Resource" id=16]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/idle.tres" type="Resource" id=17]
+[ext_resource path="res://characters/controllers/job_machine/resources/conditions/employer_has_product.tres" type="Resource" id=18]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/gather_product.tres" type="Resource" id=19]
+[ext_resource path="res://characters/controllers/job_machine/resources/states/deliver_resource.tres" type="Resource" id=21]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 12 )
+condition = ExtResource( 4 )
+expected_result = false
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 15 ) ]
+to_state = ExtResource( 17 )
+conditions = [ SubResource( 1 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 12 )
+condition = ExtResource( 14 )
+expected_result = true
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 17 ) ]
+to_state = ExtResource( 13 )
+conditions = [ SubResource( 3 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 12 )
+condition = ExtResource( 14 )
+expected_result = false
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 13 ) ]
+to_state = ExtResource( 17 )
+conditions = [ SubResource( 5 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 12 )
+condition = ExtResource( 2 )
+expected_result = false
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 21 ) ]
+to_state = ExtResource( 17 )
+conditions = [ SubResource( 7 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 12 )
+condition = ExtResource( 18 )
+expected_result = true
+
+[sub_resource type="Resource" id=10]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 17 ) ]
+to_state = ExtResource( 19 )
+conditions = [ SubResource( 9 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 12 )
+condition = ExtResource( 4 )
+expected_result = true
+
+[sub_resource type="Resource" id=12]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 17 ) ]
+to_state = ExtResource( 15 )
+conditions = [ SubResource( 11 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=13]
+script = ExtResource( 12 )
+condition = ExtResource( 16 )
+expected_result = true
+
+[sub_resource type="Resource" id=14]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 17 ) ]
+to_state = ExtResource( 5 )
+conditions = [ SubResource( 13 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 12 )
+condition = ExtResource( 8 )
+expected_result = true
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 17 ) ]
+to_state = ExtResource( 3 )
+conditions = [ SubResource( 15 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 12 )
+condition = ExtResource( 16 )
+expected_result = false
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 5 ) ]
+to_state = ExtResource( 17 )
+conditions = [ SubResource( 17 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=19]
+script = ExtResource( 12 )
+condition = ExtResource( 9 )
+expected_result = false
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 12 )
+condition = ExtResource( 6 )
+expected_result = true
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 5 ), ExtResource( 3 ) ]
+to_state = ExtResource( 21 )
+conditions = [ SubResource( 19 ), SubResource( 20 ) ]
+operator = 1
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 12 )
+condition = ExtResource( 18 )
+expected_result = false
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 12 )
+condition = ExtResource( 11 )
+expected_result = false
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 19 ) ]
+to_state = ExtResource( 15 )
+conditions = [ SubResource( 22 ), SubResource( 23 ) ]
+operator = 1
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 12 )
+condition = ExtResource( 8 )
+expected_result = false
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 3 ) ]
+to_state = ExtResource( 17 )
+conditions = [ SubResource( 25 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=27]
+script = ExtResource( 12 )
+condition = ExtResource( 7 )
+expected_result = true
+
+[sub_resource type="Resource" id=28]
+script = ExtResource( 10 )
+from_states = [ ExtResource( 3 ) ]
+to_state = ExtResource( 5 )
+conditions = [ SubResource( 27 ) ]
+operator = 0
 
 [resource]
 script = ExtResource( 1 )
-use_physics_process = false
-_transitions = [ ExtResource( 10 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 12 ) ]
+entry_state_resource = ExtResource( 17 )
+_transitions = [ SubResource( 2 ), SubResource( 4 ), SubResource( 6 ), SubResource( 8 ), SubResource( 10 ), SubResource( 12 ), SubResource( 14 ), SubResource( 16 ), SubResource( 18 ), SubResource( 21 ), SubResource( 24 ), SubResource( 26 ), SubResource( 28 ) ]
+_graph_offsets = {
+"": Vector2( 12.8694, -32.2985 ),
+"EntryPoint": Vector2( -364.254, 532.164 ),
+"Zoom": 0.999999,
+"res://characters/controllers/job_machine/generic_job_machine.tres::10": Vector2( 405.409, 266.134 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::12": Vector2( 465.667, 430.676 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::14": Vector2( 445.667, 790.676 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::16": Vector2( 105.667, 970.676 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::18": Vector2( 1745.67, 930.676 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::2": Vector2( 2185.67, 410.676 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::21": Vector2( 1665.67, 1090.68 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::24": Vector2( 1265.67, 190.676 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::26": Vector2( 885.667, 1210.68 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::28": Vector2( 885.667, 930.676 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::4": Vector2( 165.667, 110.676 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::6": Vector2( 925.667, 10.6762 ),
+"res://characters/controllers/job_machine/generic_job_machine.tres::8": Vector2( 2765.67, 1170.68 ),
+"res://characters/controllers/job_machine/resources/states/deliver_product.tres": Vector2( 1785.67, 390.676 ),
+"res://characters/controllers/job_machine/resources/states/deliver_resource.tres": Vector2( 2325.67, 1170.68 ),
+"res://characters/controllers/job_machine/resources/states/gather_product.tres": Vector2( 825.667, 190.676 ),
+"res://characters/controllers/job_machine/resources/states/gather_resource.tres": Vector2( 1325.67, 830.676 ),
+"res://characters/controllers/job_machine/resources/states/idle.tres": Vector2( -64.2535, 532.164 ),
+"res://characters/controllers/job_machine/resources/states/mine_resource_source.tres": Vector2( 565.667, 1050.68 ),
+"res://characters/controllers/job_machine/resources/states/operate.tres": Vector2( 605.667, 50.6762 )
+}

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://state_machines/resources/state_resource.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/machine/resources/state_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/controllers/job_machine/resources/actions/pick_up_resource_action.tres" type="Resource" id=2]
 
 [resource]

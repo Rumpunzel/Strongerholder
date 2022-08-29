@@ -1,9 +1,31 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=8 format=2]
 
-[ext_resource path="res://state_machines/resources/transition_table_resource.gd" type="Script" id=1]
-[ext_resource path="res://characters/controllers/input_reader/resources/transitions/dummy_gameplay.tres" type="Resource" id=2]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_table_resource.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/machine/resources/transition_item_resource.gd" type="Script" id=2]
+[ext_resource path="res://characters/controllers/input_reader/resources/states/gameplay.tres" type="Resource" id=3]
+[ext_resource path="res://characters/controllers/input_reader/resources/conditions/always_false.tres" type="Resource" id=4]
+[ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=5]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 5 )
+condition = ExtResource( 4 )
+expected_result = true
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+from_states = [ ExtResource( 3 ) ]
+to_state = ExtResource( 3 )
+conditions = [ SubResource( 1 ) ]
+operator = 0
 
 [resource]
 script = ExtResource( 1 )
-use_physics_process = false
-_transitions = [ ExtResource( 2 ) ]
+entry_state_resource = ExtResource( 3 )
+_transitions = [ SubResource( 2 ) ]
+_graph_offsets = {
+"": Vector2( 455, 128 ),
+"EntryPoint": Vector2( 14, 164 ),
+"Zoom": 1.0,
+"res://characters/controllers/input_reader/input_reader.tres::2": Vector2( 584, 202 ),
+"res://characters/controllers/input_reader/resources/states/gameplay.tres": Vector2( 284, 122 )
+}
