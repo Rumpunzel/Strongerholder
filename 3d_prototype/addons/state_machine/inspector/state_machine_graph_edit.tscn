@@ -171,7 +171,6 @@ margin_bottom = 58.0
 [connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]
 [connection signal="node_selected" from="." to="." method="_on_node_selected"]
 [connection signal="node_unselected" from="." to="." method="_on_node_unselected"]
-[connection signal="resized" from="." to="." method="_on_resized"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddState(s)" to="Node/StateFileDialog" method="popup_centered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddTransition" to="Node/ConditionFileDialog" method="popup_centered"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/Highlighting" to="." method="_set_highlighting_enabled"]
