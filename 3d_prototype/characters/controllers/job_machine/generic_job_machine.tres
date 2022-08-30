@@ -141,7 +141,7 @@ expected_result = true
 
 [sub_resource type="Resource" id=21]
 script = ExtResource( 10 )
-from_states = [ ExtResource( 5 ), ExtResource( 3 ) ]
+from_states = [ ExtResource( 5 ) ]
 to_state = ExtResource( 21 )
 conditions = [ SubResource( 19 ), SubResource( 20 ) ]
 operator = 1

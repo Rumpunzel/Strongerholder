@@ -95,7 +95,7 @@ expected_result = false
 
 [sub_resource type="Resource" id=12]
 script = ExtResource( 2 )
-from_states = [ ExtResource( 10 ), ExtResource( 11 ) ]
+from_states = [ ExtResource( 5 ), ExtResource( 18 ), ExtResource( 18 ), ExtResource( 7 ), ExtResource( 25 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 17 ) ]
 to_state = ExtResource( 19 )
 conditions = [ SubResource( 11 ) ]
 operator = 0
@@ -236,31 +236,31 @@ entry_state_resource = ExtResource( 10 )
 _transitions = [ SubResource( 2 ), SubResource( 4 ), SubResource( 6 ), SubResource( 8 ), SubResource( 10 ), SubResource( 12 ), SubResource( 16 ), SubResource( 18 ), SubResource( 20 ), SubResource( 22 ), SubResource( 24 ), SubResource( 26 ), SubResource( 28 ), SubResource( 30 ), SubResource( 32 ), SubResource( 34 ) ]
 _graph_offsets = {
 "": Vector2( 886.322, 205.214 ),
-"EntryPoint": Vector2( 205, 346 ),
-"Zoom": 0.694444,
-"res://characters/state_machine_resources/default_character_state_machine.tres::10": Vector2( 1271.09, 383.339 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::12": Vector2( 1211.09, 223.338 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::16": Vector2( 2051.09, 243.338 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::18": Vector2( 105, 486 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::2": Vector2( 545, 146 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::20": Vector2( 1771.09, 1263.34 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::22": Vector2( 1391.09, 603.339 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::24": Vector2( 1351.09, 943.339 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::26": Vector2( 1351.09, 783.339 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::28": Vector2( 2091.09, 803.339 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::30": Vector2( 1991.09, 1043.34 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::32": Vector2( 2111.09, 563.339 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::34": Vector2( 1071.09, 1083.34 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::4": Vector2( 1511.09, -36.661 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::6": Vector2( 891.091, 143.338 ),
-"res://characters/state_machine_resources/default_character_state_machine.tres::8": Vector2( 2771.09, 83.3386 ),
-"res://characters/state_machine_resources/states/attack.tres": Vector2( 1711.09, 1023.34 ),
-"res://characters/state_machine_resources/states/give.tres": Vector2( 1751.09, 803.339 ),
-"res://characters/state_machine_resources/states/idle.tres": Vector2( 607.872, 336.546 ),
-"res://characters/state_machine_resources/states/jump_ascending.tres": Vector2( 1711.09, 283.338 ),
-"res://characters/state_machine_resources/states/jump_descending.tres": Vector2( 2451.09, 83.3386 ),
-"res://characters/state_machine_resources/states/operate.tres": Vector2( 1191.09, 23.339 ),
-"res://characters/state_machine_resources/states/pick_up.tres": Vector2( 1771.09, 583.339 ),
-"res://characters/state_machine_resources/states/take.tres": Vector2( 1451.09, 1163.34 ),
-"res://characters/state_machine_resources/states/walking.tres": Vector2( 691.091, 663.339 )
+"EntryPoint": Vector2( -205.427, 639.38 ),
+"Zoom": 0.482253,
+"res://characters/state_machine_resources/default_character_state_machine.tres::10": Vector2( 919.573, 373.296 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::12": Vector2( 1719.57, 493.296 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::16": Vector2( 2019.57, 293.296 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::18": Vector2( -320.427, 785.38 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::2": Vector2( 119.573, 445.38 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::20": Vector2( 1739.57, 1473.3 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::22": Vector2( 965.663, 902.719 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::24": Vector2( 925.663, 1242.72 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::26": Vector2( 925.663, 1082.72 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::28": Vector2( 1799.57, 1073.3 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::30": Vector2( 1719.57, 1293.3 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::32": Vector2( 1819.57, 933.296 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::34": Vector2( 799.573, 1373.3 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::4": Vector2( 1759.57, 793.296 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::6": Vector2( 759.573, 693.296 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::8": Vector2( 2979.57, 513.296 ),
+"res://characters/state_machine_resources/states/attack.tres": Vector2( 1359.57, 1233.3 ),
+"res://characters/state_machine_resources/states/give.tres": Vector2( 1359.57, 1073.3 ),
+"res://characters/state_machine_resources/states/idle.tres": Vector2( 182.445, 635.926 ),
+"res://characters/state_machine_resources/states/jump_ascending.tres": Vector2( 1419.57, 273.296 ),
+"res://characters/state_machine_resources/states/jump_descending.tres": Vector2( 2599.57, 453.296 ),
+"res://characters/state_machine_resources/states/operate.tres": Vector2( 1199.57, 773.296 ),
+"res://characters/state_machine_resources/states/pick_up.tres": Vector2( 1279.57, 893.296 ),
+"res://characters/state_machine_resources/states/take.tres": Vector2( 1379.57, 1393.3 ),
+"res://characters/state_machine_resources/states/walking.tres": Vector2( 191.573, 968.296 )
 }
