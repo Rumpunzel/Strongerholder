@@ -54,18 +54,18 @@ func _add_transition(transition_item_resource: TransitionItem, offset: Vector2) 
 	new_transition_item_graph_node.connect("changed", self, "_check_validity")
 	new_transition_item_graph_node.connect("delete_requested", self, "_on_transition_item_delete_requested", [ new_transition_item_graph_node ])
 	
-	for from_state_resource in transition_item_resource.from_states:
-		var from_state := _has_state(from_state_resource)
+	for from_state_node_path in transition_item_resource.from_states:
+		var from_state := _has_state(from_state_node_path)
 		if from_state:
 			connect_node(from_state.name, 0, new_transition_item_graph_node.name, 0)
 	
-	var to_state_resource: NodePath = transition_item_resource.to_state
+	var to_state_node_path: NodePath = transition_item_resource.to_state
 	var to_state: CustomGraphNode
-	if to_state_resource == state_machine.entry_state:
+	if to_state_node_path == state_machine.entry_state:
 		var to_state_offset := offset + Vector2(_size.x * 0.6, _size.y * 0.25)
 		to_state = _add_back_to_entry_point_node(to_state_offset)
 	else:
-		to_state = _has_state(to_state_resource)
+		to_state = _has_state(to_state_node_path)
 	if to_state:
 		connect_node(new_transition_item_graph_node.name, 0, to_state.name, 0)
 	
@@ -76,19 +76,19 @@ func _add_transition(transition_item_resource: TransitionItem, offset: Vector2) 
 	return new_transition_item_graph_node
 
 
-func _add_state(state_resource: NodePath, offset: Vector2) -> StateGraphNode:
-	if not state_resource:
-		print("Tried to add State %s!" % state_resource)
+func _add_state(state_node_path: NodePath, offset: Vector2) -> StateGraphNode:
+	if not state_node_path:
+		print("Tried to add State %s!" % state_node_path)
 		return null
-	var existing_state := _has_state(state_resource)
+	var existing_state := _has_state(state_node_path)
 	if existing_state:
-		print("State <%s> is already in the graph!" % state_resource)
+		print("State <%s> is already in the graph!" % state_node_path)
 		return existing_state
 	
 	var new_state_graph_node: StateGraphNode = StateGraphNodeScene.instance()
 	add_child(new_state_graph_node)
 	move_child(new_state_graph_node, 0)
-	new_state_graph_node.state_resource = state_resource
+	new_state_graph_node.state_node_path = state_node_path
 	new_state_graph_node.offset = offset
 	
 	return new_state_graph_node
@@ -114,7 +114,7 @@ func _update_entry_node(state_graph_node: StateGraphNode) -> void:
 		_entry_node.entry_status = false
 	
 	if state_graph_node and _check_state_node(state_graph_node):
-		state_machine.entry_state = state_graph_node.state_resource
+		state_machine.entry_state = state_graph_node.state_node_path
 		state_graph_node.entry_status = true
 	else:
 		state_machine.entry_state = null
@@ -143,9 +143,9 @@ func _check_state_node(state_node: StateGraphNode) -> bool:
 	state_node.self_modulate = Color.crimson
 	return false
 
-func _has_state(state_resouce: NodePath) -> StateGraphNode:
+func _has_state(state_node_path: NodePath) -> StateGraphNode:
 	for child in get_children():
-		if child is StateGraphNode and child.state_resource == state_resouce:
+		if child is StateGraphNode and child.state_node_path == state_node_path:
 			return child
 	return null
 
@@ -154,7 +154,7 @@ func _connect_state_item_from(state_graph_node_name: String, to_transition_item_
 	var state_graph_node: StateGraphNode = get_node(state_graph_node_name)
 	var transition_item_graph_node: TransitionItemGraphNode = get_node(to_transition_item_graph_node_name)
 	var transition := transition_item_graph_node.transition_item_resource
-	transition.from_states.append(state_graph_node.state_resource)
+	transition.from_states.append(state_graph_node.state_node_path)
 	connect_node(state_graph_node_name, 0, to_transition_item_graph_node_name, 0)
 	if state_graph_node == _entry_node:
 		_update_entry_node(_entry_node)
@@ -165,7 +165,7 @@ func _connect_state_item_to(state_graph_node_name: String, from_graph_node_name:
 	
 	if node_to_connect_to is TransitionItemGraphNode:
 		var transition: TransitionItem = node_to_connect_to.transition_item_resource
-		transition.to_state = state_graph_node.state_resource
+		transition.to_state = state_graph_node.state_node_path
 		_disconnect_graph_node_outputs(node_to_connect_to.name)
 		connect_node(from_graph_node_name, 0, state_graph_node_name, 0)
 	elif node_to_connect_to == $EntryPoint:
@@ -176,7 +176,7 @@ func _disconnect_state_from(state_graph_node_name: String, to_transition_item_gr
 	var state_graph_node: StateGraphNode = get_node(state_graph_node_name)
 	var transition_item_graph_node: TransitionItemGraphNode = get_node(to_transition_item_graph_node_name)
 	var transition := transition_item_graph_node.transition_item_resource
-	transition.from_states.erase(state_graph_node.state_resource)
+	transition.from_states.erase(state_graph_node.state_node_path)
 	disconnect_node(state_graph_node_name, 0, to_transition_item_graph_node_name, 0)
 	if state_graph_node == _entry_node:
 		_update_entry_node(_entry_node)
@@ -215,7 +215,8 @@ func set_state_machine(new_state_machine: StateMachine2) -> void:
 		_update_entry_node(entry_node)
 	
 	$EntryPoint.offset = state_machine._graph_offsets.get(_ENTRY_POINT, Vector2())
-	$EntryPoint/Label.text = "Nothing"
+	$EntryPoint/Node.text = state_machine.owner.name
+	$EntryPoint/Path.text = state_machine.owner.filename
 	zoom = state_machine._graph_offsets.get(_ZOOM, 1.0)
 	_on_node_moved()
 
@@ -292,7 +293,7 @@ func _on_node_moved() -> void:
 		if child == $EntryPoint:
 			state_machine._graph_offsets[_ENTRY_POINT] = child.offset - scroll_offset
 		elif child is StateGraphNode:
-			state_machine._graph_offsets[child.state_resource] = child.offset - scroll_offset
+			state_machine._graph_offsets[child.state_node_path] = child.offset - scroll_offset
 		elif child is TransitionItemGraphNode:
 			state_machine._graph_offsets[child.transition_item_resource.resource_path] = child.offset - scroll_offset
 
