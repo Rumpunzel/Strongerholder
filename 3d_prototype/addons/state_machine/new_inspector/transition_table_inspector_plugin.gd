@@ -5,16 +5,16 @@ const StateMachineGraphEditScene := preload("res://addons/state_machine/new_insp
 
 
 func can_handle(object: Object) -> bool:
-	return object is TransitionTable
+	return object is StateMachine2
 
 func parse_property(object: Object, type: int, path: String, hint: int, hint_text: String, usage: int) -> bool:
 	match path:
-		"entry_state_resource":
+		"entry_state":
 			return true
 		"_transitions":
 			var graph_edit := StateMachineGraphEditScene.instance()
 			add_custom_control(graph_edit)
-			graph_edit.transition_table = object
+			graph_edit.state_machine = object
 			return true
 		"_graph_offsets":
 			return true

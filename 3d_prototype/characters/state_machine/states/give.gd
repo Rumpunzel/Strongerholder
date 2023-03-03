@@ -1,4 +1,4 @@
 extends StateNode
 
-func on_state_enter() -> void:
+func on_update(_delta: float) -> void:
 	_animation_tree.set("parameters/give/active", true)

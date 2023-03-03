@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/state_machine/new_inspector/state_machine_graph_edit.gd" type="Script" id=1]
 [ext_resource path="res://addons/state_machine/icons/icon_fall_down_16.png" type="Texture" id=2]
 [ext_resource path="res://addons/state_machine/new_inspector/graph_node.gd" type="Script" id=3]
-[ext_resource path="res://addons/state_machine/icons/icon_cog_16.png" type="Texture" id=4]
 [ext_resource path="res://addons/state_machine/icons/icon_vertical_flip.png" type="Texture" id=5]
 [ext_resource path="res://addons/state_machine/icons/icon_broom_16.png" type="Texture" id=7]
 [ext_resource path="res://addons/state_machine/icons/icon_position_marker_16.png" type="Texture" id=8]
@@ -52,39 +51,30 @@ custom_constants/margin_bottom = 10
 margin_left = 10.0
 margin_top = 50.0
 margin_right = 194.0
-margin_bottom = 188.0
+margin_bottom = 162.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="AddState(s)" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="AddTransition" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_right = 184.0
 margin_bottom = 22.0
-custom_constants/hseparation = 8
-text = "Add State(s)"
-icon = ExtResource( 4 )
-align = 0
-
-[node name="AddTransition" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 26.0
-margin_right = 184.0
-margin_bottom = 48.0
 custom_constants/hseparation = 8
 text = "Add Transition"
 icon = ExtResource( 2 )
 align = 0
 
 [node name="Highlighting" type="CheckButton" parent="MarginContainer/VBoxContainer"]
-margin_top = 52.0
+margin_top = 26.0
 margin_right = 184.0
-margin_bottom = 92.0
+margin_bottom = 66.0
 custom_constants/hseparation = 8
 text = "Highlighting"
 icon = ExtResource( 8 )
 
 [node name="Cleanup" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 96.0
+margin_top = 70.0
 margin_right = 184.0
-margin_bottom = 118.0
+margin_bottom = 92.0
 size_flags_horizontal = 3
 custom_constants/hseparation = 8
 text = "Cleanup"
@@ -93,9 +83,9 @@ flat = true
 align = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 122.0
+margin_top = 96.0
 margin_right = 184.0
-margin_bottom = 138.0
+margin_bottom = 112.0
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 2.0

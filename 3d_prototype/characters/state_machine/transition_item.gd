@@ -4,8 +4,8 @@ extends Resource
 enum Operator { AND, OR }
 
 # warning-ignore-all:unused_class_variable
-export(Array, NodePath) var from_states#: [ StateNode ]
-export(NodePath) var to_state#: StateNode
+export(Array, NodePath) var from_states = [ ] # [ StateNode ]
+export(NodePath) var to_state = NodePath() # StateNode
 export(Array, Resource) var conditions#: Array
 export(Operator) var operator = Operator.AND#: int # Operator
 
