@@ -31,6 +31,9 @@ onready var _navigation_agent: NavigationAgent = $NavigationAgent
 
 
 func _ready() -> void:
+	if Engine.editor_hint:
+		return
+	
 	set_axis_lock(PhysicsServer.BODY_AXIS_ANGULAR_Y, true)
 	destination_input = translation
 	
@@ -53,6 +56,9 @@ func _physics_process(delta: float) -> void:
 		_turn_to_look_postion(delta)
 
 func _process(_delta: float) -> void:
+	if Engine.editor_hint:
+		return
+	
 	_debug_path()
 
 
