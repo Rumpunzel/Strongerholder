@@ -94,11 +94,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://characters/inventories/character_inventory.gd"
 }, {
-"base": "Node",
-"class": "CharacterMovementActions",
-"language": "GDScript",
-"path": "res://characters/controllers/character_movement_actions.gd"
-}, {
 "base": "Resource",
 "class": "CharacterMovementStatsResource",
 "language": "GDScript",
@@ -677,7 +672,6 @@ _global_script_class_icons={
 "BuildingPlacer": "",
 "Character": "res://editor_tools/class_icons/spatials/icon_barbute.svg",
 "CharacterInventory": "res://editor_tools/class_icons/nodes/icon_knapsack.svg",
-"CharacterMovementActions": "res://editor_tools/class_icons/nodes/icon_expand.svg",
 "CharacterMovementStatsResource": "res://editor_tools/class_icons/resources/Icon_walk.svg",
 "ClickBox": "",
 "CollectableItem": "res://editor_tools/class_icons/spatials/icon_fire_bottle.svg",

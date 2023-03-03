@@ -11,7 +11,6 @@ func create_condition() -> StateCondition:
 class IsMovingCondition extends StateCondition:
 	var _character: Character
 	var _navigation_agent: NavigationAgent
-	var _actions: CharacterMovementActions
 	
 	var _threshold: float
 	var _override_speed_threshold: float
@@ -25,7 +24,6 @@ class IsMovingCondition extends StateCondition:
 	func awake(state_machine: Node):
 		_character = state_machine.owner
 		_navigation_agent = _character.get_navigation_agent()
-		_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions, true)
 	
 	
 	func _statement() -> bool:
@@ -41,10 +39,10 @@ class IsMovingCondition extends StateCondition:
 			var distance: Vector3 = destination - character_position
 			
 			if distance.length_squared() > _navigation_agent.target_desired_distance:
-				_actions.moving_to_destination = true
+				_character.moving_to_destination = true
 				return true
 		
 		
 		_character.destination_input = _character.translation
-		_actions.moving_to_destination = false
+		_character.moving_to_destination = false
 		return movement_length > _threshold

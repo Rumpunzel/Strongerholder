@@ -1,10 +1,9 @@
-[gd_scene load_steps=86 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
 [ext_resource path="res://characters/character.gd" type="Script" id=3]
 [ext_resource path="res://characters/inventories/character_inventory.gd" type="Script" id=5]
-[ext_resource path="res://characters/controllers/character_movement_actions.gd" type="Script" id=6]
 [ext_resource path="res://characters/state_machine/transition_item.gd" type="Script" id=7]
 [ext_resource path="res://characters/controllers/controller.gd" type="Script" id=8]
 [ext_resource path="res://audio/sfx_emitter.gd" type="Script" id=9]
@@ -274,6 +273,15 @@ func _process(_delta: float) -> void:
 	translation = owner.translation
 "
 
+[sub_resource type="CylinderShape" id=7]
+radius = 0.75
+
+[sub_resource type="CylinderShape" id=8]
+radius = 5.0
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 1, 1, 0.5 )
+
 [sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
 flags_no_depth_test = true
@@ -314,15 +322,6 @@ export var _turn_speed := 2.0
 func _process(delta: float) -> void:
 	rotate_y(_turn_speed * delta)
 "
-
-[sub_resource type="CylinderShape" id=7]
-radius = 0.75
-
-[sub_resource type="CylinderShape" id=8]
-radius = 5.0
-
-[sub_resource type="BoxShape" id=9]
-extents = Vector3( 1, 1, 0.5 )
 
 [node name="Character" type="KinematicBody" groups=["Persist"]]
 collision_layer = 4
@@ -426,22 +425,6 @@ script = SubResource( 10 )
 [node name="Controller" type="Node" parent="." groups=["PersistData"]]
 script = ExtResource( 8 )
 
-[node name="MovementActions" type="Node" parent="Controller"]
-script = ExtResource( 6 )
-
-[node name="Line" type="ImmediateGeometry" parent="Controller/MovementActions"]
-material_override = SubResource( 2 )
-script = SubResource( 3 )
-
-[node name="MovementDingle" type="Spatial" parent="Controller/MovementActions"]
-visible = false
-
-[node name="MershInstance" type="MeshInstance" parent="Controller/MovementActions/MovementDingle"]
-transform = Transform( -0.5, 0, -2.18557e-08, 0, -1, 0, -4.37114e-08, 0, 0.25, 0, 0.9, 0 )
-material_override = SubResource( 4 )
-mesh = SubResource( 5 )
-script = SubResource( 6 )
-
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource( 5 )
 
@@ -472,6 +455,21 @@ collision_mask = 192
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
 shape = SubResource( 9 )
 disabled = true
+
+[node name="Debug" type="Node" parent="."]
+
+[node name="Line" type="ImmediateGeometry" parent="Debug"]
+material_override = SubResource( 2 )
+script = SubResource( 3 )
+
+[node name="MovementDingle" type="Spatial" parent="Debug"]
+visible = false
+
+[node name="MershInstance" type="MeshInstance" parent="Debug/MovementDingle"]
+transform = Transform( -0.5, 0, -2.18557e-08, 0, -1, 0, -4.37114e-08, 0, 0.25, 0, 0.9, 0 )
+material_override = SubResource( 4 )
+mesh = SubResource( 5 )
+script = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 

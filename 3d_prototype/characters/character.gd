@@ -14,6 +14,13 @@ var sprint_input := false
 var jump_input := false
 var attack_input := false
 
+# ACTIONS
+var horizontal_movement_vector := Vector2.ZERO setget _set_horizontal_movement_vector
+var vertical_velocity := 0
+var moving_to_destination := false
+var target_speed := 1.0
+
+
 var velocity := Vector3.ZERO setget set_velocity
 var is_grounded := false
 var look_position := Vector3.ZERO
@@ -36,6 +43,9 @@ func _physics_process(delta: float) -> void:
 	if abs(look_position.x) > 0.1 or abs(look_position.z) > 0.1:
 		_turn_to_look_postion(delta)
 
+func _process(_delta: float) -> void:
+	_debug_path()
+
 
 func save_to_var(save_file: File) -> void:
 	save_file.store_var(transform)
@@ -46,6 +56,11 @@ func load_from_var(save_file: File) -> void:
 
 func set_velocity(new_velocity: Vector3) -> void:
 	velocity = new_velocity
+
+func _set_horizontal_movement_vector(new_vector: Vector2) -> void:
+	horizontal_movement_vector = new_vector
+	if horizontal_movement_vector != Vector2.ZERO:
+		moving_to_destination = false
 
 
 func get_navigation() -> WorldScene:
@@ -62,6 +77,18 @@ func _turn_to_look_postion(delta: float) -> void:
 	new_transform.basis = new_transform.basis.rotated(Vector3.UP, PI)
 	transform = transform.interpolate_with(new_transform, movement_stats.turn_rate * delta)
 	look_position = Vector3.ZERO
+
+func _debug_path() -> void:
+	# warning-ignore:unsafe_method_access
+	var _navigation_agent: NavigationAgent = get_navigation_agent()
+	# warning-ignore:unsafe_method_access
+	$Debug/Line.draw_path(_navigation_agent.get_nav_path())
+	# warning-ignore:unsafe_property_access
+	$Debug/Line.visible = moving_to_destination
+	# warning-ignore:unsafe_property_access
+	$Debug/MovementDingle.translation = _navigation_agent.get_target_location()
+	# warning-ignore:unsafe_property_access
+	$Debug/MovementDingle.visible = moving_to_destination
 
 
 func _get_configuration_warning() -> String:

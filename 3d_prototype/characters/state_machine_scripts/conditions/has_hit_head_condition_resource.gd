@@ -7,19 +7,17 @@ func create_condition() -> StateCondition:
 
 class HasHitHeadCondition extends StateCondition:
 	var _character: Character
-	var _actions: CharacterMovementActions
 	
 	
 	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
-		_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions, true)
 	
 	
 	func _statement() -> bool:
-		if _actions.vertical_velocity <= 0.0 or not _character.is_on_ceiling():
+		if _character.vertical_velocity <= 0.0 or not _character.is_on_ceiling():
 			return false
 		
 		_character.jump_input = false
-		_actions.vertical_velocity = 0.0
+		_character.vertical_velocity = 0.0
 		
 		return true

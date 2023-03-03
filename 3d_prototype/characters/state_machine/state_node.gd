@@ -5,7 +5,6 @@ var transitions: Array
 
 var _character: Character
 var _navigation_agent: NavigationAgent
-var _actions: CharacterMovementActions
 var _interaction_area: InteractionArea
 var _animation_tree: AnimationTree
 var _movement_stats: CharacterMovementStatsResource
@@ -14,7 +13,6 @@ var _movement_stats: CharacterMovementStatsResource
 func _ready() -> void:
 	_character = owner
 	_navigation_agent = _character.get_navigation_agent()
-	_actions = Utils.find_node_of_type_in_children(_character, CharacterMovementActions, true)
 	_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
 	_animation_tree = _character.get_node("AnimationTree")
 	_movement_stats = _character.movement_stats
