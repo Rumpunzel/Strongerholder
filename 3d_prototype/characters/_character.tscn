@@ -270,6 +270,7 @@ operator = 0
 script/source = "extends Label3D
 
 func _process(_delta: float) -> void:
+	# warning-ignore:unsafe_property_access
 	translation = owner.translation
 "
 

@@ -3,19 +3,8 @@ extends Node
 
 var transitions: Array
 
-var _character: Character
-var _navigation_agent: NavigationAgent
-var _interaction_area: InteractionArea
-var _animation_tree: AnimationTree
-var _movement_stats: CharacterMovementStatsResource
-
-
-func _ready() -> void:
-	_character = owner
-	_navigation_agent = _character.get_navigation_agent()
-	_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
-	_animation_tree = _character.get_node("AnimationTree")
-	_movement_stats = _character.movement_stats
+# warning-ignore:unused_class_variable
+onready var _character: Character = owner
 
 
 func on_state_enter() -> void:

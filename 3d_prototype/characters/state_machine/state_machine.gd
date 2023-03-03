@@ -6,6 +6,7 @@ enum { CONDITIONS, RESULT_GROUPS }
 
 export(NodePath) var entry_state
 export(Array, Resource) var _transitions
+# warning-ignore:unused_class_variable
 export var _graph_offsets := { }
 
 var _current_state: StateNode
@@ -35,7 +36,6 @@ func _ready() -> void:
 			_current_state = state_node
 		
 		for transition_item in transitions_for_states[state_node_path]:
-			print("transition_item: %s" % transition_item)
 			var to_state: NodePath = transition_item.to_state
 			var result_dic := _proccess_condition_usages(transition_item.conditions, transition_item.operator, created_instances)
 			var conditions: Array = result_dic[CONDITIONS]
@@ -61,6 +61,7 @@ func _physics_process(delta: float) -> void:
 	
 	_current_state.on_update(delta)
 	
+	# warning-ignore:unsafe_property_access
 	$CurrentState.text = _current_state.name
 
 
