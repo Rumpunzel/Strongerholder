@@ -1,0 +1,257 @@
+[gd_resource type="Resource" load_steps=53 format=2]
+
+[ext_resource path="res://characters/state_machine/transition_table.gd" type="Script" id=1]
+[ext_resource path="res://characters/state_machine/transition_item.gd" type="Script" id=2]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_picking_up.tres" type="Resource" id=4]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_holding_jump.tres" type="Resource" id=6]
+[ext_resource path="res://characters/state_machine_resources/conditions/attack_animation_finished.tres" type="Resource" id=8]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_attacking.tres" type="Resource" id=9]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_moving.tres" type="Resource" id=12]
+[ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=13]
+[ext_resource path="res://characters/state_machine_resources/conditions/operate_animation_finished.tres" type="Resource" id=14]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_giving.tres" type="Resource" id=15]
+[ext_resource path="res://characters/state_machine_resources/conditions/give_animation_finished.tres" type="Resource" id=16]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_grounded.tres" type="Resource" id=20]
+[ext_resource path="res://characters/state_machine_resources/conditions/timer_jump_hold_button.tres" type="Resource" id=21]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_taking.tres" type="Resource" id=22]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_operating.tres" type="Resource" id=23]
+[ext_resource path="res://characters/state_machine_resources/conditions/take_animation_finished.tres" type="Resource" id=24]
+[ext_resource path="res://characters/state_machine_resources/conditions/has_hit_head.tres" type="Resource" id=26]
+[ext_resource path="res://characters/state_machine_resources/conditions/pick_up_animation_finished.tres" type="Resource" id=27]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 13 )
+condition = ExtResource( 12 )
+expected_result = true
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+from_states = [ NodePath("Idle") ]
+to_state = NodePath("Walk")
+conditions = [ SubResource( 1 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 13 )
+condition = ExtResource( 14 )
+expected_result = true
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 2 )
+from_states = [ NodePath("Operate") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 3 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 13 )
+condition = ExtResource( 23 )
+expected_result = true
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 2 )
+from_states = [ NodePath("Idle"), NodePath("Walk") ]
+to_state = NodePath("Operate")
+conditions = [ SubResource( 5 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 13 )
+condition = ExtResource( 20 )
+expected_result = true
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 2 )
+from_states = [ NodePath("JumpDescending") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 7 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 13 )
+condition = ExtResource( 6 )
+expected_result = true
+
+[sub_resource type="Resource" id=10]
+script = ExtResource( 2 )
+from_states = [ NodePath("Idle"), NodePath("Walk") ]
+to_state = NodePath("JumpAscending")
+conditions = [ SubResource( 9 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 13 )
+condition = ExtResource( 20 )
+expected_result = false
+
+[sub_resource type="Resource" id=12]
+script = ExtResource( 2 )
+from_states = [ NodePath("PickUp"), NodePath("Give"), NodePath("Give"), NodePath("Attack"), NodePath("Take"), NodePath("Idle"), NodePath("Walk"), NodePath("Operate") ]
+to_state = NodePath("JumpDescending")
+conditions = [ SubResource( 11 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=13]
+script = ExtResource( 13 )
+condition = ExtResource( 21 )
+expected_result = true
+
+[sub_resource type="Resource" id=14]
+script = ExtResource( 13 )
+condition = ExtResource( 6 )
+expected_result = false
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 13 )
+condition = ExtResource( 26 )
+expected_result = true
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 2 )
+from_states = [ NodePath("JumpAscending") ]
+to_state = NodePath("JumpDescending")
+conditions = [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ]
+operator = 1
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 13 )
+condition = ExtResource( 12 )
+expected_result = false
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 2 )
+from_states = [ NodePath("Walk") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 17 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=19]
+script = ExtResource( 13 )
+condition = ExtResource( 24 )
+expected_result = true
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 2 )
+from_states = [ NodePath("Take") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 19 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 13 )
+condition = ExtResource( 4 )
+expected_result = true
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 2 )
+from_states = [ NodePath("Idle"), NodePath("Walk") ]
+to_state = NodePath("PickUp")
+conditions = [ SubResource( 21 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 13 )
+condition = ExtResource( 9 )
+expected_result = true
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 2 )
+from_states = [ NodePath("Idle"), NodePath("Walk") ]
+to_state = NodePath("Attack")
+conditions = [ SubResource( 23 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 13 )
+condition = ExtResource( 15 )
+expected_result = true
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 2 )
+from_states = [ NodePath("Idle"), NodePath("Walk") ]
+to_state = NodePath("Give")
+conditions = [ SubResource( 25 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=27]
+script = ExtResource( 13 )
+condition = ExtResource( 16 )
+expected_result = true
+
+[sub_resource type="Resource" id=28]
+script = ExtResource( 2 )
+from_states = [ NodePath("Give") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 27 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=29]
+script = ExtResource( 13 )
+condition = ExtResource( 8 )
+expected_result = true
+
+[sub_resource type="Resource" id=30]
+script = ExtResource( 2 )
+from_states = [ NodePath("Attack") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 29 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=31]
+script = ExtResource( 13 )
+condition = ExtResource( 27 )
+expected_result = true
+
+[sub_resource type="Resource" id=32]
+script = ExtResource( 2 )
+from_states = [ NodePath("PickUp") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 31 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=33]
+script = ExtResource( 13 )
+condition = ExtResource( 22 )
+expected_result = true
+
+[sub_resource type="Resource" id=34]
+script = ExtResource( 2 )
+from_states = [ NodePath("Idle"), NodePath("Walk") ]
+to_state = NodePath("Take")
+conditions = [ SubResource( 33 ) ]
+operator = 0
+
+[resource]
+script = ExtResource( 1 )
+entry_state = NodePath("Idle")
+_transitions = [ SubResource( 2 ), SubResource( 4 ), SubResource( 6 ), SubResource( 8 ), SubResource( 10 ), SubResource( 12 ), SubResource( 16 ), SubResource( 18 ), SubResource( 20 ), SubResource( 22 ), SubResource( 24 ), SubResource( 26 ), SubResource( 28 ), SubResource( 30 ), SubResource( 32 ), SubResource( 34 ) ]
+_graph_offsets = {
+"": Vector2( 886.322, 205.214 ),
+"EntryPoint": Vector2( -292.637, 554.854 ),
+"Zoom": 0.482253,
+"res://characters/state_machine_resources/default_character_state_machine.tres::10": Vector2( 832.363, 288.77 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::12": Vector2( 1632.36, 408.77 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::16": Vector2( 1932.36, 208.77 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::18": Vector2( 632.79, 1475.47 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::2": Vector2( -167.21, 395.474 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::20": Vector2( 1652.36, 1388.77 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::22": Vector2( 878.453, 818.193 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::24": Vector2( 838.453, 1158.19 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::26": Vector2( 838.453, 998.194 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::28": Vector2( 1712.36, 988.775 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::30": Vector2( 1632.36, 1208.77 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::32": Vector2( 1732.36, 848.771 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::34": Vector2( 752.79, 1295.47 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::4": Vector2( 1672.36, 708.771 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::6": Vector2( 672.363, 608.771 ),
+"res://characters/state_machine_resources/default_character_state_machine.tres::8": Vector2( 2892.36, 428.77 ),
+"res://characters/state_machine_resources/states/attack.tres": Vector2( 1272.36, 1148.77 ),
+"res://characters/state_machine_resources/states/give.tres": Vector2( 1272.36, 988.775 ),
+"res://characters/state_machine_resources/states/idle.tres": Vector2( 95.235, 551.401 ),
+"res://characters/state_machine_resources/states/jump_ascending.tres": Vector2( 1332.36, 188.77 ),
+"res://characters/state_machine_resources/states/jump_descending.tres": Vector2( 2512.36, 368.77 ),
+"res://characters/state_machine_resources/states/operate.tres": Vector2( 1112.36, 688.771 ),
+"res://characters/state_machine_resources/states/pick_up.tres": Vector2( 1192.36, 808.771 ),
+"res://characters/state_machine_resources/states/take.tres": Vector2( 1292.36, 1308.77 ),
+"res://characters/state_machine_resources/states/walking.tres": Vector2( 104.363, 883.771 )
+}

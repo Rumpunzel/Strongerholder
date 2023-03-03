@@ -1,19 +1,36 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=32 format=2]
 
-[ext_resource path="res://addons/state_machine/machine/state_machine.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
 [ext_resource path="res://characters/character.gd" type="Script" id=3]
 [ext_resource path="res://characters/controllers/character_movement_inputs.gd" type="Script" id=4]
 [ext_resource path="res://characters/inventories/character_inventory.gd" type="Script" id=5]
 [ext_resource path="res://characters/controllers/character_movement_actions.gd" type="Script" id=6]
-[ext_resource path="res://characters/state_machine_resources/default_character_state_machine.tres" type="Resource" id=7]
 [ext_resource path="res://characters/controllers/controller.gd" type="Script" id=8]
 [ext_resource path="res://audio/sfx_emitter.gd" type="Script" id=9]
 [ext_resource path="res://characters/audio/footsteps/footstep_sound.tscn" type="PackedScene" id=10]
 [ext_resource path="res://event_system/resources/audio/sfx_emitted_channel.tres" type="Resource" id=11]
+[ext_resource path="res://characters/state_machine/states/walk.gd" type="Script" id=12]
+[ext_resource path="res://characters/state_machine/state_machine.gd" type="Script" id=13]
+[ext_resource path="res://characters/state_machine/states/idle.gd" type="Script" id=14]
+[ext_resource path="res://characters/state_machine/states/attack.gd" type="Script" id=15]
+[ext_resource path="res://characters/state_machine/states/jump_ascending.gd" type="Script" id=16]
+[ext_resource path="res://characters/state_machine/states/jump_descending.gd" type="Script" id=17]
+[ext_resource path="res://characters/state_machine/states/pick_up.gd" type="Script" id=18]
+[ext_resource path="res://characters/state_machine/states/take.gd" type="Script" id=19]
+[ext_resource path="res://characters/state_machine/states/operate.gd" type="Script" id=20]
+[ext_resource path="res://characters/state_machine/states/give.gd" type="Script" id=21]
+[ext_resource path="res://characters/state_machine/default_character_state_machine.tres" type="Resource" id=22]
+[ext_resource path="res://prototype_assets/gui/fonts/default_font.tres" type="DynamicFont" id=23]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	translation = owner.translation
+"
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
@@ -51,7 +68,6 @@ size = Vector3( 1, 1, 1 )
 script/source = "extends Spatial
 
 export var _turn_speed := 2.0
-
 
 func _process(delta: float) -> void:
 	rotate_y(_turn_speed * delta)
@@ -92,9 +108,47 @@ time_horizon = 2.0
 max_speed = 100.0
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 1 )
-use_physics_process = true
-_transition_table_resource = ExtResource( 7 )
+script = ExtResource( 13 )
+_transition_table = ExtResource( 22 )
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 14 )
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource( 12 )
+
+[node name="JumpAscending" type="Node" parent="StateMachine"]
+script = ExtResource( 16 )
+
+[node name="JumpDescending" type="Node" parent="StateMachine"]
+script = ExtResource( 17 )
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 15 )
+
+[node name="Give" type="Node" parent="StateMachine"]
+script = ExtResource( 21 )
+
+[node name="Operate" type="Node" parent="StateMachine"]
+script = ExtResource( 20 )
+
+[node name="PickUp" type="Node" parent="StateMachine"]
+script = ExtResource( 18 )
+
+[node name="Take" type="Node" parent="StateMachine"]
+script = ExtResource( 19 )
+
+[node name="CurrentState" type="Label3D" parent="StateMachine"]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 50 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+text = "State"
+font = ExtResource( 23 )
+script = SubResource( 10 )
 
 [node name="Controller" type="Node" parent="." groups=["PersistData"]]
 script = ExtResource( 8 )

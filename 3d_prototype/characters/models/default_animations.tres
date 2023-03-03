@@ -1,8 +1,5 @@
 [gd_resource type="AnimationNodeBlendTree" load_steps=19 format=2]
 
-[sub_resource type="AnimationNodeAnimation" id=1]
-animation = "Operate"
-
 [sub_resource type="AnimationNodeTimeScale" id=2]
 
 [sub_resource type="AnimationNodeOneShot" id=3]
@@ -39,6 +36,9 @@ animation = "RecieveHit"
 
 [sub_resource type="AnimationNodeOneShot" id=11]
 
+[sub_resource type="AnimationNodeAnimation" id=1]
+animation = "Operate"
+
 [sub_resource type="AnimationNodeOneShot" id=12]
 
 [sub_resource type="AnimationNodeAnimation" id=13]
@@ -58,9 +58,7 @@ animation = "Take"
 animation = "Walk"
 
 [resource]
-graph_offset = Vector2( -349, -49 )
-nodes/Animation/node = SubResource( 1 )
-nodes/Animation/position = Vector2( 1160, 360 )
+graph_offset = Vector2( -27, -98 )
 nodes/TimeScale/node = SubResource( 2 )
 nodes/TimeScale/position = Vector2( 340, 480 )
 nodes/attack/node = SubResource( 3 )
@@ -81,6 +79,8 @@ nodes/jump_anim/node = SubResource( 10 )
 nodes/jump_anim/position = Vector2( 1340, 440 )
 nodes/operate/node = SubResource( 11 )
 nodes/operate/position = Vector2( 1360, 160 )
+nodes/operate_anim/node = SubResource( 1 )
+nodes/operate_anim/position = Vector2( 1160, 360 )
 nodes/output/position = Vector2( 2040, 380 )
 nodes/pick_up/node = SubResource( 12 )
 nodes/pick_up/position = Vector2( 540, 100 )
@@ -96,4 +96,4 @@ nodes/walk_speed/node = SubResource( 17 )
 nodes/walk_speed/position = Vector2( -20, 260 )
 nodes/walking_anim/node = SubResource( 18 )
 nodes/walking_anim/position = Vector2( -300, 260 )
-node_connections = [ "pick_up", 0, "idle_walk", "pick_up", 1, "TimeScale", "walk_speed", 0, "walking_anim", "walk_speed", 1, "running_anim", "TimeScale", 0, "pick_up_anim", "attack", 0, "grounded", "attack", 1, "attack_anim", "idle_walk", 0, "idle_anim", "idle_walk", 1, "walk_speed", "give", 0, "pick_up", "give", 1, "give_anim", "grounded", 0, "operate", "grounded", 1, "jump_anim", "operate", 0, "take", "operate", 1, "Animation", "take", 0, "give", "take", 1, "take_anim", "output", 0, "attack" ]
+node_connections = [ "take", 0, "give", "take", 1, "take_anim", "operate", 0, "take", "operate", 1, "operate_anim", "pick_up", 0, "idle_walk", "pick_up", 1, "TimeScale", "idle_walk", 0, "idle_anim", "idle_walk", 1, "walk_speed", "walk_speed", 0, "walking_anim", "walk_speed", 1, "running_anim", "give", 0, "pick_up", "give", 1, "give_anim", "attack", 0, "grounded", "attack", 1, "attack_anim", "TimeScale", 0, "pick_up_anim", "grounded", 0, "operate", "grounded", 1, "jump_anim", "output", 0, "attack" ]
