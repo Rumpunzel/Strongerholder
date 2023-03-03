@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-_interaction_type = 1
+_interaction_type = 4

@@ -1,8 +1,9 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
 [ext_resource path="res://characters/character.gd" type="Script" id=3]
+[ext_resource path="res://characters/state_machine/states/action_state_node.gd" type="Script" id=4]
 [ext_resource path="res://characters/inventories/character_inventory.gd" type="Script" id=5]
 [ext_resource path="res://characters/state_machine/transition_item.gd" type="Script" id=7]
 [ext_resource path="res://characters/controllers/controller.gd" type="Script" id=8]
@@ -12,13 +13,8 @@
 [ext_resource path="res://characters/state_machine/states/walk.gd" type="Script" id=12]
 [ext_resource path="res://characters/state_machine/state_machine.gd" type="Script" id=13]
 [ext_resource path="res://characters/state_machine/states/idle.gd" type="Script" id=14]
-[ext_resource path="res://characters/state_machine/states/attack.gd" type="Script" id=15]
 [ext_resource path="res://characters/state_machine/states/jump_ascending.gd" type="Script" id=16]
 [ext_resource path="res://characters/state_machine/states/jump_descending.gd" type="Script" id=17]
-[ext_resource path="res://characters/state_machine/states/pick_up.gd" type="Script" id=18]
-[ext_resource path="res://characters/state_machine/states/take.gd" type="Script" id=19]
-[ext_resource path="res://characters/state_machine/states/operate.gd" type="Script" id=20]
-[ext_resource path="res://characters/state_machine/states/give.gd" type="Script" id=21]
 [ext_resource path="res://characters/state_machine_resources/conditions/timer_jump_hold_button.tres" type="Resource" id=22]
 [ext_resource path="res://prototype_assets/gui/fonts/default_font.tres" type="DynamicFont" id=23]
 [ext_resource path="res://characters/state_machine_resources/conditions/has_hit_head.tres" type="Resource" id=24]
@@ -397,19 +393,24 @@ script = ExtResource( 16 )
 script = ExtResource( 17 )
 
 [node name="Attack" type="Node" parent="StateMachine"]
-script = ExtResource( 15 )
+script = ExtResource( 4 )
+_action_type = 1
 
 [node name="Give" type="Node" parent="StateMachine"]
-script = ExtResource( 21 )
+script = ExtResource( 4 )
+_action_type = 2
 
 [node name="Operate" type="Node" parent="StateMachine"]
-script = ExtResource( 20 )
+script = ExtResource( 4 )
+_action_type = 3
 
 [node name="PickUp" type="Node" parent="StateMachine"]
-script = ExtResource( 18 )
+script = ExtResource( 4 )
+_action_type = 4
 
 [node name="Take" type="Node" parent="StateMachine"]
-script = ExtResource( 19 )
+script = ExtResource( 4 )
+_action_type = 5
 
 [node name="CurrentState" type="Label3D" parent="StateMachine"]
 pause_mode = 2

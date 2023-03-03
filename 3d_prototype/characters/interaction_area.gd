@@ -19,11 +19,11 @@ signal nearest_interaction_changed(interaction)
 
 enum InteractionType {
 	NONE,
-	PICK_UP,
 	ATTACK,
 	GIVE,
-	TAKE,
 	OPERATE,
+	PICK_UP,
+	TAKE,
 }
 
 

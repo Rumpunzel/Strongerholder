@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/state_machine/demo/actions/demo_action_1.gd"
 }, {
+"base": "StateNode",
+"class": "ActionStateNode",
+"language": "GDScript",
+"path": "res://characters/state_machine/states/action_state_node.gd"
+}, {
 "base": "StateConditionResource",
 "class": "AlwaysFalseConditionResource",
 "language": "GDScript",
@@ -532,7 +537,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "StateNode",
 "language": "GDScript",
-"path": "res://characters/state_machine/state_node.gd"
+"path": "res://characters/state_machine/states/_state_node.gd"
 }, {
 "base": "Reference",
 "class": "StateNodeTransition",
@@ -657,6 +662,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Action1Resource": "",
 "Action2Resource": "",
+"ActionStateNode": "",
 "AlwaysFalseConditionResource": "",
 "AnimationConditionResource": "",
 "AnimatorMoveSpeedActionResource": "",

@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-_interaction_type = 5
+_interaction_type = 3
 _how_many = 1
 _all = true
