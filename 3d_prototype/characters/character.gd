@@ -55,12 +55,6 @@ func _physics_process(delta: float) -> void:
 	if abs(look_position.x) > 0.1 or abs(look_position.z) > 0.1:
 		_turn_to_look_postion(delta)
 
-func _process(_delta: float) -> void:
-	if Engine.editor_hint:
-		return
-	
-	_debug_path()
-
 
 func horizontal_move_action(is_aerial_movement := false) -> void:
 	if moving_to_destination:
@@ -143,16 +137,6 @@ func _turn_to_look_postion(delta: float) -> void:
 	new_transform.basis = new_transform.basis.rotated(Vector3.UP, PI)
 	transform = transform.interpolate_with(new_transform, movement_stats.turn_rate * delta)
 	look_position = Vector3.ZERO
-
-func _debug_path() -> void:
-	# warning-ignore:unsafe_method_access
-	$Debug/Line.draw_path(_navigation_agent.get_nav_path())
-	# warning-ignore:unsafe_property_access
-	$Debug/Line.visible = moving_to_destination
-	# warning-ignore:unsafe_property_access
-	$Debug/MovementDingle.translation = _navigation_agent.get_target_location()
-	# warning-ignore:unsafe_property_access
-	$Debug/MovementDingle.visible = moving_to_destination
 
 
 func _get_configuration_warning() -> String:

@@ -21,6 +21,9 @@ func _ready() -> void:
 	
 	var problems := _verify_table()
 	assert(problems.empty(), "TransitionTableResource has %d %s!" % [ problems.size(), "problem" if problems.size() == 1 else "problems" ])
+	
+	_current_state = get_node(entry_state)
+	
 	var created_instances := { }
 	var transitions_for_states := { } # (StateNodePath) -> [ TransitionItem ]
 	
@@ -32,8 +35,6 @@ func _ready() -> void:
 	for state_node_path in transitions_for_states.keys():
 		var transitions := [ ]
 		var state_node: StateNode = get_node(state_node_path)
-		if state_node_path == entry_state:
-			_current_state = state_node
 		
 		for transition_item in transitions_for_states[state_node_path]:
 			var to_state: NodePath = transition_item.to_state
@@ -60,9 +61,6 @@ func _physics_process(delta: float) -> void:
 		_current_state.on_state_enter()
 	
 	_current_state.on_update(delta)
-	
-	# warning-ignore:unsafe_property_access
-	$CurrentState.text = _current_state.name
 
 
 func get_states_list() -> Array:

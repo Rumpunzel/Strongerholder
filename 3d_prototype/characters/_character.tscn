@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
@@ -262,14 +262,6 @@ to_state = NodePath("Idle")
 conditions = [ SubResource( 54 ), SubResource( 59 ) ]
 operator = 0
 
-[sub_resource type="GDScript" id=10]
-script/source = "extends Label3D
-
-func _process(_delta: float) -> void:
-	# warning-ignore:unsafe_property_access
-	translation = owner.translation
-"
-
 [sub_resource type="CylinderShape" id=7]
 radius = 0.75
 
@@ -278,6 +270,31 @@ radius = 5.0
 
 [sub_resource type="BoxShape" id=9]
 extents = Vector3( 1, 1, 0.5 )
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	# warning-ignore:unsafe_property_access
+	text = get_node(\"../StateMachine\")._current_state.name
+"
+
+[sub_resource type="GDScript" id=60]
+script/source = "extends Node
+
+onready var _line: ImmediateGeometry = $Line
+onready var _movement_dingle: Spatial = $MovementDingle
+onready var _navigation_agent: NavigationAgent = get_node(\"../NavigationAgent\")
+
+func _process(_delta: float) -> void:
+	# warning-ignore:unsafe_method_access
+	_line.draw_path(_navigation_agent.get_nav_path())
+	# warning-ignore:unsafe_property_access
+	_line.visible = get_parent().moving_to_destination
+	_movement_dingle.translation = _navigation_agent.get_target_location()
+	# warning-ignore:unsafe_property_access
+	_movement_dingle.visible = get_parent().moving_to_destination
+"
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
@@ -412,18 +429,6 @@ _action_type = 4
 script = ExtResource( 4 )
 _action_type = 5
 
-[node name="CurrentState" type="Label3D" parent="StateMachine"]
-pause_mode = 2
-cast_shadow = 0
-pixel_size = 0.0005
-offset = Vector2( 0, 50 )
-billboard = 1
-no_depth_test = true
-fixed_size = true
-text = "State"
-font = ExtResource( 23 )
-script = SubResource( 10 )
-
 [node name="Controller" type="Node" parent="." groups=["PersistData"]]
 script = ExtResource( 8 )
 
@@ -458,7 +463,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
 shape = SubResource( 9 )
 disabled = true
 
+[node name="CurrentState" type="Label3D" parent="."]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 50 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+font = ExtResource( 23 )
+script = SubResource( 10 )
+
 [node name="Debug" type="Node" parent="."]
+pause_mode = 2
+script = SubResource( 60 )
 
 [node name="Line" type="ImmediateGeometry" parent="Debug"]
 material_override = SubResource( 2 )
