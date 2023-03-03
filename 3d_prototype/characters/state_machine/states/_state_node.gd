@@ -1,4 +1,4 @@
-class_name StateNode
+class_name StateNode, "res://addons/state_machine/icons/icon_cog.svg"
 extends Node
 
 var transitions: Array

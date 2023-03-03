@@ -1,4 +1,4 @@
-class_name ActionStateNode
+class_name ActionStateNode, "res://addons/state_machine/icons/icon_hand.svg"
 extends StateNode
 
 export(InteractionArea.InteractionType) var _action_type
