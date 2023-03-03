@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func on_state_enter() -> void:
 	_vertical_velocity = _actions.vertical_velocity
-	_inputs.jump_input = false
+	_character.jump_input = false
 
 func on_update(delta: float) -> void:
 	horizontal_move_action()
@@ -29,12 +29,12 @@ func on_state_exit():
 
 func horizontal_move_action() -> void:
 	if _actions.moving_to_destination:
-		_navigation_agent.set_target_location(_inputs.destination_input)
+		_navigation_agent.set_target_location(_character.destination_input)
 	else:
 		var move_speed := _actions.target_speed * _movement_stats.move_speed * _movement_stats.aerial_modifier
 		
-		_actions.horizontal_movement_vector.x = _inputs.movement_input.x * move_speed
-		_actions.horizontal_movement_vector.y = _inputs.movement_input.z * move_speed
+		_actions.horizontal_movement_vector.x = _character.movement_input.x * move_speed
+		_actions.horizontal_movement_vector.y = _character.movement_input.z * move_speed
 
 func apply_movement_vector() -> void:
 	var horizontal_movement: Vector2

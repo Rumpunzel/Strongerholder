@@ -16,8 +16,9 @@ func create_condition() -> StateCondition:
 class FoundObjectCondition extends StateCondition:
 	enum ActionType { GATHERS, GATHERS_SOURCE, DELIVERS }
 	
+	var _character: Character
+	
 	var _spotted_items: SpottedItems
-	var _inputs: CharacterMovementInputs
 	var _interaction_area: InteractionArea
 	
 	var _action_type: int
@@ -49,10 +50,9 @@ class FoundObjectCondition extends StateCondition:
 					_object_to_look_for = state_machine.current_job.delivers
 		
 		
-		var character: Character = state_machine.owner
-		_spotted_items = character.get_navigation().spotted_items
-		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
-		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
+		_character = state_machine.owner
+		_spotted_items = _character.get_navigation().spotted_items
+		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
 	
 	
 	func _check_items() -> bool:

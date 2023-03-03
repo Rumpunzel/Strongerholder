@@ -4,15 +4,26 @@ tool
 
 export(Resource) var movement_stats
 
-var velocity: Vector3 setget set_velocity
-var is_grounded: bool
-var look_position: Vector3 = Vector3.ZERO
+# INPUTS
+# Vector3 position to move to
+var destination_input := translation
+# Vector3 direciton to move along
+var movement_input := Vector3.ZERO
+# Input triggers
+var sprint_input := false
+var jump_input := false
+var attack_input := false
+
+var velocity := Vector3.ZERO setget set_velocity
+var is_grounded := false
+var look_position := Vector3.ZERO
 
 onready var _ground_check: RayCast = $GroundCheck
 
 
 func _ready() -> void:
 	set_axis_lock(PhysicsServer.BODY_AXIS_ANGULAR_Y, true)
+	destination_input = translation
 
 
 func _physics_process(delta: float) -> void:

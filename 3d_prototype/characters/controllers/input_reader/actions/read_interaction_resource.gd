@@ -11,7 +11,6 @@ class ReadInteraction extends StateAction:
 	enum InteractionState { STARTED, CANCELLED, COMPLETED }
 	
 	var _character: Character
-	var _inputs: CharacterMovementInputs
 	var _inventory: CharacterInventory
 	var _interaction_area: InteractionArea
 	
@@ -28,7 +27,6 @@ class ReadInteraction extends StateAction:
 	
 	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
-		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 		_inventory = Utils.find_node_of_type_in_children(_character, CharacterInventory)
 		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
 	
@@ -48,7 +46,7 @@ class ReadInteraction extends StateAction:
 			_character.get_tree().set_input_as_handled()
 		elif input.is_action_released("smart_interact"):
 			_smart_interacting = false
-			_inputs.destination_input = _character.translation
+			_character.destination_input = _character.translation
 			_character.get_tree().set_input_as_handled()
 		
 		if input.is_action_pressed("attack"):

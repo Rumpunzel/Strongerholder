@@ -7,7 +7,7 @@ func on_update(_delta: float) -> void:
 	_actions.vertical_velocity = _vertical_pull
 
 func _null_movement() -> void:
-	_inputs.destination_input = _character.translation
+	_character.destination_input = _character.translation
 	_actions.horizontal_movement_vector = Vector2.ZERO
 	_interaction_area.reset()
 	

@@ -39,7 +39,6 @@ var _equipped_item: CharacterInventory.EquippedItem
 onready var _character: Spatial = owner
 # warning-ignore:unsafe_method_access
 onready var _spotted_items: SpottedItems = _character.get_navigation().spotted_items
-onready var _inputs: CharacterMovementInputs = Utils.find_node_of_type_in_children(_character, CharacterMovementInputs, true)
 onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
 
 
@@ -73,7 +72,7 @@ func smart_interact_with_nearest_object_of_type(object_type: ObjectResource, cus
 	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
 	
 	var point_to_walk_to := _smart_interact_with_nearest(interaction_objects, perception_objects, null, overwrite_dibs)
-	_inputs.destination_input = point_to_walk_to
+	_character.destination_input = point_to_walk_to
 
 
 func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_array_to_search: Array, interaction_type: int, item: ItemResource, how_many: int, all: bool, overwrite_dibs: bool) -> void:
@@ -84,7 +83,7 @@ func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_ar
 	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
 	
 	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects, interaction_type, item, how_many, all, overwrite_dibs)
-	_inputs.destination_input = point_to_walk_to
+	_character.destination_input = point_to_walk_to
 
 
 func smart_interact_with_specific_object(object: Node, interaction_objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> void:
@@ -92,7 +91,7 @@ func smart_interact_with_specific_object(object: Node, interaction_objects: Arra
 		return
 	
 	var point_to_walk_to := _smart_interact_with_nearest(interaction_objects, [ object ], inventory, overwrite_dibs)
-	_inputs.destination_input = point_to_walk_to
+	_character.destination_input = point_to_walk_to
 
 
 func interact_with_specific_object(object: Node, interaction_objects: Array, interaction_type: int, item: ItemResource, how_many: int, all: bool, overwrite_dibs: bool) -> void:
@@ -100,7 +99,7 @@ func interact_with_specific_object(object: Node, interaction_objects: Array, int
 		return
 	
 	var point_to_walk_to := _interact_with_nearest(interaction_objects, [ object ], interaction_type, item, how_many, all, overwrite_dibs)
-	_inputs.destination_input = point_to_walk_to
+	_character.destination_input = point_to_walk_to
 
 
 func find_nearest_smart_interaction(objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> Interaction:
