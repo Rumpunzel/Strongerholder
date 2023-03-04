@@ -1,3 +1,4 @@
+class_name JumpDescendingStateNode, "res://editor_tools/class_icons/nodes/icon_falling.svg"
 extends StateNode
 
 var _gravity_magnitude: float = ProjectSettings.get_setting("physics/3d/default_gravity")

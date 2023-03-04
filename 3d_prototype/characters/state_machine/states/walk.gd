@@ -1,3 +1,4 @@
+class_name WalkStateNode, "res://editor_tools/class_icons/nodes/icon_walk.svg"
 extends StateNode
 
 export var _vertical_pull: float = 5.0

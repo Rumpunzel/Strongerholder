@@ -1,3 +1,4 @@
+class_name JumpAscendingStateNode, "res://editor_tools/class_icons/nodes/icon_jump_across.svg"
 extends StateNode
 
 var _gravity_magnitude: float = ProjectSettings.get_setting("physics/3d/default_gravity")

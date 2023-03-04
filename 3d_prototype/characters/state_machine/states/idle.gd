@@ -1,3 +1,4 @@
+class_name IdleStateNode, "res://editor_tools/class_icons/nodes/icon_person.svg"
 extends StateNode
 
 export var _vertical_pull: float = 5.0

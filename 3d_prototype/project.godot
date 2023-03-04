@@ -259,6 +259,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://editor_tools/class_icons/icon_colors.gd"
 }, {
+"base": "StateNode",
+"class": "IdleStateNode",
+"language": "GDScript",
+"path": "res://characters/state_machine/states/idle.gd"
+}, {
 "base": "PanelContainer",
 "class": "InspectionHUD",
 "language": "GDScript",
@@ -343,6 +348,16 @@ _global_script_classes=[ {
 "class": "ItemResource",
 "language": "GDScript",
 "path": "res://items/item_resource.gd"
+}, {
+"base": "StateNode",
+"class": "JumpAscendingStateNode",
+"language": "GDScript",
+"path": "res://characters/state_machine/states/jump_ascending.gd"
+}, {
+"base": "StateNode",
+"class": "JumpDescendingStateNode",
+"language": "GDScript",
+"path": "res://characters/state_machine/states/jump_descending.gd"
 }, {
 "base": "StateActionResource",
 "class": "LookForWorkActionResource",
@@ -644,6 +659,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://event_system/void_event_channel_resource.gd"
 }, {
+"base": "StateNode",
+"class": "WalkStateNode",
+"language": "GDScript",
+"path": "res://characters/state_machine/states/walk.gd"
+}, {
 "base": "Stash",
 "class": "Workstation",
 "language": "GDScript",
@@ -662,7 +682,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Action1Resource": "",
 "Action2Resource": "",
-"ActionStateNode": "res://addons/state_machine/icons/icon_hand.svg",
+"ActionStateNode": "res://editor_tools/class_icons/nodes/icon_hand.svg",
 "AlwaysFalseConditionResource": "",
 "AnimationConditionResource": "",
 "AnimatorMoveSpeedActionResource": "",
@@ -710,6 +730,7 @@ _global_script_class_icons={
 "HitBox": "res://editor_tools/class_icons/spatials/icon_heart_beats.svg",
 "HorizontalMoveActionResource": "",
 "IconColors": "",
+"IdleStateNode": "res://editor_tools/class_icons/nodes/icon_person.svg",
 "InspectionHUD": "",
 "IntEventChannelResource": "",
 "InteractionArea": "res://editor_tools/class_icons/spatials/icon_slap.svg",
@@ -727,6 +748,8 @@ _global_script_class_icons={
 "ItemEventChannelResource": "",
 "ItemHUDBASE": "",
 "ItemResource": "res://editor_tools/class_icons/resources/icon_fire_bottle.svg",
+"JumpAscendingStateNode": "res://editor_tools/class_icons/nodes/icon_jump_across.svg",
+"JumpDescendingStateNode": "res://editor_tools/class_icons/nodes/icon_falling.svg",
 "LookForWorkActionResource": "",
 "Main": "",
 "MainMenu": "",
@@ -764,8 +787,8 @@ _global_script_class_icons={
 "StateCondition": "",
 "StateConditionResource": "res://addons/state_machine/icons/icon_choice.svg",
 "StateMachine": "res://addons/state_machine/icons/icon_gears.svg",
-"StateMachine2": "res://addons/state_machine/icons/icon_gears.svg",
-"StateNode": "res://addons/state_machine/icons/icon_cog.svg",
+"StateMachine2": "res://editor_tools/class_icons/nodes/icon_cog.svg",
+"StateNode": "",
 "StateNodeTransition": "",
 "StateResource": "res://addons/state_machine/icons/icon_cog.svg",
 "StateTransition": "",
@@ -787,6 +810,7 @@ _global_script_class_icons={
 "Utils": "",
 "VitalsResource": "",
 "VoidEventChannelResource": "",
+"WalkStateNode": "res://editor_tools/class_icons/nodes/icon_walk.svg",
 "Workstation": "res://editor_tools/class_icons/spatials/icon_anvil.svg",
 "WorkstationAttributesResource": "",
 "WorldScene": "res://editor_tools/class_icons/spatials/icon_treasure_map.svg"
