@@ -25,5 +25,8 @@ func _ready() -> void:
 	
 	_animation_parameter = "parameters/%s/active" % action_type.to_lower()
 
+func on_state_enter() -> void:
+	_animation_tree.set(_animation_parameter, true)
+
 func on_update(_delta: float) -> void:
 	_animation_tree.set(_animation_parameter, true)

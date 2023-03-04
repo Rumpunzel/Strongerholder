@@ -1,4 +1,4 @@
-class_name StateMachine2, "res://addons/state_machine/icons/icon_gears.svg"
+class_name StateMachine2, "res://editor_tools/class_icons/nodes/icon_cog.svg"
 extends Node
 tool
 
@@ -22,8 +22,39 @@ func _ready() -> void:
 	var problems := _verify_table()
 	assert(problems.empty(), "TransitionTableResource has %d %s!" % [ problems.size(), "problem" if problems.size() == 1 else "problems" ])
 	
+	_setup_states()
 	_current_state = get_node(entry_state)
+	_current_state.on_state_enter()
+
+
+func _physics_process(delta: float) -> void:
+	if Engine.editor_hint or not _current_state:
+		return
 	
+	_resolve_transitions()
+	_current_state.on_update(delta)
+
+
+func get_states_list() -> Array:
+	var states_list := [ ]
+	for child in get_children():
+		if child is StateNode:
+			states_list.append(child.name)
+	return states_list
+
+
+func _resolve_transitions() -> void:
+	var transition_state_node_path: NodePath = _current_state.try_get_transition()
+	while not transition_state_node_path.is_empty():
+		var transition_state: StateNode = get_node(transition_state_node_path)
+		assert(transition_state != _current_state)
+		_current_state.on_state_exit()
+		_current_state = transition_state
+		_current_state.on_state_enter()
+		transition_state_node_path = _current_state.try_get_transition()
+
+
+func _setup_states() -> void:
 	var created_instances := { }
 	var transitions_for_states := { } # (StateNodePath) -> [ TransitionItem ]
 	
@@ -44,32 +75,6 @@ func _ready() -> void:
 			transitions.append(StateNodeTransition.new(to_state, conditions, result_groups))
 		
 		state_node.transitions = transitions
-	
-	_current_state.on_state_enter()
-
-
-func _physics_process(delta: float) -> void:
-	if Engine.editor_hint or not _current_state:
-		return
-	
-	var transition_state_node_path: NodePath = _current_state.try_get_transition()
-	if not transition_state_node_path.is_empty():
-		var transition_state: StateNode = get_node(transition_state_node_path)
-		assert(transition_state != _current_state)
-		_current_state.on_state_exit()
-		_current_state = transition_state
-		_current_state.on_state_enter()
-	
-	_current_state.on_update(delta)
-
-
-func get_states_list() -> Array:
-	var states_list := [ ]
-	for child in get_children():
-		if child is StateNode:
-			states_list.append(child.name)
-	return states_list
-
 
 func _proccess_condition_usages(
 	condition_usages: Array,
