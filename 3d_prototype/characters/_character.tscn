@@ -129,7 +129,7 @@ to_state = NodePath("Attack")
 conditions = [ SubResource( 25 ) ]
 operator = 0
 
-[sub_resource type="Resource" id=50]
+[sub_resource type="Resource" id=61]
 script = ExtResource( 1 )
 condition = ExtResource( 30 )
 expected_result = false
@@ -143,7 +143,7 @@ expected_result = true
 script = ExtResource( 7 )
 from_states = [ NodePath("Attack") ]
 to_state = NodePath("Idle")
-conditions = [ SubResource( 50 ), SubResource( 55 ) ]
+conditions = [ SubResource( 61 ), SubResource( 55 ) ]
 operator = 0
 
 [sub_resource type="Resource" id=30]
@@ -158,7 +158,7 @@ to_state = NodePath("Give")
 conditions = [ SubResource( 30 ) ]
 operator = 0
 
-[sub_resource type="Resource" id=51]
+[sub_resource type="Resource" id=63]
 script = ExtResource( 1 )
 condition = ExtResource( 31 )
 expected_result = false
@@ -172,7 +172,7 @@ expected_result = true
 script = ExtResource( 7 )
 from_states = [ NodePath("Give") ]
 to_state = NodePath("Idle")
-conditions = [ SubResource( 51 ), SubResource( 56 ) ]
+conditions = [ SubResource( 63 ), SubResource( 56 ) ]
 operator = 0
 
 [sub_resource type="Resource" id=35]
@@ -187,7 +187,7 @@ to_state = NodePath("Operate")
 conditions = [ SubResource( 35 ) ]
 operator = 0
 
-[sub_resource type="Resource" id=52]
+[sub_resource type="Resource" id=62]
 script = ExtResource( 1 )
 condition = ExtResource( 35 )
 expected_result = false
@@ -201,7 +201,7 @@ expected_result = true
 script = ExtResource( 7 )
 from_states = [ NodePath("Operate") ]
 to_state = NodePath("Idle")
-conditions = [ SubResource( 52 ), SubResource( 57 ) ]
+conditions = [ SubResource( 62 ), SubResource( 57 ) ]
 operator = 0
 
 [sub_resource type="Resource" id=40]
@@ -216,7 +216,7 @@ to_state = NodePath("PickUp")
 conditions = [ SubResource( 40 ) ]
 operator = 0
 
-[sub_resource type="Resource" id=53]
+[sub_resource type="Resource" id=64]
 script = ExtResource( 1 )
 condition = ExtResource( 36 )
 expected_result = false
@@ -230,7 +230,7 @@ expected_result = true
 script = ExtResource( 7 )
 from_states = [ NodePath("PickUp") ]
 to_state = NodePath("Idle")
-conditions = [ SubResource( 53 ), SubResource( 58 ) ]
+conditions = [ SubResource( 64 ), SubResource( 58 ) ]
 operator = 0
 
 [sub_resource type="Resource" id=45]
@@ -245,7 +245,7 @@ to_state = NodePath("Take")
 conditions = [ SubResource( 45 ) ]
 operator = 0
 
-[sub_resource type="Resource" id=54]
+[sub_resource type="Resource" id=65]
 script = ExtResource( 1 )
 condition = ExtResource( 28 )
 expected_result = false
@@ -259,7 +259,7 @@ expected_result = true
 script = ExtResource( 7 )
 from_states = [ NodePath("Take") ]
 to_state = NodePath("Idle")
-conditions = [ SubResource( 54 ), SubResource( 59 ) ]
+conditions = [ SubResource( 65 ), SubResource( 59 ) ]
 operator = 0
 
 [sub_resource type="CylinderShape" id=7]
@@ -463,6 +463,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
 shape = SubResource( 9 )
 disabled = true
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="FootstepSounds" type="Spatial" parent="."]
+script = ExtResource( 9 )
+_sound_scene = ExtResource( 10 )
+_sfx_emitted_channel = ExtResource( 11 )
+
 [node name="CurrentState" type="Label3D" parent="."]
 pause_mode = 2
 cast_shadow = 0
@@ -490,13 +497,6 @@ transform = Transform( -0.5, 0, -2.18557e-08, 0, -1, 0, -4.37114e-08, 0, 0.25, 0
 material_override = SubResource( 4 )
 mesh = SubResource( 5 )
 script = SubResource( 6 )
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-
-[node name="FootstepSounds" type="Spatial" parent="."]
-script = ExtResource( 9 )
-_sound_scene = ExtResource( 10 )
-_sfx_emitted_channel = ExtResource( 11 )
 
 [connection signal="equipment_stack_added" from="Inventory" to="Inventory" method="_on_equipment_stack_added"]
 [connection signal="item_equipped" from="Inventory" to="InteractionArea" method="_on_item_equipped"]

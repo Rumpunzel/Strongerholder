@@ -17,9 +17,7 @@ _transition_table_resource = ExtResource( 4 )
 _inventory_attributes = ExtResource( 5 )
 _hand_position = NodePath("../Wizard/CharacterArmature/Skeleton/HandPosition")
 
-[node name="Wizard" parent="." index="8" instance=ExtResource( 2 )]
-
-[node name="AnimationTree" parent="." index="9"]
+[node name="AnimationTree" parent="." index="7"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Wizard/AnimationPlayer")
 active = true
@@ -32,3 +30,5 @@ parameters/operate/active = false
 parameters/pick_up/active = false
 parameters/take/active = false
 parameters/walk_speed/blend_amount = 0.0
+
+[node name="Wizard" parent="." index="8" instance=ExtResource( 2 )]

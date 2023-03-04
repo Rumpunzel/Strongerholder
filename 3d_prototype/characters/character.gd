@@ -12,7 +12,6 @@ var movement_input := Vector3.ZERO
 # Input triggers
 var sprint_input := false
 var jump_input := false
-var attack_input := false
 
 # ACTIONS
 var horizontal_movement_vector := Vector2.ZERO setget _set_horizontal_movement_vector
