@@ -2,16 +2,12 @@ class_name InteractionArea, "res://editor_tools/class_icons/spatials/icon_slap.s
 extends Area
 
 signal item_picked_up(item)
-signal attacked(started)
 signal gave_item(item, amount)
 signal took_item(item, amount)
 signal operated()
 
 signal object_entered_interaction_area(object)
 signal object_exited_interaction_area(object)
-
-signal object_entered_perception_area(object)
-signal object_exited_perception_area(object)
 
 signal current_interaction_changed(interaction)
 signal nearest_interaction_changed(interaction)
@@ -27,19 +23,22 @@ enum InteractionType {
 }
 
 
+export(NodePath) var _perception_area_node
+export(NodePath) var _hurt_box_node
+
+
 var objects_in_interaction_range := [ ]
-var objects_in_perception_range := [ ]
 var current_interaction: Interaction
 
 
 var _nearest_interaction: Interaction
-var _equipped_item: CharacterInventory.EquippedItem
 
 
 onready var _character: Spatial = owner
 # warning-ignore:unsafe_method_access
 onready var _spotted_items: SpottedItems = _character.get_navigation().spotted_items
-onready var _hurt_box_shape: CollisionShape = $HurtBox/CollisionShape
+onready var _perception_area: PerceptionArea = get_node(_perception_area_node)
+onready var _hurt_box: HurtBox = get_node(_hurt_box_node)
 
 
 
@@ -68,8 +67,8 @@ func smart_interact_with_nearest_object_of_type(object_type: ObjectResource, cus
 	if _occupied():
 		return
 	
-	var interaction_objects := _filter_array_for_type(objects_in_interaction_range, object_type)
-	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
+	var interaction_objects := filter_array_for_type(objects_in_interaction_range, object_type)
+	var perception_objects := filter_array_for_type(_perception_area.objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
 	
 	var point_to_walk_to := _smart_interact_with_nearest(interaction_objects, perception_objects, null, overwrite_dibs)
 	_character.destination_input = point_to_walk_to
@@ -79,8 +78,8 @@ func interact_with_nearest_object_of_type(object_type: ObjectResource, custom_ar
 	if _occupied():
 		return
 	
-	var interaction_objects := _filter_array_for_type(objects_in_interaction_range, object_type)
-	var perception_objects := _filter_array_for_type(objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
+	var interaction_objects := filter_array_for_type(objects_in_interaction_range, object_type)
+	var perception_objects := filter_array_for_type(_perception_area.objects_in_perception_range, object_type) if custom_array_to_search.empty() else custom_array_to_search
 	
 	var point_to_walk_to := _interact_with_nearest(interaction_objects, perception_objects, interaction_type, item, how_many, all, overwrite_dibs)
 	_character.destination_input = point_to_walk_to
@@ -129,6 +128,18 @@ func reset() -> void:
 	_set_current_interaction(null)
 	_set_nearest_interaction(null)
 
+
+static func filter_array_for_type(array: Array, object_type: ObjectResource) -> Array:
+	var filtered_array := [ ]
+	for object in array:
+		if object is CollectableItem:
+			if object.item_resource == object_type:
+				filtered_array.append(object)
+		elif object is HitBox or object is Stash:
+			if object.owner.structure_resource == object_type:
+				filtered_array.append(object)
+	
+	return filtered_array
 
 
 func _smart_interact_with_nearest(interactable_objects: Array, perceived_objects: Array, inventory: CharacterInventory, overwrite_dibs: bool) -> Vector3:
@@ -257,31 +268,12 @@ func _determine_interaction_type(object: Node, inventory: CharacterInventory, in
 	elif object is Workstation and (object as Workstation).can_be_operated():
 		interaction_type = InteractionType.OPERATE
 	
-	elif object is HitBox and _equipped_item:
-		var equipped_tool: ToolResource = _equipped_item.stack.item
-		# WAITFORUPDATE: remove this unnecessary thing after 4.0
-		# warning-ignore:unsafe_property_access
-		# HACK: fix this ugly implementation
-		if object.owner is Structure and object.owner.structure_resource == equipped_tool.used_on:
-			interaction_type = InteractionType.ATTACK
+	elif _hurt_box.can_attack_object(object):
+		interaction_type = InteractionType.ATTACK
 	
 	interaction.type = interaction_type
 	interaction.item_resource = interaction_resource
 	interaction.item_amount = 1
-
-
-func _filter_array_for_type(array: Array, object_type: ObjectResource) -> Array:
-	var filtered_array := [ ]
-	
-	for object in array:
-		if object is CollectableItem:
-			if object.item_resource == object_type:
-				filtered_array.append(object)
-		elif object is HitBox or object is Stash:
-			if object.owner.structure_resource == object_type:
-				filtered_array.append(object)
-	
-	return filtered_array
 
 
 func _occupied() -> bool:
@@ -302,11 +294,6 @@ func _collect() -> void:
 	# HACK: properly destroy here
 	item_node.queue_free()
 	reset()
-
-
-func _attack(started: bool) -> void:
-	_hurt_box_shape.disabled = not started
-	emit_signal("attacked", started)
 
 
 func _give() -> void:
@@ -373,16 +360,6 @@ func _node_is_dibbable(node: Node) -> bool:
 	return node != null and node.has_method("call_dibs")
 
 
-
-func _on_object_entered_perception_area(object: Node) -> void:
-	objects_in_perception_range.append(object)
-	emit_signal("object_entered_perception_area", object)
-
-func _on_object_exited_perception_area(object: Node) -> void:
-	objects_in_perception_range.erase(object)
-	emit_signal("object_exited_perception_area", object)
-
-
 func _on_object_entered_interaction_area(object: Node) -> void:
 	objects_in_interaction_range.append(object)
 	emit_signal("object_entered_interaction_area", object)
@@ -390,28 +367,6 @@ func _on_object_entered_interaction_area(object: Node) -> void:
 func _on_object_exited_interaction_area(object: Node) -> void:
 	objects_in_interaction_range.erase(object)
 	emit_signal("object_exited_interaction_area", object)
-
-
-func _on_hurt_box_entered(area: Area) -> void:
-	if not area is HitBox:
-		return
-	
-	var hit_box := area as HitBox
-	var equipped_tool: ToolResource = _equipped_item.stack.item
-	
-	# HACK: fix this ugly implementation
-	# warning-ignore-all:unsafe_property_access
-	if hit_box.owner is Structure and hit_box.owner.structure_resource == equipped_tool.used_on:
-		# warning-ignore:return_value_discarded
-		hit_box.damage(equipped_tool.damage, self)
-
-
-func _on_item_equipped(equipment: CharacterInventory.EquippedItem):
-	_equipped_item = equipment
-
-func _on_item_unequipped(equipment: CharacterInventory.EquippedItem):
-	if _equipped_item == equipment:
-		_equipped_item = null
 
 
 
