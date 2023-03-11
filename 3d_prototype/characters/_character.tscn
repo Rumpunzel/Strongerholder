@@ -158,7 +158,7 @@ to_state = NodePath("Give")
 conditions = [ SubResource( 30 ) ]
 operator = 0
 
-[sub_resource type="Resource" id=63]
+[sub_resource type="Resource" id=62]
 script = ExtResource( 1 )
 condition = ExtResource( 31 )
 expected_result = false
@@ -172,7 +172,7 @@ expected_result = true
 script = ExtResource( 7 )
 from_states = [ NodePath("Give") ]
 to_state = NodePath("Idle")
-conditions = [ SubResource( 63 ), SubResource( 56 ) ]
+conditions = [ SubResource( 62 ), SubResource( 56 ) ]
 operator = 0
 
 [sub_resource type="Resource" id=35]
@@ -187,7 +187,7 @@ to_state = NodePath("Operate")
 conditions = [ SubResource( 35 ) ]
 operator = 0
 
-[sub_resource type="Resource" id=62]
+[sub_resource type="Resource" id=63]
 script = ExtResource( 1 )
 condition = ExtResource( 35 )
 expected_result = false
@@ -201,7 +201,7 @@ expected_result = true
 script = ExtResource( 7 )
 from_states = [ NodePath("Operate") ]
 to_state = NodePath("Idle")
-conditions = [ SubResource( 62 ), SubResource( 57 ) ]
+conditions = [ SubResource( 63 ), SubResource( 57 ) ]
 operator = 0
 
 [sub_resource type="Resource" id=40]

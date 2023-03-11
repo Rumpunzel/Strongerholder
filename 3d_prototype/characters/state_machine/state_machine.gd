@@ -45,7 +45,7 @@ func get_states_list() -> Array:
 
 func _resolve_transitions() -> void:
 	var transition_state_node_path: NodePath = _current_state.try_get_transition()
-	while not transition_state_node_path.is_empty():
+	if not transition_state_node_path.is_empty():
 		var transition_state: StateNode = get_node(transition_state_node_path)
 		assert(transition_state != _current_state)
 		_current_state.on_state_exit()
