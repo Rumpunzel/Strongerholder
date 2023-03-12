@@ -58,7 +58,7 @@ class ReadInteraction extends StateAction:
 	
 	
 	func _attack_on_spot() -> void:
-		_interaction_area.current_interaction = CharacterController.Interaction.new(null, CharacterController.InteractionType.ATTACK)
+		_interaction_area.current_interaction = CharacterController.ObjectInteraction.new(null, CharacterController.ObjectInteraction.InteractionType.ATTACK)
 	
 	
 	func _smart_interact() -> void:
@@ -75,7 +75,7 @@ class ReadInteraction extends StateAction:
 			if _nearest_interaction:
 				var node := _nearest_interaction.node
 				if node is Stash:
-					if _nearest_interaction.type == CharacterController.InteractionType.GIVE:
+					if _nearest_interaction.type == CharacterController.ItemInteraction.InteractionType.GIVE:
 						_player_interaction_channel.raise(_nearest_interaction)
 						return
 			

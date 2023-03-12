@@ -7,7 +7,7 @@ export(Resource) var _player_unregistered_channel
 
 var _character: Character
 
-func on_update(blackboard: CharacterController.CharacterBlackboard) -> int:
+func on_update(blackboard: Occupation.OccupationBlackboard) -> int:
 	_character = blackboard.character
 	# warning-ignore-all:unsafe_property_access
 	_player_registered_channel.raise(_character)

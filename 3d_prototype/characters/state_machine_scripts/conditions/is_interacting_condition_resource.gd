@@ -17,5 +17,5 @@ class IsInteractingCondition extends StateCondition:
 		if not current_interaction:
 			return false
 		
-		_character_controller.blackboard.current_interaction = CharacterController.Target(current_interaction.node)
+		_character_controller.blackboard.current_interaction = CharacterController.Target.new(current_interaction.node)
 		return true

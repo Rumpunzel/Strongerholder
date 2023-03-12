@@ -2,7 +2,7 @@ extends ActionLeaf
 
 onready var _current_camera: GameCamera = get_viewport().get_camera()
 
-func on_update(blackboard: CharacterController.CharacterBlackboard) -> int:
+func on_update(blackboard: Occupation.OccupationBlackboard) -> int:
 	var character := blackboard.character
 	var navigation := character.get_navigation()
 	var camera_ray := _current_camera.mouse_as_world_point()

@@ -20,7 +20,7 @@ func can_attack_object(object: Node) -> CharacterController.ObjectInteraction:
 		# warning-ignore:unsafe_property_access
 		# HACK: fix this ugly implementation
 		if object.owner is Structure and object.owner.structure_resource == equipped_tool.used_on:
-			return CharacterController.ObjectInteraction.new(object, CharacterController.InteractionType.ATTACK)
+			return CharacterController.ObjectInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.ATTACK)
 
 	return null
 

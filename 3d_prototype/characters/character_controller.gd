@@ -11,10 +11,17 @@ onready var _inventory: CharacterInventory = get_node(_inventory_node)
 onready var perception_area: Area = get_node(_perception_area_node)
 onready var interaction_area: Area = get_node(_perception_area_node)
 onready var _hurt_box: Area = get_node(_hurt_box_node)
-# warning-ignore:unsafe_method_access
-onready var _spotted_items: SpottedItems = _character.get_navigation().spotted_items
 
-var current_job: Workstation.Job = null setget _set_current_job
+
+func _ready() -> void:
+	blackboard = CharacterBlackboard.new(
+		self,
+		owner,
+		get_node(_inventory_node),
+		get_node(_perception_area_node),
+		get_node(_interaction_area_node),
+		get_node(_hurt_box_node)
+	)
 
 
 func smart_interact_with_nearest_object_of_type(object_type: ObjectResource, custom_array_to_search: Array, overwrite_dibs: bool) -> void:
@@ -231,10 +238,10 @@ func _occupied() -> bool:
 	return blackboard.current_interaction and blackboard.current_interaction.type
 
 
-func _set_current_job(new_job) -> void:
-	current_job = new_job
-	# warning-ignore:return_value_discarded
-	_inventory.add(current_job.tool_resource)
+#func _set_current_job(new_job) -> void:
+#	current_job = new_job
+#	# warning-ignore:return_value_discarded
+#	_inventory.add(current_job.tool_resource)
 
 func _set_current_interaction(new_interaction: Target) -> void:
 	var current_interaction: Target = blackboard.current_interaction
@@ -273,21 +280,6 @@ func _node_is_dibbable(node: Node) -> bool:
 
 
 
-func _create_blackboard() -> CharacterBlackboard:
-	var character: Character = owner
-	return CharacterBlackboard.new(
-		self,
-		character,
-		get_node(_inventory_node),
-		get_node(_perception_area_node),
-		get_node(_interaction_area_node),
-		get_node(_hurt_box_node),
-		character.get_navigation().spotted_items,
-		current_job
-	)
-
-
-
 class CharacterBlackboard extends BehaviorTree.Blackboard:
 	signal current_interaction_changed(interaction)
 	signal nearest_interaction_changed(interaction)
@@ -300,9 +292,7 @@ class CharacterBlackboard extends BehaviorTree.Blackboard:
 	var interaction_area: Area #InteractionArea
 	# WAITFORUPDATE: specify type after 4.0
 	var hurt_box: Area #HurtBox
-	var spotted_items: SpottedItems
 	
-	var job: Workstation.Job
 	var current_interaction: Target = null
 	var nearest_interaction: Target = null
 	
@@ -315,17 +305,13 @@ class CharacterBlackboard extends BehaviorTree.Blackboard:
 		# WAITFORUPDATE: specify type after 4.0
 		new_interaction_area: Area, #InteractionArea,
 		# WAITFORUPDATE: specify type after 4.0
-		new_hurt_box: Area, #HurtBox,
-		new_spotted_items: SpottedItems,
-		new_job: Workstation.Job
+		new_hurt_box: Area #HurtBox
 	).(new_behavior_tree_root) -> void:
 		character = new_character
 		inventory = new_inventory
 		perception_area = new_perception_area
 		interaction_area = new_interaction_area
 		hurt_box = new_hurt_box
-		spotted_items = new_spotted_items
-		job = new_job
 
 
 class Target:
