@@ -1,17 +1,6 @@
 class_name CharacterController
 extends BehaviorTreeRoot
 
-enum ItemInteractionType {
-	GIVE,
-	TAKE,
-}
-
-enum ObjectInteractionType {
-	ATTACK,
-	OPERATE,
-	PICK_UP,
-}
-
 export(NodePath) var _inventory_node
 export(NodePath) var _perception_area_node
 export(NodePath) var _interaction_area_node
@@ -197,12 +186,12 @@ func _find_nearest_interaction(objects: Array, interaction_type: int, item: Item
 		
 		var valid := true
 		match interaction_type:
-			ItemInteractionType.GIVE:
+			ItemInteraction.InteractionType.GIVE:
 				# warning-ignore:unsafe_cast
 				if object is Stash and (object as Stash).full(item):
 					valid = false
 			
-			ItemInteractionType.TAKE:
+			ItemInteraction.ItemInteractionType.TAKE:
 				# warning-ignore:unsafe_cast
 				if object is Stash:
 					if not (object as Stash).contains(item):
@@ -340,6 +329,8 @@ class CharacterBlackboard extends BehaviorTree.Blackboard:
 
 
 class Target:
+	const ANIMATION_PARAMETER := "parameters/%s/active"
+	
 	var node: Spatial
 	
 	func _init(new_node: Spatial) -> void:
@@ -347,19 +338,57 @@ class Target:
 	
 	func position() -> Vector3:
 		return node.global_transform.origin
+	
+	func to_animation_parameter() -> String:
+		return ""
 
 class ItemInteraction extends Target:
-	var type: int
+	enum InteractionType {
+		GIVE,
+		TAKE,
+	}
+
+	var interaction_type: int
 	var item_resource: ItemResource
 	var item_amount: int
 	
-	func _init(new_node: Spatial, new_type: int, new_resource: ItemResource, new_item_amount: int).(new_node) -> void:
-		type = new_type
+	func _init(new_node: Spatial, new_interaction_type: int, new_resource: ItemResource, new_item_amount: int).(new_node) -> void:
+		interaction_type = new_interaction_type
 		item_resource = new_resource
 		item_amount = new_item_amount
+	
+	func to_animation_parameter() -> String:
+		match interaction_type:
+			InteractionType.GIVE:
+				return ANIMATION_PARAMETER % "give"
+			InteractionType.TAKE:
+				return ANIMATION_PARAMETER % "take"
+			_:
+				assert(false, "This animation is not supported for ItemInteractions!")
+		
+		return ""
 
 class ObjectInteraction extends Target:
-	var type: int
+	enum InteractionType {
+		ATTACK,
+		OPERATE,
+		PICK_UP,
+	}
 	
-	func _init(new_node: Spatial, new_type: int).(new_node) -> void:
-		type = new_type
+	var interaction_type: int
+	
+	func _init(new_node: Spatial, new_interaction_type: int).(new_node) -> void:
+		interaction_type = new_interaction_type
+	
+	func to_animation_parameter() -> String:
+		match interaction_type:
+			InteractionType.ATTACK:
+				return "attack"
+			InteractionType.OPERATE:
+				return "operate"
+			InteractionType.PICK_UP:
+				return "pick_up"
+			_:
+				assert(false, "This animation is not supported for ObjectInteractions!")
+		
+		return ""

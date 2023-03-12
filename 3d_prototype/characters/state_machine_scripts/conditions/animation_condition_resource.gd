@@ -21,5 +21,4 @@ class AnimationCondition extends StateCondition:
 		assert(_animation_tree)
 	
 	func _statement() -> bool:
-		var animation_parameter := ActionStateNode.translate_interaction_to_parameter(_character_controller.blackboard.current_interaction)
-		return _animation_tree.get("parameters/%s/active" % animation_parameter) == _bool_value
+		return _animation_tree.get(_character_controller.blackboard.current_interaction.to_animation_parameter()) == _bool_value

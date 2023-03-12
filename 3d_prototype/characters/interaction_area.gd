@@ -38,13 +38,13 @@ func get_potential_interaction(object: Node, inventory: CharacterInventory) -> C
 					break
 	
 	if object is CollectableItem:
-		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteractionType.PICK_UP, interaction_resource, 1)
+		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.PICK_UP, interaction_resource, 1)
 	
 	if object is Stash and can_stash:
-		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteractionType.GIVE, interaction_resource, 1)
+		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.GIVE, interaction_resource, 1)
 	
 	if object is Workstation and (object as Workstation).can_be_operated():
-		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteractionType.OPERATE, interaction_resource, 1)
+		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.OPERATE, interaction_resource, 1)
 	
 	return null
 
