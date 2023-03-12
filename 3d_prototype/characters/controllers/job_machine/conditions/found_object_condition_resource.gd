@@ -19,7 +19,7 @@ class FoundObjectCondition extends StateCondition:
 	var _character: Character
 	
 	var _spotted_items: SpottedItems
-	var _interaction_area: InteractionArea
+	var _character_controller: CharacterController
 	
 	var _action_type: int
 	var _object_to_look_for: ObjectResource
@@ -52,25 +52,25 @@ class FoundObjectCondition extends StateCondition:
 		
 		_character = state_machine.owner
 		_spotted_items = _character.get_navigation().spotted_items
-		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
+		_character_controller = Utils.find_node_of_type_in_children(_character, CharacterController)
 	
 	
 	func _check_items() -> bool:
 		if _global_range:
-			var global_items := _interaction_area.get_tree().get_nodes_in_group(_object_to_look_for.name)
+			var global_items := _character_controller.get_tree().get_nodes_in_group(_object_to_look_for.name)
 			for item in global_items:
-				if not item.has_method("is_dibbable") or item.is_dibbable(_interaction_area):
+				if not item.has_method("is_dibbable") or item.is_dibbable(_character_controller):
 					return true
 		
 		if _use_spotted_items:
 			if _object_to_look_for is ItemResource:
-				var spotted_items := _spotted_items.get_spotted(_object_to_look_for, _interaction_area)
+				var spotted_items := _spotted_items.get_spotted(_object_to_look_for, _character_controller)
 				for item in spotted_items:
-					if not item.has_method("is_dibbable") or item.is_dibbable(_interaction_area):
+					if not item.has_method("is_dibbable") or item.is_dibbable(_character_controller):
 						return true
 		
-		for percieved_object in _interaction_area.objects_in_perception_range:
-			if not percieved_object.has_method("is_dibbable") or percieved_object.is_dibbable(_interaction_area):
+		for percieved_object in _character_controller.perception_area.objects_in_area:
+			if not percieved_object.has_method("is_dibbable") or percieved_object.is_dibbable(_character_controller):
 				if percieved_object is CollectableItem and percieved_object.item_resource == _object_to_look_for:
 					return true
 				# HACK: fix this ugly implementation

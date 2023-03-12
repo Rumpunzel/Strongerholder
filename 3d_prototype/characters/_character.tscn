@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=92 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
@@ -17,22 +17,49 @@
 [ext_resource path="res://characters/hurt_box.gd" type="Script" id=15]
 [ext_resource path="res://characters/state_machine/states/jump_ascending.gd" type="Script" id=16]
 [ext_resource path="res://characters/state_machine/states/jump_descending.gd" type="Script" id=17]
+[ext_resource path="res://characters/character_controller.gd" type="Script" id=18]
+[ext_resource path="res://characters/behavior_tree/character_action_leaf.gd" type="Script" id=19]
+[ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=20]
+[ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=21]
 [ext_resource path="res://characters/state_machine_resources/conditions/timer_jump_hold_button.tres" type="Resource" id=22]
 [ext_resource path="res://prototype_assets/gui/fonts/default_font.tres" type="DynamicFont" id=23]
 [ext_resource path="res://characters/state_machine_resources/conditions/has_hit_head.tres" type="Resource" id=24]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_holding_jump.tres" type="Resource" id=25]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_moving.tres" type="Resource" id=26]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_grounded.tres" type="Resource" id=27]
-[ext_resource path="res://characters/state_machine_resources/conditions/is_taking.tres" type="Resource" id=28]
-[ext_resource path="res://characters/state_machine_resources/conditions/pick_up_animation_finished.tres" type="Resource" id=29]
-[ext_resource path="res://characters/state_machine_resources/conditions/is_attacking.tres" type="Resource" id=30]
-[ext_resource path="res://characters/state_machine_resources/conditions/is_giving.tres" type="Resource" id=31]
-[ext_resource path="res://characters/state_machine_resources/conditions/attack_animation_finished.tres" type="Resource" id=32]
-[ext_resource path="res://characters/state_machine_resources/conditions/operate_animation_finished.tres" type="Resource" id=33]
-[ext_resource path="res://characters/state_machine_resources/conditions/give_animation_finished.tres" type="Resource" id=34]
-[ext_resource path="res://characters/state_machine_resources/conditions/is_operating.tres" type="Resource" id=35]
-[ext_resource path="res://characters/state_machine_resources/conditions/is_picking_up.tres" type="Resource" id=36]
-[ext_resource path="res://characters/state_machine_resources/conditions/take_animation_finished.tres" type="Resource" id=37]
+[ext_resource path="res://behavior_tree/leaves/_condition_leaf.gd" type="Script" id=28]
+[ext_resource path="res://behavior_tree/leaves/_action_leaf.gd" type="Script" id=29]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_performing_action.tres" type="Resource" id=30]
+[ext_resource path="res://characters/input_actions/read_build_input.gd" type="Script" id=31]
+[ext_resource path="res://characters/state_machine_resources/conditions/animation_finished.tres" type="Resource" id=32]
+[ext_resource path="res://event_system/resources/hud/building_hud_toggled_channel.tres" type="Resource" id=33]
+[ext_resource path="res://characters/input_actions/read_movement_input.gd" type="Script" id=34]
+[ext_resource path="res://characters/input_actions/read_sprint_input.gd" type="Script" id=35]
+[ext_resource path="res://characters/input_actions/conditions/is_moving_to_destination.gd" type="Script" id=36]
+[ext_resource path="res://characters/input_actions/read_mouse_movement_input.gd" type="Script" id=37]
+[ext_resource path="res://characters/input_actions/read_inventory_input.gd" type="Script" id=38]
+[ext_resource path="res://behavior_tree/decorators/inverter_decorator.gd" type="Script" id=39]
+[ext_resource path="res://behavior_tree/composites/sequence_star.gd" type="Script" id=40]
+[ext_resource path="res://behavior_tree/decorators/limiter_decorator.gd" type="Script" id=41]
+[ext_resource path="res://characters/input_actions/register_player.gd" type="Script" id=42]
+[ext_resource path="res://characters/input_actions/register_player_inventory.gd" type="Script" id=43]
+[ext_resource path="res://event_system/resources/player/player_unregistered_channel.tres" type="Resource" id=44]
+[ext_resource path="res://event_system/resources/player/player_registered_channel.tres" type="Resource" id=45]
+[ext_resource path="res://event_system/resources/hud/equipment_updated_channel.tres" type="Resource" id=46]
+[ext_resource path="res://event_system/resources/hud/equipment_stacks_updated_channel.tres" type="Resource" id=47]
+[ext_resource path="res://event_system/resources/hud/equipment_hud_toggled_channel.tres" type="Resource" id=48]
+[ext_resource path="res://event_system/resources/hud/inventory_hud_toggled_channel.tres" type="Resource" id=49]
+[ext_resource path="res://event_system/resources/hud/inventory_stacks_updated_channel.tres" type="Resource" id=50]
+[ext_resource path="res://event_system/resources/hud/inventory_updated_channel.tres" type="Resource" id=51]
+[ext_resource path="res://characters/input_actions/conditions/is_input_unhandled.gd" type="Script" id=52]
+[ext_resource path="res://characters/input_actions/set_input_as_handled.gd" type="Script" id=53]
+[ext_resource path="res://characters/input_actions/read_smart_interaction_input.gd" type="Script" id=54]
+[ext_resource path="res://behavior_tree/decorators/runner_decorator.gd" type="Script" id=55]
+[ext_resource path="res://characters/input_actions/read_attack_input.gd" type="Script" id=56]
+[ext_resource path="res://characters/input_actions/display_interaction_hud.gd" type="Script" id=57]
+[ext_resource path="res://event_system/resources/player/player_interaction_channel.tres" type="Resource" id=58]
+[ext_resource path="res://characters/input_actions/conditions/is_item_equipped.gd" type="Script" id=59]
+[ext_resource path="res://characters/input_actions/read_equipment_input.gd" type="Script" id=60]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -47,18 +74,6 @@ script = ExtResource( 7 )
 from_states = [ NodePath("Idle") ]
 to_state = NodePath("Walk")
 conditions = [ SubResource( 11 ) ]
-operator = 0
-
-[sub_resource type="Resource" id=13]
-script = ExtResource( 1 )
-condition = ExtResource( 26 )
-expected_result = false
-
-[sub_resource type="Resource" id=14]
-script = ExtResource( 7 )
-from_states = [ NodePath("Walk") ]
-to_state = NodePath("Idle")
-conditions = [ SubResource( 13 ) ]
 operator = 0
 
 [sub_resource type="Resource" id=15]
@@ -114,7 +129,7 @@ expected_result = false
 
 [sub_resource type="Resource" id=24]
 script = ExtResource( 7 )
-from_states = [ NodePath("Walk"), NodePath("Attack"), NodePath("Give"), NodePath("Operate"), NodePath("PickUp"), NodePath("Take"), NodePath("Idle") ]
+from_states = [ NodePath("Walk"), NodePath("Attack"), NodePath("Give"), NodePath("Operate"), NodePath("PickUp"), NodePath("Take"), NodePath("Idle"), NodePath("PerformAction") ]
 to_state = NodePath("JumpDescending")
 conditions = [ SubResource( 23 ) ]
 operator = 0
@@ -127,7 +142,7 @@ expected_result = true
 [sub_resource type="Resource" id=26]
 script = ExtResource( 7 )
 from_states = [ NodePath("Idle"), NodePath("Walk") ]
-to_state = NodePath("Attack")
+to_state = NodePath("PerformAction")
 conditions = [ SubResource( 25 ) ]
 operator = 0
 
@@ -143,132 +158,28 @@ expected_result = true
 
 [sub_resource type="Resource" id=29]
 script = ExtResource( 7 )
-from_states = [ NodePath("Attack") ]
+from_states = [ NodePath("Attack"), NodePath("PerformAction") ]
 to_state = NodePath("Idle")
 conditions = [ SubResource( 61 ), SubResource( 55 ) ]
 operator = 0
 
-[sub_resource type="Resource" id=30]
-script = ExtResource( 1 )
-condition = ExtResource( 31 )
-expected_result = true
-
-[sub_resource type="Resource" id=31]
-script = ExtResource( 7 )
-from_states = [ NodePath("Idle"), NodePath("Walk") ]
-to_state = NodePath("Give")
-conditions = [ SubResource( 30 ) ]
-operator = 0
-
 [sub_resource type="Resource" id=62]
 script = ExtResource( 1 )
-condition = ExtResource( 31 )
+condition = ExtResource( 26 )
 expected_result = false
-
-[sub_resource type="Resource" id=56]
-script = ExtResource( 1 )
-condition = ExtResource( 34 )
-expected_result = true
-
-[sub_resource type="Resource" id=34]
-script = ExtResource( 7 )
-from_states = [ NodePath("Give") ]
-to_state = NodePath("Idle")
-conditions = [ SubResource( 62 ), SubResource( 56 ) ]
-operator = 0
-
-[sub_resource type="Resource" id=35]
-script = ExtResource( 1 )
-condition = ExtResource( 35 )
-expected_result = true
-
-[sub_resource type="Resource" id=36]
-script = ExtResource( 7 )
-from_states = [ NodePath("Idle"), NodePath("Walk") ]
-to_state = NodePath("Operate")
-conditions = [ SubResource( 35 ) ]
-operator = 0
 
 [sub_resource type="Resource" id=63]
-script = ExtResource( 1 )
-condition = ExtResource( 35 )
-expected_result = false
-
-[sub_resource type="Resource" id=57]
-script = ExtResource( 1 )
-condition = ExtResource( 33 )
-expected_result = true
-
-[sub_resource type="Resource" id=39]
 script = ExtResource( 7 )
-from_states = [ NodePath("Operate") ]
+from_states = [ NodePath("Walk") ]
 to_state = NodePath("Idle")
-conditions = [ SubResource( 63 ), SubResource( 57 ) ]
+conditions = [ SubResource( 62 ) ]
 operator = 0
-
-[sub_resource type="Resource" id=40]
-script = ExtResource( 1 )
-condition = ExtResource( 36 )
-expected_result = true
-
-[sub_resource type="Resource" id=41]
-script = ExtResource( 7 )
-from_states = [ NodePath("Idle"), NodePath("Walk") ]
-to_state = NodePath("PickUp")
-conditions = [ SubResource( 40 ) ]
-operator = 0
-
-[sub_resource type="Resource" id=64]
-script = ExtResource( 1 )
-condition = ExtResource( 36 )
-expected_result = false
-
-[sub_resource type="Resource" id=58]
-script = ExtResource( 1 )
-condition = ExtResource( 29 )
-expected_result = true
-
-[sub_resource type="Resource" id=44]
-script = ExtResource( 7 )
-from_states = [ NodePath("PickUp") ]
-to_state = NodePath("Idle")
-conditions = [ SubResource( 64 ), SubResource( 58 ) ]
-operator = 0
-
-[sub_resource type="Resource" id=45]
-script = ExtResource( 1 )
-condition = ExtResource( 28 )
-expected_result = true
-
-[sub_resource type="Resource" id=46]
-script = ExtResource( 7 )
-from_states = [ NodePath("Idle"), NodePath("Walk") ]
-to_state = NodePath("Take")
-conditions = [ SubResource( 45 ) ]
-operator = 0
-
-[sub_resource type="Resource" id=65]
-script = ExtResource( 1 )
-condition = ExtResource( 28 )
-expected_result = false
-
-[sub_resource type="Resource" id=59]
-script = ExtResource( 1 )
-condition = ExtResource( 37 )
-expected_result = true
-
-[sub_resource type="Resource" id=49]
-script = ExtResource( 7 )
-from_states = [ NodePath("Take") ]
-to_state = NodePath("Idle")
-conditions = [ SubResource( 65 ), SubResource( 59 ) ]
-operator = 0
-
-[sub_resource type="CylinderShape" id=7]
-radius = 0.75
 
 [sub_resource type="CylinderShape" id=8]
 radius = 5.0
+
+[sub_resource type="CylinderShape" id=7]
+radius = 0.75
 
 [sub_resource type="BoxShape" id=9]
 extents = Vector3( 1, 1, 0.5 )
@@ -279,6 +190,18 @@ script/source = "extends Label3D
 func _process(_delta: float) -> void:
 	# warning-ignore:unsafe_property_access
 	text = get_node(\"../StateMachine\")._current_state.name
+"
+
+[sub_resource type="GDScript" id=64]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	# warning-ignore:unsafe_property_access
+	var running_action: ActionLeaf = get_node(\"../Occupation\").blackboard.running_action
+	if running_action:
+		text = running_action.name
+	else:
+		text = \"NO OCCUPATION\"
 "
 
 [sub_resource type="GDScript" id=60]
@@ -367,37 +290,23 @@ max_speed = 100.0
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 13 )
 entry_state = NodePath("Idle")
-_transitions = [ SubResource( 12 ), SubResource( 14 ), SubResource( 16 ), SubResource( 20 ), SubResource( 22 ), SubResource( 24 ), SubResource( 26 ), SubResource( 29 ), SubResource( 31 ), SubResource( 34 ), SubResource( 36 ), SubResource( 39 ), SubResource( 41 ), SubResource( 44 ), SubResource( 46 ), SubResource( 49 ) ]
+_transitions = [ SubResource( 12 ), SubResource( 16 ), SubResource( 20 ), SubResource( 22 ), SubResource( 24 ), SubResource( 26 ), SubResource( 29 ), SubResource( 63 ) ]
 _graph_offsets = {
-"": Vector2( 1346.75, 1350.13 ),
-"EntryPoint": Vector2( -789.898, -3.9295 ),
+"EntryPoint": Vector2( -548.686, 108.056 ),
 "Zoom": 0.694444,
-"res://characters/_character.tscn::12": Vector2( -564.29, -318.312 ),
-"res://characters/_character.tscn::14": Vector2( -9.17928, 1243.3 ),
-"res://characters/_character.tscn::16": Vector2( 215.71, -178.31 ),
-"res://characters/_character.tscn::20": Vector2( 975.71, -258.31 ),
-"res://characters/_character.tscn::22": Vector2( 1950.82, -96.6974 ),
-"res://characters/_character.tscn::24": Vector2( 975.71, 61.6895 ),
-"res://characters/_character.tscn::26": Vector2( 150.821, 263.303 ),
-"res://characters/_character.tscn::29": Vector2( 990.82, 303.303 ),
-"res://characters/_character.tscn::31": Vector2( 130.821, 443.303 ),
-"res://characters/_character.tscn::34": Vector2( 890.82, 563.302 ),
-"res://characters/_character.tscn::36": Vector2( 110.821, 683.302 ),
-"res://characters/_character.tscn::39": Vector2( 830.82, 803.302 ),
-"res://characters/_character.tscn::41": Vector2( 90.8207, 883.302 ),
-"res://characters/_character.tscn::44": Vector2( 750.82, 1023.3 ),
-"res://characters/_character.tscn::46": Vector2( 70.8207, 1063.3 ),
-"res://characters/_character.tscn::49": Vector2( 780.701, 1222.86 ),
-NodePath("Take"): Vector2( 500.701, 1142.86 ),
-NodePath("PickUp"): Vector2( 460.169, 981.646 ),
-NodePath("Operate"): Vector2( 460.169, 761.646 ),
-NodePath("Give"): Vector2( 486.474, 543.627 ),
-NodePath("Idle"): Vector2( -239.831, 21.6465 ),
-NodePath("Walk"): Vector2( -429.18, 203.303 ),
-NodePath("JumpAscending"): Vector2( 630.82, -216.697 ),
-NodePath("JumpDescending"): Vector2( 1630.82, -96.6974 ),
-NodePath("Attack"): Vector2( 586.474, 243.627 ),
-NodePath("PerformAction"): Vector2( 564.052, 394.239 )
+"res://characters/_character.tscn::12": Vector2( -115.786, 452.986 ),
+"res://characters/_character.tscn::16": Vector2( 984.214, -47.0142 ),
+"res://characters/_character.tscn::20": Vector2( 1744.21, -127.014 ),
+"res://characters/_character.tscn::22": Vector2( 2764.21, 12.9858 ),
+"res://characters/_character.tscn::24": Vector2( 1664.21, 192.986 ),
+"res://characters/_character.tscn::26": Vector2( 884.214, 492.986 ),
+"res://characters/_character.tscn::29": Vector2( 1684.21, 432.986 ),
+"res://characters/_character.tscn::63": Vector2( 596, 662 ),
+NodePath("PerformAction"): Vector2( 1364.21, 492.986 ),
+NodePath("JumpDescending"): Vector2( 2444.21, 12.9858 ),
+NodePath("JumpAscending"): Vector2( 1384.21, -87.0142 ),
+NodePath("Walk"): Vector2( 344.214, 432.986 ),
+NodePath("Idle"): Vector2( 1.38306, 133.632 )
 }
 
 [node name="Idle" type="Node" parent="StateMachine"]
@@ -405,36 +314,20 @@ script = ExtResource( 14 )
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource( 12 )
+_character_controller_node = NodePath("../../CharacterController")
+_animation_tree_node = NodePath("../../AnimationTree")
 
 [node name="JumpAscending" type="Node" parent="StateMachine"]
 script = ExtResource( 16 )
+_animation_tree_node = NodePath("../../AnimationTree")
 
 [node name="JumpDescending" type="Node" parent="StateMachine"]
 script = ExtResource( 17 )
-
-[node name="Attack" type="Node" parent="StateMachine"]
-script = ExtResource( 4 )
-_action_type = 1
-
-[node name="Give" type="Node" parent="StateMachine"]
-script = ExtResource( 4 )
-_action_type = 2
-
-[node name="Operate" type="Node" parent="StateMachine"]
-script = ExtResource( 4 )
-_action_type = 3
-
-[node name="PickUp" type="Node" parent="StateMachine"]
-script = ExtResource( 4 )
-_action_type = 4
-
-[node name="Take" type="Node" parent="StateMachine"]
-script = ExtResource( 4 )
-_action_type = 5
+_animation_tree_node = NodePath("../../AnimationTree")
 
 [node name="PerformAction" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
-_action_type = 5
+_character_controller_node = NodePath("../../CharacterController")
 _animation_tree_node = NodePath("../../AnimationTree")
 
 [node name="Controller" type="Node" parent="." groups=["PersistData"]]
@@ -443,15 +336,180 @@ script = ExtResource( 8 )
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource( 5 )
 
-[node name="InteractionArea" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 200
-input_ray_pickable = false
-script = ExtResource( 2 )
+[node name="CharacterController" type="Node" parent="."]
+script = ExtResource( 18 )
+_inventory_node = NodePath("../Inventory")
+_perception_area_node = NodePath("../PerceptionArea")
+_interaction_area_node = NodePath("../InteractionArea")
+_hurt_box_node = NodePath("../HurtBox")
 
-[node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 7 )
+[node name="Actions" type="Node" parent="CharacterController"]
+script = ExtResource( 20 )
+
+[node name="InteractWithObjectType" type="Node" parent="CharacterController/Actions"]
+script = ExtResource( 21 )
+
+[node name="HasDibbedObject" type="Node" parent="CharacterController/Actions/InteractWithObjectType"]
+script = ExtResource( 28 )
+
+[node name="KnowsWhatToDo" type="Node" parent="CharacterController/Actions/InteractWithObjectType"]
+script = ExtResource( 28 )
+
+[node name="SelectorComposite" type="Node" parent="CharacterController/Actions/InteractWithObjectType"]
+script = ExtResource( 20 )
+
+[node name="SequenceComposite" type="Node" parent="CharacterController/Actions/InteractWithObjectType/SelectorComposite"]
+script = ExtResource( 21 )
+
+[node name="InInteractionRange" type="Node" parent="CharacterController/Actions/InteractWithObjectType/SelectorComposite/SequenceComposite"]
+script = ExtResource( 28 )
+
+[node name="DoTheThing" type="Node" parent="CharacterController/Actions/InteractWithObjectType/SelectorComposite/SequenceComposite"]
+script = ExtResource( 19 )
+
+[node name="MoveIntoPosition" type="Node" parent="CharacterController/Actions/InteractWithObjectType/SelectorComposite"]
+script = ExtResource( 19 )
+
+[node name="FindDibbableObject" type="Node" parent="CharacterController/Actions"]
+script = ExtResource( 21 )
+
+[node name="SearchDibbableObject" type="Node" parent="CharacterController/Actions/FindDibbableObject"]
+script = ExtResource( 20 )
+
+[node name="InInteractionArea" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject"]
+script = ExtResource( 21 )
+
+[node name="ObjectInInteractionArea" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject/InInteractionArea"]
+script = ExtResource( 28 )
+
+[node name="CallDibs" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject/InInteractionArea"]
+script = ExtResource( 19 )
+
+[node name="InPerceptionArea" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject"]
+script = ExtResource( 21 )
+
+[node name="ObjectInPerceptionArea" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject/InPerceptionArea"]
+script = ExtResource( 28 )
+
+[node name="CallDibs" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject/InPerceptionArea"]
+script = ExtResource( 19 )
+
+[node name="FigureOutWhatToDo" type="Node" parent="CharacterController/Actions/FindDibbableObject"]
+script = ExtResource( 21 )
+
+[node name="KnowsNotWhatToDo" type="Node" parent="CharacterController/Actions/FindDibbableObject/FigureOutWhatToDo"]
+script = ExtResource( 39 )
+
+[node name="KnowsWhatToDo" type="Node" parent="CharacterController/Actions/FindDibbableObject/FigureOutWhatToDo/KnowsNotWhatToDo"]
+script = ExtResource( 28 )
+
+[node name="FigureItOut" type="Node" parent="CharacterController/Actions/FindDibbableObject/FigureOutWhatToDo"]
+script = ExtResource( 19 )
+
+[node name="Idle" type="Node" parent="CharacterController/Actions"]
+script = ExtResource( 19 )
+
+[node name="Occupation" type="Node" parent="."]
+script = ExtResource( 18 )
+_inventory_node = NodePath("../Inventory")
+_perception_area_node = NodePath("../PerceptionArea")
+_interaction_area_node = NodePath("../InteractionArea")
+_hurt_box_node = NodePath("../HurtBox")
+
+[node name="JobList" type="Node" parent="Occupation"]
+script = ExtResource( 20 )
+
+[node name="Player" type="Node" parent="Occupation/JobList"]
+script = ExtResource( 21 )
+
+[node name="RunOnce" type="Node" parent="Occupation/JobList/Player"]
+script = ExtResource( 41 )
+_max_count = 1
+
+[node name="Register" type="Node" parent="Occupation/JobList/Player/RunOnce"]
+script = ExtResource( 40 )
+
+[node name="RegisterPlayer" type="Node" parent="Occupation/JobList/Player/RunOnce/Register"]
+script = ExtResource( 42 )
+_player_registered_channel = ExtResource( 45 )
+_player_unregistered_channel = ExtResource( 44 )
+
+[node name="RegisterPlayerInventory" type="Node" parent="Occupation/JobList/Player/RunOnce/Register"]
+script = ExtResource( 43 )
+_inventory_stacks_updated_channel = ExtResource( 50 )
+_inventory_updated_channel = ExtResource( 51 )
+_equipment_stacks_updated_channel = ExtResource( 47 )
+_equipment_updated_channel = ExtResource( 46 )
+
+[node name="HandleInput" type="Node" parent="Occupation/JobList/Player"]
+script = ExtResource( 21 )
+
+[node name="IsInputUnhandled" type="Node" parent="Occupation/JobList/Player/HandleInput"]
+script = ExtResource( 52 )
+
+[node name="ReadInput" type="Node" parent="Occupation/JobList/Player/HandleInput"]
+script = ExtResource( 20 )
+
+[node name="ReadBuildInput" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput"]
+script = ExtResource( 31 )
+_building_hud_toggled_channel = ExtResource( 33 )
+
+[node name="ReadEquipmentInput" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput"]
+script = ExtResource( 60 )
+_equipment_hud_toggled_channel = ExtResource( 48 )
+
+[node name="ReadInventoryInput" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput"]
+script = ExtResource( 38 )
+_inventory_hud_toggled_channel = ExtResource( 49 )
+
+[node name="HandleAttack" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput"]
+script = ExtResource( 21 )
+
+[node name="IsItemEquipped" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/HandleAttack"]
+script = ExtResource( 59 )
+
+[node name="ReadAttackInput" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/HandleAttack"]
+script = ExtResource( 56 )
+
+[node name="ReadMovement" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput"]
+script = ExtResource( 21 )
+
+[node name="ReadSprintInput" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/ReadMovement"]
+script = ExtResource( 35 )
+
+[node name="DetermineMovementInputSource" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/ReadMovement"]
+script = ExtResource( 20 )
+
+[node name="ReadMouseMovement" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource"]
+script = ExtResource( 21 )
+
+[node name="IsMovingToDestination" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource/ReadMouseMovement"]
+script = ExtResource( 36 )
+
+[node name="ReadMouseMovementInput" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource/ReadMouseMovement"]
+script = ExtResource( 37 )
+
+[node name="ReadMovementInput" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource"]
+script = ExtResource( 34 )
+
+[node name="HandleInteraction" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput"]
+script = ExtResource( 21 )
+
+[node name="DisplayInteractionHUD" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/HandleInteraction"]
+script = ExtResource( 57 )
+_player_interaction_channel = ExtResource( 58 )
+
+[node name="ReadSmartInteractionInput" type="Node" parent="Occupation/JobList/Player/HandleInput/ReadInput/HandleInteraction"]
+script = ExtResource( 54 )
+
+[node name="SetInputAsHandled" type="Node" parent="Occupation/JobList/Player/HandleInput"]
+script = ExtResource( 53 )
+
+[node name="AlwaysRunnerDecorator" type="Node" parent="Occupation/JobList"]
+script = ExtResource( 55 )
+
+[node name="Idle" type="Node" parent="Occupation/JobList/AlwaysRunnerDecorator"]
+script = ExtResource( 29 )
 
 [node name="PerceptionArea" type="Area" parent="."]
 collision_layer = 0
@@ -462,6 +520,16 @@ script = ExtResource( 6 )
 [node name="CollisionShape" type="CollisionShape" parent="PerceptionArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 8 )
+
+[node name="InteractionArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 200
+input_ray_pickable = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 7 )
 
 [node name="HurtBox" type="Area" parent="."]
 collision_layer = 0
@@ -491,6 +559,17 @@ fixed_size = true
 font = ExtResource( 23 )
 script = SubResource( 10 )
 
+[node name="CurrentOccupation" type="Label3D" parent="."]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 75 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+font = ExtResource( 23 )
+script = SubResource( 64 )
+
 [node name="Debug" type="Node" parent="."]
 pause_mode = 2
 script = SubResource( 60 )
@@ -511,13 +590,4 @@ script = SubResource( 6 )
 [connection signal="equipment_stack_added" from="Inventory" to="Inventory" method="_on_equipment_stack_added"]
 [connection signal="item_equipped" from="Inventory" to="HurtBox" method="_on_item_equipped"]
 [connection signal="item_unequipped" from="Inventory" to="HurtBox" method="_on_item_unequipped"]
-[connection signal="area_entered" from="InteractionArea" to="InteractionArea" method="_on_object_entered_interaction_area"]
-[connection signal="area_exited" from="InteractionArea" to="InteractionArea" method="_on_object_exited_interaction_area"]
-[connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="_on_object_entered_interaction_area"]
-[connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_object_exited_interaction_area"]
-[connection signal="gave_item" from="InteractionArea" to="Inventory" method="remove_many"]
-[connection signal="item_picked_up" from="InteractionArea" to="Inventory" method="add"]
-[connection signal="took_item" from="InteractionArea" to="Inventory" method="add"]
-[connection signal="body_entered" from="PerceptionArea" to="PerceptionArea" method="_on_object_entered_perception_area"]
-[connection signal="body_exited" from="PerceptionArea" to="PerceptionArea" method="_on_object_exited_perception_area"]
-[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_hurt_box_entered"]
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_hit_box_entered"]

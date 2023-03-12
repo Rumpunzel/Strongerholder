@@ -4,8 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-_paramter_type = 0
-_parameter_name = "take/active"
 _expected_bool_value = false
-_expected_int_value = 0
-_expected_float_value = 0.0

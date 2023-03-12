@@ -3,13 +3,6 @@ extends Area
 
 signal attacked(started)
 
-signal object_entered_interaction_area(object)
-signal object_exited_interaction_area(object)
-
-signal current_interaction_changed(interaction)
-signal nearest_interaction_changed(interaction)
-
-
 var _equipped_item: CharacterInventory.EquippedItem
 
 onready var _character: Spatial = owner
@@ -17,7 +10,7 @@ onready var _character: Spatial = owner
 onready var _hurt_box_shape: CollisionShape = $CollisionShape
 
 
-func can_attack_object(object: Node) -> bool:
+func can_attack_object(object: Node) -> CharacterController.ObjectInteraction:
 	var interaction_resource: ItemResource = null
 	var can_stash := false
 
@@ -27,16 +20,16 @@ func can_attack_object(object: Node) -> bool:
 		# warning-ignore:unsafe_property_access
 		# HACK: fix this ugly implementation
 		if object.owner is Structure and object.owner.structure_resource == equipped_tool.used_on:
-			return true
-	
-	return false
+			return CharacterController.ObjectInteraction.new(object, CharacterController.InteractionType.ATTACK)
+
+	return null
 
 func attack(started: bool) -> void:
 	_hurt_box_shape.disabled = not started
 	emit_signal("attacked", started)
 
 
-func _on_hurt_box_entered(area: Area) -> void:
+func _on_hit_box_entered(area: Area) -> void:
 	if not area is HitBox:
 		return
 	
@@ -48,7 +41,6 @@ func _on_hurt_box_entered(area: Area) -> void:
 	if hit_box.owner is Structure and hit_box.owner.structure_resource == equipped_tool.used_on:
 		# warning-ignore:return_value_discarded
 		hit_box.damage(equipped_tool.damage, self)
-
 
 func _on_item_equipped(equipment: CharacterInventory.EquippedItem):
 	_equipped_item = equipment

@@ -1,23 +1,38 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://characters/_character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/models/characters/wizard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/models/default_animations.tres" type="AnimationNodeBlendTree" id=3]
-[ext_resource path="res://characters/controllers/input_reader/input_reader.tres" type="Resource" id=4]
 [ext_resource path="res://characters/player/resources/player_inventory_attributes.tres" type="Resource" id=5]
 [ext_resource path="res://characters/player/resources/player_movement_stats.tres" type="Resource" id=8]
 
 [node name="Player" instance=ExtResource( 1 )]
 movement_stats = ExtResource( 8 )
 
-[node name="Controller" parent="." index="4"]
-_transition_table_resource = ExtResource( 4 )
+[node name="StateMachine" parent="." index="3"]
+_graph_offsets = {
+"EntryPoint": Vector2( -395.84, -99.6013 ),
+"Zoom": 0.482253,
+"res://characters/_character.tscn::12": Vector2( 37.0596, 245.329 ),
+"res://characters/_character.tscn::16": Vector2( 1137.06, -254.671 ),
+"res://characters/_character.tscn::20": Vector2( 1897.06, -334.671 ),
+"res://characters/_character.tscn::22": Vector2( 2917.06, -194.671 ),
+"res://characters/_character.tscn::24": Vector2( 1817.06, -14.6713 ),
+"res://characters/_character.tscn::26": Vector2( 1037.06, 285.329 ),
+"res://characters/_character.tscn::29": Vector2( 1837.06, 225.329 ),
+"res://characters/_character.tscn::63": Vector2( 729.398, 663.174 ),
+NodePath("PerformAction"): Vector2( 1517.06, 285.329 ),
+NodePath("JumpDescending"): Vector2( 2597.06, -194.671 ),
+NodePath("JumpAscending"): Vector2( 1537.06, -294.671 ),
+NodePath("Walk"): Vector2( 497.06, 225.329 ),
+NodePath("Idle"): Vector2( 154.229, -74.0253 )
+}
 
 [node name="Inventory" parent="." index="5"]
 _inventory_attributes = ExtResource( 5 )
 _hand_position = NodePath("../Wizard/CharacterArmature/Skeleton/HandPosition")
 
-[node name="AnimationTree" parent="." index="7"]
+[node name="AnimationTree" parent="." index="11"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Wizard/AnimationPlayer")
 active = true
@@ -31,4 +46,4 @@ parameters/pick_up/active = false
 parameters/take/active = false
 parameters/walk_speed/blend_amount = 0.0
 
-[node name="Wizard" parent="." index="8" instance=ExtResource( 2 )]
+[node name="Wizard" parent="." index="12" instance=ExtResource( 2 )]

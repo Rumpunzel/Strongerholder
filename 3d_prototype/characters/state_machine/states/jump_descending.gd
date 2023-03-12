@@ -1,11 +1,13 @@
 class_name JumpDescendingStateNode, "res://editor_tools/class_icons/nodes/icon_falling.svg"
 extends StateNode
 
+export(NodePath) var _animation_tree_node
+
 var _gravity_magnitude: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _vertical_velocity := 0.0
 
 onready var _movement_stats: CharacterMovementStatsResource = _character.movement_stats
-onready var _animation_tree: AnimationTree = _character.get_node("AnimationTree")
+onready var _animation_tree: AnimationTree = get_node(_animation_tree_node)
 
 func on_state_enter() -> void:
 	_vertical_velocity = _character.vertical_velocity

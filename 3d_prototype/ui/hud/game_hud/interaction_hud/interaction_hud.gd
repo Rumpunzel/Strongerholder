@@ -8,7 +8,7 @@ export(Resource) var _player_interaction_channel
 
 var _item_resource: ItemResource
 
-var _current_interaction: InteractionArea.Interaction
+var _current_interaction: CharacterController.Target
 var _interaction_node: Node
 
 onready var _icon: TextureRect = $Icon
@@ -27,12 +27,12 @@ func _physics_process(_delta: float) -> void:
 	if not _current_interaction:
 		return
 	
-	if _current_interaction.type != InteractionArea.InteractionType.NONE and weakref(_interaction_node).get_ref():
+	if _current_interaction.type and weakref(_interaction_node).get_ref():
 		# warning-ignore-all:unsafe_property_access
 		rect_position = get_viewport().get_camera().unproject_position(_interaction_node.global_transform.origin) - rect_pivot_offset
 
 
-func _on_player_interaction_changed(interaction: InteractionArea.Interaction) -> void:
+func _on_player_interaction_changed(interaction: CharacterController.Target) -> void:
 	if _current_interaction == interaction:
 		return
 	

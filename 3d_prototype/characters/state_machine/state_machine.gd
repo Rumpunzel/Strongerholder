@@ -66,6 +66,8 @@ func _setup_states() -> void:
 	for state_node_path in transitions_for_states.keys():
 		var transitions := [ ]
 		var state_node: StateNode = get_node(state_node_path)
+		if not state_node:
+			continue
 		
 		for transition_item in transitions_for_states[state_node_path]:
 			var to_state: NodePath = transition_item.to_state
