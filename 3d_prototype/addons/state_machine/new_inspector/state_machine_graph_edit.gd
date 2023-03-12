@@ -288,6 +288,7 @@ func _on_jump_node_close_requested(jump_node: CustomGraphNode) -> void:
 
 
 func _on_node_moved() -> void:
+	state_machine._graph_offsets.clear()
 	state_machine._graph_offsets[_ZOOM] = zoom
 	for child in get_children():
 		if child == $EntryPoint:
