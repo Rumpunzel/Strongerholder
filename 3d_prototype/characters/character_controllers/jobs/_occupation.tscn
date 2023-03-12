@@ -4,7 +4,7 @@
 [ext_resource path="res://behavior_tree/decorators/runner_decorator.gd" type="Script" id=17]
 [ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=19]
 [ext_resource path="res://behavior_tree/leaves/_action_leaf.gd" type="Script" id=23]
-[ext_resource path="res://characters/character_controllers/character_controller.gd" type="Script" id=24]
+[ext_resource path="res://characters/character_controllers/occupation.gd" type="Script" id=24]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label3D

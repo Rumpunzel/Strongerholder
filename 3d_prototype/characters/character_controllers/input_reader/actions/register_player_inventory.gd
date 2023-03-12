@@ -9,8 +9,8 @@ export(Resource) var _equipment_updated_channel
 var _inventory: CharacterInventory setget _set_inventory
 
 
-func on_update(blackboard: Occupation.OccupationBlackboard) -> int:
-	_set_inventory(blackboard.character_blackboard.inventory)
+func on_update(blackboard: OccupationBlackboard) -> int:
+	_set_inventory(blackboard.inventory)
 	return Status.SUCCESS
 
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://characters/_character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/models/characters/wizard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/models/default_animations.tres" type="AnimationNodeBlendTree" id=3]
+[ext_resource path="res://characters/character_controllers/jobs/input_reader.tscn" type="PackedScene" id=4]
 [ext_resource path="res://characters/player/resources/player_inventory_attributes.tres" type="Resource" id=5]
 [ext_resource path="res://characters/player/resources/player_movement_stats.tres" type="Resource" id=8]
 
@@ -31,6 +32,8 @@ NodePath("Idle"): Vector2( 154.229, -74.0253 )
 [node name="Inventory" parent="." index="5"]
 _inventory_attributes = ExtResource( 5 )
 _hand_position = NodePath("../Wizard/CharacterArmature/Skeleton/HandPosition")
+
+[node name="InputReader" parent="Occupation/OccupationList" index="0" instance=ExtResource( 4 )]
 
 [node name="AnimationTree" parent="." index="11"]
 tree_root = ExtResource( 3 )

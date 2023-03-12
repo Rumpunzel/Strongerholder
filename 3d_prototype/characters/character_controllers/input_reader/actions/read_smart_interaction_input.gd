@@ -1,11 +1,10 @@
 extends CharacterActionLeaf
 
-func on_update(blackboard: Occupation.OccupationBlackboard) -> int:
-	var character_black_board := blackboard.character_blackboard
+func on_update(blackboard: OccupationBlackboard) -> int:
 	if Input.is_action_pressed("smart_interact"):
-		if not character_black_board.nearest_interaction:
-			character_black_board.nearest_interaction = _nearest_percieved_target(character_black_board, true)
-		if character_black_board.nearest_interaction:
+		if not blackboard.current_target:
+			blackboard.current_target = blackboard.nearest_percieved_target(true)
+		if blackboard.current_target:
 			return Status.RUNNING
 	
 	return Status.FAILURE

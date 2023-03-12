@@ -17,8 +17,7 @@
 [ext_resource path="res://characters/hurt_box.gd" type="Script" id=15]
 [ext_resource path="res://characters/state_machine/states/jump_ascending.gd" type="Script" id=16]
 [ext_resource path="res://characters/state_machine/states/jump_descending.gd" type="Script" id=17]
-[ext_resource path="res://characters/character_controller.gd" type="Script" id=18]
-[ext_resource path="res://characters/character_controllers/behavior_tree/character_action_leaf.gd" type="Script" id=19]
+[ext_resource path="res://characters/character_controllers/character_controller/character_controller.gd" type="Script" id=18]
 [ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=20]
 [ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=21]
 [ext_resource path="res://characters/state_machine_resources/conditions/timer_jump_hold_button.tres" type="Resource" id=22]
@@ -27,17 +26,23 @@
 [ext_resource path="res://characters/state_machine_resources/conditions/is_holding_jump.tres" type="Resource" id=25]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_moving.tres" type="Resource" id=26]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_grounded.tres" type="Resource" id=27]
-[ext_resource path="res://behavior_tree/leaves/_condition_leaf.gd" type="Script" id=28]
-[ext_resource path="res://characters/character_controllers/jobs/input_reader.tscn" type="PackedScene" id=29]
+[ext_resource path="res://characters/character_controllers/character_controller/conditions/current_target_in_range.gd" type="Script" id=28]
+[ext_resource path="res://characters/character_controllers/character_controller/actions/interact.gd" type="Script" id=29]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_performing_action.tres" type="Resource" id=30]
+[ext_resource path="res://characters/character_controllers/character_controller/conditions/has_current_interaction.gd" type="Script" id=31]
 [ext_resource path="res://characters/state_machine_resources/conditions/animation_finished.tres" type="Resource" id=32]
-[ext_resource path="res://behavior_tree/leaves/_action_leaf.gd" type="Script" id=38]
-[ext_resource path="res://behavior_tree/decorators/inverter_decorator.gd" type="Script" id=39]
-[ext_resource path="res://characters/character_controllers/character_controller.gd" type="Script" id=40]
-[ext_resource path="res://behavior_tree/decorators/runner_decorator.gd" type="Script" id=56]
+[ext_resource path="res://characters/character_controllers/character_controller/actions/find_nearest_interactions.gd" type="Script" id=33]
+[ext_resource path="res://characters/character_controllers/character_controller/actions/approach.gd" type="Script" id=35]
+[ext_resource path="res://characters/character_controllers/occupation.gd" type="Script" id=40]
 
-[sub_resource type="CapsuleShape" id=1]
-radius = 0.5
+[sub_resource type="CylinderShape" id=7]
+radius = 0.75
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 1, 1, 0.5 )
+
+[sub_resource type="CylinderShape" id=8]
+radius = 5.0
 
 [sub_resource type="Resource" id=11]
 script = ExtResource( 1 )
@@ -150,14 +155,8 @@ to_state = NodePath("Idle")
 conditions = [ SubResource( 62 ) ]
 operator = 0
 
-[sub_resource type="CylinderShape" id=8]
-radius = 5.0
-
-[sub_resource type="CylinderShape" id=7]
-radius = 0.75
-
-[sub_resource type="BoxShape" id=9]
-extents = Vector3( 1, 1, 0.5 )
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends Label3D
@@ -167,16 +166,34 @@ func _process(_delta: float) -> void:
 	text = get_node(\"../StateMachine\")._current_state.name
 "
 
+[sub_resource type="GDScript" id=65]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	var character_controller: CharacterController = get_node(\"../CharacterController\")
+	var running_action: ActionLeaf = character_controller._blackboard.running_action
+	var current_interaction: CharacterController.Target = character_controller._blackboard.current_interaction
+	if running_action:
+		text = running_action.name
+		if current_interaction and current_interaction.node:
+			text += \": \" + current_interaction.node.name
+	else:
+		text = \"-\"
+"
+
 [sub_resource type="GDScript" id=64]
 script/source = "extends Label3D
 
 func _process(_delta: float) -> void:
-	# warning-ignore:unsafe_property_access
-	var running_action: ActionLeaf = get_node(\"../Occupation\").blackboard.running_action
+	var occupation: Occupation = get_node(\"../Occupation\")
+	var running_action: ActionLeaf = occupation._blackboard.running_action
+	var current_target: CharacterController.Target = occupation._blackboard.current_target
 	if running_action:
 		text = running_action.name
+		if current_target and current_target.node:
+			text += \": \" + current_target.node.name
 	else:
-		text = \"NO OCCUPATION\"
+		text = \"-\"
 "
 
 [sub_resource type="GDScript" id=60]
@@ -242,157 +259,45 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource( 3 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
-shape = SubResource( 1 )
-
-[node name="GroundCheck" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
-enabled = true
-cast_to = Vector3( 0, -0.2, 0 )
-collision_mask = 3
-
-[node name="NavigationAgent" type="NavigationAgent" parent="."]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
-path_max_distance = 1.0
-avoidance_enabled = true
-radius = 0.5
-neighbor_dist = 16.0
-time_horizon = 2.0
-max_speed = 100.0
-
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 13 )
-entry_state = NodePath("Idle")
-_transitions = [ SubResource( 12 ), SubResource( 16 ), SubResource( 20 ), SubResource( 22 ), SubResource( 24 ), SubResource( 26 ), SubResource( 29 ), SubResource( 63 ) ]
-_graph_offsets = {
-"EntryPoint": Vector2( -548.686, 108.056 ),
-"Zoom": 0.694444,
-"res://characters/_character.tscn::12": Vector2( -115.786, 452.986 ),
-"res://characters/_character.tscn::16": Vector2( 984.214, -47.0142 ),
-"res://characters/_character.tscn::20": Vector2( 1744.21, -127.014 ),
-"res://characters/_character.tscn::22": Vector2( 2764.21, 12.9858 ),
-"res://characters/_character.tscn::24": Vector2( 1664.21, 192.986 ),
-"res://characters/_character.tscn::26": Vector2( 884.214, 492.986 ),
-"res://characters/_character.tscn::29": Vector2( 1684.21, 432.986 ),
-"res://characters/_character.tscn::63": Vector2( 596, 662 ),
-NodePath("PerformAction"): Vector2( 1364.21, 492.986 ),
-NodePath("JumpDescending"): Vector2( 2444.21, 12.9858 ),
-NodePath("JumpAscending"): Vector2( 1384.21, -87.0142 ),
-NodePath("Walk"): Vector2( 344.214, 432.986 ),
-NodePath("Idle"): Vector2( 1.38306, 133.632 )
-}
-
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource( 14 )
-
-[node name="Walk" type="Node" parent="StateMachine"]
-script = ExtResource( 12 )
-_character_controller_node = NodePath("../../CharacterController")
-_animation_tree_node = NodePath("../../AnimationTree")
-
-[node name="JumpAscending" type="Node" parent="StateMachine"]
-script = ExtResource( 16 )
-_animation_tree_node = NodePath("../../AnimationTree")
-
-[node name="JumpDescending" type="Node" parent="StateMachine"]
-script = ExtResource( 17 )
-_animation_tree_node = NodePath("../../AnimationTree")
-
-[node name="PerformAction" type="Node" parent="StateMachine"]
-script = ExtResource( 4 )
-_character_controller_node = NodePath("../../CharacterController")
-_animation_tree_node = NodePath("../../AnimationTree")
-
-[node name="Controller" type="Node" parent="." groups=["PersistData"]]
-script = ExtResource( 8 )
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource( 5 )
-
-[node name="CharacterController" type="Node" parent="."]
-script = ExtResource( 18 )
-_inventory_node = NodePath("../Inventory")
+[node name="Occupation" type="Spatial" parent="."]
+pause_mode = 2
+script = ExtResource( 40 )
+_character_controller_node = NodePath("../CharacterController")
 _perception_area_node = NodePath("../PerceptionArea")
+_inventory_node = NodePath("../Inventory")
+
+[node name="OccupationList" type="Node" parent="Occupation"]
+script = ExtResource( 20 )
+
+[node name="CharacterController" type="Spatial" parent="."]
+script = ExtResource( 18 )
 _interaction_area_node = NodePath("../InteractionArea")
 _hurt_box_node = NodePath("../HurtBox")
+_animation_tree_node = NodePath("../AnimationTree")
 
-[node name="Actions" type="Node" parent="CharacterController"]
+[node name="Protocol" type="Node" parent="CharacterController"]
+script = ExtResource( 21 )
+
+[node name="FindNearestInteraction" type="Node" parent="CharacterController/Protocol"]
+script = ExtResource( 33 )
+
+[node name="HasCurrentInteraction" type="Node" parent="CharacterController/Protocol"]
+script = ExtResource( 31 )
+
+[node name="SelectorComposite" type="Node" parent="CharacterController/Protocol"]
 script = ExtResource( 20 )
 
-[node name="InteractWithObjectType" type="Node" parent="CharacterController/Actions"]
+[node name="SequenceComposite" type="Node" parent="CharacterController/Protocol/SelectorComposite"]
 script = ExtResource( 21 )
 
-[node name="HasDibbedObject" type="Node" parent="CharacterController/Actions/InteractWithObjectType"]
+[node name="CurrentTargetInRange" type="Node" parent="CharacterController/Protocol/SelectorComposite/SequenceComposite"]
 script = ExtResource( 28 )
 
-[node name="KnowsWhatToDo" type="Node" parent="CharacterController/Actions/InteractWithObjectType"]
-script = ExtResource( 28 )
+[node name="Interact" type="Node" parent="CharacterController/Protocol/SelectorComposite/SequenceComposite"]
+script = ExtResource( 29 )
 
-[node name="SelectorComposite" type="Node" parent="CharacterController/Actions/InteractWithObjectType"]
-script = ExtResource( 20 )
-
-[node name="SequenceComposite" type="Node" parent="CharacterController/Actions/InteractWithObjectType/SelectorComposite"]
-script = ExtResource( 21 )
-
-[node name="InInteractionRange" type="Node" parent="CharacterController/Actions/InteractWithObjectType/SelectorComposite/SequenceComposite"]
-script = ExtResource( 28 )
-
-[node name="DoTheThing" type="Node" parent="CharacterController/Actions/InteractWithObjectType/SelectorComposite/SequenceComposite"]
-script = ExtResource( 19 )
-
-[node name="MoveIntoPosition" type="Node" parent="CharacterController/Actions/InteractWithObjectType/SelectorComposite"]
-script = ExtResource( 19 )
-
-[node name="FindDibbableObject" type="Node" parent="CharacterController/Actions"]
-script = ExtResource( 21 )
-
-[node name="SearchDibbableObject" type="Node" parent="CharacterController/Actions/FindDibbableObject"]
-script = ExtResource( 20 )
-
-[node name="InInteractionArea" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject"]
-script = ExtResource( 21 )
-
-[node name="ObjectInInteractionArea" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject/InInteractionArea"]
-script = ExtResource( 28 )
-
-[node name="CallDibs" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject/InInteractionArea"]
-script = ExtResource( 19 )
-
-[node name="InPerceptionArea" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject"]
-script = ExtResource( 21 )
-
-[node name="ObjectInPerceptionArea" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject/InPerceptionArea"]
-script = ExtResource( 28 )
-
-[node name="CallDibs" type="Node" parent="CharacterController/Actions/FindDibbableObject/SearchDibbableObject/InPerceptionArea"]
-script = ExtResource( 19 )
-
-[node name="FigureOutWhatToDo" type="Node" parent="CharacterController/Actions/FindDibbableObject"]
-script = ExtResource( 21 )
-
-[node name="KnowsNotWhatToDo" type="Node" parent="CharacterController/Actions/FindDibbableObject/FigureOutWhatToDo"]
-script = ExtResource( 39 )
-
-[node name="KnowsWhatToDo" type="Node" parent="CharacterController/Actions/FindDibbableObject/FigureOutWhatToDo/KnowsNotWhatToDo"]
-script = ExtResource( 28 )
-
-[node name="FigureItOut" type="Node" parent="CharacterController/Actions/FindDibbableObject/FigureOutWhatToDo"]
-script = ExtResource( 19 )
-
-[node name="Idle" type="Node" parent="CharacterController/Actions"]
-script = ExtResource( 19 )
-
-[node name="PerceptionArea" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 200
-input_ray_pickable = false
-script = ExtResource( 6 )
-
-[node name="CollisionShape" type="CollisionShape" parent="PerceptionArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 8 )
+[node name="Approach" type="Node" parent="CharacterController/Protocol/SelectorComposite"]
+script = ExtResource( 35 )
 
 [node name="InteractionArea" type="Area" parent="."]
 collision_layer = 0
@@ -414,23 +319,85 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
 shape = SubResource( 9 )
 disabled = true
 
-[node name="Occupation" type="Node" parent="."]
-pause_mode = 2
-script = ExtResource( 40 )
-_character_controller_node = NodePath("../CharacterController")
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 5 )
 
-[node name="OccupationList" type="Node" parent="Occupation"]
-script = ExtResource( 20 )
+[node name="PerceptionArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 200
+input_ray_pickable = false
+script = ExtResource( 6 )
 
-[node name="InputReader" parent="Occupation/OccupationList" instance=ExtResource( 29 )]
+[node name="CollisionShape" type="CollisionShape" parent="PerceptionArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 8 )
 
-[node name="AlwaysRunnerDecorator" type="Node" parent="Occupation/OccupationList"]
-script = ExtResource( 56 )
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 13 )
+entry_state = NodePath("Idle")
+_transitions = [ SubResource( 12 ), SubResource( 16 ), SubResource( 20 ), SubResource( 22 ), SubResource( 24 ), SubResource( 26 ), SubResource( 29 ), SubResource( 63 ) ]
+_graph_offsets = {
+"EntryPoint": Vector2( -739.214, 426.862 ),
+"Zoom": 0.482253,
+"res://characters/_character.tscn::12": Vector2( -306.314, 771.792 ),
+"res://characters/_character.tscn::16": Vector2( 169.472, 338.806 ),
+"res://characters/_character.tscn::20": Vector2( 889.472, 298.806 ),
+"res://characters/_character.tscn::22": Vector2( 1929.47, 558.806 ),
+"res://characters/_character.tscn::24": Vector2( 789.472, 578.806 ),
+"res://characters/_character.tscn::26": Vector2( 200, 608 ),
+"res://characters/_character.tscn::29": Vector2( 900, 748 ),
+"res://characters/_character.tscn::63": Vector2( 260, 928 ),
+NodePath("PerformAction"): Vector2( 580, 728 ),
+NodePath("JumpDescending"): Vector2( 1500, 428 ),
+NodePath("JumpAscending"): Vector2( 609.472, 318.806 ),
+NodePath("Walk"): Vector2( 0, 768 ),
+NodePath("Idle"): Vector2( -189.145, 452.438 )
+}
 
-[node name="Idle" type="Node" parent="Occupation/OccupationList/AlwaysRunnerDecorator"]
-script = ExtResource( 38 )
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 14 )
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource( 12 )
+_animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="JumpAscending" type="Node" parent="StateMachine"]
+script = ExtResource( 16 )
+_animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="JumpDescending" type="Node" parent="StateMachine"]
+script = ExtResource( 17 )
+_animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="PerformAction" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+_character_controller_node = NodePath("../../CharacterController")
+_animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="Controller" type="Node" parent="." groups=["PersistData"]]
+script = ExtResource( 8 )
+
+[node name="NavigationAgent" type="NavigationAgent" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 1.0
+avoidance_enabled = true
+radius = 0.5
+neighbor_dist = 16.0
+time_horizon = 2.0
+max_speed = 100.0
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="GroundCheck" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.2, 0 )
+collision_mask = 3
 
 [node name="FootstepSounds" type="Spatial" parent="."]
 script = ExtResource( 9 )
@@ -448,11 +415,22 @@ fixed_size = true
 font = ExtResource( 23 )
 script = SubResource( 10 )
 
+[node name="CurrentTarget" type="Label3D" parent="."]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 65 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+font = ExtResource( 23 )
+script = SubResource( 65 )
+
 [node name="CurrentOccupation" type="Label3D" parent="."]
 pause_mode = 2
 cast_shadow = 0
 pixel_size = 0.0005
-offset = Vector2( 0, 75 )
+offset = Vector2( 0, 80 )
 billboard = 1
 no_depth_test = true
 fixed_size = true
@@ -476,7 +454,7 @@ material_override = SubResource( 4 )
 mesh = SubResource( 5 )
 script = SubResource( 6 )
 
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_hit_box_entered"]
 [connection signal="equipment_stack_added" from="Inventory" to="Inventory" method="_on_equipment_stack_added"]
 [connection signal="item_equipped" from="Inventory" to="HurtBox" method="_on_item_equipped"]
 [connection signal="item_unequipped" from="Inventory" to="HurtBox" method="_on_item_unequipped"]
-[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_hit_box_entered"]

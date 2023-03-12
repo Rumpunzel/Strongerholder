@@ -1,4 +1,4 @@
-class_name AlwaysRunnerDecorator, "res://editor_tools/class_icons/behavior_tree/icon_succeed.svg"
+class_name AlwaysRunDecorator, "res://editor_tools/class_icons/behavior_tree/icon_succeed.svg"
 extends BehaviorTreeDecorator
 
 func on_update(blackboard: Blackboard) -> int:

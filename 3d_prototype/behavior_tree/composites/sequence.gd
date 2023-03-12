@@ -5,7 +5,7 @@ func on_update(blackboard: Blackboard) -> int:
 	for child in get_children():
 		var response: int = child.on_update(blackboard)
 		if child is ConditionLeaf:
-			blackboard.last_condition_entry = ConditionEntry.new(child, response)
+			blackboard.last_condition_entry = Blackboard.ConditionEntry.new(child, response)
 		
 		if not response == Status.SUCCESS:
 			if child is ActionLeaf and response == Status.RUNNING:

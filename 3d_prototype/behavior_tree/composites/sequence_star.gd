@@ -10,7 +10,7 @@ func on_update(blackboard: Blackboard) -> int:
 		
 		var response: int = child.on_update(blackboard)
 		if child is ConditionLeaf:
-			blackboard.last_condition_entry = ConditionEntry.new(child, response)
+			blackboard.last_condition_entry = Blackboard.ConditionEntry.new(child, response)
 		
 		match response:
 			Status.FAILURE:

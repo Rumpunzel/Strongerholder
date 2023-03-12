@@ -4,7 +4,7 @@ export var _input_deadzone_squated := 0.001
 
 onready var _current_camera: GameCamera = get_viewport().get_camera()
 
-func on_update(blackboard: Occupation.OccupationBlackboard) -> int:
+func on_update(blackboard: OccupationBlackboard) -> int:
 	var character := blackboard.character
 	var horizonal_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var vertical_input := Input.get_action_strength("move_down") - Input.get_action_strength("move_up")

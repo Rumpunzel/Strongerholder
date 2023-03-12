@@ -35,9 +35,6 @@ scene_atmosphere = ExtResource( 9 )
 [node name="WorldEnvironment" parent="." index="0"]
 environment = ExtResource( 13 )
 
-[node name="InputReader" parent="PuppetMaster" index="1"]
-_character_node = NodePath("../../Player")
-
 [node name="NavigationMeshInstance" parent="." index="4"]
 navmesh = ExtResource( 10 )
 

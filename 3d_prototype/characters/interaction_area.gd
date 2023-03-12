@@ -1,5 +1,5 @@
 class_name InteractionArea, "res://editor_tools/class_icons/spatials/icon_slap.svg"
-extends AreaTrackingArea
+extends ObjectTrackingArea
 
 signal item_picked_up(item)
 signal gave_item(item, amount)
@@ -20,28 +20,14 @@ func _exit_tree() -> void:
 	disconnect("item_picked_up", _spotted_items, "_on_item_picked_up")
 
 
-func get_potential_interaction(object: Node, inventory: CharacterInventory) -> CharacterController.ItemInteraction:
+func get_potential_interaction(object: Node) -> CharacterController.ItemInteraction:
 	var interaction_resource: ItemResource = null
-	var can_stash := false
-	
-	# HACK: access to private member
-	if object is Stash and not (object as Stash).full(object._item_to_store):
-		var stash: Stash = object
-		if not inventory:
-			can_stash = true
-		else:
-			for stack in inventory.contents(false):
-				var item: ItemResource = stack.item
-				if stash.stores(item):
-					can_stash = true
-					interaction_resource = item
-					break
 	
 	if object is CollectableItem:
 		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.PICK_UP, interaction_resource, 1)
 	
-	if object is Stash and can_stash:
-		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.GIVE, interaction_resource, 1)
+	if object is Stash:
+		return CharacterController.ItemInteraction.new(object, CharacterController.ItemInteraction.InteractionType.TRADE, interaction_resource, 1)
 	
 	if object is Workstation and (object as Workstation).can_be_operated():
 		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.OPERATE, interaction_resource, 1)

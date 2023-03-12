@@ -13,7 +13,7 @@ class IsInteractingCondition extends StateCondition:
 		_character_controller = Utils.find_node_of_type_in_children(character, CharacterController)
 	
 	func _statement() -> bool:
-		var current_interaction: CharacterController.Target = _character_controller.blackboard.current_interaction
+		var current_interaction: CharacterController.Target = _character_controller._blackboard.current_interaction
 		if not current_interaction:
 			return false
 		

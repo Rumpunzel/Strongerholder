@@ -1,5 +1,11 @@
 class_name BehaviorTreeNode
-extends BehaviorTree
+extends Node
+
+enum Status {
+	FAILURE = -1,
+	SUCCESS,
+	RUNNING,
+}
 
 # WAITFORUPDATE: specify type after 4.0
 func on_update(blackboard) -> int:#: Blackboard) -> int:

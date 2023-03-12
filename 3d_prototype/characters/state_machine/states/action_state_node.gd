@@ -16,4 +16,5 @@ func on_state_enter() -> void:
 
 func on_update(_delta: float) -> void:
 	_animation_parameter = _character_controller.blackboard.current_interaction.to_animation_parameter()
+	print(_animation_parameter)
 	_animation_tree.set(_animation_parameter, true)

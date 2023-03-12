@@ -1,13 +1,11 @@
 class_name WalkStateNode, "res://editor_tools/class_icons/nodes/icon_walk.svg"
 extends StateNode
 
-export(NodePath) var _character_controller_node
 export(NodePath) var _animation_tree_node
 
 export var _vertical_pull: float = 5.0
 
 onready var _movement_stats: CharacterMovementStatsResource = _character.movement_stats
-onready var _character_controller: CharacterController = get_node(_character_controller_node)
 onready var _animation_tree: AnimationTree = _character.get_node("AnimationTree")
 
 
@@ -24,5 +22,4 @@ func on_update(_delta: float) -> void:
 
 func on_state_exit():
 	_character.null_movement()
-	_character_controller.reset()
 	_animation_tree.set("parameters/idle_walk/current", 0)
