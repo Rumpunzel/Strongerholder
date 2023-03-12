@@ -2,11 +2,9 @@ class_name CharacterController
 extends BehaviorTree
 
 export(NodePath) var _interaction_area_node
-export(NodePath) var _hurt_box_node
 export(NodePath) var _animation_tree_node
 
 onready var _interaction_area: Area = get_node(_interaction_area_node)
-onready var _hurt_box: Area = get_node(_hurt_box_node)
 onready var _animation_tree: AnimationTree = get_node(_animation_tree_node)
 
 
@@ -15,16 +13,15 @@ func _ready() -> void:
 		self,
 		owner,
 		_interaction_area,
-		_hurt_box_node,
 		_animation_tree_node
 	)
 
 
-func nearest_interactable_target(objects_to_search: Array = _interaction_area.objects_in_area, overwrite_dibs: bool = false) -> Target:
+func nearest_interactable_target(overwrite_dibs: bool = false) -> Target:
 	var nearest: Target = null
 	var closest_distance: float = INF
 	
-	for object in objects_to_search:
+	for object in _interaction_area.objects_in_area:
 		# warning-ignore:unsafe_property_access
 		if not object or object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
 			continue
@@ -41,14 +38,7 @@ func nearest_interactable_target(objects_to_search: Array = _interaction_area.ob
 	return nearest
 
 func determine_potential_interaction(object: Node) -> Target:
-	var potential_interaction: Target = null
-	
-	potential_interaction = _interaction_area.get_potential_interaction(object)
-	if potential_interaction:
-		return potential_interaction
-	
-	potential_interaction = _hurt_box.can_attack_object(object)
-	return potential_interaction
+	return _interaction_area.get_potential_interaction(object)
 
 
 
@@ -235,20 +225,20 @@ static func filter_array_for_type(array: Array, object_type: ObjectResource) -> 
 #	return nearest
 
 
-func _determine_potential_interaction(object: Node, inventory: CharacterInventory) -> Target:
-	var potential_interaction: Target = null
-	if _interaction_area:
-		potential_interaction = _interaction_area.get_potential_interaction(object, inventory)
-	else:
-		print("InteractionArea is not defined!")
-	if potential_interaction:
-		return potential_interaction
-	
-	if _hurt_box:
-		potential_interaction = _hurt_box.can_attack_object()
-	else:
-		print("HurtBox is not defined!")
-	return potential_interaction
+#func _determine_potential_interaction(object: Node, inventory: CharacterInventory) -> Target:
+#	var potential_interaction: Target = null
+#	if _interaction_area:
+#		potential_interaction = _interaction_area.get_potential_interaction(object, inventory)
+#	else:
+#		print("InteractionArea is not defined!")
+#	if potential_interaction:
+#		return potential_interaction
+#
+#	if _hurt_box:
+#		potential_interaction = _hurt_box.can_attack_object()
+#	else:
+#		print("HurtBox is not defined!")
+#	return potential_interaction
 
 
 func _occupied() -> bool:

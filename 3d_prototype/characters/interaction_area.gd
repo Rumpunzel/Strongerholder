@@ -10,17 +10,21 @@ signal operated()
 onready var _character: Spatial = owner
 # warning-ignore:unsafe_method_access
 onready var _spotted_items: SpottedItems = _character.get_navigation().spotted_items
+onready var _hurt_box: HurtBox = $HurtBox
 
 
 func _ready() -> void:
 	# warning-ignore:return_value_discarded
+	connect("body_entered", _spotted_items, "_on_item_approached", [ self ])
+	# warning-ignore:return_value_discarded
 	connect("item_picked_up", _spotted_items, "_on_item_picked_up")
 
 func _exit_tree() -> void:
+	disconnect("body_entered", _spotted_items, "_on_item_approached")
 	disconnect("item_picked_up", _spotted_items, "_on_item_picked_up")
 
 
-func get_potential_interaction(object: Node) -> CharacterController.ItemInteraction:
+func get_potential_interaction(object: Node) -> CharacterController.Target:
 	var interaction_resource: ItemResource = null
 	
 	if object is CollectableItem:
@@ -32,7 +36,11 @@ func get_potential_interaction(object: Node) -> CharacterController.ItemInteract
 	if object is Workstation and (object as Workstation).can_be_operated():
 		return CharacterController.ItemInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.OPERATE, interaction_resource, 1)
 	
+	if _hurt_box.can_attack_object(object):
+		return CharacterController.ObjectInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.ATTACK)
+	
 	return null
+
 
 func pick_up(item_node: CollectableItem) -> void:
 	# WAITFORUPDATE: remove this unnecessary thing after 4.0

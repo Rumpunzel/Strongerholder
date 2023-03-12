@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://characters/character_controllers/behavior_tree/character_action_leaf.gd" type="Script" id=1]
+[ext_resource path="res://characters/behavior_tree/_character_condition_leaf.gd" type="Script" id=2]
+[ext_resource path="res://behavior_tree/decorators/inverter_decorator.gd" type="Script" id=3]
+[ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=4]
+[ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=5]
+
+[node name="Deliverer" type="Node"]
+script = ExtResource( 5 )
+
+[node name="DeliverToStockpile" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="InventoryHasProduct" type="Node" parent="DeliverToStockpile"]
+script = ExtResource( 2 )
+
+[node name="InventoryFull" type="Node" parent="DeliverToStockpile"]
+script = ExtResource( 3 )
+
+[node name="InventoryHasRoomForProduct" type="Node" parent="DeliverToStockpile/InventoryFull"]
+script = ExtResource( 2 )
+
+[node name="DeliverProduct" type="Node" parent="DeliverToStockpile"]
+script = ExtResource( 1 )
+
+[node name="CollectFromWork" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="WorkHasProduct" type="Node" parent="CollectFromWork"]
+script = ExtResource( 2 )
+
+[node name="InventoryHasRoomForProduct" type="Node" parent="CollectFromWork"]
+script = ExtResource( 2 )
+
+[node name="CollectProduct" type="Node" parent="CollectFromWork"]
+script = ExtResource( 1 )

@@ -1,5 +1,5 @@
 class_name HurtBox, "res://editor_tools/class_icons/spatials/icon_pierced_heart.svg"
-extends Area
+extends ObjectTrackingArea
 
 signal attacked(started)
 
@@ -10,7 +10,7 @@ onready var _character: Spatial = owner
 onready var _hurt_box_shape: CollisionShape = $CollisionShape
 
 
-func can_attack_object(object: Node) -> CharacterController.ObjectInteraction:
+func can_attack_object(object: Node) -> bool:
 	var interaction_resource: ItemResource = null
 	var can_stash := false
 
@@ -20,20 +20,22 @@ func can_attack_object(object: Node) -> CharacterController.ObjectInteraction:
 		# warning-ignore:unsafe_property_access
 		# HACK: fix this ugly implementation
 		if object.owner is Structure and object.owner.structure_resource == equipped_tool.used_on:
-			return CharacterController.ObjectInteraction.new(object, CharacterController.ObjectInteraction.InteractionType.ATTACK)
+			return true
 
-	return null
+	return false
 
 func attack(started: bool) -> void:
-	_hurt_box_shape.disabled = not started
+	if started:
+		for object in objects_in_area:
+			_damage_hit_box(object)
 	emit_signal("attacked", started)
 
 
-func _on_hit_box_entered(area: Area) -> void:
-	if not area is HitBox:
+func _damage_hit_box(node: Node) -> void:
+	if not node is HitBox:
 		return
 	
-	var hit_box := area as HitBox
+	var hit_box := node as HitBox
 	var equipped_tool: ToolResource = _equipped_item.stack.item
 	
 	# HACK: fix this ugly implementation
@@ -41,6 +43,7 @@ func _on_hit_box_entered(area: Area) -> void:
 	if hit_box.owner is Structure and hit_box.owner.structure_resource == equipped_tool.used_on:
 		# warning-ignore:return_value_discarded
 		hit_box.damage(equipped_tool.damage, self)
+
 
 func _on_item_equipped(equipment: CharacterInventory.EquippedItem):
 	_equipped_item = equipment
