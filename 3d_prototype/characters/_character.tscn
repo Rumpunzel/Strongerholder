@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
@@ -28,9 +28,13 @@
 [ext_resource path="res://characters/state_machine_resources/conditions/is_moving.tres" type="Resource" id=26]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_grounded.tres" type="Resource" id=27]
 [ext_resource path="res://behavior_tree/leaves/_condition_leaf.gd" type="Script" id=28]
+[ext_resource path="res://characters/character_controllers/jobs/input_reader.tscn" type="PackedScene" id=29]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_performing_action.tres" type="Resource" id=30]
 [ext_resource path="res://characters/state_machine_resources/conditions/animation_finished.tres" type="Resource" id=32]
+[ext_resource path="res://behavior_tree/leaves/_action_leaf.gd" type="Script" id=38]
 [ext_resource path="res://behavior_tree/decorators/inverter_decorator.gd" type="Script" id=39]
+[ext_resource path="res://characters/character_controllers/character_controller.gd" type="Script" id=40]
+[ext_resource path="res://behavior_tree/decorators/runner_decorator.gd" type="Script" id=56]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -161,6 +165,18 @@ script/source = "extends Label3D
 func _process(_delta: float) -> void:
 	# warning-ignore:unsafe_property_access
 	text = get_node(\"../StateMachine\")._current_state.name
+"
+
+[sub_resource type="GDScript" id=64]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	# warning-ignore:unsafe_property_access
+	var running_action: ActionLeaf = get_node(\"../Occupation\").blackboard.running_action
+	if running_action:
+		text = running_action.name
+	else:
+		text = \"NO OCCUPATION\"
 "
 
 [sub_resource type="GDScript" id=60]
@@ -398,6 +414,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
 shape = SubResource( 9 )
 disabled = true
 
+[node name="Occupation" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 40 )
+_character_controller_node = NodePath("../CharacterController")
+
+[node name="OccupationList" type="Node" parent="Occupation"]
+script = ExtResource( 20 )
+
+[node name="InputReader" parent="Occupation/OccupationList" instance=ExtResource( 29 )]
+
+[node name="AlwaysRunnerDecorator" type="Node" parent="Occupation/OccupationList"]
+script = ExtResource( 56 )
+
+[node name="Idle" type="Node" parent="Occupation/OccupationList/AlwaysRunnerDecorator"]
+script = ExtResource( 38 )
+
 [node name="AnimationTree" type="AnimationTree" parent="."]
 
 [node name="FootstepSounds" type="Spatial" parent="."]
@@ -415,6 +447,17 @@ no_depth_test = true
 fixed_size = true
 font = ExtResource( 23 )
 script = SubResource( 10 )
+
+[node name="CurrentOccupation" type="Label3D" parent="."]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 75 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+font = ExtResource( 23 )
+script = SubResource( 64 )
 
 [node name="Debug" type="Node" parent="."]
 pause_mode = 2

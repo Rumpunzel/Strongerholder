@@ -1,30 +1,21 @@
 class_name Occupation
 extends BehaviorTreeRoot
 
-export(NodePath) var _character_node
-export(NodePath) var _spotted_items_node
+export(NodePath) var _character_controller_node
 
-onready var _character: Character = get_node(_character_node)
-onready var _spotted_items: SpottedItems = get_node(_spotted_items_node)
+onready var _character_controller: CharacterController = get_node(_character_controller_node)
+
 var _current_job: Workstation.Job = null
 
 
 func _ready() -> void:
-	yield(get_tree(), "idle_frame")
-	start(_character, _current_job, _spotted_items)
-
-
-func start(character: Character, current_job: Workstation.Job, spotted_items: SpottedItems) -> void:
-	_character = character
-	_current_job = current_job
-	_spotted_items = spotted_items
-	
+	var character: Character = owner
 	blackboard = OccupationBlackboard.new(
 		self,
-		_character,
-		Utils.find_node_of_type_in_children(_character, CharacterController).blackboard,
+		character,
+		_character_controller.blackboard,
 		_current_job,
-		_spotted_items
+		character.get_navigation().spotted_items
 	)
 	
 	set_enabled(true)
