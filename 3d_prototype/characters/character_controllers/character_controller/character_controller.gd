@@ -1,48 +1,82 @@
 class_name CharacterController
 extends BehaviorTree
 
-export(NodePath) var _interaction_area_node
+signal attacked(started)
+signal item_picked_up(item)
+signal gave_item(item, amount)
+signal took_item(item, amount)
+signal operated()
+
+export(NodePath) var _hurt_box_node
+export(NodePath) var _inventory_node
 export(NodePath) var _animation_tree_node
 
-onready var _interaction_area: Area = get_node(_interaction_area_node)
+var _equipped_item: CharacterInventory.EquippedItem = null
+
+onready var _hurt_box: HurtBox = get_node(_hurt_box_node)
+onready var _inventory: CharacterInventory = get_node(_inventory_node)
 onready var _animation_tree: AnimationTree = get_node(_animation_tree_node)
 
 
 func _ready() -> void:
-	_blackboard = CharacterBlackboard.new(
-		self,
-		owner,
-		_interaction_area,
-		_animation_tree_node
-	)
+	_inventory.connect("item_equipped", self, "_on_item_equipped")
+	_inventory.connect("item_unequipped", self, "_on_item_unequipped")
+	_blackboard = CharacterBlackboard.new(self, owner, _animation_tree_node)
 
 
-func nearest_interactable_target(overwrite_dibs: bool = false) -> Target:
-	var nearest: Target = null
-	var closest_distance: float = INF
+func get_potential_interaction(object: Node) -> Target:
+	var interaction_resource: ItemResource = null
 	
-	for object in _interaction_area.objects_in_area:
-		# warning-ignore:unsafe_property_access
-		if not object or object == owner or object.owner == owner or (not overwrite_dibs and object.has_method("is_dibbable") and not object.is_dibbable(self)):
-			continue
-		
-		var potential_interaction := determine_potential_interaction(object)
-		if not potential_interaction:
-			continue
-		
-		var distance := translation.distance_squared_to(object.global_transform.origin)
-		if distance < closest_distance:
-			closest_distance = distance
-			nearest = potential_interaction
+	if object is CollectableItem:
+		return ItemInteraction.new(object, ObjectInteraction.InteractionType.PICK_UP, interaction_resource, 1)
 	
-	return nearest
+	if object is Stash:
+		return ItemInteraction.new(object, ItemInteraction.InteractionType.TRADE, interaction_resource, 1)
+	
+	if object is Workstation and (object as Workstation).can_be_operated():
+		return ItemInteraction.new(object, ObjectInteraction.InteractionType.OPERATE, interaction_resource, 1)
+	
+	if _hurt_box.can_attack_object(object, _equipped_item):
+		return ObjectInteraction.new(object, ObjectInteraction.InteractionType.ATTACK)
+	
+	return null
 
-func determine_potential_interaction(object: Node) -> Target:
-	return _interaction_area.get_potential_interaction(object)
+
+func attack(started: bool) -> void:
+	if started:
+		_hurt_box.damage_hit_boxes(_equipped_item)
+	emit_signal("attacked", started)
+
+func pick_up(item_node: CollectableItem) -> void:
+	# WAITFORUPDATE: remove this unnecessary thing after 4.0
+	# warning-ignore:unsafe_property_access
+	var item: ItemResource = item_node.item_resource
+	emit_signal("item_picked_up", item)
+	# TODO: properly destroy item instead of only freeing
+	item_node.queue_free()
+
+func give(stash: Stash, item: ItemResource, amount: int) -> void:
+	# warning-ignore:return_value_discarded
+	stash.stash(item, amount)
+	emit_signal("gave_item", item, amount)
+
+func operate(workstation: Workstation) -> void:
+	workstation.operate()
+	emit_signal("operated")
+
+func take(stash: Stash, item: ItemResource, amount: int) -> void:
+	# warning-ignore:return_value_discarded
+	stash.take(item, amount)
+	emit_signal("took_item", item, amount)
 
 
 
+func _on_item_equipped(equipment: CharacterInventory.EquippedItem):
+	_equipped_item = equipment
 
+func _on_item_unequipped(equipment: CharacterInventory.EquippedItem):
+	if _equipped_item == equipment:
+		_equipped_item = null
 
 
 

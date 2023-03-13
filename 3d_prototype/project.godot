@@ -354,11 +354,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://event_system/int_event_channel_resource.gd"
 }, {
-"base": "ObjectTrackingArea",
-"class": "InteractionArea",
-"language": "GDScript",
-"path": "res://characters/interaction_area.gd"
-}, {
 "base": "Popup",
 "class": "InteractionHUD",
 "language": "GDScript",
@@ -874,7 +869,6 @@ _global_script_class_icons={
 "IdleStateNode": "res://editor_tools/class_icons/nodes/icon_person.svg",
 "InspectionHUD": "",
 "IntEventChannelResource": "",
-"InteractionArea": "res://editor_tools/class_icons/spatials/icon_slap.svg",
 "InteractionHUD": "",
 "Inventory": "res://editor_tools/class_icons/nodes/icon_swap_bag.svg",
 "InventoryAttributesResource": "",

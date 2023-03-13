@@ -10,6 +10,10 @@ export var _equip_first_item := true
 var _currently_equipped := EquippedItem.new()
 
 
+func _enter_tree() -> void:
+	connect("equipment_stack_added", self, "_on_equipment_stack_added")
+
+
 func equipments() -> Array:
 	var equipments := [ ]
 	for stack in item_slots:

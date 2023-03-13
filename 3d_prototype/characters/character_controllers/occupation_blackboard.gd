@@ -5,6 +5,7 @@ signal current_target_changed(target)
 
 var character: Character
 var character_controller: CharacterController
+var interaction_area: ObjectTrackingArea
 var inventory: CharacterInventory
 var job: Workstation.Job
 var spotted_items: SpottedItems
@@ -16,13 +17,15 @@ func _init(
 	new_behavior_tree_root: BehaviorTree,
 	new_character: Character,
 	new_character_controller: CharacterController,
+	new_interaction_area: ObjectTrackingArea,
 	new_inventory: CharacterInventory,
 	new_job: Workstation.Job,
 	new_spotted_items: SpottedItems
 ).(new_behavior_tree_root) -> void:
 	character = new_character
-	inventory = new_inventory
 	character_controller = new_character_controller
+	interaction_area = new_interaction_area
+	inventory = new_inventory
 	job = new_job
 	spotted_items = new_spotted_items
 
@@ -32,7 +35,7 @@ func reset() -> void:
 
 
 func nearest_percieved_target(overwrite_dibs: bool = false) -> CharacterController.Target:
-	return character_controller.nearest_interactable_target(overwrite_dibs)
+	return behavior_tree.nearest_interactable_target(overwrite_dibs)
 
 
 func set_current_target(new_target: CharacterController.Target) -> void:

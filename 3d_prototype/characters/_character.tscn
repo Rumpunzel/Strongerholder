@@ -1,7 +1,7 @@
 [gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
-[ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
+[ext_resource path="res://characters/object_tracking_area.gd" type="Script" id=2]
 [ext_resource path="res://characters/character.gd" type="Script" id=3]
 [ext_resource path="res://characters/state_machine/states/action_state_node.gd" type="Script" id=4]
 [ext_resource path="res://characters/inventories/character_inventory.gd" type="Script" id=5]
@@ -262,6 +262,7 @@ script = ExtResource( 3 )
 pause_mode = 2
 script = ExtResource( 40 )
 _character_controller_node = NodePath("../CharacterController")
+_interaction_area_node = NodePath("../InteractionArea")
 _inventory_node = NodePath("../Inventory")
 
 [node name="OccupationList" type="Node" parent="Occupation"]
@@ -269,7 +270,8 @@ script = ExtResource( 20 )
 
 [node name="CharacterController" type="Spatial" parent="."]
 script = ExtResource( 18 )
-_interaction_area_node = NodePath("../InteractionArea")
+_hurt_box_node = NodePath("../HurtBox")
+_inventory_node = NodePath("../Inventory")
 _animation_tree_node = NodePath("../AnimationTree")
 
 [node name="Protocol" type="Node" parent="CharacterController"]
@@ -293,6 +295,9 @@ script = ExtResource( 29 )
 [node name="Approach" type="Node" parent="CharacterController/Protocol/SelectorComposite"]
 script = ExtResource( 35 )
 
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 5 )
+
 [node name="InteractionArea" type="Area" parent="."]
 collision_layer = 0
 collision_mask = 200
@@ -303,12 +308,12 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 7 )
 
-[node name="HurtBox" type="Area" parent="InteractionArea"]
+[node name="HurtBox" type="Area" parent="."]
 collision_layer = 0
 collision_mask = 200
 script = ExtResource( 15 )
 
-[node name="CollisionShape" type="CollisionShape" parent="InteractionArea/HurtBox"]
+[node name="CollisionShape" type="CollisionShape" parent="HurtBox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
 shape = SubResource( 9 )
 
@@ -325,9 +330,6 @@ shape = SubResource( 8 )
 [node name="RayCast" type="RayCast" parent="ExplorationArea"]
 collision_mask = 3
 collide_with_areas = true
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource( 5 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 13 )
@@ -450,7 +452,3 @@ transform = Transform( -0.5, 0, -2.18557e-08, 0, -1, 0, -4.37114e-08, 0, 0.25, 0
 material_override = SubResource( 4 )
 mesh = SubResource( 5 )
 script = SubResource( 6 )
-
-[connection signal="equipment_stack_added" from="Inventory" to="Inventory" method="_on_equipment_stack_added"]
-[connection signal="item_equipped" from="Inventory" to="InteractionArea/HurtBox" method="_on_item_equipped"]
-[connection signal="item_unequipped" from="Inventory" to="InteractionArea/HurtBox" method="_on_item_unequipped"]
