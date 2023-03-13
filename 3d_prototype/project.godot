@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://event_system/audio_event_channel_resource.gd"
 }, {
-"base": "Spatial",
+"base": "Node",
 "class": "BehaviorTree",
 "language": "GDScript",
 "path": "res://behavior_tree/behavior_tree.gd"
@@ -158,11 +158,6 @@ _global_script_classes=[ {
 "class": "CharacterController",
 "language": "GDScript",
 "path": "res://characters/character_controllers/character_controller/character_controller.gd"
-}, {
-"base": "Inventory",
-"class": "CharacterInventory",
-"language": "GDScript",
-"path": "res://characters/inventories/character_inventory.gd"
 }, {
 "base": "Resource",
 "class": "CharacterMovementStatsResource",
@@ -830,7 +825,6 @@ _global_script_class_icons={
 "CharacterActionLeaf": "",
 "CharacterBlackboard": "",
 "CharacterController": "",
-"CharacterInventory": "res://editor_tools/class_icons/nodes/icon_knapsack.svg",
 "CharacterMovementStatsResource": "res://editor_tools/class_icons/resources/Icon_walk.svg",
 "ClickBox": "",
 "CollectableItem": "res://editor_tools/class_icons/spatials/icon_fire_bottle.svg",
@@ -870,7 +864,7 @@ _global_script_class_icons={
 "InspectionHUD": "",
 "IntEventChannelResource": "",
 "InteractionHUD": "",
-"Inventory": "res://editor_tools/class_icons/nodes/icon_swap_bag.svg",
+"Inventory": "res://editor_tools/class_icons/nodes/icon_knapsack.svg",
 "InventoryAttributesResource": "",
 "InventoryHUD": "",
 "InventoryHUDItem": "",

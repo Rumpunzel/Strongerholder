@@ -11,7 +11,7 @@ func _create_action() -> StateAction:
 
 class EmployerInteraction extends StateAction:
 	var _employer: Workstation
-	var _inventory: CharacterInventory
+	var _inventory: Inventory
 	var _character_controller: CharacterController
 	
 	var _interaction_item: ItemResource
@@ -39,7 +39,7 @@ class EmployerInteraction extends StateAction:
 #					# warning-ignore:unsafe_property_access
 #					_interaction_item = state_machine.current_job.delivers
 		
-		_inventory = Utils.find_node_of_type_in_children(state_machine.owner, CharacterInventory)
+		_inventory = Utils.find_node_of_type_in_children(state_machine.owner, Inventory)
 		_character_controller = Utils.find_node_of_type_in_children(state_machine.owner, CharacterController)
 	
 	

@@ -6,7 +6,7 @@ export(Resource) var _inventory_updated_channel
 export(Resource) var _equipment_stacks_updated_channel
 export(Resource) var _equipment_updated_channel
 
-var _inventory: CharacterInventory setget _set_inventory
+var _inventory: Inventory setget _set_inventory
 
 
 func on_update(blackboard: OccupationBlackboard) -> int:
@@ -14,7 +14,7 @@ func on_update(blackboard: OccupationBlackboard) -> int:
 	return Status.SUCCESS
 
 
-func _set_inventory(new_inventory: CharacterInventory) -> void:
+func _set_inventory(new_inventory: Inventory) -> void:
 	if _inventory:
 		_unregister_inventory()
 	

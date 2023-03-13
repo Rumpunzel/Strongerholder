@@ -1,10 +1,10 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/object_tracking_area.gd" type="Script" id=2]
 [ext_resource path="res://characters/character.gd" type="Script" id=3]
 [ext_resource path="res://characters/state_machine/states/action_state_node.gd" type="Script" id=4]
-[ext_resource path="res://characters/inventories/character_inventory.gd" type="Script" id=5]
+[ext_resource path="res://characters/inventories/inventory.gd" type="Script" id=5]
 [ext_resource path="res://characters/exploration_area.gd" type="Script" id=6]
 [ext_resource path="res://characters/state_machine/transition_item.gd" type="Script" id=7]
 [ext_resource path="res://characters/controllers/controller.gd" type="Script" id=8]
@@ -18,6 +18,7 @@
 [ext_resource path="res://characters/state_machine/states/jump_ascending.gd" type="Script" id=16]
 [ext_resource path="res://characters/state_machine/states/jump_descending.gd" type="Script" id=17]
 [ext_resource path="res://characters/character_controllers/character_controller/character_controller.gd" type="Script" id=18]
+[ext_resource path="res://characters/npc/resources/npc_inventory_attributes.tres" type="Resource" id=19]
 [ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=20]
 [ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=21]
 [ext_resource path="res://characters/state_machine_resources/conditions/timer_jump_hold_button.tres" type="Resource" id=22]
@@ -39,9 +40,6 @@ radius = 5.0
 
 [sub_resource type="BoxShape" id=9]
 extents = Vector3( 1, 1, 0.5 )
-
-[sub_resource type="CylinderShape" id=8]
-radius = 15.0
 
 [sub_resource type="Resource" id=11]
 script = ExtResource( 1 )
@@ -154,6 +152,9 @@ to_state = NodePath("Idle")
 conditions = [ SubResource( 62 ) ]
 operator = 0
 
+[sub_resource type="CylinderShape" id=8]
+radius = 15.0
+
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
 
@@ -258,7 +259,7 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource( 3 )
 
-[node name="Occupation" type="Spatial" parent="."]
+[node name="Occupation" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 40 )
 _character_controller_node = NodePath("../CharacterController")
@@ -268,7 +269,17 @@ _inventory_node = NodePath("../Inventory")
 [node name="OccupationList" type="Node" parent="Occupation"]
 script = ExtResource( 20 )
 
-[node name="CharacterController" type="Spatial" parent="."]
+[node name="InteractionArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 200
+input_ray_pickable = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 7 )
+
+[node name="CharacterController" type="Node" parent="."]
 script = ExtResource( 18 )
 _hurt_box_node = NodePath("../HurtBox")
 _inventory_node = NodePath("../Inventory")
@@ -297,16 +308,7 @@ script = ExtResource( 35 )
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource( 5 )
-
-[node name="InteractionArea" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 200
-input_ray_pickable = false
-script = ExtResource( 2 )
-
-[node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 7 )
+_inventory_attributes = ExtResource( 19 )
 
 [node name="HurtBox" type="Area" parent="."]
 collision_layer = 0
@@ -316,20 +318,6 @@ script = ExtResource( 15 )
 [node name="CollisionShape" type="CollisionShape" parent="HurtBox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
 shape = SubResource( 9 )
-
-[node name="ExplorationArea" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 200
-input_ray_pickable = false
-script = ExtResource( 6 )
-
-[node name="CollisionShape" type="CollisionShape" parent="ExplorationArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 8 )
-
-[node name="RayCast" type="RayCast" parent="ExplorationArea"]
-collision_mask = 3
-collide_with_areas = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 13 )
@@ -372,6 +360,20 @@ _animation_tree_node = NodePath("../../AnimationTree")
 script = ExtResource( 4 )
 _character_controller_node = NodePath("../../CharacterController")
 _animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="ExplorationArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 200
+input_ray_pickable = false
+script = ExtResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ExplorationArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 8 )
+
+[node name="RayCast" type="RayCast" parent="ExplorationArea"]
+collision_mask = 3
+collide_with_areas = true
 
 [node name="Controller" type="Node" parent="." groups=["PersistData"]]
 script = ExtResource( 8 )

@@ -7,20 +7,24 @@ signal gave_item(item, amount)
 signal took_item(item, amount)
 signal operated()
 
+signal item_equipped(equipment)
+signal item_unequipped(equipment)
+
 export(NodePath) var _hurt_box_node
 export(NodePath) var _inventory_node
 export(NodePath) var _animation_tree_node
+export(NodePath) var _hand_position
+export var _equip_first_item := true
 
-var _equipped_item: CharacterInventory.EquippedItem = null
+var _equipped_item := EquippedItem.new()
 
 onready var _hurt_box: HurtBox = get_node(_hurt_box_node)
-onready var _inventory: CharacterInventory = get_node(_inventory_node)
+onready var _inventory: Inventory = get_node(_inventory_node)
 onready var _animation_tree: AnimationTree = get_node(_animation_tree_node)
 
 
 func _ready() -> void:
-	_inventory.connect("item_equipped", self, "_on_item_equipped")
-	_inventory.connect("item_unequipped", self, "_on_item_unequipped")
+	_inventory.connect("equipment_stack_added", self, "_on_equipment_stack_added")
 	_blackboard = CharacterBlackboard.new(self, owner, _animation_tree_node)
 
 
@@ -36,7 +40,7 @@ func get_potential_interaction(object: Node) -> Target:
 	if object is Workstation and (object as Workstation).can_be_operated():
 		return ItemInteraction.new(object, ObjectInteraction.InteractionType.OPERATE, interaction_resource, 1)
 	
-	if _hurt_box.can_attack_object(object, _equipped_item):
+	if _hurt_box.can_attack_object(object, _equipped_item.stack.item):
 		return ObjectInteraction.new(object, ObjectInteraction.InteractionType.ATTACK)
 	
 	return null
@@ -44,7 +48,7 @@ func get_potential_interaction(object: Node) -> Target:
 
 func attack(started: bool) -> void:
 	if started:
-		_hurt_box.damage_hit_boxes(_equipped_item)
+		_hurt_box.damage_hit_boxes(_equipped_item.stack.item)
 	emit_signal("attacked", started)
 
 func pick_up(item_node: CollectableItem) -> void:
@@ -71,12 +75,87 @@ func take(stash: Stash, item: ItemResource, amount: int) -> void:
 
 
 
-func _on_item_equipped(equipment: CharacterInventory.EquippedItem):
-	_equipped_item = equipment
 
-func _on_item_unequipped(equipment: CharacterInventory.EquippedItem):
-	if _equipped_item == equipment:
-		_equipped_item = null
+
+
+func equip_item_stack(equipment_stack: Inventory.ItemStack) -> void:
+	assert(get_node(_hand_position))
+	
+	# warning-ignore:return_value_discarded
+	unequip()
+	
+	_equipped_item.set_stack(_inventory.item_slots.find(equipment_stack), equipment_stack, get_node(_hand_position))
+	emit_signal("item_equipped", _equipped_item)
+
+
+func unequip() -> bool:
+	if _equipped_item.stack_id >= 0:
+		emit_signal("item_unequipped", _equipped_item)
+		_equipped_item.unequip()
+		return true
+	
+	return false
+
+
+func has_equipped(equipment_stack: Inventory.ItemStack) -> bool:
+	# TODO: make this a nicer check
+	return equipment_stack and equipment_stack == _inventory.item_slots[_equipped_item.stack_id]
+
+func has_something_equipped() -> bool:
+	return _equipped_item.stack_id >= 0
+
+
+func save_to_var(save_file: File) -> void:
+	.save_to_var(save_file)
+	# Save as data
+	save_file.store_8(_equipped_item.stack_id)
+
+func load_from_var(save_file: File) -> void:
+	.load_from_var(save_file)
+	# Load as data and equip
+	var current_stack_id: int = save_file.get_8()
+	if current_stack_id >= 0 and current_stack_id < _inventory.item_slots.size():
+		equip_item_stack(_inventory.item_slots[current_stack_id])
+
+
+func _on_equipment_stack_added(new_equipment_stack: Inventory.ItemStack) -> void:
+	if _equip_first_item and _equipped_item.stack_id < 0:
+		equip_item_stack(new_equipment_stack)
+
+
+func _get_configuration_warning() -> String:
+	var warning := ._get_configuration_warning()
+	if not _hand_position:
+		warning = "HandPosition path is required"
+	
+	return warning
+
+
+
+class EquippedItem:
+	var stack_id: int = -1
+	var stack: Inventory.ItemStack = Inventory.ItemStack.new(null)
+	var node: Spatial = null
+	
+	func unequip() -> void:
+		stack_id = -1
+		stack = Inventory.ItemStack.new(null)
+		if node:
+			node.queue_free()
+			node = null
+	
+	func set_stack(new_stack_id: int, new_stack: Inventory.ItemStack, hand_position: Spatial) -> void:
+		assert(new_stack)
+		assert(hand_position)
+		stack_id = new_stack_id
+		
+		stack = new_stack
+		if stack.item:
+			node = stack.item.attach_to(hand_position)
+		elif node:
+			node.queue_free()
+			node = null
+
 
 
 

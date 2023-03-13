@@ -1,5 +1,5 @@
 class_name BehaviorTree, "res://editor_tools/class_icons/behavior_tree/icon_tree.svg"
-extends Spatial
+extends Node
 
 export var enabled := true setget set_enabled
 

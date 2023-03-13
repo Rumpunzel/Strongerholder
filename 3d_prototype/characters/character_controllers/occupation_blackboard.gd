@@ -6,7 +6,7 @@ signal current_target_changed(target)
 var character: Character
 var character_controller: CharacterController
 var interaction_area: ObjectTrackingArea
-var inventory: CharacterInventory
+var inventory: Inventory
 var job: Workstation.Job
 var spotted_items: SpottedItems
 
@@ -18,7 +18,7 @@ func _init(
 	new_character: Character,
 	new_character_controller: CharacterController,
 	new_interaction_area: ObjectTrackingArea,
-	new_inventory: CharacterInventory,
+	new_inventory: Inventory,
 	new_job: Workstation.Job,
 	new_spotted_items: SpottedItems
 ).(new_behavior_tree_root) -> void:

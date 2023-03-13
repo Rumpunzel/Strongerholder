@@ -6,12 +6,12 @@ func create_condition() -> StateCondition:
 
 
 class EmployerCouldBeOperatedCondition extends StateCondition:
-	var _inventory: CharacterInventory
+	var _inventory: Inventory
 	var _employer: Workstation
 	
 	func awake(state_machine: Node) -> void:
 		var character: Character = state_machine.owner
-		_inventory = Utils.find_node_of_type_in_children(character, CharacterInventory)
+		_inventory = Utils.find_node_of_type_in_children(character, Inventory)
 		# warning-ignore:unsafe_property_access
 		_employer = state_machine.current_job.employer
 	

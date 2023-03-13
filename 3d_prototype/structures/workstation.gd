@@ -45,7 +45,7 @@ func apply_for_job(worker: Node) -> bool:
 func can_be_operated() -> bool:
 	return _current_operation_steps > 0 or inventory.count(_item_to_store) >= _workstation_attributes.needs_how_many
 
-func could_be_operated(employee_inventory: CharacterInventory) -> bool:
+func could_be_operated(employee_inventory: Inventory) -> bool:
 	return can_be_operated() or employee_inventory.count(_item_to_store) + inventory.count(_item_to_store) >= _workstation_attributes.needs_how_many
 
 func operate() -> void:

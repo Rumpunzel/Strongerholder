@@ -5,10 +5,10 @@ export(NodePath) var _character_controller_node
 export(NodePath) var _interaction_area_node
 export(NodePath) var _inventory_node
 
-onready var _character: Spatial = owner
+onready var _character: Character = owner
 onready var _character_controller: CharacterController = get_node(_character_controller_node)
 onready var _interaction_area: ObjectTrackingArea = get_node(_interaction_area_node)
-onready var _inventory: CharacterInventory = get_node(_inventory_node)
+onready var _inventory: Inventory = get_node(_inventory_node)
 # warning-ignore:unsafe_method_access
 onready var _spotted_items: SpottedItems = _character.get_navigation().spotted_items
 
@@ -49,7 +49,7 @@ func nearest_interactable_target(overwrite_dibs: bool = false) -> CharacterContr
 		if not potential_interaction:
 			continue
 		
-		var distance := translation.distance_squared_to(object.global_transform.origin)
+		var distance := _character.translation.distance_squared_to(object.global_transform.origin)
 		if distance < closest_distance:
 			closest_distance = distance
 			nearest = potential_interaction

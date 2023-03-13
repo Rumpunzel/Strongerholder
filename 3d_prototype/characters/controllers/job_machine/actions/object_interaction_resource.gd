@@ -13,7 +13,7 @@ func _create_action() -> StateAction:
 
 
 class ObjectInteraction extends StateAction:
-	var _inventory: CharacterInventory
+	var _inventory: Inventory
 	var _interaction_area: CharacterController
 	var _spotted_items: SpottedItems
 	
@@ -56,7 +56,7 @@ class ObjectInteraction extends StateAction:
 		
 		
 		var character: Character = state_machine.owner
-		_inventory = Utils.find_node_of_type_in_children(state_machine.owner, CharacterInventory)
+		_inventory = Utils.find_node_of_type_in_children(state_machine.owner, Inventory)
 		_interaction_area = Utils.find_node_of_type_in_children(character, CharacterController)
 		
 		_spotted_items = character.get_navigation().spotted_items
