@@ -6,6 +6,10 @@ onready var _character: Spatial = owner
 onready var _hurt_box_shape: CollisionShape = $CollisionShape
 
 
+#func _ready() -> void:
+#	connect("body_entered", self, )
+
+
 func can_attack_object(object: Node, equipped_item: ToolResource) -> bool:
 	var interaction_resource: ItemResource = null
 	var can_stash := false

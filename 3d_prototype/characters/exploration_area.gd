@@ -12,9 +12,9 @@ func _ready() -> void:
 	connect("body_exited", self, "_on_node_sighting")
 
 func _exit_tree() -> void:
-	disconnect("body_exited", _spotted_items, "_on_item_spotted")
+	disconnect("body_exited", self, "_on_node_sighting")
 
 
 func _on_node_sighting(object: Node) -> void:
 	# TODO: Implement RayCasint
-	_spotted_items._on_item_spotted(object, self)
+	pass#_spotted_items._on_item_spotted(object, self)
