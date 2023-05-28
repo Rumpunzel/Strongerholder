@@ -11,11 +11,10 @@ class ReadInteraction extends StateAction:
 	enum InteractionState { STARTED, CANCELLED, COMPLETED }
 	
 	var _character: Character
-	var _inputs: CharacterMovementInputs
 	var _inventory: CharacterInventory
-	var _interaction_area: InteractionArea
+	var _interaction_area: CharacterController
 	
-	var _nearest_interaction: InteractionArea.Interaction = null
+	var _nearest_interaction: CharacterController.Target = null
 	var _player_interaction_channel: ReferenceEventChannelResource
 	
 	var _smart_interacting := false
@@ -28,9 +27,8 @@ class ReadInteraction extends StateAction:
 	
 	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
-		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 		_inventory = Utils.find_node_of_type_in_children(_character, CharacterInventory)
-		_interaction_area = Utils.find_node_of_type_in_children(_character, InteractionArea)
+		_interaction_area = Utils.find_node_of_type_in_children(_character, CharacterController)
 	
 	
 	func on_update(_delta: float) -> void:
@@ -48,7 +46,7 @@ class ReadInteraction extends StateAction:
 			_character.get_tree().set_input_as_handled()
 		elif input.is_action_released("smart_interact"):
 			_smart_interacting = false
-			_inputs.destination_input = _character.translation
+			_character.destination_input = _character.translation
 			_character.get_tree().set_input_as_handled()
 		
 		if input.is_action_pressed("attack"):
@@ -60,7 +58,7 @@ class ReadInteraction extends StateAction:
 	
 	
 	func _attack_on_spot() -> void:
-		_interaction_area.current_interaction = InteractionArea.Interaction.new(null, InteractionArea.InteractionType.ATTACK, null, 0)
+		_interaction_area.current_interaction = CharacterController.ObjectInteraction.new(null, CharacterController.ObjectInteraction.InteractionType.ATTACK)
 	
 	
 	func _smart_interact() -> void:
@@ -77,7 +75,7 @@ class ReadInteraction extends StateAction:
 			if _nearest_interaction:
 				var node := _nearest_interaction.node
 				if node is Stash:
-					if _nearest_interaction.type == InteractionArea.InteractionType.GIVE:
+					if _nearest_interaction.type == CharacterController.ItemInteraction.InteractionType.GIVE:
 						_player_interaction_channel.raise(_nearest_interaction)
 						return
 			

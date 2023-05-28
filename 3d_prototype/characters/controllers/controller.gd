@@ -4,7 +4,7 @@ extends StateMachine
 var current_job: Workstation.Job = null setget _set_current_job
 
 # warning-ignore:unsafe_method_access
-onready var _inventory: CharacterInventory = Utils.find_node_of_type_in_children(owner, CharacterInventory)
+onready var _inventory: Inventory = Utils.find_node_of_type_in_children(owner, Inventory)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -31,10 +31,10 @@ func load_from_var(save_file: File) -> void:
 func _set_current_job(new_job) -> void:
 	current_job = new_job
 	# warning-ignore:return_value_discarded
-	_inventory.add(current_job.tool_resource)
-	
-	if _current_state:
-		_current_state.on_state_exit()
-	
-	_transition_table_resource = current_job.job_machine
-	_start()
+#	_inventory.add(current_job.tool_resource)
+#
+#	if _current_state:
+#		_current_state.on_state_exit()
+#
+#	_transition_table_resource = current_job.job_machine
+#	_start()

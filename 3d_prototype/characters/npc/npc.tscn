@@ -1,23 +1,19 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://characters/_character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/models/characters/cowboy_hair.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/models/default_animations.tres" type="AnimationNodeBlendTree" id=3]
 [ext_resource path="res://characters/npc/resources/npc_inventory_attributes.tres" type="Resource" id=4]
 [ext_resource path="res://characters/npc/resources/npc_movement_stats.tres" type="Resource" id=5]
-[ext_resource path="res://characters/controllers/job_machine/idle_job_machine.tres" type="Resource" id=6]
 
 [node name="NPC" instance=ExtResource( 1 )]
 movement_stats = ExtResource( 5 )
-
-[node name="Controller" parent="." index="4"]
-_transition_table_resource = ExtResource( 6 )
 
 [node name="Inventory" parent="." index="5"]
 _inventory_attributes = ExtResource( 4 )
 _hand_position = NodePath("../Cowboy_Hair/CharacterArmature/Skeleton/HandPosition")
 
-[node name="AnimationTree" parent="." index="7"]
+[node name="AnimationTree" parent="." index="11"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Cowboy_Hair/AnimationPlayer")
 active = true
@@ -31,4 +27,4 @@ parameters/pick_up/active = false
 parameters/take/active = false
 parameters/walk_speed/blend_amount = 0
 
-[node name="Cowboy_Hair" parent="." index="8" instance=ExtResource( 2 )]
+[node name="Cowboy_Hair" parent="." index="12" instance=ExtResource( 2 )]

@@ -1,0 +1,135 @@
+[gd_scene load_steps=34 format=2]
+
+[ext_resource path="res://behavior_tree/decorators/limiter_decorator.gd" type="Script" id=1]
+[ext_resource path="res://characters/character_controllers/input_reader/conditions/is_input_unhandled.gd" type="Script" id=2]
+[ext_resource path="res://characters/character_controllers/input_reader/conditions/is_item_equipped.gd" type="Script" id=3]
+[ext_resource path="res://characters/character_controllers/input_reader/conditions/is_moving_to_destination.gd" type="Script" id=4]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/attack.gd" type="Script" id=5]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/read_equipment_input.gd" type="Script" id=6]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/read_build_input.gd" type="Script" id=7]
+[ext_resource path="res://behavior_tree/composites/sequence_star.gd" type="Script" id=8]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/set_input_as_handled.gd" type="Script" id=9]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/read_inventory_input.gd" type="Script" id=10]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/read_mouse_movement_input.gd" type="Script" id=11]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/read_smart_interaction_input.gd" type="Script" id=12]
+[ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=13]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/read_movement_input.gd" type="Script" id=14]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/register_player.gd" type="Script" id=15]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/register_player_inventory.gd" type="Script" id=16]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/reset_inputs.gd" type="Script" id=17]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/read_sprint_input.gd" type="Script" id=18]
+[ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=19]
+[ext_resource path="res://event_system/resources/player/player_registered_channel.tres" type="Resource" id=20]
+[ext_resource path="res://event_system/resources/hud/equipment_updated_channel.tres" type="Resource" id=21]
+[ext_resource path="res://event_system/resources/player/player_unregistered_channel.tres" type="Resource" id=22]
+[ext_resource path="res://characters/character_controllers/input_reader/conditions/is_unpaused.gd" type="Script" id=23]
+[ext_resource path="res://behavior_tree/decorators/succeeder_decorator.gd" type="Script" id=24]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/display_interaction_hud.gd" type="Script" id=25]
+[ext_resource path="res://event_system/resources/hud/inventory_updated_channel.tres" type="Resource" id=26]
+[ext_resource path="res://event_system/resources/hud/equipment_stacks_updated_channel.tres" type="Resource" id=27]
+[ext_resource path="res://event_system/resources/hud/inventory_hud_toggled_channel.tres" type="Resource" id=28]
+[ext_resource path="res://event_system/resources/hud/building_hud_toggled_channel.tres" type="Resource" id=29]
+[ext_resource path="res://event_system/resources/hud/inventory_stacks_updated_channel.tres" type="Resource" id=30]
+[ext_resource path="res://event_system/resources/player/player_interaction_channel.tres" type="Resource" id=31]
+[ext_resource path="res://event_system/resources/hud/equipment_hud_toggled_channel.tres" type="Resource" id=32]
+[ext_resource path="res://characters/character_controllers/input_reader/conditions/is_attacking.gd" type="Script" id=33]
+
+[node name="InputReader" type="Node"]
+script = ExtResource( 19 )
+
+[node name="RunOnce" type="Node" parent="."]
+script = ExtResource( 1 )
+_max_count = 1
+
+[node name="Register" type="Node" parent="RunOnce"]
+script = ExtResource( 8 )
+
+[node name="RegisterPlayer" type="Node" parent="RunOnce/Register"]
+script = ExtResource( 15 )
+_unregister_on_exit = null
+_player_registered_channel = ExtResource( 20 )
+_player_unregistered_channel = ExtResource( 22 )
+
+[node name="RegisterPlayerInventory" type="Node" parent="RunOnce/Register"]
+script = ExtResource( 16 )
+_inventory_stacks_updated_channel = ExtResource( 30 )
+_inventory_updated_channel = ExtResource( 26 )
+_equipment_stacks_updated_channel = ExtResource( 27 )
+_equipment_updated_channel = ExtResource( 21 )
+
+[node name="HandleInput" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="IsUnpaused" type="Node" parent="HandleInput"]
+script = ExtResource( 23 )
+
+[node name="IsInputUnhandled" type="Node" parent="HandleInput"]
+script = ExtResource( 2 )
+
+[node name="ReadInput" type="Node" parent="HandleInput"]
+script = ExtResource( 19 )
+
+[node name="ReadBuildInput" type="Node" parent="HandleInput/ReadInput"]
+script = ExtResource( 7 )
+_building_hud_toggled_channel = ExtResource( 29 )
+
+[node name="ReadEquipmentInput" type="Node" parent="HandleInput/ReadInput"]
+script = ExtResource( 6 )
+_equipment_hud_toggled_channel = ExtResource( 32 )
+
+[node name="ReadInventoryInput" type="Node" parent="HandleInput/ReadInput"]
+script = ExtResource( 10 )
+_inventory_hud_toggled_channel = ExtResource( 28 )
+
+[node name="HandleAttack" type="Node" parent="HandleInput/ReadInput"]
+script = ExtResource( 13 )
+
+[node name="AlwaysSucceedDecorator" type="Node" parent="HandleInput/ReadInput/HandleAttack"]
+script = ExtResource( 24 )
+
+[node name="IsItemEquipped" type="Node" parent="HandleInput/ReadInput/HandleAttack/AlwaysSucceedDecorator"]
+script = ExtResource( 3 )
+
+[node name="IsAttacking" type="Node" parent="HandleInput/ReadInput/HandleAttack"]
+script = ExtResource( 33 )
+
+[node name="AttackInPlace" type="Node" parent="HandleInput/ReadInput/HandleAttack"]
+script = ExtResource( 5 )
+
+[node name="ReadMovement" type="Node" parent="HandleInput/ReadInput"]
+script = ExtResource( 13 )
+
+[node name="ReadSprintInput" type="Node" parent="HandleInput/ReadInput/ReadMovement"]
+script = ExtResource( 18 )
+
+[node name="DetermineMovementInputSource" type="Node" parent="HandleInput/ReadInput/ReadMovement"]
+script = ExtResource( 19 )
+
+[node name="ReadMouseMovement" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource"]
+script = ExtResource( 13 )
+
+[node name="IsMovingToDestination" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource/ReadMouseMovement"]
+script = ExtResource( 4 )
+
+[node name="ReadMouseMovementInput" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource/ReadMouseMovement"]
+script = ExtResource( 11 )
+
+[node name="ReadMovementInput" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource"]
+script = ExtResource( 14 )
+_input_deadzone_squated = null
+
+[node name="HandleInteraction" type="Node" parent="HandleInput/ReadInput"]
+script = ExtResource( 13 )
+
+[node name="DisplayInteractionHUD" type="Node" parent="HandleInput/ReadInput/HandleInteraction"]
+script = ExtResource( 25 )
+_player_interaction_channel = ExtResource( 31 )
+
+[node name="ReadSmartInteractionInput" type="Node" parent="HandleInput/ReadInput/HandleInteraction"]
+script = ExtResource( 12 )
+
+[node name="ResetInputs" type="Node" parent="HandleInput/ReadInput"]
+script = ExtResource( 17 )
+
+[node name="SetInputAsHandled" type="Node" parent="HandleInput"]
+script = ExtResource( 9 )

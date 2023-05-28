@@ -8,7 +8,6 @@ func _create_action() -> StateAction:
 class ReadMouseMovementAction extends StateAction:
 	var _character: Character
 	var _navigation: WorldScene
-	var _inputs: CharacterMovementInputs
 	
 	var _moving_to_point := false
 	
@@ -16,11 +15,10 @@ class ReadMouseMovementAction extends StateAction:
 	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner
 		_navigation = _character.get_navigation()
-		_inputs = Utils.find_node_of_type_in_children(state_machine, CharacterMovementInputs)
 	
 	
 	func enter_state() -> void:
-		_inputs.movement_input = Vector3.ZERO
+		_character.movement_input = Vector3.ZERO
 	
 	
 	func on_update(_delta: float) -> void:
@@ -31,7 +29,7 @@ class ReadMouseMovementAction extends StateAction:
 			
 			# HACK: fixed Navigation always returning a point 0.4 over ground
 			navigation_point.y = 0.0
-			_inputs.destination_input = navigation_point
+			_character.destination_input = navigation_point
 	
 	
 	func on_input(input: InputEvent) -> void:

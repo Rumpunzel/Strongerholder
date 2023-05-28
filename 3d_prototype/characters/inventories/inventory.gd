@@ -1,4 +1,4 @@
-class_name Inventory, "res://editor_tools/class_icons/nodes/icon_swap_bag.svg"
+class_name Inventory, "res://editor_tools/class_icons/nodes/icon_knapsack.svg"
 extends Node
 tool
 
@@ -192,6 +192,15 @@ func contents(return_only_non_empty: bool) -> Array:
 			item_stacks.append(stack)
 	
 	return item_stacks
+
+
+func equipments() -> Array:
+	var equipments := [ ]
+	for stack in item_slots:
+		if stack and stack.item is ToolResource:
+			equipments.append(stack)
+	
+	return equipments
 
 
 func size() -> int:

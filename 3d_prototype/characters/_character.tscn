@@ -1,19 +1,217 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=67 format=2]
 
-[ext_resource path="res://addons/state_machine/machine/state_machine.gd" type="Script" id=1]
-[ext_resource path="res://characters/interaction_area.gd" type="Script" id=2]
+[ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
+[ext_resource path="res://characters/object_tracking_area.gd" type="Script" id=2]
 [ext_resource path="res://characters/character.gd" type="Script" id=3]
-[ext_resource path="res://characters/controllers/character_movement_inputs.gd" type="Script" id=4]
-[ext_resource path="res://characters/inventories/character_inventory.gd" type="Script" id=5]
-[ext_resource path="res://characters/controllers/character_movement_actions.gd" type="Script" id=6]
-[ext_resource path="res://characters/state_machine_resources/default_character_state_machine.tres" type="Resource" id=7]
+[ext_resource path="res://characters/state_machine/states/action_state_node.gd" type="Script" id=4]
+[ext_resource path="res://characters/inventories/inventory.gd" type="Script" id=5]
+[ext_resource path="res://characters/exploration_area.gd" type="Script" id=6]
+[ext_resource path="res://characters/state_machine/transition_item.gd" type="Script" id=7]
 [ext_resource path="res://characters/controllers/controller.gd" type="Script" id=8]
 [ext_resource path="res://audio/sfx_emitter.gd" type="Script" id=9]
 [ext_resource path="res://characters/audio/footsteps/footstep_sound.tscn" type="PackedScene" id=10]
 [ext_resource path="res://event_system/resources/audio/sfx_emitted_channel.tres" type="Resource" id=11]
+[ext_resource path="res://characters/state_machine/states/walk.gd" type="Script" id=12]
+[ext_resource path="res://characters/state_machine/state_machine.gd" type="Script" id=13]
+[ext_resource path="res://characters/state_machine/states/idle.gd" type="Script" id=14]
+[ext_resource path="res://characters/hurt_box.gd" type="Script" id=15]
+[ext_resource path="res://characters/state_machine/states/jump_ascending.gd" type="Script" id=16]
+[ext_resource path="res://characters/state_machine/states/jump_descending.gd" type="Script" id=17]
+[ext_resource path="res://characters/character_controllers/character_controller/character_controller.gd" type="Script" id=18]
+[ext_resource path="res://characters/npc/resources/npc_inventory_attributes.tres" type="Resource" id=19]
+[ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=20]
+[ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=21]
+[ext_resource path="res://characters/state_machine_resources/conditions/timer_jump_hold_button.tres" type="Resource" id=22]
+[ext_resource path="res://prototype_assets/gui/fonts/default_font.tres" type="DynamicFont" id=23]
+[ext_resource path="res://characters/state_machine_resources/conditions/has_hit_head.tres" type="Resource" id=24]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_holding_jump.tres" type="Resource" id=25]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_moving.tres" type="Resource" id=26]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_grounded.tres" type="Resource" id=27]
+[ext_resource path="res://characters/character_controllers/character_controller/conditions/current_target_in_range.gd" type="Script" id=28]
+[ext_resource path="res://characters/character_controllers/character_controller/actions/interact.gd" type="Script" id=29]
+[ext_resource path="res://characters/state_machine_resources/conditions/is_performing_action.tres" type="Resource" id=30]
+[ext_resource path="res://characters/character_controllers/character_controller/conditions/has_current_interaction.gd" type="Script" id=31]
+[ext_resource path="res://characters/state_machine_resources/conditions/animation_finished.tres" type="Resource" id=32]
+[ext_resource path="res://characters/character_controllers/character_controller/actions/approach.gd" type="Script" id=35]
+[ext_resource path="res://characters/character_controllers/occupation.gd" type="Script" id=40]
+
+[sub_resource type="CylinderShape" id=7]
+radius = 5.0
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 1, 1, 0.5 )
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 1 )
+condition = ExtResource( 26 )
+expected_result = true
+
+[sub_resource type="Resource" id=12]
+script = ExtResource( 7 )
+from_states = [ NodePath("Idle") ]
+to_state = NodePath("Walk")
+conditions = [ SubResource( 11 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 1 )
+condition = ExtResource( 25 )
+expected_result = true
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 7 )
+from_states = [ NodePath("Idle"), NodePath("Walk") ]
+to_state = NodePath("JumpAscending")
+conditions = [ SubResource( 15 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 1 )
+condition = ExtResource( 24 )
+expected_result = true
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 1 )
+condition = ExtResource( 25 )
+expected_result = false
+
+[sub_resource type="Resource" id=19]
+script = ExtResource( 1 )
+condition = ExtResource( 22 )
+expected_result = true
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 7 )
+from_states = [ NodePath("JumpAscending") ]
+to_state = NodePath("JumpDescending")
+conditions = [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ]
+operator = 1
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 1 )
+condition = ExtResource( 27 )
+expected_result = true
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 7 )
+from_states = [ NodePath("JumpDescending") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 21 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 1 )
+condition = ExtResource( 27 )
+expected_result = false
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 7 )
+from_states = [ NodePath("Walk"), NodePath("Attack"), NodePath("Give"), NodePath("Operate"), NodePath("PickUp"), NodePath("Take"), NodePath("Idle"), NodePath("PerformAction") ]
+to_state = NodePath("JumpDescending")
+conditions = [ SubResource( 23 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 1 )
+condition = ExtResource( 30 )
+expected_result = true
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 7 )
+from_states = [ NodePath("Idle"), NodePath("Walk") ]
+to_state = NodePath("PerformAction")
+conditions = [ SubResource( 25 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=61]
+script = ExtResource( 1 )
+condition = ExtResource( 30 )
+expected_result = false
+
+[sub_resource type="Resource" id=55]
+script = ExtResource( 1 )
+condition = ExtResource( 32 )
+expected_result = true
+
+[sub_resource type="Resource" id=29]
+script = ExtResource( 7 )
+from_states = [ NodePath("Attack"), NodePath("PerformAction") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 61 ), SubResource( 55 ) ]
+operator = 0
+
+[sub_resource type="Resource" id=62]
+script = ExtResource( 1 )
+condition = ExtResource( 26 )
+expected_result = false
+
+[sub_resource type="Resource" id=63]
+script = ExtResource( 7 )
+from_states = [ NodePath("Walk") ]
+to_state = NodePath("Idle")
+conditions = [ SubResource( 62 ) ]
+operator = 0
+
+[sub_resource type="CylinderShape" id=8]
+radius = 15.0
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	# warning-ignore:unsafe_property_access
+	text = get_node(\"../StateMachine\")._current_state.name
+"
+
+[sub_resource type="GDScript" id=65]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	var character_controller: CharacterController = get_node(\"../CharacterController\")
+	var running_action: ActionLeaf = character_controller._blackboard.running_action
+	var current_interaction: CharacterController.Target = character_controller._blackboard.current_interaction
+	if running_action:
+		text = running_action.name
+		if current_interaction and current_interaction.node:
+			text += \": \" + current_interaction.node.name
+	else:
+		text = \"-\"
+"
+
+[sub_resource type="GDScript" id=64]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	var occupation: Occupation = get_node(\"../Occupation\")
+	var running_action: ActionLeaf = occupation._blackboard.running_action
+	var current_target: CharacterController.Target = occupation._blackboard.current_target
+	if running_action:
+		text = running_action.name
+		if current_target and current_target.node:
+			text += \": \" + current_target.node.name
+	else:
+		text = \"-\"
+"
+
+[sub_resource type="GDScript" id=60]
+script/source = "extends Node
+
+onready var _line: ImmediateGeometry = $Line
+onready var _movement_dingle: Spatial = $MovementDingle
+onready var _navigation_agent: NavigationAgent = get_node(\"../NavigationAgent\")
+
+func _process(_delta: float) -> void:
+	# warning-ignore:unsafe_method_access
+	_line.draw_path(_navigation_agent.get_nav_path())
+	# warning-ignore:unsafe_property_access
+	_line.visible = get_parent().moving_to_destination
+	_movement_dingle.translation = _navigation_agent.get_target_location()
+	# warning-ignore:unsafe_property_access
+	_movement_dingle.visible = get_parent().moving_to_destination
+"
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
@@ -52,74 +250,24 @@ script/source = "extends Spatial
 
 export var _turn_speed := 2.0
 
-
 func _process(delta: float) -> void:
 	rotate_y(_turn_speed * delta)
 "
-
-[sub_resource type="CylinderShape" id=7]
-radius = 0.75
-
-[sub_resource type="CylinderShape" id=8]
-radius = 5.0
-
-[sub_resource type="BoxShape" id=9]
-extents = Vector3( 1, 1, 0.5 )
 
 [node name="Character" type="KinematicBody" groups=["Persist"]]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource( 3 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
-shape = SubResource( 1 )
+[node name="Occupation" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 40 )
+_character_controller_node = NodePath("../CharacterController")
+_interaction_area_node = NodePath("../InteractionArea")
+_inventory_node = NodePath("../Inventory")
 
-[node name="GroundCheck" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
-enabled = true
-cast_to = Vector3( 0, -0.2, 0 )
-collision_mask = 3
-
-[node name="NavigationAgent" type="NavigationAgent" parent="."]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
-path_max_distance = 1.0
-avoidance_enabled = true
-radius = 0.5
-neighbor_dist = 16.0
-time_horizon = 2.0
-max_speed = 100.0
-
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 1 )
-use_physics_process = true
-_transition_table_resource = ExtResource( 7 )
-
-[node name="Controller" type="Node" parent="." groups=["PersistData"]]
-script = ExtResource( 8 )
-
-[node name="MovementInputs" type="Node" parent="Controller"]
-script = ExtResource( 4 )
-
-[node name="MovementActions" type="Node" parent="Controller"]
-script = ExtResource( 6 )
-
-[node name="Line" type="ImmediateGeometry" parent="Controller/MovementActions"]
-material_override = SubResource( 2 )
-script = SubResource( 3 )
-
-[node name="MovementDingle" type="Spatial" parent="Controller/MovementActions"]
-visible = false
-
-[node name="MershInstance" type="MeshInstance" parent="Controller/MovementActions/MovementDingle"]
-transform = Transform( -0.5, 0, -2.18557e-08, 0, -1, 0, -4.37114e-08, 0, 0.25, 0, 0.9, 0 )
-material_override = SubResource( 4 )
-mesh = SubResource( 5 )
-script = SubResource( 6 )
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource( 5 )
+[node name="OccupationList" type="Node" parent="Occupation"]
+script = ExtResource( 20 )
 
 [node name="InteractionArea" type="Area" parent="."]
 collision_layer = 0
@@ -131,43 +279,178 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 7 )
 
-[node name="PerceptionArea" type="Area" parent="InteractionArea"]
+[node name="CharacterController" type="Node" parent="."]
+script = ExtResource( 18 )
+_hurt_box_node = NodePath("../HurtBox")
+_inventory_node = NodePath("../Inventory")
+_animation_tree_node = NodePath("../AnimationTree")
+
+[node name="Protocol" type="Node" parent="CharacterController"]
+script = ExtResource( 21 )
+
+[node name="HasCurrentInteraction" type="Node" parent="CharacterController/Protocol"]
+script = ExtResource( 31 )
+
+[node name="SelectorComposite" type="Node" parent="CharacterController/Protocol"]
+script = ExtResource( 20 )
+
+[node name="SequenceComposite" type="Node" parent="CharacterController/Protocol/SelectorComposite"]
+script = ExtResource( 21 )
+
+[node name="CurrentTargetInRange" type="Node" parent="CharacterController/Protocol/SelectorComposite/SequenceComposite"]
+script = ExtResource( 28 )
+
+[node name="Interact" type="Node" parent="CharacterController/Protocol/SelectorComposite/SequenceComposite"]
+script = ExtResource( 29 )
+
+[node name="Approach" type="Node" parent="CharacterController/Protocol/SelectorComposite"]
+script = ExtResource( 35 )
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 5 )
+_inventory_attributes = ExtResource( 19 )
+
+[node name="HurtBox" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 200
+script = ExtResource( 15 )
+
+[node name="CollisionShape" type="CollisionShape" parent="HurtBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
+shape = SubResource( 9 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 13 )
+entry_state = NodePath("Idle")
+_transitions = [ SubResource( 12 ), SubResource( 16 ), SubResource( 20 ), SubResource( 22 ), SubResource( 24 ), SubResource( 26 ), SubResource( 29 ), SubResource( 63 ) ]
+_graph_offsets = {
+"EntryPoint": Vector2( -739.214, 426.862 ),
+"Zoom": 0.482253,
+"res://characters/_character.tscn::12": Vector2( -306.314, 771.792 ),
+"res://characters/_character.tscn::16": Vector2( 169.472, 338.806 ),
+"res://characters/_character.tscn::20": Vector2( 889.472, 298.806 ),
+"res://characters/_character.tscn::22": Vector2( 1929.47, 558.806 ),
+"res://characters/_character.tscn::24": Vector2( 789.472, 578.806 ),
+"res://characters/_character.tscn::26": Vector2( 200, 608 ),
+"res://characters/_character.tscn::29": Vector2( 900, 748 ),
+"res://characters/_character.tscn::63": Vector2( 260, 928 ),
+NodePath("PerformAction"): Vector2( 580, 728 ),
+NodePath("JumpDescending"): Vector2( 1500, 428 ),
+NodePath("JumpAscending"): Vector2( 609.472, 318.806 ),
+NodePath("Walk"): Vector2( 0, 768 ),
+NodePath("Idle"): Vector2( -189.145, 452.438 )
+}
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 14 )
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource( 12 )
+_animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="JumpAscending" type="Node" parent="StateMachine"]
+script = ExtResource( 16 )
+_animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="JumpDescending" type="Node" parent="StateMachine"]
+script = ExtResource( 17 )
+_animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="PerformAction" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+_character_controller_node = NodePath("../../CharacterController")
+_animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="ExplorationArea" type="Area" parent="."]
 collision_layer = 0
 collision_mask = 200
 input_ray_pickable = false
+script = ExtResource( 6 )
 
-[node name="CollisionShape" type="CollisionShape" parent="InteractionArea/PerceptionArea"]
+[node name="CollisionShape" type="CollisionShape" parent="ExplorationArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 8 )
 
-[node name="HurtBox" type="Area" parent="InteractionArea"]
-collision_layer = 0
-collision_mask = 192
+[node name="RayCast" type="RayCast" parent="ExplorationArea"]
+collision_mask = 3
+collide_with_areas = true
 
-[node name="CollisionShape" type="CollisionShape" parent="InteractionArea/HurtBox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
-shape = SubResource( 9 )
-disabled = true
+[node name="Controller" type="Node" parent="." groups=["PersistData"]]
+script = ExtResource( 8 )
+
+[node name="NavigationAgent" type="NavigationAgent" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 1.0
+avoidance_enabled = true
+radius = 0.5
+neighbor_dist = 16.0
+time_horizon = 2.0
+max_speed = 100.0
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="GroundCheck" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.2, 0 )
+collision_mask = 3
 
 [node name="FootstepSounds" type="Spatial" parent="."]
 script = ExtResource( 9 )
 _sound_scene = ExtResource( 10 )
 _sfx_emitted_channel = ExtResource( 11 )
 
-[connection signal="equipment_stack_added" from="Inventory" to="Inventory" method="_on_equipment_stack_added"]
-[connection signal="item_equipped" from="Inventory" to="InteractionArea" method="_on_item_equipped"]
-[connection signal="item_unequipped" from="Inventory" to="InteractionArea" method="_on_item_unequipped"]
-[connection signal="area_entered" from="InteractionArea" to="InteractionArea" method="_on_object_entered_interaction_area"]
-[connection signal="area_exited" from="InteractionArea" to="InteractionArea" method="_on_object_exited_interaction_area"]
-[connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="_on_object_entered_interaction_area"]
-[connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="_on_object_exited_interaction_area"]
-[connection signal="gave_item" from="InteractionArea" to="Inventory" method="remove_many"]
-[connection signal="item_picked_up" from="InteractionArea" to="Inventory" method="add"]
-[connection signal="took_item" from="InteractionArea" to="Inventory" method="add"]
-[connection signal="area_entered" from="InteractionArea/PerceptionArea" to="InteractionArea" method="_on_object_entered_perception_area"]
-[connection signal="area_exited" from="InteractionArea/PerceptionArea" to="InteractionArea" method="_on_object_exited_perception_area"]
-[connection signal="body_entered" from="InteractionArea/PerceptionArea" to="InteractionArea" method="_on_object_entered_perception_area"]
-[connection signal="body_exited" from="InteractionArea/PerceptionArea" to="InteractionArea" method="_on_object_exited_perception_area"]
-[connection signal="area_entered" from="InteractionArea/HurtBox" to="InteractionArea" method="_on_hurt_box_entered"]
+[node name="CurrentState" type="Label3D" parent="."]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 50 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+font = ExtResource( 23 )
+script = SubResource( 10 )
+
+[node name="CurrentTarget" type="Label3D" parent="."]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 65 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+font = ExtResource( 23 )
+script = SubResource( 65 )
+
+[node name="CurrentOccupation" type="Label3D" parent="."]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 80 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+font = ExtResource( 23 )
+script = SubResource( 64 )
+
+[node name="Debug" type="Node" parent="."]
+pause_mode = 2
+script = SubResource( 60 )
+
+[node name="Line" type="ImmediateGeometry" parent="Debug"]
+material_override = SubResource( 2 )
+script = SubResource( 3 )
+
+[node name="MovementDingle" type="Spatial" parent="Debug"]
+visible = false
+
+[node name="MershInstance" type="MeshInstance" parent="Debug/MovementDingle"]
+transform = Transform( -0.5, 0, -2.18557e-08, 0, -1, 0, -4.37114e-08, 0, 0.25, 0, 0.9, 0 )
+material_override = SubResource( 4 )
+mesh = SubResource( 5 )
+script = SubResource( 6 )

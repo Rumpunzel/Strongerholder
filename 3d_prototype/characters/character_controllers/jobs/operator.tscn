@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://characters/character_controllers/behavior_tree/character_action_leaf.gd" type="Script" id=1]
+[ext_resource path="res://characters/behavior_tree/_character_condition_leaf.gd" type="Script" id=2]
+[ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=3]
+
+[node name="Operator" type="Node"]
+script = ExtResource( 3 )
+
+[node name="WorkstationOperatable" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="OperateWorkstation" type="Node" parent="."]
+script = ExtResource( 1 )

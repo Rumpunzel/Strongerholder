@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://characters/character_controllers/behavior_tree/character_action_leaf.gd" type="Script" id=1]
+[ext_resource path="res://characters/behavior_tree/_character_condition_leaf.gd" type="Script" id=2]
+[ext_resource path="res://behavior_tree/decorators/inverter_decorator.gd" type="Script" id=3]
+[ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=4]
+[ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=5]
+
+[node name="Gatherer" type="Node"]
+script = ExtResource( 5 )
+
+[node name="DeliverToWork" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="InventoryHasResource" type="Node" parent="DeliverToWork"]
+script = ExtResource( 2 )
+
+[node name="GatheredEnough" type="Node" parent="DeliverToWork"]
+script = ExtResource( 5 )
+
+[node name="InventoryFull" type="Node" parent="DeliverToWork/GatheredEnough"]
+script = ExtResource( 3 )
+
+[node name="InventoryHasRoomForResource" type="Node" parent="DeliverToWork/GatheredEnough/InventoryFull"]
+script = ExtResource( 2 )
+
+[node name="WorkCouldBeOperated" type="Node" parent="DeliverToWork/GatheredEnough"]
+script = ExtResource( 2 )
+
+[node name="DeliverResource" type="Node" parent="DeliverToWork"]
+script = ExtResource( 1 )
+
+[node name="GatherResource" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="InventoryHasRoomForResource" type="Node" parent="GatherResource"]
+script = ExtResource( 2 )
+
+[node name="SearchForResource" type="Node" parent="GatherResource"]
+script = ExtResource( 5 )
+
+[node name="GatherLocalResource" type="Node" parent="GatherResource/SearchForResource"]
+script = ExtResource( 4 )
+
+[node name="FoundLocalResource" type="Node" parent="GatherResource/SearchForResource/GatherLocalResource"]
+script = ExtResource( 2 )
+
+[node name="GatherLocalResource" type="Node" parent="GatherResource/SearchForResource/GatherLocalResource"]
+script = ExtResource( 1 )
+
+[node name="GatherGlobalResource" type="Node" parent="GatherResource/SearchForResource"]
+script = ExtResource( 4 )
+
+[node name="FoundGlobalResource" type="Node" parent="GatherResource/SearchForResource/GatherGlobalResource"]
+script = ExtResource( 2 )
+
+[node name="GatherGlobalResource" type="Node" parent="GatherResource/SearchForResource/GatherGlobalResource"]
+script = ExtResource( 1 )
