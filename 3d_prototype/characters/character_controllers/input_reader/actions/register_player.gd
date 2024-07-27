@@ -5,7 +5,7 @@ export var _unregister_on_exit := true
 export(Resource) var _player_registered_channel
 export(Resource) var _player_unregistered_channel
 
-var _character: Character
+var _character: CharacterController
 
 func on_update(blackboard: OccupationBlackboard) -> int:
 	_character = blackboard.character

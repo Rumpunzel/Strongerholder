@@ -3,9 +3,6 @@ extends StateMachine
 
 var current_job: Workstation.Job = null setget _set_current_job
 
-# warning-ignore:unsafe_method_access
-onready var _inventory: Inventory = Utils.find_node_of_type_in_children(owner, Inventory)
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _current_state:

@@ -1,11 +1,11 @@
-extends CharacterActionLeaf
+extends ActionLeaf
 
 export(Resource) var _player_interaction_channel
 
 func on_update(blackboard: OccupationBlackboard) -> int:
-	var highlighted_target: CharacterController.Target = blackboard.current_target
+	var highlighted_target: CharacterController.Target = blackboard.character.current_interaction
 	if not highlighted_target:
-		highlighted_target = blackboard.nearest_percieved_target(true)
+		highlighted_target = blackboard.behavior_tree.nearest_interactable_target(true)
 	
 	if not highlighted_target:
 		_player_interaction_channel.raise(null)

@@ -8,7 +8,7 @@ func _create_action() -> StateAction:
 
 
 class StopMovementAction extends StateAction:
-	var _character: Character
+	var _character: CharacterController
 	var _inputs: CharacterMovementInputs
 	var _actions: CharacterMovementActions
 	var _interaction_area: InteractionArea

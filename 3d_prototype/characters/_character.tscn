@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://addons/state_machine/machine/resources/condition_usage_resource.gd" type="Script" id=1]
 [ext_resource path="res://characters/object_tracking_area.gd" type="Script" id=2]
@@ -17,29 +17,20 @@
 [ext_resource path="res://characters/hurt_box.gd" type="Script" id=15]
 [ext_resource path="res://characters/state_machine/states/jump_ascending.gd" type="Script" id=16]
 [ext_resource path="res://characters/state_machine/states/jump_descending.gd" type="Script" id=17]
-[ext_resource path="res://characters/character_controllers/character_controller/character_controller.gd" type="Script" id=18]
 [ext_resource path="res://characters/npc/resources/npc_inventory_attributes.tres" type="Resource" id=19]
 [ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=20]
-[ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=21]
 [ext_resource path="res://characters/state_machine_resources/conditions/timer_jump_hold_button.tres" type="Resource" id=22]
 [ext_resource path="res://prototype_assets/gui/fonts/default_font.tres" type="DynamicFont" id=23]
 [ext_resource path="res://characters/state_machine_resources/conditions/has_hit_head.tres" type="Resource" id=24]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_holding_jump.tres" type="Resource" id=25]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_moving.tres" type="Resource" id=26]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_grounded.tres" type="Resource" id=27]
-[ext_resource path="res://characters/character_controllers/character_controller/conditions/current_target_in_range.gd" type="Script" id=28]
-[ext_resource path="res://characters/character_controllers/character_controller/actions/interact.gd" type="Script" id=29]
 [ext_resource path="res://characters/state_machine_resources/conditions/is_performing_action.tres" type="Resource" id=30]
-[ext_resource path="res://characters/character_controllers/character_controller/conditions/has_current_interaction.gd" type="Script" id=31]
 [ext_resource path="res://characters/state_machine_resources/conditions/animation_finished.tres" type="Resource" id=32]
-[ext_resource path="res://characters/character_controllers/character_controller/actions/approach.gd" type="Script" id=35]
 [ext_resource path="res://characters/character_controllers/occupation.gd" type="Script" id=40]
 
-[sub_resource type="CylinderShape" id=7]
-radius = 5.0
-
-[sub_resource type="BoxShape" id=9]
-extents = Vector3( 1, 1, 0.5 )
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
 
 [sub_resource type="Resource" id=11]
 script = ExtResource( 1 )
@@ -106,7 +97,7 @@ expected_result = false
 
 [sub_resource type="Resource" id=24]
 script = ExtResource( 7 )
-from_states = [ NodePath("Walk"), NodePath("Attack"), NodePath("Give"), NodePath("Operate"), NodePath("PickUp"), NodePath("Take"), NodePath("Idle"), NodePath("PerformAction") ]
+from_states = [ NodePath("Walk"), NodePath("Idle"), NodePath("PerformAction") ]
 to_state = NodePath("JumpDescending")
 conditions = [ SubResource( 23 ) ]
 operator = 0
@@ -135,7 +126,7 @@ expected_result = true
 
 [sub_resource type="Resource" id=29]
 script = ExtResource( 7 )
-from_states = [ NodePath("Attack"), NodePath("PerformAction") ]
+from_states = [ NodePath("PerformAction") ]
 to_state = NodePath("Idle")
 conditions = [ SubResource( 61 ), SubResource( 55 ) ]
 operator = 0
@@ -152,11 +143,14 @@ to_state = NodePath("Idle")
 conditions = [ SubResource( 62 ) ]
 operator = 0
 
+[sub_resource type="CylinderShape" id=7]
+radius = 5.0
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 1, 1, 0.5 )
+
 [sub_resource type="CylinderShape" id=8]
 radius = 15.0
-
-[sub_resource type="CapsuleShape" id=1]
-radius = 0.5
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends Label3D
@@ -170,13 +164,10 @@ func _process(_delta: float) -> void:
 script/source = "extends Label3D
 
 func _process(_delta: float) -> void:
-	var character_controller: CharacterController = get_node(\"../CharacterController\")
-	var running_action: ActionLeaf = character_controller._blackboard.running_action
-	var current_interaction: CharacterController.Target = character_controller._blackboard.current_interaction
-	if running_action:
-		text = running_action.name
-		if current_interaction and current_interaction.node:
-			text += \": \" + current_interaction.node.name
+	var character: CharacterController = owner
+	var current_interaction: CharacterController.Target = character.current_interaction
+	if current_interaction and current_interaction.node:
+		text = current_interaction.node.name
 	else:
 		text = \"-\"
 "
@@ -187,7 +178,7 @@ script/source = "extends Label3D
 func _process(_delta: float) -> void:
 	var occupation: Occupation = get_node(\"../Occupation\")
 	var running_action: ActionLeaf = occupation._blackboard.running_action
-	var current_target: CharacterController.Target = occupation._blackboard.current_target
+	var current_target: CharacterController.Target = occupation._blackboard.character.current_interaction
 	if running_action:
 		text = running_action.name
 		if current_target and current_target.node:
@@ -199,6 +190,7 @@ func _process(_delta: float) -> void:
 [sub_resource type="GDScript" id=60]
 script/source = "extends Node
 
+onready var _character: CharacterController = owner
 onready var _line: ImmediateGeometry = $Line
 onready var _movement_dingle: Spatial = $MovementDingle
 onready var _navigation_agent: NavigationAgent = get_node(\"../NavigationAgent\")
@@ -207,10 +199,10 @@ func _process(_delta: float) -> void:
 	# warning-ignore:unsafe_method_access
 	_line.draw_path(_navigation_agent.get_nav_path())
 	# warning-ignore:unsafe_property_access
-	_line.visible = get_parent().moving_to_destination
+	_line.visible = _character.moving_to_destination
 	_movement_dingle.translation = _navigation_agent.get_target_location()
 	# warning-ignore:unsafe_property_access
-	_movement_dingle.visible = get_parent().moving_to_destination
+	_movement_dingle.visible = _character.moving_to_destination
 "
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -259,86 +251,46 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource( 3 )
 
-[node name="Occupation" type="Node" parent="."]
-pause_mode = 2
-script = ExtResource( 40 )
-_character_controller_node = NodePath("../CharacterController")
-_interaction_area_node = NodePath("../InteractionArea")
-_inventory_node = NodePath("../Inventory")
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 1 )
 
-[node name="OccupationList" type="Node" parent="Occupation"]
-script = ExtResource( 20 )
+[node name="GroundCheck" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.2, 0 )
+collision_mask = 3
 
-[node name="InteractionArea" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 200
-input_ray_pickable = false
-script = ExtResource( 2 )
-
-[node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 7 )
-
-[node name="CharacterController" type="Node" parent="."]
-script = ExtResource( 18 )
-_hurt_box_node = NodePath("../HurtBox")
-_inventory_node = NodePath("../Inventory")
-_animation_tree_node = NodePath("../AnimationTree")
-
-[node name="Protocol" type="Node" parent="CharacterController"]
-script = ExtResource( 21 )
-
-[node name="HasCurrentInteraction" type="Node" parent="CharacterController/Protocol"]
-script = ExtResource( 31 )
-
-[node name="SelectorComposite" type="Node" parent="CharacterController/Protocol"]
-script = ExtResource( 20 )
-
-[node name="SequenceComposite" type="Node" parent="CharacterController/Protocol/SelectorComposite"]
-script = ExtResource( 21 )
-
-[node name="CurrentTargetInRange" type="Node" parent="CharacterController/Protocol/SelectorComposite/SequenceComposite"]
-script = ExtResource( 28 )
-
-[node name="Interact" type="Node" parent="CharacterController/Protocol/SelectorComposite/SequenceComposite"]
-script = ExtResource( 29 )
-
-[node name="Approach" type="Node" parent="CharacterController/Protocol/SelectorComposite"]
-script = ExtResource( 35 )
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource( 5 )
-_inventory_attributes = ExtResource( 19 )
-
-[node name="HurtBox" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 200
-script = ExtResource( 15 )
-
-[node name="CollisionShape" type="CollisionShape" parent="HurtBox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
-shape = SubResource( 9 )
+[node name="NavigationAgent" type="NavigationAgent" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 1.0
+avoidance_enabled = true
+radius = 0.5
+neighbor_dist = 16.0
+time_horizon = 2.0
+max_speed = 100.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 13 )
 entry_state = NodePath("Idle")
 _transitions = [ SubResource( 12 ), SubResource( 16 ), SubResource( 20 ), SubResource( 22 ), SubResource( 24 ), SubResource( 26 ), SubResource( 29 ), SubResource( 63 ) ]
 _graph_offsets = {
-"EntryPoint": Vector2( -739.214, 426.862 ),
+"EntryPoint": Vector2( -559.214, 532.862 ),
 "Zoom": 0.482253,
-"res://characters/_character.tscn::12": Vector2( -306.314, 771.792 ),
-"res://characters/_character.tscn::16": Vector2( 169.472, 338.806 ),
-"res://characters/_character.tscn::20": Vector2( 889.472, 298.806 ),
-"res://characters/_character.tscn::22": Vector2( 1929.47, 558.806 ),
-"res://characters/_character.tscn::24": Vector2( 789.472, 578.806 ),
-"res://characters/_character.tscn::26": Vector2( 200, 608 ),
-"res://characters/_character.tscn::29": Vector2( 900, 748 ),
-"res://characters/_character.tscn::63": Vector2( 260, 928 ),
-NodePath("PerformAction"): Vector2( 580, 728 ),
-NodePath("JumpDescending"): Vector2( 1500, 428 ),
-NodePath("JumpAscending"): Vector2( 609.472, 318.806 ),
-NodePath("Walk"): Vector2( 0, 768 ),
-NodePath("Idle"): Vector2( -189.145, 452.438 )
+"res://characters/_character.tscn::12": Vector2( -126.314, 877.792 ),
+"res://characters/_character.tscn::16": Vector2( 349.472, 444.806 ),
+"res://characters/_character.tscn::20": Vector2( 1069.47, 404.806 ),
+"res://characters/_character.tscn::22": Vector2( 2109.47, 664.806 ),
+"res://characters/_character.tscn::24": Vector2( 969.472, 684.806 ),
+"res://characters/_character.tscn::26": Vector2( 380, 714 ),
+"res://characters/_character.tscn::29": Vector2( 1080, 854 ),
+"res://characters/_character.tscn::63": Vector2( 463, 1025 ),
+NodePath("PerformAction"): Vector2( 760, 826 ),
+NodePath("JumpDescending"): Vector2( 1680, 534 ),
+NodePath("JumpAscending"): Vector2( 789.472, 424.806 ),
+NodePath("Walk"): Vector2( 180, 874 ),
+NodePath("Idle"): Vector2( -9.145, 558.438 )
 }
 
 [node name="Idle" type="Node" parent="StateMachine"]
@@ -346,7 +298,6 @@ script = ExtResource( 14 )
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource( 12 )
-_animation_tree_node = NodePath("../../AnimationTree")
 
 [node name="JumpAscending" type="Node" parent="StateMachine"]
 script = ExtResource( 16 )
@@ -358,8 +309,38 @@ _animation_tree_node = NodePath("../../AnimationTree")
 
 [node name="PerformAction" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
-_character_controller_node = NodePath("../../CharacterController")
 _animation_tree_node = NodePath("../../AnimationTree")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 5 )
+_inventory_attributes = ExtResource( 19 )
+
+[node name="InteractionArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 200
+input_ray_pickable = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractionArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 7 )
+
+[node name="HurtBox" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 200
+script = ExtResource( 15 )
+
+[node name="CollisionShape" type="CollisionShape" parent="HurtBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5 )
+shape = SubResource( 9 )
+
+[node name="Occupation" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 40 )
+_interaction_area_node = NodePath("../InteractionArea")
+
+[node name="OccupationList" type="Node" parent="Occupation"]
+script = ExtResource( 20 )
 
 [node name="ExplorationArea" type="Area" parent="."]
 collision_layer = 0
@@ -378,27 +359,7 @@ collide_with_areas = true
 [node name="Controller" type="Node" parent="." groups=["PersistData"]]
 script = ExtResource( 8 )
 
-[node name="NavigationAgent" type="NavigationAgent" parent="."]
-path_desired_distance = 0.5
-target_desired_distance = 0.5
-path_max_distance = 1.0
-avoidance_enabled = true
-radius = 0.5
-neighbor_dist = 16.0
-time_horizon = 2.0
-max_speed = 100.0
-
 [node name="AnimationTree" type="AnimationTree" parent="."]
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
-shape = SubResource( 1 )
-
-[node name="GroundCheck" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
-enabled = true
-cast_to = Vector3( 0, -0.2, 0 )
-collision_mask = 3
 
 [node name="FootstepSounds" type="Spatial" parent="."]
 script = ExtResource( 9 )

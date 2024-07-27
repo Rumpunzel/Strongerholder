@@ -4,7 +4,7 @@ extends RadialMenu
 export(PackedScene) var _item_scene: PackedScene = null    
 export(Resource) var _game_pause_requested_channel
 
-var _character_controller: CharacterController
+var _character: CharacterController
 var _inventory: Inventory
 var _items := [ ]
 
@@ -21,11 +21,11 @@ func _exit_tree() -> void:
 	_free_items()
 
 
-func _initialize_items(new_character_controller: CharacterController, new_inventory: Inventory) -> void:
+func _initialize_items(new_character: CharacterController) -> void:
 	_free_items()
 	
-	_character_controller = new_character_controller
-	_inventory = new_inventory
+	_character = new_character
+	_inventory = _character.inventory
 	
 	for _i in _inventory.size():
 		var new_item: InventoryHUDItem = _item_scene.instance()
@@ -38,12 +38,12 @@ func _free_items() -> void:
 	_items.clear()
 
 
-func _on_toggled(new_character_controller: CharacterController, new_inventory: Inventory) -> void:
-	if not _inventory == new_inventory:
-		_initialize_items(new_character_controller, new_inventory)
+func _on_toggled(new_character: CharacterController) -> void:
+	if not _character == new_character:
+		_initialize_items(new_character)
 
-func _on_inventory_stacks_updated(new_character_controller: CharacterController, new_inventory: Inventory) -> void:
-	if not _inventory == new_inventory:
-		_initialize_items(new_character_controller, new_inventory)
+func _on_inventory_stacks_updated(new_character: CharacterController) -> void:
+	if not _character == new_character:
+		_initialize_items(new_character)
 	
 	update()

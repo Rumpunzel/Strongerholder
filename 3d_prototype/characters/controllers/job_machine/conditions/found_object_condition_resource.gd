@@ -16,7 +16,7 @@ func create_condition() -> StateCondition:
 class FoundObjectCondition extends StateCondition:
 	enum ActionType { GATHERS, GATHERS_SOURCE, DELIVERS }
 	
-	var _character: Character
+	var _character: CharacterController
 	
 	var _spotted_items: SpottedItems
 	var _character_controller: CharacterController

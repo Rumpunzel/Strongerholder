@@ -10,7 +10,7 @@ var _inventory: Inventory setget _set_inventory
 
 
 func on_update(blackboard: OccupationBlackboard) -> int:
-	_set_inventory(blackboard.inventory)
+	_set_inventory(blackboard.character.inventory)
 	return Status.SUCCESS
 
 

@@ -4,9 +4,13 @@ extends Area
 var objects_in_area := [ ]
 
 func _enter_tree() -> void:
+	# warning-ignore:return_value_discarded
 	connect("area_entered", self, "_on_object_entered")
+	# warning-ignore:return_value_discarded
 	connect("area_exited", self, "_on_object_exited")
+	# warning-ignore:return_value_discarded
 	connect("body_entered", self, "_on_object_entered")
+	# warning-ignore:return_value_discarded
 	connect("body_exited", self, "_on_object_exited")
 
 func _on_object_entered(object: Node) -> void:

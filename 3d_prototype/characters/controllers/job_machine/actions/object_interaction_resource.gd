@@ -55,7 +55,7 @@ class ObjectInteraction extends StateAction:
 #					_interaction_item = state_machine.current_job.gathers
 		
 		
-		var character: Character = state_machine.owner
+		var character: CharacterController = state_machine.owner
 		_inventory = Utils.find_node_of_type_in_children(state_machine.owner, Inventory)
 		_interaction_area = Utils.find_node_of_type_in_children(character, CharacterController)
 		

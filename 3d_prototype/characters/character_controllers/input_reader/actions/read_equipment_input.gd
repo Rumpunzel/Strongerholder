@@ -5,7 +5,7 @@ export(Resource) var _equipment_hud_toggled_channel
 func on_update(blackboard: OccupationBlackboard) -> int:
 	if Input.is_action_just_released("open_equipment_menu"):
 		# warning-ignore-all:unsafe_property_access
-		_equipment_hud_toggled_channel.raise(blackboard.inventory)
+		_equipment_hud_toggled_channel.raise(blackboard.character)
 		return Status.SUCCESS
 	
 	return Status.FAILURE

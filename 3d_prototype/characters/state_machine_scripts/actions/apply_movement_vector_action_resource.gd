@@ -6,7 +6,7 @@ func _create_action() -> StateAction:
 
 
 class ApplyMovementVectorAction extends StateAction:
-	var _character: Character
+	var _character: CharacterController
 	var _navigation_agent: NavigationAgent
 	var _actions: CharacterMovementActions
 	var _movement_stats: CharacterMovementStatsResource

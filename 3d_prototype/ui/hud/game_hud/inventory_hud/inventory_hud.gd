@@ -33,8 +33,8 @@ func _exit_tree() -> void:
 	_inventory_updated_channel.disconnect("raised", self, "_update_items")
 
 
-func _initialize_items(new_character_controller: CharacterController, new_inventory: Inventory) -> void:
-	._initialize_items(new_character_controller, new_inventory)
+func _initialize_items(new_character: CharacterController) -> void:
+	._initialize_items(new_character)
 	
 	for item in _items:
 		for mode in SubMenuModes.values():
@@ -59,8 +59,8 @@ func _initialize_items(new_character_controller: CharacterController, new_invent
 	_set_items(_items)
 
 
-func _on_toggled(new_character_controller: CharacterController, new_inventory: Inventory) -> void:
-	._on_toggled(new_character_controller, new_inventory)
+func _on_toggled(new_character: CharacterController) -> void:
+	._on_toggled(new_character)
 	
 	_update_items()
 	
@@ -82,7 +82,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 		hud_item.item_stack = stack
 		
 		if stack.item:
-			var equipped := _character_controller.has_equipped(stack)
+			var equipped := _character.has_equipped(stack)
 			hud_item.disabled = false
 			hud_item.equipped = equipped
 			hud_item.set_submenu_items(_active_submenus(stack.item, equipped))
@@ -100,10 +100,10 @@ func _on_item_selected(inventory_item: InventoryHUDItem, submenu_item: Inventory
 			SubMenuModes.USE:
 				_use_item_from_stack(stack)
 			SubMenuModes.EQUIP:
-				_character_controller.equip_item_stack(stack)
+				_character.equip_item_stack(stack)
 			SubMenuModes.UNEQUIP:
 				# warning-ignore:return_value_discarded
-				_character_controller.unequip()
+				_character.unequip()
 			SubMenuModes.DROP:
 				_drop_item_from_stack(stack)
 	else:
@@ -130,9 +130,9 @@ func _use_item_from_stack(stack: Inventory.ItemStack) -> void:
 
 
 func _drop_item_from_stack(stack: Inventory.ItemStack) -> void:
-	if _character_controller.has_equipped(stack):
+	if _character.has_equipped(stack):
 		# warning-ignore:return_value_discarded
-		_character_controller.unequip()
+		_character.unequip()
 	
 	var items_left_in_stack := _inventory.drop_item_from_stack(stack)
 	if items_left_in_stack <= 0:

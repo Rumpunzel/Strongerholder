@@ -11,7 +11,7 @@ func _create_action() -> StateAction:
 
 
 class ReadBuildAction extends StateAction:
-	var _character: Character
+	var _character: CharacterController
 	
 	func awake(state_machine: Node) -> void:
 		_character = state_machine.owner

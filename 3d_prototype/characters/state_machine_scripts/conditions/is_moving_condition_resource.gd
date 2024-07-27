@@ -9,7 +9,7 @@ func create_condition() -> StateCondition:
 
 
 class IsMovingCondition extends StateCondition:
-	var _character: Character
+	var _character: CharacterController
 	
 	var _threshold: float
 	var _override_speed_threshold: float

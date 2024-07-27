@@ -22,8 +22,8 @@ func _exit_tree() -> void:
 	_equipment_updated_channel.disconnect("raised", self, "_update_items")
 
 
-func _on_toggled(new_character_controller: CharacterController, new_inventory: Inventory) -> void:
-	._on_toggled(new_character_controller, new_inventory)
+func _on_toggled(new_character: CharacterController) -> void:
+	._on_toggled(new_character)
 	
 	_update_items()
 	
@@ -51,7 +51,7 @@ func _update_items(_new_item: ItemResource = null) -> void:
 		hud_item.item_stack = stack
 		
 		if stack.item:
-			var equipped := _character_controller.has_equipped(stack)
+			var equipped := _character.has_equipped(stack)
 			hud_item.disabled = false
 			hud_item.equipped = equipped
 			
@@ -63,10 +63,10 @@ func _update_items(_new_item: ItemResource = null) -> void:
 
 
 func _on_item_selected(inventory_item: InventoryHUDItem, _submenu_item: InventoryHUDItem) -> void:
-	if _character_controller.has_equipped(inventory_item.item_stack):
+	if _character.has_equipped(inventory_item.item_stack):
 		# warning-ignore:return_value_discarded
-		_character_controller.unequip()
+		_character.unequip()
 	else:
-		_character_controller.equip_item_stack(inventory_item.item_stack)
+		_character.equip_item_stack(inventory_item.item_stack)
 	
 	close_menu()

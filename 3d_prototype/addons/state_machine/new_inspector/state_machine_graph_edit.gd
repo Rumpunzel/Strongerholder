@@ -128,6 +128,15 @@ func _cleanup() -> void:
 
 func _check_validity() -> void:
 	$EntryPoint.self_modulate = Color.coral if state_machine.entry_state else Color.crimson
+	
+	for transiton in state_machine._transitions:
+		if not state_machine.has_node(transiton.to_state):
+			state_machine._transitions.erase(transiton)
+			continue
+		for state in transiton.from_states:
+			if not state_machine.has_node(state):
+				transiton.from_states.erase(state)
+	
 	var problems: Array = state_machine._verify_table()
 	for child in get_children():
 		if child is StateGraphNode:
@@ -297,6 +306,8 @@ func _on_node_moved() -> void:
 			state_machine._graph_offsets[child.state_node_path] = child.offset - scroll_offset
 		elif child is TransitionItemGraphNode:
 			state_machine._graph_offsets[child.transition_item_resource.resource_path] = child.offset - scroll_offset
+	
+	_check_validity()
 
 
 func _on_node_selected(graph_node: CustomGraphNode) -> void:

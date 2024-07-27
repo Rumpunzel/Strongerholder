@@ -1,7 +1,6 @@
 extends ConditionLeaf
 
 func on_update(blackboard: OccupationBlackboard) -> int:
-	if blackboard.character.has_something_equipped():
+	if Input.is_action_pressed("smart_interact"):
 		return Status.SUCCESS
-	
 	return Status.FAILURE

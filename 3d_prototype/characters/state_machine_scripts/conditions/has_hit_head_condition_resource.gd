@@ -6,7 +6,7 @@ func create_condition() -> StateCondition:
 
 
 class HasHitHeadCondition extends StateCondition:
-	var _character: Character
+	var _character: CharacterController
 	
 	
 	func awake(state_machine: Node) -> void:

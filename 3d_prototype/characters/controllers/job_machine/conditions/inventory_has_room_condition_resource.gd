@@ -34,7 +34,7 @@ class InventoryHasRoomCondition extends StateCondition:
 					# warning-ignore:unsafe_property_access
 					_item_resource = state_machine.current_job.delivers
 		
-		var character: Character = state_machine.owner
+		var character: CharacterController = state_machine.owner
 		_inventory = Utils.find_node_of_type_in_children(character, Inventory)
 	
 	

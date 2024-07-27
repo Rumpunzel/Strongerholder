@@ -25,7 +25,7 @@ class HorizontalMoveAction extends StateAction:
 	
 	
 	func awake(state_machine: Node) -> void:
-		var character: Character = state_machine.owner
+		var character: CharacterController = state_machine.owner
 		_navigation_agent = character.get_navigation_agent()
 		_inputs = Utils.find_node_of_type_in_children(character, CharacterMovementInputs, true)
 		_actions = Utils.find_node_of_type_in_children(character, CharacterMovementActions, true)

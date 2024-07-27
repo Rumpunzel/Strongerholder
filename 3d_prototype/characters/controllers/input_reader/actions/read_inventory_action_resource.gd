@@ -22,7 +22,7 @@ func _create_action() -> StateAction:
 
 
 class ReadInventoryAction extends StateAction:
-	var _character: Character
+	var _character: CharacterController
 	var _inventory: CharacterInventory
 	
 	

@@ -6,7 +6,7 @@ func _create_action() -> StateAction:
 
 
 class ReadMovementAction extends StateAction:
-	var _character: Character
+	var _character: CharacterController
 	
 	
 	func awake(state_machine: Node) -> void:

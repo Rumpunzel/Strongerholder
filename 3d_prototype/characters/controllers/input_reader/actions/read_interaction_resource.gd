@@ -10,7 +10,7 @@ func _create_action() -> StateAction:
 class ReadInteraction extends StateAction:
 	enum InteractionState { STARTED, CANCELLED, COMPLETED }
 	
-	var _character: Character
+	var _character: CharacterController
 	var _inventory: CharacterInventory
 	var _interaction_area: CharacterController
 	

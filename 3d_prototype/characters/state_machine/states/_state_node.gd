@@ -4,7 +4,7 @@ extends Node
 var transitions: Array
 
 # warning-ignore:unused_class_variable
-onready var _character: Character = owner
+onready var _character: CharacterController = owner
 
 
 func on_state_enter() -> void:

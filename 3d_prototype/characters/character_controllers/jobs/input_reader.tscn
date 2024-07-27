@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://behavior_tree/decorators/limiter_decorator.gd" type="Script" id=1]
 [ext_resource path="res://characters/character_controllers/input_reader/conditions/is_input_unhandled.gd" type="Script" id=2]
@@ -33,6 +33,9 @@
 [ext_resource path="res://event_system/resources/player/player_interaction_channel.tres" type="Resource" id=31]
 [ext_resource path="res://event_system/resources/hud/equipment_hud_toggled_channel.tres" type="Resource" id=32]
 [ext_resource path="res://characters/character_controllers/input_reader/conditions/is_attacking.gd" type="Script" id=33]
+[ext_resource path="res://characters/character_controllers/input_reader/conditions/is_smart_interacting.gd" type="Script" id=34]
+[ext_resource path="res://characters/character_controllers/input_reader/conditions/is_interacting.gd" type="Script" id=35]
+[ext_resource path="res://characters/character_controllers/input_reader/actions/interaction.gd" type="Script" id=36]
 
 [node name="InputReader" type="Node"]
 script = ExtResource( 19 )
@@ -111,10 +114,10 @@ script = ExtResource( 13 )
 [node name="IsMovingToDestination" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource/ReadMouseMovement"]
 script = ExtResource( 4 )
 
-[node name="ReadMouseMovementInput" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource/ReadMouseMovement"]
+[node name="MoveToMouse" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource/ReadMouseMovement"]
 script = ExtResource( 11 )
 
-[node name="ReadMovementInput" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource"]
+[node name="Move" type="Node" parent="HandleInput/ReadInput/ReadMovement/DetermineMovementInputSource"]
 script = ExtResource( 14 )
 _input_deadzone_squated = null
 
@@ -125,8 +128,45 @@ script = ExtResource( 13 )
 script = ExtResource( 25 )
 _player_interaction_channel = ExtResource( 31 )
 
-[node name="ReadSmartInteractionInput" type="Node" parent="HandleInput/ReadInput/HandleInteraction"]
+[node name="IsSmartInteracting" type="Node" parent="HandleInput/ReadInput/HandleInteraction"]
+script = ExtResource( 34 )
+
+[node name="ReadSmartInteraction" type="Node" parent="HandleInput/ReadInput/HandleInteraction"]
 script = ExtResource( 12 )
+
+[node name="DetermineInteraction" type="Node" parent="HandleInput/ReadInput/HandleInteraction"]
+script = ExtResource( 19 )
+
+[node name="AttackAction" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction"]
+script = ExtResource( 13 )
+
+[node name="IsAttacking" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction/AttackAction"]
+script = ExtResource( 35 )
+
+[node name="Attack" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction/AttackAction"]
+script = ExtResource( 36 )
+
+[node name="OperateAction" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction"]
+script = ExtResource( 13 )
+
+[node name="IsOperating" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction/OperateAction"]
+script = ExtResource( 35 )
+_interaction_type = 1
+
+[node name="Operate" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction/OperateAction"]
+script = ExtResource( 36 )
+_interaction_type = 1
+
+[node name="PickUpAction" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction"]
+script = ExtResource( 13 )
+
+[node name="IsPickingUp" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction/PickUpAction"]
+script = ExtResource( 35 )
+_interaction_type = 2
+
+[node name="PickUp" type="Node" parent="HandleInput/ReadInput/HandleInteraction/DetermineInteraction/PickUpAction"]
+script = ExtResource( 36 )
+_interaction_type = 2
 
 [node name="ResetInputs" type="Node" parent="HandleInput/ReadInput"]
 script = ExtResource( 17 )

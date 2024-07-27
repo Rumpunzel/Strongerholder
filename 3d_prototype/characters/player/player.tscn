@@ -9,6 +9,7 @@
 
 [node name="Player" instance=ExtResource( 1 )]
 movement_stats = ExtResource( 8 )
+_hand_position = NodePath("Wizard/CharacterArmature/Skeleton/HandPosition")
 
 [node name="StateMachine" parent="." index="3"]
 _graph_offsets = {
@@ -29,13 +30,12 @@ NodePath("Walk"): Vector2( 497.06, 225.329 ),
 NodePath("Idle"): Vector2( 154.229, -74.0253 )
 }
 
-[node name="Inventory" parent="." index="5"]
+[node name="Inventory" parent="." index="4"]
 _inventory_attributes = ExtResource( 5 )
-_hand_position = NodePath("../Wizard/CharacterArmature/Skeleton/HandPosition")
 
 [node name="InputReader" parent="Occupation/OccupationList" index="0" instance=ExtResource( 4 )]
 
-[node name="AnimationTree" parent="." index="11"]
+[node name="AnimationTree" parent="." index="10"]
 tree_root = ExtResource( 3 )
 anim_player = NodePath("../Wizard/AnimationPlayer")
 active = true
