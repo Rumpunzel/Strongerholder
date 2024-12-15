@@ -6,7 +6,7 @@ func _create_action() -> StateAction:
 
 
 class ReadJumpAction extends StateAction:
-	var _character: Character
+	var _character: CharacterController
 	var _inputs: CharacterMovementInputs
 	
 	

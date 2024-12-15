@@ -1,15 +1,12 @@
 class_name ItemHUDBASE
 extends RadialMenu
 
-
 export(PackedScene) var _item_scene: PackedScene = null    
-
 export(Resource) var _game_pause_requested_channel
-		
 
-var _inventory: CharacterInventory
+var _character: CharacterController
+var _inventory: Inventory
 var _items := [ ]
-
 
 
 func _enter_tree() -> void:
@@ -24,31 +21,29 @@ func _exit_tree() -> void:
 	_free_items()
 
 
-
-func _on_toggled(new_inventory: CharacterInventory) -> void:
-	if not _inventory == new_inventory:
-		_initialize_items(new_inventory)
-
-
-func _on_inventory_stacks_updated(new_inventory: CharacterInventory) -> void:
-	if not _inventory == new_inventory:
-		_initialize_items(new_inventory)
-	
-	update()
-
-
-func _initialize_items(new_inventory: CharacterInventory) -> void:
+func _initialize_items(new_character: CharacterController) -> void:
 	_free_items()
 	
-	_inventory = new_inventory
+	_character = new_character
+	_inventory = _character.inventory
 	
 	for _i in _inventory.size():
 		var new_item: InventoryHUDItem = _item_scene.instance()
 		new_item.item_stack = null
 		_items.append(new_item)
 
-
 func _free_items() -> void:
 	for item in _items:
 		item.queue_free()
 	_items.clear()
+
+
+func _on_toggled(new_character: CharacterController) -> void:
+	if not _character == new_character:
+		_initialize_items(new_character)
+
+func _on_inventory_stacks_updated(new_character: CharacterController) -> void:
+	if not _character == new_character:
+		_initialize_items(new_character)
+	
+	update()

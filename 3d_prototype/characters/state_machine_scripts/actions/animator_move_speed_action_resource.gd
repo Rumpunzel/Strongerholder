@@ -8,7 +8,7 @@ func _create_action() -> StateAction:
 
 
 class AnimatorMoveSpeedAction extends StateAction:
-	var _character: Character
+	var _character: CharacterController
 	var _movement_stats: CharacterMovementStatsResource
 	var _animation_tree: AnimationTree
 	var _parameter_name: String

@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://prototype_assets/gui/fonts/default_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://behavior_tree/decorators/runner_decorator.gd" type="Script" id=17]
+[ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=19]
+[ext_resource path="res://behavior_tree/leaves/_action_leaf.gd" type="Script" id=23]
+[ext_resource path="res://characters/character_controllers/occupation.gd" type="Script" id=24]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label3D
+
+func _process(_delta: float) -> void:
+	var blackboard: Occupation.OccupationBlackboard = owner.blackboard
+	translation = blackboard.character.translation
+	# warning-ignore:unsafe_property_access
+	var running_action: ActionLeaf = blackboard.running_action
+	if running_action:
+		text = running_action.name
+	else:
+		text = \"NO OCCUPATION\"
+"
+
+[node name="Occupation" type="Node"]
+script = ExtResource( 24 )
+
+[node name="OccupationList" type="Node" parent="."]
+script = ExtResource( 19 )
+
+[node name="AlwaysRunnerDecorator" type="Node" parent="OccupationList"]
+script = ExtResource( 17 )
+
+[node name="Idle" type="Node" parent="OccupationList/AlwaysRunnerDecorator"]
+script = ExtResource( 23 )
+
+[node name="CurrentOccupation" type="Label3D" parent="."]
+pause_mode = 2
+cast_shadow = 0
+pixel_size = 0.0005
+offset = Vector2( 0, 75 )
+billboard = 1
+no_depth_test = true
+fixed_size = true
+font = ExtResource( 1 )
+script = SubResource( 1 )

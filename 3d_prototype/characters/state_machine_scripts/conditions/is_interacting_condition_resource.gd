@@ -1,30 +1,20 @@
 class_name IsInteractingConditionResource
 extends StateConditionResource
 
-export(InteractionArea.InteractionType) var _interaction_type
-
 func create_condition() -> StateCondition:
-	return IsInteractingCondition.new(_interaction_type)
+	return IsInteractingCondition.new()
 
 
 class IsInteractingCondition extends StateCondition:
-	var _interaction_area: InteractionArea
-	
-	var _interaction_type: int
-	
-	
-	func _init(interaction_type: int) -> void:
-		_interaction_type = interaction_type
-	
+	var _character: CharacterController
 	
 	func awake(state_machine: Node):
-		var character: Character = state_machine.owner
-		_interaction_area = Utils.find_node_of_type_in_children(character, InteractionArea)
-	
+		_character = state_machine.owner
 	
 	func _statement() -> bool:
-		if not _interaction_area.current_interaction or _interaction_area.current_interaction.type != _interaction_type:
+		var current_interaction: CharacterController.Target = _character.current_interaction
+		if not current_interaction:
 			return false
 		
-		_interaction_area.current_interaction.type = InteractionArea.InteractionType.NONE
+		_character.current_interaction = CharacterController.Target.new(current_interaction.node)
 		return true

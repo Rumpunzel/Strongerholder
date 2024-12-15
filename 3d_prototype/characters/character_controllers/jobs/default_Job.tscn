@@ -1,0 +1,119 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://behavior_tree/leaves/_action_leaf.gd" type="Script" id=1]
+[ext_resource path="res://characters/character_controllers/jobs/actions/work_interaction.gd" type="Script" id=2]
+[ext_resource path="res://behavior_tree/decorators/inverter_decorator.gd" type="Script" id=3]
+[ext_resource path="res://behavior_tree/composites/sequence.gd" type="Script" id=4]
+[ext_resource path="res://behavior_tree/composites/selector.gd" type="Script" id=5]
+[ext_resource path="res://characters/character_controllers/jobs/conditions/work_operable.gd" type="Script" id=6]
+[ext_resource path="res://characters/character_controllers/jobs/conditions/work_potentially_operable.gd" type="Script" id=7]
+[ext_resource path="res://characters/character_controllers/jobs/conditions/work_has_product.gd" type="Script" id=8]
+[ext_resource path="res://characters/character_controllers/jobs/conditions/found_object.gd" type="Script" id=9]
+[ext_resource path="res://characters/character_controllers/jobs/conditions/inventory_has_item.gd" type="Script" id=10]
+[ext_resource path="res://characters/character_controllers/jobs/conditions/inventory_has_room_for_item.gd" type="Script" id=11]
+
+[node name="DefaultJob" type="Node"]
+script = ExtResource( 5 )
+
+[node name="Operator" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="WorkOperable" type="Node" parent="Operator"]
+script = ExtResource( 6 )
+
+[node name="OperateWork" type="Node" parent="Operator"]
+script = ExtResource( 2 )
+
+[node name="Deliverer" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="CollectFromWork" type="Node" parent="Deliverer"]
+script = ExtResource( 4 )
+
+[node name="WorkHasProduct" type="Node" parent="Deliverer/CollectFromWork"]
+script = ExtResource( 8 )
+
+[node name="InventoryHasRoomForProduct" type="Node" parent="Deliverer/CollectFromWork"]
+script = ExtResource( 11 )
+_action_type = 1
+
+[node name="CollectProduct" type="Node" parent="Deliverer/CollectFromWork"]
+script = ExtResource( 1 )
+
+[node name="DeliverToStockpile" type="Node" parent="Deliverer"]
+script = ExtResource( 4 )
+
+[node name="InventoryHasProduct" type="Node" parent="Deliverer/DeliverToStockpile"]
+script = ExtResource( 10 )
+_action_type = 1
+
+[node name="DeliverProduct" type="Node" parent="Deliverer/DeliverToStockpile"]
+script = ExtResource( 1 )
+
+[node name="Gatherer" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Retriever" type="Node" parent="Gatherer"]
+script = ExtResource( 4 )
+
+[node name="InventoryHasResource" type="Node" parent="Gatherer/Retriever"]
+script = ExtResource( 10 )
+
+[node name="ForagedEnough" type="Node" parent="Gatherer/Retriever"]
+script = ExtResource( 5 )
+
+[node name="InventoryFull" type="Node" parent="Gatherer/Retriever/ForagedEnough"]
+script = ExtResource( 3 )
+
+[node name="InventoryHasRoomForResource" type="Node" parent="Gatherer/Retriever/ForagedEnough/InventoryFull"]
+script = ExtResource( 11 )
+
+[node name="WorkPotentiallyOperable" type="Node" parent="Gatherer/Retriever/ForagedEnough"]
+script = ExtResource( 7 )
+
+[node name="DeliverResource" type="Node" parent="Gatherer/Retriever"]
+script = ExtResource( 1 )
+
+[node name="Collector" type="Node" parent="Gatherer"]
+script = ExtResource( 4 )
+
+[node name="InventoryHasRoomForResource" type="Node" parent="Gatherer/Collector"]
+script = ExtResource( 11 )
+
+[node name="Forager" type="Node" parent="Gatherer/Collector"]
+script = ExtResource( 5 )
+
+[node name="ForageResource" type="Node" parent="Gatherer/Collector/Forager"]
+script = ExtResource( 4 )
+
+[node name="SearchForResource" type="Node" parent="Gatherer/Collector/Forager/ForageResource"]
+script = ExtResource( 5 )
+
+[node name="ForageLocalResource" type="Node" parent="Gatherer/Collector/Forager/ForageResource/SearchForResource"]
+script = ExtResource( 4 )
+
+[node name="FoundLocalResource" type="Node" parent="Gatherer/Collector/Forager/ForageResource/SearchForResource/ForageLocalResource"]
+script = ExtResource( 9 )
+_use_spotted_items = false
+
+[node name="GatherLocalResource" type="Node" parent="Gatherer/Collector/Forager/ForageResource/SearchForResource/ForageLocalResource"]
+script = ExtResource( 1 )
+
+[node name="ForageSightedResource" type="Node" parent="Gatherer/Collector/Forager/ForageResource/SearchForResource"]
+script = ExtResource( 4 )
+
+[node name="FoundSightedResource" type="Node" parent="Gatherer/Collector/Forager/ForageResource/SearchForResource/ForageSightedResource"]
+script = ExtResource( 9 )
+
+[node name="ForageSightedResource" type="Node" parent="Gatherer/Collector/Forager/ForageResource/SearchForResource/ForageSightedResource"]
+script = ExtResource( 1 )
+
+[node name="Miner" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="FoundResourceSource" type="Node" parent="Miner"]
+script = ExtResource( 9 )
+_action_type = 1
+
+[node name="MineResource" type="Node" parent="Miner"]
+script = ExtResource( 1 )

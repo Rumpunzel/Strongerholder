@@ -1,0 +1,173 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://addons/state_machine/new_inspector/state_machine_graph_edit.gd" type="Script" id=1]
+[ext_resource path="res://addons/state_machine/icons/icon_fall_down_16.png" type="Texture" id=2]
+[ext_resource path="res://addons/state_machine/new_inspector/graph_node.gd" type="Script" id=3]
+[ext_resource path="res://addons/state_machine/icons/icon_vertical_flip.png" type="Texture" id=5]
+[ext_resource path="res://addons/state_machine/icons/icon_broom_16.png" type="Texture" id=7]
+[ext_resource path="res://addons/state_machine/icons/icon_position_marker_16.png" type="Texture" id=8]
+
+[node name="StateMachineGraphEdit" type="GraphEdit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 800, 800 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+right_disconnects = true
+show_zoom_label = true
+script = ExtResource( 1 )
+
+[node name="EntryPoint" type="GraphNode" parent="."]
+self_modulate = Color( 1, 0.498039, 0.313726, 1 )
+margin_right = 116.0
+margin_bottom = 64.0
+mouse_filter = 1
+title = "ENTRY POINT"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 0.498039, 0.313726, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 3 )
+entry_node = true
+
+[node name="Node" type="Label" parent="EntryPoint"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 100.0
+margin_bottom = 38.0
+
+[node name="HSeparator" type="HSeparator" parent="EntryPoint"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 100.0
+margin_bottom = 43.0
+
+[node name="Path" type="Label" parent="EntryPoint"]
+margin_left = 16.0
+margin_top = 44.0
+margin_right = 100.0
+margin_bottom = 58.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 10
+custom_constants/margin_top = 50
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 10.0
+margin_top = 50.0
+margin_right = 194.0
+margin_bottom = 162.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="AddTransition" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_right = 184.0
+margin_bottom = 22.0
+custom_constants/hseparation = 8
+text = "Add Transition"
+icon = ExtResource( 2 )
+align = 0
+
+[node name="Highlighting" type="CheckButton" parent="MarginContainer/VBoxContainer"]
+margin_top = 26.0
+margin_right = 184.0
+margin_bottom = 66.0
+custom_constants/hseparation = 8
+text = "Highlighting"
+icon = ExtResource( 8 )
+
+[node name="Cleanup" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 70.0
+margin_right = 184.0
+margin_bottom = 92.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 8
+text = "Cleanup"
+icon = ExtResource( 7 )
+flat = true
+align = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 96.0
+margin_right = 184.0
+margin_bottom = 112.0
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 2.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 2, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 6.0
+margin_right = 26.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 20, 0 )
+texture = ExtResource( 5 )
+stretch_mode = 6
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 30.0
+margin_right = 184.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = 400.0
+max_value = 1100.0
+step = 100.0
+value = 700.0
+tick_count = 8
+ticks_on_borders = true
+
+[node name="Node" type="Node" parent="."]
+
+[node name="ConditionFileDialog" type="FileDialog" parent="Node"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+window_title = "Open File(s)"
+resizable = true
+dialog_text = "Select one or more Conditions to construct a new Transition."
+dialog_hide_on_ok = true
+dialog_autowrap = true
+mode = 1
+filters = PoolStringArray( "*.tres" )
+
+[node name="ConditionAcceptDialog" type="AcceptDialog" parent="Node"]
+margin_right = 83.0
+margin_bottom = 58.0
+
+[connection signal="_end_node_move" from="." to="." method="_on_node_moved"]
+[connection signal="connection_request" from="." to="." method="_on_connection_request"]
+[connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]
+[connection signal="node_selected" from="." to="." method="_on_node_selected"]
+[connection signal="node_unselected" from="." to="." method="_on_node_unselected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddTransition" to="Node/ConditionFileDialog" method="popup_centered"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/Highlighting" to="." method="_set_highlighting_enabled"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Cleanup" to="." method="_cleanup"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HBoxContainer/HSlider" to="." method="_on_window_height_changed"]
+[connection signal="file_selected" from="Node/ConditionFileDialog" to="." method="_on_condition_file_selected"]
+[connection signal="files_selected" from="Node/ConditionFileDialog" to="." method="_on_condition_files_selected"]
+[connection signal="confirmed" from="Node/ConditionAcceptDialog" to="Node/ConditionFileDialog" method="popup_centered"]

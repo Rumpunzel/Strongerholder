@@ -50,11 +50,11 @@ func get_adjusted_movement(input_vector: Vector2) -> Vector3:
 
 
 
-func _on_player_registered(player_node: Character) -> void:
+func _on_player_registered(player_node: CharacterController) -> void:
 	assert(player_node)
 	follow_node = player_node
 
-func _on_player_unregistered(player_node: Character) -> void:
+func _on_player_unregistered(player_node: CharacterController) -> void:
 	if follow_node == player_node:
 		follow_node = null
 

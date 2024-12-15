@@ -13,7 +13,7 @@ func create_condition() -> StateCondition:
 class InventoryHasRoomCondition extends StateCondition:
 	enum ActionType { GATHERS, DELIVERS }
 	
-	var _inventory: CharacterInventory
+	var _inventory: Inventory
 	var _action_type: int
 	var _item_resource: ItemResource
 	
@@ -34,8 +34,8 @@ class InventoryHasRoomCondition extends StateCondition:
 					# warning-ignore:unsafe_property_access
 					_item_resource = state_machine.current_job.delivers
 		
-		var character: Character = state_machine.owner
-		_inventory = Utils.find_node_of_type_in_children(character, CharacterInventory)
+		var character: CharacterController = state_machine.owner
+		_inventory = Utils.find_node_of_type_in_children(character, Inventory)
 	
 	
 	func _statement() -> bool:

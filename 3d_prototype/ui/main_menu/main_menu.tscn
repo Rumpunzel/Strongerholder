@@ -16,6 +16,7 @@ colors = PoolColorArray( 0, 0, 0, 0.784314, 0, 0, 0, 0.0392157, 0, 0, 0, 0 )
 gradient = SubResource( 1 )
 
 [node name="MainMenu" type="Popup"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 6 )
@@ -57,11 +58,11 @@ custom_constants/separation = 72
 margin_right = 486.0
 margin_bottom = 102.0
 size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
+custom_fonts/font = ExtResource( 1 )
 text = "Strongerholder"
 script = ExtResource( 2 )
 
